@@ -148,7 +148,7 @@ export default function ServiceDetailPage() {
   // Global Capability Tabs matching Govenics support services
   const tabs = [
     {
-      title: "Skilled Manpower Services",
+      title: "Skilled Staffing Services",
       icon: Users,
       description: `The successful implementation of ${service.title} requires a workforce possessing highly specialized regulatory and technical acumen. By bridging deep domain experience with hands-on execution, our pre-vetted compliance personnel ensure smooth operations under our GRC umbrella.`,
       detailsTitle: "Key Details",

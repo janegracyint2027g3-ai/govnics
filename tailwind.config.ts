@@ -17,29 +17,29 @@ export default {
     extend: {
       colors: {
         border: "#E2E8F0", // Slate-200 / crisp borders
-        input: "#F1F5F9", // Slate-100
-        ring: "#0052FF", // Brand Electric Blue
-        background: "#FAFBFD", // Prismatic clean white-gray base
-        foreground: "#0F172A", // Deep Slate Charcoal text
+        input: "#F4F1ED", // Soft Beige tint
+        ring: "#166534", // Deep Green Ring
+        background: "#FAF9F6", // Off-white / soft beige background
+        foreground: "#171717", // Dark Charcoal text
         primary: {
-          DEFAULT: "#0052FF",
+          DEFAULT: "#166534", // Deep Green
           foreground: "#FFFFFF",
         },
         secondary: {
-          DEFAULT: "#F1F5F9",
-          foreground: "#475569",
+          DEFAULT: "#F5F0E6", // Soft Beige
+          foreground: "#171717",
         },
         accent: {
-          DEFAULT: "#0284C7",
+          DEFAULT: "#0D9488", // Muted Teal
           foreground: "#FFFFFF",
         },
         muted: {
-          DEFAULT: "#F8FAFC",
-          foreground: "#64748B",
+          DEFAULT: "#F3F4F6", // Gray-100
+          foreground: "#4B5563", // Gray-600
         },
         card: {
           DEFAULT: "#FFFFFF", // Solid white premium cards
-          foreground: "#0F172A",
+          foreground: "#171717",
         },
       },
       fontFamily: {

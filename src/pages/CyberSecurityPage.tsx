@@ -351,14 +351,14 @@ export default function CyberSecurityPage() {
   const specializedItems: CyberItem[] = [
     {
       title: "SCADA & ICS Network Security",
-      subCategory: "OT & Industrial Security",
+      subCategory: "Operating Theatres (OT) & Industrial Security",
       desc: "Designing industrial DMZs, audit-logging SCADA controls, validating safety instrumented systems, and isolating operational plants.",
       outcomes: ["Segmented manufacturing networks architectures", "Secure remote-access configurations blueprints", "ICS-specific anomaly alerts rulesets"],
-      frameworks: ["IEC 62443 (OT Security)", "NIST SP 800-82"]
+      frameworks: ["IEC 62443 (Operating Theatres (OT) Security)", "NIST SP 800-82"]
     },
     {
       title: "IoT Device Security & Segmentation",
-      subCategory: "OT & Industrial Security",
+      subCategory: "Operating Theatres (OT) & Industrial Security",
       desc: "Auditing firmware vulnerabilities on controllers, disabling dangerous diagnostic ports, and implementing device certificates.",
       outcomes: ["IoT firmware vulnerability scans logs", "Device identity certificates directories", "Isolated VLAN architecture frameworks"],
       frameworks: ["OWASP IoT Top 10", "NIST IR 8259"]
@@ -535,7 +535,7 @@ export default function CyberSecurityPage() {
           {/* Slider 5: Specialized Cyber Solutions */}
           <section id="specialized-solutions" className="space-y-6">
             <div className="border-l-4 border-blue-600 pl-4 text-left">
-              <span className="text-[10px] font-black text-blue-600 uppercase tracking-widest">OT & Transaction Protection</span>
+              <span className="text-[10px] font-black text-blue-600 uppercase tracking-widest">Operating Theatres (OT) & Transaction Protection</span>
               <h2 className="text-2xl font-black text-slate-900 font-heading">Specialized Cyber Solutions</h2>
               <p className="text-xs text-slate-550 max-w-xl font-semibold mt-1">
                 SCADA/ICS plant network isolation, third-party contractor risk scoring, M&A cyber due diligence, and DevSecOps integrations.

@@ -423,14 +423,14 @@ export const sgrceLibraryData: { [key: string]: ELibraryItem } = {
       "Maharashtra": {
         weeklyOff: "Mandatory 1 day off per week",
         maxDailyHours: "9 hours (spread over max 11 hours including breaks)",
-        overtime: "Double the normal wage rate (max 125 OT hours in a quarter)",
+        overtime: "Double the normal wage rate (max 125 Operating Theatres (OT) hours in a quarter)",
         annualLeave: "1.25 Earned Leaves for every 20 days worked (max 45 cumulative carry forward)",
         sickLeave: "8 days casual and sick leaves per year"
       },
       "Karnataka": {
         weeklyOff: "Mandatory 1 day off",
         maxDailyHours: "9 hours (max 48 hours/week)",
-        overtime: "Double the normal wage rate (max 50 OT hours in a quarter)",
+        overtime: "Double the normal wage rate (max 50 Operating Theatres (OT) hours in a quarter)",
         annualLeave: "1 day Earned Leave for every 20 days worked (max 30 carry forward)",
         sickLeave: "12 days casual and sick leaves per year"
       },

@@ -272,7 +272,7 @@ export default function GrcPage() {
                 { id: "compliance", label: "Compliance", desc: "Regulatory adherence, factory audits, and EHS checks." },
                 { id: "risk", label: "Risk", desc: "ERM structures, risk registers, and audit control." },
                 { id: "governance", label: "Governance", desc: "Board charters, policy frameworks, and oversight." },
-                { id: "manpower", label: "Manpower Services", desc: "Staffing models, RPO, and managed hiring." },
+                { id: "manpower", label: "Staffing Services", desc: "Staffing models, RPO, and managed hiring." },
                 { id: "cybersecurity", label: "Cybersecurity", desc: "VAPT, SOC 2 readiness, and threat monitoring." },
                 { id: "esg", label: "ESG & Sustainability", desc: "BRSR reporting, carbon tracking, and ESG advisory." }
               ].map((tab) => (
@@ -338,7 +338,7 @@ export default function GrcPage() {
                 <div className="space-y-4 text-left animate-fade-in">
                   <div className="border-l-4 border-blue-600 pl-4">
                     <span className="text-[10px] font-black text-blue-600 uppercase tracking-widest">Staffing Solutions</span>
-                    <h2 className="text-2xl font-black text-slate-900 font-heading">Manpower Services</h2>
+                    <h2 className="text-2xl font-black text-slate-900 font-heading">Staffing Services</h2>
                     <p className="text-xs text-slate-550 max-w-xl font-semibold mt-1">
                       Flexible staffing models, RPO engagements, managed hiring solutions, and workforce compliance mapped to your project needs.
                     </p>

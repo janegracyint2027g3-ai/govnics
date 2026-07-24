@@ -188,7 +188,7 @@ export default function ManpowerServiceDetailPage() {
                   to="/staffing" 
                   className="px-8 py-4 bg-white/10 hover:bg-white/20 border border-white/20 text-white rounded-xl font-bold transition-all flex items-center gap-2"
                 >
-                  Explore All Manpower Services
+                  Explore All Staffing Services
                 </Link>
               </div>
             </div>

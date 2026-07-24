@@ -384,7 +384,7 @@ export default function ManageStaffingPage() {
                       <div className="inline-flex items-center gap-2 px-4 py-2 bg-slate-100/90 border border-slate-200 rounded-full shadow-sm">
                         <Briefcase className="w-4 h-4 text-blue-600" />
                         <span className="text-xs font-extrabold text-slate-700 tracking-[0.2em] uppercase">
-                          Manpower Services • {slide.badge}
+                          Staffing Services • {slide.badge}
                         </span>
                       </div>
                       {slide.icp && (

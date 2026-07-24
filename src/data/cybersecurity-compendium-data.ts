@@ -717,7 +717,7 @@ export const securityOfferings: SecurityOffering[] = [
     components: [
       "Sandboxed Infrastructure Replication: Mimicking company APIs, vector dbs, and container meshes.",
       "Adversarial Attack Simulation: Pre-built attack injection scenarios (data poisoning, model theft).",
-      "Developer Defense Labs: Training developers on input sanitization and secure system prompts.",
+      "Developer Defense Laboratories: Training developers on input sanitization and secure system prompts.",
       "Response Speed Training: Timing team responses against metric-based benchmarks."
     ],
     pentestIntegration: "Training sparring: AI exploit agents integrated directly into cyber range zones, adapting attack profiles as defenders build mitigations.",

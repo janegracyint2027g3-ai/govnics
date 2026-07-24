@@ -207,7 +207,7 @@ export const industriesData: IndustrySegment[] = [
       "Encrypting call data records and managing user consent profiles."
     ],
     outcomes: [
-      "Zero spectrum penalties, smooth audits from TRAI and DOT.",
+      "Zero spectrum penalties, smooth audits from TRAI and DOperating Theatres (OT).",
       "Enhanced user trust with DPDP-compliant communication channels."
     ],
     color: "from-cyan-600 to-blue-600",

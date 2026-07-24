@@ -63,7 +63,7 @@ export const resourcesData: ResourceItem[] = [
     type: "blog",
     title: "Top 5 Common Pitfalls in NABH Hospital Inspections and How to Bypass Them",
     category: "Healthcare Governance",
-    summary: "Practical operational notes for hospital quality heads regarding patient risk consent forms, OT sterilization logs, and clinical governance audits.",
+    summary: "Practical operational notes for hospital quality heads regarding patient risk consent forms, Operating Theatres (OT) sterilization logs, and clinical governance audits.",
     date: "May 22, 2026",
     readTime: "6 min read",
     author: "Director of Quality Accreditation",

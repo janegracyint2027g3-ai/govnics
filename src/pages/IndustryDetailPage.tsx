@@ -121,7 +121,7 @@ export default function IndustryDetailPage() {
   const getSectorTabs = (title: string, regulations: string[]) => {
     return [
       {
-        title: "Skilled Manpower Services",
+        title: "Skilled Staffing Services",
         icon: Users,
         description: `The successful implementation of GRC controls in the ${title} sector requires a workforce possessing highly specialized regulatory and technical acumen. By bridging deep domain experience with hands-on execution, our pre-vetted compliance personnel ensure smooth operations under our GRC umbrella.`,
         detailsTitle: "Key Details",

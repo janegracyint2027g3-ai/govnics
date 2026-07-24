@@ -239,9 +239,9 @@ export const manpowerServicesData: ManpowerService[] = [
   },
   {
     id: "healthcare-manpower",
-    heroTitle: "Healthcare Manpower Solutions",
+    heroTitle: "Healthcare Staffing Solutions",
     shortDescription: "Delivering trained and compliant healthcare manpower solutions for hospitals, medical colleges, nursing stations, and healthcare institutions across India.",
-    overview: "Healthcare institutions require highly trained manpower to maintain hygiene, safety, patient experience, and operational excellence. Our Healthcare Manpower services are designed to support healthcare facilities with skilled professionals for housekeeping, facility management, patient support, security, and operational services.",
+    overview: "Healthcare institutions require highly trained manpower to maintain hygiene, safety, patient experience, and operational excellence. Our Healthcare Staffing services are designed to support healthcare facilities with skilled professionals for housekeeping, facility management, patient support, security, and operational services.",
     keyServices: [
       "Hospital Housekeeping Services",
       "Infection Control Management",

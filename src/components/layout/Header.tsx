@@ -205,11 +205,11 @@ const offeringsVerticalTabsData: Record<string, {
     ]
   },
   "staffing": {
-    title: "MANPOWER SERVICES",
+    title: "STAFFING SERVICES",
     items: [
       {
         id: "healthcare-manpower",
-        title: "Healthcare Manpower",
+        title: "Healthcare Staffing",
         description: "Specialized staffing solutions for hospitals, clinics, and allied healthcare facilities.",
         keyDetails: [
           "Certified Professionals: Verified credentials for doctors and nurses.",
@@ -245,7 +245,7 @@ const offeringsVerticalTabsData: Record<string, {
       },
       {
         id: "housekeeping-it",
-        title: "Housekeeping Services for IT Companies and Knowledge Campuses",
+        title: "IT & Campus Housekeeping",
         description: "Premium housekeeping and deep cleaning services tailored for corporate parks and IT campuses.",
         keyDetails: [
           "Corporate Standards: Specialized training for premium environments.",
@@ -755,7 +755,7 @@ export const Header = () => {
                         { id: "compliance", label: "Compliance" },
                         { id: "risk", label: "Risk" },
                         { id: "governance", label: "Governance" },
-                        { id: "staffing", label: "Manpower Services" },
+                        { id: "staffing", label: "Staffing Services" },
                         { id: "cybersecurity", label: "Cybersecurity" },
                         { id: "esg", label: "ESG & Sustainability" }
                       ].map((offer) => (
@@ -1391,10 +1391,10 @@ export const Header = () => {
                     </div>
                   </div>
 
-                  {/* Manpower Services */}
+                  {/* Staffing Services */}
                   <div className="space-y-2">
                     <div className="flex items-center justify-between">
-                      <span className="text-[10.5px] font-black text-slate-800 uppercase tracking-wider">Manpower Services</span>
+                      <span className="text-[10.5px] font-black text-slate-800 uppercase tracking-wider">Staffing Services</span>
                       <Link to="/staffing" onClick={() => setMobileOpen(false)} className="text-[10px] text-blue-600 font-bold hover:underline">Go to Staffing &rarr;</Link>
                     </div>
                     <div className="pl-2 flex flex-col gap-1 text-xs font-semibold text-slate-700">
