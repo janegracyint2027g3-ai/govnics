@@ -91,7 +91,7 @@ export const GrcContact = () => {
                 <div className="space-y-4 text-xs font-bold uppercase tracking-wider text-slate-600">
                   <div className="flex items-start gap-3">
                     <MapPin className="w-5 h-5 text-blue-500 shrink-0 mt-0.5" />
-                    <span className="leading-relaxed text-slate-700">Govenics Headquarters, Corporate Hub, Chennai, IN</span>
+                    <span className="leading-relaxed text-slate-700">No 97/2, SUNDARAM STREET CHINMAYA NAGAR STAGE 1 , Chennai City Corporation, Tamil Nadu, India - 600092</span>
                   </div>
                   <div className="flex items-center gap-3">
                     <Mail className="w-5 h-5 text-blue-500 shrink-0" />

@@ -82,7 +82,7 @@ export const advisorsData = [
 ];
 
 export const officeLocations: Location[] = [
-  { id: "1", title: "Corporate Office", city: "Chennai", state: "Tamil Nadu", region: "South", lat: 13.0368, lng: 80.2116, address: ["No. 9, First Floor, Kamarajar Salai, Ashok Nagar", "Chennai – 600 083"], phone: "+91 77088 87878", email: "info@isisecurity.in" },
+  { id: "1", title: "Corporate Office", city: "Chennai", state: "Tamil Nadu", region: "South", lat: 13.0368, lng: 80.2116, address: ["No 97/2, SUNDARAM STREET", "CHINMAYA NAGAR STAGE 1 , Chennai City Corporation, Tamil Nadu, India - 600092"], phone: "+91 77088 87878", email: "info@isisecurity.in" },
   { id: "2", title: "Administrative Office", city: "Madurai", state: "Tamil Nadu", region: "South", lat: 9.9252, lng: 78.1198, address: ["12-9, Santhosh Raj Plaza, Gandhi Nagar", "Madurai – 625 020"], phone: "+91 98949 99955 / 95009 59004", email: "mdu@isisecurity.in" },
   { id: "3", title: "Tamil Nadu Office", city: "Coimbatore", state: "Tamil Nadu", region: "South", lat: 10.9984, lng: 77.0163, address: ["No: 5, Kakkan Nagar, Singanallur", "Coimbatore – 641005"], phone: "+91 99944 88855", email: "info@isisecurity.in" },
   { id: "4", title: "Andhra Pradesh Office", city: "Tirupathi", state: "Andhra Pradesh", region: "South", lat: 13.6288, lng: 79.4192, address: ["No 2 Akn Layout, Chennai–Tirupathi Bye Pass", "Nagari, Tirupathi – 517590"], phone: "+91 95919 08593", email: "info@isisecurity.in" },

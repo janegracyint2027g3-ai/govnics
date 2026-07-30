@@ -98,7 +98,7 @@ export const Footer = () => {
             <li className="flex items-start gap-2.5">
               <MapPin className="w-4 h-4 text-blue-500 shrink-0 mt-0.5" />
               <span className="leading-snug">
-                Corporate Hub, Chennai, Tamil Nadu, India
+                No 97/2, SUNDARAM STREET CHINMAYA NAGAR STAGE 1 , Chennai City Corporation, Tamil Nadu, India - 600092
               </span>
             </li>
             <li className="flex items-center gap-2.5">

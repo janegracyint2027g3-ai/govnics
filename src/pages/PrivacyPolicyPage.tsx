@@ -95,7 +95,7 @@ export default function PrivacyPolicyPage() {
               Grievance Officer Contact:
             </p>
             <p className="text-sm text-slate-700 font-semibold mt-1">
-              Govenics Compliance Command Center • privacy@govenics.grc • Corporate Hub, Chennai, IN
+              Govenics Compliance Command Center • privacy@govenics.grc • No 97/2, SUNDARAM STREET CHINMAYA NAGAR STAGE 1 , Chennai City Corporation, Tamil Nadu, India - 600092
             </p>
           </div>
 

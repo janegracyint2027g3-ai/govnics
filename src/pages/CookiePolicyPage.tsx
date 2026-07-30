@@ -86,7 +86,7 @@ export default function CookiePolicyPage() {
               Legal Desk:
             </p>
             <p className="text-sm text-slate-700 font-semibold mt-1">
-              Govenics Compliance Command Center • legal@govenics.grc • Corporate Hub, Chennai, IN
+              Govenics Compliance Command Center • legal@govenics.grc • No 97/2, SUNDARAM STREET CHINMAYA NAGAR STAGE 1 , Chennai City Corporation, Tamil Nadu, India - 600092
             </p>
           </div>
 
