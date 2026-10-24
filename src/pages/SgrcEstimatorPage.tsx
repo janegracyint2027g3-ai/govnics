@@ -1,11 +1,16 @@
 import { useState, useEffect } from "react";
 import { Layout } from "@/components/layout/Layout";
+import { GrcSliderHero } from "@/components/hero/GrcSliderHero";
+import { GrcStatCards, type GrcStatCardItem } from "@/components/ui/GrcStatCards";
 import { 
   Bot, Shield, Cpu, RefreshCw, Layers, CheckCircle2, 
   Download, ArrowRight, Server, Database, Code, ShieldCheck, Clock
 } from "lucide-react";
 import { trackEvent } from "@/utils/analytics";
 
+import heroAiDriven from "@/assets/hero-ai-driven.jpg";
+import heroVerify from "@/assets/hero-verify.jpg";
+import heroCommand from "@/assets/command_center_1.jpg";
 
 export default function SgrcEstimatorPage() {
   const [empRange, setEmpRange] = useState<string>("100-500");
@@ -168,12 +173,62 @@ export default function SgrcEstimatorPage() {
     "Synthesizing customized platform architecture blueprint..."
   ];
 
+  const heroSlides = [
+    {
+      badge: "Compliance Architecture Estimator",
+      title: "Statutory Footprint &",
+      highlight: "Cost Scoping Engine",
+      description: "Model workforce headcount, pan-India state registrations, and multi-facility compliance overhead to calculate exact implementation timelines.",
+      image: heroAiDriven,
+      icp: "CFOs, Legal Counsels & HR Directors",
+      outcome: "↓ 88% Operational Labor Reduction & Zero Penalty Exposure",
+      cta: "Configure Model Parameters"
+    },
+    {
+      badge: "Agentic AI Scoping",
+      title: "Autonomous Legal Parsers &",
+      highlight: "OCR Auditing Agents",
+      description: "Estimate savings by deploying multi-agent sentries that validate contractor payrolls, challans, and statutory returns automatically.",
+      image: heroVerify,
+      icp: "Enterprises with 100+ to 5,000+ Workers",
+      outcome: "100% Statutory SLA Audit Coverage",
+      cta: "Run Cost Simulation"
+    },
+    {
+      badge: "Board-Ready Blueprint",
+      title: "Instant Architecture",
+      highlight: "Proposal & Roadmap",
+      description: "Generate customized technical blueprints, staffing ratios, and timeline schedules to present to executive governance committees.",
+      image: heroCommand,
+      icp: "Chief Compliance Officers & Enterprise Risk Teams",
+      outcome: "Instant PDF Roadmap Download",
+      cta: "Generate Custom Estimate"
+    }
+  ];
+
+  const stats: GrcStatCardItem[] = [
+    { value: "↓ 88", suffix: "%", label: "Compliance Labor Reduction", icon: ShieldCheck, badge: "Efficiency", description: "Automated OCR & parser agents replace manual audits" },
+    { value: "4 - 16", suffix: " Wks", label: "Implementation Horizon", icon: Clock, badge: "Velocity", description: "Rapid phased rollout across single or pan-India states" },
+    { value: "100", suffix: "%", label: "Statutory SLA Adherence", icon: CheckCircle2, badge: "Quality", description: "Zero-lag task routing and automated escalations" },
+    { value: "₹0", label: "Penalty Slippage Exposure", icon: Shield, badge: "Protection", description: "Shielding boards from statutory fines & closure notices" }
+  ];
+
   return (
     <Layout>
-      <div className="bg-slate-50/50 min-h-screen pb-24 pt-28 text-slate-700">
+      <div className="bg-slate-50/50 min-h-screen pb-24 text-slate-700">
         
+        {/* Panel 1: Hero Carousel Slider */}
+        <GrcSliderHero 
+          slides={heroSlides} 
+          backLink={{ to: "/sgrc/services", label: "Back to SGRC Portal" }} 
+          categoryLabel="Estimator & Scoping"
+        />
+
+        {/* Panel 2: Statistics Grid Cards */}
+        <GrcStatCards stats={stats} />
+
         {/* Section Header */}
-        <section className="container mx-auto px-6 max-w-4xl text-center space-y-4 mb-12">
+        <section className="container mx-auto px-6 max-w-4xl text-center space-y-4 pt-12 mb-12">
           <div className="inline-flex items-center gap-2 px-3.5 py-1.5 bg-blue-500/10 border border-blue-500/20 text-blue-600 text-xs font-bold uppercase tracking-widest rounded-full">
             AI Platform Estimator
           </div>

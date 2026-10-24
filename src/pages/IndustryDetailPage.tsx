@@ -5,6 +5,7 @@ import { industriesData } from "@/data/industries-data";
 import { servicesData } from "@/data/services-data";
 import { industryServicesData } from "@/data/industry-services-data";
 import { GrcSliderHero } from "@/components/hero/GrcSliderHero";
+import { GrcStatCards, type GrcStatCardItem } from "@/components/ui/GrcStatCards";
 import { 
   CheckCircle2, ShieldCheck, 
   Shield, Layers, Cpu, Users, ClipboardCheck, 
@@ -251,6 +252,13 @@ export default function IndustryDetailPage() {
     }
   ];
 
+  const clusterOverviewStats: GrcStatCardItem[] = [
+    { value: `${clusterSectors.length}`, suffix: " Sectors", label: "Specialized Industry Sectors", icon: Layers, badge: "Taxonomy", description: `Specialized regulatory calibrations mapped for ${clusterName}` },
+    { value: "100", suffix: "%", label: "Inspection Status Pass Rate", icon: ShieldCheck, badge: "Track Record", description: "Proven statutory audit pass rates across central & state inspection boards" },
+    { value: "↓ 80", suffix: "%", label: "Penalty Slippage Reduction", icon: Shield, badge: "Protection", description: "Proactive compliance registers prevent costly statutory litigation" },
+    { value: "24/7", label: "Continuous Audit Overwatch", icon: Clock, badge: "Monitoring", description: "Real-time task tracking and zero-lag regulatory amendment updates" }
+  ];
+
   return (
     <Layout>
       <div className="bg-white pb-24 text-slate-600">
@@ -258,9 +266,12 @@ export default function IndustryDetailPage() {
         {/* Panel 1: Title & Hero Description Carousel */}
         <GrcSliderHero 
           slides={slides} 
-          backLink={{ to: "/", label: "Back to Home" }} 
+          backLink={{ to: "/industries", label: "Back to Industries" }} 
           categoryLabel="Industry Solutions"
         />
+
+        {/* Panel 2: Cluster Overview Statistics */}
+        <GrcStatCards stats={clusterOverviewStats} />
 
         {/* Sub-Sector Sticky Anchor Menu */}
         <section className="bg-slate-50 border-b border-slate-200/80 py-4 sticky top-20 z-30 shadow-sm">

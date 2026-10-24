@@ -2,10 +2,17 @@ import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Layout } from "@/components/layout/Layout";
 import { sgrcServices } from "@/data/sgrc-data";
+import { GrcSliderHero } from "@/components/hero/GrcSliderHero";
+import { GrcStatCards, type GrcStatCardItem } from "@/components/ui/GrcStatCards";
 import { 
   Scale, Building, CreditCard, Factory, Users, ShieldAlert, 
-  UserPlus, FileSpreadsheet, Leaf, Shield, ArrowRight, CheckCircle2 
+  UserPlus, FileSpreadsheet, Leaf, Shield, ArrowRight, CheckCircle2,
+  ShieldCheck
 } from "lucide-react";
+
+import heroAiDriven from "@/assets/hero-ai-driven.jpg";
+import heroVerify from "@/assets/hero-verify.jpg";
+import verticalsFacility from "@/assets/verticals-facility.jpg";
 
 export default function SgrcServicesListPage() {
   useEffect(() => {
@@ -22,6 +29,48 @@ export default function SgrcServicesListPage() {
       document.head.appendChild(meta);
     }
   }, []);
+
+  // Hero Slides
+  const heroSlides = [
+    {
+      badge: "Statutory GRC Division",
+      title: "Statutory Compliance &",
+      highlight: "Advisory Overwatch",
+      description: "End-to-end statutory registers, factory plan approvals, CLRA audits, and environmental clearances across all 28 Indian states.",
+      image: heroAiDriven,
+      icp: "Manufacturing Plants, GCCs & Retail Networks",
+      outcome: "100% Audit Readiness & Zero Legal Litigation",
+      cta: "Explore All 10 Disciplines"
+    },
+    {
+      badge: "Pan-India Legal Registers",
+      title: "Central & State Rules",
+      highlight: "Dynamic Alignment",
+      description: "Streamlining Minimum Wages, PF, ESIC, Professional Tax, and Labour Welfare Funds with automated deadline alerts and inspection defense.",
+      image: heroVerify,
+      icp: "CHROs, Compliance Officers & CFOs",
+      outcome: "Guaranteed Zero-Deviation Filings",
+      cta: "Explore Labor Law Scope"
+    },
+    {
+      badge: "Factory & EHS Oversight",
+      title: "Pollution Clearances &",
+      highlight: "Workplace Safety SOPs",
+      description: "Comprehensive machine inspection logs, hazardous waste tracking, and SPCB consent renewals without production downtime.",
+      image: verticalsFacility,
+      icp: "Plant Directors & Safety Heads",
+      outcome: "Continuous CTE/CTO Approvals",
+      cta: "Inspect Factory Audits"
+    }
+  ];
+
+  // Key Statistics
+  const stats: GrcStatCardItem[] = [
+    { value: "10", label: "Core Statutory Disciplines", icon: Shield, badge: "Scope", description: "Factory, Shop, Labor, Payroll, EHS, Mines & POSH" },
+    { value: "28", suffix: " States", label: "Pan-India Regulatory Mapping", icon: Building, badge: "Reach", description: "Covering all 28 states & union territory rules" },
+    { value: "0", label: "Statutory Penalty Slippage", icon: ShieldCheck, badge: "Guaranteed", description: "Zero-lag filings backed by audit defense" },
+    { value: "250", suffix: "+", label: "Central & State Acts Mapped", icon: Scale, badge: "Repository", description: "Real-time updates against gazette notifications" }
+  ];
 
   const getIcon = (id: string) => {
     switch (id) {
@@ -50,20 +99,17 @@ export default function SgrcServicesListPage() {
 
   return (
     <Layout>
-      <div className="bg-slate-50/50 min-h-screen pb-24 pt-28 text-slate-700 select-none">
+      <div className="bg-slate-50/50 min-h-screen pb-24 text-slate-700 select-none">
         
-        {/* Banner Section */}
-        <section className="container mx-auto px-6 max-w-6xl text-center space-y-4 mb-16">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 bg-blue-500/10 border border-blue-500/20 text-blue-600 text-xs font-bold uppercase tracking-widest rounded-full">
-            Statutory Compliance Division (SGRC)
-          </div>
-          <h1 className="text-3xl md:text-5xl font-black text-slate-900 tracking-tight font-heading leading-tight max-w-3xl mx-auto">
-            Govenics Statutory Compliance & Advisory Services
-          </h1>
-          <p className="text-sm md:text-base leading-relaxed text-slate-500 font-semibold max-w-xl mx-auto">
-            Simplifying complex state and central regulations with structured audits, ongoing licensing support, and automated task overwatch.
-          </p>
-        </section>
+        {/* Panel 1: Hero Carousel Slider */}
+        <GrcSliderHero 
+          slides={heroSlides} 
+          backLink={{ to: "/", label: "Back to Home" }} 
+          categoryLabel="Statutory GRC Catalog"
+        />
+
+        {/* Panel 2: Statistics Grid Cards */}
+        <GrcStatCards stats={stats} />
 
         {/* Grid Section */}
         <section className="container mx-auto px-6 max-w-6xl text-left">

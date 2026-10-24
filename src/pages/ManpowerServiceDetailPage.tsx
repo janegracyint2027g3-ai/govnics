@@ -2,6 +2,9 @@ import { useEffect } from "react";
 import { useParams, Navigate, Link } from "react-router-dom";
 import { Layout } from "@/components/layout/Layout";
 import { manpowerServicesData } from "@/data/manpower-services-data";
+import { GrcSliderHero } from "@/components/hero/GrcSliderHero";
+import { GrcStatCards, type GrcStatCardItem } from "@/components/ui/GrcStatCards";
+import { GrcCarousel } from "@/components/ui/GrcCarousel";
 import { 
   CheckCircle2, 
   Building2, 
@@ -9,9 +12,14 @@ import {
   Briefcase, 
   Settings, 
   ArrowRight,
-  Target
+  Target,
+  Clock,
+  Award,
+  Users
 } from "lucide-react";
-import heroVerify from "@/assets/hero-verify.jpg"; // Using an existing image
+import heroVerify from "@/assets/hero-verify.jpg";
+import heroIntegration from "@/assets/hero-integration.jpg";
+import heroCommand from "@/assets/command_center_1.jpg";
 
 export default function ManpowerServiceDetailPage() {
   const { serviceId } = useParams<{ serviceId: string }>();
@@ -40,29 +48,70 @@ export default function ManpowerServiceDetailPage() {
     return <Navigate to="/staffing" replace />;
   }
 
+  // Dynamic Hero Slides
+  const heroSlides = [
+    {
+      badge: "Managed Staffing Practice",
+      title: service.heroTitle,
+      highlight: "Specialized Talent Delivery",
+      description: service.shortDescription,
+      image: heroVerify,
+      icp: "Enterprises, Plants & GCCs",
+      outcome: "100% Statutory Compliance & Verified Talent",
+      cta: "Submit Hiring Mandate"
+    },
+    {
+      badge: "Zero-Risk Hiring",
+      title: "100% Statutory Alignment &",
+      highlight: "Payroll Compliance",
+      description: service.overview,
+      image: heroIntegration,
+      icp: "CHROs, Plant Heads & Operations Directors",
+      outcome: "Full EPF, ESIC, Bonus & Minimum Wage Adherence",
+      cta: "Schedule Talent Discovery"
+    },
+    {
+      badge: "Rapid Turnaround",
+      title: "5-Phase Technical &",
+      highlight: "Behavioral Vetting",
+      description: "Rigorous job profiling, headhunting passive markets, and in-depth credential checks with a full 90-day replacement guarantee.",
+      image: heroCommand,
+      icp: "High-Growth Technical & Operations Teams",
+      outcome: "14-Day Average Sourcing-to-Offer TAT",
+      cta: "Explore Screening Model"
+    }
+  ];
+
+  // Dynamic Statistics Grid
+  const stats: GrcStatCardItem[] = [
+    { value: "98.5", suffix: "%", label: "Talent Placement Success", icon: Users, badge: "Quality", description: "First-year retention rate across core client placements" },
+    { value: "0", label: "Statutory Co-Employment Risk", icon: ShieldCheck, badge: "Shield", description: "Zero co-employment liability backed by legal indemnification" },
+    { value: "14", suffix: " Days", label: "Average Sourcing TAT", icon: Clock, badge: "Velocity", description: "From client mandate sign-off to first vetted shortlist" },
+    { value: "90", suffix: " Days", label: "Replacement Guarantee", icon: Award, badge: "Assurance", description: "Unconditional free candidate replacement within 90 days" }
+  ];
+
+  const serviceCards = service.keyServices.map((ks, idx) => (
+    <div key={idx} className="bg-white border border-slate-200/80 p-6 rounded-2xl shadow-sm hover:border-blue-500/30 transition-all hover:shadow-md flex items-center gap-4 text-left">
+      <div className="w-10 h-10 rounded-xl bg-blue-50 flex items-center justify-center shrink-0">
+        <Settings className="w-5 h-5 text-blue-600" />
+      </div>
+      <h3 className="text-sm font-black text-slate-800">{ks}</h3>
+    </div>
+  ));
+
   return (
     <Layout>
       <div className="bg-slate-50 min-h-screen pb-24 text-slate-600">
         
-        {/* Hero Section */}
-        <section className="relative pt-32 pb-20 lg:pt-40 lg:pb-28 overflow-hidden bg-slate-900 border-b border-slate-800">
-          <div className="absolute inset-0 bg-cover bg-center opacity-20" style={{ backgroundImage: `url(${heroVerify})` }} />
-          <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-900/80 to-transparent" />
-          
-          <div className="container mx-auto px-6 relative z-10">
-            <div className="max-w-4xl space-y-6">
-              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 bg-blue-500/20 border border-blue-500/30 text-blue-400 text-xs font-bold uppercase tracking-widest rounded-full shadow-lg backdrop-blur-md">
-                Manpower & Facility Services
-              </div>
-              <h1 className="text-4xl sm:text-5xl md:text-6xl font-black text-white font-heading leading-tight tracking-tight">
-                {service.heroTitle}
-              </h1>
-              <p className="text-lg sm:text-xl text-slate-300 font-medium leading-relaxed max-w-3xl">
-                {service.shortDescription}
-              </p>
-            </div>
-          </div>
-        </section>
+        {/* Panel 1: Hero Carousel Slider */}
+        <GrcSliderHero 
+          slides={heroSlides} 
+          backLink={{ to: "/staffing", label: "Back to Staffing Portal" }} 
+          categoryLabel="Staffing Practice"
+        />
+
+        {/* Panel 2: Statistics Grid Cards */}
+        <GrcStatCards stats={stats} />
 
         {/* Overview & Why Choose Us */}
         <section className="py-16 bg-white border-b border-slate-200/50">
@@ -104,16 +153,7 @@ export default function ManpowerServiceDetailPage() {
                 <span className="text-[10px] font-black text-blue-600 uppercase tracking-widest">Core Offerings</span>
                 <h2 className="text-3xl font-black text-slate-900 font-heading">Key Services</h2>
               </div>
-              <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                {service.keyServices.map((ks, idx) => (
-                  <div key={idx} className="bg-white border border-slate-200/80 p-6 rounded-2xl shadow-sm hover:border-blue-500/30 transition-all hover:shadow-md flex items-center gap-4">
-                    <div className="w-10 h-10 rounded-xl bg-blue-50 flex items-center justify-center shrink-0">
-                      <Settings className="w-5 h-5 text-blue-600" />
-                    </div>
-                    <h3 className="text-sm font-black text-slate-800">{ks}</h3>
-                  </div>
-                ))}
-              </div>
+              <GrcCarousel items={serviceCards} />
             </div>
 
             {/* Industries Served */}

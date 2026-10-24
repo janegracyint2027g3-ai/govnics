@@ -1,9 +1,10 @@
 import { useState, useEffect } from "react";
 import { Layout } from "@/components/layout/Layout";
 import { GrcCarousel } from "@/components/ui/GrcCarousel";
+import { GrcStatCards, type GrcStatCardItem } from "@/components/ui/GrcStatCards";
 import { servicesData } from "@/data/services-data";
 import { Link } from "react-router-dom";
-import { Shield, ArrowRight, CheckCircle2, ChevronRight, Briefcase, FileText, Scale, Settings } from "lucide-react";
+import { Shield, ArrowRight, CheckCircle2, ChevronRight, Briefcase, FileText, Scale, Settings, ShieldCheck, Clock } from "lucide-react";
 import heroVerify from "@/assets/hero-verify.jpg";
 import heroAiDriven from "@/assets/hero-ai-driven.jpg";
 import heroCommand from "@/assets/command_center_1.jpg";
@@ -210,6 +211,13 @@ export default function GrcPage() {
     </div>
   ));
 
+  const stats: GrcStatCardItem[] = [
+    { value: "100", suffix: "%", label: "Board Audit Preparedness", icon: ShieldCheck, badge: "Assurance", description: "Standardized DoA charters & RCSA compliance controls" },
+    { value: "250", suffix: "+", label: "Central & State Acts Mapped", icon: Scale, badge: "Taxonomy", description: "Real-time updates against gazette notifications" },
+    { value: "↓ 85", suffix: "%", label: "Statutory Penalty Slippage", icon: Shield, badge: "Protection", description: "Automated task routing & zero-lag filing reminders" },
+    { value: "18", suffix: " mo", label: "Average Enterprise ROI", icon: Clock, badge: "ROI", description: "Tangible audit prep speedups & litigation prevention" }
+  ];
+
   return (
     <Layout>
       <div className="bg-slate-50/50 pb-24 text-slate-600 relative overflow-hidden">
@@ -276,6 +284,9 @@ export default function GrcPage() {
             ))}
           />
         </section>
+
+        {/* Panel 2: Statistics Grid Cards */}
+        <GrcStatCards stats={stats} />
 
         {/* Core Content: Vertical Tabs Section */}
         <div id="compliance" className="container mx-auto px-6 max-w-7xl pt-16">

@@ -5,12 +5,18 @@ import { Layout } from "@/components/layout/Layout";
 import { sgrcServices } from "@/data/sgrc-data";
 import { sgrcChecklistsData } from "@/data/sgrc-checklists";
 import type { ChecklistItem } from "@/data/sgrc-checklists";
+import { GrcSliderHero } from "@/components/hero/GrcSliderHero";
+import { GrcStatCards, type GrcStatCardItem } from "@/components/ui/GrcStatCards";
 import { 
   CheckCircle2, Scale, Shield, Building, CreditCard, 
   Factory, Users, ShieldAlert, UserPlus, FileSpreadsheet, 
   Leaf, HelpCircle, ArrowLeft, ArrowRight, ShieldCheck, Briefcase,
-  Printer, RotateCcw, Check, ChevronDown
+  Printer, RotateCcw, Check, ChevronDown, Clock
 } from "lucide-react";
+
+import heroVerify from "@/assets/hero-verify.jpg";
+import heroSoc from "@/assets/hero-soc.jpg";
+import verticalsFacility from "@/assets/verticals-facility.jpg";
 
 export default function SgrcServiceDetailPage() {
   const { serviceId } = useParams<{ serviceId: string }>();
@@ -53,8 +59,6 @@ export default function SgrcServiceDetailPage() {
   const completedCount = Object.values(checkedItems).filter(Boolean).length;
   const percentComplete = totalItems > 0 ? Math.round((completedCount / totalItems) * 100) : 0;
 
-
-
   const handlePrint = () => {
     window.print();
   };
@@ -94,49 +98,61 @@ export default function SgrcServiceDetailPage() {
     }
   };
 
+  // Dynamic Hero Slides
+  const heroSlides = [
+    {
+      badge: "Statutory GRC Division",
+      title: service.title,
+      highlight: "Compliance Overwatch",
+      description: service.tagline,
+      image: heroVerify,
+      icp: "Enterprises & Multi-Plant Facilities",
+      outcome: "100% Inspection Readiness & Zero Litigation",
+      cta: "Explore Service Scope"
+    },
+    {
+      badge: "Statutory Shield",
+      title: "Automated Register Tracking &",
+      highlight: "Continuous Audits",
+      description: service.description,
+      image: heroSoc,
+      icp: "CFOs, HR Directors & Compliance Heads",
+      outcome: "Full State & Central Rules Alignment",
+      cta: "Run Self-Audit Checklist"
+    },
+    {
+      badge: "Pan-India Oversight",
+      title: "Risk-Free Inspections &",
+      highlight: "Notice Defense",
+      description: "Continuous auditing of third-party contracts, payroll records, and statutory licenses to eliminate non-compliance exposure.",
+      image: verticalsFacility,
+      icp: "Contractor Networks & Operations",
+      outcome: "Zero Statutory Deviation Records",
+      cta: "Schedule Advisory Call"
+    }
+  ];
+
+  // Dynamic Key Metrics
+  const stats: GrcStatCardItem[] = [
+    { value: "0", label: "Statutory Penalty Slippage", icon: ShieldCheck, badge: "Guaranteed", description: "Zero-lag filings across central & state registries" },
+    { value: "100", suffix: "%", label: "Inspection Status Pass Rate", icon: CheckCircle2, badge: "Pan-India", description: "Proven audit track record across 28 states & UTs" },
+    { value: "↓ 75", suffix: "%", label: "Audit Preparation Timeline", icon: Clock, badge: "Velocity", description: "Standardized templates reduce audit overhead" },
+    { value: "28", suffix: " States", label: "Central & State Acts Covered", icon: Building, badge: "Coverage", description: "Full mapping of factory, shop, labor & EHS codes" }
+  ];
+
   return (
     <Layout>
-      <div className="bg-slate-50/50 min-h-screen pb-24 text-slate-700 pt-28">
+      <div className="bg-slate-50/50 min-h-screen pb-24 text-slate-700">
         
-        {/* Navigation Breadcrumb */}
-        <div className="container mx-auto px-6 max-w-5xl mb-6">
-          <Link 
-            to="/sgrc/e-library" 
-            className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-slate-500 hover:text-blue-600 transition-colors"
-          >
-            <ArrowLeft className="w-3.5 h-3.5" /> Back to SGRC Portal
-          </Link>
-        </div>
+        {/* Panel 1: Hero Carousel Slider */}
+        <GrcSliderHero 
+          slides={heroSlides} 
+          backLink={{ to: "/sgrc/services", label: "Back to SGRC Services" }} 
+          categoryLabel="Statutory Practice"
+        />
 
-        {/* Hero Section */}
-        <section className="container mx-auto px-6 max-w-5xl mb-12">
-          <div className="bg-white border border-slate-200/80 rounded-3xl p-8 md:p-12 shadow-md relative overflow-hidden flex flex-col md:flex-row gap-8 items-center">
-            {/* Spotlights */}
-            <div className="absolute top-0 right-0 w-64 h-64 bg-blue-500/5 rounded-full blur-[80px] -translate-y-1/3 translate-x-1/3 pointer-events-none" />
-            <div className="absolute bottom-0 left-0 w-64 h-64 bg-indigo-500/5 rounded-full blur-[80px] translate-y-1/3 -translate-x-1/3 pointer-events-none" />
-
-            <div className="md:w-3/4 space-y-4 relative z-10 text-left">
-              <div className="inline-flex items-center gap-2 px-3 py-1 bg-blue-50 border border-blue-100 rounded-full text-blue-600">
-                {getIcon(service.id)}
-                <span className="text-xs font-extrabold uppercase tracking-widest">
-                  Statutory GRC Division
-                </span>
-              </div>
-              <h1 className="text-3xl md:text-5xl font-black text-slate-900 tracking-tight font-heading leading-tight">
-                {service.title}
-              </h1>
-              <p className="text-base md:text-lg text-slate-600 font-medium leading-relaxed">
-                {service.tagline}
-              </p>
-            </div>
-            
-            <div className="md:w-1/4 flex justify-center relative z-10">
-              <div className="w-24 h-24 rounded-2xl bg-blue-50 flex items-center justify-center border border-blue-100 shadow-inner">
-                {getIcon(service.id)}
-              </div>
-            </div>
-          </div>
-        </section>
+        {/* Panel 2: Statistics Grid Cards */}
+        <GrcStatCards stats={stats} />
 
         {/* Main Content Grid */}
         <section className="container mx-auto px-6 max-w-5xl grid grid-cols-1 lg:grid-cols-3 gap-8 text-left">

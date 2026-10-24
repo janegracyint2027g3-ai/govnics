@@ -4,6 +4,8 @@ import { Layout } from "@/components/layout/Layout";
 import { servicesData } from "@/data/services-data";
 import { industriesData } from "@/data/industries-data";
 import { GrcSliderHero } from "@/components/hero/GrcSliderHero";
+import { GrcStatCards } from "@/components/ui/GrcStatCards";
+import { GrcCarousel } from "@/components/ui/GrcCarousel";
 import { 
   CheckCircle2, ShieldCheck, 
   Shield, Layers, Cpu, Users, ClipboardCheck, 
@@ -258,39 +260,8 @@ export default function ServiceDetailPage() {
           categoryLabel="Service Solution"
         />
 
-        {/* Panel 2: Statistics Grid */}
-        <section className="py-12 relative overflow-hidden bg-white border-b border-slate-100">
-          <div className="container mx-auto px-6 max-w-6xl">
-            <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
-              {stats.map((stat, index) => {
-                const StatIcon = stat.icon;
-                return (
-                  <div
-                    key={index}
-                    className="group relative bg-slate-50 border border-slate-200/80 rounded-3xl p-6 hover:border-blue-500/50 hover:shadow-2xl hover:shadow-blue-500/10 transition-all duration-500 overflow-hidden transform hover:-translate-y-1"
-                  >
-                    <div className="absolute inset-0 bg-gradient-to-br from-blue-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                    <div className="relative z-10 space-y-4 text-left">
-                      <div className="w-12 h-12 rounded-xl bg-blue-500/10 flex items-center justify-center group-hover:bg-blue-600 group-hover:scale-110 transition-all duration-300">
-                        <StatIcon className="w-6 h-6 text-blue-600 group-hover:text-white transition-colors duration-300" />
-                      </div>
-                      <div>
-                        <div className="flex items-baseline gap-0.5 text-3xl sm:text-4xl font-black text-slate-900">
-                          {stat.prefix && <span className="text-xl text-blue-600">{stat.prefix}</span>}
-                          {stat.value}
-                          {stat.suffix && <span className="text-lg text-slate-500 font-bold ml-0.5">{stat.suffix}</span>}
-                        </div>
-                        <p className="text-xs text-slate-500 font-bold uppercase tracking-wider mt-1">
-                          {stat.label}
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                );
-              })}
-            </div>
-          </div>
-        </section>
+        {/* Panel 2: Statistics Grid Cards */}
+        <GrcStatCards stats={stats} />
 
         {/* Panel 3: Portfolio Card Grid */}
         <section className="py-16 bg-slate-50/50 border-b border-slate-100">
@@ -405,30 +376,57 @@ export default function ServiceDetailPage() {
                 This compliance service is customized and fully operational for the following target industries.
               </p>
             </div>
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
-              {relatedIndustries.map((ind) => {
-                const IconComp = ind.icon;
-                return (
-                  <Link
-                    key={ind.id}
-                    to={`/industries/${getClusterId(ind.cluster)}#${ind.id}`}
-                    className="flex flex-col items-center gap-3 p-5 bg-white border border-slate-200/80 hover:border-blue-500/25 rounded-3xl group transition-all hover:scale-[1.03] hover:shadow-md"
-                  >
-                    <div className="p-3 bg-blue-500/10 text-blue-600 rounded-2xl group-hover:bg-blue-600 group-hover:text-white transition-colors shrink-0">
-                      <IconComp className="w-5 h-5" />
-                    </div>
-                    <div className="space-y-0.5">
-                      <div className="text-xs font-black text-slate-900 group-hover:text-blue-600 transition-colors uppercase tracking-wider">
-                        {ind.title}
+            {relatedIndustries.length > 3 ? (
+              <GrcCarousel
+                items={relatedIndustries.map((ind) => {
+                  const IconComp = ind.icon;
+                  return (
+                    <Link
+                      key={ind.id}
+                      to={`/industries/${getClusterId(ind.cluster)}#${ind.id}`}
+                      className="flex flex-col items-center gap-3 p-5 bg-white border border-slate-200/80 hover:border-blue-500/25 rounded-3xl group transition-all hover:scale-[1.03] hover:shadow-md text-center h-full justify-center select-none"
+                    >
+                      <div className="p-3 bg-blue-500/10 text-blue-600 rounded-2xl group-hover:bg-blue-600 group-hover:text-white transition-colors shrink-0">
+                        <IconComp className="w-5 h-5" />
                       </div>
-                      <div className="text-[9px] text-slate-400 font-bold uppercase tracking-widest">
-                        Solutions &rarr;
+                      <div className="space-y-0.5">
+                        <div className="text-xs font-black text-slate-900 group-hover:text-blue-600 transition-colors uppercase tracking-wider">
+                          {ind.title}
+                        </div>
+                        <div className="text-[9px] text-slate-400 font-bold uppercase tracking-widest">
+                          Solutions &rarr;
+                        </div>
                       </div>
-                    </div>
-                  </Link>
-                );
-              })}
-            </div>
+                    </Link>
+                  );
+                })}
+              />
+            ) : (
+              <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
+                {relatedIndustries.map((ind) => {
+                  const IconComp = ind.icon;
+                  return (
+                    <Link
+                      key={ind.id}
+                      to={`/industries/${getClusterId(ind.cluster)}#${ind.id}`}
+                      className="flex flex-col items-center gap-3 p-5 bg-white border border-slate-200/80 hover:border-blue-500/25 rounded-3xl group transition-all hover:scale-[1.03] hover:shadow-md"
+                    >
+                      <div className="p-3 bg-blue-500/10 text-blue-600 rounded-2xl group-hover:bg-blue-600 group-hover:text-white transition-colors shrink-0">
+                        <IconComp className="w-5 h-5" />
+                      </div>
+                      <div className="space-y-0.5">
+                        <div className="text-xs font-black text-slate-900 group-hover:text-blue-600 transition-colors uppercase tracking-wider">
+                          {ind.title}
+                        </div>
+                        <div className="text-[9px] text-slate-400 font-bold uppercase tracking-widest">
+                          Solutions &rarr;
+                        </div>
+                      </div>
+                    </Link>
+                  );
+                })}
+              </div>
+            )}
           </div>
         </section>
 

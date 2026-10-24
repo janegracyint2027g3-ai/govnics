@@ -1,9 +1,10 @@
 import { useEffect } from "react";
 import { Layout } from "@/components/layout/Layout";
 import { GrcCarousel } from "@/components/ui/GrcCarousel";
+import { GrcStatCards, type GrcStatCardItem } from "@/components/ui/GrcStatCards";
 import { industriesData } from "@/data/industries-data";
 import { Link } from "react-router-dom";
-import { Shield, ArrowRight, ChevronRight, Settings, Cpu, Activity, Coins, ShieldAlert } from "lucide-react";
+import { Shield, ArrowRight, ChevronRight, Settings, Cpu, Activity, Coins, ShieldAlert, Layers, Building, ShieldCheck, Award } from "lucide-react";
 import heroVerify from "@/assets/hero-verify.jpg";
 import heroCommand from "@/assets/command_center_1.jpg";
 import heroAiDriven from "@/assets/hero-ai-driven.jpg";
@@ -227,6 +228,13 @@ export default function IndustriesPage() {
     </div>
   ));
 
+  const stats: GrcStatCardItem[] = [
+    { value: "8", label: "Industry Clusters Covered", icon: Layers, badge: "Ecosystem", description: "From heavy manufacturing and energy to SaaS and healthcare" },
+    { value: "39", suffix: "+", label: "Specialized Sector Frameworks", icon: Building, badge: "Taxonomy", description: "Tailored regulatory baselines for automotive, BFSI, pharma & tech" },
+    { value: "100", suffix: "%", label: "Sectoral Audit Clearance", icon: ShieldCheck, badge: "Track Record", description: "Proven first-attempt audit clearance across regulated bodies" },
+    { value: "500", suffix: "+", label: "Enterprise Audits Executed", icon: Award, badge: "Experience", description: "Pan-India facilities, plant lines, and tech infra verified" }
+  ];
+
   return (
     <Layout>
       <div className="bg-slate-50/50 pb-24 text-slate-600 relative overflow-hidden">
@@ -292,6 +300,9 @@ export default function IndustriesPage() {
             ))}
           />
         </section>
+
+        {/* Panel 2: Statistics Grid Cards */}
+        <GrcStatCards stats={stats} />
 
         {/* Content Sliders */}
         <div className="container mx-auto px-6 max-w-7xl pt-16 space-y-20">

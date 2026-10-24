@@ -1,8 +1,9 @@
 import { useState, useEffect } from "react";
 import { Layout } from "@/components/layout/Layout";
 import { GrcCarousel } from "@/components/ui/GrcCarousel";
+import { GrcStatCards, type GrcStatCardItem } from "@/components/ui/GrcStatCards";
 import { 
-  ArrowRight, Shield, Check, ChevronRight
+  ArrowRight, Shield, Check, ChevronRight, ShieldCheck, Lock, Clock
 } from "lucide-react";
 import heroAiDriven from "@/assets/hero-ai-driven.jpg";
 import heroVerify from "@/assets/hero-verify.jpg";
@@ -433,6 +434,13 @@ export default function CyberSecurityPage() {
     </div>
   ));
 
+  const stats: GrcStatCardItem[] = [
+    { value: "99.8", suffix: "%", label: "Vulnerability Remediation", icon: ShieldCheck, badge: "Efficacy", description: "Validated elimination of critical & high CVSS exploits" },
+    { value: "0", label: "Breach Liability Exposure", icon: Shield, badge: "Assurance", description: "Continuous defensive posture against ransomware & APTs" },
+    { value: "60", suffix: " Days", label: "ISO 27001 & SOC 2 Readiness", icon: Clock, badge: "Velocity", description: "Accelerated gap remediation to Stage-2 audit clearance" },
+    { value: "6", suffix: " Hours", label: "CERT-In Statutory Response", icon: Lock, badge: "Compliance", description: "Automated incident reporting & 180-day forensic log audit" }
+  ];
+
   return (
     <Layout>
       <div className="bg-slate-50/50 pb-24 text-slate-600 relative overflow-hidden">
@@ -505,6 +513,9 @@ export default function CyberSecurityPage() {
             ))}
           />
         </section>
+
+        {/* Panel 2: Statistics Grid Cards */}
+        <GrcStatCards stats={stats} />
 
         {/* Content Sliders */}
         <div className="container mx-auto px-6 max-w-7xl pt-16 space-y-20">
