@@ -365,7 +365,6 @@ function QuickStatsBar({ serviceId }: { serviceId: string }) {
 export default function ServiceDetailPage() {
   const { serviceId } = useParams<{ serviceId: string }>();
   const [activeTab, setActiveTab] = useState(0);
-  const [bannerSlide, setBannerSlide] = useState(0);
   const tabContentRef = useRef<HTMLDivElement | null>(null);
 
   const service = servicesData.find((serv) => serv.id === serviceId);
@@ -463,10 +462,6 @@ export default function ServiceDetailPage() {
 
   const stats = getServiceStats(service.id);
   const portfolio = getServicePortfolio(service.benefits);
-
-  // Banner image slides
-  const bannerImages = [visual.image, heroCommand, heroSoc, heroAiDriven];
-  const bannerImagesFiltered = [...new Set(bannerImages)];
 
   const slides = [
     {
@@ -615,21 +610,6 @@ export default function ServiceDetailPage() {
           tag={visual.tag}
           tagColor={visual.tagColor}
         />
-
-        {/* ── Image Mini-Slider strip ──────────────────────────────── */}
-        <div className="container mx-auto px-6 max-w-6xl pt-4 pb-2">
-          <div className="flex gap-3 overflow-x-auto pb-1 scrollbar-hide">
-            {bannerImagesFiltered.slice(0, 4).map((img, i) => (
-              <button
-                key={i}
-                onClick={() => setBannerSlide(i)}
-                className={`shrink-0 w-24 h-16 rounded-xl overflow-hidden border-2 transition-all duration-300 ${bannerSlide === i ? "border-blue-500 shadow-md" : "border-transparent opacity-60 hover:opacity-90"}`}
-              >
-                <img src={img} alt="" className="w-full h-full object-cover" />
-              </button>
-            ))}
-          </div>
-        </div>
 
         {/* ── Benefits Dark Slider ─────────────────────────────────── */}
         <BenefitsSlider benefits={service.benefits} problem={service.problem} />
