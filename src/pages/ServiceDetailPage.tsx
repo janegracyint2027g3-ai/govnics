@@ -1,17 +1,14 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import { useParams, Link, Navigate } from "react-router-dom";
 import { Layout } from "@/components/layout/Layout";
 import { servicesData } from "@/data/services-data";
 import { industriesData } from "@/data/industries-data";
 import { GrcSliderHero } from "@/components/hero/GrcSliderHero";
-import { GrcStatCards } from "@/components/ui/GrcStatCards";
-import { GrcCarousel } from "@/components/ui/GrcCarousel";
 import {
-  CheckCircle2, ShieldCheck,
-  Shield, Layers, Cpu, Users, ClipboardCheck,
-  Settings, ArrowRightLeft, BookOpen, BarChart3, Clock,
-  ArrowRight, Sparkles, Target,
-  TrendingUp, Star, Zap, FileText
+  CheckCircle2, ShieldCheck, Shield, Layers, Cpu, ClipboardCheck,
+  Settings, BookOpen, BarChart3, Clock, ArrowRight, Target,
+  FileText, AlertTriangle, Eye, Scale, RefreshCw, Send, Check, ChevronDown,
+  Building2, Phone, Mail, User, HelpCircle, Lock
 } from "lucide-react";
 
 import heroAiDriven from "@/assets/hero-ai-driven.jpg";
@@ -21,360 +18,27 @@ import heroIntegration from "@/assets/hero-integration.jpg";
 import heroCommand from "@/assets/command_center_1.jpg";
 import heroDrone from "@/assets/hero-drone.jpg";
 
-// ── Animated Counter ─────────────────────────────────────────────────────────
-function AnimatedCounter({ value, suffix }: { value: string; suffix?: string }) {
-  const [display, setDisplay] = useState("0");
-  const ref = useRef<HTMLSpanElement>(null);
-  const started = useRef(false);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting && !started.current) {
-          started.current = true;
-          const raw = value.replace(/[^0-9.]/g, "");
-          const prefix = value.replace(/[0-9.].*/, "");
-          const numericPart = parseFloat(raw) || 0;
-          const steps = 40;
-          let step = 0;
-          const interval = setInterval(() => {
-            step++;
-            const progress = step / steps;
-            const eased = 1 - Math.pow(1 - progress, 3);
-            const current = numericPart * eased;
-            setDisplay(prefix + (Number.isInteger(numericPart) ? Math.round(current).toString() : current.toFixed(1)));
-            if (step >= steps) clearInterval(interval);
-          }, 1500 / steps);
-        }
-      },
-      { threshold: 0.4 }
-    );
-    if (ref.current) observer.observe(ref.current);
-    return () => observer.disconnect();
-  }, [value]);
-
-  return <span ref={ref}>{display}{suffix}</span>;
-}
-
-// ── Service Visual Banner ─────────────────────────────────────────────────────
-function ServiceVisualBanner({
-  title, category, standards, image, gradient, pills, tag, tagColor
-}: {
-  title: string; category: string; standards: string[]; image: string;
-  gradient: string; pills: string[]; tag: string; tagColor: string;
-}) {
-  const ref = useRef<HTMLDivElement>(null);
-  const [visible, setVisible] = useState(false);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => { if (entry.isIntersecting) setVisible(true); },
-      { threshold: 0.1 }
-    );
-    if (ref.current) observer.observe(ref.current);
-    return () => observer.disconnect();
-  }, []);
-
-  return (
-    <div
-      ref={ref}
-      className={`container mx-auto px-6 max-w-6xl pt-8 pb-2 transition-all duration-700 ${visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}
-    >
-      <div className="relative rounded-3xl overflow-hidden shadow-2xl h-[300px] sm:h-[380px]">
-        {/* Background image with subtle zoom */}
-        <img
-          src={image}
-          alt={title}
-          className="absolute inset-0 w-full h-full object-cover scale-105 transition-transform duration-[10s] hover:scale-100"
-        />
-        {/* Gradient overlay */}
-        <div className={`absolute inset-0 bg-gradient-to-r ${gradient}`} />
-
-        {/* Animated floating orbs */}
-        <div className="absolute top-8 right-16 w-28 h-28 rounded-full bg-white/10 blur-2xl animate-pulse" />
-        <div className="absolute bottom-6 right-32 w-16 h-16 rounded-full bg-white/8 blur-xl" style={{ animation: "pulse 3.5s ease-in-out 0.5s infinite" }} />
-        <div className="absolute top-1/3 right-1/4 w-10 h-10 rounded-full border-2 border-white/30" style={{ animation: "spin 10s linear infinite" }} />
-
-        {/* Pulsing shield icon top-right */}
-        <div className="absolute top-5 right-5">
-          <div
-            className="w-14 h-14 rounded-2xl bg-white/10 border border-white/30 backdrop-blur-sm flex items-center justify-center shadow-xl"
-            style={{ animation: "pulse 2.5s ease-in-out infinite" }}
-          >
-            <ShieldCheck className="w-7 h-7 text-white" />
-          </div>
-        </div>
-
-        {/* Floating category chip top-left */}
-        <div className="absolute top-5 left-5">
-          <span className={`inline-flex items-center px-3 py-1 ${tagColor} text-white text-[10px] font-black uppercase tracking-widest rounded-full shadow-lg backdrop-blur-sm`}>
-            {tag}
-          </span>
-        </div>
-
-        {/* Main content overlay */}
-        <div className="absolute inset-0 flex flex-col justify-end p-7 sm:p-10">
-          <p className="text-white/60 text-xs font-bold uppercase tracking-widest mb-1">{category}</p>
-          <h2 className="text-white font-black text-2xl sm:text-4xl font-heading leading-tight drop-shadow-xl max-w-xl">
-            {title}
-          </h2>
-
-          {/* Standards pills — animated in on scroll */}
-          <div className="flex flex-wrap gap-2 mt-4">
-            {standards.slice(0, 5).map((std, i) => (
-              <span
-                key={i}
-                className="px-2.5 py-1 bg-white/15 backdrop-blur-sm border border-white/20 text-white text-[10px] font-bold rounded-full"
-                style={{
-                  opacity: visible ? 1 : 0,
-                  animation: visible ? `fadeInUp 0.5s ease forwards` : "none",
-                  animationDelay: `${i * 0.1 + 0.3}s`
-                }}
-              >
-                {std}
-              </span>
-            ))}
-          </div>
-
-          {/* Extra pills from the passed array */}
-          <div className="flex flex-wrap gap-2 mt-2">
-            {pills.map((pill, i) => (
-              <span
-                key={i}
-                className="px-2.5 py-1 bg-white/10 backdrop-blur-sm border border-white/15 text-white/80 text-[10px] font-semibold rounded-full"
-                style={{
-                  opacity: visible ? 1 : 0,
-                  animation: visible ? `fadeInUp 0.5s ease forwards` : "none",
-                  animationDelay: `${(i + standards.length) * 0.1 + 0.3}s`
-                }}
-              >
-                {pill}
-              </span>
-            ))}
-          </div>
-        </div>
-
-        {/* Top floating dots */}
-        <div className="absolute top-4 left-1/2 flex gap-1.5">
-          {[...Array(6)].map((_, i) => (
-            <div key={i} className="w-1.5 h-1.5 rounded-full bg-white opacity-25"
-              style={{ animation: `pulse ${1.2 + i * 0.3}s ease-in-out infinite`, animationDelay: `${i * 0.15}s` }} />
-          ))}
-        </div>
-      </div>
-
-      <style>{`
-        @keyframes fadeInUp {
-          from { opacity: 0; transform: translateY(12px); }
-          to   { opacity: 1; transform: translateY(0); }
-        }
-      `}</style>
-    </div>
-  );
-}
-
-// ── Benefits Slider ───────────────────────────────────────────────────────────
-function BenefitsSlider({ benefits, problem }: { benefits: string[]; problem: string }) {
-  const [active, setActive] = useState(0);
-
-  useEffect(() => {
-    const t = setInterval(() => setActive(i => (i + 1) % benefits.length), 3500);
-    return () => clearInterval(t);
-  }, [benefits.length]);
-
-  return (
-    <section className="py-16 bg-gradient-to-br from-slate-900 to-blue-950 border-t border-blue-900/30">
-      <div className="container mx-auto px-6 max-w-6xl">
-        <div className="grid lg:grid-cols-2 gap-12 items-center">
-
-          {/* Left: Problem statement */}
-          <div className="space-y-6">
-            <span className="inline-flex items-center gap-2 px-3.5 py-1.5 bg-blue-500/20 border border-blue-500/30 text-blue-300 text-[10px] font-bold uppercase tracking-widest rounded-full">
-              Why This Matters
-            </span>
-            <h3 className="text-2xl sm:text-3xl font-black text-white font-heading leading-tight">
-              The Challenge We Solve
-            </h3>
-            <p className="text-blue-200/80 text-sm font-semibold leading-relaxed max-w-lg">
-              {problem}
-            </p>
-            {/* Key outcome pills */}
-            <div className="flex flex-wrap gap-2 pt-2">
-              {["Penalty-Free Operations", "Audit-Ready Always", "Board-Level Visibility"].map((pill, i) => (
-                <span key={i} className="px-3 py-1.5 bg-blue-500/15 border border-blue-500/30 text-blue-200 text-[10px] font-bold rounded-full">
-                  ✓ {pill}
-                </span>
-              ))}
-            </div>
-          </div>
-
-          {/* Right: Benefits auto-slider */}
-          <div className="space-y-4">
-            <p className="text-[10px] font-black text-blue-400 uppercase tracking-widest">Key Benefits</p>
-            <div className="relative min-h-[120px]">
-              {benefits.map((benefit, i) => (
-                <div
-                  key={i}
-                  className={`absolute inset-0 flex items-start gap-4 transition-all duration-600 ${i === active ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4 pointer-events-none"}`}
-                >
-                  <div className="w-10 h-10 rounded-xl bg-blue-500/20 border border-blue-500/30 flex items-center justify-center flex-shrink-0 mt-1">
-                    <CheckCircle2 className="w-5 h-5 text-blue-400" />
-                  </div>
-                  <p className="text-white font-semibold text-base leading-relaxed">{benefit}</p>
-                </div>
-              ))}
-            </div>
-
-            {/* Dots */}
-            <div className="flex gap-2 pt-2">
-              {benefits.map((_, i) => (
-                <button
-                  key={i}
-                  onClick={() => setActive(i)}
-                  className={`h-1.5 rounded-full transition-all duration-300 ${i === active ? "bg-blue-400 w-6" : "bg-blue-600/40 w-2"}`}
-                />
-              ))}
-            </div>
-          </div>
-
-        </div>
-      </div>
-    </section>
-  );
-}
-
-// ── Process Steps ─────────────────────────────────────────────────────────────
-function ProcessSteps({ serviceTitle }: { serviceTitle: string }) {
-  const steps = [
-    { step: "01", title: "Discovery Call", desc: `A 30-minute assessment of your current ${serviceTitle} posture and gaps.`, icon: FileText },
-    { step: "02", title: "Gap Analysis", desc: "We benchmark your controls against relevant regulatory standards.", icon: Target },
-    { step: "03", title: "Framework Design", desc: "Custom compliance roadmap with SOPs, registers, and automation.", icon: Settings },
-    { step: "04", title: "Deploy & Monitor", desc: "Go-live with continuous SLA-backed overwatch and reporting.", icon: Sparkles },
-  ];
-
-  const ref = useRef<HTMLDivElement>(null);
-  const [visible, setVisible] = useState(false);
-  useEffect(() => {
-    const o = new IntersectionObserver(([e]) => { if (e.isIntersecting) setVisible(true); }, { threshold: 0.2 });
-    if (ref.current) o.observe(ref.current);
-    return () => o.disconnect();
-  }, []);
-
-  return (
-    <section className="py-16 bg-gradient-to-br from-slate-50 to-blue-50/40 border-t border-slate-100">
-      <div className="container mx-auto px-6 max-w-6xl">
-        <div className="text-center mb-12">
-          <span className="inline-flex items-center gap-2 px-3.5 py-1.5 bg-blue-500/10 border border-blue-500/20 text-blue-600 text-[10px] font-bold uppercase tracking-widest rounded-full mb-4">
-            Engagement Journey
-          </span>
-          <h3 className="text-2xl sm:text-3xl font-black text-slate-900 font-heading">How We Deliver {serviceTitle}</h3>
-          <p className="text-sm text-slate-500 font-semibold mt-3 max-w-xl mx-auto leading-relaxed">
-            Our structured 4-step engagement ensures clarity, speed, and measurable outcomes.
-          </p>
-        </div>
-
-        <div ref={ref} className="relative">
-          {/* Connecting line */}
-          <div className="hidden lg:block absolute top-10 left-[12.5%] right-[12.5%] h-0.5 bg-gradient-to-r from-blue-200 via-indigo-300 to-violet-200 z-0" />
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 relative z-10">
-            {steps.map((s, i) => (
-              <div
-                key={i}
-                className="group flex flex-col items-center text-center space-y-4"
-                style={{
-                  opacity: visible ? 1 : 0,
-                  transform: visible ? "translateY(0)" : "translateY(20px)",
-                  transition: `opacity 0.5s ease ${i * 0.12}s, transform 0.5s ease ${i * 0.12}s`
-                }}
-              >
-                <div className="relative">
-                  <div className="w-20 h-20 rounded-2xl bg-white border-2 border-blue-200 shadow-lg flex items-center justify-center group-hover:border-blue-500 group-hover:scale-105 transition-all duration-300">
-                    <s.icon className="w-8 h-8 text-blue-600" />
-                  </div>
-                  <span className="absolute -top-2 -right-2 w-6 h-6 rounded-full bg-blue-600 text-white text-[10px] font-black flex items-center justify-center shadow">
-                    {s.step}
-                  </span>
-                </div>
-                <div>
-                  <h4 className="font-black text-slate-900 text-sm">{s.title}</h4>
-                  <p className="text-xs text-slate-500 font-semibold mt-2 leading-relaxed max-w-[180px] mx-auto">{s.desc}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
-    </section>
-  );
-}
-
-// ── Quick Stats Bar ───────────────────────────────────────────────────────────
-function QuickStatsBar({ serviceId }: { serviceId: string }) {
-  const isCyber = serviceId.includes("cybersecurity") || serviceId.includes("privacy") || serviceId.includes("incident");
-  const isCompliance = serviceId.includes("compliance") || serviceId.includes("audit") || serviceId.includes("labour");
-
-  const stats = isCyber
-    ? [
-        { value: "↓92", suffix: "%", label: "Incident Probability Cut", icon: ShieldCheck },
-        { value: "100", suffix: "%", label: "Audit Readiness", icon: ClipboardCheck },
-        { value: "↓70", suffix: "%", label: "Audit Prep Speed-Up", icon: Clock },
-        { value: "24", suffix: " mo", label: "Average ROI Period", icon: BarChart3 },
-        { value: "50", suffix: "+", label: "Enterprise Clients", icon: Users },
-        { value: "99", suffix: "%", label: "SLA Compliance", icon: Star },
-      ]
-    : isCompliance
-    ? [
-        { value: "0", suffix: "", label: "Penalty Exposure", icon: ShieldCheck },
-        { value: "100", suffix: "%", label: "Inspection Pass Rate", icon: ClipboardCheck },
-        { value: "↓50", suffix: "%", label: "Reporting Overhead", icon: Clock },
-        { value: "18", suffix: " mo", label: "Average ROI Period", icon: BarChart3 },
-        { value: "200", suffix: "+", label: "Compliant Enterprises", icon: TrendingUp },
-        { value: "48", suffix: "hr", label: "Onboarding Time", icon: Zap },
-      ]
-    : [
-        { value: "↓40", suffix: "%", label: "Operational Risks Prevented", icon: ShieldCheck },
-        { value: "100", suffix: "%", label: "Regulatory Confidence", icon: ClipboardCheck },
-        { value: "↓60", suffix: "%", label: "Control Gap Mitigations", icon: Clock },
-        { value: "20", suffix: " mo", label: "Average ROI Duration", icon: BarChart3 },
-        { value: "150", suffix: "+", label: "Frameworks Deployed", icon: Layers },
-        { value: "72", suffix: "hr", label: "Rapid Onboarding", icon: Zap },
-      ];
-
-  return (
-    <div className="container mx-auto px-6 max-w-6xl -mt-6 relative z-20 mb-8">
-      <div className="bg-white rounded-2xl border border-slate-200/80 shadow-xl shadow-slate-200/60 p-6">
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4 divide-x divide-slate-100">
-          {stats.map((s, i) => (
-            <div key={i} className="text-center px-2">
-              <div className="w-8 h-8 mx-auto mb-2 rounded-xl bg-blue-50 flex items-center justify-center">
-                <s.icon style={{ width: 16, height: 16 }} className="text-blue-600" />
-              </div>
-              <div className="text-xl font-black text-slate-900 leading-none">
-                <AnimatedCounter value={s.value} suffix={s.suffix} />
-              </div>
-              <div className="text-[9px] font-bold text-slate-400 uppercase tracking-wider mt-1 leading-tight">{s.label}</div>
-            </div>
-          ))}
-        </div>
-      </div>
-    </div>
-  );
-}
-
-// ── Main Component ─────────────────────────────────────────────────────────────
 export default function ServiceDetailPage() {
   const { serviceId } = useParams<{ serviceId: string }>();
-  const [activeTab, setActiveTab] = useState(0);
-  const tabContentRef = useRef<HTMLDivElement | null>(null);
+  const [openFaq, setOpenFaq] = useState<number | null>(0);
+  const [formSubmitted, setFormSubmitted] = useState(false);
+  const [formData, setFormData] = useState({
+    name: "",
+    company: "",
+    email: "",
+    phone: "",
+    serviceInterest: "",
+    message: ""
+  });
 
   const service = servicesData.find((serv) => serv.id === serviceId);
 
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: "smooth" });
     if (service) {
-      document.title = `${service.title} | GRC Advisory Services — GOVENICS`;
+      document.title = `${service.title} | Enterprise GRC Solutions — GOVENICS`;
       const metaDesc = document.querySelector('meta[name="description"]');
-      const descContent = `${service.solution} Explore regulatory deliverables, audit frameworks, and industry applicability with GOVENICS GRC.`;
+      const descContent = `${service.solution} Explore enterprise governance challenges, core capabilities, 4-stage engagement model, and regulatory compliance frameworks with GOVENICS.`;
       if (metaDesc) metaDesc.setAttribute("content", descContent);
       else {
         const meta = document.createElement("meta");
@@ -382,272 +46,374 @@ export default function ServiceDetailPage() {
         meta.content = descContent;
         document.head.appendChild(meta);
       }
+      setFormData(prev => ({ ...prev, serviceInterest: service.title }));
     }
   }, [serviceId, service]);
 
   if (!service) return <Navigate to="/" replace />;
 
   const relatedIndustries = industriesData.filter((ind) => service.industries.includes(ind.id));
+  const relatedServices = servicesData.filter(s => s.id !== service.id && (s.category === service.category || s.industries.some(i => service.industries.includes(i)))).slice(0, 3);
 
   const getClusterId = (name: string) =>
     name.toLowerCase().replace(/ & /g, "-").replace(/ /g, "-");
 
-  // Service-to-image & theme mapping
+  // Visual Theme Mapping
   const getServiceVisual = () => {
     const id = service.id;
     if (id.includes("cybersecurity") || id.includes("incident"))
-      return { image: heroSoc, gradient: "from-slate-900/85 via-blue-900/60 to-transparent", tag: "Cybersecurity GRC", tagColor: "bg-blue-600", pills: ["ISMS", "Penetration Testing", "SOC 2"] };
+      return { image: heroSoc, gradient: "from-slate-900/85 via-blue-900/60 to-transparent", tag: "Cybersecurity GRC", tagColor: "bg-blue-600", badge: "Digital Defense" };
     if (id.includes("privacy") || id.includes("dpdp"))
-      return { image: heroAiDriven, gradient: "from-violet-900/85 via-violet-800/60 to-transparent", tag: "Data Privacy & DPDP", tagColor: "bg-violet-600", pills: ["Consent Manager", "Data Mapping", "Breach Response"] };
-    if (id.includes("compliance") || id.includes("regulatory"))
-      return { image: heroVerify, gradient: "from-indigo-900/85 via-indigo-800/60 to-transparent", tag: "Regulatory Compliance", tagColor: "bg-indigo-600", pills: ["Statutory Registers", "Filing Automation", "Audit Readiness"] };
+      return { image: heroAiDriven, gradient: "from-violet-900/85 via-violet-800/60 to-transparent", tag: "Data Privacy & DPDP", tagColor: "bg-violet-600", badge: "Data Protection" };
+    if (id.includes("compliance") || id.includes("regulatory") || id.includes("labour"))
+      return { image: heroVerify, gradient: "from-indigo-900/85 via-indigo-800/60 to-transparent", tag: "Regulatory Compliance", tagColor: "bg-indigo-600", badge: "Statutory Defense" };
     if (id.includes("risk") || id.includes("vendor"))
-      return { image: heroCommand, gradient: "from-slate-900/85 via-slate-800/60 to-transparent", tag: "Risk Management", tagColor: "bg-slate-700", pills: ["RCSA Dashboard", "KRI Monitoring", "Contingency SOPs"] };
+      return { image: heroCommand, gradient: "from-slate-900/85 via-slate-800/60 to-transparent", tag: "Risk Management", tagColor: "bg-slate-700", badge: "Enterprise Risk" };
     if (id.includes("governance") || id.includes("audit"))
-      return { image: heroIntegration, gradient: "from-emerald-900/85 via-emerald-800/60 to-transparent", tag: "Governance & Audit", tagColor: "bg-emerald-700", pills: ["DoA Matrix", "Policy Register", "Control Testing"] };
-    if (id.includes("esg") || id.includes("sustainability") || id.includes("carbon"))
-      return { image: heroDrone, gradient: "from-teal-900/85 via-teal-800/60 to-transparent", tag: "ESG & Sustainability", tagColor: "bg-teal-600", pills: ["BRSR Reporting", "Carbon Accounting", "ESG Ratings"] };
-    return {
-      image: heroVerify, gradient: "from-blue-900/85 via-blue-800/60 to-transparent", tag: "GRC Services", tagColor: "bg-blue-600", pills: ["Compliance", "Risk", "Governance"]
-    };
+      return { image: heroIntegration, gradient: "from-emerald-900/85 via-emerald-800/60 to-transparent", tag: "Governance & Audit", tagColor: "bg-emerald-700", badge: "Board Oversight" };
+    if (id.includes("esg") || id.includes("sustainability") || id.includes("environmental"))
+      return { image: heroDrone, gradient: "from-teal-900/85 via-teal-800/60 to-transparent", tag: "ESG & Sustainability", tagColor: "bg-teal-600", badge: "Sustainability Advisory" };
+    return { image: heroVerify, gradient: "from-blue-900/85 via-blue-800/60 to-transparent", tag: "GRC Services", tagColor: "bg-blue-600", badge: "Enterprise GRC" };
   };
 
   const visual = getServiceVisual();
 
-  const getServiceStats = (id: string) => {
-    if (id.includes("cybersecurity") || id.includes("privacy") || id.includes("incident"))
-      return [
-        { value: "↓ 92", suffix: "%", label: "Incident Probability Cut", icon: ShieldCheck },
-        { value: "100", suffix: "%", label: "Statutory Audit Readiness", icon: ClipboardCheck },
-        { value: "↓ 70", suffix: "%", label: "Audit Prep Timeline Speedup", icon: Clock },
-        { value: "18 - 24", suffix: " mo", label: "Average ROI Period", icon: BarChart3 }
-      ];
-    else if (id.includes("compliance") || id.includes("audit") || id.includes("rera") || id.includes("labour"))
-      return [
-        { value: "0", label: "Compliance Penalties Exposure", icon: ShieldCheck },
-        { value: "100", suffix: "%", label: "Inspection Status Pass Rate", icon: ClipboardCheck },
-        { value: "↓ 50", suffix: "%", label: "Reporting Overhead Reductions", icon: Clock },
-        { value: "12 - 18", suffix: " mo", label: "Average ROI Period", icon: BarChart3 }
-      ];
-    return [
-      { value: "↓ 40", suffix: "%", label: "Operational Risks Prevented", icon: ShieldCheck },
-      { value: "100", suffix: "%", label: "Regulatory Posture Confidence", icon: ClipboardCheck },
-      { value: "↓ 60", suffix: "%", label: "Control Gap Mitigations", icon: Clock },
-      { value: "15 - 20", suffix: " mo", label: "Average ROI Duration", icon: BarChart3 }
-    ];
-  };
-
-  const getServicePortfolio = (benefits: string[]) => [
+  // SECTION 1: HERO SLIDES
+  const heroSlides = [
     {
-      title: "Control Framework Integration",
-      icon: Shield,
-      features: [benefits[0] || "Statutory register controls validated", "Custom risk taxonomy aligned", "Role-based checkmarks enforced"]
-    },
-    {
-      title: "Automated Verification",
-      icon: Cpu,
-      features: [benefits[1] || "Always-on overwatch enabled", "Compliance telemetry logging", "Deviation alerts active"]
-    },
-    {
-      title: "Continuous Auditing",
-      icon: Layers,
-      features: [benefits[2] || "Independent control validation", "Statutory filing readiness", "Vendor SLA tracking"]
-    },
-    {
-      title: "Executive Overseeing",
-      icon: BarChart3,
-      features: ["Dynamic risk index scoring", "CAG-level audit logs", "Board-level risk reports"]
-    }
-  ];
-
-  const stats = getServiceStats(service.id);
-  const portfolio = getServicePortfolio(service.benefits);
-
-  const slides = [
-    {
-      badge: "Overview",
-      title: "Solutions for",
+      badge: visual.badge,
+      title: "Eliminate Blind Spots in",
       highlight: service.title,
       description: service.problem,
       image: visual.image,
+      icp: "C-Suite, Legal Heads & Compliance Directors",
+      outcome: "Full audit readiness and continuous control assurance",
+      cta: "Schedule Advisory Call"
     },
     {
-      badge: "Methodology",
-      title: "Dynamic GRC and",
-      highlight: "Continuous Audit Controls",
+      badge: "Targeted Resolution",
+      title: "Defensible Governance Aligned to",
+      highlight: service.standards[0] || "Statutory Codes",
       description: service.solution,
       image: heroIntegration,
+      icp: "Audit Committees & Operations Executives",
+      outcome: "Zero penalty exposure across central and state regulations",
+      cta: "Request Consultation"
     },
     {
-      badge: "Standards Compliance",
-      title: "Assurance for",
-      highlight: service.standards.slice(0, 2).join(" & ") || "Statutory Norms",
-      description: `We align your corporate controls with key standards: ${service.standards.join(", ")}.`,
-      image: heroSoc,
-    },
-    {
-      badge: "Expected Value",
-      title: "Measurable Quality &",
-      highlight: "Risk Reductions",
-      description: service.benefits.join(" • "),
-      image: heroVerify,
+      badge: "Operational Rigor",
+      title: "From Static Spreadsheets to",
+      highlight: "Living Compliance Controls",
+      description: "Replace reactive fire-drills with predictable, continuous telemetry and evidence-backed registers that withstand regulatory scrutiny.",
+      image: heroCommand,
+      icp: "Chief Risk Officers & Department Leads",
+      outcome: "Streamlined stakeholder workflows and transparent accountability",
+      cta: "Explore Engagement Model"
     }
   ];
 
-  const tabs = [
+  // SECTION 2: BUSINESS CHALLENGES
+  const challenges = [
     {
-      title: "Skilled Staffing Services",
-      icon: Users,
-      description: `The successful implementation of ${service.title} requires a workforce possessing highly specialized regulatory and technical acumen. By bridging deep domain experience with hands-on execution, our pre-vetted compliance personnel ensure smooth operations under our GRC umbrella.`,
-      detailsTitle: "Key Details",
-      details: [
-        `Safety & Compliance Rigor: Stringent adherence to local and international protocols governing ${service.title} deployments.`,
-        `Continuous Skill Upgradation: Mandatory ongoing training programs ensuring our personnel stay ahead of compliance curves.`,
-        `Seamless Team Integration: Professionals trained to collaborate cohesively with your internal risk and legal departments.`,
-        `Cross-functional Expertise: Personnel capable of bridging physical operations, software systems, and statutory filing workflows.`,
-        `Scalable Resourcing: Flexible workforce allocation that dynamically scales up or down based on project auditing demands.`
-      ]
+      title: "Dynamic Regulatory Velocity",
+      desc: "Frequent gazette amendments and evolving regulator circulars outpace static internal policies, creating compliance lags and enforcement vulnerabilities.",
+      icon: RefreshCw
     },
     {
-      title: "SLA Based Managed Services",
+      title: "Fragmented Operational Silos",
+      desc: "Decentralized teams operate on isolated spreadsheets and email threads, leaving senior leadership blind to ground-level compliance slippages.",
+      icon: Layers
+    },
+    {
+      title: "Audit Deficits & Missing Evidence",
+      desc: "Scrambling to assemble documentary evidence during surprise inspections triggers operational disruption and exposes firms to adverse findings.",
+      icon: Eye
+    },
+    {
+      title: "Subcontractor & Vendor Exposure",
+      desc: "Third-party vendors and supply chain partners frequently fail statutory standards, transferring severe co-employment and legal liabilities to principal employers.",
+      icon: AlertTriangle
+    },
+    {
+      title: "Manual Overhead & Inefficiency",
+      desc: "Valuable legal and compliance talent is bogged down by redundant data entry and paperwork rather than executing strategic risk mitigation.",
+      icon: Clock
+    },
+    {
+      title: "Board & Fiduciary Liability",
+      desc: "Directors face increased scrutiny and personal liability under corporate governance statutes without structured Delegation of Authority (DoA) validation.",
+      icon: Scale
+    }
+  ];
+
+  // SECTION 3: SERVICE CAPABILITIES
+  const capabilities = [
+    {
+      title: "Statutory Architecture & Register Setup",
+      desc: "Comprehensive cataloging and codification of all central, state, and sector-specific legal codes directly relevant to your operating facilities and corporate footprint.",
+      value: "Eliminates legal ambiguity and establishes crystal-clear regulatory ownership."
+    },
+    {
+      title: "Active Gap Assessment & Risk Prioritization",
+      desc: "Structured diagnostic audits comparing existing physical and operational checkmarks against mandated statutory thresholds to identify latent compliance defects.",
+      value: "Proactively pinpoints vulnerabilities before government inspectors or external auditors discover them."
+    },
+    {
+      title: "Standard Operating Procedure (SOP) Engineering",
+      desc: "Drafting bulletproof, repeatable operational SOPs, escalation workflows, and automated filing checklists integrated with management systems.",
+      value: "Transitions compliance from individual memory to institutional, repeatable discipline."
+    },
+    {
+      title: "Continuous Overwatch & Regulatory Intelligence",
+      desc: "Ongoing monitoring of gazette notifications and circular amendments with zero-lag advisory updates to calibrate operational controls.",
+      value: "Guarantees that your enterprise posture never drifts out of compliance when laws evolve."
+    },
+    {
+      title: "Vendor & Supply Chain Compliance Auditing",
+      desc: "Rigorous third-party vendor due diligence, monthly wage verification, statutory challan validation, and compliance scoring.",
+      value: "Shields your brand and balance sheet from downstream supplier liabilities and co-employment lawsuits."
+    },
+    {
+      title: "Board Briefings & Evidentiary Reporting",
+      desc: "Executive-ready governance dossiers, Key Risk Indicator (KRI) dashboards, and tamper-evident audit packages tailored for board committee reviews.",
+      value: "Fulfills fiduciary due diligence duties and enhances shareholder and investor confidence."
+    }
+  ];
+
+  // SECTION 4: HOW IT WORKS (4 STAGES)
+  const processStages = [
+    {
+      step: "01",
+      name: "Discover",
+      objective: "Map corporate scope, operational footprint, and existing governance practices.",
+      activities: [
+        "Catalog operational assets, branches, and multi-state operational hubs.",
+        "Review current policies, previous audit findings, and statutory registers.",
+        "Align with designated departmental stakeholders to map process boundaries."
+      ],
+      deliverable: "Comprehensive Scope Charter & Responsibility Matrix",
+      icon: SearchIconComponent
+    },
+    {
+      step: "02",
+      name: "Assess",
+      objective: "Evaluate existing controls against mandated regulatory frameworks to isolate gaps.",
+      activities: [
+        "Conduct thorough gap analysis against governing central and state statutes.",
+        "Evaluate documentary evidence, register veracity, and inspection logs.",
+        "Assign risk-weightings to identified deficiencies based on potential enforcement severity."
+      ],
+      deliverable: "Prioritized Gap Diagnostic Report & Risk Heatmap",
+      icon: Target
+    },
+    {
+      step: "03",
+      name: "Implement / Remediate",
+      objective: "Engineer calibrated controls, draft standard workflows, and resolve identified gaps.",
+      activities: [
+        "Formulate customized Standard Operating Procedures (SOPs) and control checklists.",
+        "Establish standardized statutory registers and automated reporting pipelines.",
+        "Conduct operational calibration sessions for internal teams and vendors."
+      ],
+      deliverable: "Operationalized Governance Framework & Remediated Registers",
+      icon: Settings
+    },
+    {
+      step: "04",
+      name: "Monitor / Improve",
+      objective: "Institutionalize perpetual audit readiness and regulatory overwatch.",
+      activities: [
+        "Implement continuous compliance telemetry and periodic checkmark validations.",
+        "Track statutory gazette updates and update registers in lockstep.",
+        "Conduct quarterly simulated inspection drills and maintain evidence archives."
+      ],
+      deliverable: "Quarterly Executive Governance Pack & Audit Defense Binder",
+      icon: ShieldCheck
+    }
+  ];
+
+  // SECTION 5: BENEFITS & OUTCOMES
+  const outcomes = [
+    {
+      title: "Improved Visibility",
+      desc: "Consolidate fragmented departmental information into centralized, real-time oversight across all operating plants, branches, and corporate entities.",
+      icon: Eye,
+      highlight: "Enterprise-wide transparency"
+    },
+    {
+      title: "Reduced Risk",
+      desc: "Systematically uncover latent operational vulnerabilities and resolve them prior to regulatory scrutiny, eliminating exposure to punitive actions.",
+      icon: Shield,
+      highlight: "Proactive exposure mitigation"
+    },
+    {
+      title: "Better Compliance",
+      desc: "Structured adherence to complex multi-jurisdictional statutes, factory acts, and sector guidelines with zero ambiguity in task execution.",
+      icon: CheckCircle2,
+      highlight: "Rigorous statutory precision"
+    },
+    {
+      title: "Audit Readiness",
+      desc: "Perpetual evidentiary archives and validated registers that allow your organization to confidently clear unannounced audits with zero fire-drills.",
       icon: ClipboardCheck,
-      description: `We assume end-to-end operational accountability for your ${service.title} posture. Managed under strict performance SLAs, we continuously monitor controls, manage reporting registers, and prevent compliance deviations.`,
-      detailsTitle: "Key Details",
-      details: [
-        "99% Assurance Level: Guaranteed response times and SLA-backed compliance targets.",
-        "Always-On Overwatch: Ongoing surveillance of critical security controls and risk alerts.",
-        "Routine Status Audits: Scheduled weekly and monthly control assessments with automated reporting.",
-        "Vendor Oversight: Direct auditing of third-party SLAs and vendor deliverables.",
-        "Zero-Lag Incident Resolution: Immediate containment protocols triggered upon control failure alerts."
-      ]
+      highlight: "Zero-notice inspection defense"
     },
     {
-      title: "Advisory & Consulting Services",
-      icon: ShieldCheck,
-      description: `Partner with our senior risk partners and legal advisors to design custom regulatory strategies, build robust internal frameworks, and prepare for upcoming statutory inspections.`,
-      detailsTitle: "Key Details",
-      details: [
-        `Regulatory Gap Assessments: Comprehensive analysis of your current controls against ${service.standards.join(", ") || "statutory guidelines"}.`,
-        "Framework Design & Codification: Custom development of policies, SOPs, and delegation of authority (DoA) matrices.",
-        "Audit Preparation Guidance: Expert mock audits and training to ensure 100% readiness for regulatory inspectors.",
-        "Litigation Exposure Reduction: Advisory focused on minimizing legal liability and operational penalty risks.",
-        "Strategic Board Reporting: Synthesizing complex GRC metrics into clear executive dashboards."
-      ]
+      title: "Operational Efficiency",
+      desc: "Replace chaotic manual paperwork and ad-hoc filing stress with disciplined, automated routines that liberate leadership time for core business goals.",
+      icon: Cpu,
+      highlight: "Streamlined administrative overhead"
     },
     {
-      title: "Systems Integration Services",
-      icon: Settings,
-      description: `Bridge the gap between your operational database and GRC dashboards. We integrate telemetry pipelines, consent managers, and sensor telemetry directly into a centralized overwatch system.`,
-      detailsTitle: "Key Details",
-      details: [
-        "API-First Integrations: Custom connectors linking CRM, ERP, and database nodes.",
-        "Live Data Synchronization: Sub-second latency for security and data privacy logs.",
-        "Sensor & Telemetry Pipelines: Feeding real-time operational telemetry into risk engines.",
-        "Security Hardening: Implementing quantum-resilient SSL and encryption across data streams.",
-        "Single-Pane Dashboard: Unified view of all GRC health metrics and alert indicators."
-      ]
-    },
-    {
-      title: "Build Operate Transfer Services",
-      icon: ArrowRightLeft,
-      description: `Establish a self-sustaining internal GRC and cybersecurity command center. We design the infrastructure, operate it initially to stabilize performance, and then transfer complete ownership to your internal team.`,
-      detailsTitle: "Key Details",
-      details: [
-        "Infrastructure Blueprinting: Designing state-of-the-art internal GRC command centers.",
-        "Operational Stabilization: Managing initial phases to optimize processes and train staff.",
-        "Structured Talent Handover: Seamless transition of operations to your internal team.",
-        "Comprehensive Training: Rigorous training programs and knowledge bases for internal staff.",
-        "Post-Transfer Support: Periodic external reviews to ensure continuous control quality."
-      ]
-    },
-    {
-      title: "Knowledge Management Services",
-      icon: BookOpen,
-      description: `Keep your enterprise updated on every regulatory change, statutory code update, and legal revision. We manage policy registers, training materials, and audit checklists.`,
-      detailsTitle: "Key Details",
-      details: [
-        "Continuous Policy Updates: Immediate notifications on new legal gazettes and amendments.",
-        "Pre-Codified Audit Checklists: Standardized audit templates for immediate deployment.",
-        "Interactive Training Portals: Mobile-friendly compliance courses for staff and workers.",
-        "Central Policy Library: Secure, version-controlled repository for all corporate policies.",
-        "Statutory Filing Logs: Automated tracking of filing deadlines and submission archives."
-      ]
+      title: "Executive Accountability",
+      desc: "Clear Delegation of Authority (DoA) matrices, documented committee governance, and tamper-proof decision records safeguarding director liability.",
+      icon: Scale,
+      highlight: "Verifiable fiduciary governance"
     }
   ];
 
-  const handleTabChange = (index: number) => {
-    setActiveTab(index);
-    if (tabContentRef.current) {
-      tabContentRef.current.scrollIntoView({ behavior: "smooth", block: "nearest" });
+  // SECTION 6: TRUST & GOVERNANCE PILLARS
+  const trustPillars = [
+    {
+      title: "Recognized Standards Alignment",
+      desc: `Every control and register is mapped directly against statutory legal frameworks (${service.standards.join(", ")}).`,
+      icon: ShieldCheck
+    },
+    {
+      title: "Standardized Methodology",
+      desc: "Our delivery follows rigorous ISO 31000 risk management principles and COSO internal control frameworks, guaranteeing repeatable and legally robust outcomes.",
+      icon: BookOpen
+    },
+    {
+      title: "Peer-Reviewed Deliverables",
+      desc: "All gap reports, SOPs, and governance charters undergo internal technical and legal review prior to final handover.",
+      icon: FileText
+    },
+    {
+      title: "Executive & Board Reporting",
+      desc: "Actionable, jargon-free executive briefs and board-level risk registers that communicate clearly with senior leaders.",
+      icon: BarChart3
+    },
+    {
+      title: "Tamper-Evident Evidence Management",
+      desc: "Strict version control, chronological logs, and authenticated digital timestamps ensure audit archives remain unimpeachable.",
+      icon: Lock
     }
+  ];
+
+  // SECTION 7: FAQS
+  const faqs = [
+    {
+      q: `What is the typical scope of our ${service.title} engagement?`,
+      a: `Our scope encompasses all designated operating entities, facilities, corporate divisions, and third-party vendor interfaces within your enterprise. We assess statutory obligations, configure operational registers, design standard operating procedures, and establish ongoing audit readiness tailored to your specific regulatory jurisdiction.`
+    },
+    {
+      q: "What is the expected engagement duration from kickoff to operational readiness?",
+      a: "The initial discovery and diagnostic gap assessment typically requires 2 to 4 weeks. Following assessment sign-off, control remediation, register setup, and workflow calibration are executed over 4 to 8 weeks depending on the size and geographic dispersion of your organization."
+    },
+    {
+      q: "What concrete deliverables will our enterprise receive?",
+      a: "Deliverables include a Comprehensive Scope Matrix, Prioritized Gap Diagnostic Report, customized Standard Operating Procedures (SOPs), statutory registers formatted to regulatory requirements, an Executive Board Brief, and an Inspection Defense Dossier."
+    },
+    {
+      q: "What internal resources and time commitments are required from our team?",
+      a: "We assign a dedicated engagement director to minimize operational friction. Your team primarily provides access to existing compliance documents, process walkthroughs with department leads (typically 2-3 hours per key stakeholder), and periodic checkpoint reviews."
+    },
+    {
+      q: "How does Govnics support our team during live audits or regulatory inquiries?",
+      a: "Our advisory team provides dedicated overwatch. In the event of an unannounced regulatory inspection or notice, we assist with immediate documentary verification, evidence retrieval, and structured response drafting aligned with statutory requirements."
+    },
+    {
+      q: "How are compliance findings and risk postures communicated to senior leadership?",
+      a: "Leadership receives concise bi-weekly operational summaries highlighting remediated controls and open actions, supplemented by quarterly executive dossiers designed for Board Audit & Risk Committees."
+    },
+    {
+      q: "Does this service accommodate multi-state Indian operations and sector-specific nuances?",
+      a: "Yes. Our frameworks are explicitly calibrated to address state-specific rules across all 28 states and Union Territories in India, as well as sector-specific directives from regulatory bodies."
+    },
+    {
+      q: "How are legislative amendments, gazette notifications, and case law updates handled?",
+      a: "Our regulatory tracking desk continuously monitors official gazettes and statutory circulars. When amendments occur, we issue immediate advisory alerts and update your compliance calendars and registers without administrative lag."
+    }
+  ];
+
+  const handleFormSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!formData.name || !formData.email || !formData.phone) return;
+    setFormSubmitted(true);
   };
 
   return (
     <Layout>
-      <div className="bg-white pb-24 text-slate-600">
+      <div className="bg-slate-50 min-h-screen text-slate-700 selection:bg-blue-600 selection:text-white">
 
-        {/* ── Hero Slider ──────────────────────────────────────────── */}
+        {/* ── SECTION 1: HERO ────────────────────────────────────────── */}
         <GrcSliderHero
-          slides={slides}
-          backLink={{ to: "/", label: "Back to Home" }}
-          categoryLabel="Service Solution"
+          slides={heroSlides}
+          backLink={{ to: "/grc", label: "Back to What We Offer" }}
+          categoryLabel="Enterprise GRC"
         />
 
-        {/* ── Quick Stats Bar (animated counters) ─────────────────── */}
-        <QuickStatsBar serviceId={service.id} />
-
-        {/* ── Core Stat Cards (GrcStatCards) ──────────────────────── */}
-        <GrcStatCards stats={stats} />
-
-        {/* ── Animated Service Visual Banner ──────────────────────── */}
-        <ServiceVisualBanner
-          title={service.title}
-          category={service.category}
-          standards={service.standards}
-          image={visual.image}
-          gradient={visual.gradient}
-          pills={visual.pills}
-          tag={visual.tag}
-          tagColor={visual.tagColor}
-        />
-
-        {/* ── Benefits Dark Slider ─────────────────────────────────── */}
-        <BenefitsSlider benefits={service.benefits} problem={service.problem} />
-
-        {/* ── 4-Step Process Timeline ──────────────────────────────── */}
-        <ProcessSteps serviceTitle={service.title} />
-
-        {/* ── Portfolio Card Grid ──────────────────────────────────── */}
-        <section className="py-16 bg-white border-t border-slate-100">
-          <div className="container mx-auto px-6 max-w-6xl space-y-8">
-            <div className="text-center">
-              <span className="inline-flex items-center gap-2 px-3.5 py-1.5 bg-blue-500/10 border border-blue-500/20 text-blue-600 text-[10px] font-bold uppercase tracking-widest rounded-full mb-4">
-                Service Pillars
-              </span>
-              <h3 className="text-2xl font-black text-slate-900 font-heading">Our {service.title} Framework</h3>
+        {/* Standards Banner Strip */}
+        <div className="bg-slate-900 border-b border-slate-800 py-3.5 px-6">
+          <div className="container mx-auto max-w-6xl flex flex-wrap items-center justify-between gap-3 text-xs">
+            <span className="font-extrabold text-blue-400 uppercase tracking-widest text-[10px] flex items-center gap-1.5">
+              <ShieldCheck className="w-3.5 h-3.5 text-blue-400" />
+              Governing Frameworks:
+            </span>
+            <div className="flex flex-wrap gap-2 items-center">
+              {service.standards.map((std, i) => (
+                <span key={i} className="px-3 py-1 bg-slate-800 border border-slate-700/80 rounded-full text-slate-300 font-semibold text-[11px]">
+                  {std}
+                </span>
+              ))}
             </div>
-            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-              {portfolio.map((card, index) => {
-                const CardIcon = card.icon;
+            <a
+              href="#consultation-form"
+              className="text-blue-400 hover:text-white font-bold inline-flex items-center gap-1 text-[11px] transition-colors"
+            >
+              Consult with Partners <ArrowRight className="w-3 h-3" />
+            </a>
+          </div>
+        </div>
+
+        {/* ── SECTION 2: BUSINESS CHALLENGES ──────────────────────────── */}
+        <section id="challenges" className="py-20 bg-white border-b border-slate-200/80">
+          <div className="container mx-auto px-6 max-w-6xl space-y-12">
+            <div className="max-w-2xl mx-auto text-center space-y-3">
+              <span className="inline-flex items-center gap-2 px-3.5 py-1.5 bg-red-500/10 border border-red-500/20 text-red-600 text-[10px] font-bold uppercase tracking-widest rounded-full">
+                Enterprise Pain Points
+              </span>
+              <h2 className="text-3xl font-black text-slate-900 font-heading leading-tight">
+                Why Organizations Struggle with {service.title}
+              </h2>
+              <p className="text-xs sm:text-sm text-slate-500 font-semibold leading-relaxed">
+                Navigating complex regulatory environments without structured oversight inevitably leads to systemic vulnerabilities, operational drag, and material legal exposure.
+              </p>
+            </div>
+
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {challenges.map((c, idx) => {
+                const IconComp = c.icon;
                 return (
                   <div
-                    key={index}
-                    className="group relative bg-white border border-slate-200/80 rounded-3xl p-6 hover:border-blue-500/50 hover:shadow-2xl hover:shadow-blue-500/10 transition-all duration-500 cursor-pointer overflow-hidden transform hover:-translate-y-1 text-left"
+                    key={idx}
+                    className="group bg-white border border-slate-200/90 hover:border-blue-500/50 rounded-3xl p-7 shadow-sm hover:shadow-xl hover:shadow-blue-500/5 transition-all duration-300 flex flex-col justify-between text-left space-y-4 transform hover:-translate-y-1"
                   >
-                    <div className="absolute inset-0 bg-gradient-to-br from-blue-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                    <div className="relative z-10 space-y-5">
-                      <div className="w-14 h-14 rounded-2xl bg-blue-500/10 flex items-center justify-center group-hover:bg-blue-600 group-hover:scale-110 transition-all duration-300">
-                        <CardIcon className="w-7 h-7 text-blue-600 group-hover:text-white transition-colors duration-300" />
+                    <div className="space-y-4">
+                      <div className="w-12 h-12 rounded-2xl bg-blue-500/10 flex items-center justify-center text-blue-600 group-hover:bg-blue-600 group-hover:text-white transition-all duration-300">
+                        <IconComp className="w-5 h-5" />
                       </div>
-                      <h3 className="font-extrabold text-slate-900 text-base leading-snug group-hover:text-blue-600 transition-colors">{card.title}</h3>
-                      <ul className="space-y-2 pt-2 border-t border-slate-100">
-                        {card.features.map((feature, i) => (
-                          <li key={i} className="flex items-start gap-2 text-xs text-slate-600 font-semibold leading-relaxed">
-                            <CheckCircle2 className="w-4 h-4 text-blue-500 mt-0.5 flex-shrink-0" />
-                            <span>{feature}</span>
-                          </li>
-                        ))}
-                      </ul>
+                      <h3 className="font-extrabold text-slate-900 text-base leading-snug group-hover:text-blue-600 transition-colors">
+                        {c.title}
+                      </h3>
+                      <p className="text-xs text-slate-600 font-semibold leading-relaxed">
+                        {c.desc}
+                      </p>
+                    </div>
+                    <div className="pt-3 border-t border-slate-100 flex items-center justify-between text-[10px] font-bold uppercase tracking-wider text-slate-400">
+                      <span>Vulnerability Vector</span>
+                      <span className="text-red-600 font-extrabold">Active Risk</span>
                     </div>
                   </div>
                 );
@@ -656,172 +422,545 @@ export default function ServiceDetailPage() {
           </div>
         </section>
 
-        {/* ── Standards & Frameworks Row ───────────────────────────── */}
-        <section className="py-10 bg-slate-50/60 border-t border-slate-100">
-          <div className="container mx-auto px-6 max-w-6xl">
-            <p className="text-center text-[10px] font-black text-slate-400 uppercase tracking-widest mb-5">
-              Applicable Standards & Regulatory Frameworks
-            </p>
-            <div className="flex flex-wrap justify-center gap-3">
-              {service.standards.map((std, i) => (
-                <span key={i} className="group inline-flex items-center gap-2 px-4 py-2 bg-white border border-slate-200 rounded-full text-xs font-bold text-slate-600 hover:border-blue-400 hover:text-blue-600 hover:bg-blue-50 transition-all cursor-default shadow-sm">
-                  <ShieldCheck className="w-3.5 h-3.5 text-blue-500 group-hover:text-blue-600" />
-                  {std}
-                </span>
+        {/* ── SECTION 3: SERVICE CAPABILITIES ─────────────────────────── */}
+        <section id="capabilities" className="py-20 bg-slate-50/70 border-b border-slate-200/80">
+          <div className="container mx-auto px-6 max-w-6xl space-y-12">
+            <div className="max-w-2xl mx-auto text-center space-y-3">
+              <span className="inline-flex items-center gap-2 px-3.5 py-1.5 bg-blue-500/10 border border-blue-500/20 text-blue-600 text-[10px] font-bold uppercase tracking-widest rounded-full">
+                Core Capabilities
+              </span>
+              <h2 className="text-3xl font-black text-slate-900 font-heading leading-tight">
+                Solution Architecture & Advisory Scope
+              </h2>
+              <p className="text-xs sm:text-sm text-slate-500 font-semibold leading-relaxed">
+                Comprehensive, modular capabilities engineered to systematically insulate your enterprise against compliance gaps and operational non-conformance.
+              </p>
+            </div>
+
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {capabilities.map((cap, idx) => (
+                <div
+                  key={idx}
+                  className="bg-white border border-slate-200/90 hover:border-blue-500/40 rounded-3xl p-7 shadow-sm hover:shadow-lg transition-all duration-300 flex flex-col justify-between text-left space-y-5"
+                >
+                  <div className="space-y-3">
+                    <span className="text-[10px] font-black uppercase tracking-widest text-blue-600 bg-blue-50 border border-blue-100/60 px-2.5 py-1 rounded-full inline-block">
+                      Capability {String(idx + 1).padStart(2, '0')}
+                    </span>
+                    <h3 className="font-extrabold text-slate-900 text-base leading-snug">
+                      {cap.title}
+                    </h3>
+                    <p className="text-xs text-slate-600 font-semibold leading-relaxed">
+                      {cap.desc}
+                    </p>
+                  </div>
+                  <div className="p-3.5 bg-blue-500/5 border border-blue-500/15 rounded-2xl">
+                    <span className="text-[9px] font-black uppercase tracking-wider text-blue-700 block mb-1">
+                      Business Value:
+                    </span>
+                    <span className="text-xs font-bold text-slate-800 leading-snug block">
+                      {cap.value}
+                    </span>
+                  </div>
+                </div>
               ))}
             </div>
           </div>
         </section>
 
-        {/* ── Rich Vertical Tabs ───────────────────────────────────── */}
-        <section className="py-16 bg-white border-t border-slate-100">
-          <div className="container mx-auto px-6 max-w-6xl">
-            <div className="text-center mb-10">
-              <span className="inline-flex items-center gap-2 px-3.5 py-1.5 bg-blue-500/10 border border-blue-500/20 text-blue-600 text-[10px] font-bold uppercase tracking-widest rounded-full mb-3">
-                Delivery Models
+        {/* ── SECTION 4: HOW IT WORKS (ENGAGEMENT PROCESS) ────────────── */}
+        <section id="methodology" className="py-20 bg-white border-b border-slate-200/80">
+          <div className="container mx-auto px-6 max-w-6xl space-y-12">
+            <div className="max-w-2xl mx-auto text-center space-y-3">
+              <span className="inline-flex items-center gap-2 px-3.5 py-1.5 bg-blue-500/10 border border-blue-500/20 text-blue-600 text-[10px] font-bold uppercase tracking-widest rounded-full">
+                Structured Engagement
               </span>
-              <h3 className="text-2xl font-black text-slate-900 font-heading">How We Operate {service.title}</h3>
+              <h2 className="text-3xl font-black text-slate-900 font-heading leading-tight">
+                Our 4-Stage Engagement Methodology
+              </h2>
+              <p className="text-xs sm:text-sm text-slate-500 font-semibold leading-relaxed">
+                A disciplined, consultative journey that transitions your organization from initial diagnostic assessment to perpetual governance discipline.
+              </p>
             </div>
 
-            <div className="flex flex-col lg:flex-row gap-8">
-              {/* Left tab buttons */}
-              <div className="lg:w-1/3 space-y-3 text-left">
-                {tabs.map((tab, index) => {
-                  const TabIcon = tab.icon;
-                  const isActive = activeTab === index;
-                  return (
-                    <button
-                      key={index}
-                      onClick={() => handleTabChange(index)}
-                      className={`w-full text-left p-4 rounded-2xl border transition-all duration-300 flex items-center gap-3 ${
-                        isActive
-                          ? "bg-blue-600 text-white border-blue-500 shadow-xl shadow-blue-500/25"
-                          : "bg-slate-50 border-slate-200/80 hover:border-blue-500/50 hover:bg-white hover:shadow-md"
-                      }`}
-                    >
-                      <div className={`w-10 h-10 rounded-xl flex items-center justify-center transition-colors ${isActive ? "bg-white/20" : "bg-blue-500/10"}`}>
-                        <TabIcon className={`w-5 h-5 ${isActive ? "text-white" : "text-blue-600"}`} />
-                      </div>
-                      <span className="font-bold text-xs sm:text-sm uppercase tracking-wide">{tab.title}</span>
-                    </button>
-                  );
-                })}
-              </div>
+            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+              {processStages.map((stage, idx) => (
+                <div
+                  key={idx}
+                  className="bg-slate-50 border border-slate-200/90 rounded-3xl p-6 shadow-sm flex flex-col justify-between text-left space-y-5 hover:border-blue-400 transition-all"
+                >
+                  <div className="space-y-4">
+                    <div className="flex items-center justify-between">
+                      <span className="w-10 h-10 rounded-2xl bg-blue-600 text-white font-black text-sm flex items-center justify-center shadow-md shadow-blue-500/20">
+                        {stage.step}
+                      </span>
+                      <span className="text-[10px] font-black uppercase tracking-widest text-slate-400">
+                        Stage {idx + 1}
+                      </span>
+                    </div>
 
-              {/* Right content panel */}
-              <div ref={tabContentRef} className="lg:w-2/3 text-left">
-                <div className="bg-slate-50 border border-slate-200/80 rounded-3xl p-8 min-h-[420px] flex flex-col justify-between shadow-lg relative overflow-hidden">
-                  <div className="absolute top-0 right-0 w-32 h-32 bg-blue-600/5 rounded-full blur-[40px] -translate-y-1/2 translate-x-1/2" />
-                  <div className="space-y-6 relative z-10">
-                    <h4 className="text-xl sm:text-2xl font-black text-slate-900 font-heading">{tabs[activeTab].title}</h4>
-                    <p className="text-slate-600 text-sm leading-relaxed font-semibold">{tabs[activeTab].description}</p>
-                    <div className="bg-white rounded-2xl p-6 border border-slate-200">
-                      <h5 className="font-extrabold text-blue-600 mb-4 text-sm uppercase tracking-widest">{tabs[activeTab].detailsTitle}</h5>
-                      <ul className="space-y-3">
-                        {tabs[activeTab].details.map((item, idx) => (
-                          <li key={idx} className="flex items-start gap-2.5 text-xs sm:text-sm text-slate-600 font-semibold leading-relaxed">
-                            <CheckCircle2 className="w-4 h-4 text-emerald-500 mt-0.5 flex-shrink-0" />
-                            <span>{item}</span>
+                    <div>
+                      <h3 className="font-extrabold text-slate-900 text-lg leading-snug">
+                        {stage.name}
+                      </h3>
+                      <p className="text-xs text-slate-500 font-bold mt-1">
+                        {stage.objective}
+                      </p>
+                    </div>
+
+                    <div className="space-y-2 pt-2 border-t border-slate-200">
+                      <span className="text-[9px] font-black uppercase tracking-wider text-slate-400 block">
+                        Core Activities:
+                      </span>
+                      <ul className="space-y-2">
+                        {stage.activities.map((act, i) => (
+                          <li key={i} className="text-xs text-slate-600 font-semibold flex items-start gap-2 leading-relaxed">
+                            <CheckCircle2 className="w-3.5 h-3.5 text-blue-600 shrink-0 mt-0.5" />
+                            <span>{act}</span>
                           </li>
                         ))}
                       </ul>
                     </div>
                   </div>
+
+                  <div className="pt-3 border-t border-slate-200">
+                    <span className="text-[9px] font-black uppercase tracking-wider text-blue-700 block">
+                      Target Deliverable:
+                    </span>
+                    <span className="text-xs font-bold text-slate-900 mt-0.5 block leading-tight">
+                      {stage.deliverable}
+                    </span>
+                  </div>
                 </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* ── SECTION 5: BENEFITS & OUTCOMES ──────────────────────────── */}
+        <section id="outcomes" className="py-20 bg-gradient-to-br from-slate-900 via-slate-900 to-blue-950 text-white border-b border-blue-900/30">
+          <div className="container mx-auto px-6 max-w-6xl space-y-12">
+            <div className="max-w-2xl mx-auto text-center space-y-3">
+              <span className="inline-flex items-center gap-2 px-3.5 py-1.5 bg-blue-500/20 border border-blue-500/30 text-blue-300 text-[10px] font-bold uppercase tracking-widest rounded-full">
+                Value Realization
+              </span>
+              <h2 className="text-3xl font-black text-white font-heading leading-tight">
+                Measurable Business Outcomes
+              </h2>
+              <p className="text-xs sm:text-sm text-blue-200/80 font-semibold leading-relaxed">
+                Concrete enterprise benefits realized through disciplined control implementation, workflow automation, and structured governance.
+              </p>
+            </div>
+
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {outcomes.map((out, idx) => {
+                const IconComp = out.icon;
+                return (
+                  <div
+                    key={idx}
+                    className="bg-slate-800/60 border border-slate-700/80 hover:border-blue-400/50 rounded-3xl p-7 flex flex-col justify-between text-left space-y-4 hover:bg-slate-800/90 transition-all duration-300"
+                  >
+                    <div className="space-y-3">
+                      <div className="w-11 h-11 rounded-2xl bg-blue-500/20 border border-blue-500/30 flex items-center justify-center text-blue-400">
+                        <IconComp className="w-5 h-5" />
+                      </div>
+                      <h3 className="font-extrabold text-white text-base leading-snug">
+                        {out.title}
+                      </h3>
+                      <p className="text-xs text-blue-100/70 font-semibold leading-relaxed">
+                        {out.desc}
+                      </p>
+                    </div>
+                    <div className="pt-3 border-t border-slate-700/60 flex items-center gap-2 text-blue-300 text-xs font-bold">
+                      <Check className="w-4 h-4 text-emerald-400" />
+                      <span>{out.highlight}</span>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        </section>
+
+        {/* ── SECTION 6: TRUST & GOVERNANCE ───────────────────────────── */}
+        <section id="governance" className="py-20 bg-white border-b border-slate-200/80">
+          <div className="container mx-auto px-6 max-w-6xl space-y-12">
+            <div className="max-w-2xl mx-auto text-center space-y-3">
+              <span className="inline-flex items-center gap-2 px-3.5 py-1.5 bg-blue-500/10 border border-blue-500/20 text-blue-600 text-[10px] font-bold uppercase tracking-widest rounded-full">
+                Institutional Rigor
+              </span>
+              <h2 className="text-3xl font-black text-slate-900 font-heading leading-tight">
+                Trust, Compliance & Evidence Integrity
+              </h2>
+              <p className="text-xs sm:text-sm text-slate-500 font-semibold leading-relaxed">
+                How Govnics ensures regulatory defensibility, peer-reviewed methodologies, and airtight evidence governance for external auditor and board review.
+              </p>
+            </div>
+
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {trustPillars.map((tp, idx) => {
+                const IconComp = tp.icon;
+                return (
+                  <div
+                    key={idx}
+                    className="p-7 rounded-3xl bg-slate-50/70 border border-slate-200/90 hover:bg-white hover:border-blue-400 hover:shadow-lg transition-all text-left space-y-3"
+                  >
+                    <div className="w-10 h-10 rounded-xl bg-blue-50 flex items-center justify-center text-blue-600">
+                      <IconComp className="w-5 h-5" />
+                    </div>
+                    <h3 className="font-extrabold text-slate-900 text-sm">{tp.title}</h3>
+                    <p className="text-xs text-slate-600 font-semibold leading-relaxed">{tp.desc}</p>
+                  </div>
+                );
+              })}
+            </div>
+
+            {/* Applicable Standards Pills Banner */}
+            <div className="bg-slate-900 text-white rounded-3xl p-8 flex flex-col md:flex-row items-center justify-between gap-6">
+              <div className="space-y-1 text-left">
+                <span className="text-[10px] font-black uppercase tracking-widest text-blue-400">Statutory Alignment</span>
+                <h4 className="text-lg font-black font-heading">Recognized Regulatory Baselines</h4>
+                <p className="text-xs text-slate-400 font-semibold">Controls pre-configured to satisfy the following verified standards:</p>
+              </div>
+              <div className="flex flex-wrap gap-2">
+                {service.standards.map((std, i) => (
+                  <span key={i} className="px-3.5 py-1.5 bg-slate-800 border border-slate-700 rounded-full text-xs font-bold text-blue-300">
+                    {std}
+                  </span>
+                ))}
               </div>
             </div>
           </div>
         </section>
 
-        {/* ── Pre-Calibrated Sector Implementations ───────────────── */}
-        {relatedIndustries.length > 0 && (
-          <section className="py-16 bg-slate-50/20 border-t border-slate-100">
-            <div className="container mx-auto px-6 max-w-6xl text-center space-y-8">
-              <div className="max-w-2xl mx-auto space-y-3">
+        {/* ── SECTION 7: FAQS ─────────────────────────────────────────── */}
+        <section id="faqs" className="py-20 bg-slate-50 border-b border-slate-200/80">
+          <div className="container mx-auto px-6 max-w-4xl space-y-12">
+            <div className="text-center space-y-3">
+              <span className="inline-flex items-center gap-2 px-3.5 py-1.5 bg-blue-500/10 border border-blue-500/20 text-blue-600 text-[10px] font-bold uppercase tracking-widest rounded-full">
+                Clear Answers
+              </span>
+              <h2 className="text-3xl font-black text-slate-900 font-heading leading-tight">
+                Frequently Asked Questions
+              </h2>
+              <p className="text-xs sm:text-sm text-slate-500 font-semibold leading-relaxed">
+                Key questions enterprise leaders ask about scope, timelines, deliverables, and operational accountability.
+              </p>
+            </div>
+
+            <div className="space-y-3">
+              {faqs.map((faq, idx) => {
+                const isOpen = openFaq === idx;
+                return (
+                  <div
+                    key={idx}
+                    className="bg-white border border-slate-200/90 rounded-2xl overflow-hidden shadow-sm transition-all"
+                  >
+                    <button
+                      onClick={() => setOpenFaq(isOpen ? null : idx)}
+                      className="w-full text-left px-6 py-4.5 flex items-center justify-between gap-4 font-bold text-slate-900 text-sm hover:text-blue-600 transition-colors"
+                    >
+                      <span className="flex items-center gap-2.5">
+                        <HelpCircle className="w-4 h-4 text-blue-500 shrink-0" />
+                        <span>{faq.q}</span>
+                      </span>
+                      <ChevronDown className={`w-4 h-4 text-slate-400 transition-transform duration-300 shrink-0 ${isOpen ? "rotate-180 text-blue-600" : ""}`} />
+                    </button>
+                    {isOpen && (
+                      <div className="px-6 pb-5 pt-1 text-xs sm:text-sm text-slate-600 leading-relaxed font-semibold border-t border-slate-100 bg-slate-50/50">
+                        {faq.a}
+                      </div>
+                    )}
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        </section>
+
+        {/* ── SECTION 8: RELATED SERVICES ─────────────────────────────── */}
+        {relatedServices.length > 0 && (
+          <section id="related-services" className="py-20 bg-white border-b border-slate-200/80">
+            <div className="container mx-auto px-6 max-w-6xl space-y-12">
+              <div className="max-w-2xl mx-auto text-center space-y-3">
                 <span className="inline-flex items-center gap-2 px-3.5 py-1.5 bg-blue-500/10 border border-blue-500/20 text-blue-600 text-[10px] font-bold uppercase tracking-widest rounded-full">
-                  Industry Calibrations
+                  Portfolio Synergy
                 </span>
-                <h3 className="text-2xl font-bold text-slate-900 font-heading">Pre-Calibrated Sector Implementations</h3>
-                <p className="text-xs text-slate-500 leading-relaxed font-semibold">
-                  This compliance service is customized and fully operational for the following target industries.
+                <h2 className="text-3xl font-black text-slate-900 font-heading leading-tight">
+                  Complementary GRC Services
+                </h2>
+                <p className="text-xs sm:text-sm text-slate-500 font-semibold leading-relaxed">
+                  Naturally connecting services from the Govnics practice that strengthen your organization's overarching governance perimeter.
                 </p>
               </div>
-              {relatedIndustries.length > 3 ? (
-                <GrcCarousel
-                  items={relatedIndustries.map((ind) => {
-                    const IconComp = ind.icon;
-                    return (
+
+              <div className="grid md:grid-cols-3 gap-6">
+                {relatedServices.map((rs) => (
+                  <div
+                    key={rs.id}
+                    className="group bg-white border border-slate-200/90 hover:border-blue-500/50 rounded-3xl p-7 shadow-sm hover:shadow-xl transition-all flex flex-col justify-between text-left space-y-5"
+                  >
+                    <div className="space-y-3">
+                      <span className="text-[10px] font-black uppercase tracking-wider text-blue-600 bg-blue-50 px-2.5 py-1 rounded-full inline-block">
+                        {rs.category}
+                      </span>
+                      <h3 className="font-extrabold text-slate-900 text-base group-hover:text-blue-600 transition-colors">
+                        {rs.title}
+                      </h3>
+                      <p className="text-xs text-slate-600 font-semibold leading-relaxed line-clamp-3">
+                        {rs.problem}
+                      </p>
+                    </div>
+
+                    <div className="pt-3 border-t border-slate-100 flex items-center justify-between">
+                      <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">
+                        {rs.standards[0] || "Statutory"}
+                      </span>
                       <Link
-                        key={ind.id}
-                        to={`/industries/${getClusterId(ind.cluster)}#${ind.id}`}
-                        className="flex flex-col items-center gap-3 p-5 bg-white border border-slate-200/80 hover:border-blue-500/25 rounded-3xl group transition-all hover:scale-[1.03] hover:shadow-md text-center h-full justify-center select-none"
+                        to={`/services/${rs.id}`}
+                        className="inline-flex items-center gap-1 text-xs font-bold text-blue-600 hover:text-blue-700"
                       >
-                        <div className="p-3 bg-blue-500/10 text-blue-600 rounded-2xl group-hover:bg-blue-600 group-hover:text-white transition-colors shrink-0">
-                          <IconComp className="w-5 h-5" />
-                        </div>
-                        <div className="space-y-0.5">
-                          <div className="text-xs font-black text-slate-900 group-hover:text-blue-600 transition-colors uppercase tracking-wider">{ind.title}</div>
-                          <div className="text-[9px] text-slate-400 font-bold uppercase tracking-widest">Solutions &rarr;</div>
-                        </div>
+                        Explore Service <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
                       </Link>
-                    );
-                  })}
-                />
-              ) : (
-                <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
-                  {relatedIndustries.map((ind) => {
-                    const IconComp = ind.icon;
-                    return (
-                      <Link
-                        key={ind.id}
-                        to={`/industries/${getClusterId(ind.cluster)}#${ind.id}`}
-                        className="flex flex-col items-center gap-3 p-5 bg-white border border-slate-200/80 hover:border-blue-500/25 rounded-3xl group transition-all hover:scale-[1.03] hover:shadow-md"
-                      >
-                        <div className="p-3 bg-blue-500/10 text-blue-600 rounded-2xl group-hover:bg-blue-600 group-hover:text-white transition-colors shrink-0">
-                          <IconComp className="w-5 h-5" />
-                        </div>
-                        <div className="space-y-0.5">
-                          <div className="text-xs font-black text-slate-900 group-hover:text-blue-600 transition-colors uppercase tracking-wider">{ind.title}</div>
-                          <div className="text-[9px] text-slate-400 font-bold uppercase tracking-widest">Solutions &rarr;</div>
-                        </div>
-                      </Link>
-                    );
-                  })}
+                    </div>
+                  </div>
+                ))}
+              </div>
+
+              {/* Target Industry Applications */}
+              {relatedIndustries.length > 0 && (
+                <div className="pt-10 border-t border-slate-100 space-y-6">
+                  <div className="text-left space-y-1">
+                    <span className="text-[10px] font-black uppercase tracking-widest text-blue-600">Sector Solutions</span>
+                    <h3 className="text-lg font-bold text-slate-900 font-heading">Pre-Calibrated Sector Deployments</h3>
+                    <p className="text-xs text-slate-500 font-semibold">This service is customized for statutory nuances across the following industries:</p>
+                  </div>
+                  <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3">
+                    {relatedIndustries.map((ind) => {
+                      const IconComp = ind.icon;
+                      return (
+                        <Link
+                          key={ind.id}
+                          to={`/industries/${getClusterId(ind.cluster)}#${ind.id}`}
+                          className="flex flex-col items-center gap-2 p-3.5 bg-slate-50 border border-slate-200/80 hover:border-blue-500/40 hover:bg-white rounded-2xl group transition-all text-center shadow-sm"
+                        >
+                          <div className="p-2 bg-blue-50 text-blue-600 rounded-xl group-hover:bg-blue-600 group-hover:text-white transition-colors">
+                            <IconComp className="w-4 h-4" />
+                          </div>
+                          <span className="text-[11px] font-bold text-slate-700 group-hover:text-blue-600 transition-colors line-clamp-1">{ind.title}</span>
+                        </Link>
+                      );
+                    })}
+                  </div>
                 </div>
               )}
             </div>
           </section>
         )}
 
-        {/* ── Dark CTA Section ─────────────────────────────────────── */}
-        <section className="py-20 bg-gradient-to-br from-slate-900 to-blue-950 border-t border-blue-900/30">
-          <div className="container mx-auto px-6 max-w-3xl text-center space-y-6">
-            <span className="inline-flex items-center gap-2 px-3.5 py-1.5 bg-blue-500/20 border border-blue-500/30 text-blue-300 text-[10px] font-bold uppercase tracking-widest rounded-full">
-              Start Today
-            </span>
-            <h3 className="text-2xl sm:text-3xl md:text-4xl font-black text-white font-heading leading-tight">
-              Ready to secure your posture against regulatory fines?
-            </h3>
-            <p className="text-sm text-blue-200/80 font-semibold max-w-lg mx-auto leading-relaxed">
-              Initiate a tactical gap assessment for <strong className="text-white">{service.title}</strong> with Govenics risk partners and design custom controls that protect your enterprise.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center pt-2">
-              <Link to="/contact">
-                <button className="group inline-flex items-center gap-3 bg-blue-500 hover:bg-blue-400 text-white font-bold px-10 py-4 rounded-2xl shadow-xl shadow-blue-700/30 hover:scale-[1.03] transition-all text-sm tracking-wide">
-                  Schedule {service.title} Audit
-                  <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-                </button>
-              </Link>
-              <Link to="/partners">
-                <button className="group inline-flex items-center gap-3 bg-white/10 hover:bg-white/15 border border-white/20 text-white font-bold px-8 py-4 rounded-2xl transition-all text-sm">
-                  View Partner Program
-                </button>
-              </Link>
+        {/* ── SECTION 9: FINAL CTA & CONSULTATION ENQUIRY FORM ─────────── */}
+        <section id="consultation-form" className="py-24 bg-gradient-to-br from-slate-950 via-slate-900 to-blue-950 text-white relative overflow-hidden">
+          <div className="absolute inset-0 bg-[radial-gradient(#3B82F6_1px,transparent_1px)] [background-size:24px_24px] opacity-10 pointer-events-none" />
+
+          <div className="container mx-auto px-6 max-w-6xl relative z-10">
+            <div className="grid lg:grid-cols-12 gap-12 items-center">
+
+              {/* Left Column: Value Proposition & Contact Details */}
+              <div className="lg:col-span-6 space-y-6 text-left">
+                <span className="inline-flex items-center gap-2 px-3.5 py-1.5 bg-blue-500/20 border border-blue-500/30 text-blue-300 text-[10px] font-bold uppercase tracking-widest rounded-full">
+                  Direct Partner Access
+                </span>
+                <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-white font-heading leading-tight">
+                  Ready to Fortify Your {service.title}?
+                </h2>
+                <p className="text-sm sm:text-base text-blue-200/80 font-semibold leading-relaxed">
+                  Initiate a structured consultation with Govnics risk partners. We evaluate your operational baseline, review relevant statutory exposure, and outline an actionable roadmap toward 100% audit defensibility.
+                </p>
+
+                <div className="space-y-3 pt-2">
+                  <div className="flex items-center gap-3 text-xs sm:text-sm font-bold text-white">
+                    <CheckCircle2 className="w-5 h-5 text-emerald-400 shrink-0" />
+                    <span>Non-disclosure agreement (NDA) protected preliminary discovery</span>
+                  </div>
+                  <div className="flex items-center gap-3 text-xs sm:text-sm font-bold text-white">
+                    <CheckCircle2 className="w-5 h-5 text-emerald-400 shrink-0" />
+                    <span>Cross-referenced against all applicable central & state statutes</span>
+                  </div>
+                  <div className="flex items-center gap-3 text-xs sm:text-sm font-bold text-white">
+                    <CheckCircle2 className="w-5 h-5 text-emerald-400 shrink-0" />
+                    <span>Clear engagement milestones with fixed delivery timelines</span>
+                  </div>
+                </div>
+
+                <div className="pt-4 border-t border-slate-800 flex flex-wrap gap-6 text-xs text-slate-400">
+                  <div className="flex items-center gap-2">
+                    <Mail className="w-4 h-4 text-blue-400" />
+                    <span>contact@govenics.com</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <Phone className="w-4 h-4 text-blue-400" />
+                    <span>+91 98840 50000</span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Right Column: Interactive Consultation Enquiry Form */}
+              <div className="lg:col-span-6">
+                <div className="bg-white rounded-3xl p-8 sm:p-10 shadow-2xl text-slate-800 border border-slate-200">
+                  {formSubmitted ? (
+                    <div className="text-center py-10 space-y-4">
+                      <div className="w-16 h-16 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center mx-auto">
+                        <Check className="w-8 h-8" />
+                      </div>
+                      <h3 className="text-2xl font-black text-slate-900 font-heading">Consultation Request Received</h3>
+                      <p className="text-xs sm:text-sm text-slate-600 font-semibold max-w-sm mx-auto leading-relaxed">
+                        Thank you, <strong className="text-slate-900">{formData.name}</strong>. A Govnics Senior Advisory Partner will review your operational requirements for <strong className="text-slate-900">{formData.serviceInterest}</strong> and contact you within 1 business day.
+                      </p>
+                      <button
+                        onClick={() => setFormSubmitted(false)}
+                        className="px-6 py-2.5 bg-slate-100 hover:bg-slate-200 rounded-xl text-xs font-bold text-slate-700 transition-colors"
+                      >
+                        Submit Another Request
+                      </button>
+                    </div>
+                  ) : (
+                    <form onSubmit={handleFormSubmit} className="space-y-4 text-left">
+                      <div className="mb-2">
+                        <span className="text-[10px] font-black text-blue-600 uppercase tracking-widest block">
+                          Enterprise Consultation
+                        </span>
+                        <h3 className="text-xl font-black text-slate-900 font-heading">
+                          Request Executive Briefing
+                        </h3>
+                      </div>
+
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div>
+                          <label className="block text-[11px] font-bold text-slate-700 uppercase tracking-wider mb-1">
+                            Your Name *
+                          </label>
+                          <div className="relative">
+                            <User className="w-4 h-4 text-slate-400 absolute left-3 top-3.5" />
+                            <input
+                              type="text"
+                              required
+                              value={formData.name}
+                              onChange={e => setFormData({ ...formData, name: e.target.value })}
+                              placeholder="e.g. Rahul Sharma"
+                              className="w-full pl-9 pr-3 py-2.5 rounded-xl border border-slate-200 text-xs font-semibold focus:outline-none focus:border-blue-600 transition-colors"
+                            />
+                          </div>
+                        </div>
+
+                        <div>
+                          <label className="block text-[11px] font-bold text-slate-700 uppercase tracking-wider mb-1">
+                            Company / Entity *
+                          </label>
+                          <div className="relative">
+                            <Building2 className="w-4 h-4 text-slate-400 absolute left-3 top-3.5" />
+                            <input
+                              type="text"
+                              required
+                              value={formData.company}
+                              onChange={e => setFormData({ ...formData, company: e.target.value })}
+                              placeholder="e.g. Acme Enterprises Ltd"
+                              className="w-full pl-9 pr-3 py-2.5 rounded-xl border border-slate-200 text-xs font-semibold focus:outline-none focus:border-blue-600 transition-colors"
+                            />
+                          </div>
+                        </div>
+                      </div>
+
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div>
+                          <label className="block text-[11px] font-bold text-slate-700 uppercase tracking-wider mb-1">
+                            Corporate Email *
+                          </label>
+                          <div className="relative">
+                            <Mail className="w-4 h-4 text-slate-400 absolute left-3 top-3.5" />
+                            <input
+                              type="email"
+                              required
+                              value={formData.email}
+                              onChange={e => setFormData({ ...formData, email: e.target.value })}
+                              placeholder="name@company.com"
+                              className="w-full pl-9 pr-3 py-2.5 rounded-xl border border-slate-200 text-xs font-semibold focus:outline-none focus:border-blue-600 transition-colors"
+                            />
+                          </div>
+                        </div>
+
+                        <div>
+                          <label className="block text-[11px] font-bold text-slate-700 uppercase tracking-wider mb-1">
+                            Phone Number *
+                          </label>
+                          <div className="relative">
+                            <Phone className="w-4 h-4 text-slate-400 absolute left-3 top-3.5" />
+                            <input
+                              type="tel"
+                              required
+                              value={formData.phone}
+                              onChange={e => setFormData({ ...formData, phone: e.target.value })}
+                              placeholder="+91 98000 00000"
+                              className="w-full pl-9 pr-3 py-2.5 rounded-xl border border-slate-200 text-xs font-semibold focus:outline-none focus:border-blue-600 transition-colors"
+                            />
+                          </div>
+                        </div>
+                      </div>
+
+                      <div>
+                        <label className="block text-[11px] font-bold text-slate-700 uppercase tracking-wider mb-1">
+                          Service Focus Area
+                        </label>
+                        <input
+                          type="text"
+                          readOnly
+                          value={formData.serviceInterest}
+                          className="w-full px-3 py-2.5 rounded-xl bg-slate-100 border border-slate-200 text-xs font-bold text-slate-700 cursor-not-allowed"
+                        />
+                      </div>
+
+                      <div>
+                        <label className="block text-[11px] font-bold text-slate-700 uppercase tracking-wider mb-1">
+                          Operational Scope / Objectives
+                        </label>
+                        <textarea
+                          rows={3}
+                          value={formData.message}
+                          onChange={e => setFormData({ ...formData, message: e.target.value })}
+                          placeholder="Briefly describe your facilities, timeline, or current compliance pain points..."
+                          className="w-full p-3 rounded-xl border border-slate-200 text-xs font-semibold focus:outline-none focus:border-blue-600 transition-colors resize-none"
+                        />
+                      </div>
+
+                      <button
+                        type="submit"
+                        className="w-full py-4 bg-blue-600 hover:bg-blue-700 text-white font-extrabold text-sm rounded-xl transition-all shadow-lg shadow-blue-500/25 flex items-center justify-center gap-2 group hover:scale-[1.01]"
+                      >
+                        <span>Schedule Enterprise Consultation</span>
+                        <Send className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                      </button>
+
+                      <p className="text-[10px] text-slate-400 text-center font-semibold pt-1">
+                        All inquiries are treated under non-disclosure obligations. No spam, ever.
+                      </p>
+                    </form>
+                  )}
+                </div>
+              </div>
+
             </div>
           </div>
         </section>
 
       </div>
     </Layout>
+  );
+}
+
+// Icon helper component
+function SearchIconComponent({ className }: { className?: string }) {
+  return (
+    <svg className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+    </svg>
   );
 }
