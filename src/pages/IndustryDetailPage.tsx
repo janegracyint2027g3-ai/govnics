@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useParams, Link } from "react-router-dom";
 import { Layout } from "@/components/layout/Layout";
 import { industriesData } from "@/data/industries-data";
@@ -17,6 +17,181 @@ import heroSoc from "@/assets/hero-soc.jpg";
 import heroDrone from "@/assets/hero-drone.jpg";
 import heroFacility from "@/assets/verticals-facility.jpg";
 import heroCommand from "@/assets/command_center_1.jpg";
+import heroVerify from "@/assets/hero-verify.jpg";
+import heroAiDriven from "@/assets/hero-ai-driven.jpg";
+import heroIntegration from "@/assets/hero-integration.jpg";
+
+// ── Animated Industry Visual Panel ────────────────────────────────────────────
+function AnimatedIndustryPanel({ sectorTitle, clusterName }: { sectorId: string; sectorTitle: string; clusterName: string }) {
+  const ref = useRef<HTMLDivElement>(null);
+  const [visible, setVisible] = useState(false);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => { if (entry.isIntersecting) setVisible(true); },
+      { threshold: 0.15 }
+    );
+    if (ref.current) observer.observe(ref.current);
+    return () => observer.disconnect();
+  }, []);
+
+  // Map cluster → image + accent colors + label pills
+  const getVisualConfig = () => {
+    const c = clusterName.toLowerCase();
+    if (c.includes("manufacturing")) return {
+      image: heroFacility,
+      gradient: "from-blue-900/80 via-blue-800/60 to-transparent",
+      accent: "bg-blue-500",
+      ring: "border-blue-400",
+      pills: ["ISO 45001", "Factories Act", "EHS Compliance", "Safety Audit"],
+      tag: "Industrial GRC",
+      tagColor: "bg-blue-600",
+    };
+    if (c.includes("technology")) return {
+      image: heroAiDriven,
+      gradient: "from-violet-900/80 via-violet-800/60 to-transparent",
+      accent: "bg-violet-500",
+      ring: "border-violet-400",
+      pills: ["CERT-In", "DPDP Act", "ISO 27001", "SOC 2"],
+      tag: "Tech & Cyber GRC",
+      tagColor: "bg-violet-600",
+    };
+    if (c.includes("infrastructure")) return {
+      image: heroDrone,
+      gradient: "from-slate-900/80 via-slate-800/60 to-transparent",
+      accent: "bg-orange-500",
+      ring: "border-orange-400",
+      pills: ["BOCW Act", "PCB Consent", "RERA", "EIA Norms"],
+      tag: "Construction GRC",
+      tagColor: "bg-orange-600",
+    };
+    if (c.includes("energy")) return {
+      image: heroSoc,
+      gradient: "from-emerald-900/80 via-emerald-800/60 to-transparent",
+      accent: "bg-emerald-500",
+      ring: "border-emerald-400",
+      pills: ["CEA Act", "OERC Rules", "SERC Directives", "ISO 50001"],
+      tag: "Energy & Utilities GRC",
+      tagColor: "bg-emerald-600",
+    };
+    if (c.includes("financial")) return {
+      image: heroCommand,
+      gradient: "from-indigo-900/80 via-indigo-800/60 to-transparent",
+      accent: "bg-indigo-500",
+      ring: "border-indigo-400",
+      pills: ["RBI Master", "SEBI LODR", "IRDAI", "PMLA Rules"],
+      tag: "BFSI Regulatory GRC",
+      tagColor: "bg-indigo-600",
+    };
+    if (c.includes("healthcare")) return {
+      image: heroVerify,
+      gradient: "from-rose-900/80 via-rose-800/60 to-transparent",
+      accent: "bg-rose-500",
+      ring: "border-rose-400",
+      pills: ["CDSCO Rules", "PCPNDT Act", "WHO-GMP", "Clinical Trials"],
+      tag: "Healthcare & Life Sciences GRC",
+      tagColor: "bg-rose-600",
+    };
+    if (c.includes("consumer") || c.includes("retail")) return {
+      image: heroIntegration,
+      gradient: "from-amber-900/80 via-amber-800/60 to-transparent",
+      accent: "bg-amber-500",
+      ring: "border-amber-400",
+      pills: ["FSSAI", "BIS Standards", "Consumer Protection", "GST Compliance"],
+      tag: "Consumer & Retail GRC",
+      tagColor: "bg-amber-600",
+    };
+    // media/services default
+    return {
+      image: heroDrone,
+      gradient: "from-sky-900/80 via-sky-800/60 to-transparent",
+      accent: "bg-sky-500",
+      ring: "border-sky-400",
+      pills: ["TRAI Rules", "IT Act", "DPDP Act", "Broadcast Code"],
+      tag: "Media & Services GRC",
+      tagColor: "bg-sky-600",
+    };
+  };
+
+  const cfg = getVisualConfig();
+
+  return (
+    <div
+      ref={ref}
+      className={`container mx-auto px-6 max-w-6xl pt-8 pb-2 transition-all duration-700 ${
+        visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
+      }`}
+    >
+      <div className="relative rounded-3xl overflow-hidden shadow-2xl h-[280px] sm:h-[340px]">
+        {/* Background image */}
+        <img
+          src={cfg.image}
+          alt={sectorTitle}
+          className="absolute inset-0 w-full h-full object-cover scale-105 transition-transform duration-[8s] hover:scale-100"
+        />
+        {/* Gradient overlay */}
+        <div className={`absolute inset-0 bg-gradient-to-r ${cfg.gradient}`} />
+
+        {/* Floating animated orbs */}
+        <div className={`absolute top-6 right-10 w-24 h-24 rounded-full ${cfg.accent} opacity-20 blur-2xl animate-pulse`} />
+        <div className={`absolute bottom-8 right-24 w-16 h-16 rounded-full ${cfg.accent} opacity-15 blur-xl`}
+          style={{ animation: "pulse 3s ease-in-out 1s infinite" }} />
+        <div className={`absolute top-1/2 right-1/3 w-8 h-8 rounded-full border-2 ${cfg.ring} opacity-40`}
+          style={{ animation: "spin 8s linear infinite" }} />
+
+        {/* Pulsing ring around sector icon */}
+        <div className="absolute top-6 right-6 flex items-center justify-center">
+          <div className={`w-14 h-14 rounded-2xl bg-white/10 border border-white/30 backdrop-blur-sm flex items-center justify-center`}
+            style={{ animation: "pulse 2.5s ease-in-out infinite" }}
+          >
+            <ShieldCheck className="w-7 h-7 text-white" />
+          </div>
+        </div>
+
+        {/* Content overlay */}
+        <div className="absolute inset-0 flex flex-col justify-end p-7">
+          <span className={`inline-flex self-start items-center px-3 py-1 ${cfg.tagColor} text-white text-[10px] font-black uppercase tracking-widest rounded-full mb-3 shadow-lg`}>
+            {cfg.tag}
+          </span>
+          <h4 className="text-white font-black text-2xl sm:text-3xl font-heading leading-tight drop-shadow-xl">
+            {sectorTitle} <span className="text-white/70">Compliance</span>
+          </h4>
+          <p className="text-white/70 text-xs font-semibold mt-1 max-w-sm">
+            Fully calibrated GRC framework for {sectorTitle} within {clusterName}.
+          </p>
+
+          {/* Animated regulation pills */}
+          <div className="flex flex-wrap gap-2 mt-4">
+            {cfg.pills.map((pill, i) => (
+              <span
+                key={i}
+                className="px-2.5 py-1 bg-white/15 backdrop-blur-sm border border-white/20 text-white text-[10px] font-bold rounded-full"
+                style={{ animationDelay: `${i * 0.15}s`, animation: visible ? `fadeInUp 0.5s ease forwards ${i * 0.12}s` : "none", opacity: visible ? 1 : 0 }}
+              >
+                {pill}
+              </span>
+            ))}
+          </div>
+        </div>
+
+        {/* Floating dots pattern */}
+        <div className="absolute top-4 left-1/2 flex gap-1.5">
+          {[...Array(5)].map((_, i) => (
+            <div key={i} className={`w-1.5 h-1.5 rounded-full bg-white opacity-30`}
+              style={{ animation: `pulse ${1.5 + i * 0.3}s ease-in-out infinite`, animationDelay: `${i * 0.2}s` }} />
+          ))}
+        </div>
+      </div>
+
+      <style>{`
+        @keyframes fadeInUp {
+          from { opacity: 0; transform: translateY(10px); }
+          to   { opacity: 1; transform: translateY(0); }
+        }
+      `}</style>
+    </div>
+  );
+}
 
 export default function IndustryDetailPage() {
   const { clusterId } = useParams<{ clusterId: string }>();
@@ -369,6 +544,13 @@ export default function IndustryDetailPage() {
                     })}
                   </div>
                 </div>
+
+                {/* Animated Industry Visual Panel */}
+                <AnimatedIndustryPanel
+                  sectorId={sector.id}
+                  sectorTitle={sector.title}
+                  clusterName={clusterName}
+                />
 
                 {/* GRC Offerings (Portfolio Grid) */}
                 <div className="container mx-auto px-6 max-w-6xl pt-6">
