@@ -22,7 +22,7 @@ export default function ManpowerServiceDetailPage() {
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: "smooth" });
     if (service) {
-      document.title = `${service.title} | Managed Staffing — GOVENICS`;
+      document.title = `${service.heroTitle} | Managed Staffing — GOVENICS`;
       const metaDesc = document.querySelector('meta[name="description"]');
       const descContent = `${service.shortDescription} Risk-compliant staffing and operational workforce solutions across India with GOVENICS.`;
       if (metaDesc) {
