@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { Layout } from "@/components/layout/Layout";
 import { GrcCarousel } from "@/components/ui/GrcCarousel";
+import { GrcStatCards, type GrcStatCardItem } from "@/components/ui/GrcStatCards";
 import { 
   screeningPhases, 
   skillTiers, 
@@ -23,7 +24,8 @@ import {
   Activity, 
   TrendingUp, 
   ShieldCheck, 
-  Building2
+  Building2,
+  Users
 } from "lucide-react";
 import heroVerify from "@/assets/hero-verify.jpg";
 import heroCommand from "@/assets/command_center_1.jpg";
@@ -145,11 +147,11 @@ export default function ManageStaffingPage() {
     }
   ];
 
-  const stats = [
-    { value: "↓ 40", suffix: "%", label: "Average Sourcing Cost Reduction" },
-    { value: "98.6", suffix: "%", label: "SLA-Backed Fill Rate" },
-    { value: "100", suffix: "%", label: "Statutory Payroll Compliance" },
-    { value: "12,000", suffix: "+", label: "Pre-Vetted Talent Pool" }
+  const stats: GrcStatCardItem[] = [
+    { value: "↓ 40", suffix: "%", label: "Average Sourcing Cost Reduction", icon: TrendingUp, badge: "Efficiency", description: "Consolidated MSP rate cards and streamlined pre-screening" },
+    { value: "98.6", suffix: "%", label: "SLA-Backed Fill Rate", icon: Award, badge: "Velocity", description: "Rapid turnaround on critical mandates with 90-day replacement" },
+    { value: "100", suffix: "%", label: "Statutory Payroll Compliance", icon: ShieldCheck, badge: "Zero-Risk", description: "Zero co-employment liability with complete EPF, ESIC & CLRA adherence" },
+    { value: "12,000", suffix: "+", label: "Pre-Vetted Talent Pool", icon: Users, badge: "Scale", description: "Verified blue, grey, and white-collar personnel across 28 states" }
   ];
 
   // Slider 2: Contract Staffing & Sourcing (6 items)
@@ -441,24 +443,8 @@ export default function ManageStaffingPage() {
             ))}
           />
         </section>
-        {/* Panel 2: Statistics Grid */}
-        <section className="py-8 relative overflow-hidden bg-slate-50 border-b border-slate-200/50">
-          <div className="container mx-auto px-6 max-w-6xl">
-            <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
-              {stats.map((stat, index) => (
-                <div key={index} className="bg-white border border-slate-200/80 rounded-2xl p-5 shadow-sm text-center flex flex-col items-center">
-                  <div className="text-2xl font-black text-slate-900 leading-none">
-                    {stat.value}
-                    <span className="text-blue-600 text-lg font-bold">{stat.suffix}</span>
-                  </div>
-                  <div className="text-[10px] font-black text-slate-400 uppercase tracking-wider mt-2">
-                    {stat.label}
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
+        {/* Panel 2: Statistics Grid Cards */}
+        <GrcStatCards stats={stats} />
 
         {/* THE DEFINITIVE COMPENDIUM OF MANPOWER STAFFING & SERVICES */}
         <section className="py-16 bg-slate-50/30 border-b border-slate-200/50">

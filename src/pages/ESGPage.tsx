@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { Layout } from "@/components/layout/Layout";
 import { GrcCarousel } from "@/components/ui/GrcCarousel";
+import { GrcStatCards, type GrcStatCardItem } from "@/components/ui/GrcStatCards";
 import { 
   CheckCircle2, ShieldCheck, ClipboardCheck, Clock, BarChart3,
   ArrowRight, Leaf, ChevronRight
@@ -197,11 +198,11 @@ export default function ESGPage() {
     }
   ];
 
-  const stats = [
-    { value: "0", suffix: " Deviation", label: "BRSR Filing Audits Pass Rate", icon: ShieldCheck },
-    { value: "↓ 25", suffix: "%", label: "Reporting Telemetry Overhead", icon: Clock },
-    { value: "100", suffix: "%", label: "Supply Chain Social Compliance", icon: ClipboardCheck },
-    { value: "SEBI", suffix: " Mapped", label: "Core Reporting Alignment", icon: BarChart3 }
+  const stats: GrcStatCardItem[] = [
+    { value: "0", suffix: " Dev", label: "BRSR Filing Audit Deviation", icon: ShieldCheck, badge: "Precision", description: "First-attempt regulatory clearance across SEBI core indicators" },
+    { value: "↓ 25", suffix: "%", label: "Reporting Telemetry Overhead", icon: Clock, badge: "Efficiency", description: "Automated utilities data ingestion replacing manual spreadsheets" },
+    { value: "100", suffix: "%", label: "Supply Chain Social Adherence", icon: ClipboardCheck, badge: "Assurance", description: "Strict SMETA & SA8000 contractor wage and safety verification" },
+    { value: "SEBI", suffix: " Core", label: "Mandatory Indicators Mapped", icon: BarChart3, badge: "Taxonomy", description: "Pre-calibrated BRSR reporting schemas for top-1000 listed firms" }
   ];
 
   // Slider 2: Environmental & EHS Regulatory (5 items)
@@ -493,30 +494,8 @@ export default function ESGPage() {
           />
         </section>
 
-        {/* Panel 2: Statistics Grid (Compact & Glassmorphic) */}
-        <section className="py-8 relative overflow-hidden bg-slate-50 border-b border-slate-200/50">
-          <div className="container mx-auto px-6 max-w-6xl">
-            <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
-              {stats.map((stat, index) => {
-                const StatIcon = stat.icon;
-                return (
-                  <div key={index} className="bg-white border border-slate-200/80 rounded-2xl p-5 shadow-sm text-center flex flex-col items-center">
-                    <div className="w-10 h-10 rounded-xl bg-blue-50 flex items-center justify-center mb-3 text-blue-600">
-                      <StatIcon className="w-5 h-5" />
-                    </div>
-                    <div className="text-2xl font-black text-slate-900 leading-none">
-                      {stat.value}
-                      <span className="text-blue-600 text-lg font-bold">{stat.suffix}</span>
-                    </div>
-                    <div className="text-[10px] font-black text-slate-400 uppercase tracking-wider mt-2">
-                      {stat.label}
-                    </div>
-                  </div>
-                );
-              })}
-            </div>
-          </div>
-        </section>
+        {/* Panel 2: Statistics Grid Cards */}
+        <GrcStatCards stats={stats} />
 
         {/* Content Sliders */}
         <div className="container mx-auto px-6 max-w-7xl pt-16 space-y-20">

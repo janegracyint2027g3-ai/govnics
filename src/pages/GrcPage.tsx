@@ -3,8 +3,9 @@ import { Layout } from "@/components/layout/Layout";
 import { GrcCarousel } from "@/components/ui/GrcCarousel";
 import { GrcStatCards, type GrcStatCardItem } from "@/components/ui/GrcStatCards";
 import { servicesData } from "@/data/services-data";
+import { manpowerServicesData } from "@/data/manpower-services-data";
 import { Link } from "react-router-dom";
-import { Shield, ArrowRight, CheckCircle2, ChevronRight, Briefcase, FileText, Scale, Settings, ShieldCheck, Clock } from "lucide-react";
+import { Shield, ArrowRight, CheckCircle2, ChevronRight, Briefcase, FileText, Scale, Settings, ShieldCheck, Clock, Users } from "lucide-react";
 import heroVerify from "@/assets/hero-verify.jpg";
 import heroAiDriven from "@/assets/hero-ai-driven.jpg";
 import heroCommand from "@/assets/command_center_1.jpg";
@@ -189,6 +190,79 @@ export default function GrcPage() {
     renderServiceCard("clinical-governance", <Shield className="w-5 h-5" />)
   ].filter(Boolean) as React.ReactNode[];
 
+  // Helper for Manpower Staffing Cards
+  const renderManpowerCard = (serviceId: string, icon: React.ReactNode) => {
+    const serv = manpowerServicesData.find(s => s.id === serviceId);
+    if (!serv) return null;
+    return (
+      <div className="group h-full relative bg-white border border-slate-200/80 hover:border-blue-500/30 rounded-3xl transition-all duration-300 flex flex-col justify-between overflow-hidden shadow-md hover:shadow-xl p-6 select-none min-h-[380px]">
+        <div className="absolute inset-0 bg-gradient-to-br from-blue-600/5 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-350" />
+        <div className="space-y-4 relative z-10 text-left">
+          <div className="flex justify-between items-start">
+            <div className="p-2.5 bg-blue-50 border border-blue-100 rounded-xl text-blue-600">
+              {icon}
+            </div>
+            <span className="px-2 py-0.5 rounded bg-slate-50 border border-slate-200 text-[8px] font-bold text-slate-500 uppercase">
+              Staffing Solution
+            </span>
+          </div>
+          <h3 className="text-base font-black text-slate-900 group-hover:text-blue-600 transition-colors">
+            {serv.heroTitle}
+          </h3>
+          <p className="text-xs text-slate-655 line-clamp-3 leading-relaxed font-semibold">
+            {serv.shortDescription}
+          </p>
+          <div className="space-y-1.5 pt-2 border-t border-slate-100">
+            <span className="text-[9px] font-bold text-slate-400 uppercase tracking-wider block">Key Deliverables:</span>
+            <ul className="space-y-1">
+              {serv.keyServices.slice(0, 2).map((ks, i) => (
+                <li key={i} className="text-[11px] text-slate-600 flex items-start gap-1.5 font-semibold">
+                  <CheckCircle2 className="w-3.5 h-3.5 text-blue-500 shrink-0 mt-0.5" />
+                  <span className="line-clamp-1">{ks}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+        <div className="pt-4 mt-auto border-t border-slate-100 flex items-center justify-between relative z-10">
+          <span className="text-[9px] font-bold text-slate-400 uppercase tracking-widest">
+            Workforce Division
+          </span>
+          <Link
+            to={`/staffing/${serv.id}`}
+            className="flex items-center gap-1 text-[10px] font-bold text-slate-800 group-hover:text-blue-600 transition-colors uppercase tracking-wider"
+          >
+            <span>Read Detail</span>
+            <ArrowRight className="w-3 h-3 text-blue-500 group-hover:translate-x-0.5 transition-transform" />
+          </Link>
+        </div>
+      </div>
+    );
+  };
+
+  const manpowerItems = [
+    renderManpowerCard("permanent-staffing", <Users className="w-5 h-5" />),
+    renderManpowerCard("contract-staffing", <Briefcase className="w-5 h-5" />),
+    renderManpowerCard("executive-search", <Shield className="w-5 h-5" />),
+    renderManpowerCard("sla-managed", <Settings className="w-5 h-5" />),
+    renderManpowerCard("payroll-management", <FileText className="w-5 h-5" />),
+    renderManpowerCard("healthcare-manpower", <ShieldCheck className="w-5 h-5" />)
+  ].filter(Boolean) as React.ReactNode[];
+
+  const cyberItems = [
+    renderServiceCard("cybersecurity-iso27001", <Shield className="w-5 h-5" />),
+    renderServiceCard("incident-response", <Clock className="w-5 h-5" />),
+    renderServiceCard("data-privacy-dpdp", <Scale className="w-5 h-5" />),
+    renderServiceCard("vendor-risk-management", <Briefcase className="w-5 h-5" />)
+  ].filter(Boolean) as React.ReactNode[];
+
+  const esgItems = [
+    renderServiceCard("esg-sustainability", <Shield className="w-5 h-5" />),
+    renderServiceCard("environmental-compliance", <Settings className="w-5 h-5" />),
+    renderServiceCard("supply-chain-compliance", <Scale className="w-5 h-5" />),
+    renderServiceCard("governance-framework", <FileText className="w-5 h-5" />)
+  ].filter(Boolean) as React.ReactNode[];
+
   // Partner Logos (Slider 6)
   const partners = [
     { name: "ServiceNow", cat: "Technology & SaaS" },
@@ -361,106 +435,115 @@ export default function GrcPage() {
               )}
 
               {activeTab === "manpower" && (
-                <div className="space-y-6 text-left animate-fade-in bg-white border border-slate-200/80 rounded-2xl p-6 sm:p-8 shadow-sm">
+                <div className="space-y-6 text-left animate-fade-in">
                   <div className="border-l-4 border-blue-600 pl-4">
-                    <span className="text-[10px] font-black text-blue-600 uppercase tracking-widest">Staffing Solutions</span>
+                    <span className="text-[10px] font-black text-blue-600 uppercase tracking-widest">Workforce Architecture</span>
                     <h2 className="text-2xl font-black text-slate-900 font-heading">Managed Staffing Services</h2>
                     <p className="text-xs text-slate-550 max-w-xl font-semibold mt-1">
-                      Flexible staffing models, RPO engagements, managed hiring solutions, and workforce compliance mapped to your enterprise requirements.
+                      Flexible staffing models, RPO engagements, managed hiring solutions, and 100% workforce compliance mapped to your enterprise requirements.
                     </p>
                   </div>
-                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-2">
-                    <div className="p-4 rounded-xl bg-slate-50 border border-slate-100">
-                      <h4 className="text-sm font-bold text-slate-800">Blue, Grey & White Collar</h4>
-                      <p className="text-xs text-slate-500 mt-1">Full statutory compliance with PF, ESIC, and minimum wage adherence across all tiers.</p>
+                  <GrcCarousel items={manpowerItems} />
+                  <div className="bg-white border border-slate-200/80 rounded-2xl p-6 sm:p-7 shadow-sm space-y-4">
+                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                      <div className="p-4 rounded-xl bg-slate-50 border border-slate-100">
+                        <h4 className="text-sm font-bold text-slate-800">Blue, Grey & White Collar</h4>
+                        <p className="text-xs text-slate-500 mt-1">Full statutory compliance with PF, ESIC, and minimum wage adherence across all tiers.</p>
+                      </div>
+                      <div className="p-4 rounded-xl bg-slate-50 border border-slate-100">
+                        <h4 className="text-sm font-bold text-slate-800">Comprehensive Screening</h4>
+                        <p className="text-xs text-slate-500 mt-1">5-phase candidate verification including background checks, address, and criminal records.</p>
+                      </div>
+                      <div className="p-4 rounded-xl bg-slate-50 border border-slate-100">
+                        <h4 className="text-sm font-bold text-slate-800">Multi-Model Delivery</h4>
+                        <p className="text-xs text-slate-500 mt-1">Permanent placement, contract staffing, temp-to-hire, and dedicated offshore/on-site teams.</p>
+                      </div>
                     </div>
-                    <div className="p-4 rounded-xl bg-slate-50 border border-slate-100">
-                      <h4 className="text-sm font-bold text-slate-800">Comprehensive Screening</h4>
-                      <p className="text-xs text-slate-550 mt-1">5-phase candidate verification including background checks, address, and criminal records.</p>
+                    <div className="pt-2">
+                      <Link
+                        to="/staffing"
+                        className="inline-flex items-center gap-2 px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold uppercase tracking-wider rounded-xl transition-all shadow-sm hover:scale-[1.02]"
+                      >
+                        <span>Explore Full Staffing Compendium & Models</span>
+                        <ArrowRight className="w-4 h-4" />
+                      </Link>
                     </div>
-                    <div className="p-4 rounded-xl bg-slate-50 border border-slate-100">
-                      <h4 className="text-sm font-bold text-slate-800">Multi-Model Delivery</h4>
-                      <p className="text-xs text-slate-500 mt-1">Permanent placement, contract staffing, temp-to-hire, and dedicated offshore/on-site teams.</p>
-                    </div>
-                  </div>
-                  <div>
-                    <Link
-                      to="/staffing"
-                      className="inline-flex items-center gap-2 px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold uppercase tracking-wider rounded-xl transition-colors shadow-sm"
-                    >
-                      <span>Explore Staffing Solutions & Compendium</span>
-                      <ArrowRight className="w-4 h-4" />
-                    </Link>
                   </div>
                 </div>
               )}
 
               {activeTab === "cybersecurity" && (
-                <div className="space-y-6 text-left animate-fade-in bg-white border border-slate-200/80 rounded-2xl p-6 sm:p-8 shadow-sm">
+                <div className="space-y-6 text-left animate-fade-in">
                   <div className="border-l-4 border-blue-600 pl-4">
-                    <span className="text-[10px] font-black text-blue-600 uppercase tracking-widest">Digital Defense</span>
+                    <span className="text-[10px] font-black text-blue-600 uppercase tracking-widest">Digital Defense & Trust</span>
                     <h2 className="text-2xl font-black text-slate-900 font-heading">Cybersecurity Advisory</h2>
                     <p className="text-xs text-slate-550 max-w-xl font-semibold mt-1">
                       Build an impenetrable security posture with VAPT assessments, ISO 27001 ISMS implementation, SOC 2 readiness, and CERT-In aligned incident management.
                     </p>
                   </div>
-                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-2">
-                    <div className="p-4 rounded-xl bg-slate-50 border border-slate-100">
-                      <h4 className="text-sm font-bold text-slate-800">VAPT & Security Audits</h4>
-                      <p className="text-xs text-slate-500 mt-1">Full-scope web, mobile, network, and cloud vulnerability assessment and penetration testing.</p>
+                  <GrcCarousel items={cyberItems} />
+                  <div className="bg-white border border-slate-200/80 rounded-2xl p-6 sm:p-7 shadow-sm space-y-4">
+                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                      <div className="p-4 rounded-xl bg-slate-50 border border-slate-100">
+                        <h4 className="text-sm font-bold text-slate-800">VAPT & Security Audits</h4>
+                        <p className="text-xs text-slate-500 mt-1">Full-scope web, mobile, network, and cloud vulnerability assessment and penetration testing.</p>
+                      </div>
+                      <div className="p-4 rounded-xl bg-slate-50 border border-slate-100">
+                        <h4 className="text-sm font-bold text-slate-800">ISO 27001 & SOC 2</h4>
+                        <p className="text-xs text-slate-500 mt-1">End-to-end ISMS framework design, policy drafting, and internal pre-audit assessments.</p>
+                      </div>
+                      <div className="p-4 rounded-xl bg-slate-50 border border-slate-100">
+                        <h4 className="text-sm font-bold text-slate-800">DPDP Act Compliance</h4>
+                        <p className="text-xs text-slate-500 mt-1">Data protection readiness, privacy impact assessments, and data principal right workflows.</p>
+                      </div>
                     </div>
-                    <div className="p-4 rounded-xl bg-slate-50 border border-slate-100">
-                      <h4 className="text-sm font-bold text-slate-800">ISO 27001 & SOC 2</h4>
-                      <p className="text-xs text-slate-500 mt-1">End-to-end ISMS framework design, policy drafting, and internal pre-audit assessments.</p>
+                    <div className="pt-2">
+                      <Link
+                        to="/cybersecurity"
+                        className="inline-flex items-center gap-2 px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold uppercase tracking-wider rounded-xl transition-all shadow-sm hover:scale-[1.02]"
+                      >
+                        <span>Explore Full Cybersecurity Offering & Operations</span>
+                        <ArrowRight className="w-4 h-4" />
+                      </Link>
                     </div>
-                    <div className="p-4 rounded-xl bg-slate-50 border border-slate-100">
-                      <h4 className="text-sm font-bold text-slate-800">DPDP Act Compliance</h4>
-                      <p className="text-xs text-slate-500 mt-1">Data protection readiness, privacy impact assessments, and data principal right workflows.</p>
-                    </div>
-                  </div>
-                  <div>
-                    <Link
-                      to="/cybersecurity"
-                      className="inline-flex items-center gap-2 px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold uppercase tracking-wider rounded-xl transition-colors shadow-sm"
-                    >
-                      <span>Explore Full Cybersecurity Offering</span>
-                      <ArrowRight className="w-4 h-4" />
-                    </Link>
                   </div>
                 </div>
               )}
 
               {activeTab === "esg" && (
-                <div className="space-y-6 text-left animate-fade-in bg-white border border-slate-200/80 rounded-2xl p-6 sm:p-8 shadow-sm">
+                <div className="space-y-6 text-left animate-fade-in">
                   <div className="border-l-4 border-blue-600 pl-4">
-                    <span className="text-[10px] font-black text-blue-600 uppercase tracking-widest">Sustainability</span>
+                    <span className="text-[10px] font-black text-blue-600 uppercase tracking-widest">Sustainability & Decarbonization</span>
                     <h2 className="text-2xl font-black text-slate-900 font-heading">ESG & Sustainability Advisory</h2>
                     <p className="text-xs text-slate-550 max-w-xl font-semibold mt-1">
                       Track Scope 1, 2, and 3 emissions, draft BRSR reports, and align with SEBI, GRI, and global investor ESG standards.
                     </p>
                   </div>
-                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-2">
-                    <div className="p-4 rounded-xl bg-slate-50 border border-slate-100">
-                      <h4 className="text-sm font-bold text-slate-800">SEBI BRSR Compliance</h4>
-                      <p className="text-xs text-slate-500 mt-1">Comprehensive BRSR core indicators and leadership disclosures for listed enterprises.</p>
+                  <GrcCarousel items={esgItems} />
+                  <div className="bg-white border border-slate-200/80 rounded-2xl p-6 sm:p-7 shadow-sm space-y-4">
+                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                      <div className="p-4 rounded-xl bg-slate-50 border border-slate-100">
+                        <h4 className="text-sm font-bold text-slate-800">SEBI BRSR Compliance</h4>
+                        <p className="text-xs text-slate-550 mt-1">Comprehensive BRSR core indicators and leadership disclosures for listed enterprises.</p>
+                      </div>
+                      <div className="p-4 rounded-xl bg-slate-50 border border-slate-100">
+                        <h4 className="text-sm font-bold text-slate-800">GHG Carbon Accounting</h4>
+                        <p className="text-xs text-slate-550 mt-1">Scope 1, 2, and 3 emissions inventory calculation following GHG Protocol standards.</p>
+                      </div>
+                      <div className="p-4 rounded-xl bg-slate-50 border border-slate-100">
+                        <h4 className="text-sm font-bold text-slate-800">Supply Chain ESG</h4>
+                        <p className="text-xs text-slate-550 mt-1">Vendor sustainability assessments, human rights due diligence, and carbon disclosures.</p>
+                      </div>
                     </div>
-                    <div className="p-4 rounded-xl bg-slate-50 border border-slate-100">
-                      <h4 className="text-sm font-bold text-slate-800">GHG Carbon Accounting</h4>
-                      <p className="text-xs text-slate-550 mt-1">Scope 1, 2, and 3 emissions inventory calculation following GHG Protocol standards.</p>
+                    <div className="pt-2">
+                      <Link
+                        to="/esg"
+                        className="inline-flex items-center gap-2 px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold uppercase tracking-wider rounded-xl transition-all shadow-sm hover:scale-[1.02]"
+                      >
+                        <span>Explore Full ESG Advisory & Frameworks</span>
+                        <ArrowRight className="w-4 h-4" />
+                      </Link>
                     </div>
-                    <div className="p-4 rounded-xl bg-slate-50 border border-slate-100">
-                      <h4 className="text-sm font-bold text-slate-800">Supply Chain ESG</h4>
-                      <p className="text-xs text-slate-550 mt-1">Vendor sustainability assessments, human rights due diligence, and carbon disclosures.</p>
-                    </div>
-                  </div>
-                  <div>
-                    <Link
-                      to="/esg"
-                      className="inline-flex items-center gap-2 px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold uppercase tracking-wider rounded-xl transition-colors shadow-sm"
-                    >
-                      <span>Explore ESG Advisory & Frameworks</span>
-                      <ArrowRight className="w-4 h-4" />
-                    </Link>
                   </div>
                 </div>
               )}
