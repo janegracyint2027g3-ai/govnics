@@ -44,14 +44,15 @@ export const Footer = () => {
           <p className="text-sm text-slate-400 leading-relaxed max-w-sm">
             We are an enterprise GRC advisory partner. We help organizations manage risk, achieve regulatory excellence, strengthen governance, and accelerate business growth.
           </p>
+          {/* Social links — update href values with real Govenics/ISI profile URLs when available */}
           <div className="flex items-center gap-3">
-            <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="p-2 rounded-lg bg-white/5 text-slate-400 hover:bg-blue-500 hover:text-white transition-colors">
+            <a href="#" aria-label="Visit Govenics on LinkedIn" target="_blank" rel="noopener noreferrer" className="p-2 rounded-lg bg-white/5 text-slate-400 hover:bg-blue-500 hover:text-white transition-colors">
               <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-4 h-4"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
             </a>
-            <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" className="p-2 rounded-lg bg-white/5 text-slate-400 hover:bg-blue-500 hover:text-white transition-colors">
+            <a href="#" aria-label="Visit Govenics on Twitter / X" target="_blank" rel="noopener noreferrer" className="p-2 rounded-lg bg-white/5 text-slate-400 hover:bg-blue-500 hover:text-white transition-colors">
               <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-4 h-4"><path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z"/></svg>
             </a>
-            <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className="p-2 rounded-lg bg-white/5 text-slate-400 hover:bg-blue-500 hover:text-white transition-colors">
+            <a href="#" aria-label="Visit Govenics on Facebook" target="_blank" rel="noopener noreferrer" className="p-2 rounded-lg bg-white/5 text-slate-400 hover:bg-blue-500 hover:text-white transition-colors">
               <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-4 h-4"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
             </a>
           </div>
@@ -98,12 +99,12 @@ export const Footer = () => {
             <li className="flex items-start gap-2.5">
               <MapPin className="w-4 h-4 text-blue-500 shrink-0 mt-0.5" />
               <span className="leading-snug">
-                No 97/2, SUNDARAM STREET CHINMAYA NAGAR STAGE 1 , Chennai City Corporation, Tamil Nadu, India - 600092
+                No. 97/2, Sundaram Street, Chinmaya Nagar Stage 1, Chennai – 600 092, Tamil Nadu, India
               </span>
             </li>
             <li className="flex items-center gap-2.5">
               <Mail className="w-4 h-4 text-blue-500 shrink-0" />
-              <span>contact@govenics.grc</span>
+              <a href="mailto:contact@govenics.grc" className="hover:text-blue-400 transition-colors">contact@govenics.grc</a>
             </li>
           </ul>
         </div>
@@ -112,7 +113,7 @@ export const Footer = () => {
       {/* Legal & Copyright */}
       <div className="container mx-auto px-6 mt-16 pt-8 border-t border-white/5 flex flex-col md:flex-row items-center justify-between gap-4 text-xs font-medium uppercase tracking-wider text-slate-500">
         <div>
-          &copy; {new Date().getFullYear()} Govenics Consulting. All Rights Reserved. (A Division of ISI Group).
+          &copy; {new Date().getFullYear()} GOVENICS GRC. All Rights Reserved. (A Division of ISI Group)
         </div>
         <div className="flex items-center gap-6">
           <Link to="/privacy" className="hover:text-slate-300 transition-colors">Privacy Policy</Link>

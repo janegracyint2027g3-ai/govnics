@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { Layout } from "@/components/layout/Layout";
 import { GrcHero } from "@/components/hero/GrcHero";
 import { Building2, Sparkles } from "lucide-react";
@@ -15,6 +16,19 @@ import { LeadCaptureForm } from "@/components/lead/LeadCaptureForm";
 import { FloatingCTA } from "@/components/ui/FloatingCTA";
 
 export default function Index() {
+  useEffect(() => {
+    const metaDesc = document.querySelector('meta[name="description"]');
+    const descContent = "GOVENICS GRC is India's trusted enterprise GRC advisory partner. We help organisations manage risk, achieve regulatory compliance, and strengthen governance across 15+ industries. A division of ISI Group.";
+    if (metaDesc) {
+      metaDesc.setAttribute('content', descContent);
+    } else {
+      const meta = document.createElement('meta');
+      meta.name = 'description';
+      meta.content = descContent;
+      document.head.appendChild(meta);
+    }
+  }, []);
+
   return (
     <Layout noPadding={true}>
       {/* Hero Section */}

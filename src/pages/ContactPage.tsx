@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { Layout } from "@/components/layout/Layout";
 import { GrcContact } from "@/components/contact/GrcContact";
 import { GrcSliderHero } from "@/components/hero/GrcSliderHero";
@@ -11,6 +12,21 @@ import heroDrone from "@/assets/hero-drone.jpg";
 import verticalsFacility from "@/assets/verticals-facility.jpg";
 
 export default function ContactPage() {
+  useEffect(() => {
+    document.title = "Contact GOVENICS | Book a GRC Consultation";
+    const metaDesc = document.querySelector('meta[name="description"]');
+    const descContent = "Connect with GOVENICS GRC experts. Schedule a compliance assessment, request an audit, discuss risk management needs, or explore partnership and staffing enquiries.";
+    if (metaDesc) {
+      metaDesc.setAttribute('content', descContent);
+    } else {
+      const meta = document.createElement('meta');
+      meta.name = 'description';
+      meta.content = descContent;
+      document.head.appendChild(meta);
+    }
+    return () => { document.title = "GOVENICS | Enterprise Governance, Risk & Compliance Consulting"; };
+  }, []);
+
   const slides = [
     {
       badge: "GRC Assessment",

@@ -27,15 +27,15 @@ const counters = [
     icon: Clock,
     value: 10,
     suffix: "+",
-    label: "Years of Expertise",
-    description: "Enterprise consulting experience"
+    label: "Years GRC Advisory",
+    description: "GRC division consulting track record"
   },
   {
     icon: ShieldCheck,
     value: 99,
     suffix: "%",
     label: "Client Satisfaction",
-    description: "Flawless audit track logs"
+    description: "Consistent audit success rate"
   },
   {
     icon: Globe,

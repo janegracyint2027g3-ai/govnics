@@ -5,6 +5,17 @@ import { Eye, HelpCircle, Layers, Settings } from "lucide-react";
 export default function CookiePolicyPage() {
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: "smooth" });
+    document.title = "Cookie Policy — GOVENICS";
+    const metaDesc = document.querySelector('meta[name="description"]');
+    const descContent = "Information on how GOVENICS uses cookies for session management, performance analytics, and security on its GRC advisory platform.";
+    if (metaDesc) {
+      metaDesc.setAttribute('content', descContent);
+    } else {
+      const meta = document.createElement('meta');
+      meta.name = 'description';
+      meta.content = descContent;
+      document.head.appendChild(meta);
+    }
   }, []);
 
   return (
@@ -86,7 +97,7 @@ export default function CookiePolicyPage() {
               Legal Desk:
             </p>
             <p className="text-sm text-slate-700 font-semibold mt-1">
-              Govenics Compliance Command Center • legal@govenics.grc • No 97/2, SUNDARAM STREET CHINMAYA NAGAR STAGE 1 , Chennai City Corporation, Tamil Nadu, India - 600092
+              GOVENICS GRC Legal Desk &bull; legal@govenics.grc &bull; No. 97/2, Sundaram Street, Chinmaya Nagar Stage 1, Chennai – 600 092, Tamil Nadu, India
             </p>
           </div>
 

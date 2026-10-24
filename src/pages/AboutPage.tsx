@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Layout } from "@/components/layout/Layout";
 import { GrcSliderHero } from "@/components/hero/GrcSliderHero";
 import { 
@@ -79,6 +79,23 @@ export default function AboutPage() {
     loc.address.some(line => line.includes("Coming Soon"))
   );
 
+  useEffect(() => {
+    document.title = "About GOVENICS | Enterprise GRC Advisory by ISI Group";
+    const metaDesc = document.querySelector('meta[name="description"]');
+    const descContent = "Founded by decorated ex-defence leaders, GOVENICS GRC brings 40+ years of ISI Group\'s security and governance expertise to enterprise risk management, compliance, and GRC advisory services across India.";
+    if (metaDesc) {
+      metaDesc.setAttribute('content', descContent);
+    } else {
+      const meta = document.createElement('meta');
+      meta.name = 'description';
+      meta.content = descContent;
+      document.head.appendChild(meta);
+    }
+    return () => {
+      document.title = "GOVENICS | Enterprise Governance, Risk & Compliance Consulting";
+    };
+  }, []);
+
   return (
     <Layout>
       <div className="bg-white pb-24 text-slate-600 relative">
@@ -106,59 +123,59 @@ export default function AboutPage() {
           </div>
         </section>
 
-        {/* Panel 3: Core Philosophy Section */}
+        {/* Panel 3: Our Approach Section */}
         <section className="py-16 bg-slate-50/50 border-b border-slate-100">
           <div className="container mx-auto px-6 max-w-6xl">
             <div className="flex flex-col items-center text-center space-y-4">
               
-              {/* Premium Label */}
+              {/* Section Label */}
               <div className="flex items-center gap-2.5">
                 <span className="text-blue-600 text-[10px] font-black uppercase tracking-[0.2em] py-1 px-3 border border-blue-200 rounded-full bg-blue-50">
-                  The Future of Protection
+                  How We Work
                 </span>
               </div>
 
               {/* Main Statement */}
               <div className="max-w-4xl space-y-4">
                 <h2 className="text-2xl sm:text-3xl font-black text-slate-900 font-heading leading-tight">
-                  <span className="block text-[11px] font-black uppercase tracking-widest text-slate-400 mb-1">Our Strategic Evolution</span>
-                  We are evolving from{" "}
+                  <span className="block text-[11px] font-black uppercase tracking-widest text-slate-400 mb-1">Our Integrated Approach</span>
+                  Combining{" "}
                   <span className="text-slate-700 underline decoration-slate-300 decoration-2 underline-offset-4 font-extrabold">
-                    Reactive Checklists
+                    Physical Security Roots
                   </span>{" "}
-                  to{" "}
+                  with{" "}
                   <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 via-blue-500 to-indigo-600 font-extrabold">
-                    Continuous Control Intelligence
+                    Enterprise GRC Intelligence
                   </span>
                 </h2>
                 <p className="text-xs sm:text-sm text-slate-500 max-w-2xl mx-auto font-semibold">
-                  Traditional consulting relies on periodic point-in-time checks. Our approach integrates real-time compliance tracking, automated audit preparation, and domain-certified GRC talent.
+                  ISI Group began as a physical security organisation in 1985. Over four decades, that foundation evolved into a comprehensive governance, risk, and compliance advisory practice — one that understands operational realities because we have always operated within them.
                 </p>
               </div>
 
-              {/* Comparison Cards */}
+              {/* Approach Cards */}
               <div className="grid md:grid-cols-2 gap-6 w-full max-w-4xl pt-8">
                 
-                {/* Traditional Card */}
+                {/* Ground-Up Card */}
                 <div className="group relative p-8 rounded-3xl bg-white border border-slate-200 shadow-sm hover:border-slate-300 transition-all text-left">
                   <div className="w-12 h-12 rounded-2xl bg-slate-100 border border-slate-200 flex items-center justify-center mb-6">
                     <Building2 className="w-6 h-6 text-slate-500" />
                   </div>
-                  <h4 className="text-lg font-black text-slate-950 mb-2">Traditional Model</h4>
+                  <h4 className="text-lg font-black text-slate-950 mb-2">Operational Experience</h4>
                   <p className="text-xs sm:text-sm text-slate-500 font-semibold leading-relaxed">
-                    Reliance on manual spreadsheets and periodic checkpoint reviews. Static, reactive compliance posture with high human error margins.
+                    Decades of managing physical security, personnel deployment, and facility compliance across industries gives our advisors first-hand insight into the risks organisations actually face.
                   </p>
                 </div>
 
-                {/* Intelligence Card */}
+                {/* Advisory Intelligence Card */}
                 <div className="group relative p-8 rounded-3xl bg-slate-900 border border-slate-800 shadow-xl text-left overflow-hidden">
                   <div className="absolute inset-0 bg-gradient-to-br from-blue-900/10 to-transparent pointer-events-none" />
                   <div className="w-12 h-12 rounded-2xl bg-blue-600 flex items-center justify-center mb-6 shadow-lg shadow-blue-500/25">
                     <Sparkles className="w-6 h-6 text-white animate-pulse" />
                   </div>
-                  <h4 className="text-lg font-black text-white mb-2">Continuous Compliance</h4>
+                  <h4 className="text-lg font-black text-white mb-2">GRC Advisory Practice</h4>
                   <p className="text-xs sm:text-sm text-slate-400 font-semibold leading-relaxed">
-                    Powered by compliance automation, continuous risk control validation, and AI posture auditing. Proactive controls intelligence with 100% visibility.
+                    Our GRC division layers statutory compliance tracking, risk framework design, and governance advisory on top of that operational foundation — delivering integrated, practical governance solutions.
                   </p>
                 </div>
 
@@ -235,7 +252,7 @@ export default function AboutPage() {
                 >
                   <img 
                     src={leader.img} 
-                    alt={leader.name} 
+                    alt={`${leader.name}, ${leader.role}`} 
                     className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" 
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/60 to-transparent opacity-85 group-hover:opacity-95 transition-opacity" />

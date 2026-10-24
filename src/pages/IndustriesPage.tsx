@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { Layout } from "@/components/layout/Layout";
 import { GrcCarousel } from "@/components/ui/GrcCarousel";
 import { industriesData } from "@/data/industries-data";
@@ -12,6 +13,20 @@ import heroDrone from "@/assets/hero-drone.jpg";
 import heroSoc from "@/assets/hero-soc.jpg";
 
 export default function IndustriesPage() {
+  useEffect(() => {
+    document.title = "Industries We Serve | Sector-Specific GRC Compliance — GOVENICS";
+    const metaDesc = document.querySelector('meta[name="description"]');
+    const descContent = "GRC advisory and regulatory compliance solutions tailored to 15+ Indian industries including BFSI, Manufacturing, Healthcare, IT, Energy, and Real Estate.";
+    if (metaDesc) {
+      metaDesc.setAttribute('content', descContent);
+    } else {
+      const meta = document.createElement('meta');
+      meta.name = 'description';
+      meta.content = descContent;
+      document.head.appendChild(meta);
+    }
+  }, []);
+
   const heroSlides = [
     {
       title: "The New Labour Codes Aren't Optional.",

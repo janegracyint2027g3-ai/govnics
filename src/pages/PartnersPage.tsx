@@ -53,6 +53,20 @@ const benefits = [
 ];
 
 export default function PartnersPage() {
+  useEffect(() => {
+    document.title = "Partner with GOVENICS | GRC Technology & Advisory Alliances";
+    const metaDesc = document.querySelector('meta[name="description"]');
+    const descContent = "Join the GOVENICS partner ecosystem. Explore technology integrations, certified audit alliances, legal referral partnerships, and risk advisory collaborations.";
+    if (metaDesc) {
+      metaDesc.setAttribute('content', descContent);
+    } else {
+      const meta = document.createElement('meta');
+      meta.name = 'description';
+      meta.content = descContent;
+      document.head.appendChild(meta);
+    }
+  }, []);
+
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [formData, setFormData] = useState({
     name: "",

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Layout } from "@/components/layout/Layout";
 import { GrcCarousel } from "@/components/ui/GrcCarousel";
 import { 
@@ -104,6 +104,19 @@ const CyberCard = ({ item }: { item: CyberItem }) => {
 };
 
 export default function CyberSecurityPage() {
+  useEffect(() => {
+    document.title = "Cybersecurity Services | ISO 27001, VAPT & ISMS — GOVENICS";
+    const metaDesc = document.querySelector('meta[name="description"]');
+    const descContent = "Build a resilient cybersecurity posture with VAPT assessments, ISO 27001 ISMS implementation, SOC 2 readiness, and CERT-In aligned incident management from GOVENICS.";
+    if (metaDesc) {
+      metaDesc.setAttribute('content', descContent);
+    } else {
+      const meta = document.createElement('meta');
+      meta.name = 'description';
+      meta.content = descContent;
+      document.head.appendChild(meta);
+    }
+  }, []);
 
   const heroSlides = [
     {

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Layout } from "@/components/layout/Layout";
 import { motion } from "framer-motion";
 import { Briefcase, ArrowRight, UploadCloud, CheckCircle2, Building2, User, Mail, Phone, Clock } from "lucide-react";
@@ -35,6 +35,20 @@ const openRoles = [
 ];
 
 export default function CareersPage() {
+  useEffect(() => {
+    document.title = "Careers at GOVENICS | Join Our GRC Advisory Team";
+    const metaDesc = document.querySelector('meta[name="description"]');
+    const descContent = "Build your career in governance, risk, compliance, cybersecurity, and ESG advisory. Explore open roles and career paths at GOVENICS GRC, an ISI Group company.";
+    if (metaDesc) {
+      metaDesc.setAttribute('content', descContent);
+    } else {
+      const meta = document.createElement('meta');
+      meta.name = 'description';
+      meta.content = descContent;
+      document.head.appendChild(meta);
+    }
+  }, []);
+
   const [formData, setFormData] = useState({
     name: "",
     email: "",

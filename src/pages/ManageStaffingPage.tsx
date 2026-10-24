@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Layout } from "@/components/layout/Layout";
 import { GrcCarousel } from "@/components/ui/GrcCarousel";
 import { 
@@ -41,6 +41,20 @@ interface StaffingItem {
 }
 
 export default function ManageStaffingPage() {
+  useEffect(() => {
+    document.title = "Managed Staffing & Manpower Solutions — GOVENICS";
+    const metaDesc = document.querySelector('meta[name="description"]');
+    const descContent = "Risk-compliant staffing solutions across blue, grey, and white-collar segments. GOVENICS handles statutory compliance, payroll governance, and contractor onboarding.";
+    if (metaDesc) {
+      metaDesc.setAttribute('content', descContent);
+    } else {
+      const meta = document.createElement('meta');
+      meta.name = 'description';
+      meta.content = descContent;
+      document.head.appendChild(meta);
+    }
+  }, []);
+
   const [selectedPhase, setSelectedPhase] = useState<number>(0);
   const [compendiumTab, setCompendiumTab] = useState<string>("skill-tiers");
   const [selectedSkillTier, setSelectedSkillTier] = useState<number>(0);

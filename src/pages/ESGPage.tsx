@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Layout } from "@/components/layout/Layout";
 import { GrcCarousel } from "@/components/ui/GrcCarousel";
 import { 
@@ -100,6 +100,19 @@ const EsgCard = ({ item }: { item: EsgItem }) => {
 };
 
 export default function ESGPage() {
+  useEffect(() => {
+    document.title = "ESG Advisory & BRSR Reporting Services — GOVENICS";
+    const metaDesc = document.querySelector('meta[name="description"]');
+    const descContent = "SEBI-aligned BRSR reporting, Scope 1–3 carbon tracking, and ESG strategy advisory for Indian listed companies and sustainability-focused enterprises.";
+    if (metaDesc) {
+      metaDesc.setAttribute('content', descContent);
+    } else {
+      const meta = document.createElement('meta');
+      meta.name = 'description';
+      meta.content = descContent;
+      document.head.appendChild(meta);
+    }
+  }, []);
 
   const heroSlides = [
     {

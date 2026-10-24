@@ -5,6 +5,17 @@ import { ShieldCheck, Lock, FileText, Globe } from "lucide-react";
 export default function PrivacyPolicyPage() {
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: "smooth" });
+    document.title = "Privacy Policy — GOVENICS";
+    const metaDesc = document.querySelector('meta[name="description"]');
+    const descContent = "How GOVENICS collects, processes, and protects your personal data in compliance with India's DPDP Act 2023 and global privacy standards.";
+    if (metaDesc) {
+      metaDesc.setAttribute('content', descContent);
+    } else {
+      const meta = document.createElement('meta');
+      meta.name = 'description';
+      meta.content = descContent;
+      document.head.appendChild(meta);
+    }
   }, []);
 
   return (
@@ -84,7 +95,7 @@ export default function PrivacyPolicyPage() {
             </h2>
             <div className="text-sm text-slate-600 leading-relaxed font-medium space-y-3">
               <p>
-                All personal details and corporate telemetry collected are secured behind end-to-end encryption protocols. Govenics operates within certified Information Security Management Systems (ISMS) in alignment with ISO 27001 standards. We store database logs in secure local environments to ensure complete compliance with data localization mandates.
+                All personal details and corporate telemetry collected are secured behind end-to-end encryption protocols. Govenics operates Information Security Management Systems (ISMS) aligned with ISO 27001 standards. We store database logs in secure local environments to support compliance with data localisation requirements.
               </p>
             </div>
           </div>
@@ -95,7 +106,7 @@ export default function PrivacyPolicyPage() {
               Grievance Officer Contact:
             </p>
             <p className="text-sm text-slate-700 font-semibold mt-1">
-              Govenics Compliance Command Center • privacy@govenics.grc • No 97/2, SUNDARAM STREET CHINMAYA NAGAR STAGE 1 , Chennai City Corporation, Tamil Nadu, India - 600092
+              GOVENICS GRC Compliance Command Centre &bull; privacy@govenics.grc &bull; No. 97/2, Sundaram Street, Chinmaya Nagar Stage 1, Chennai – 600 092, Tamil Nadu, India
             </p>
           </div>
 

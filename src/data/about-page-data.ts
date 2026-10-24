@@ -14,10 +14,10 @@ export interface Location {
 }
 
 export const aboutStats = [
-  { label: "Years Experience", value: "40+" },
-  { label: "Global Offices", value: "12" },
-  { label: "Security Experts", value: "5000+" },
-  { label: "Clients Protected", value: "1000+" }
+  { label: "Years of Heritage", value: "40+" },
+  { label: "Pan-India Offices", value: "11" },
+  { label: "Security Professionals", value: "5000+" },
+  { label: "Clients Served", value: "1000+" }
 ];
 
 export const missionVisionValues = [
@@ -75,14 +75,11 @@ export const executiveManagementData = [
   }
 ];
 
-export const advisorsData = [
-  { name: "Dr. Alistair Finch", role: "Geopolitical Strategist", img: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&q=80&w=400&h=400", desc: "Provides insights on global stability and regional risk assessment." },
-  { name: "Rebecca Sterling", role: "Legal & Compliance", img: "https://images.unsplash.com/photo-1551836022-d5d88e9218df?auto=format&fit=crop&q=80&w=400&h=400", desc: "Expert in international law and corporate governance standards." },
-  { name: "Gen. Thomas H.", role: "Defense Consultant", img: "https://images.unsplash.com/photo-1542909168-82c3e7fdca5c?auto=format&fit=crop&q=80&w=400&h=400", desc: "Retired General offering tactical advice on large-scale security operations." }
-];
+// advisorsData removed — placeholder content not for production use.
+// Add real advisor profiles here once confirmed by the business owner.
 
 export const officeLocations: Location[] = [
-  { id: "1", title: "Corporate Office", city: "Chennai", state: "Tamil Nadu", region: "South", lat: 13.0368, lng: 80.2116, address: ["No 97/2, SUNDARAM STREET", "CHINMAYA NAGAR STAGE 1 , Chennai City Corporation, Tamil Nadu, India - 600092"], phone: "+91 77088 87878", email: "info@isisecurity.in" },
+  { id: "1", title: "Corporate Office", city: "Chennai", state: "Tamil Nadu", region: "South", lat: 13.0368, lng: 80.2116, address: ["No. 97/2, Sundaram Street, Chinmaya Nagar Stage 1", "Chennai – 600 092, Tamil Nadu, India"], phone: "+91 77088 87878", email: "info@isisecurity.in" },
   { id: "2", title: "Administrative Office", city: "Madurai", state: "Tamil Nadu", region: "South", lat: 9.9252, lng: 78.1198, address: ["12-9, Santhosh Raj Plaza, Gandhi Nagar", "Madurai – 625 020"], phone: "+91 98949 99955 / 95009 59004", email: "mdu@isisecurity.in" },
   { id: "3", title: "Tamil Nadu Office", city: "Coimbatore", state: "Tamil Nadu", region: "South", lat: 10.9984, lng: 77.0163, address: ["No: 5, Kakkan Nagar, Singanallur", "Coimbatore – 641005"], phone: "+91 99944 88855", email: "info@isisecurity.in" },
   { id: "4", title: "Andhra Pradesh Office", city: "Tirupathi", state: "Andhra Pradesh", region: "South", lat: 13.6288, lng: 79.4192, address: ["No 2 Akn Layout, Chennai–Tirupathi Bye Pass", "Nagari, Tirupathi – 517590"], phone: "+91 95919 08593", email: "info@isisecurity.in" },
