@@ -1,4 +1,5 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
+import { useLocation } from "react-router-dom";
 import {
   sgrcServices,
   sgrceLibraryData,
@@ -6,12 +7,13 @@ import {
 } from "@/data/sgrc-data";
 import type { StatutoryDocument } from "@/data/sgrc-data";
 import { resourcesData } from "@/data/resources-data";
+import {
+  getPageContext,
+  getContextualActionResponse
+} from "@/utils/grcChatContext";
+import type { GrcChatAction, GrcPageContext } from "@/utils/grcChatContext";
 
-export interface GrcChatAction {
-  label: string;
-  value: string;
-  type: "quickReply" | "link" | "download";
-}
+export type { GrcChatAction, GrcPageContext };
 
 export interface GrcSearchResult {
   id: string;
@@ -71,8 +73,6 @@ export type GrcLeadStage =
   | "scoping_headcount"
   | "scoping_contractors";
 
-const INITIAL_GREETING = "Hello! I am Govey, your GRC Compliance Advisor. I can help you search, filter, and identify statutory documents, active regulations, audit services, and GRC readiness checklists.\n\nWhat compliance area, Act, or state guideline can I locate for you today?";
-
 const INITIAL_ACTIONS: GrcChatAction[] = [
   { label: "Checklist Scoping Wizard", value: "checklist scoping", type: "quickReply" },
   { label: "Minimum Wages by State", value: "minimum wages", type: "quickReply" },
@@ -83,8 +83,38 @@ const INITIAL_ACTIONS: GrcChatAction[] = [
 ];
 
 export const useGrcChat = () => {
+  const location = useLocation();
+  const currentContext = getPageContext(location.pathname);
+  const prevPathRef = useRef<string>(location.pathname);
+  const isFirstRender = useRef(true);
+
   const [isOpen, setIsOpen] = useState(false);
-  const [messages, setMessages] = useState<GrcChatMessage[]>([]);
+  const [messages, setMessages] = useState<GrcChatMessage[]>(() => {
+    try {
+      const stored = sessionStorage.getItem("govenics_chat_messages");
+      if (stored) {
+        const parsed = JSON.parse(stored);
+        if (Array.isArray(parsed) && parsed.length > 0) {
+          return parsed.map((m: any) => ({
+            ...m,
+            timestamp: new Date(m.timestamp)
+          }));
+        }
+      }
+    } catch {}
+
+    const initialCtx = getPageContext(window.location?.pathname || "/");
+    return [
+      {
+        id: "greeting-" + Date.now(),
+        type: "bot",
+        content: initialCtx.greeting,
+        timestamp: new Date(),
+        actions: initialCtx.actions
+      }
+    ];
+  });
+
   const [isTyping, setIsTyping] = useState(false);
   const [hasUnread, setHasUnread] = useState(false);
 
@@ -94,21 +124,42 @@ export const useGrcChat = () => {
   const [calcData, setCalcData] = useState<GrcCalcData>({});
   const [scopingData, setScopingData] = useState<GrcScopingData>({});
 
-  // Initialize with greeting if empty
+  // Persist messages to sessionStorage
   useEffect(() => {
-    if (messages.length === 0) {
-      setMessages([
-        {
-          id: "greeting",
-          type: "bot",
-          content: INITIAL_GREETING,
-          timestamp: new Date(),
-          actions: INITIAL_ACTIONS
-        }
-      ]);
-      setHasUnread(true);
+    if (messages.length > 0) {
+      try {
+        sessionStorage.setItem("govenics_chat_messages", JSON.stringify(messages));
+      } catch {}
     }
   }, [messages]);
+
+  // Context Switcher on route / menu / submenu navigation
+  useEffect(() => {
+    if (isFirstRender.current) {
+      isFirstRender.current = false;
+      prevPathRef.current = location.pathname;
+      return;
+    }
+
+    if (prevPathRef.current !== location.pathname) {
+      prevPathRef.current = location.pathname;
+      const newCtx = getPageContext(location.pathname);
+
+      // Reset leadStage and calculations if user navigated to a new page
+      setLeadStage("chat");
+
+      const navMsg: GrcChatMessage = {
+        id: "nav-ctx-" + Date.now(),
+        type: "bot",
+        content: `📍 **Context Updated: ${newCtx.pageTitle}**\n\n${newCtx.greeting}`,
+        timestamp: new Date(),
+        actions: newCtx.actions
+      };
+
+      setMessages(prev => [...prev, navMsg]);
+      setHasUnread(true);
+    }
+  }, [location.pathname]);
 
   const toggleChat = () => {
     setIsOpen(prev => !prev);
@@ -175,7 +226,16 @@ export const useGrcChat = () => {
     if (!q) {
       return {
         text: "Please enter a valid search query to scan GRC resources.",
-        actions: INITIAL_ACTIONS
+        actions: currentContext.actions
+      };
+    }
+
+    // 0. Check contextual response for this page/action
+    const contextualAns = getContextualActionResponse(query, location.pathname);
+    if (contextualAns) {
+      return {
+        text: contextualAns,
+        actions: currentContext.actions
       };
     }
 
@@ -1152,20 +1212,26 @@ export const useGrcChat = () => {
     messages,
     isTyping,
     hasUnread,
+    currentContext,
     resetConversation: () => {
+      const ctx = getPageContext(location.pathname);
       setLeadStage("chat");
       setLeadData({});
       setCalcData({});
       setScopingData({});
-      setMessages([
+      const resetGreeting: GrcChatMessage[] = [
         {
           id: "greeting-" + Date.now(),
           type: "bot",
-          content: INITIAL_GREETING,
+          content: ctx.greeting,
           timestamp: new Date(),
-          actions: INITIAL_ACTIONS
+          actions: ctx.actions
         }
-      ]);
+      ];
+      setMessages(resetGreeting);
+      try {
+        sessionStorage.setItem("govenics_chat_messages", JSON.stringify(resetGreeting));
+      } catch {}
     },
     handleSendMessage,
     handleAction
