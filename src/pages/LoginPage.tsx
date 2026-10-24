@@ -19,6 +19,18 @@ export default function LoginPage() {
 
   // Redirect if already authenticated
   useEffect(() => {
+    document.title = "Sign In | GOVENICS GRC Client Portal";
+    const metaDesc = document.querySelector('meta[name="description"]');
+    const descContent = "Sign in to access your enterprise compliance workspace, custom e-library, and audit checklist history on GOVENICS.";
+    if (metaDesc) {
+      metaDesc.setAttribute('content', descContent);
+    } else {
+      const meta = document.createElement('meta');
+      meta.name = 'description';
+      meta.content = descContent;
+      document.head.appendChild(meta);
+    }
+
     if (isAuthenticated) {
       const from = (location.state as any)?.from?.pathname || "/";
       navigate(from, { replace: true });

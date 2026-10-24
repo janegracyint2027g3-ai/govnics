@@ -63,6 +63,17 @@ export default function AnalyticsPage() {
 
   useEffect(() => {
     loadData();
+    document.title = "Analytics & Telemetry Dashboard — GOVENICS";
+    const metaDesc = document.querySelector('meta[name="description"]');
+    const descContent = "Internal GRC telemetry analytics, event monitoring, and lead conversion reporting for GOVENICS platform administrators.";
+    if (metaDesc) {
+      metaDesc.setAttribute('content', descContent);
+    } else {
+      const meta = document.createElement('meta');
+      meta.name = 'description';
+      meta.content = descContent;
+      document.head.appendChild(meta);
+    }
     
     // Listen for custom events
     const handleUpdate = () => {

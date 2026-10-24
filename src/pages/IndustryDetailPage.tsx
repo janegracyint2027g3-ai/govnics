@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
 import { Layout } from "@/components/layout/Layout";
 import { industriesData } from "@/data/industries-data";
@@ -23,6 +23,10 @@ export default function IndustryDetailPage() {
   // Track active tab index for each sub-sector independently
   const [activeSectorTabs, setActiveSectorTabs] = useState<Record<string, number>>({});
 
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }, [clusterId]);
+
   // Map cluster ID to name
   const getClusterName = (id: string) => {
     switch (id) {
@@ -40,6 +44,20 @@ export default function IndustryDetailPage() {
 
   const clusterName = getClusterName(clusterId || "");
   
+  useEffect(() => {
+    document.title = `${clusterName} GRC Solutions & Regulatory Compliance — GOVENICS`;
+    const metaDesc = document.querySelector('meta[name="description"]');
+    const descContent = `Specialized GRC advisory, statutory audit overwatch, and regulatory risk management solutions tailored for ${clusterName} enterprises in India.`;
+    if (metaDesc) {
+      metaDesc.setAttribute('content', descContent);
+    } else {
+      const meta = document.createElement('meta');
+      meta.name = 'description';
+      meta.content = descContent;
+      document.head.appendChild(meta);
+    }
+  }, [clusterName]);
+
   // Filter sub-sectors belonging to this cluster
   const clusterSectors = industriesData.filter((ind) => ind.cluster === clusterName);
 

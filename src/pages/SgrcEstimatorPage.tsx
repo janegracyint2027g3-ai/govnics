@@ -31,6 +31,17 @@ export default function SgrcEstimatorPage() {
 
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: "smooth" });
+    document.title = "GRC Compliance Cost & Scope Estimator — GOVENICS";
+    const metaDesc = document.querySelector('meta[name="description"]');
+    const descContent = "Calculate statutory audit requirements, scope multi-state compliance footprints, and estimate GRC governance investment with GOVENICS Estimator.";
+    if (metaDesc) {
+      metaDesc.setAttribute('content', descContent);
+    } else {
+      const meta = document.createElement('meta');
+      meta.name = 'description';
+      meta.content = descContent;
+      document.head.appendChild(meta);
+    }
   }, []);
 
   const toggleModule = (id: string) => {

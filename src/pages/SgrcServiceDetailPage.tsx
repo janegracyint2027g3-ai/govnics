@@ -29,7 +29,20 @@ export default function SgrcServiceDetailPage() {
     setMounted(true);
     setCurrentQuestionIndex(0); // reset wizard index
     setOpenFaqIndex(null); // reset FAQ index
-  }, [serviceId]);
+    if (service) {
+      document.title = `${service.title} | Statutory Compliance Audit — GOVENICS`;
+      const metaDesc = document.querySelector('meta[name="description"]');
+      const descContent = `${service.description} Interactive self-audit checklist, applicability scoping, and penalty prevention by GOVENICS GRC.`;
+      if (metaDesc) {
+        metaDesc.setAttribute('content', descContent);
+      } else {
+        const meta = document.createElement('meta');
+        meta.name = 'description';
+        meta.content = descContent;
+        document.head.appendChild(meta);
+      }
+    }
+  }, [serviceId, service]);
 
   if (!service) {
     return <Navigate to="/sgrc/e-library" replace />;

@@ -1152,6 +1152,21 @@ export const useGrcChat = () => {
     messages,
     isTyping,
     hasUnread,
+    resetConversation: () => {
+      setLeadStage("chat");
+      setLeadData({});
+      setCalcData({});
+      setScopingData({});
+      setMessages([
+        {
+          id: "greeting-" + Date.now(),
+          type: "bot",
+          content: INITIAL_GREETING,
+          timestamp: new Date(),
+          actions: INITIAL_ACTIONS
+        }
+      ]);
+    },
     handleSendMessage,
     handleAction
   };

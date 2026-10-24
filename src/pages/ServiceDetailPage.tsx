@@ -26,7 +26,20 @@ export default function ServiceDetailPage() {
 
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: "smooth" });
-  }, [serviceId]);
+    if (service) {
+      document.title = `${service.title} | GRC Advisory Services — GOVENICS`;
+      const metaDesc = document.querySelector('meta[name="description"]');
+      const descContent = `${service.description} Explore regulatory deliverables, audit frameworks, and industry applicability with GOVENICS GRC.`;
+      if (metaDesc) {
+        metaDesc.setAttribute('content', descContent);
+      } else {
+        const meta = document.createElement('meta');
+        meta.name = 'description';
+        meta.content = descContent;
+        document.head.appendChild(meta);
+      }
+    }
+  }, [serviceId, service]);
 
   if (!service) {
     return <Navigate to="/" replace />;

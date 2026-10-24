@@ -10,6 +10,17 @@ import {
 export default function SgrcServicesListPage() {
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: "smooth" });
+    document.title = "Statutory Compliance Services (SGRC) — GOVENICS";
+    const metaDesc = document.querySelector('meta[name="description"]');
+    const descContent = "Explore GOVENICS Statutory GRC advisory services including compliance risk audits, factory compliance, establishment regulations, and EHS safety charters.";
+    if (metaDesc) {
+      metaDesc.setAttribute('content', descContent);
+    } else {
+      const meta = document.createElement('meta');
+      meta.name = 'description';
+      meta.content = descContent;
+      document.head.appendChild(meta);
+    }
   }, []);
 
   const getIcon = (id: string) => {

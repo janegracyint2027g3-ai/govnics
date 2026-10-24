@@ -1,7 +1,9 @@
+import { useState } from "react";
 import type { GrcChatMessage as ChatMessageType, GrcChatAction, GrcSearchResult } from "@/hooks/useGrcChat";
 import { 
   Shield, User, ExternalLink, ArrowRight, Download, 
-  FileText, Scale, Settings, BookOpen, AlertCircle, Calculator 
+  FileText, Scale, Settings, BookOpen, AlertCircle, Calculator,
+  Copy, Check, ThumbsUp, ThumbsDown
 } from "lucide-react";
 
 interface GrcChatMessageProps {
@@ -11,6 +13,16 @@ interface GrcChatMessageProps {
 
 export const GrcChatMessage = ({ message, onActionClick }: GrcChatMessageProps) => {
   const isBot = message.type === "bot";
+  const [copied, setCopied] = useState(false);
+  const [feedback, setFeedback] = useState<"up" | "down" | null>(null);
+
+  const handleCopy = () => {
+    if (message.content) {
+      navigator.clipboard.writeText(message.content);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    }
+  };
 
   const getResultIcon = (type: string) => {
     switch (type) {
@@ -68,6 +80,39 @@ export const GrcChatMessage = ({ message, onActionClick }: GrcChatMessageProps) 
                 : "bg-blue-600 border-blue-550 text-white rounded-tr-none text-xs leading-relaxed font-semibold"
             }`}>
               <p className="whitespace-pre-wrap">{message.content}</p>
+              
+              {/* Copy & Feedback Controls for Bot Messages */}
+              {isBot && (
+                <div className="flex items-center justify-between pt-2 mt-1 border-t border-slate-100 text-[10px] text-slate-400">
+                  <button
+                    onClick={handleCopy}
+                    className="flex items-center gap-1 hover:text-blue-600 transition-colors"
+                    title="Copy response"
+                    aria-label="Copy response to clipboard"
+                  >
+                    {copied ? <Check className="w-3 h-3 text-emerald-500" /> : <Copy className="w-3 h-3" />}
+                    <span>{copied ? "Copied" : "Copy"}</span>
+                  </button>
+                  <div className="flex items-center gap-2">
+                    <button
+                      onClick={() => setFeedback("up")}
+                      className={`p-1 rounded hover:text-emerald-600 transition-colors ${feedback === "up" ? "text-emerald-600 font-bold" : ""}`}
+                      title="Helpful"
+                      aria-label="Mark helpful"
+                    >
+                      <ThumbsUp className="w-3 h-3" />
+                    </button>
+                    <button
+                      onClick={() => setFeedback("down")}
+                      className={`p-1 rounded hover:text-rose-600 transition-colors ${feedback === "down" ? "text-rose-600 font-bold" : ""}`}
+                      title="Not helpful"
+                      aria-label="Mark not helpful"
+                    >
+                      <ThumbsDown className="w-3 h-3" />
+                    </button>
+                  </div>
+                </div>
+              )}
             </div>
           )}
 
@@ -105,7 +150,7 @@ export const GrcChatMessage = ({ message, onActionClick }: GrcChatMessageProps) 
                     {result.link && (
                       <button
                         onClick={() => onActionClick({ label: "Open Link", value: result.link!, type: "link" })}
-                        className="flex-1 inline-flex items-center justify-center gap-1.5 px-3 py-2 bg-slate-50 hover:bg-slate-100 border border-slate-200 text-[10px] font-black text-slate-650 rounded-xl transition-all hover:text-blue-600 hover:border-blue-200"
+                        className="flex-1 inline-flex items-center justify-center gap-1.5 px-3 py-2 bg-slate-50 hover:bg-slate-100 border border-slate-200 text-[10px] font-black text-slate-655 rounded-xl transition-all hover:text-blue-600 hover:border-blue-200"
                       >
                         <ExternalLink className="w-3.5 h-3.5" />
                         <span>View Details</span>
@@ -133,7 +178,7 @@ export const GrcChatMessage = ({ message, onActionClick }: GrcChatMessageProps) 
                 <button
                   key={i}
                   onClick={() => onActionClick(action)}
-                  className="rounded-full bg-white hover:bg-blue-50/40 border border-slate-200 text-slate-650 hover:text-blue-600 hover:border-blue-300 h-8 px-3.5 text-[10px] font-extrabold transition-all shadow-sm flex items-center justify-center gap-1.5"
+                  className="rounded-full bg-white hover:bg-blue-50/40 border border-slate-200 text-slate-655 hover:text-blue-600 hover:border-blue-300 h-8 px-3.5 text-[10px] font-extrabold transition-all shadow-sm flex items-center justify-center gap-1.5"
                 >
                   {action.type === "link" && <ExternalLink className="w-3 h-3" />}
                   <span>{action.label}</span>

@@ -13,6 +13,17 @@ export default function SgrcResourcesListPage() {
 
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: "smooth" });
+    document.title = "SGRC Knowledge Hub & Resources — GOVENICS";
+    const metaDesc = document.querySelector('meta[name="description"]');
+    const descContent = "Access statutory webinars, labour code case studies, circular notifications, and compliance alerts curated by GOVENICS GRC.";
+    if (metaDesc) {
+      metaDesc.setAttribute('content', descContent);
+    } else {
+      const meta = document.createElement('meta');
+      meta.name = 'description';
+      meta.content = descContent;
+      document.head.appendChild(meta);
+    }
   }, []);
 
   const resourcesData = [

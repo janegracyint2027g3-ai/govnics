@@ -33,6 +33,18 @@ export default function RegisterPage() {
 
   // Redirect if already authenticated
   useEffect(() => {
+    document.title = "Register GRC Account | Calibrate Compliance Workspace — GOVENICS";
+    const metaDesc = document.querySelector('meta[name="description"]');
+    const descContent = "Create your GOVENICS enterprise account. Calibrate statutory frameworks, select your industry maturity, and configure your personalized GRC dashboard.";
+    if (metaDesc) {
+      metaDesc.setAttribute('content', descContent);
+    } else {
+      const meta = document.createElement('meta');
+      meta.name = 'description';
+      meta.content = descContent;
+      document.head.appendChild(meta);
+    }
+
     if (isAuthenticated) {
       navigate("/");
     }

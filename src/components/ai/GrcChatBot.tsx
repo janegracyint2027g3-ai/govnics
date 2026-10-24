@@ -2,7 +2,7 @@ import { useRef, useEffect } from "react";
 import { useGrcChat } from "@/hooks/useGrcChat";
 import { GrcChatMessage } from "./GrcChatMessage";
 import { GrcChatInput } from "./GrcChatInput";
-import { MessageSquare, X, Minus, Sparkles } from "lucide-react";
+import { MessageSquare, X, Minus, Sparkles, RotateCcw } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
 export const GrcChatBot = () => {
@@ -12,6 +12,7 @@ export const GrcChatBot = () => {
     messages,
     isTyping,
     hasUnread,
+    resetConversation,
     handleSendMessage,
     handleAction
   } = useGrcChat();
@@ -60,12 +61,24 @@ export const GrcChatBot = () => {
                 </div>
               </div>
               
-              <button
-                onClick={toggleChat}
-                className="w-7 h-7 rounded-full flex items-center justify-center text-white/80 hover:text-white hover:bg-white/10 transition-colors"
-              >
-                <Minus className="w-4 h-4" />
-              </button>
+              <div className="flex items-center gap-1">
+                <button
+                  onClick={resetConversation}
+                  className="w-7 h-7 rounded-full flex items-center justify-center text-white/80 hover:text-white hover:bg-white/10 transition-colors"
+                  title="Reset conversation"
+                  aria-label="Reset conversation"
+                >
+                  <RotateCcw className="w-3.5 h-3.5" />
+                </button>
+                <button
+                  onClick={toggleChat}
+                  className="w-7 h-7 rounded-full flex items-center justify-center text-white/80 hover:text-white hover:bg-white/10 transition-colors"
+                  title="Minimize chat"
+                  aria-label="Minimize chat"
+                >
+                  <Minus className="w-4 h-4" />
+                </button>
+              </div>
             </div>
 
             {/* Messages Area */}

@@ -231,6 +231,20 @@ export default function SgrceLibraryPage() {
   const activeTab = searchParams.get("tab") || (activeDomain === "lei" ? "labour-codes" : "acts");
   const [selectedState, setSelectedState] = useState<string>("Maharashtra");
 
+  useEffect(() => {
+    document.title = "Statutory Compliance e-Library & Act Explorer — GOVENICS";
+    const metaDesc = document.querySelector('meta[name="description"]');
+    const descContent = "Search Indian statutory acts, minimum wage slabs, LWF contribution rates, Professional Tax tables, and labour compliance calculators on GOVENICS e-Library.";
+    if (metaDesc) {
+      metaDesc.setAttribute('content', descContent);
+    } else {
+      const meta = document.createElement('meta');
+      meta.name = 'description';
+      meta.content = descContent;
+      document.head.appendChild(meta);
+    }
+  }, []);
+
   // Search and visual feedback states
   const [searchQuery, setSearchQuery] = useState("");
   const [copiedId, setCopiedId] = useState<string | null>(null);
