@@ -3,16 +3,13 @@ import { Link } from "react-router-dom";
 import { Layout } from "@/components/layout/Layout";
 import { sgrcServices } from "@/data/sgrc-data";
 import { GrcSliderHero } from "@/components/hero/GrcSliderHero";
+import { servicesSpicedSlides } from "@/data/spiced-slider-content";
 import { GrcStatCards, type GrcStatCardItem } from "@/components/ui/GrcStatCards";
 import { 
   Scale, Building, CreditCard, Factory, Users, ShieldAlert, 
   UserPlus, FileSpreadsheet, Leaf, Shield, ArrowRight, CheckCircle2,
   ShieldCheck
 } from "lucide-react";
-
-import heroAiDriven from "@/assets/hero-ai-driven.jpg";
-import heroVerify from "@/assets/hero-verify.jpg";
-import verticalsFacility from "@/assets/verticals-facility.jpg";
 
 export default function SgrcServicesListPage() {
   useEffect(() => {
@@ -31,38 +28,7 @@ export default function SgrcServicesListPage() {
   }, []);
 
   // Hero Slides
-  const heroSlides = [
-    {
-      badge: "Statutory GRC Division",
-      title: "Statutory Compliance &",
-      highlight: "Advisory Overwatch",
-      description: "End-to-end statutory registers, factory plan approvals, CLRA audits, and environmental clearances across all 28 Indian states.",
-      image: heroAiDriven,
-      icp: "Manufacturing Plants, GCCs & Retail Networks",
-      outcome: "100% Audit Readiness & Zero Legal Litigation",
-      cta: "Explore All 10 Disciplines"
-    },
-    {
-      badge: "Pan-India Legal Registers",
-      title: "Central & State Rules",
-      highlight: "Dynamic Alignment",
-      description: "Streamlining Minimum Wages, PF, ESIC, Professional Tax, and Labour Welfare Funds with automated deadline alerts and inspection defense.",
-      image: heroVerify,
-      icp: "CHROs, Compliance Officers & CFOs",
-      outcome: "Guaranteed Zero-Deviation Filings",
-      cta: "Explore Labor Law Scope"
-    },
-    {
-      badge: "Factory & EHS Oversight",
-      title: "Pollution Clearances &",
-      highlight: "Workplace Safety SOPs",
-      description: "Comprehensive machine inspection logs, hazardous waste tracking, and SPCB consent renewals without production downtime.",
-      image: verticalsFacility,
-      icp: "Plant Directors & Safety Heads",
-      outcome: "Continuous CTE/CTO Approvals",
-      cta: "Inspect Factory Audits"
-    }
-  ];
+  const heroSlides = servicesSpicedSlides;
 
   // Key Statistics
   const stats: GrcStatCardItem[] = [

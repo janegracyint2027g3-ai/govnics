@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { Layout } from "@/components/layout/Layout";
 import { GrcSliderHero } from "@/components/hero/GrcSliderHero";
+import { aboutSpicedSlides } from "@/data/spiced-slider-content";
 import { 
   aboutStats, 
   missionVisionValues, 
@@ -14,51 +15,13 @@ import {
   Building2, Sparkles 
 } from "lucide-react";
 
-import heroVerify from "@/assets/hero-verify.jpg";
-import heroAiDriven from "@/assets/hero-ai-driven.jpg";
-import heroCommand from "@/assets/command_center_1.jpg";
-import heroIntegration from "@/assets/hero-integration.jpg";
-
 export default function AboutPage() {
   const [selectedRegion, setSelectedRegion] = useState<string>("All");
   const [searchCity, setSearchCity] = useState<string>("");
 
   const allLeaders = [...directorsData, ...executiveManagementData];
 
-  const aboutHeroSlides = [
-    {
-      badge: "Since 1985",
-      title: "Securing the Future of",
-      highlight: "Enterprise",
-      titleEnd: "Compliance",
-      description: "40+ years of excellence in governance, risk advisory, and compliance services, safeguarding enterprise assets with advanced, compliance-integrated GRC frameworks.",
-      image: heroVerify,
-    },
-    {
-      badge: "Our Leadership",
-      title: "Guided by",
-      highlight: "Experience",
-      titleEnd: "& Core Values",
-      description: "Led by decorated ex-military professionals and compliance veterans with deep expertise in governance structures, regulatory frameworks, and enterprise risk consulting.",
-      image: heroCommand,
-    },
-    {
-      badge: "Our Values",
-      title: "Integrity,",
-      highlight: "Vigilance",
-      titleEnd: "& Excellence",
-      description: "Honesty and transparency are the bedrock of our operations. We don't settle for 'good enough' - we aim for zero deviation in corporate compliance and governance.",
-      image: heroAiDriven,
-    },
-    {
-      badge: "Our Impact",
-      title: "Trusted by",
-      highlight: "1000+ Enterprises",
-      titleEnd: "Nationwide",
-      description: "Providing ISO-certified compliance auditing services with pan-India coverage, physical-logical alignment safeguards, and 24/7 autonomous monitoring support.",
-      image: heroIntegration,
-    }
-  ];
+  const aboutHeroSlides = aboutSpicedSlides;
 
   // Filtering logic for office locations
   const regions = ["All", "South", "North", "East", "West", "Islands"];

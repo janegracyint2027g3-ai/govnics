@@ -8,9 +8,7 @@ import {
 } from "lucide-react";
 import { trackEvent } from "@/utils/analytics";
 
-import heroAiDriven from "@/assets/hero-ai-driven.jpg";
-import heroVerify from "@/assets/hero-verify.jpg";
-import heroCommand from "@/assets/command_center_1.jpg";
+import { servicesSpicedSlides } from "@/data/spiced-slider-content";
 
 export default function SgrcEstimatorPage() {
   const [empRange, setEmpRange] = useState<string>("100-500");
@@ -173,38 +171,7 @@ export default function SgrcEstimatorPage() {
     "Synthesizing customized platform architecture blueprint..."
   ];
 
-  const heroSlides = [
-    {
-      badge: "Compliance Architecture Estimator",
-      title: "Statutory Footprint &",
-      highlight: "Cost Scoping Engine",
-      description: "Model workforce headcount, pan-India state registrations, and multi-facility compliance overhead to calculate exact implementation timelines.",
-      image: heroAiDriven,
-      icp: "CFOs, Legal Counsels & HR Directors",
-      outcome: "↓ 88% Operational Labor Reduction & Zero Penalty Exposure",
-      cta: "Configure Model Parameters"
-    },
-    {
-      badge: "Agentic AI Scoping",
-      title: "Autonomous Legal Parsers &",
-      highlight: "OCR Auditing Agents",
-      description: "Estimate savings by deploying multi-agent sentries that validate contractor payrolls, challans, and statutory returns automatically.",
-      image: heroVerify,
-      icp: "Enterprises with 100+ to 5,000+ Workers",
-      outcome: "100% Statutory SLA Audit Coverage",
-      cta: "Run Cost Simulation"
-    },
-    {
-      badge: "Board-Ready Blueprint",
-      title: "Instant Architecture",
-      highlight: "Proposal & Roadmap",
-      description: "Generate customized technical blueprints, staffing ratios, and timeline schedules to present to executive governance committees.",
-      image: heroCommand,
-      icp: "Chief Compliance Officers & Enterprise Risk Teams",
-      outcome: "Instant PDF Roadmap Download",
-      cta: "Generate Custom Estimate"
-    }
-  ];
+  const heroSlides = servicesSpicedSlides;
 
   const stats: GrcStatCardItem[] = [
     { value: "↓ 88", suffix: "%", label: "Compliance Labor Reduction", icon: ShieldCheck, badge: "Efficiency", description: "Automated OCR & parser agents replace manual audits" },

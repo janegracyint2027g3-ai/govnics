@@ -2,17 +2,12 @@ import { useState, useEffect } from "react";
 import { Layout } from "@/components/layout/Layout";
 import { GrcCarousel } from "@/components/ui/GrcCarousel";
 import { GrcStatCards, type GrcStatCardItem } from "@/components/ui/GrcStatCards";
+import { GrcSliderHero } from "@/components/hero/GrcSliderHero";
+import { esgSpicedSlides } from "@/data/spiced-slider-content";
 import { 
   CheckCircle2, ShieldCheck, ClipboardCheck, Clock, BarChart3,
-  ArrowRight, Leaf, ChevronRight
+  ArrowRight, Leaf
 } from "lucide-react";
-import heroVerify from "@/assets/hero-verify.jpg";
-import heroCommand from "@/assets/command_center_1.jpg";
-import heroIntegration from "@/assets/hero-integration.jpg";
-import verticalsFacility from "@/assets/verticals-facility.jpg";
-import heroDrone from "@/assets/hero-drone.jpg";
-import heroSoc from "@/assets/hero-soc.jpg";
-import heroAiDriven from "@/assets/hero-ai-driven.jpg";
 
 interface EsgItem {
   title: string;
@@ -115,88 +110,7 @@ export default function ESGPage() {
     }
   }, []);
 
-  const heroSlides = [
-    {
-      title: "Payroll Is a Distraction from Your Core Business.",
-      highlight: "Hand It to Us.",
-      description: "End-to-end salary computation, statutory deductions, and bank uploads—managed with military precision so your HR team focuses on people, not processes.",
-      outcome: "Reduce internal HR workload by 60% and eliminate payroll anxiety",
-      icp: "HR Directors in Mid-Sized Enterprises (200–2,000 employees)",
-      cta: "Outsource Payroll Now",
-      image: heroAiDriven,
-      badge: "Payroll Management"
-    },
-    {
-      title: "Missed Filings Are Expensive.",
-      highlight: "We Never Miss.",
-      description: "High-volume, accurate processing of PF, ESI, PT, and TDS filings across all your entities—because statutory deadlines don't negotiate.",
-      outcome: "Maintain 100% on-time filing record across all jurisdictions",
-      icp: "Finance Managers in Multi-Entity Groups",
-      cta: "Automate Filings",
-      image: heroVerify,
-      badge: "Statutory Filings"
-    },
-    {
-      title: "Your Employees Have Questions.",
-      highlight: "We Have Answers. 24/7.",
-      description: "Dedicated helpdesk for employee queries on payroll, taxes, and HR policies—turning confusion into clarity and frustration into satisfaction.",
-      outcome: "Increase employee satisfaction by 40% and reduce HR ticket volume",
-      icp: "CHROs in IT, BPO & Shared Services",
-      cta: "Setup Helpdesk",
-      image: heroIntegration,
-      badge: "Employee Helpdesk"
-    },
-    {
-      title: "Your Staffing Vendor",
-      highlight: "Might Be Your Biggest Liability.",
-      description: "Continuously audit your outsourced staffing agencies to ensure they pay wages, file PF, and comply with labour laws—shielding you from co-employment risk.",
-      outcome: "Eliminate co-employment liabilities entirely and sleep soundly",
-      icp: "Principal Employers in Manufacturing & Construction",
-      cta: "Govern Vendors",
-      image: verticalsFacility,
-      badge: "Vendor Governance"
-    },
-    {
-      title: "Breach Detection in Minutes.",
-      highlight: "Not Months.",
-      description: "24/7 monitoring, alert triage, and CERT-In incident response on a retainer basis—because in cybersecurity, every second is a potential million-dollar loss.",
-      outcome: "Contain breaches in under 1 hour and minimize damage",
-      icp: "CISOs in Healthcare, Finance & Critical Infrastructure",
-      cta: "Get SOC Protection",
-      image: heroSoc,
-      badge: "SOC Retention"
-    },
-    {
-      title: "Safe Factories Don't Happen by Accident.",
-      highlight: "They Happen by Design.",
-      description: "Regular site inspections, safety audits, and digital reporting that transform your factory floor from a risk zone into a benchmark for excellence.",
-      outcome: "Reduce workplace incidents by 50% and achieve safety leadership",
-      icp: "Plant Heads in Heavy Manufacturing & Chemicals",
-      cta: "Monitor EHS",
-      image: verticalsFacility,
-      badge: "EHS Operations"
-    },
-    {
-      title: "Paper Records Are a Liability.",
-      highlight: "Digital Records Are an Asset.",
-      description: "Secure digitization of statutory records, invoice processing, and compliance data entry—turning document chaos into searchable, audit-ready intelligence.",
-      outcome: "Cut administrative costs by 35% and achieve instant retrieval",
-      icp: "Operations Heads in Retail, Logistics & Real Estate",
-      cta: "Digitize Data",
-      image: heroDrone,
-      badge: "Digital Records"
-    },
-    {
-      title: "License Lapses Kill Deals.",
-      highlight: "We Prevent 100% of Them.",
-      description: "Never miss a deadline again. We track, renew, and manage all your trade and factory licenses—so your operations never pause for paperwork.",
-      outcome: "Prevent 100% of lapse penalties and maintain operational continuity",
-      icp: "Admin Heads in Hospitality, Facilities & Manufacturing",
-      cta: "Manage Licenses",
-      image: heroCommand,
-      badge: "License Management"
-    }
-  ];
+
 
   const stats: GrcStatCardItem[] = [
     { value: "0", suffix: " Dev", label: "BRSR Filing Audit Deviation", icon: ShieldCheck, badge: "Precision", description: "First-attempt regulatory clearance across SEBI core indicators" },
@@ -426,73 +340,7 @@ export default function ESGPage() {
       <div className="bg-slate-50/50 pb-24 text-slate-600 relative overflow-hidden">
         
         {/* Slider 1: Hero Carousel Section */}
-        <section className="relative min-h-[85dvh] flex items-center bg-white border-b border-slate-200/85">
-          <GrcCarousel
-            autoplay
-            autoplayInterval={6000}
-            showArrows={false}
-            showDots
-            itemWidthClassName="w-full"
-            gapClassName="gap-0"
-            pyClassName="py-0"
-            dotsClassName="absolute bottom-6 left-1/2 -translate-x-1/2 z-20"
-            items={heroSlides.map((slide, idx) => (
-              <div
-                key={idx}
-                className="relative w-full min-h-[85dvh] flex items-center bg-cover bg-center select-none pt-28 md:pt-36 pb-16 md:pb-24"
-                style={{ backgroundImage: `url(${slide.image})`, width: "100%" }}
-              >
-                <div className="absolute inset-0 bg-gradient-to-r from-white via-white/95 to-transparent/10 z-10" />
-                <div className="absolute inset-0 bg-gradient-to-t from-slate-50 via-transparent to-transparent z-10" />
-                <div className="container mx-auto px-6 relative z-20 text-left max-w-6xl">
-                  <div className="space-y-4 md:space-y-5 flex flex-col items-start">
-                    <div className="flex flex-wrap items-center justify-start gap-2.5">
-                      <div className="inline-flex items-center gap-2 px-4 py-2 bg-slate-100/90 border border-slate-200 rounded-full shadow-sm">
-                        <ShieldCheck className="w-4 h-4 text-blue-600" />
-                        <span className="text-xs font-extrabold text-slate-700 tracking-[0.2em] uppercase">
-                          Managed Services • {slide.badge}
-                        </span>
-                      </div>
-                      {slide.icp && (
-                        <div className="inline-flex items-center gap-2 px-4 py-2 bg-blue-50/90 border border-blue-200/50 rounded-full shadow-sm">
-                          <span className="text-xs font-extrabold text-blue-750 tracking-[0.03em] uppercase">
-                            Target: {slide.icp}
-                          </span>
-                        </div>
-                      )}
-                    </div>
-                    <h1 className="text-4xl sm:text-5xl md:text-6xl font-black text-slate-900 leading-[1.12] tracking-tight font-heading text-left">
-                      {slide.title}{" "}
-                      <span className="bg-gradient-to-r from-blue-600 via-blue-500 to-indigo-600 bg-clip-text text-transparent block sm:inline">
-                        {slide.highlight}
-                      </span>
-                    </h1>
-                    <p className="text-base sm:text-lg md:text-xl text-slate-650 max-w-2xl font-sans leading-relaxed font-medium text-left">
-                      {slide.description}
-                    </p>
-                    {slide.outcome && (
-                      <div className="inline-flex items-center gap-2 px-5 py-2.5 bg-emerald-50/90 border border-emerald-200/60 text-emerald-850 rounded-2xl text-xs sm:text-sm font-bold shadow-sm animate-pulse-subtle">
-                        <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-                        <span>Outcome: {slide.outcome}</span>
-                      </div>
-                    )}
-                    <div className="pt-2">
-                      <a href="#ehs" onClick={(e) => {
-                        const targetEl = document.getElementById("ehs");
-                        if (targetEl) {
-                          e.preventDefault();
-                          targetEl.scrollIntoView({ behavior: "smooth" });
-                        }
-                      }} className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-blue-600 hover:bg-blue-700 text-white rounded-2xl shadow-lg shadow-blue-500/20 text-sm font-bold transition-all hover:scale-[1.02]">
-                        {slide.cta || "Explore Sections"} <ChevronRight className="w-4 h-4" />
-                      </a>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            ))}
-          />
-        </section>
+        <GrcSliderHero slides={esgSpicedSlides} categoryLabel="ESG & Sustainability" />
 
         {/* Panel 2: Statistics Grid Cards */}
         <GrcStatCards stats={stats} />

@@ -2,16 +2,11 @@ import { useEffect } from "react";
 import { Layout } from "@/components/layout/Layout";
 import { GrcCarousel } from "@/components/ui/GrcCarousel";
 import { GrcStatCards, type GrcStatCardItem } from "@/components/ui/GrcStatCards";
+import { GrcSliderHero } from "@/components/hero/GrcSliderHero";
+import { industriesSpicedSlides } from "@/data/spiced-slider-content";
 import { industriesData } from "@/data/industries-data";
 import { Link } from "react-router-dom";
-import { Shield, ArrowRight, ChevronRight, Settings, Cpu, Activity, Coins, ShieldAlert, Layers, Building, ShieldCheck, Award } from "lucide-react";
-import heroVerify from "@/assets/hero-verify.jpg";
-import heroCommand from "@/assets/command_center_1.jpg";
-import heroAiDriven from "@/assets/hero-ai-driven.jpg";
-import heroIntegration from "@/assets/hero-integration.jpg";
-import verticalsFacility from "@/assets/verticals-facility.jpg";
-import heroDrone from "@/assets/hero-drone.jpg";
-import heroSoc from "@/assets/hero-soc.jpg";
+import { Shield, ArrowRight, Settings, Cpu, Activity, Coins, ShieldAlert, Layers, Building, ShieldCheck, Award } from "lucide-react";
 
 export default function IndustriesPage() {
   useEffect(() => {
@@ -27,89 +22,6 @@ export default function IndustriesPage() {
       document.head.appendChild(meta);
     }
   }, []);
-
-  const heroSlides = [
-    {
-      title: "The New Labour Codes Aren't Optional.",
-      highlight: "But Compliance Doesn't Have to Be Painful.",
-      description: "Expert drafting of employee handbooks, contracts, and wage structures aligned with all four new codes—turning legal complexity into competitive advantage.",
-      outcome: "Achieve full code compliance in 45 days, not 45 weeks",
-      icp: "Labor Law Managers in Retail, Manufacturing & Services",
-      cta: "Transition Codes Now",
-      badge: "Labour Codes",
-      image: heroVerify
-    },
-    {
-      title: "Zero EHS Penalties. Zero Workplace Incidents.",
-      highlight: "Zero Excuses.",
-      description: "Simplify PCB consent management, hazardous waste handling, and factory safety audits with a system that makes compliance the path of least resistance.",
-      outcome: "Reduce EHS penalties to zero and create safer workplaces",
-      icp: "EHS Officers in Heavy Industrial Sectors",
-      cta: "Audit EHS Now",
-      badge: "EHS & Safety",
-      image: verticalsFacility
-    },
-    {
-      title: "GST Leakage Is Silent Theft.",
-      highlight: "We Stop It.",
-      description: "Automate e-invoicing, way-bills, and GST filings to prevent revenue leakage, input credit losses, and disputes that drain your bottom line.",
-      outcome: "Reconcile books 5x faster and recover hidden tax credits",
-      icp: "Tax Heads in FMCG, Logistics & E-Commerce",
-      cta: "Fix GST Gaps",
-      badge: "GST & Taxes",
-      image: heroAiDriven
-    },
-    {
-      title: "Customs Holds Kill Margins.",
-      highlight: "We Clear the Path.",
-      description: "Manage customs, trade licenses, and sanctions screening to ensure your global shipments move at the speed of business, not bureaucracy.",
-      outcome: "Clear customs holds 80% quicker and reduce demurrage costs",
-      icp: "Logistics Directors in Import-Export Houses",
-      cta: "Streamline EXIM",
-      badge: "Customs Codes",
-      image: heroDrone
-    },
-    {
-      title: "28 States. One Dashboard.",
-      highlight: "Zero Lapses.",
-      description: "Centralized management of Shop & Establishment registrations, renewals, and digital registers across every Indian state—because expansion shouldn't mean fragmentation.",
-      outcome: "Manage 28+ states from 1 dashboard with auto-renewal alerts",
-      icp: "Regional Managers in Chain Restaurants, Retail & Hospitality",
-      cta: "Unify S&E",
-      badge: "S&E Compliance",
-      image: heroIntegration
-    },
-    {
-      title: "Health Inspections",
-      highlight: "Shouldn't Keep You Awake.",
-      description: "Strict adherence to Biomedical Waste rules, Clinical Establishment Acts, and drug licensing—so your facility passes every inspection, every time.",
-      outcome: "Pass health inspections with zero citations and maintain licenses",
-      icp: "Hospital Administrators & Pharmacy Heads",
-      cta: "Secure Healthcare Now",
-      badge: "Healthcare GRC",
-      image: heroCommand
-    },
-    {
-      title: "Regulators Test Banks.",
-      highlight: "We Make Sure Yours Passes.",
-      description: "Robust AML/KYC frameworks, data localization, and IT audits for banks and NBFCs that turn regulatory stress tests from threats into validations.",
-      outcome: "Pass regulatory stress tests seamlessly and avoid RBI penalties",
-      icp: "Compliance Officers in BFSI Sector",
-      cta: "Defend BFSI",
-      badge: "BFSI GRC",
-      image: heroSoc
-    },
-    {
-      title: "Audit Readiness Isn't an Event.",
-      highlight: "It's a State of Being.",
-      description: "Perpetual cloud-based audit trails that ensure instant readiness for any government scrutiny—no more panic, no more last-minute scrambling.",
-      outcome: "Cut audit preparation time by 75% and never fear a surprise inspection",
-      icp: "CFOs in High-Growth Startups & Scale-ups",
-      cta: "Get Audit Ready",
-      badge: "Audit Trails",
-      image: heroVerify
-    }
-  ];
 
   const getClusterId = (clusterName: string) => {
     return clusterName.toLowerCase()
@@ -238,68 +150,8 @@ export default function IndustriesPage() {
   return (
     <Layout>
       <div className="bg-slate-50/50 pb-24 text-slate-600 relative overflow-hidden">
-         {/* Slider 1: Hero Carousel Section */}
-        <section className="relative min-h-[85dvh] flex items-center bg-white border-b border-slate-200/85">
-          <GrcCarousel
-            autoplay
-            autoplayInterval={6000}
-            showArrows={false}
-            showDots
-            itemWidthClassName="w-full"
-            gapClassName="gap-0"
-            pyClassName="py-0"
-            dotsClassName="absolute bottom-6 left-1/2 -translate-x-1/2 z-20"
-            items={heroSlides.map((slide, idx) => (
-              <div
-                key={idx}
-                className="relative w-full min-h-[85dvh] flex items-center bg-cover bg-center select-none pt-28 md:pt-36 pb-16 md:pb-24"
-                style={{ backgroundImage: `url(${slide.image})`, width: "100%" }}
-              >
-                <div className="absolute inset-0 bg-gradient-to-r from-white via-white/95 to-transparent/10 z-10" />
-                <div className="absolute inset-0 bg-gradient-to-t from-slate-50 via-transparent to-transparent z-10" />
-                <div className="container mx-auto px-6 relative z-20 text-left max-w-6xl">
-                  <div className="space-y-4 md:space-y-5 flex flex-col items-start">
-                    <div className="flex flex-wrap items-center justify-start gap-2.5">
-                      <div className="inline-flex items-center gap-2 px-4 py-2 bg-slate-100/90 border border-slate-200 rounded-full shadow-sm">
-                        <Settings className="w-4 h-4 text-blue-600" />
-                        <span className="text-xs font-extrabold text-slate-700 tracking-[0.2em] uppercase">
-                          Compliance • {slide.badge}
-                        </span>
-                      </div>
-                      {slide.icp && (
-                        <div className="inline-flex items-center gap-2 px-4 py-2 bg-blue-50/90 border border-blue-200/50 rounded-full shadow-sm">
-                          <span className="text-xs font-extrabold text-blue-750 tracking-[0.03em] uppercase">
-                            Target: {slide.icp}
-                          </span>
-                        </div>
-                      )}
-                    </div>
-                    <h1 className="text-4xl sm:text-5xl md:text-6xl font-black text-slate-900 leading-[1.12] tracking-tight font-heading text-left">
-                      {slide.title}{" "}
-                      <span className="bg-gradient-to-r from-blue-600 via-blue-500 to-indigo-600 bg-clip-text text-transparent block sm:inline">
-                        {slide.highlight}
-                      </span>
-                    </h1>
-                    <p className="text-base sm:text-lg md:text-xl text-slate-650 max-w-2xl font-sans leading-relaxed font-medium text-left">
-                      {slide.description}
-                    </p>
-                    {slide.outcome && (
-                      <div className="inline-flex items-center gap-2 px-5 py-2.5 bg-emerald-50/90 border border-emerald-200/60 text-emerald-850 rounded-2xl text-xs sm:text-sm font-bold shadow-sm animate-pulse-subtle">
-                        <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-                        <span>Outcome: {slide.outcome}</span>
-                      </div>
-                    )}
-                    <div className="pt-2">
-                      <a href="#manufacturing" className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-blue-600 hover:bg-blue-700 text-white rounded-2xl shadow-lg shadow-blue-500/20 text-sm font-bold transition-all hover:scale-[1.02]">
-                        {slide.cta} <ChevronRight className="w-4 h-4" />
-                      </a>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            ))}
-          />
-        </section>
+        {/* Slider 1: Hero Carousel Section */}
+        <GrcSliderHero slides={industriesSpicedSlides} categoryLabel="Industry GRC" />
 
         {/* Panel 2: Statistics Grid Cards */}
         <GrcStatCards stats={stats} />

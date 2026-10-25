@@ -2,21 +2,16 @@ import { useState, useEffect } from "react";
 import { Layout } from "@/components/layout/Layout";
 import { GrcCarousel } from "@/components/ui/GrcCarousel";
 import { GrcStatCards, type GrcStatCardItem } from "@/components/ui/GrcStatCards";
+import { GrcSliderHero } from "@/components/hero/GrcSliderHero";
+import { grcSpicedSlides } from "@/data/spiced-slider-content";
 import { servicesData } from "@/data/services-data";
 import { manpowerServicesData } from "@/data/manpower-services-data";
 import { Link } from "react-router-dom";
 import { 
-  Shield, ArrowRight, CheckCircle2, ChevronRight, Briefcase, FileText, Scale, Settings, 
+  Shield, ArrowRight, CheckCircle2, Briefcase, FileText, Scale, Settings, 
   ShieldCheck, Clock, Users, AlertTriangle, Eye, Layers, RefreshCw, BookOpen, BarChart3, 
   Lock, HelpCircle, ChevronDown, Send, Check, Mail, Phone, Building2, User, Cpu, Target
 } from "lucide-react";
-import heroVerify from "@/assets/hero-verify.jpg";
-import heroAiDriven from "@/assets/hero-ai-driven.jpg";
-import heroCommand from "@/assets/command_center_1.jpg";
-import heroIntegration from "@/assets/hero-integration.jpg";
-import verticalsFacility from "@/assets/verticals-facility.jpg";
-import heroDrone from "@/assets/hero-drone.jpg";
-import heroSoc from "@/assets/hero-soc.jpg";
 
 export default function GrcPage() {
   const [activeTab, setActiveTab] = useState<string>("compliance");
@@ -46,89 +41,7 @@ export default function GrcPage() {
     return () => { document.title = "GOVENICS | Enterprise Governance, Risk & Compliance Consulting"; };
   }, []);
 
-  // Slider 1: Hero Slides (8 slides)
-  const heroSlides = [
-    {
-      title: "Your Risk Register Is a Tombstone.",
-      highlight: "Build a Living Risk Engine.",
-      description: "Replace static Excel registers with dynamic, quantified risk matrices aligned to ISO 31000—where risks auto-update, auto-prioritize, and auto-escalate.",
-      outcome: "Identify hidden risks 2x faster and prevent material losses",
-      icp: "Risk Managers in Fortune 500 & Nifty 50 Firms",
-      cta: "Upgrade Your ERM",
-      badge: "ERM Advisory",
-      image: heroCommand
-    },
-    {
-      title: "One Engine. Every Statute.",
-      highlight: "Zero Missed Filings.",
-      description: "PF, ESI, EHS, GST—managed through a single automated compliance engine that never sleeps, never forgets, and never misses a deadline.",
-      outcome: "Maintain 100% audit readiness across all 28 states",
-      icp: "Operations Directors in Manufacturing & Industrial",
-      cta: "Explore Compliance Engine",
-      badge: "Compliance Engine",
-      image: heroIntegration
-    },
-    {
-      title: "Hackers Don't Sleep.",
-      highlight: "Neither Should Your Defenses.",
-      description: "Build an impenetrable security posture with VAPT, SOC 2 readiness, ISMS implementation, and 24/7 threat monitoring that keeps adversaries out.",
-      outcome: "Reduce cyber incidents by 80% and achieve SOC 2 readiness",
-      icp: "IT Heads & CISOs in Tech, SaaS & FinTech",
-      cta: "Boost Cyber Resilience",
-      badge: "Cyber Posture",
-      image: heroSoc
-    },
-    {
-      title: "Measure What Matters.",
-      highlight: "Report What Investors Demand.",
-      description: "Accurately track Scope 1, 2, and 3 emissions and draft BRSR reports that satisfy SEBI, GRI, and global investor scrutiny—no greenwashing, just green winning.",
-      outcome: "Cut carbon tracking costs by 45% and attract ESG capital",
-      icp: "Sustainability Leads in Large Enterprises & PSUs",
-      cta: "Start ESG Reporting",
-      badge: "ESG & BRSR",
-      image: verticalsFacility
-    },
-    {
-      title: "First Attempt. First Pass.",
-      highlight: "Zero Stress.",
-      description: "Expert gap analysis, documentation rigor, and hand-holding for NABH, NAAC, and ISO certifications—because your reputation can't afford a second attempt.",
-      outcome: "Pass certification on the first attempt, every time",
-      icp: "Administrators in Healthcare, Education & Quality",
-      cta: "Get Certified Now",
-      badge: "Accreditation",
-      image: heroVerify
-    },
-    {
-      title: "Payroll Is Not HR's Job.",
-      highlight: "It's Ours.",
-      description: "Accurate salary computation, TDS filing, and HR policy drafting under one unified roof—so your finance team focuses on strategy, not spreadsheets.",
-      outcome: "Eliminate 99% of payroll discrepancies and reclaim 20+ hours monthly",
-      icp: "Finance Controllers in Mid-Market Firms",
-      cta: "Outsource Payroll",
-      badge: "Managed Payroll",
-      image: heroAiDriven
-    },
-    {
-      title: "Your Supply Chain Is Your Weakest Link.",
-      highlight: "Until Now.",
-      description: "Continuously monitor vendors for labor violations, EHS risks, and cyber exposure—protecting your brand from the scandals you didn't cause but will own.",
-      outcome: "Mitigate vendor risk exposure by 70% and protect brand equity",
-      icp: "Procurement Heads in Global Supply Chains",
-      cta: "Manage Vendor Risk",
-      badge: "Vendor Risk",
-      image: heroDrone
-    },
-    {
-      title: "Stop Checking Boxes.",
-      highlight: "Start Finding Gold.",
-      description: "Agile, continuous auditing methodologies that go beyond tick-box compliance to uncover operational leaks, cost drains, and hidden savings.",
-      outcome: "Uncover 30% more operational savings and strengthen governance",
-      icp: "Audit Committee Chairs in Listed Entities",
-      cta: "Book an Audit",
-      badge: "Internal Audit",
-      image: heroCommand
-    }
-  ];
+
 
   // Helper to filter and map service cards
   const renderServiceCard = (serviceId: string, icon: React.ReactNode) => {
@@ -508,67 +421,7 @@ export default function GrcPage() {
       <div className="bg-slate-50/50 pb-24 text-slate-600 relative overflow-hidden">
         
         {/* Slider 1: Hero Carousel Section */}
-        <section className="relative min-h-[85dvh] flex items-center bg-white border-b border-slate-200/85">
-          <GrcCarousel
-            autoplay
-            autoplayInterval={6000}
-            showArrows={false}
-            showDots
-            itemWidthClassName="w-full"
-            gapClassName="gap-0"
-            pyClassName="py-0"
-            dotsClassName="absolute bottom-6 left-1/2 -translate-x-1/2 z-20"
-            items={heroSlides.map((slide, idx) => (
-              <div
-                key={idx}
-                className="relative w-full min-h-[85dvh] flex items-center bg-cover bg-center select-none pt-28 md:pt-36 pb-16 md:pb-24"
-                style={{ backgroundImage: `url(${slide.image})`, width: "100%" }}
-              >
-                <div className="absolute inset-0 bg-gradient-to-r from-white via-white/95 to-transparent/10 z-10" />
-                <div className="absolute inset-0 bg-gradient-to-t from-slate-50 via-transparent to-transparent z-10" />
-                <div className="container mx-auto px-6 relative z-20 text-left max-w-6xl">
-                  <div className="space-y-4 md:space-y-5 flex flex-col items-start">
-                    <div className="flex flex-wrap items-center justify-start gap-2.5">
-                      <div className="inline-flex items-center gap-2 px-4 py-2 bg-slate-100/90 border border-slate-200 rounded-full shadow-sm">
-                        <Shield className="w-4 h-4 text-blue-600" />
-                        <span className="text-xs font-extrabold text-slate-700 tracking-[0.2em] uppercase">
-                          GRC Division • {slide.badge}
-                        </span>
-                      </div>
-                      {slide.icp && (
-                        <div className="inline-flex items-center gap-2 px-4 py-2 bg-blue-50/90 border border-blue-200/50 rounded-full shadow-sm">
-                          <span className="text-xs font-extrabold text-blue-750 tracking-[0.03em] uppercase">
-                            Target: {slide.icp}
-                          </span>
-                        </div>
-                      )}
-                    </div>
-                    <h1 className="text-4xl sm:text-5xl md:text-6xl font-black text-slate-900 leading-[1.12] tracking-tight font-heading text-left">
-                      {slide.title}{" "}
-                      <span className="bg-gradient-to-r from-blue-600 via-blue-500 to-indigo-600 bg-clip-text text-transparent block sm:inline">
-                        {slide.highlight}
-                      </span>
-                    </h1>
-                    <p className="text-base sm:text-lg md:text-xl text-slate-650 max-w-2xl font-sans leading-relaxed font-medium text-left">
-                      {slide.description}
-                    </p>
-                    {slide.outcome && (
-                      <div className="inline-flex items-center gap-2 px-5 py-2.5 bg-emerald-50/90 border border-emerald-200/60 text-emerald-850 rounded-2xl text-xs sm:text-sm font-bold shadow-sm animate-pulse-subtle">
-                        <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-                        <span>Outcome: {slide.outcome}</span>
-                      </div>
-                    )}
-                    <div className="pt-2">
-                      <a href="#compliance" className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-blue-600 hover:bg-blue-700 text-white rounded-2xl shadow-lg shadow-blue-500/20 text-sm font-bold transition-all hover:scale-[1.02]">
-                        {slide.cta} <ChevronRight className="w-4 h-4" />
-                      </a>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            ))}
-          />
-        </section>
+        <GrcSliderHero slides={grcSpicedSlides} categoryLabel="GRC Division" />
 
         {/* Panel 2: Statistics Grid Cards */}
         <GrcStatCards stats={stats} />

@@ -1,7 +1,12 @@
 import { useEffect, useState, useCallback, useRef } from "react";
 import { Link } from "react-router-dom";
-import { Shield, ChevronLeft, ChevronRight, ArrowLeft, ShieldCheck } from "lucide-react";
+import { 
+  Shield, ChevronLeft, ChevronRight, ArrowLeft, ShieldCheck, 
+  CalendarClock, Sparkles, ChevronDown, ChevronUp, Target, 
+  AlertTriangle, TrendingUp, Award 
+} from "lucide-react";
 import { motion, AnimatePresence, type Variants } from "framer-motion";
+import type { SpicedBreakdown } from "@/data/spiced-slider-content";
 
 export interface Slide {
   badge: string;
@@ -12,7 +17,9 @@ export interface Slide {
   image: string;
   icp?: string;
   outcome?: string;
+  criticalEvent?: string;
   cta?: string;
+  spiced?: SpicedBreakdown;
 }
 
 interface GrcSliderHeroProps {
@@ -24,6 +31,7 @@ interface GrcSliderHeroProps {
 export const GrcSliderHero = ({ slides, backLink, categoryLabel = "Solution" }: GrcSliderHeroProps) => {
   const [activeIndex, setActiveIndex] = useState(0);
   const [isHovered, setIsHovered] = useState(false);
+  const [showSpiced, setShowSpiced] = useState(false);
   const autoplayRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
   const startAutoPlay = useCallback(() => {
@@ -41,32 +49,32 @@ export const GrcSliderHero = ({ slides, backLink, categoryLabel = "Solution" }: 
   }, []);
 
   useEffect(() => {
-    if (!isHovered) {
+    if (!isHovered && !showSpiced) {
       startAutoPlay();
     } else {
       stopAutoPlay();
     }
     return () => stopAutoPlay();
-  }, [isHovered, startAutoPlay, stopAutoPlay]);
+  }, [isHovered, showSpiced, startAutoPlay, stopAutoPlay]);
 
   const handlePrev = (e: React.MouseEvent) => {
     e.preventDefault();
     stopAutoPlay();
     setActiveIndex((prev) => (prev - 1 + slides.length) % slides.length);
-    if (!isHovered) startAutoPlay();
+    if (!isHovered && !showSpiced) startAutoPlay();
   };
 
   const handleNext = (e: React.MouseEvent) => {
     e.preventDefault();
     stopAutoPlay();
     setActiveIndex((prev) => (prev + 1) % slides.length);
-    if (!isHovered) startAutoPlay();
+    if (!isHovered && !showSpiced) startAutoPlay();
   };
 
   const handleDotClick = (index: number) => {
     stopAutoPlay();
     setActiveIndex(index);
-    if (!isHovered) startAutoPlay();
+    if (!isHovered && !showSpiced) startAutoPlay();
   };
 
   const containerVariants: Variants = {
@@ -140,7 +148,7 @@ export const GrcSliderHero = ({ slides, backLink, categoryLabel = "Solution" }: 
               exit="initial"
               className="space-y-4 md:space-y-5 flex flex-col items-start text-left"
             >
-              {/* Premium GRC Badge & Target ICP */}
+              {/* Premium GRC Badge & Target ICP & Critical Event */}
               <div className="flex flex-wrap items-center justify-start gap-2.5">
                 <motion.div
                   variants={elementVariants}
@@ -158,6 +166,17 @@ export const GrcSliderHero = ({ slides, backLink, categoryLabel = "Solution" }: 
                   >
                     <span className="text-xs font-extrabold text-blue-750 tracking-[0.03em] uppercase">
                       Target: {slides[activeIndex].icp}
+                    </span>
+                  </motion.div>
+                )}
+                {slides[activeIndex].criticalEvent && (
+                  <motion.div
+                    variants={elementVariants}
+                    className="inline-flex items-center gap-1.5 px-3.5 py-2 bg-amber-50/90 border border-amber-200/80 rounded-full shadow-sm text-amber-800"
+                  >
+                    <CalendarClock className="w-3.5 h-3.5 text-amber-600 shrink-0" />
+                    <span className="text-[11px] font-bold tracking-tight">
+                      Catalyst: {slides[activeIndex].criticalEvent}
                     </span>
                   </motion.div>
                 )}
@@ -183,14 +202,98 @@ export const GrcSliderHero = ({ slides, backLink, categoryLabel = "Solution" }: 
                 {slides[activeIndex].description}
               </motion.p>
 
-              {/* Tangible Outcome */}
-              {slides[activeIndex].outcome && (
+              {/* Tangible Outcome & SPICED Brief Button */}
+              <div className="flex flex-wrap items-center gap-3 pt-1">
+                {slides[activeIndex].outcome && (
+                  <motion.div
+                    variants={elementVariants}
+                    className="inline-flex items-center gap-2 px-5 py-2.5 bg-emerald-50/90 border border-emerald-200/60 text-emerald-800 rounded-2xl text-xs sm:text-sm font-bold shadow-sm"
+                  >
+                    <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+                    <span>Outcome: {slides[activeIndex].outcome}</span>
+                  </motion.div>
+                )}
+                {slides[activeIndex].spiced && (
+                  <motion.button
+                    type="button"
+                    variants={elementVariants}
+                    onClick={() => setShowSpiced(!showSpiced)}
+                    className="inline-flex items-center gap-1.5 px-4 py-2.5 bg-indigo-50/90 hover:bg-indigo-100 border border-indigo-200/80 text-indigo-700 rounded-2xl text-xs font-bold transition-all shadow-sm"
+                  >
+                    <Sparkles className="w-3.5 h-3.5 text-indigo-600" />
+                    <span>SPICED Framework Brief</span>
+                    {showSpiced ? <ChevronUp className="w-3.5 h-3.5" /> : <ChevronDown className="w-3.5 h-3.5" />}
+                  </motion.button>
+                )}
+              </div>
+
+              {/* SPICED Framework Diagnostic Card (Expandable) */}
+              {slides[activeIndex].spiced && showSpiced && (
                 <motion.div
-                  variants={elementVariants}
-                  className="inline-flex items-center gap-2 px-5 py-2.5 bg-emerald-50/90 border border-emerald-200/60 text-emerald-800 rounded-2xl text-xs sm:text-sm font-bold shadow-sm animate-pulse-subtle"
+                  initial={{ opacity: 0, height: 0, y: -10 }}
+                  animate={{ opacity: 1, height: "auto", y: 0 }}
+                  exit={{ opacity: 0, height: 0 }}
+                  transition={{ duration: 0.35, ease: "easeOut" }}
+                  className="w-full max-w-4xl bg-gradient-to-br from-slate-900 to-slate-950 text-white border border-slate-800 rounded-3xl p-6 shadow-2xl space-y-4 my-2 text-left"
                 >
-                  <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-                  <span>Outcome: {slides[activeIndex].outcome}</span>
+                  <div className="flex items-center justify-between pb-3 border-b border-slate-800">
+                    <div className="flex items-center gap-2">
+                      <span className="px-2.5 py-1 rounded-md bg-blue-600/30 border border-blue-500/40 text-[10px] font-black uppercase tracking-widest text-blue-400">
+                        SPICED Strategy
+                      </span>
+                      <h4 className="text-xs font-bold text-slate-300">
+                        Executive Diagnostic Justification
+                      </h4>
+                    </div>
+                    <button
+                      onClick={() => setShowSpiced(false)}
+                      className="text-xs text-slate-400 hover:text-white"
+                    >
+                      Close ✕
+                    </button>
+                  </div>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3.5">
+                    <div className="p-3.5 rounded-2xl bg-white/5 border border-white/10 space-y-1">
+                      <div className="flex items-center gap-1.5 text-blue-400 text-[10px] font-extrabold uppercase tracking-wider">
+                        <Target className="w-3 h-3" /> [S] Situation
+                      </div>
+                      <p className="text-[11px] text-slate-300 leading-relaxed font-medium">
+                        {slides[activeIndex].spiced.situation}
+                      </p>
+                    </div>
+                    <div className="p-3.5 rounded-2xl bg-white/5 border border-white/10 space-y-1">
+                      <div className="flex items-center gap-1.5 text-rose-400 text-[10px] font-extrabold uppercase tracking-wider">
+                        <AlertTriangle className="w-3 h-3" /> [P] Pain Point
+                      </div>
+                      <p className="text-[11px] text-slate-300 leading-relaxed font-medium">
+                        {slides[activeIndex].spiced.pain}
+                      </p>
+                    </div>
+                    <div className="p-3.5 rounded-2xl bg-white/5 border border-white/10 space-y-1">
+                      <div className="flex items-center gap-1.5 text-emerald-400 text-[10px] font-extrabold uppercase tracking-wider">
+                        <TrendingUp className="w-3 h-3" /> [I] Impact & ROI
+                      </div>
+                      <p className="text-[11px] text-slate-300 leading-relaxed font-medium">
+                        {slides[activeIndex].spiced.impact}
+                      </p>
+                    </div>
+                    <div className="p-3.5 rounded-2xl bg-white/5 border border-white/10 space-y-1">
+                      <div className="flex items-center gap-1.5 text-amber-400 text-[10px] font-extrabold uppercase tracking-wider">
+                        <CalendarClock className="w-3 h-3" /> [C] Critical Event
+                      </div>
+                      <p className="text-[11px] text-slate-300 leading-relaxed font-medium">
+                        {slides[activeIndex].spiced.criticalEvent}
+                      </p>
+                    </div>
+                    <div className="p-3.5 rounded-2xl bg-white/5 border border-white/10 space-y-1 sm:col-span-2">
+                      <div className="flex items-center gap-1.5 text-purple-400 text-[10px] font-extrabold uppercase tracking-wider">
+                        <Award className="w-3 h-3" /> [D] Decision Criteria & Why Govnics
+                      </div>
+                      <p className="text-[11px] text-slate-300 leading-relaxed font-medium">
+                        {slides[activeIndex].spiced.decision}
+                      </p>
+                    </div>
+                  </div>
                 </motion.div>
               )}
 
@@ -231,19 +334,19 @@ export const GrcSliderHero = ({ slides, backLink, categoryLabel = "Solution" }: 
               {/* Trust Indicators matching homepage style */}
               <motion.div
                 variants={elementVariants}
-                className="flex flex-wrap md:flex-nowrap justify-start gap-x-5 md:gap-x-8 gap-y-3 pt-6 text-[10px] sm:text-xs md:text-sm font-bold uppercase tracking-wider text-slate-400 border-t border-slate-200/60 w-full"
+                className="flex flex-wrap items-center justify-start gap-x-6 md:gap-x-8 gap-y-2.5 pt-5 pb-6 text-[10px] sm:text-xs md:text-sm font-bold uppercase tracking-wider text-slate-400 border-t border-slate-200/60 w-full"
               >
                 <div className="flex items-center gap-2 whitespace-nowrap">
-                  <ShieldCheck className="w-4.5 h-4.5 text-blue-600 shrink-0" />
-                  <span className="text-slate-600">100% Statutory Assurance</span>
+                  <ShieldCheck className="w-4 h-4 text-blue-600 shrink-0" />
+                  <span className="text-slate-600 font-semibold">100% Statutory Assurance</span>
                 </div>
                 <div className="flex items-center gap-2 whitespace-nowrap">
-                  <ShieldCheck className="w-4.5 h-4.5 text-blue-600 shrink-0" />
-                  <span className="text-slate-600">15+ Enterprise Industries</span>
+                  <ShieldCheck className="w-4 h-4 text-blue-600 shrink-0" />
+                  <span className="text-slate-600 font-semibold">15+ Enterprise Industries</span>
                 </div>
                 <div className="flex items-center gap-2 whitespace-nowrap">
-                  <ShieldCheck className="w-4.5 h-4.5 text-blue-600 shrink-0" />
-                  <span className="text-slate-600">SLA & Cyber Guaranteed</span>
+                  <ShieldCheck className="w-4 h-4 text-blue-600 shrink-0" />
+                  <span className="text-slate-600 font-semibold">SLA & Cyber Guaranteed</span>
                 </div>
               </motion.div>
             </motion.div>
@@ -252,38 +355,38 @@ export const GrcSliderHero = ({ slides, backLink, categoryLabel = "Solution" }: 
       </div>
 
       {/* Manual Slide Navigation Arrows */}
-      <div className="absolute right-8 bottom-12 z-20 hidden md:flex items-center gap-3">
+      <div className="absolute right-6 md:right-12 bottom-5 z-30 flex items-center gap-2">
         <button
           onClick={handlePrev}
-          className="flex items-center justify-center w-10 h-10 bg-white/90 hover:bg-slate-50 text-slate-700 hover:text-blue-600 border border-slate-200 rounded-xl transition-all shadow-md active:scale-95"
+          className="flex items-center justify-center w-9 h-9 bg-white/95 hover:bg-slate-50 text-slate-700 hover:text-blue-600 border border-slate-200 rounded-xl transition-all shadow-md active:scale-95"
           aria-label="Previous Slide"
         >
-          <ChevronLeft className="w-5 h-5" />
+          <ChevronLeft className="w-4 h-4" />
         </button>
         <button
           onClick={handleNext}
-          className="flex items-center justify-center w-10 h-10 bg-white/90 hover:bg-slate-50 text-slate-700 hover:text-blue-600 border border-slate-200 rounded-xl transition-all shadow-md active:scale-95"
+          className="flex items-center justify-center w-9 h-9 bg-white/95 hover:bg-slate-50 text-slate-700 hover:text-blue-600 border border-slate-200 rounded-xl transition-all shadow-md active:scale-95"
           aria-label="Next Slide"
         >
-          <ChevronRight className="w-5 h-5" />
+          <ChevronRight className="w-4 h-4" />
         </button>
       </div>
 
       {/* Interactive Dot Indicators */}
-      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-20 flex items-center gap-2">
+      <div className="absolute bottom-5 left-6 md:left-12 z-30 flex items-center gap-2">
         {slides.map((_, index) => (
           <button
             key={index}
             onClick={() => handleDotClick(index)}
-            className={`relative h-1.5 rounded-full transition-all duration-500 ${
+            className={`relative h-2 rounded-full transition-all duration-500 ${
               activeIndex === index
                 ? "w-8 bg-blue-600"
-                : "w-1.5 bg-slate-300 hover:bg-slate-400"
+                : "w-2 bg-slate-300 hover:bg-slate-400"
             }`}
             aria-label={`Go to slide ${index + 1}`}
           >
             {activeIndex === index && (
-              <span className="absolute inset-0 rounded-full bg-blue-400 animate-ping opacity-40" />
+              <span className="absolute inset-0 rounded-full bg-blue-400 animate-ping opacity-30" />
             )}
           </button>
         ))}
