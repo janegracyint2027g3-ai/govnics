@@ -1336,10 +1336,10 @@ export const Header = () => {
             <Link
               to="#lead-capture"
               id="nav-cta-assessment"
-              className="inline-flex items-center gap-2 h-11 px-5.5 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white rounded-xl text-[13px] font-black tracking-wide transition-all shadow-lg shadow-blue-500/25 hover:scale-[1.03] whitespace-nowrap border border-blue-500/30"
+              className="inline-flex items-center justify-center gap-2.5 h-11 px-6 bg-gradient-to-r from-blue-600 via-blue-600 to-indigo-600 hover:from-blue-700 hover:via-blue-700 hover:to-indigo-700 text-white rounded-xl text-xs font-black tracking-wide transition-all duration-200 shadow-md shadow-blue-500/25 hover:shadow-lg hover:shadow-blue-500/35 hover:-translate-y-0.5 active:translate-y-0 whitespace-nowrap shrink-0 border border-blue-400/30"
             >
-              <ShieldCheck className="w-4.5 h-4.5 shrink-0" />
-              Get Free Assessment
+              <ShieldCheck className="w-4 h-4 shrink-0" />
+              <span className="whitespace-nowrap leading-none">Get Free Assessment</span>
             </Link>
           </div>
         </div>
@@ -1687,10 +1687,10 @@ export const Header = () => {
                 <Link to="#lead-capture" onClick={() => setMobileOpen(false)} className="w-full">
                   <button
                     id="mobile-nav-cta-assessment"
-                    className="w-full flex items-center justify-center gap-2 py-3 bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-xl text-xs font-black shadow-lg shadow-blue-500/20"
+                    className="w-full h-11 flex items-center justify-center gap-2.5 px-6 bg-gradient-to-r from-blue-600 via-blue-600 to-indigo-600 active:from-blue-700 active:to-indigo-700 text-white rounded-xl text-xs font-black tracking-wide shadow-md shadow-blue-500/25 border border-blue-400/30 transition-all duration-200 active:scale-[0.99] whitespace-nowrap"
                   >
-                    <ShieldCheck className="w-3.5 h-3.5" />
-                    Get Free Compliance Assessment
+                    <ShieldCheck className="w-4 h-4 shrink-0" />
+                    <span className="whitespace-nowrap leading-none">Get Free Assessment</span>
                   </button>
                 </Link>
                 <Link to="/contact" onClick={() => setMobileOpen(false)} className="w-full">
