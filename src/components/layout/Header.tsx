@@ -1336,9 +1336,9 @@ export const Header = () => {
             <Link
               to="#lead-capture"
               id="nav-cta-assessment"
-              className="inline-flex items-center gap-2 h-10 px-4.5 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white rounded-xl text-xs font-black tracking-wide transition-all shadow-lg shadow-blue-500/25 hover:scale-[1.03] whitespace-nowrap border border-blue-500/30"
+              className="inline-flex items-center gap-2 h-11 px-5.5 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white rounded-xl text-[13px] font-black tracking-wide transition-all shadow-lg shadow-blue-500/25 hover:scale-[1.03] whitespace-nowrap border border-blue-500/30"
             >
-              <ShieldCheck className="w-4 h-4 shrink-0" />
+              <ShieldCheck className="w-4.5 h-4.5 shrink-0" />
               Get Free Assessment
             </Link>
           </div>
