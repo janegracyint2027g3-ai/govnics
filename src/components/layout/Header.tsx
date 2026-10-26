@@ -4,7 +4,7 @@ import {
   Menu, X, ArrowRight, ShieldCheck, ChevronDown, Search,
   Scale, Building, Factory, Users, ShieldAlert, UserPlus, FileSpreadsheet, Leaf,
   Heart, Coins,
-  User, LogOut, CheckCircle2, Zap, Briefcase,
+  User, LogOut, Zap, Briefcase,
   Shield, Lock, Laptop, TreePine, Droplet, Activity, Cloud
 } from "lucide-react";
 import { whomWeServeClusters } from "@/data/whom-we-serve-data";
@@ -27,11 +27,11 @@ const offeringsVerticalTabsData: Record<string, {
       {
         id: "regulatory-compliance",
         title: "Regulatory Compliance",
-        description: "End-to-end statutory compliance tracking and advisory across agencies like RBI, SEBI, TRAI, and CPCB.",
+        description: "End-to-end statutory compliance tracking and advisory across regulators like RBI, SEBI, TRAI, and CPCB — keeping your enterprise perpetually audit-ready.",
         keyDetails: [
-          "100% Audit Readiness: Continuous monitoring of statutory updates.",
-          "Automated Registers: Auto-generation of compliance reports.",
-          "Penalty Prevention: Zero-lag alerts for upcoming deadlines."
+          "100% Audit Readiness|Always inspection-ready across all agencies.|Continuous monitoring of gazette amendments & circulars|Automated compliance calendars and deadline alerts|Board-level compliance dashboards updated in real time",
+          "Automated Registers|Eliminate manual paperwork with smart registers.|Auto-generation of compliance evidence packages|Tamper-proof digital records for regulatory defence|Instant retrieval during surprise inspections",
+          "Penalty Prevention|Zero tolerance for statutory lapses.|Zero-lag alerts for upcoming filing deadlines|Escalation workflows triggered before due dates|Dedicated compliance helpdesk for query resolution"
         ],
         link: "/services/regulatory-compliance",
         icon: ShieldCheck
@@ -39,11 +39,11 @@ const offeringsVerticalTabsData: Record<string, {
       {
         id: "labour-law",
         title: "Labour & Employment",
-        description: "Comprehensive adherence to PF, ESI, Minimum Wages, and Factory Acts across all Indian states.",
+        description: "Comprehensive adherence to PF, ESI, Minimum Wages, Contract Labour, and Factory Acts across all Indian states — shielding you from enforcement actions.",
         keyDetails: [
-          "State-specific Adherence: Covering all 28 states and UTs.",
-          "Contractor Audits: Monthly verification of third-party payrolls.",
-          "Inspection Support: Dedicated legal representation during audits."
+          "State-specific Adherence|Complete coverage across all 28 states & UTs.|Monthly statutory register maintenance per state|State-wise wage revision tracking and updates|Multi-location principal employer compliance mapping",
+          "Contractor Audits|Rigorous third-party payroll verification.|Monthly wage audit of all contractor employees|Principal employer liability shield documentation|Subcontractor due diligence and onboarding checks",
+          "Inspection Support|Expert representation when inspectors arrive.|Dedicated labour law attorneys during inspections|Pre-inspection mock drills and evidence organisation|Settlement and conciliation management support"
         ],
         link: "/services/labour-law-compliance",
         icon: Users
@@ -51,11 +51,11 @@ const offeringsVerticalTabsData: Record<string, {
       {
         id: "taxation-trade",
         title: "Taxation & Trade",
-        description: "Direct and indirect tax advisory, transfer pricing, and SEZ regulatory compliance.",
+        description: "Direct and indirect tax advisory, transfer pricing, SEZ compliance, and customs management — preventing costly disputes before they arise.",
         keyDetails: [
-          "GST & TDS Management: Seamless monthly and annual filings.",
-          "Customs & SEZ: Strict adherence to export-import regulations.",
-          "Transfer Pricing: Arm's length pricing studies and documentation."
+          "GST & TDS Management|Seamless monthly and annual statutory filings.|End-to-end GST reconciliation and ITC optimisation|TDS deduction, challan and return filing support|GST audit readiness and departmental notice handling",
+          "Customs & SEZ|Full compliance with export-import regulations.|Customs classification, valuation and duty advisory|SEZ unit compliance with DGFT and RBI guidelines|Foreign Trade Policy (FTP) benefits advisory",
+          "Transfer Pricing|Arm's length pricing studies and documentation.|Annual TP documentation and benchmarking studies|Advance Pricing Agreement (APA) support|Country-by-Country Reporting (CbCR) compliance"
         ],
         link: "/services/taxation-trade-compliance",
         icon: Building
@@ -63,11 +63,11 @@ const offeringsVerticalTabsData: Record<string, {
       {
         id: "environmental-ehs",
         title: "Environmental & EHS",
-        description: "Statutory adherence to pollution control boards, waste management, and workplace safety laws.",
+        description: "Statutory adherence to Pollution Control Boards, MoEFCC, waste management rules, and factory safety laws — keeping your operations legally clean and safe.",
         keyDetails: [
-          "Consent Management: CTE and CTO renewals without delays.",
-          "Safety Audits: Comprehensive factory and fire safety inspections.",
-          "Waste Returns: Timely filing of hazardous and e-waste returns."
+          "Consent Management|Timely CTE and CTO renewals without delays.|Air, Water & Hazardous Waste consent renewals|Form-IV, Form-V, and CPCB online portal filing|Status tracking and liaison with State PCBs",
+          "Safety Audits|Comprehensive factory and fire safety inspections.|Statutory safety committee formation and meetings|Factory Inspector mock audit preparation|Occupational health surveillance and MSDS management",
+          "Waste Returns|Accurate and timely hazardous & e-waste filings.|Hazardous Waste Annual Return (Form-4) filing|E-waste Producer Responsibility (PRO) compliance|Biomedical and plastic waste manifest management"
         ],
         link: "/services/environmental-ehs",
         icon: Leaf
@@ -75,11 +75,11 @@ const offeringsVerticalTabsData: Record<string, {
       {
         id: "supply-chain-compliance",
         title: "Supply Chain Compliance",
-        description: "Auditing and securing statutory compliance across your entire vendor and distributor network.",
+        description: "Auditing and securing statutory compliance across your entire vendor, contractor, and distributor network — eliminating downstream liability transfer risks.",
         keyDetails: [
-          "Vendor Verification: Pre-onboarding compliance checks.",
-          "Principal Employer Protection: Shielding you from vendor defaults.",
-          "Logistics Laws: Adherence to transport and warehouse regulations."
+          "Vendor Verification|Rigorous pre-onboarding compliance checks.|GST, PF, ESI and labour law registration validation|Vendor risk scoring and tiered classification|Ongoing statutory health monitoring of all vendors",
+          "Principal Employer Protection|Shield your organisation from contractor defaults.|Co-employment liability prevention frameworks|Contract Labour Act principal employer safeguards|Vendor indemnity clause and insurance advisory",
+          "Logistics Laws|Full adherence to transport and warehousing rules.|Waybill, e-way bill and consignment compliance|Warehouse licensing under WDRA and FSSAI|Dangerous Goods (ADR/IMDG) transportation compliance"
         ],
         link: "/services/supply-chain-compliance",
         icon: Factory
@@ -92,11 +92,11 @@ const offeringsVerticalTabsData: Record<string, {
       {
         id: "enterprise-risk",
         title: "Enterprise Risk (ERM)",
-        description: "Deploy futuristic ERM frameworks integrating operational telemetry with risk thresholds.",
+        description: "Deploy integrated ERM frameworks linking operational telemetry with risk thresholds — giving leadership a live, prioritised view of enterprise exposure.",
         keyDetails: [
-          "Predictive Indicators: Real-time KRI dashboards for boards.",
-          "Standardized Taxonomy: Unified risk language across departments.",
-          "Contingency Mapping: Pre-mapped SOPs for immediate mitigation."
+          "Predictive Indicators|Real-time KRI dashboards for boards and CXOs.|Heat-mapped risk registers with velocity scoring|Live KRI threshold breach notifications|Quarterly trend analysis and emerging risk briefings",
+          "Standardised Taxonomy|Unified risk language across every department.|ISO 31000-aligned risk categorisation structure|Cross-functional risk ownership and accountability maps|Risk appetite statement drafting and board adoption",
+          "Contingency Mapping|Pre-mapped SOPs for swift, structured mitigation.|Crisis response playbooks for top-tier risks|Business Continuity Plan (BCP) design and testing|Post-incident lessons-learned integration loops"
         ],
         link: "/services/enterprise-risk-management",
         icon: ShieldAlert
@@ -104,11 +104,11 @@ const offeringsVerticalTabsData: Record<string, {
       {
         id: "internal-audit",
         title: "Internal Audit",
-        description: "Compliance-integrated internal audit engine validating physical controls and software logic.",
+        description: "Compliance-integrated internal audit engine validating physical controls and process logic — transitioning from reactive to continuous assurance.",
         keyDetails: [
-          "Continuous Cycles: Moving from annual to continuous auditing.",
-          "Gap Discovery: Proactive identification before regulators inspect.",
-          "Action Tracking: Dashboards tracing corrective responses."
+          "Continuous Cycles|Shift from annual snapshots to always-on auditing.|Risk-based rolling audit plan design and execution|Process-level control effectiveness assessments|Quarterly thematic audits on priority risk areas",
+          "Gap Discovery|Proactively surface issues before regulators do.|Root-cause analysis and systemic deficiency mapping|Control environment maturity benchmarking|Management letter and Board Audit Committee reporting",
+          "Action Tracking|Close every finding with accountability dashboards.|Online issue tracker with owner and due-date fields|Escalation matrix for overdue action items|Follow-up audit verification of remediation quality"
         ],
         link: "/services/internal-audit",
         icon: FileSpreadsheet
@@ -116,11 +116,11 @@ const offeringsVerticalTabsData: Record<string, {
       {
         id: "vendor-risk",
         title: "Vendor Risk",
-        description: "Ongoing third-party due diligence and security questionnaire audits for supply chains.",
+        description: "Ongoing third-party due diligence and security questionnaire audits — ensuring your supply chain never becomes your compliance liability.",
         keyDetails: [
-          "Supply Chain Transparency: Contract liability tracking.",
-          "Health Scores: Automated vendor risk profiling.",
-          "Downstream Protection: Preventing exploits from vendor access."
+          "Supply Chain Transparency|End-to-end visibility across all vendor tiers.|Tier-1, Tier-2 and Tier-3 vendor risk mapping|Contractual SLA monitoring and exception reporting|Fourth-party risk exposure identification",
+          "Health Scores|Automated, dynamic vendor risk profiling.|Risk scoring based on financial, legal and cyber data|Continuous monitoring for negative news and litigation|Supplier diversity and ESG risk integration",
+          "Downstream Protection|Prevent exploits originating from vendor access.|Vendor access privilege reviews and least-privilege policy|Vendor IT security questionnaire and VAPT requirements|Third-party breach notification protocol setup"
         ],
         link: "/services/vendor-risk-management",
         icon: Building
@@ -128,11 +128,11 @@ const offeringsVerticalTabsData: Record<string, {
       {
         id: "financial-risk",
         title: "Financial Risk Advisory",
-        description: "Comprehensive assessments of credit, market, and liquidity risks to protect capital structures.",
+        description: "Comprehensive assessment of credit, market, and liquidity risks — protecting capital structures and ensuring regulatory capital adequacy.",
         keyDetails: [
-          "Stress Testing: Scenario analysis against market volatility.",
-          "Credit Profiling: Advanced modeling for counterparty risk.",
-          "Capital Adequacy: Regulatory compliance with Basel norms."
+          "Stress Testing|Robust scenario modelling against market volatility.|Macroeconomic shock scenario design and simulation|Portfolio concentration and sector exposure analysis|Reverse stress testing and recovery planning",
+          "Credit Profiling|Advanced counterparty risk modelling and limits.|Credit scoring model design and validation|Early-warning indicator (EWI) framework build-out|Regulatory credit risk reporting (RBI, Basel III norms)",
+          "Capital Adequacy|Ensure Basel III/IV and RBI capital compliance.|CRAR computation and regulatory capital optimisation|Internal Capital Adequacy Assessment Process (ICAAP)|Pillar 2 and Pillar 3 disclosure framework support"
         ],
         link: "/services/financial-risk",
         icon: Coins
@@ -140,11 +140,11 @@ const offeringsVerticalTabsData: Record<string, {
       {
         id: "operational-risk",
         title: "Operational Resilience",
-        description: "Identifying vulnerabilities in daily processes and building robust business continuity plans (BCP).",
+        description: "Identifying vulnerabilities in daily processes and building robust BCPs — ensuring your operations survive disruptions without breaching regulatory obligations.",
         keyDetails: [
-          "Process Mapping: Identifying single points of failure.",
-          "BCP Drills: Simulated testing of disaster recovery protocols.",
-          "Loss Data Analysis: Tracking and mitigating historical failures."
+          "Process Mapping|Identify and eliminate single points of failure.|End-to-end process flow mapping and FMEA analysis|Critical function and dependency identification|Control gap remediation with ownership assignment",
+          "BCP Drills|Validate your recovery plans under real pressure.|Tabletop simulation and full-scale BCP exercises|Crisis communication protocol testing|Post-drill debrief and improvement cycle integration",
+          "Loss Data Analysis|Learn from every failure to prevent recurrence.|Operational loss event capture and classification|Root-cause trend analysis and heat-mapping|Regulatory loss data reporting (RBI ORX framework)"
         ],
         link: "/services/operational-risk",
         icon: Activity
@@ -157,11 +157,11 @@ const offeringsVerticalTabsData: Record<string, {
       {
         id: "corporate-governance",
         title: "Corporate Governance",
-        description: "Robust corporate governance charters and operational workflows for board accountability.",
+        description: "Robust governance charters and operational workflows that ensure board accountability, statutory compliance, and institutional investor confidence.",
         keyDetails: [
-          "Board Committees: Structuring audit, CSR, and risk committees.",
-          "DoA Matrices: Standardized delegation of authority.",
-          "Conflict Prevention: Clear policy orchestration and tracking."
+          "Board Committees|Properly structured audit, risk, and CSR committees.|Composition advisory per SEBI LODR and Companies Act|Terms of Reference (ToR) drafting for each committee|Committee performance evaluation and gap assessment",
+          "DoA Matrices|Standardised, board-approved delegation of authority.|Authority matrix design across management layers|Policy-embedded approval thresholds and escalation paths|Periodic DoA review and update protocols",
+          "Conflict Prevention|Robust policy framework to prevent governance failures.|Related-party transaction policy and register maintenance|Board-level conflict-of-interest disclosure system|Whistleblower and vigil mechanism policy setup"
         ],
         link: "/services/governance-framework",
         icon: Building
@@ -169,11 +169,11 @@ const offeringsVerticalTabsData: Record<string, {
       {
         id: "hr-policy-governance",
         title: "HR Policy & Governance",
-        description: "Workplace compliance, PoSH framework implementation, and diversity policies.",
+        description: "Workplace compliance, PoSH framework, diversity mandates, and employment policy governance — building a legally defensible workplace culture.",
         keyDetails: [
-          "PoSH Adherence: Mandatory committee setups and training.",
-          "Diversity & Inclusion: Benchmarking against global norms.",
-          "Policy Handbooks: Tailored employee code of conduct drafting."
+          "PoSH Adherence|Full Internal Complaints Committee (ICC) setup and training.|ICC constitution, training and annual report filing|POSH awareness workshops for employees and managers|Mock inquiry simulation and case management support",
+          "Diversity & Inclusion|Benchmarking against global and Indian D&I standards.|Equal opportunity policy drafting and implementation|Pay equity audit and gender pay gap analysis|Diversity reporting for ESG / BRSR disclosures",
+          "Policy Handbooks|Comprehensive, legally vetted employee code of conduct.|Employee handbook drafting — onboarding to exit|HR policy gap analysis against statutory requirements|Regular policy refresh aligned with labour law updates"
         ],
         link: "/services/hr-policy-governance",
         icon: Users
@@ -181,11 +181,11 @@ const offeringsVerticalTabsData: Record<string, {
       {
         id: "it-governance",
         title: "IT Governance",
-        description: "Aligning IT strategies with business objectives while ensuring structural integrity and compliance.",
+        description: "Aligning IT strategy with business objectives using COBIT and ITIL frameworks — ensuring technology investments deliver value within a controlled environment.",
         keyDetails: [
-          "Framework Alignment: Adherence to COBIT and ITIL standards.",
-          "Resource Optimization: Auditing software and hardware lifecycles.",
-          "Strategic Steering: Board-level IT investment advisory."
+          "Framework Alignment|Adherence to COBIT 2019 and ITIL v4 standards.|Current-state IT governance maturity assessment|Target-state roadmap and control framework design|COBIT/ITIL gap remediation with prioritised action plan",
+          "Resource Optimisation|Maximise value from software, hardware, and data assets.|IT asset lifecycle audit and right-sizing advisory|Shadow IT identification and policy enforcement|Software licence compliance and cost optimisation",
+          "Strategic Steering|Board-level IT investment and risk advisory.|IT strategy review aligned to business objectives|Technology risk register and board briefing packs|Digital transformation governance and oversight model"
         ],
         link: "/services/it-governance",
         icon: Laptop
@@ -193,11 +193,11 @@ const offeringsVerticalTabsData: Record<string, {
       {
         id: "board-advisory",
         title: "Board Advisory Services",
-        description: "Expert counsel for independent directors to navigate complex regulatory and fiduciary duties.",
+        description: "Expert counsel for independent directors and board committees — navigating fiduciary duties, SEBI mandates, and evolving corporate governance standards.",
         keyDetails: [
-          "Regulatory Briefings: Updates on critical legal amendments.",
-          "Performance Evaluation: Assessing board and committee effectiveness.",
-          "Ethics Charters: Codifying zero-tolerance anti-bribery policies."
+          "Regulatory Briefings|Timely updates on governance law amendments.|Monthly board regulatory update newsletters|SEBI LODR and Companies Act amendment impact analysis|Director induction and onboarding programme design",
+          "Performance Evaluation|Rigorous board and committee effectiveness reviews.|Board skills-gap matrix design and assessment|Individual director evaluation and feedback framework|Peer review and board performance improvement plan",
+          "Ethics Charters|Zero-tolerance anti-bribery and anti-corruption policy.|ABAC policy and Code of Ethics drafting|Gifts & hospitality register and approval workflow|Ethics training and e-learning module development"
         ],
         link: "/services/board-advisory",
         icon: Scale
@@ -347,11 +347,11 @@ const offeringsVerticalTabsData: Record<string, {
       {
         id: "isms-iso27001",
         title: "ISMS & ISO 27001",
-        description: "Build and certify custom Information Security Management Systems to protect critical assets.",
+        description: "Build and certify bespoke Information Security Management Systems to ISO 27001 and SOC 2 standards — protecting critical assets and earning stakeholder trust.",
         keyDetails: [
-          "Certification Readiness: End-to-end support for ISO & SOC 2.",
-          "Active Tracking: Continuous risk tracking across networks.",
-          "Policy Framework: Robust security policies and procedures."
+          "Certification Readiness|Full-cycle support from gap analysis to certificate issuance.|ISO 27001 Stage 1 & Stage 2 audit preparation|Corrective Action Plan (CAP) management and closure|Surveillance audit and recertification support",
+          "Active Threat Tracking|Continuous risk identification across your entire network.|Information asset register build and classification|Continuous vulnerability monitoring and SIEM integration|Threat intelligence feed integration and alert triage",
+          "Policy Framework|Robust, legally defensible security policy suite.|Information security policy library (40+ policies)|Acceptable use, BYOD and remote access policy design|Security awareness training programme development"
         ],
         link: "/services/cybersecurity-iso27001",
         icon: Zap
@@ -359,11 +359,11 @@ const offeringsVerticalTabsData: Record<string, {
       {
         id: "incident-response",
         title: "Incident Response",
-        description: "6-hour response plans, forensic checks, and simulated drills for CERT-In directives.",
+        description: "6-hour CERT-In compliant response plans, digital forensics, and live crisis simulation drills — so you're always ready for the worst.",
         keyDetails: [
-          "Emergency Compliance: Meet strict 6-hour CERT-In timelines.",
-          "Rapid Isolation: Immediate threat containment protocols.",
-          "Forensic Analysis: Deep-dive investigations post-breach."
+          "Emergency Compliance|Meet strict 6-hour CERT-In reporting timelines.|Incident response plan (IRP) design and documentation|24/7 security operations centre (SOC) liaison support|Regulatory notification drafting and submission",
+          "Rapid Isolation|Immediate threat containment and environment clean-up.|Playbook-driven containment for 15+ attack vectors|Malware eradication and system hardening post-breach|Network segmentation and lateral movement prevention",
+          "Forensic Analysis|Deep-dive digital investigation and evidence preservation.|Chain-of-custody compliant forensic evidence collection|Root-cause analysis and attack timeline reconstruction|Court-admissible forensic reports for legal proceedings"
         ],
         link: "/services/incident-response",
         icon: ShieldAlert
@@ -371,11 +371,11 @@ const offeringsVerticalTabsData: Record<string, {
       {
         id: "vapt-testing",
         title: "VAPT & Penetration Testing",
-        description: "Simulated ethical hacking to identify and patch vulnerabilities before malicious actors exploit them.",
+        description: "Simulated ethical hacking across web, mobile, API, and network layers — finding vulnerabilities before malicious actors do.",
         keyDetails: [
-          "Web & App Security: Deep testing of customer-facing applications.",
-          "Network Scans: Identifying weak points in internal infrastructure.",
-          "Remediation Support: Step-by-step guidance to patch flaws."
+          "Web & App Security|Comprehensive testing of all customer-facing applications.|OWASP Top-10 and Business Logic vulnerability testing|Mobile app (iOS/Android) and API security assessment|Source code review and secure SDLC advisory",
+          "Network Scans|Expose every weak point in your internal infrastructure.|External and internal network penetration testing|Wireless security assessment and rogue AP detection|Active Directory and privilege escalation path testing",
+          "Remediation Support|Step-by-step expert guidance to close every vulnerability.|CVSS-scored finding report with prioritised fix list|Developer-facing remediation advisory sessions|Post-fix re-testing and verified closure certification"
         ],
         link: "/services/vapt-testing",
         icon: Shield
@@ -383,11 +383,11 @@ const offeringsVerticalTabsData: Record<string, {
       {
         id: "cloud-security",
         title: "Cloud & Infrastructure Security",
-        description: "Securing AWS, Azure, and GCP environments against unauthorized access and data leaks.",
+        description: "Securing AWS, Azure, and GCP environments against misconfigurations, unauthorised access, and data exfiltration at scale.",
         keyDetails: [
-          "Configuration Audits: Detecting misconfigured storage buckets.",
-          "Access Management: Enforcing strict IAM and Zero Trust policies.",
-          "Continuous Monitoring: 24/7 cloud threat surveillance."
+          "Configuration Audits|Detect and fix dangerous cloud misconfigurations.|CIS Benchmark-based cloud configuration assessment|S3/Blob/GCS storage exposure and access audit|Infrastructure-as-Code (IaC) security scan integration",
+          "Access Management|Enforce strict IAM and Zero Trust across all cloud layers.|Privileged Access Management (PAM) framework design|Identity federation, MFA enforcement and SSO security|Just-In-Time (JIT) access provisioning model build-out",
+          "Continuous Monitoring|24/7 cloud threat detection and automated response.|CSPM tool deployment and alert tuning|Cloud-native SIEM integration (CloudTrail, Azure Monitor)|Automated drift detection and policy enforcement"
         ],
         link: "/services/cloud-security",
         icon: Cloud
@@ -395,11 +395,11 @@ const offeringsVerticalTabsData: Record<string, {
       {
         id: "data-privacy",
         title: "Data Privacy & DPDP",
-        description: "Comprehensive audits and consent manager installations to align with India's DPDP Act and GDPR.",
+        description: "Comprehensive audits and consent architecture to align with India's DPDP Act, GDPR, and sector-specific data protection mandates.",
         keyDetails: [
-          "Consent Architecture: Secure and verifiable user consent flows.",
-          "Data Mapping: Complete lifecycle tracking of personal data.",
-          "Breach Readiness: Rapid response plans for patient/client data leaks."
+          "Consent Architecture|Secure, verifiable, and revocable user consent flows.|Consent Manager platform evaluation and deployment|Granular consent capture for each data processing purpose|Consent withdrawal and data deletion workflow design",
+          "Data Mapping|Complete personal data lifecycle discovery and tracking.|Data inventory and record of processing activities (RoPA)|Cross-border data transfer assessment and adequacy checks|Data minimisation and retention policy enforcement",
+          "Breach Readiness|72-hour breach response plans for DPDP Act compliance.|Data breach detection, investigation and notification SOP|Regulator notification template library by jurisdiction|Privacy impact assessment (PIA/DPIA) framework setup"
         ],
         link: "/services/data-privacy",
         icon: Lock
@@ -412,11 +412,11 @@ const offeringsVerticalTabsData: Record<string, {
       {
         id: "esg-reporting",
         title: "ESG Reporting & BRSR",
-        description: "Integrate utilities telemetry to automate environmental reporting and audit waste registers.",
+        description: "Automate environmental, social, and governance reporting to SEBI BRSR, GRI, and TCFD frameworks — turning data into investor-grade disclosures.",
         keyDetails: [
-          "BRSR Alignment: Full compliance with SEBI BRSR guidelines.",
-          "Carbon Tracking: Automated footprint calculation and offsets.",
-          "Audit-Proof Filings: Generating reliable sustainability reports."
+          "BRSR Alignment|Full compliance with SEBI Business Responsibility & Sustainability Reporting.|Principle-wise BRSR data gap assessment and remediation|Material topic identification via stakeholder engagement|Third-party assurance readiness and pre-audit support",
+          "Carbon Tracking|Automated GHG footprint calculation and offset planning.|Scope 1, 2 & 3 GHG inventory build to GHG Protocol|Science-Based Targets (SBTi) commitment and validation|Carbon offset project evaluation and credit procurement",
+          "Audit-Proof Filings|Reliable, defensible sustainability disclosures every year.|Data assurance framework aligned to ISAE 3000 standard|ESG KPI data governance and controls documentation|Annual ESG report design, narrative writing and filing"
         ],
         link: "/services/esg-sustainability",
         icon: Leaf
@@ -424,11 +424,11 @@ const offeringsVerticalTabsData: Record<string, {
       {
         id: "carbon-footprint",
         title: "Carbon Footprint & Net Zero",
-        description: "Scope 1, 2, and 3 emissions mapping to help your organization achieve net-zero targets.",
+        description: "Scope 1, 2, and 3 emissions mapping with actionable reduction roadmaps — moving your organisation towards verified net-zero commitments.",
         keyDetails: [
-          "GHG Accounting: Precise calculation of greenhouse gas emissions.",
-          "Reduction Strategies: Actionable roadmaps to lower carbon intensity.",
-          "Offset Advisory: Guidance on verified carbon credit markets."
+          "GHG Accounting|Precise, audit-ready greenhouse gas emissions quantification.|Activity-based and spend-based Scope 3 emission calculation|GHG inventory quality assurance and peer review|Third-party verification readiness for carbon certificates",
+          "Reduction Strategies|Actionable, cost-ranked decarbonisation roadmaps.|Energy efficiency improvement and renewable energy transition|Circular economy integration and waste-to-value strategies|Fleet electrification and commuting emission reduction plans",
+          "Offset Advisory|Strategic guidance on credible carbon credit markets.|VCS, Gold Standard and CDM offset project evaluation|Internal carbon pricing mechanism design and rollout|Carbon credit portfolio management and retirement tracking"
         ],
         link: "/services/carbon-footprint",
         icon: TreePine
@@ -436,11 +436,11 @@ const offeringsVerticalTabsData: Record<string, {
       {
         id: "green-audits",
         title: "Green & Energy Audits",
-        description: "Comprehensive assessments of facility energy usage, water conservation, and waste management.",
+        description: "Comprehensive assessments of facility energy, water, and waste — uncovering cost savings while meeting environmental statutory obligations.",
         keyDetails: [
-          "Energy Efficiency: Identifying opportunities to lower power costs.",
-          "Water Stewardship: Zero liquid discharge (ZLD) planning.",
-          "Waste Valuation: Circular economy and recycling integration."
+          "Energy Efficiency|Identify high-impact opportunities to cut power costs.|ISO 50001 energy management system implementation|Electrical load audit and power factor improvement advisory|Renewable energy feasibility and rooftop solar advisory",
+          "Water Stewardship|Zero Liquid Discharge (ZLD) and water recycling planning.|Water footprint assessment and reduction planning|Effluent Treatment Plant (ETP) performance audit|Rainwater harvesting and groundwater compliance advisory",
+          "Waste Valuation|Transform waste streams into circular economy revenue.|Waste stream characterisation and material flow analysis|Extended Producer Responsibility (EPR) target planning|Recycler empanelment and waste traceability system setup"
         ],
         link: "/services/green-audits",
         icon: Droplet
@@ -448,11 +448,11 @@ const offeringsVerticalTabsData: Record<string, {
       {
         id: "csr-management",
         title: "CSR Strategy & Implementation",
-        description: "Designing impactful Corporate Social Responsibility programs that align with brand values and compliance.",
+        description: "Designing impactful, legally compliant CSR programmes that align with Schedule VII, Companies Act rules, and your brand's sustainability purpose.",
         keyDetails: [
-          "Project Vetting: Due diligence on NGO partners and initiatives.",
-          "Impact Assessment: Third-party audits of CSR outcomes.",
-          "Statutory Reporting: Ensuring adherence to Companies Act CSR rules."
+          "Project Vetting|Rigorous due diligence on NGO partners and CSR initiatives.|Implementing agency legal and financial due diligence|Project alignment with Schedule VII and CSR rules 2021|CSR budget allocation strategy and utilisation planning",
+          "Impact Assessment|Third-party outcome measurement and beneficiary audits.|Theory of change and logical framework (logframe) design|Beneficiary surveys and social return on investment (SROI)|Annual CSR impact report aligned to GRI 413 standard",
+          "Statutory Reporting|Full Companies Act CSR compliance and MCA filing support.|CSR-1 e-form filing and CSRBOX portal management|Board CSR Committee meeting support and minutes drafting|Unspent CSR fund transfer compliance (Sections 135/80G)"
         ],
         link: "/services/csr-management",
         icon: Heart
@@ -818,72 +818,78 @@ export const Header = () => {
                         {(() => {
                           const sector = manpowerSectorsData.find(s => s.id === activeManpowerSector);
                           if (!sector) return null;
+
+                          // Sector icon map
+                          const sectorIconMap: Record<string, React.ElementType> = {
+                            healthcare: Heart,
+                            manufacturing: Factory,
+                            facilities: Building,
+                            security: ShieldCheck,
+                            administration: Users,
+                          };
+                          const SectorIcon = sectorIconMap[sector.id] || Users;
+
+                          const cardThemes = [
+                            { accent: "bg-blue-500", header: "text-blue-700", border: "border-blue-100", bg: "bg-blue-50/40", dot: "bg-blue-400" },
+                            { accent: "bg-emerald-500", header: "text-emerald-700", border: "border-emerald-100", bg: "bg-emerald-50/40", dot: "bg-emerald-400" },
+                            { accent: "bg-violet-500", header: "text-violet-700", border: "border-violet-100", bg: "bg-violet-50/40", dot: "bg-violet-400" },
+                          ];
+
+                          const cards = [
+                            { label: "Services", items: sector.services, theme: cardThemes[0] },
+                            { label: "Coverage", items: sector.coverage, theme: cardThemes[1] },
+                            { label: "Benefits", items: sector.benefits, theme: cardThemes[2] },
+                          ];
+
                           return (
-                            <div className="w-[64%] pl-6 flex flex-col justify-between animate-fade-in overflow-y-auto">
-                              <div>
-                                {/* Header */}
-                                <div className="mb-5">
-                                  <h3 className="text-xl font-black text-slate-900 leading-tight tracking-tight">{sector.label} Workforce Solutions</h3>
-                                  <p className="text-xs text-slate-600 font-medium leading-relaxed mt-2">{sector.description}</p>
-                                </div>
-
-                                {/* 3-Column Grid */}
-                                <div className="grid grid-cols-3 gap-4 mb-6">
-                                  {/* Services */}
-                                  <div className="bg-blue-50/20 border border-blue-100 rounded-2xl p-4.5 shadow-2xs min-h-[145px] flex flex-col justify-between">
-                                    <div>
-                                      <h4 className="text-[11px] font-black text-blue-600 uppercase tracking-wider mb-2">Services</h4>
-                                      <ul className="space-y-1.5">
-                                        {sector.services.map((s, i) => (
-                                          <li key={i} className="flex items-start gap-1.5">
-                                            <span className="w-1.5 h-1.5 rounded-full bg-blue-400 shrink-0 mt-1.5" />
-                                            <span className="text-xs font-medium text-slate-600 leading-snug">{s}</span>
-                                          </li>
-                                        ))}
-                                      </ul>
-                                    </div>
+                            <div className="w-[64%] pl-6 flex flex-col animate-fade-in overflow-y-auto">
+                              {/* Sector Header — matches standard tabs */}
+                              <div className="mb-4 pb-3.5 border-b border-slate-100">
+                                <div className="flex items-start gap-3">
+                                  <div className="w-8 h-8 rounded-lg bg-blue-600 flex items-center justify-center shrink-0 mt-0.5">
+                                    <SectorIcon className="w-4 h-4 text-white" />
                                   </div>
-
-                                  {/* Coverage */}
-                                  <div className="bg-emerald-50/20 border border-emerald-100 rounded-2xl p-4.5 shadow-2xs min-h-[145px] flex flex-col justify-between">
-                                    <div>
-                                      <h4 className="text-[11px] font-black text-emerald-600 uppercase tracking-wider mb-2">Coverage</h4>
-                                      <ul className="space-y-1.5">
-                                        {sector.coverage.map((c, i) => (
-                                          <li key={i} className="flex items-start gap-1.5">
-                                            <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 shrink-0 mt-1.5" />
-                                            <span className="text-xs font-medium text-slate-600 leading-snug">{c}</span>
-                                          </li>
-                                        ))}
-                                      </ul>
-                                    </div>
-                                  </div>
-
-                                  {/* Benefits */}
-                                  <div className="bg-purple-50/20 border border-purple-100 rounded-2xl p-4.5 shadow-2xs min-h-[145px] flex flex-col justify-between">
-                                    <div>
-                                      <h4 className="text-[11px] font-black text-purple-600 uppercase tracking-wider mb-2">Benefits</h4>
-                                      <ul className="space-y-1.5">
-                                        {sector.benefits.map((b, i) => (
-                                          <li key={i} className="flex items-start gap-1.5">
-                                            <CheckCircle2 className="w-3 h-3 text-purple-400 shrink-0 mt-0.5" />
-                                            <span className="text-xs font-medium text-slate-600 leading-snug">{b}</span>
-                                          </li>
-                                        ))}
-                                      </ul>
-                                    </div>
+                                  <div>
+                                    <h3 className="text-lg font-black text-slate-900 leading-tight tracking-tight">{sector.label} Workforce Solutions</h3>
+                                    <p className="text-[11px] text-slate-500 font-medium leading-relaxed mt-1">{sector.description}</p>
                                   </div>
                                 </div>
+                              </div>
 
-                                {/* Read Full Details Button */}
+                              {/* 3-Card Grid — Services / Coverage / Benefits */}
+                              <div className="grid grid-cols-3 gap-3 flex-1">
+                                {cards.map((card) => (
+                                  <div key={card.label} className={`${card.theme.bg} border ${card.theme.border} rounded-xl flex flex-col overflow-hidden shadow-sm`}>
+                                    {/* Colored top accent bar */}
+                                    <div className={`h-1 w-full ${card.theme.accent}`} />
+                                    <div className="p-3.5 flex flex-col gap-2 flex-1">
+                                      <h4 className={`text-[10.5px] font-black ${card.theme.header} uppercase tracking-wider leading-tight`}>{card.label}</h4>
+                                      <ul className="space-y-1">
+                                        {card.items.map((item, i) => (
+                                          <li key={i} className="flex items-start gap-1.5">
+                                            <span className={`w-1.5 h-1.5 rounded-full ${card.theme.dot} shrink-0 mt-1.5`} />
+                                            <span className="text-[10px] font-medium text-slate-600 leading-snug">{item}</span>
+                                          </li>
+                                        ))}
+                                      </ul>
+                                    </div>
+                                  </div>
+                                ))}
+                              </div>
+
+                              {/* Bottom action row */}
+                              <div className="pt-4 flex items-center justify-between">
                                 <Link
                                   to={sector.link}
                                   onClick={() => setActiveDropdown(null)}
-                                  className="inline-flex items-center gap-2 px-6 py-2.5 bg-slate-900 hover:bg-slate-800 text-white rounded-xl text-xs font-bold transition-all shadow-sm w-fit"
+                                  className="inline-flex items-center gap-2 px-5 py-2.5 bg-slate-900 hover:bg-slate-800 text-white rounded-xl text-xs font-bold transition-all shadow-sm"
                                 >
                                   <span>Read Full Details</span>
                                   <ArrowRight className="w-3.5 h-3.5" />
                                 </Link>
+                                <span className="text-[10px] text-slate-400 font-medium">
+                                  {manpowerSectorsData.length} sectors covered
+                                </span>
                               </div>
                             </div>
                           );
@@ -914,59 +920,90 @@ export const Header = () => {
                           })}
                         </div>
 
-                        {/* Right Column: 3-Card Detail Panel */}
+                        {/* Right Column: Rich 3-Card Detail Panel */}
                         <div className="w-[64%] pl-6 flex flex-col justify-between overflow-y-auto">
                           {(() => {
                             const activeItem = offeringsVerticalTabsData[activeOfferTab]?.items.find(i => i.id === activeServiceTab);
                             if (!activeItem) return null;
 
-                            // Parse "Label: Description" format from keyDetails
+                            // Parse pipe-delimited format: "Label|Overview|Bullet1|Bullet2|Bullet3"
                             const parsedDetails = activeItem.keyDetails.map(detail => {
+                              const parts = detail.split("|");
+                              if (parts.length >= 2) {
+                                return {
+                                  label: parts[0].trim(),
+                                  overview: parts[1].trim(),
+                                  bullets: parts.slice(2).map(b => b.trim()).filter(Boolean),
+                                };
+                              }
+                              // fallback: legacy "Label: Description" format
                               const colonIdx = detail.indexOf(": ");
                               return colonIdx !== -1
-                                ? { label: detail.substring(0, colonIdx), desc: detail.substring(colonIdx + 2) }
-                                : { label: detail, desc: "" };
+                                ? { label: detail.substring(0, colonIdx), overview: detail.substring(colonIdx + 2), bullets: [] }
+                                : { label: detail, overview: "", bullets: [] };
                             });
 
-                            const cardColors = [
-                              { header: "text-blue-600", border: "border-blue-100", bg: "bg-blue-50/20" },
-                              { header: "text-emerald-600", border: "border-emerald-100", bg: "bg-emerald-50/20" },
-                              { header: "text-purple-600", border: "border-purple-100", bg: "bg-purple-50/20" },
+                            const cardThemes = [
+                              { accent: "bg-blue-500", header: "text-blue-700", border: "border-blue-100", bg: "bg-blue-50/40", dot: "bg-blue-400" },
+                              { accent: "bg-emerald-500", header: "text-emerald-700", border: "border-emerald-100", bg: "bg-emerald-50/40", dot: "bg-emerald-400" },
+                              { accent: "bg-violet-500", header: "text-violet-700", border: "border-violet-100", bg: "bg-violet-50/40", dot: "bg-violet-400" },
                             ];
 
                             return (
-                              <div className="animate-fade-in flex flex-col justify-between h-full">
-                                <div>
-                                  {/* Header with Title and Full Description (matching Image 2) */}
-                                  <div className="mb-5">
-                                    <h3 className="text-xl font-black text-slate-900 leading-tight tracking-tight">{activeItem.title}</h3>
-                                    <p className="text-xs text-slate-600 font-medium leading-relaxed mt-2">{activeItem.description}</p>
+                              <div className="animate-fade-in flex flex-col h-full">
+                                {/* Service Header */}
+                                <div className="mb-4 pb-3.5 border-b border-slate-100">
+                                  <div className="flex items-start gap-3">
+                                    <div className="w-8 h-8 rounded-lg bg-blue-600 flex items-center justify-center shrink-0 mt-0.5">
+                                      {(() => { const Icon = activeItem.icon; return <Icon className="w-4 h-4 text-white" />; })()}
+                                    </div>
+                                    <div>
+                                      <h3 className="text-lg font-black text-slate-900 leading-tight tracking-tight">{activeItem.title}</h3>
+                                      <p className="text-[11px] text-slate-500 font-medium leading-relaxed mt-1">{activeItem.description}</p>
+                                    </div>
                                   </div>
+                                </div>
 
-                                  {/* 3-Card Grid */}
-                                  <div className="grid grid-cols-3 gap-4 mb-6">
-                                    {parsedDetails.map((detail, idx) => {
-                                      const color = cardColors[idx] || cardColors[0];
-                                      return (
-                                        <div key={idx} className={`${color.bg} border ${color.border} rounded-2xl p-4.5 shadow-2xs min-h-[145px] flex flex-col justify-between`}>
-                                          <div>
-                                            <h4 className={`text-[11px] font-black ${color.header} uppercase tracking-wider mb-2`}>{detail.label}</h4>
-                                            <p className="text-xs font-medium text-slate-600 leading-relaxed">{detail.desc}</p>
-                                          </div>
+                                {/* 3-Card Grid — rich bullet cards */}
+                                <div className="grid grid-cols-3 gap-3 flex-1">
+                                  {parsedDetails.map((detail, idx) => {
+                                    const theme = cardThemes[idx] || cardThemes[0];
+                                    return (
+                                      <div key={idx} className={`${theme.bg} border ${theme.border} rounded-xl flex flex-col overflow-hidden shadow-sm`}>
+                                        {/* Colored top accent bar */}
+                                        <div className={`h-1 w-full ${theme.accent}`} />
+                                        <div className="p-3.5 flex flex-col gap-2 flex-1">
+                                          <h4 className={`text-[10.5px] font-black ${theme.header} uppercase tracking-wider leading-tight`}>{detail.label}</h4>
+                                          <p className="text-[10px] font-medium text-slate-600 leading-relaxed">{detail.overview}</p>
+                                          {detail.bullets.length > 0 && (
+                                            <ul className="space-y-1 mt-1">
+                                              {detail.bullets.map((bullet, bi) => (
+                                                <li key={bi} className="flex items-start gap-1.5">
+                                                  <span className={`w-1.5 h-1.5 rounded-full ${theme.dot} shrink-0 mt-1.5`} />
+                                                  <span className="text-[10px] font-medium text-slate-600 leading-snug">{bullet}</span>
+                                                </li>
+                                              ))}
+                                            </ul>
+                                          )}
                                         </div>
-                                      );
-                                    })}
-                                  </div>
+                                      </div>
+                                    );
+                                  })}
+                                </div>
 
-                                  {/* Prominent Read Full Details Button (matching Image 2) */}
+                                {/* Bottom action row */}
+                                <div className="pt-4 flex items-center justify-between">
                                   <Link
                                     to={activeItem.link}
                                     onClick={() => setActiveDropdown(null)}
-                                    className="inline-flex items-center gap-2 px-6 py-2.5 bg-slate-900 hover:bg-slate-800 text-white rounded-xl text-xs font-bold transition-all shadow-sm w-fit"
+                                    className="inline-flex items-center gap-2 px-5 py-2.5 bg-slate-900 hover:bg-slate-800 text-white rounded-xl text-xs font-bold transition-all shadow-sm"
                                   >
                                     <span>Read Full Details</span>
                                     <ArrowRight className="w-3.5 h-3.5" />
                                   </Link>
+                                  <span className="text-[10px] text-slate-400 font-medium">
+                                    {offeringsVerticalTabsData[activeOfferTab]?.items.length} services in this category
+                                  </span>
                                 </div>
                               </div>
                             );
