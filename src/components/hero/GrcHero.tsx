@@ -2,8 +2,7 @@ import { useEffect, useState, useCallback, useRef } from "react";
 import { Link } from "react-router-dom";
 import { 
   Shield, ArrowRight, ShieldCheck, ChevronLeft, ChevronRight, 
-  CalendarClock, Sparkles, ChevronDown, ChevronUp, Target, 
-  AlertTriangle, TrendingUp, Award 
+  CalendarClock 
 } from "lucide-react";
 import { motion, AnimatePresence, type Variants } from "framer-motion";
 import { homeSpicedSlides } from "@/data/spiced-slider-content";
@@ -13,7 +12,6 @@ const grcSlides = homeSpicedSlides;
 export const GrcHero = () => {
   const [activeIndex, setActiveIndex] = useState(0);
   const [isHovered, setIsHovered] = useState(false);
-  const [showSpiced, setShowSpiced] = useState(false);
   const autoplayRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
   const startAutoPlay = useCallback(() => {
@@ -31,13 +29,13 @@ export const GrcHero = () => {
   }, []);
 
   useEffect(() => {
-    if (!isHovered && !showSpiced) {
+    if (!isHovered) {
       startAutoPlay();
     } else {
       stopAutoPlay();
     }
     return () => stopAutoPlay();
-  }, [isHovered, showSpiced, startAutoPlay, stopAutoPlay]);
+  }, [isHovered, startAutoPlay, stopAutoPlay]);
 
   const handlePrev = (e: React.MouseEvent) => {
     e.preventDefault();
@@ -176,9 +174,9 @@ export const GrcHero = () => {
                 {grcSlides[activeIndex].description}
               </motion.p>
 
-              {/* Tangible Outcome upgraded indicator & SPICED Brief Button */}
-              <div className="flex flex-wrap items-center gap-3 pt-1">
-                {grcSlides[activeIndex].outcome && (
+              {/* Tangible Outcome indicator */}
+              {grcSlides[activeIndex].outcome && (
+                <div className="flex flex-wrap items-center gap-3 pt-1">
                   <motion.div
                     variants={elementVariants}
                     className="inline-flex items-center gap-2 px-5 py-2.5 bg-emerald-50/90 border border-emerald-200/60 text-emerald-800 rounded-2xl text-xs sm:text-sm font-bold shadow-sm"
@@ -186,89 +184,7 @@ export const GrcHero = () => {
                     <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
                     <span>Outcome: {grcSlides[activeIndex].outcome}</span>
                   </motion.div>
-                )}
-                {grcSlides[activeIndex].spiced && (
-                  <motion.button
-                    type="button"
-                    variants={elementVariants}
-                    onClick={() => setShowSpiced(!showSpiced)}
-                    className="inline-flex items-center gap-1.5 px-4 py-2.5 bg-indigo-50/90 hover:bg-indigo-100 border border-indigo-200/80 text-indigo-700 rounded-2xl text-xs font-bold transition-all shadow-sm"
-                  >
-                    <Sparkles className="w-3.5 h-3.5 text-indigo-600" />
-                    <span>SPICED Framework Brief</span>
-                    {showSpiced ? <ChevronUp className="w-3.5 h-3.5" /> : <ChevronDown className="w-3.5 h-3.5" />}
-                  </motion.button>
-                )}
-              </div>
-
-              {/* SPICED Framework Diagnostic Card (Expandable) */}
-              {grcSlides[activeIndex].spiced && showSpiced && (
-                <motion.div
-                  initial={{ opacity: 0, height: 0, y: -10 }}
-                  animate={{ opacity: 1, height: "auto", y: 0 }}
-                  exit={{ opacity: 0, height: 0 }}
-                  transition={{ duration: 0.35, ease: "easeOut" }}
-                  className="w-full max-w-4xl bg-gradient-to-br from-slate-900 to-slate-950 text-white border border-slate-800 rounded-3xl p-6 shadow-2xl space-y-4 my-2 text-left"
-                >
-                  <div className="flex items-center justify-between pb-3 border-b border-slate-800">
-                    <div className="flex items-center gap-2">
-                      <span className="px-2.5 py-1 rounded-md bg-blue-600/30 border border-blue-500/40 text-[10px] font-black uppercase tracking-widest text-blue-400">
-                        SPICED Strategy
-                      </span>
-                      <h4 className="text-xs font-bold text-slate-300">
-                        Executive Diagnostic Justification
-                      </h4>
-                    </div>
-                    <button
-                      onClick={() => setShowSpiced(false)}
-                      className="text-xs text-slate-400 hover:text-white"
-                    >
-                      Close ✕
-                    </button>
-                  </div>
-                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3.5">
-                    <div className="p-3.5 rounded-2xl bg-white/5 border border-white/10 space-y-1">
-                      <div className="flex items-center gap-1.5 text-blue-400 text-[10px] font-extrabold uppercase tracking-wider">
-                        <Target className="w-3 h-3" /> [S] Situation
-                      </div>
-                      <p className="text-[11px] text-slate-300 leading-relaxed font-medium">
-                        {grcSlides[activeIndex].spiced.situation}
-                      </p>
-                    </div>
-                    <div className="p-3.5 rounded-2xl bg-white/5 border border-white/10 space-y-1">
-                      <div className="flex items-center gap-1.5 text-rose-400 text-[10px] font-extrabold uppercase tracking-wider">
-                        <AlertTriangle className="w-3 h-3" /> [P] Pain Point
-                      </div>
-                      <p className="text-[11px] text-slate-300 leading-relaxed font-medium">
-                        {grcSlides[activeIndex].spiced.pain}
-                      </p>
-                    </div>
-                    <div className="p-3.5 rounded-2xl bg-white/5 border border-white/10 space-y-1">
-                      <div className="flex items-center gap-1.5 text-emerald-400 text-[10px] font-extrabold uppercase tracking-wider">
-                        <TrendingUp className="w-3 h-3" /> [I] Impact & ROI
-                      </div>
-                      <p className="text-[11px] text-slate-300 leading-relaxed font-medium">
-                        {grcSlides[activeIndex].spiced.impact}
-                      </p>
-                    </div>
-                    <div className="p-3.5 rounded-2xl bg-white/5 border border-white/10 space-y-1">
-                      <div className="flex items-center gap-1.5 text-amber-400 text-[10px] font-extrabold uppercase tracking-wider">
-                        <CalendarClock className="w-3 h-3" /> [C] Critical Event
-                      </div>
-                      <p className="text-[11px] text-slate-300 leading-relaxed font-medium">
-                        {grcSlides[activeIndex].spiced.criticalEvent}
-                      </p>
-                    </div>
-                    <div className="p-3.5 rounded-2xl bg-white/5 border border-white/10 space-y-1 sm:col-span-2">
-                      <div className="flex items-center gap-1.5 text-purple-400 text-[10px] font-extrabold uppercase tracking-wider">
-                        <Award className="w-3 h-3" /> [D] Decision Criteria & Why Govnics
-                      </div>
-                      <p className="text-[11px] text-slate-300 leading-relaxed font-medium">
-                        {grcSlides[activeIndex].spiced.decision}
-                      </p>
-                    </div>
-                  </div>
-                </motion.div>
+                </div>
               )}
 
               {/* CTA Buttons - 3 button layout */}
