@@ -135,12 +135,12 @@ export const Header = () => {
               Offerings <ChevronDown className="w-4 h-4 text-current" />
             </div>
             {activeDropdown === "what-we-offer" && (
-              <div className="absolute top-full left-1/2 -translate-x-1/2 w-[98vw] max-w-6xl xl:max-w-7xl bg-white border border-slate-200/90 shadow-2xl rounded-2xl flex overflow-hidden animate-slide-up-dropdown mt-1 text-left z-50">
+              <div className="absolute top-full left-1/2 -translate-x-1/2 w-[98vw] max-w-6xl xl:max-w-7xl 2xl:max-w-[1380px] bg-white border border-slate-200/90 shadow-2xl rounded-2xl flex overflow-hidden animate-slide-up-dropdown mt-1 text-left z-50">
                 {/* Bridge to prevent hover loss */}
                 <div className="absolute -top-8 left-0 right-0 h-8 bg-transparent" />
 
                 {/* Level 1 Sidebar - 13 Practice Areas */}
-                <div className="w-[27%] xl:w-[25%] bg-slate-900 text-white p-4 pb-5 flex flex-col justify-between border-r border-slate-800 shrink-0">
+                <div className="w-[27%] xl:w-[24%] bg-slate-900 text-white p-4 pb-5 flex flex-col justify-between border-r border-slate-800 shrink-0">
                   <div className="space-y-3">
                     <div className="px-1.5 pt-1">
                       <div className="flex items-center justify-between">
@@ -164,13 +164,13 @@ export const Header = () => {
                             setActiveOfferTab(offer.id);
                             setActiveServiceTab(offeringsVerticalTabsData[offer.id]?.items[0]?.id || "");
                           }}
-                          className={`w-full text-left px-3 py-2 rounded-xl text-xs font-semibold transition-all flex items-center justify-between group ${
+                          className={`w-full text-left px-3 py-2.5 rounded-xl text-xs font-semibold transition-all flex items-center justify-between group ${
                             activeOfferTab === offer.id
                               ? "bg-blue-600 text-white shadow-sm shadow-blue-500/20 font-bold"
                               : "text-slate-300 hover:text-white hover:bg-slate-800/70"
                           }`}
                         >
-                          <span className="truncate">{offer.label}</span>
+                          <span className="whitespace-normal leading-snug flex-1 pr-2">{offer.label}</span>
                           <ArrowRight className={`w-3.5 h-3.5 shrink-0 transition-all ${activeOfferTab === offer.id ? "opacity-100 text-white" : "opacity-0 group-hover:opacity-100 text-slate-400"}`} />
                         </button>
                       ))}
@@ -179,16 +179,16 @@ export const Header = () => {
                 </div>
 
                 {/* Right Pane (Dual Column Layout) */}
-                <div className="w-[73%] xl:w-[75%] flex flex-col justify-between bg-white p-6 min-h-[510px]">
+                <div className="w-[73%] xl:w-[76%] flex flex-col justify-between bg-white p-6 min-h-[510px]">
                   
                   {/* Content Area */}
                   <div className="flex overflow-hidden flex-1">
                     {/* Middle Column: Vertical Submenu Topics */}
-                    <div className="w-[33%] border-r border-slate-100 pr-4 flex flex-col justify-between overflow-y-auto shrink-0 max-h-[500px]">
+                    <div className="w-[34%] border-r border-slate-100 pr-4 flex flex-col justify-between overflow-y-auto shrink-0 max-h-[500px]">
                       <div>
                         {/* Category Header */}
-                        <div className="mb-2 space-y-1.5">
-                          <span className="text-[10px] font-black text-blue-600 uppercase tracking-[0.2em] block">
+                        <div className="mb-2.5 space-y-1.5">
+                          <span className="text-[10.5px] font-black text-blue-600 uppercase tracking-[0.2em] block">
                             {offeringsVerticalTabsData[activeOfferTab]?.title || "PRACTICE TOPICS"}
                           </span>
                           <p className="text-[10px] text-slate-500 leading-relaxed font-medium">
@@ -218,14 +218,14 @@ export const Header = () => {
                               <button
                                 key={item.id}
                                 onMouseEnter={() => setActiveServiceTab(item.id)}
-                                className={`w-full text-left px-3 py-2.5 rounded-xl border transition-all flex items-center gap-2.5 ${
+                                className={`w-full text-left px-3 py-2.5 rounded-xl border transition-all flex items-start gap-2.5 ${
                                   isActive 
                                     ? "bg-blue-600 border-blue-600 text-white shadow-sm shadow-blue-500/20" 
                                     : "bg-white border-slate-200/90 text-slate-700 hover:border-slate-300 hover:bg-slate-50"
                                 }`}
                               >
-                                <IconComp className={`w-3.5 h-3.5 shrink-0 ${isActive ? "text-white" : "text-blue-500"}`} />
-                                <span className="text-[10.5px] font-bold uppercase tracking-wide flex-1 text-left line-clamp-1">{item.title}</span>
+                                <IconComp className={`w-3.5 h-3.5 shrink-0 mt-0.5 ${isActive ? "text-white" : "text-blue-500"}`} />
+                                <span className="text-[10.5px] font-bold uppercase tracking-wide flex-1 text-left leading-snug whitespace-normal break-words">{item.title}</span>
                               </button>
                             );
                           })}
@@ -245,7 +245,7 @@ export const Header = () => {
                     </div>
 
                     {/* Right Column: Rich 3-Card Detail Panel */}
-                    <div className="w-[67%] pl-5 flex flex-col justify-between overflow-y-auto max-h-[500px]">
+                    <div className="w-[66%] pl-5 flex flex-col justify-between overflow-y-auto max-h-[500px]">
                       {(() => {
                         const activeItem = offeringsVerticalTabsData[activeOfferTab]?.items.find(i => i.id === activeServiceTab) 
                           || offeringsVerticalTabsData[activeOfferTab]?.items[0];
@@ -297,23 +297,33 @@ export const Header = () => {
                                 return (
                                   <div key={idx} className={`${theme.bg} border ${theme.border} rounded-xl flex flex-col overflow-hidden shadow-xs hover:shadow-sm transition-all`}>
                                     <div className={`h-1 w-full ${theme.accent}`} />
-                                    <div className="p-3 flex flex-col gap-1.5">
-                                      <div className="flex items-center justify-between gap-1">
-                                        <h4 className={`text-[10px] font-black ${theme.header} uppercase tracking-wider leading-tight truncate`}>{detail.label}</h4>
-                                        <span className={`text-[8px] font-black uppercase tracking-wider px-1.5 py-0.5 rounded bg-white/80 ${theme.header} border ${theme.border} shrink-0`}>
-                                          {badgeLabels[idx] || "Deliverable"}
-                                        </span>
+                                    <div className="p-3 flex flex-col gap-2">
+                                      {/* Header with separate deliverable badge so text never shrinks */}
+                                      <div className="flex flex-col gap-1">
+                                        <div className="flex items-center">
+                                          <span className={`text-[8px] font-black uppercase tracking-wider px-1.5 py-0.5 rounded bg-white/90 ${theme.header} border ${theme.border} inline-flex items-center gap-1 shadow-2xs`}>
+                                            <span className={`w-1.5 h-1.5 rounded-full ${theme.dot}`} />
+                                            {badgeLabels[idx] || "Deliverable"}
+                                          </span>
+                                        </div>
+                                        <h4 className={`text-[11px] font-black ${theme.header} uppercase tracking-wide leading-snug break-words mt-0.5`}>
+                                          {detail.label}
+                                        </h4>
                                       </div>
+
                                       <p className="text-[9.5px] font-medium text-slate-600 leading-relaxed min-h-[26px]">{detail.overview}</p>
                                       
                                       {/* Key deliverables checklist - flows immediately with no giant hole */}
                                       {detail.bullets.length > 0 && (
                                         <div className="pt-2 border-t border-slate-200/70 mt-0.5">
+                                          <div className="text-[8px] font-black uppercase tracking-wider text-slate-400 mb-1 flex items-center gap-1">
+                                            <span>Key Deliverables</span>
+                                          </div>
                                           <ul className="space-y-1.5">
                                             {detail.bullets.map((bullet, bi) => (
                                               <li key={bi} className="flex items-start gap-1.5">
                                                 <span className={`w-1.5 h-1.5 rounded-full ${theme.dot} shrink-0 mt-1`} />
-                                                <span className="text-[9.5px] font-medium text-slate-700 leading-snug">{bullet}</span>
+                                                <span className="text-[9.5px] font-medium text-slate-700 leading-snug break-words">{bullet}</span>
                                               </li>
                                             ))}
                                           </ul>
@@ -333,7 +343,7 @@ export const Header = () => {
                                 </div>
                                 <div className="min-w-0">
                                   <span className="text-[9.5px] font-bold text-slate-900 block leading-tight">100% Audit Shield</span>
-                                  <span className="text-[8px] text-slate-500 font-medium truncate block">Zero penalty & closure defense</span>
+                                  <span className="text-[8px] text-slate-500 font-medium leading-tight block">Zero penalty & closure defense</span>
                                 </div>
                               </div>
                               <div className="flex items-center gap-2 p-2 bg-slate-50/90 border border-slate-200/60 rounded-xl">
@@ -342,7 +352,7 @@ export const Header = () => {
                                 </div>
                                 <div className="min-w-0">
                                   <span className="text-[9.5px] font-bold text-slate-900 block leading-tight">Turnkey SLA Dispatch</span>
-                                  <span className="text-[8px] text-slate-500 font-medium truncate block">24-48h expedited turnaround</span>
+                                  <span className="text-[8px] text-slate-500 font-medium leading-tight block">24-48h expedited turnaround</span>
                                 </div>
                               </div>
                               <div className="flex items-center gap-2 p-2 bg-slate-50/90 border border-slate-200/60 rounded-xl">
@@ -351,7 +361,7 @@ export const Header = () => {
                                 </div>
                                 <div className="min-w-0">
                                   <span className="text-[9.5px] font-bold text-slate-900 block leading-tight">Digital Vault Archive</span>
-                                  <span className="text-[8px] text-slate-500 font-medium truncate block">Tamper-evident timestamped logs</span>
+                                  <span className="text-[8px] text-slate-500 font-medium leading-tight block">Tamper-evident timestamped logs</span>
                                 </div>
                               </div>
                             </div>
