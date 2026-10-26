@@ -47,6 +47,23 @@ export interface SubIndustryRecord {
   reviewNotes?: string;
 }
 
+export type OrgSegment = "global" | "large-mid" | "mid-small";
+
+export interface SegmentIndustryItem {
+  segment: OrgSegment;
+  industryName: string;
+  businessType: string;
+  shortDescription?: string;
+  destinationUrl: string;
+  verificationStatus: "verified" | "aligned";
+}
+
+export interface SizeSegmentsConfig {
+  global: SegmentIndustryItem[];
+  largeMid: SegmentIndustryItem[];
+  midSmall: SegmentIndustryItem[];
+}
+
 export interface IndustryClusterRecord {
   id: string;
   name: string;
@@ -60,6 +77,7 @@ export interface IndustryClusterRecord {
   keyGrcTopics: string[];
   documentedOfferings: DocumentedOfferingLink[];
   subIndustries: SubIndustryRecord[];
+  sizeSegments?: SizeSegmentsConfig;
 }
 
 export const whomWeServeClusters: IndustryClusterRecord[] = [
@@ -2054,3 +2072,833 @@ export const searchIndustriesAndSubIndustries = (query: string): {
     subIndustries: matchedSub
   };
 };
+
+// ── Three-Column Organization-Size Segments Architecture ──────────────────────
+// Maps each verified cluster into 3 distinct organization scale columns:
+// 1. Global (Multinational Corporations & Large Global Conglomerates)
+// 2. Large–Mid (Large & Mid-Sized Regional / Multi-Site Enterprises)
+// 3. Mid–Small (MSMEs, Lean Manufacturers & Local Operating Units)
+
+export const clusterSizeSegments: Record<string, SizeSegmentsConfig> = {
+  "manufacturing-industrial": {
+    global: [
+      {
+        segment: "global",
+        industryName: "Automotive Manufacturing",
+        businessType: "Vehicle OEMs & Multi-Plant Assembly Operations",
+        shortDescription: "Integrated robotics, paint shops & global supplier audits",
+        destinationUrl: "/industries/manufacturing-industrial#automobiles",
+        verificationStatus: "verified"
+      },
+      {
+        segment: "global",
+        industryName: "Defence & Aerospace Manufacturing",
+        businessType: "Prime Defence Systems, Aviation & Space Fabricators",
+        shortDescription: "ITAR/MoD security clearances, AS9100 quality oversight",
+        destinationUrl: "/industries/manufacturing-industrial#defence-manufacturing",
+        verificationStatus: "verified"
+      },
+      {
+        segment: "global",
+        industryName: "Capital Goods & Heavy Machinery",
+        businessType: "Turbines, Heavy Plant Machinery & Material Handling",
+        shortDescription: "Heavy fabrication safety, environmental emission consent",
+        destinationUrl: "/industries/manufacturing-industrial#engineering-capital-goods",
+        verificationStatus: "verified"
+      },
+      {
+        segment: "global",
+        industryName: "Basic Metals, Steel & Materials",
+        businessType: "Integrated Blast Furnaces, Rolling Mills & Smelters",
+        shortDescription: "CPCB continuous emission monitoring & occupational safety",
+        destinationUrl: "/industries/manufacturing-industrial#steel",
+        verificationStatus: "verified"
+      },
+      {
+        segment: "global",
+        industryName: "Chemicals & Petrochemicals",
+        businessType: "Petrochemical Refineries, Bulk Polymers & Specialty Chemicals",
+        shortDescription: "MSIHC hazard control, PESO licensing & toxic storage logs",
+        destinationUrl: "/industries/energy-utilities#oil-gas",
+        verificationStatus: "verified"
+      },
+      {
+        segment: "global",
+        industryName: "Mining & Mineral Processing",
+        businessType: "Mineral Extraction, Ore Beneficiation & Quarry Conglomerates",
+        shortDescription: "Mines Act safety logs, forestry clearance & blast audits",
+        destinationUrl: "/industries/infrastructure-construction#infrastructure",
+        verificationStatus: "verified"
+      },
+      {
+        segment: "global",
+        industryName: "Industrial Automation & Instrumentation",
+        businessType: "Process Automation Systems, PLCs & Factory Robotics Giants",
+        shortDescription: "Critical infrastructure safety, CE/UL certification GRC",
+        destinationUrl: "/industries/technology-electronics#it-bpm",
+        verificationStatus: "verified"
+      }
+    ],
+    largeMid: [
+      {
+        segment: "large-mid",
+        industryName: "Auto Components & Ancillaries",
+        businessType: "Tier-1 Transmission, Chassis & Engine Suppliers",
+        shortDescription: "IATF 16949 quality oversight & contractor wage registers",
+        destinationUrl: "/industries/manufacturing-industrial#auto-components",
+        verificationStatus: "verified"
+      },
+      {
+        segment: "large-mid",
+        industryName: "Renewable Energy Equipment",
+        businessType: "Solar PV Module, Inverter & Wind Turbine Fabricators",
+        shortDescription: "ALMM listing adherence, hazardous material handling",
+        destinationUrl: "/industries/energy-utilities#renewable-energy",
+        verificationStatus: "verified"
+      },
+      {
+        segment: "large-mid",
+        industryName: "Textiles & Technical Textiles",
+        businessType: "Commercial Spinning, Weaving & Industrial Technical Fabrics",
+        shortDescription: "Zero liquid discharge (ZLD) audits & OEKO-TEX compliance",
+        destinationUrl: "/industries/consumer-retail#retail",
+        verificationStatus: "verified"
+      },
+      {
+        segment: "large-mid",
+        industryName: "Paper, Pulp & Packaging",
+        businessType: "Automated Corrugated Line Mills & Industrial Pulp Plants",
+        shortDescription: "SPCB trade effluent limits & boiler statutory inspections",
+        destinationUrl: "/industries/manufacturing-industrial#packaging",
+        verificationStatus: "verified"
+      },
+      {
+        segment: "large-mid",
+        industryName: "Ceramics, Glass & Advanced Materials",
+        businessType: "Architectural Float Glass, Tiles & Refractories",
+        shortDescription: "Air pollution control devices & thermal safety audits",
+        destinationUrl: "/industries/infrastructure-construction#cement",
+        verificationStatus: "verified"
+      },
+      {
+        segment: "large-mid",
+        industryName: "Electronics & Semiconductors",
+        businessType: "Contract Electronic Assembly & EMS Manufacturing",
+        shortDescription: "RoHS/REACH substance testing & cleanroom ISO 14644",
+        destinationUrl: "/industries/technology-electronics#electronics",
+        verificationStatus: "verified"
+      },
+      {
+        segment: "large-mid",
+        industryName: "Food Processing Facilities",
+        businessType: "Commercial Packaged Foods, Edible Oils & Processing Hubs",
+        shortDescription: "FSSAI central licensing & HACCP biological hazard controls",
+        destinationUrl: "/industries/food-processing-pharma-healthcare#food",
+        verificationStatus: "verified"
+      },
+      {
+        segment: "large-mid",
+        industryName: "Pharmaceuticals & Bulk Drugs",
+        businessType: "Regional Formulation Plants & API Bulk Units",
+        shortDescription: "GMP validation master plans & CDSCO state licensures",
+        destinationUrl: "/industries/food-processing-pharma-healthcare#pharma",
+        verificationStatus: "verified"
+      }
+    ],
+    midSmall: [
+      {
+        segment: "mid-small",
+        industryName: "MSME Manufacturing Units",
+        businessType: "Precision Tool Rooms, Dies & CNC Machining Centers",
+        shortDescription: "Statutory factory inspection readiness & basic EHS records",
+        destinationUrl: "/industries/manufacturing-industrial#msme",
+        verificationStatus: "verified"
+      },
+      {
+        segment: "mid-small",
+        industryName: "Auto Ancillaries & Job Shops",
+        businessType: "Press Stamping, Forging & Precision Turning Units",
+        shortDescription: "Workplace hazard guarding & contract labour muster roles",
+        destinationUrl: "/industries/manufacturing-industrial#auto-components",
+        verificationStatus: "verified"
+      },
+      {
+        segment: "mid-small",
+        industryName: "Leather & Footwear Workshops",
+        businessType: "Tanning Facilities & Finished Export Footwear Workshops",
+        shortDescription: "Chromium recovery plant checks & export social compliance",
+        destinationUrl: "/industries/consumer-retail#retail",
+        verificationStatus: "verified"
+      },
+      {
+        segment: "mid-small",
+        industryName: "Contract Metal Fabrication & Spares",
+        businessType: "Custom Structural Steel, Boilers & Jobbing Shops",
+        shortDescription: "Hot work permit registers & worker insurance coverage",
+        destinationUrl: "/industries/manufacturing-industrial#engineering-capital-goods",
+        verificationStatus: "verified"
+      },
+      {
+        segment: "mid-small",
+        industryName: "Packaging & Corrugated Converters",
+        businessType: "Regional Carton Box Makers & Printing Facilities",
+        shortDescription: "Fire NOC renewals & ink VOC disposal documentation",
+        destinationUrl: "/industries/manufacturing-industrial#packaging",
+        verificationStatus: "verified"
+      },
+      {
+        segment: "mid-small",
+        industryName: "Specialty Component Sub-Assemblies",
+        businessType: "Plastic Injection Moulding & Wire Harness Assemblies",
+        shortDescription: "Machine interlocking safety & labour law notice filings",
+        destinationUrl: "/industries/manufacturing-industrial#auto-components",
+        verificationStatus: "verified"
+      }
+    ]
+  },
+  "food-processing-pharma-healthcare": {
+    global: [
+      {
+        segment: "global",
+        industryName: "Global Pharmaceutical MNCs",
+        businessType: "USFDA / MHRA Regulated Sterile Formulation & API Plants",
+        shortDescription: "21 CFR Part 11 electronic records, global batch release",
+        destinationUrl: "/industries/food-processing-pharma-healthcare#pharma",
+        verificationStatus: "verified"
+      },
+      {
+        segment: "global",
+        industryName: "International Food & Beverage Conglomerates",
+        businessType: "Global FMCG Food Brands, Breweries & Bottling Networks",
+        shortDescription: "Global food safety initiative (GFSI) & multi-state FSSAI",
+        destinationUrl: "/industries/food-processing-pharma-healthcare#food",
+        verificationStatus: "verified"
+      },
+      {
+        segment: "global",
+        industryName: "Multinational MedTech Corporations",
+        businessType: "Class C/D Implantable Devices & High-Risk Diagnostics",
+        shortDescription: "MDR 2017 risk assessments, ISO 13485 design dossiers",
+        destinationUrl: "/industries/food-processing-pharma-healthcare#medtech",
+        verificationStatus: "verified"
+      }
+    ],
+    largeMid: [
+      {
+        segment: "large-mid",
+        industryName: "Regional Pharmaceutical CDMOs",
+        businessType: "Contract Formulation Facilities & API Bulk Manufacturers",
+        shortDescription: "WHO-GMP adherence, stability logs & validation registers",
+        destinationUrl: "/industries/food-processing-pharma-healthcare#pharma",
+        verificationStatus: "verified"
+      },
+      {
+        segment: "large-mid",
+        industryName: "Commercial Dairy & Agro-Processing",
+        businessType: "Integrated Dairy Plants, Cold Storage & Milling Hubs",
+        shortDescription: "Cold chain telemetry validation & packaging compliance",
+        destinationUrl: "/industries/food-processing-pharma-healthcare#food",
+        verificationStatus: "verified"
+      },
+      {
+        segment: "large-mid",
+        industryName: "Multi-Specialty Hospital Chains",
+        businessType: "NABH-Accredited 150+ Bed Multi-Hospital Networks",
+        shortDescription: "Bio-medical waste rules, clinical audit protocols",
+        destinationUrl: "/industries/food-processing-pharma-healthcare#healthcare",
+        verificationStatus: "verified"
+      }
+    ],
+    midSmall: [
+      {
+        segment: "mid-small",
+        industryName: "AYUSH & Herbal Formulations",
+        businessType: "Ayurvedic & Natural Medicine Manufacturing Units",
+        shortDescription: "Schedule T Ayurvedic GMP & state licensing filings",
+        destinationUrl: "/industries/food-processing-pharma-healthcare#ayush",
+        verificationStatus: "verified"
+      },
+      {
+        segment: "mid-small",
+        industryName: "Local Food Processing Units",
+        businessType: "Packaged Snack Food, Confectionary & Bakery Centers",
+        shortDescription: "FSSAI state licensing, hygiene records & pest audits",
+        destinationUrl: "/industries/food-processing-pharma-healthcare#food",
+        verificationStatus: "verified"
+      },
+      {
+        segment: "mid-small",
+        industryName: "Diagnostic Clinics & Daycare Centers",
+        businessType: "Independent Pathology Testing Labs & Day Surgery Centers",
+        shortDescription: "Radiation safety AERB clearance, biomedical disposal",
+        destinationUrl: "/industries/food-processing-pharma-healthcare#healthcare",
+        verificationStatus: "verified"
+      }
+    ]
+  },
+  "technology-electronics": {
+    global: [
+      {
+        segment: "global",
+        industryName: "Global SaaS & Cloud Providers",
+        businessType: "Multi-Region Cloud Infrastructure & Hyperscale Platforms",
+        shortDescription: "SOC 2 Type II, ISO 27001 ISMS & multi-region privacy GRC",
+        destinationUrl: "/industries/technology-electronics#saas",
+        verificationStatus: "verified"
+      },
+      {
+        segment: "global",
+        industryName: "Global In-House Centers (GICs) & Tech BPMs",
+        businessType: "Enterprise IT Delivery & Knowledge Processing Centers",
+        shortDescription: "DPDP cross-border data transfer & enterprise vendor risk",
+        destinationUrl: "/industries/technology-electronics#it-bpm",
+        verificationStatus: "verified"
+      },
+      {
+        segment: "global",
+        industryName: "Semiconductor Design & Device MNCs",
+        businessType: "Fabless Chip Designers & High-Volume Device Manufacturers",
+        shortDescription: "IP security, export control regulations & cleanroom audits",
+        destinationUrl: "/industries/technology-electronics#electronics",
+        verificationStatus: "verified"
+      }
+    ],
+    largeMid: [
+      {
+        segment: "large-mid",
+        industryName: "Mid-Market B2B Enterprise Software",
+        businessType: "Regulated FinTech, HealthTech & Supply Chain SaaS Platforms",
+        shortDescription: "VAPT penetration audits, data privacy impact assessment",
+        destinationUrl: "/industries/technology-electronics#saas",
+        verificationStatus: "verified"
+      },
+      {
+        segment: "large-mid",
+        industryName: "Electronic Manufacturing Services (EMS)",
+        businessType: "PCB Fabrication, Device Assembly & Box-Build Plants",
+        shortDescription: "E-waste EPR authorization & hazardous chemical handling",
+        destinationUrl: "/industries/technology-electronics#electronics",
+        verificationStatus: "verified"
+      },
+      {
+        segment: "large-mid",
+        industryName: "Regional Telecom & Managed Service Providers",
+        businessType: "Enterprise Network Providers, ISPs & Managed Cloud Operators",
+        shortDescription: "DoT licensing conditions, security audit certifications",
+        destinationUrl: "/industries/technology-electronics#telecommunications",
+        verificationStatus: "verified"
+      }
+    ],
+    midSmall: [
+      {
+        segment: "mid-small",
+        industryName: "High-Growth Tech & Mobile Startups",
+        businessType: "Seed to Series-B Software, Mobile Apps & API Platforms",
+        shortDescription: "Rapid DPDP baseline readiness & cloud security review",
+        destinationUrl: "/industries/technology-electronics#startups",
+        verificationStatus: "verified"
+      },
+      {
+        segment: "mid-small",
+        industryName: "IoT Prototyping & Hardware Workshops",
+        businessType: "Embedded Firmware, Smart Meters & Sensor Assemblies",
+        shortDescription: "WPC equipment type approvals & BIS registrations",
+        destinationUrl: "/industries/technology-electronics#electronics",
+        verificationStatus: "verified"
+      },
+      {
+        segment: "mid-small",
+        industryName: "Localized IT Support & Web Agencies",
+        businessType: "Regional Managed IT Infrastructure & System Support Agencies",
+        shortDescription: "Client data confidentiality agreements & SLA audits",
+        destinationUrl: "/industries/technology-electronics#it-bpm",
+        verificationStatus: "verified"
+      }
+    ]
+  },
+  "infrastructure-construction": {
+    global: [
+      {
+        segment: "global",
+        industryName: "Mega EPC & Infrastructure Contractors",
+        businessType: "Expressways, Rail Corridors, Ports & Transit Systems",
+        shortDescription: "FIDIC contract dispute risk & massive labor camp EHS",
+        destinationUrl: "/industries/infrastructure-construction#roads-highways",
+        verificationStatus: "verified"
+      },
+      {
+        segment: "global",
+        industryName: "Global Real Estate Developers & REITs",
+        businessType: "Institutional SEZs, Commercial Hubs & Logistics Parks",
+        shortDescription: "Environmental clearance (MoEFCC) & multi-state RERA",
+        destinationUrl: "/industries/infrastructure-construction#real-estate",
+        verificationStatus: "verified"
+      },
+      {
+        segment: "global",
+        industryName: "Heavy Cement & Building Material Giants",
+        businessType: "Integrated Clinker & Automated Ready-Mix Concrete Mills",
+        shortDescription: "Mining lease conditions & emission scrubbers compliance",
+        destinationUrl: "/industries/infrastructure-construction#cement",
+        verificationStatus: "verified"
+      }
+    ],
+    largeMid: [
+      {
+        segment: "large-mid",
+        industryName: "Regional Real Estate Developers",
+        businessType: "RERA-Compliant Residential Townships & Commercial Units",
+        shortDescription: "Quarterly progress filings, escrow accounts & Title audits",
+        destinationUrl: "/industries/infrastructure-construction#real-estate",
+        verificationStatus: "verified"
+      },
+      {
+        segment: "large-mid",
+        industryName: "Road & Bridge Construction Contractors",
+        businessType: "State Highway Builders, Flyovers & Civic Infrastructure",
+        shortDescription: "Interstate contractor licensing & public safety hoardings",
+        destinationUrl: "/industries/infrastructure-construction#roads-highways",
+        verificationStatus: "verified"
+      },
+      {
+        segment: "large-mid",
+        industryName: "Specialized Engineering Subcontractors",
+        businessType: "Pre-Engineered Buildings, HVAC & Structural Steel Units",
+        shortDescription: "Scaffolding safety registers & crane operator permits",
+        destinationUrl: "/industries/infrastructure-construction#infrastructure",
+        verificationStatus: "verified"
+      }
+    ],
+    midSmall: [
+      {
+        segment: "mid-small",
+        industryName: "Local Building Contractors & Specialists",
+        businessType: "Residential Builders, Finishing & MEP Trade Contractors",
+        shortDescription: "BOCW worker welfare cess payments & site safety gear",
+        destinationUrl: "/industries/infrastructure-construction#real-estate",
+        verificationStatus: "verified"
+      },
+      {
+        segment: "mid-small",
+        industryName: "Heavy Equipment Rental & Batching Plants",
+        businessType: "Crane & Earthmoving Operators, Ready-Mix Plants",
+        shortDescription: "Third-party equipment fitness testing & fuel storage NOC",
+        destinationUrl: "/industries/infrastructure-construction#infrastructure",
+        verificationStatus: "verified"
+      },
+      {
+        segment: "mid-small",
+        industryName: "Project Supervision & Civil Consultancies",
+        businessType: "Site Health & Safety Oversight, Municipal Approvals",
+        shortDescription: "Occupancy certificate filings & site hazard registers",
+        destinationUrl: "/industries/infrastructure-construction#infrastructure",
+        verificationStatus: "verified"
+      }
+    ]
+  },
+  "energy-utilities": {
+    global: [
+      {
+        segment: "global",
+        industryName: "Integrated Oil & Gas Corporations",
+        businessType: "Offshore E&P, Downstream Refineries & Pipeline Grids",
+        shortDescription: "OISD safety norms, petroleum act concessions & HAZOP",
+        destinationUrl: "/industries/energy-utilities#oil-gas",
+        verificationStatus: "verified"
+      },
+      {
+        segment: "global",
+        industryName: "National Power Generation Utilities",
+        businessType: "Thermal, Hydro & Nuclear Utilities, Inter-State Grids",
+        shortDescription: "Central Electricity Authority (CEA) norms, flue gas limits",
+        destinationUrl: "/industries/energy-utilities#power",
+        verificationStatus: "verified"
+      },
+      {
+        segment: "global",
+        industryName: "GW-Scale Renewable Energy Developers",
+        businessType: "Utility Solar Parks, Wind Farms & Hybrid Plants",
+        shortDescription: "Grid connectivity approvals & environmental biodiversity",
+        destinationUrl: "/industries/energy-utilities#renewable-energy",
+        verificationStatus: "verified"
+      }
+    ],
+    largeMid: [
+      {
+        segment: "large-mid",
+        industryName: "City Gas Distribution (CGD) Companies",
+        businessType: "City Piped Gas Distribution & Commercial CNG Stations",
+        shortDescription: "PNGRB regulatory standards & pressure vessel audits",
+        destinationUrl: "/industries/energy-utilities#oil-gas",
+        verificationStatus: "verified"
+      },
+      {
+        segment: "large-mid",
+        industryName: "Independent Power Producers (IPPs)",
+        businessType: "Commercial Solar Plants, Captive Biomass Generators",
+        shortDescription: "State electricity regulatory commission (SERC) tariff GRC",
+        destinationUrl: "/industries/energy-utilities#renewable-energy",
+        verificationStatus: "verified"
+      },
+      {
+        segment: "large-mid",
+        industryName: "Power Distribution Discoms & Substations",
+        businessType: "Regional Grid Distribution, Transformer Stations",
+        shortDescription: "Substation safety audits & transformer oil disposal logs",
+        destinationUrl: "/industries/energy-utilities#power",
+        verificationStatus: "verified"
+      }
+    ],
+    midSmall: [
+      {
+        segment: "mid-small",
+        industryName: "Commercial Rooftop Solar EPC Providers",
+        businessType: "Industrial & Commercial C&I Solar Array Installers",
+        shortDescription: "Net-metering clearance, rooftop structural stability",
+        destinationUrl: "/industries/energy-utilities#renewable-energy",
+        verificationStatus: "verified"
+      },
+      {
+        segment: "mid-small",
+        industryName: "Bio-CNG & Agri-Residue Pellet Units",
+        businessType: "Agricultural Waste Briquetting & Biofuel Producers",
+        shortDescription: "Biomass storage safety & SPCB air emissions compliance",
+        destinationUrl: "/industries/energy-utilities#renewable-energy",
+        verificationStatus: "verified"
+      },
+      {
+        segment: "mid-small",
+        industryName: "Field Line Maintenance & Subcontractors",
+        businessType: "Transmission Line Inspections, Metering Services",
+        shortDescription: "Lineman electrical safety certification & CLRA logs",
+        destinationUrl: "/industries/energy-utilities#power",
+        verificationStatus: "verified"
+      }
+    ]
+  },
+  "financial-services": {
+    global: [
+      {
+        segment: "global",
+        industryName: "Scheduled Commercial & Investment Banks",
+        businessType: "Tier-1 Scheduled Commercial Banks & Global Custodians",
+        shortDescription: "RBI Master Directions on IT Governance & cyber audit",
+        destinationUrl: "/industries/financial-services#banking",
+        verificationStatus: "verified"
+      },
+      {
+        segment: "global",
+        industryName: "Multinational Insurance Carriers",
+        businessType: "Life, General & Health Insurance Conglomerates",
+        shortDescription: "IRDAI corporate governance, solvency reporting & broker oversight",
+        destinationUrl: "/industries/financial-services#insurance",
+        verificationStatus: "verified"
+      },
+      {
+        segment: "global",
+        industryName: "Institutional Asset Managers & Sovereign Funds",
+        businessType: "Pension Funds, Private Equity & Global Asset Managers",
+        shortDescription: "SEBI AIF regulations, insider trading prevention systems",
+        destinationUrl: "/industries/financial-services#financial-services",
+        verificationStatus: "verified"
+      }
+    ],
+    largeMid: [
+      {
+        segment: "large-mid",
+        industryName: "Systemically Important NBFCs",
+        businessType: "Upper Layer Infrastructure, Auto & MSME Finance Companies",
+        shortDescription: "RBI Scale-Based Regulations (SBR) & fair practices code",
+        destinationUrl: "/industries/financial-services#financial-services",
+        verificationStatus: "verified"
+      },
+      {
+        segment: "large-mid",
+        industryName: "Small Finance & Regional Banks",
+        businessType: "SFBs, Regional Commercial Banks & Urban Banking Entities",
+        shortDescription: "Priority sector lending registers & statutory liquidity ratio",
+        destinationUrl: "/industries/financial-services#banking",
+        verificationStatus: "verified"
+      },
+      {
+        segment: "large-mid",
+        industryName: "Payment Aggregators & FinTech Platforms",
+        businessType: "Digital Payments, Neo-Banking & Lending Portals",
+        shortDescription: "RBI PA-PG cybersecurity baseline & card tokenization",
+        destinationUrl: "/industries/financial-services#financial-services",
+        verificationStatus: "verified"
+      }
+    ],
+    midSmall: [
+      {
+        segment: "mid-small",
+        industryName: "Microfinance Institutions (MFIs)",
+        businessType: "Section 8 MFIs, Joint Liability Lending Intermediaries",
+        shortDescription: "Qualifying asset compliance & borrower grievance registers",
+        destinationUrl: "/industries/financial-services#financial-services",
+        verificationStatus: "verified"
+      },
+      {
+        segment: "mid-small",
+        industryName: "Primary Urban Co-operative Credit Societies",
+        businessType: "District Co-operative Credit Banks & Rural Thrifts",
+        shortDescription: "State registrar filings & periodic statutory audit logs",
+        destinationUrl: "/industries/financial-services#banking",
+        verificationStatus: "verified"
+      },
+      {
+        segment: "mid-small",
+        industryName: "Independent Brokerages & Wealth Advisors",
+        businessType: "SEBI-Registered Sub-Brokers & Wealth Management Firms",
+        shortDescription: "Client KYC directories, AML/CFT screening & trade logs",
+        destinationUrl: "/industries/financial-services#insurance",
+        verificationStatus: "verified"
+      }
+    ]
+  },
+  "healthcare-life-sciences": {
+    global: [
+      {
+        segment: "global",
+        industryName: "Global Biopharma & Vaccines Leaders",
+        businessType: "International Clinical Trials, Biologics & Vaccines Hubs",
+        shortDescription: "GCP clinical trial registers & international biosafety approvals",
+        destinationUrl: "/industries/healthcare-life-sciences#biotechnology",
+        verificationStatus: "verified"
+      },
+      {
+        segment: "global",
+        industryName: "Multinational Hospital Networks",
+        businessType: "JCI-Accredited Quaternary Care Hospital Networks",
+        shortDescription: "Clinical governance, organ transplant statutory oversight",
+        destinationUrl: "/industries/healthcare-life-sciences#healthcare",
+        verificationStatus: "verified"
+      },
+      {
+        segment: "global",
+        industryName: "Advanced Medical Devices Corporations",
+        businessType: "Class C/D Implantable Hardware & Diagnostic Imaging",
+        shortDescription: "CDSCO manufacturing licences & ISO 14971 risk management",
+        destinationUrl: "/industries/healthcare-life-sciences#medical-devices",
+        verificationStatus: "verified"
+      }
+    ],
+    largeMid: [
+      {
+        segment: "large-mid",
+        industryName: "Regional Multi-Specialty Hospital Chains",
+        businessType: "NABH-Accredited 100-250 Bed Regional Facilities",
+        shortDescription: "Biomedical waste management rules & patient privacy",
+        destinationUrl: "/industries/healthcare-life-sciences#healthcare",
+        verificationStatus: "verified"
+      },
+      {
+        segment: "large-mid",
+        industryName: "Diagnostic Laboratory & Imaging Chains",
+        businessType: "NABL-Accredited Centralized Labs & Imaging Centers",
+        shortDescription: "AERB radiation clearance & NABL quality calibration records",
+        destinationUrl: "/industries/healthcare-life-sciences#healthcare",
+        verificationStatus: "verified"
+      },
+      {
+        segment: "large-mid",
+        industryName: "Surgical Consumables Manufacturers",
+        businessType: "Orthopedic Disposables, Sterilization Hardware",
+        shortDescription: "ETO sterilization validation & batch tracking records",
+        destinationUrl: "/industries/healthcare-life-sciences#medical-devices",
+        verificationStatus: "verified"
+      }
+    ],
+    midSmall: [
+      {
+        segment: "mid-small",
+        industryName: "Community Hospitals & Nursing Homes",
+        businessType: "30-50 Bed Local Nursing Homes & Specialist Clinics",
+        shortDescription: "Clinical Establishments Act registrations & fire clearances",
+        destinationUrl: "/industries/healthcare-life-sciences#healthcare",
+        verificationStatus: "verified"
+      },
+      {
+        segment: "mid-small",
+        industryName: "Sample Collection Centers & Pathology Units",
+        businessType: "Local Sample Pick-Up & Basic Pathology Testing Units",
+        shortDescription: "Biological specimen transit safety & sharps disposal records",
+        destinationUrl: "/industries/healthcare-life-sciences#healthcare",
+        verificationStatus: "verified"
+      },
+      {
+        segment: "mid-small",
+        industryName: "AYUSH Wellness & Alternative Health Centers",
+        businessType: "State-Registered Holistic Wellness & Therapy Clinics",
+        shortDescription: "Practitioner credentialing & herbal dispensary licensures",
+        destinationUrl: "/industries/healthcare-life-sciences#ayush",
+        verificationStatus: "verified"
+      }
+    ]
+  },
+  "consumer-retail": {
+    global: [
+      {
+        segment: "global",
+        industryName: "Multinational FMCG Conglomerates",
+        businessType: "Personal Care, Packaged Beverages & Home Products",
+        shortDescription: "Plastic waste EPR returns & Legal Metrology packaging norms",
+        destinationUrl: "/industries/consumer-retail#fmcg",
+        verificationStatus: "verified"
+      },
+      {
+        segment: "global",
+        industryName: "Global Retail Chains & Hypermarkets",
+        businessType: "Supermarket Chains & Cash-and-Carry Megastores",
+        shortDescription: "Multi-state Shops & Commercial Establishments licensing",
+        destinationUrl: "/industries/consumer-retail#retail",
+        verificationStatus: "verified"
+      },
+      {
+        segment: "global",
+        industryName: "International Apparel & Footwear Brands",
+        businessType: "Global Lifestyle Retailers & Multi-Unit Franchises",
+        shortDescription: "Consumer protection e-commerce rules & ethical sourcing",
+        destinationUrl: "/industries/consumer-retail#retail",
+        verificationStatus: "verified"
+      }
+    ],
+    largeMid: [
+      {
+        segment: "large-mid",
+        industryName: "Regional FMCG & Packaged Staples Brands",
+        businessType: "State Food Brands, Edible Oil Mills & Dairy Distributors",
+        shortDescription: "FSSAI state license compliance & commodity weight checks",
+        destinationUrl: "/industries/consumer-retail#fmcg",
+        verificationStatus: "verified"
+      },
+      {
+        segment: "large-mid",
+        industryName: "Multi-Category E-Commerce Platforms",
+        businessType: "Direct-to-Consumer Marketplaces & Fulfillment Networks",
+        shortDescription: "DPDP consent management & seller onboarding audit records",
+        destinationUrl: "/industries/consumer-retail#retail",
+        verificationStatus: "verified"
+      },
+      {
+        segment: "large-mid",
+        industryName: "Regional Lifestyle & Electronics Chains",
+        businessType: "Multi-Brand Consumer Electronics & Fashion Showrooms",
+        shortDescription: "Store safety audits & electronic waste buy-back registers",
+        destinationUrl: "/industries/consumer-retail#retail",
+        verificationStatus: "verified"
+      }
+    ],
+    midSmall: [
+      {
+        segment: "mid-small",
+        industryName: "Standalone Retail Outlets & Boutiques",
+        businessType: "Independent Retail Stores, Superettes & Showrooms",
+        shortDescription: "Local municipal trade licenses & GST invoicing registers",
+        destinationUrl: "/industries/consumer-retail#retail",
+        verificationStatus: "verified"
+      },
+      {
+        segment: "mid-small",
+        industryName: "Artisanal D2C & Organic Brands",
+        businessType: "Specialty Organic Foods, Handcrafted Apparel Brands",
+        shortDescription: "Jaivik Bharat organic certification & clean label disclosure",
+        destinationUrl: "/industries/consumer-retail#fmcg",
+        verificationStatus: "verified"
+      },
+      {
+        segment: "mid-small",
+        industryName: "Wholesale Distributors & Stockist Depots",
+        businessType: "Regional FMCG Distribution Hubs & Trade Depots",
+        shortDescription: "Warehouse fire NOCs & commercial vehicle permit tracking",
+        destinationUrl: "/industries/consumer-retail#retail",
+        verificationStatus: "verified"
+      }
+    ]
+  },
+  "media-services": {
+    global: [
+      {
+        segment: "global",
+        industryName: "Global Broadcast & Entertainment Studios",
+        businessType: "Television Networks, Film Studios & Streaming Providers",
+        shortDescription: "MIB uplinking/downlinking guidelines & copyright audits",
+        destinationUrl: "/industries/media-services#entertainment",
+        verificationStatus: "verified"
+      },
+      {
+        segment: "global",
+        industryName: "Multinational Professional Advisory Firms",
+        businessType: "International Audit, Legal & Management Consultancies",
+        shortDescription: "ICAI/Bar Council code of ethics, client confidentiality GRC",
+        destinationUrl: "/industries/media-services#consulting",
+        verificationStatus: "verified"
+      },
+      {
+        segment: "global",
+        industryName: "International Luxury Hotel Groups",
+        businessType: "5-Star Luxury Hotels & International Resort Chains",
+        shortDescription: "FSSAI star hotel compliance, fire and life safety certifications",
+        destinationUrl: "/industries/media-services#hospitality",
+        verificationStatus: "verified"
+      }
+    ],
+    largeMid: [
+      {
+        segment: "large-mid",
+        industryName: "Regional Television Networks & Publishers",
+        businessType: "Multi-Lingual News Channels & Commercial Publishing",
+        shortDescription: "Press Council regulations & editorial compliance archives",
+        destinationUrl: "/industries/media-services#media",
+        verificationStatus: "verified"
+      },
+      {
+        segment: "large-mid",
+        industryName: "Contract 3PL Logistics & Warehousing Hubs",
+        businessType: "Multi-Modal Freight, Logistics & Fulfillment Centers",
+        shortDescription: "Warehouse Development and Regulatory Authority (WDRA) GRC",
+        destinationUrl: "/industries/media-services#logistics",
+        verificationStatus: "verified"
+      },
+      {
+        segment: "large-mid",
+        industryName: "Business Hotels & Convention Centers",
+        businessType: "Corporate Business Hotels & Exhibition Venues",
+        shortDescription: "Commercial swimming pool safety, liquor license renewals",
+        destinationUrl: "/industries/media-services#hospitality",
+        verificationStatus: "verified"
+      }
+    ],
+    midSmall: [
+      {
+        segment: "mid-small",
+        industryName: "Digital Creative & Advertising Agencies",
+        businessType: "Independent Design Studios, PR & Video Production",
+        shortDescription: "ASCI advertising standards & talent intellectual property",
+        destinationUrl: "/industries/media-services#media",
+        verificationStatus: "verified"
+      },
+      {
+        segment: "mid-small",
+        industryName: "Corporate Facility & Security Providers",
+        businessType: "Contract Security Guards & Industrial Housekeeping",
+        shortDescription: "PSARA private security agency licenses & minimum wages",
+        destinationUrl: "/industries/media-services#services",
+        verificationStatus: "verified"
+      },
+      {
+        segment: "mid-small",
+        industryName: "Local Freight & Last-Mile Delivery Fleets",
+        businessType: "Regional Couriers, Van Fleets & Parcel Operators",
+        shortDescription: "Commercial driver fitness records & transit insurance logs",
+        destinationUrl: "/industries/media-services#logistics",
+        verificationStatus: "verified"
+      }
+    ]
+  }
+};
+
+export const getClusterSizeSegments = (clusterId: string): SizeSegmentsConfig => {
+  return clusterSizeSegments[clusterId] || clusterSizeSegments["manufacturing-industrial"];
+};
+
