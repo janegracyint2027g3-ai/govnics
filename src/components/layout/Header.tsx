@@ -1336,9 +1336,9 @@ export const Header = () => {
             <Link
               to="#lead-capture"
               id="nav-cta-assessment"
-              className="flex items-center gap-1.5 px-4 py-2.5 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white rounded-xl text-[11px] font-black tracking-wide transition-all shadow-lg shadow-blue-500/25 hover:scale-[1.03] whitespace-nowrap border border-blue-500/30"
+              className="inline-flex items-center gap-2 h-10 px-4.5 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white rounded-xl text-xs font-black tracking-wide transition-all shadow-lg shadow-blue-500/25 hover:scale-[1.03] whitespace-nowrap border border-blue-500/30"
             >
-              <ShieldCheck className="w-3.5 h-3.5 shrink-0" />
+              <ShieldCheck className="w-4 h-4 shrink-0" />
               Get Free Assessment
             </Link>
           </div>
@@ -1347,15 +1347,16 @@ export const Header = () => {
         {/* Action Buttons */}
         {!isAuthenticated ? (
           <div className="hidden xl:flex items-center gap-3">
-            <Link to="/login">
-              <button className="group flex items-center gap-1.5 px-4.5 py-2.5 bg-gradient-to-b from-slate-50 via-slate-100/90 to-slate-100 hover:from-white hover:to-blue-50/80 text-slate-700 hover:text-blue-600 border border-slate-250 hover:border-blue-300 rounded-xl text-[11px] font-black tracking-wide transition-all shadow-xs hover:shadow-md hover:scale-[1.02] active:scale-[0.98]">
-                <User className="w-3.5 h-3.5 text-slate-400 group-hover:text-blue-600 transition-colors" />
-                <span>Sign In</span>
+            <Link to="/login" className="inline-flex items-center">
+              <button className="group inline-flex items-center justify-center gap-2 h-10 px-6 bg-gradient-to-b from-slate-50 via-slate-100/90 to-slate-100 hover:from-white hover:to-blue-50/80 text-slate-800 hover:text-blue-600 border border-slate-250 hover:border-blue-300 rounded-xl text-xs font-bold tracking-wide transition-all shadow-xs hover:shadow-md hover:scale-[1.02] active:scale-[0.98]">
+                <User className="w-4 h-4 text-slate-400 group-hover:text-blue-600 transition-colors shrink-0" />
+                <span className="whitespace-nowrap">Sign In</span>
               </button>
             </Link>
-            <Link to="/contact">
-              <button className="flex items-center gap-1.5 px-6 py-2.5 bg-slate-900 hover:bg-slate-800 text-white rounded-xl shadow-lg shadow-slate-900/20 text-xs font-bold tracking-wide transition-all hover:scale-[1.02]">
-                Contact Us <ArrowRight className="w-3.5 h-3.5" />
+            <Link to="/contact" className="inline-flex items-center">
+              <button className="inline-flex items-center justify-center gap-2 h-10 px-6 bg-slate-900 hover:bg-slate-800 text-white rounded-xl shadow-lg shadow-slate-900/20 text-xs font-bold tracking-wide transition-all hover:scale-[1.02] active:scale-[0.98]">
+                <span className="whitespace-nowrap">Contact Us</span>
+                <ArrowRight className="w-4 h-4 shrink-0" />
               </button>
             </Link>
           </div>
