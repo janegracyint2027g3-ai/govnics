@@ -1,11 +1,11 @@
 import { 
   Car, Wrench, Settings, ShieldAlert, Store, Laptop, Cpu, PhoneCall, 
-  FlaskConical, Zap, BrickWall, Hammer, Building2, Home, Milestone, 
-  Fuel, BatteryCharging, Sun, Anchor, Train, Landmark, Coins, 
-  HeartHandshake, ShoppingCart, Gem, Pill, Activity, Stethoscope, 
-  Dna, Leaf, ShoppingBag, Tv, Scissors, Utensils, Film, Hotel, 
-  Plane, GraduationCap, Sprout, ShieldCheck, Factory, FileSpreadsheet,
-  Layers, Package, Radio, HardHat, Droplet, CheckCircle2
+  Zap, BrickWall, Hammer, Building2, Milestone, 
+  Fuel, Sun, Landmark, Coins, 
+  HeartHandshake, ShoppingCart, Pill, Activity, Stethoscope, 
+  Dna, ShoppingBag, Scissors, Utensils, Film, Hotel, 
+  GraduationCap, Factory,
+  Package, Radio, HardHat
 } from "lucide-react";
 
 export interface DocumentedOfferingLink {

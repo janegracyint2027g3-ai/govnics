@@ -7,7 +7,6 @@ import {
   User, LogOut, CheckCircle2, Zap, Briefcase,
   Shield, Lock, Laptop, TreePine, Droplet, Activity, Cloud
 } from "lucide-react";
-import { industriesData } from "@/data/industries-data";
 import { whomWeServeClusters } from "@/data/whom-we-serve-data";
 import { useAuth } from "@/context/AuthContext";
 
@@ -682,23 +681,6 @@ export const Header = () => {
     return `${baseClass} text-black hover:text-blue-600`;
   };
 
-  const clusters = [
-    "Food Processing, Pharma & Healthcare",
-    "Manufacturing & Industrial",
-    "Technology & Electronics",
-    "Infrastructure & Construction",
-    "Energy & Utilities",
-    "Financial Services",
-    "Healthcare & Life Sciences",
-    "Consumer & Retail",
-    "Media & Services"
-  ];
-
-  const getClusterId = (name: string) => {
-    return name.toLowerCase()
-      .replace(/ & /g, "-")
-      .replace(/ /g, "-");
-  };
 
   return (
     <header
