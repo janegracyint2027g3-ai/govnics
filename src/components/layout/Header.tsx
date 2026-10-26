@@ -731,7 +731,7 @@ export const Header = () => {
             onMouseLeave={() => setActiveDropdown(null)}
           >
             <div className={getNavItemClass() + " cursor-pointer"}>
-              What We Offer <ChevronDown className="w-4 h-4 text-current" />
+              Offerings <ChevronDown className="w-4 h-4 text-current" />
             </div>
             {activeDropdown === "what-we-offer" && (
               <div className="absolute top-full left-1/2 -translate-x-1/2 w-[98dvw] max-w-7xl max-h-[85vh] bg-white border border-slate-200 shadow-2xl rounded-2xl flex overflow-hidden animate-slide-up-dropdown mt-1 text-left z-50">
@@ -743,7 +743,7 @@ export const Header = () => {
                   <div className="space-y-6">
                     <div>
                       <h3 className="text-[11px] font-black text-blue-400 uppercase tracking-[0.25em] leading-tight">
-                        What We Offer
+                        Offerings
                       </h3>
                       <p className="text-[10px] text-slate-400 mt-1 font-bold leading-relaxed">
                         Explore our compliance, security, ESG, and staffing solutions.
@@ -1111,10 +1111,6 @@ export const Header = () => {
             About Us
           </Link>
 
-          {/* Contact Link */}
-          <Link to="/contact" className={getLinkClass("/contact")}>
-            Contact
-          </Link>
 
           {/* Prominent CTA Button */}
           <div className="h-full flex items-center pl-2">
@@ -1266,7 +1262,7 @@ export const Header = () => {
                 onClick={() => toggleDropdown("what-we-offer")}
                 className="w-full flex justify-between items-center p-2 text-sm font-bold text-slate-800 hover:bg-slate-50 rounded-lg text-left"
               >
-                <span>What We Offer</span>
+                <span>Offerings</span>
                 <ChevronDown className={`w-4 h-4 transition-transform ${activeDropdown === "what-we-offer" ? "rotate-180" : ""}`} />
               </button>
               {activeDropdown === "what-we-offer" && (
@@ -1455,10 +1451,6 @@ export const Header = () => {
               About Us
             </Link>
 
-            {/* Mobile Link for Contact */}
-            <Link to="/contact" onClick={() => setMobileOpen(false)} className="p-2 text-sm font-bold text-slate-800 hover:bg-slate-50 rounded-lg block text-left">
-              Contact
-            </Link>
           </div>
 
           <div className="flex flex-col gap-2.5 pt-4 border-t border-slate-100 text-left">
