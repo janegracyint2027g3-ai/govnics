@@ -913,34 +913,6 @@ export const industriesData: IndustrySegment[] = [
       { value: "12-18", suffix: " mo", label: "Compliance ROI" }
     ]
   },
-
-  // ==========================================
-  // CLUSTER 7: FOOD PROCESSING, PHARMA & HEALTHCARE
-  // ==========================================
-  {
-    id: "food-processing",
-    title: "Food Processing & Packaged Goods",
-    subtitle: "HACCP Safety & Traceability Logs",
-    icon: Utensils,
-    focusAreas: ["FSSAI Licensing", "HACCP / ISO 22000", "Packaging Legal Metrology"],
-    regulations: ["FSSAI Act 2006", "ISO 22000 (FSMS)", "Legal Metrology Packaged Rules", "BIS Standards"],
-    challenges: [
-      "Enforcing strict farm-to-fork batch traceability and allergen cross-contamination controls.",
-      "Ensuring nutritional labeling, ingredient disclosures, and Legal Metrology meet statutory rules."
-    ],
-    outcomes: [
-      "Zero product recall orders and 100% clean FSSAI state and central inspection audits.",
-      "Verified raw material provenance and certified food safety management across all lines."
-    ],
-    color: "from-amber-600 to-emerald-700",
-    cluster: "Food Processing, Pharma & Healthcare",
-    stats: [
-      { value: "0", label: "FSSAI Product Recalls" },
-      { value: "100", suffix: "%", label: "FSMS Audit Pass Rate" },
-      { value: "↓ 75", suffix: "%", label: "Batch Traceability Speedup" },
-      { value: "12-18", suffix: " mo", label: "Payback Horizon" }
-    ]
-  },
   {
     id: "pharmaceutical-manufacturing",
     title: "Pharmaceutical Manufacturing",
@@ -957,7 +929,7 @@ export const industriesData: IndustrySegment[] = [
       "100% batch manufacturing record (BMR) data integrity and continuous drug license currency."
     ],
     color: "from-blue-600 to-indigo-800",
-    cluster: "Food Processing, Pharma & Healthcare",
+    cluster: "Healthcare & Life Sciences",
     stats: [
       { value: "0", label: "Critical GMP Audit Findings" },
       { value: "100", suffix: "%", label: "Schedule M Validation" },
@@ -981,12 +953,40 @@ export const industriesData: IndustrySegment[] = [
       "Zero healthcare-associated outbreak penalties and protected patient electronic health records."
     ],
     color: "from-teal-600 to-blue-800",
-    cluster: "Food Processing, Pharma & Healthcare",
+    cluster: "Healthcare & Life Sciences",
     stats: [
       { value: "100", suffix: "%", label: "NABH Accreditation Score" },
       { value: "0", label: "Infection Control Breaches" },
       { value: "0", label: "Patient Privacy Incidents" },
       { value: "12-18", suffix: " mo", label: "Payback Period" }
+    ]
+  },
+
+  // ==========================================
+  // CLUSTER 7: FOOD PROCESSING
+  // ==========================================
+  {
+    id: "food-processing",
+    title: "Food Processing & Packaged Goods",
+    subtitle: "HACCP Safety & Traceability Logs",
+    icon: Utensils,
+    focusAreas: ["FSSAI Licensing", "HACCP / ISO 22000", "Packaging Legal Metrology"],
+    regulations: ["FSSAI Act 2006", "ISO 22000 (FSMS)", "Legal Metrology Packaged Rules", "BIS Standards"],
+    challenges: [
+      "Enforcing strict farm-to-fork batch traceability and allergen cross-contamination controls.",
+      "Ensuring nutritional labeling, ingredient disclosures, and Legal Metrology meet statutory rules."
+    ],
+    outcomes: [
+      "Zero product recall orders and 100% clean FSSAI state and central inspection audits.",
+      "Verified raw material provenance and certified food safety management across all lines."
+    ],
+    color: "from-amber-600 to-emerald-700",
+    cluster: "Food Processing",
+    stats: [
+      { value: "0", label: "FSSAI Product Recalls" },
+      { value: "100", suffix: "%", label: "FSMS Audit Pass Rate" },
+      { value: "↓ 75", suffix: "%", label: "Batch Traceability Speedup" },
+      { value: "12-18", suffix: " mo", label: "Payback Horizon" }
     ]
   },
   {
@@ -1005,7 +1005,7 @@ export const industriesData: IndustrySegment[] = [
       "Zero environmental pollution notices and successful biogas energy recovery."
     ],
     color: "from-emerald-600 to-teal-700",
-    cluster: "Food Processing, Pharma & Healthcare",
+    cluster: "Food Processing",
     stats: [
       { value: "0", label: "Milk Adulteration Incidents" },
       { value: "100", suffix: "%", label: "Pasteurization Telemetry Logs" },
@@ -1029,7 +1029,7 @@ export const industriesData: IndustrySegment[] = [
       "Fully certified WHO-GDP distribution for life-saving vaccines and premium perishables."
     ],
     color: "from-cyan-600 to-blue-700",
-    cluster: "Food Processing, Pharma & Healthcare",
+    cluster: "Food Processing",
     stats: [
       { value: "0", label: "Temperature Spoilage Loss" },
       { value: "100", suffix: "%", label: "IoT Telemetry Uptime" },
@@ -1053,7 +1053,7 @@ export const industriesData: IndustrySegment[] = [
       "Zero misleading advertisement notices from ASCI or the Central Consumer Protection Authority."
     ],
     color: "from-teal-600 to-emerald-700",
-    cluster: "Food Processing, Pharma & Healthcare",
+    cluster: "Food Processing",
     stats: [
       { value: "100", suffix: "%", label: "FSSAI RDA Limit Adherence" },
       { value: "0", label: "Misleading Claim Notices" },

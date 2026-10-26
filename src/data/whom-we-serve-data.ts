@@ -2455,12 +2455,21 @@ export const whomWeServeClusters: IndustryClusterRecord[] = [
             relevantIndustryRisks: ["Hospital-acquired infection spikes", "Biomedical waste mixing"],
             applicableGrcConsiderations: ["Infection control committee audits", "Barcoded waste manifest tracking"],
             relatedVerifiedOfferings: ["accreditation-services", "environmental-compliance"]
+          },
+          {
+            name: "Healthcare Delivery Systems & Hospital Networks",
+            description: "Inpatient facilities, multi-specialty clinical networks, and hospital operations adhering to healthcare delivery standards.",
+            relevantIndustryRisks: ["Clinical statutory license lapse", "Patient health data breach", "Infection control non-conformity"],
+            applicableGrcConsiderations: ["Clinical Establishments registration & renewals", "DPDP consent record archives", "Hospital infection control committee registers"],
+            relatedVerifiedOfferings: ["accreditation-services", "data-privacy-dpdp"]
           }
         ],
         relevantGrcTopics: [
           "NABH accreditation gap assessment, policy checklist codification, and mock drills",
           "Biomedical waste segregation, barcoding manifests, and SPCB annual returns",
-          "Patient health record confidentiality and consent systems under DPDP 2023"
+          "Patient health record confidentiality and consent systems under DPDP 2023",
+          "Clinical Establishment license renewals and municipal fire safety clearances",
+          "Hospital infection control committee registers and medical audit trails"
         ],
         linkedOfferings: [
           {
@@ -2474,10 +2483,16 @@ export const whomWeServeClusters: IndustryClusterRecord[] = [
             serviceName: "Environmental Compliance",
             route: "/services/environmental-compliance",
             relevance: "Biomedical waste handling logs and state pollution board consent renewals."
+          },
+          {
+            serviceId: "data-privacy-dpdp",
+            serviceName: "Data Privacy & DPDP",
+            route: "/services/data-privacy-dpdp",
+            relevance: "Health record privacy, EHR data mapping, and patient consent management."
           }
         ],
         existingRoute: "/industries/healthcare-life-sciences#healthcare",
-        searchKeywords: ["hospital", "healthcare", "nabh", "biomedical waste", "clinical establishment", "ehr"],
+        searchKeywords: ["hospital", "healthcare", "nabh", "biomedical waste", "clinical establishment", "ehr", "clinical quality", "patient safety"],
         verificationStatus: "confirmed",
         publicationStatus: "published"
       },
@@ -2493,7 +2508,7 @@ export const whomWeServeClusters: IndustryClusterRecord[] = [
         iconName: "Pill",
         displayOrder: 2,
         regulations: ["Drugs & Cosmetics Act", "Revised Schedule M", "CDSCO Guidelines", "WHO-GMP"],
-        focusAreas: ["GMP Compliance", "Batch Data Integrity", "Effluent Treatment"],
+        focusAreas: ["GMP Compliance", "Batch Data Integrity", "Effluent Treatment", "Cleanroom Qualification"],
         businessSegments: [
           {
             name: "Oral Solid Dosage & Injectable Formulations",
@@ -2501,19 +2516,28 @@ export const whomWeServeClusters: IndustryClusterRecord[] = [
             relevantIndustryRisks: ["Batch contamination", "Audit trail discrepancies in HPLC/GC instruments"],
             applicableGrcConsiderations: ["21 CFR Part 11 electronic records", "Cleanroom differential pressure logs"],
             relatedVerifiedOfferings: ["regulatory-compliance", "environmental-compliance"]
+          },
+          {
+            name: "Pharmaceutical Formulation Manufacturing",
+            description: "Tablet pressing, sterile parenteral filling lines, liquid bottling, and blister packaging facilities.",
+            relevantIndustryRisks: ["Cross-contamination risk in sterile filling", "Batch reconciliation deviations", "Form 25/28 license lapses"],
+            applicableGrcConsiderations: ["CDSCO manufacturing licence inspections and Form 25/28 maintenance", "Batch manufacturing record (BMR) reviews", "Cleanroom HVAC air exchange & HEPA filter validation"],
+            relatedVerifiedOfferings: ["regulatory-compliance", "environmental-compliance"]
           }
         ],
         relevantGrcTopics: [
           "Revised Schedule M compliance gap analyses and corrective action plans",
           "Laboratory instrument data integrity, audit trail review, and user access matrices",
-          "Zero liquid discharge (ZLD) effluent treatment registers for chemical API synthesis"
+          "Zero liquid discharge (ZLD) effluent treatment registers for chemical API synthesis",
+          "CDSCO manufacturing licence inspections and Form 25/28 maintenance",
+          "Cleanroom HVAC air exchange validation and HEPA filter certifications"
         ],
         linkedOfferings: [
           {
             serviceId: "regulatory-compliance",
             serviceName: "Regulatory Compliance",
             route: "/services/regulatory-compliance",
-            relevance: "CDSCO licensing, drug master file tracking, and Schedule M adherence."
+            relevance: "CDSCO licensing, drug master file tracking, Form 25/28, and Schedule M adherence."
           },
           {
             serviceId: "environmental-compliance",
@@ -2523,7 +2547,7 @@ export const whomWeServeClusters: IndustryClusterRecord[] = [
           }
         ],
         existingRoute: "/industries/healthcare-life-sciences#pharmaceuticals",
-        searchKeywords: ["pharma", "pharmaceuticals", "gmp", "schedule m", "cdsco", "alcoa", "api"],
+        searchKeywords: ["pharma", "pharmaceuticals", "gmp", "schedule m", "cdsco", "alcoa", "api", "formulations", "cleanroom"],
         verificationStatus: "confirmed",
         publicationStatus: "published"
       },
@@ -2894,30 +2918,30 @@ export const whomWeServeClusters: IndustryClusterRecord[] = [
     ]
   },
 
-  // ── 7. Food Processing, Pharma & Healthcare ────────────────────────────────
+  // ── 7. Food Processing ─────────────────────────────────────────────────────
   {
-    id: "food-processing-pharma-healthcare",
-    name: "Food Processing, Pharma & Healthcare",
-    shortDescription: "Combined sector directory highlighting specialized manufacturing, hygiene controls, cold-chain compliance, and consumer health safety across consumables and pharmaceuticals.",
-    icon: Package,
-    iconName: "Package",
+    id: "food-processing",
+    name: "Food Processing",
+    shortDescription: "FSSAI food safety governance, HACCP certification, farm-to-fork batch traceability, cold chain temperature integrity, and dairy & beverage compliance.",
+    icon: Utensils,
+    iconName: "Utensils",
     displayOrder: 7,
     verificationStatus: "confirmed",
     publicationStatus: "published",
-    evidenceNote: "Preserved existing navigation cluster combining verified food processing, pharmaceutical manufacturing, and healthcare services.",
+    evidenceNote: "Comprehensive industry directory dedicated to food processing, packaging, cold storage, dairy, beverages, and commercial catering.",
     keyGrcTopics: [
       "FSSAI Food Safety Management Systems & Hygiene Rating Audits",
       "HACCP (Hazard Analysis Critical Control Point) Food Safety Registers",
-      "Schedule M & WHO-GMP Pharmaceutical Quality Adherence",
       "Cold-Chain Temperature Telemetry & Perishable Goods Compliance",
-      "Legal Metrology & Mandatory Packaging Declarations"
+      "Legal Metrology & Mandatory Packaging Declarations",
+      "APEDA Organic (NPOP) & Jaivik Bharat Traceability"
     ],
     documentedOfferings: [
       {
         serviceId: "regulatory-compliance",
         serviceName: "Regulatory Compliance Management",
         route: "/services/regulatory-compliance",
-        relevance: "FSSAI central/state licenses, CDSCO drug manufacturing licenses, and packaging norms."
+        relevance: "FSSAI central/state licenses, manufacturing licenses, and packaging norms."
       },
       {
         serviceId: "supply-chain-compliance",
@@ -2937,8 +2961,8 @@ export const whomWeServeClusters: IndustryClusterRecord[] = [
         id: "food-processing",
         title: "Food Processing & Packaged Goods",
         slug: "food-processing",
-        parentClusterId: "food-processing-pharma-healthcare",
-        parentClusterName: "Food Processing, Pharma & Healthcare",
+        parentClusterId: "food-processing",
+        parentClusterName: "Food Processing",
         subtitle: "HACCP Safety & Traceability Logs",
         overview: "Packaged food producers, dairy processors, and beverage bottlers complying with Food Safety and Standards Authority of India (FSSAI) norms, cleanroom air filtration, and batch recall protocols.",
         icon: Utensils,
@@ -2974,94 +2998,8 @@ export const whomWeServeClusters: IndustryClusterRecord[] = [
             relevance: "Effluent treatment plant (ETP) biological oxygen demand monitoring."
           }
         ],
-        existingRoute: "/industries/food-processing-pharma-healthcare#food-processing",
+        existingRoute: "/industries/food-processing#food-processing",
         searchKeywords: ["food processing", "fssai", "haccp", "dairy", "beverage", "packaged food"],
-        verificationStatus: "confirmed",
-        publicationStatus: "published"
-      },
-      {
-        id: "pharmaceuticals-fp",
-        title: "Pharmaceutical Manufacturing",
-        slug: "pharmaceuticals",
-        parentClusterId: "food-processing-pharma-healthcare",
-        parentClusterName: "Food Processing, Pharma & Healthcare",
-        subtitle: "GMP Data Integrity & CDSCO Audits",
-        overview: "Formulations and drug manufacturing facilities ensuring patient safety through strict validation of raw ingredients, batch records, cleanroom parameters, and CDSCO licenses.",
-        icon: Pill,
-        iconName: "Pill",
-        displayOrder: 2,
-        regulations: ["Drugs & Cosmetics Act", "Revised Schedule M", "CDSCO Guidelines"],
-        focusAreas: ["Batch Records", "Cleanroom Parameters", "Statutory Licensing"],
-        businessSegments: [
-          {
-            name: "Formulation Manufacturing",
-            description: "Tablet pressing, liquid bottling, and blister packaging lines.",
-            relevantIndustryRisks: ["Cross-contamination", "Batch reconciliation mismatches"],
-            applicableGrcConsiderations: ["Line clearance verification logs", "Form 25/28 licensing"],
-            relatedVerifiedOfferings: ["regulatory-compliance"]
-          }
-        ],
-        relevantGrcTopics: [
-          "CDSCO manufacturing licence inspections and Form 25/28 maintenance",
-          "Batch manufacturing record (BMR) review and deviation handling",
-          "Cleanroom HVAC air exchange validation and HEPA filter certifications"
-        ],
-        linkedOfferings: [
-          {
-            serviceId: "regulatory-compliance",
-            serviceName: "Regulatory Compliance",
-            route: "/services/regulatory-compliance",
-            relevance: "Drug authority filings and statutory manufacturing registers."
-          }
-        ],
-        existingRoute: "/industries/food-processing-pharma-healthcare#pharmaceutical-manufacturing",
-        searchKeywords: ["pharma", "pharmaceutical manufacturing", "drugs", "cleanroom", "cdsco"],
-        verificationStatus: "confirmed",
-        publicationStatus: "published"
-      },
-      {
-        id: "healthcare-fp",
-        title: "Healthcare Delivery Systems",
-        slug: "healthcare",
-        parentClusterId: "food-processing-pharma-healthcare",
-        parentClusterName: "Food Processing, Pharma & Healthcare",
-        subtitle: "Hospital Quality & Patient Safety Governance",
-        overview: "Clinical facilities, diagnostic centers, and hospital operations adhering to healthcare service delivery standards, statutory hospital licensing, and patient privacy requirements.",
-        icon: Activity,
-        iconName: "Activity",
-        displayOrder: 3,
-        regulations: ["Clinical Establishments Act", "NABH Guidelines", "DPDP Act 2023"],
-        focusAreas: ["Clinical Quality", "Statutory Licenses", "Patient Rights"],
-        businessSegments: [
-          {
-            name: "Hospital Infrastructure Operations",
-            description: "Inpatient facilities, diagnostic laboratories, and ambulatory clinics.",
-            relevantIndustryRisks: ["Clinical statutory license lapse", "Patient data exposure"],
-            applicableGrcConsiderations: ["Clinical Establishments registration", "Consent record archives"],
-            relatedVerifiedOfferings: ["accreditation-services", "data-privacy-dpdp"]
-          }
-        ],
-        relevantGrcTopics: [
-          "Clinical Establishment license renewals and municipal fire clearances",
-          "Patient health data privacy and DPDP 2023 consent mapping",
-          "Hospital infection control committee registers and medical audit trails"
-        ],
-        linkedOfferings: [
-          {
-            serviceId: "accreditation-services",
-            serviceName: "Accreditation Services",
-            route: "/services/accreditation-services",
-            relevance: "NABH quality standards and healthcare accreditation prep."
-          },
-          {
-            serviceId: "data-privacy-dpdp",
-            serviceName: "Data Privacy & DPDP",
-            route: "/services/data-privacy-dpdp",
-            relevance: "Health record privacy and consent management."
-          }
-        ],
-        existingRoute: "/industries/food-processing-pharma-healthcare#healthcare-delivery",
-        searchKeywords: ["healthcare", "hospitals", "clinics", "clinical quality", "patient safety"],
         verificationStatus: "confirmed",
         publicationStatus: "published"
       },
@@ -3069,13 +3007,13 @@ export const whomWeServeClusters: IndustryClusterRecord[] = [
         id: "dairy-beverage-processing",
         title: "Dairy, Beverages & Breweries",
         slug: "dairy-beverage-processing",
-        parentClusterId: "food-processing-pharma-healthcare",
-        parentClusterName: "Food Processing, Pharma & Healthcare",
+        parentClusterId: "food-processing",
+        parentClusterName: "Food Processing",
         subtitle: "FSSAI Safety Standards & Effluent Oversight",
         overview: "Dairy and beverage manufacturers comply with FSSAI microbiological limits, BIS packaged water certifications, state excise regulations for breweries, groundwater NOCs, and effluent treatment standards.",
         icon: Droplets,
         iconName: "Droplets",
-        displayOrder: 4,
+        displayOrder: 2,
         regulations: [
           "FSSAI (Food Products Standards and Food Additives) Regulations, 2011",
           "Bureau of Indian Standards IS 14543 (Packaged Drinking Water)",
@@ -3128,7 +3066,7 @@ export const whomWeServeClusters: IndustryClusterRecord[] = [
             relevance: "Groundwater NOCs, high-BOD effluent treatment, and plastic EPR filings."
           }
         ],
-        existingRoute: "/industries/food-processing-pharma-healthcare#dairy-beverages",
+        existingRoute: "/industries/food-processing#dairy-beverages",
         searchKeywords: ["dairy", "beverage", "brewery", "bottling", "bis water", "fssai", "excise"],
         verificationStatus: "confirmed",
         publicationStatus: "published"
@@ -3137,13 +3075,13 @@ export const whomWeServeClusters: IndustryClusterRecord[] = [
         id: "cold-chain-logistics-fp",
         title: "Cold Chain & Perishable Logistics",
         slug: "cold-chain-logistics-fp",
-        parentClusterId: "food-processing-pharma-healthcare",
-        parentClusterName: "Food Processing, Pharma & Healthcare",
+        parentClusterId: "food-processing",
+        parentClusterName: "Food Processing",
         subtitle: "Cold Chain FSMS & Temperature Integrity",
         overview: "Cold chain logistics providers ensure continuous temperature mapping, CDSCO Good Distribution Practices (GDP) for pharmaceuticals, FSSAI perishable cold-storage mandates, and ammonia refrigeration safety.",
         icon: Truck,
         iconName: "Truck",
-        displayOrder: 5,
+        displayOrder: 3,
         regulations: [
           "CDSCO Good Distribution Practices (GDP) Guidelines",
           "FSSAI Guidelines on Cold Chain Logistics and Warehousing",
@@ -3196,7 +3134,7 @@ export const whomWeServeClusters: IndustryClusterRecord[] = [
             relevance: "PESO ammonia licenses, FSSAI warehouse approvals, and factory safety."
           }
         ],
-        existingRoute: "/industries/food-processing-pharma-healthcare#cold-chain",
+        existingRoute: "/industries/food-processing#cold-chain",
         searchKeywords: ["cold chain", "reefer", "cold storage", "gdp", "temperature mapping", "ammonia"],
         verificationStatus: "confirmed",
         publicationStatus: "published"
@@ -3205,13 +3143,13 @@ export const whomWeServeClusters: IndustryClusterRecord[] = [
         id: "nutraceuticals-dietary",
         title: "Nutraceuticals & Health Supplements",
         slug: "nutraceuticals-dietary",
-        parentClusterId: "food-processing-pharma-healthcare",
-        parentClusterName: "Food Processing, Pharma & Healthcare",
+        parentClusterId: "food-processing",
+        parentClusterName: "Food Processing",
         subtitle: "Nutraceutical Regulations & Labeling Audits",
         overview: "Nutraceutical manufacturers navigate FSSAI Nutraceutical Regulations, permissible ingredient limits (RDA benchmarks), banned sports substance screenings, health claim substantiations, and GMP standards.",
         icon: Pill,
         iconName: "Pill",
-        displayOrder: 6,
+        displayOrder: 4,
         regulations: [
           "FSSAI (Health Supplements, Nutraceuticals, Food for Special Dietary Use) Regulations, 2022",
           "Legal Metrology (Packaged Commodities) Rules, 2011",
@@ -3264,7 +3202,7 @@ export const whomWeServeClusters: IndustryClusterRecord[] = [
             relevance: "CDMO contract compliance, batch manufacturing record audits, and QA checks."
           }
         ],
-        existingRoute: "/industries/food-processing-pharma-healthcare#nutraceuticals",
+        existingRoute: "/industries/food-processing#nutraceuticals",
         searchKeywords: ["nutraceuticals", "supplements", "fssai", "rda", "gummies", "whey protein", "health claims"],
         verificationStatus: "confirmed",
         publicationStatus: "published"
@@ -3273,13 +3211,13 @@ export const whomWeServeClusters: IndustryClusterRecord[] = [
         id: "organic-agri-processing",
         title: "Organic Foods & Agri-Commodities",
         slug: "organic-agri-processing",
-        parentClusterId: "food-processing-pharma-healthcare",
-        parentClusterName: "Food Processing, Pharma & Healthcare",
+        parentClusterId: "food-processing",
+        parentClusterName: "Food Processing",
         subtitle: "APEDA Certification & Organic SOPs",
         overview: "Agri-processors and organic exporters manage APEDA NPOP organic certifications, Jaivik Bharat compliance, Spices Board sampling norms, mandi market fees, and warehouse commodity testing.",
         icon: Leaf,
         iconName: "Leaf",
-        displayOrder: 7,
+        displayOrder: 5,
         regulations: [
           "National Programme for Organic Production (NPOP) - APEDA",
           "FSSAI (Organic Foods) Regulations, 2017 (Jaivik Bharat)",
@@ -3332,7 +3270,7 @@ export const whomWeServeClusters: IndustryClusterRecord[] = [
             relevance: "APEDA registrations, Spices Board clearances, and FSSAI organic compliance."
           }
         ],
-        existingRoute: "/industries/food-processing-pharma-healthcare#organic-agri",
+        existingRoute: "/industries/food-processing#organic-agri",
         searchKeywords: ["organic", "apeda", "npop", "jaivik bharat", "spices", "fpo", "agri processing"],
         verificationStatus: "confirmed",
         publicationStatus: "published"
@@ -3341,13 +3279,13 @@ export const whomWeServeClusters: IndustryClusterRecord[] = [
         id: "commercial-catering-qsr",
         title: "Commercial Catering & QSR Kitchens",
         slug: "commercial-catering-qsr",
-        parentClusterId: "food-processing-pharma-healthcare",
-        parentClusterName: "Food Processing, Pharma & Healthcare",
+        parentClusterId: "food-processing",
+        parentClusterName: "Food Processing",
         subtitle: "Central Kitchen Hygiene & FSSAI Licensure",
         overview: "Centralized commercial food providers handle FSSAI Food Safety Supervisor mandates, grease trap and wastewater norms, pest control logs, cold holding temperatures, and food allergen disclosures.",
         icon: ChefHat,
         iconName: "ChefHat",
-        displayOrder: 8,
+        displayOrder: 6,
         regulations: [
           "FSSAI (Licensing and Registration of Food Businesses) Regulations, 2011",
           "State Municipal Corporation Public Health By-Laws",
@@ -3400,7 +3338,7 @@ export const whomWeServeClusters: IndustryClusterRecord[] = [
             relevance: "Central kitchen hygiene audits, food wastage tracking, and vendor verification."
           }
         ],
-        existingRoute: "/industries/food-processing-pharma-healthcare#catering-qsr",
+        existingRoute: "/industries/food-processing#catering-qsr",
         searchKeywords: ["catering", "qsr", "cloud kitchen", "haccp", "fssai hygiene", "grease trap", "commissary"],
         verificationStatus: "confirmed",
         publicationStatus: "published"
@@ -4668,82 +4606,162 @@ export const clusterSizeSegments: Record<string, SizeSegmentsConfig> = {
       }
     ]
   },
-  "food-processing-pharma-healthcare": {
+  "food-processing": {
     global: [
-      {
-        segment: "global",
-        industryName: "Global Pharmaceutical MNCs",
-        businessType: "USFDA / MHRA Regulated Sterile Formulation & API Plants",
-        shortDescription: "21 CFR Part 11 electronic records, global batch release",
-        destinationUrl: "/industries/food-processing-pharma-healthcare#pharma",
-        verificationStatus: "verified"
-      },
       {
         segment: "global",
         industryName: "International Food & Beverage Conglomerates",
         businessType: "Global FMCG Food Brands, Breweries & Bottling Networks",
         shortDescription: "Global food safety initiative (GFSI) & multi-state FSSAI",
-        destinationUrl: "/industries/food-processing-pharma-healthcare#food",
+        destinationUrl: "/industries/food-processing#food",
         verificationStatus: "verified"
       },
       {
         segment: "global",
-        industryName: "Multinational MedTech Corporations",
-        businessType: "Class C/D Implantable Devices & High-Risk Diagnostics",
-        shortDescription: "MDR 2017 risk assessments, ISO 13485 design dossiers",
-        destinationUrl: "/industries/food-processing-pharma-healthcare#medtech",
+        industryName: "Global Cold-Chain & Perishable Logistics",
+        businessType: "Multi-Temperature Controlled Warehouse & Reefer Networks",
+        shortDescription: "IoT thermal mapping telemetry & ammonia refrigeration safety",
+        destinationUrl: "/industries/food-processing#cold-chain",
+        verificationStatus: "verified"
+      },
+      {
+        segment: "global",
+        industryName: "Global Nutrition & Functional Foods",
+        businessType: "Health Supplements, Dietary Formulations & Nutraceuticals",
+        shortDescription: "FSSAI 2022 nutraceutical standards & RDA claim validations",
+        destinationUrl: "/industries/food-processing#nutraceuticals",
         verificationStatus: "verified"
       }
     ],
     largeMid: [
       {
         segment: "large-mid",
-        industryName: "Regional Pharmaceutical CDMOs",
-        businessType: "Contract Formulation Facilities & API Bulk Manufacturers",
-        shortDescription: "WHO-GMP adherence, stability logs & validation registers",
-        destinationUrl: "/industries/food-processing-pharma-healthcare#pharma",
-        verificationStatus: "verified"
-      },
-      {
-        segment: "large-mid",
         industryName: "Commercial Dairy & Agro-Processing",
         businessType: "Integrated Dairy Plants, Cold Storage & Milling Hubs",
         shortDescription: "Cold chain telemetry validation & packaging compliance",
-        destinationUrl: "/industries/food-processing-pharma-healthcare#food",
+        destinationUrl: "/industries/food-processing#dairy-beverages",
         verificationStatus: "verified"
       },
       {
         segment: "large-mid",
-        industryName: "Multi-Specialty Hospital Chains",
-        businessType: "NABH-Accredited 150+ Bed Multi-Hospital Networks",
-        shortDescription: "Bio-medical waste rules, clinical audit protocols",
-        destinationUrl: "/industries/food-processing-pharma-healthcare#healthcare",
+        industryName: "Regional Breweries & Beverage Bottlers",
+        businessType: "State-Licensed Distilleries, Mineral Water & Soft Drink Plants",
+        shortDescription: "BIS 14543 certification, state excise & effluent ZLD",
+        destinationUrl: "/industries/food-processing#dairy-beverages",
+        verificationStatus: "verified"
+      },
+      {
+        segment: "large-mid",
+        industryName: "Corporate Catering & QSR Commissary Hubs",
+        businessType: "Institutional Food Service, Master Franchisees & Cloud Kitchens",
+        shortDescription: "HACCP central kitchen audits & food handler hygiene",
+        destinationUrl: "/industries/food-processing#catering-qsr",
         verificationStatus: "verified"
       }
     ],
     midSmall: [
       {
         segment: "mid-small",
-        industryName: "AYUSH & Herbal Formulations",
-        businessType: "Ayurvedic & Natural Medicine Manufacturing Units",
-        shortDescription: "Schedule T Ayurvedic GMP & state licensing filings",
-        destinationUrl: "/industries/food-processing-pharma-healthcare#ayush",
-        verificationStatus: "verified"
-      },
-      {
-        segment: "mid-small",
-        industryName: "Local Food Processing Units",
+        industryName: "Local Food Processing & Bakery Units",
         businessType: "Packaged Snack Food, Confectionary & Bakery Centers",
         shortDescription: "FSSAI state licensing, hygiene records & pest audits",
-        destinationUrl: "/industries/food-processing-pharma-healthcare#food",
+        destinationUrl: "/industries/food-processing#food",
         verificationStatus: "verified"
       },
       {
         segment: "mid-small",
-        industryName: "Diagnostic Clinics & Daycare Centers",
-        businessType: "Independent Pathology Testing Labs & Day Surgery Centers",
-        shortDescription: "Radiation safety AERB clearance, biomedical disposal",
-        destinationUrl: "/industries/food-processing-pharma-healthcare#healthcare",
+        industryName: "Packaged Water & Microbrewery Units",
+        businessType: "Local 20-Litre Water Plants & Microbreweries",
+        shortDescription: "CGWA groundwater NOCs, BIS sampling & excise registers",
+        destinationUrl: "/industries/food-processing#dairy-beverages",
+        verificationStatus: "verified"
+      },
+      {
+        segment: "mid-small",
+        industryName: "Organic Farmer Producer Organizations (FPOs)",
+        businessType: "Farmer Cooperatives & Direct-to-Consumer Organic Brands",
+        shortDescription: "NPOP organic certification & Jaivik Bharat compliance",
+        destinationUrl: "/industries/food-processing#organic-agri",
+        verificationStatus: "verified"
+      }
+    ]
+  },
+  "food-processing-pharma-healthcare": {
+    global: [
+      {
+        segment: "global",
+        industryName: "International Food & Beverage Conglomerates",
+        businessType: "Global FMCG Food Brands, Breweries & Bottling Networks",
+        shortDescription: "Global food safety initiative (GFSI) & multi-state FSSAI",
+        destinationUrl: "/industries/food-processing#food",
+        verificationStatus: "verified"
+      },
+      {
+        segment: "global",
+        industryName: "Global Cold-Chain & Perishable Logistics",
+        businessType: "Multi-Temperature Controlled Warehouse & Reefer Networks",
+        shortDescription: "IoT thermal mapping telemetry & ammonia refrigeration safety",
+        destinationUrl: "/industries/food-processing#cold-chain",
+        verificationStatus: "verified"
+      },
+      {
+        segment: "global",
+        industryName: "Global Nutrition & Functional Foods",
+        businessType: "Health Supplements, Dietary Formulations & Nutraceuticals",
+        shortDescription: "FSSAI 2022 nutraceutical standards & RDA claim validations",
+        destinationUrl: "/industries/food-processing#nutraceuticals",
+        verificationStatus: "verified"
+      }
+    ],
+    largeMid: [
+      {
+        segment: "large-mid",
+        industryName: "Commercial Dairy & Agro-Processing",
+        businessType: "Integrated Dairy Plants, Cold Storage & Milling Hubs",
+        shortDescription: "Cold chain telemetry validation & packaging compliance",
+        destinationUrl: "/industries/food-processing#dairy-beverages",
+        verificationStatus: "verified"
+      },
+      {
+        segment: "large-mid",
+        industryName: "Regional Breweries & Beverage Bottlers",
+        businessType: "State-Licensed Distilleries, Mineral Water & Soft Drink Plants",
+        shortDescription: "BIS 14543 certification, state excise & effluent ZLD",
+        destinationUrl: "/industries/food-processing#dairy-beverages",
+        verificationStatus: "verified"
+      },
+      {
+        segment: "large-mid",
+        industryName: "Corporate Catering & QSR Commissary Hubs",
+        businessType: "Institutional Food Service, Master Franchisees & Cloud Kitchens",
+        shortDescription: "HACCP central kitchen audits & food handler hygiene",
+        destinationUrl: "/industries/food-processing#catering-qsr",
+        verificationStatus: "verified"
+      }
+    ],
+    midSmall: [
+      {
+        segment: "mid-small",
+        industryName: "Local Food Processing & Bakery Units",
+        businessType: "Packaged Snack Food, Confectionary & Bakery Centers",
+        shortDescription: "FSSAI state licensing, hygiene records & pest audits",
+        destinationUrl: "/industries/food-processing#food",
+        verificationStatus: "verified"
+      },
+      {
+        segment: "mid-small",
+        industryName: "Packaged Water & Microbrewery Units",
+        businessType: "Local 20-Litre Water Plants & Microbreweries",
+        shortDescription: "CGWA groundwater NOCs, BIS sampling & excise registers",
+        destinationUrl: "/industries/food-processing#dairy-beverages",
+        verificationStatus: "verified"
+      },
+      {
+        segment: "mid-small",
+        industryName: "Organic Farmer Producer Organizations (FPOs)",
+        businessType: "Farmer Cooperatives & Direct-to-Consumer Organic Brands",
+        shortDescription: "NPOP organic certification & Jaivik Bharat compliance",
+        destinationUrl: "/industries/food-processing#organic-agri",
         verificationStatus: "verified"
       }
     ]

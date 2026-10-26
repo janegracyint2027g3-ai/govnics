@@ -808,30 +808,6 @@ export const industryServicesData: Record<string, IndustryServiceOffering[]> = {
       outcome: "Prestigious NABH accreditation, elevated wellness tourism status"
     }
   ],
-
-  // CLUSTER 7: FOOD PROCESSING, PHARMA & HEALTHCARE
-  "food-processing": [
-    {
-      title: "FSSAI Licensing, Product Approval & Labeling GRC",
-      description: "Auditing mandatory nutritional panels, allergen warnings, FSSAI central license renewals, and Legal Metrology packaging declarations.",
-      outcome: "Zero packaging recall notices, 100% FSSAI compliance"
-    },
-    {
-      title: "HACCP & ISO 22000 Food Safety Management System",
-      description: "Codifying Hazard Analysis Critical Control Points (HACCP) across ingredient reception, cooking/pasteurization, and packaging bays.",
-      outcome: "Uncompromised food hygiene, zero microbiological contamination"
-    },
-    {
-      title: "Raw Agri-Commodity Supply Chain Traceability",
-      description: "Auditing farm-gate pesticide residue test certificates, heavy metal logs, and non-GMO procurement documentation.",
-      outcome: "100% raw ingredient provenance, preferred enterprise vendor status"
-    },
-    {
-      title: "Food Processing Plant Effluent & Sanitation EHS",
-      description: "Monitoring organic effluent BOD/COD treatment, food-grade chemical sanitization logs, and factory inspectorate approvals.",
-      outcome: "Zero environmental notices, full factory compliance"
-    }
-  ],
   "pharmaceutical-manufacturing": [
     {
       title: "Schedule M Revision & cGMP Quality Overwatch",
@@ -874,6 +850,30 @@ export const industryServicesData: Record<string, IndustryServiceOffering[]> = {
       title: "Pharmacy Drug Dispensation & Narcotic Overwatch",
       description: "Auditing Schedule X/H drug registries, cold-storage vaccine fridges, and emergency life-saving medication stock reserves.",
       outcome: "100% drug controller compliance, zero audit discrepancies"
+    }
+  ],
+
+  // CLUSTER 7: FOOD PROCESSING
+  "food-processing": [
+    {
+      title: "FSSAI Licensing, Product Approval & Labeling GRC",
+      description: "Auditing mandatory nutritional panels, allergen warnings, FSSAI central license renewals, and Legal Metrology packaging declarations.",
+      outcome: "Zero packaging recall notices, 100% FSSAI compliance"
+    },
+    {
+      title: "HACCP & ISO 22000 Food Safety Management System",
+      description: "Codifying Hazard Analysis Critical Control Points (HACCP) across ingredient reception, cooking/pasteurization, and packaging bays.",
+      outcome: "Uncompromised food hygiene, zero microbiological contamination"
+    },
+    {
+      title: "Raw Agri-Commodity Supply Chain Traceability",
+      description: "Auditing farm-gate pesticide residue test certificates, heavy metal logs, and non-GMO procurement documentation.",
+      outcome: "100% raw ingredient provenance, preferred enterprise vendor status"
+    },
+    {
+      title: "Food Processing Plant Effluent & Sanitation EHS",
+      description: "Monitoring organic effluent BOD/COD treatment, food-grade chemical sanitization logs, and factory inspectorate approvals.",
+      outcome: "Zero environmental notices, full factory compliance"
     }
   ],
   "dairy-beverages": [

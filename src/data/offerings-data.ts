@@ -18,6 +18,8 @@ export interface OfferingCategory {
   label: string;
   title: string;
   shortDesc: string;
+  standards: string[];
+  slaBadge: string;
   items: OfferingSubItem[];
 }
 
@@ -27,6 +29,8 @@ export const offeringsData: Record<string, OfferingCategory> = {
     label: "Regulatory Compliance",
     title: "REGULATORY COMPLIANCE",
     shortDesc: "End-to-end statutory tracking, audit readiness, and penalty defense across central and state regulators.",
+    standards: ["RBI Master Directions", "SEBI LODR / ICDR", "CPCB / SPCB Norms", "MCA E-Filing", "TRAI Guidelines", "GST Statutory Rules"],
+    slaBadge: "100% Audit Readiness • Zero Penalties Guarantee",
     items: [
       {
         id: "statutory-tracking",
@@ -84,6 +88,8 @@ export const offeringsData: Record<string, OfferingCategory> = {
     label: "Labour & Employment",
     title: "LABOUR & EMPLOYMENT COMPLIANCE",
     shortDesc: "Comprehensive adherence to PF, ESI, Minimum Wages, Contract Labour, and Labour Codes across all Indian states.",
+    standards: ["Factories Act 1948", "Code on Wages 2019", "POSH Act 2013", "EPFO & ESIC Acts", "CLRA 1970", "LWF State Rules"],
+    slaBadge: "Principal Employer Liability Shield • 100% Wage Compliance",
     items: [
       {
         id: "labour-law-statutory",
@@ -141,6 +147,8 @@ export const offeringsData: Record<string, OfferingCategory> = {
     label: "Taxation & Trade",
     title: "TAXATION & TRADE COMPLIANCE",
     shortDesc: "Direct and indirect tax advisory, transfer pricing, SEZ compliance, and customs duty optimization.",
+    standards: ["GST Act 2017", "Income Tax Act 1961", "Customs Act 1962", "Foreign Trade Policy 2023", "FEMA / RBI Regulations"],
+    slaBadge: "Zero ITC Mismatch • Defensible Transfer Pricing",
     items: [
       {
         id: "gst-compliance",
@@ -186,6 +194,8 @@ export const offeringsData: Record<string, OfferingCategory> = {
     label: "Environmental & EHS",
     title: "ENVIRONMENTAL, HEALTH & SAFETY (EHS)",
     shortDesc: "Statutory adherence to Pollution Control Boards, MoEFCC, waste rules, and factory safety certifications.",
+    standards: ["Water & Air Acts", "Environment Protection Act", "E-Waste Rules 2022", "Hazardous Waste Rules", "Plastic EPR Portal", "ISO 14001"],
+    slaBadge: "100% On-Time Consent Renewals • Zero Closure Notices",
     items: [
       {
         id: "consent-clearances",
@@ -243,6 +253,8 @@ export const offeringsData: Record<string, OfferingCategory> = {
     label: "Supply Chain Compliance",
     title: "SUPPLY CHAIN COMPLIANCE",
     shortDesc: "Auditing and securing statutory compliance across your entire vendor, contractor, and distributor network.",
+    standards: ["Vendor POSH Audits", "Contract Labour CLRA", "ISO 20400", "Anti-Bribery (FCPA/UKBA)", "Supply Chain BRSR"],
+    slaBadge: "100% Tier-1 Vendor Audit Pass Rate • Anti-Bribery Proof",
     items: [
       {
         id: "vendor-due-diligence",
@@ -288,6 +300,8 @@ export const offeringsData: Record<string, OfferingCategory> = {
     label: "Export & Trade Services",
     title: "EXPORT & INTERNATIONAL TRADE SERVICES",
     shortDesc: "Export documentation, DGFT advisory, duty drawback incentives, and cross-border customs clearance.",
+    standards: ["Foreign Trade Policy 2023", "Customs Act 1962", "DGFT Schemes (RoDTEP/EPCG)", "FEMA / ECB Norms", "SCOMET Controls"],
+    slaBadge: "Zero Port Demurrage • Maximized RoDTEP Claims",
     items: [
       {
         id: "export-documentation",
@@ -333,6 +347,8 @@ export const offeringsData: Record<string, OfferingCategory> = {
     label: "Licensing & Permits",
     title: "LICENSING, PERMITS & APPROVALS",
     shortDesc: "Single-window procurement, tracking, and renewal of Central, State, and Municipal authorizations.",
+    standards: ["Factories Act 1948", "Shop & Establishment Laws", "FSSAI / CDSCO / DoT", "CGWA / SPCB / MoEF", "RERA / RBI Licensing"],
+    slaBadge: "Zero License Expiry Lapses • 500+ Permits Tracked",
     items: [
       {
         id: "central-state-licenses",
@@ -390,6 +406,8 @@ export const offeringsData: Record<string, OfferingCategory> = {
     label: "Escrow Services",
     title: "ESCROW & TRANSACTION SUPPORT SERVICES",
     shortDesc: "Independent, neutral custody of funds, source code, and commercial assets during high-value deals.",
+    standards: ["Indian Contract Act 1872", "FEMA / RBI Regulations", "RERA Escrow Rules", "SEBI M&A Regulations", "ISO 27001 (Digital Vaults)"],
+    slaBadge: "100% Fund Safety Guarantee • Blockchain-Verified Custody",
     items: [
       {
         id: "commercial-escrow",
@@ -435,6 +453,8 @@ export const offeringsData: Record<string, OfferingCategory> = {
     label: "Risk Management",
     title: "RISK MANAGEMENT",
     shortDesc: "Enterprise risk management (ERM) frameworks, operational resilience, and third-party risk management.",
+    standards: ["ISO 31000:2018", "COSO ERM 2017", "ISO 22301 (BCP)", "SEBI LODR Risk Policy", "RBI ORMC Guidelines"],
+    slaBadge: "Predictive KRI Dashboards • 360° Vendor Risk Visibility",
     items: [
       {
         id: "enterprise-risk-erm",
@@ -480,6 +500,8 @@ export const offeringsData: Record<string, OfferingCategory> = {
     label: "Enterprise Governance",
     title: "ENTERPRISE GOVERNANCE",
     shortDesc: "Corporate governance charters, board secretarial compliance, and internal financial controls.",
+    standards: ["Companies Act 2013", "SEBI LODR 2015", "Secretarial Standards SS-1/SS-2", "ICSI Guidelines", "SEBI Insider Trading Regs"],
+    slaBadge: "Board-Ready Governance • Zero ROC Default",
     items: [
       {
         id: "corporate-governance",
@@ -525,6 +547,8 @@ export const offeringsData: Record<string, OfferingCategory> = {
     label: "Cybersecurity & Data Privacy",
     title: "CYBERSECURITY & DATA COMPLIANCE",
     shortDesc: "DPDP Act compliance, ISO 27001/SOC 2 frameworks, VAPT ethical hacking, and 6-hour CERT-In response.",
+    standards: ["DPDP Act 2023", "GDPR (EU)", "ISO 27001:2022", "SOC 2 Type II", "CERT-In Directions 2022"],
+    slaBadge: "6-Hour CERT-In Response • Zero Data Breach Record",
     items: [
       {
         id: "data-privacy-dpdp",
@@ -582,6 +606,8 @@ export const offeringsData: Record<string, OfferingCategory> = {
     label: "ESG & Sustainability",
     title: "ESG & SUSTAINABILITY",
     shortDesc: "Automate environmental, social, and governance reporting to SEBI BRSR, GRI, and carbon accounting.",
+    standards: ["SEBI BRSR 2023", "GRI Standards 2021", "TCFD Framework", "GHG Protocol (Scopes 1-3)", "SBTi Net-Zero Standard"],
+    slaBadge: "BRSR Core Ready • SBTi Aligned Net-Zero Pathway",
     items: [
       {
         id: "esg-brsr-reporting",
@@ -627,6 +653,8 @@ export const offeringsData: Record<string, OfferingCategory> = {
     label: "Staffing & Managed Services",
     title: "STAFFING & MANAGED COMPLIANCE SERVICES",
     shortDesc: "Dedicated compliance officers on contract, managed retainership, specialized staffing, and audit support.",
+    standards: ["CLRA 1970 (Contract Staffing)", "EPFO / ESIC Payroll", "Labour Codes 2020", "Fixed-Term Employment Rules", "PSARA (Security)"],
+    slaBadge: "99.9% Filing Accuracy SLA • Same-Day Replacement Guarantee",
     items: [
       {
         id: "compliance-officers",

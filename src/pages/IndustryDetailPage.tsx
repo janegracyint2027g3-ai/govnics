@@ -250,7 +250,7 @@ export default function IndustryDetailPage() {
       case "media-services":
       case "media": return "Media & Services";
       case "food-processing-pharma-healthcare":
-      case "food-processing": return "Food Processing, Pharma & Healthcare";
+      case "food-processing": return "Food Processing";
       default: return "Manufacturing & Industrial";
     }
   };
