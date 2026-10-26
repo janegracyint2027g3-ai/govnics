@@ -543,18 +543,172 @@ export const servicesData: GrcService[] = [
     industries: ["manufacturing", "food-processing", "real-estate-infra", "energy-utilities"]
   },
   {
-    id: "csr-management",
-    title: "CSR Strategy & Implementation",
-    category: "Governance & Risk Advisory",
-    problem: "Mandatory CSR funds are often misallocated to non-compliant NGOs, failing to generate measurable impact or meet statutory reporting requirements.",
-    solution: "We design strategic CSR programs, conduct due diligence on NGO partners, and perform third-party impact assessments.",
+    id: "export-trade-services",
+    title: "Export & International Trade Services",
+    category: "Trade & Transaction Compliance",
+    problem: "Global trade regulations, complex customs procedures, and fluctuating trade policies result in customs delays, demurrage costs, and loss of export incentives.",
+    solution: "We provide end-to-end export documentation, customs clearance representation, DGFT incentive optimization, and cross-border regulatory compliance.",
     benefits: [
-      "100% compliance with Companies Act CSR expenditure rules.",
-      "Maximized social return on investment (SROI).",
-      "Enhanced corporate reputation through verified impact reporting."
+      "Zero-delay port clearance with audit-proof shipping documentation.",
+      "Maximized recovery of export incentives under RoDTEP, RoSCTL, and EPCG schemes.",
+      "Comprehensive defense against customs inquiries and trade penalties."
     ],
-    standards: ["Companies Act (CSR Rules)", "Social Audit Standards"],
-    industries: ["manufacturing", "bfsi", "it-services", "mining", "energy-utilities"]
+    standards: ["Foreign Trade Policy (FTP)", "Customs Act 1962", "DGFT Guidelines", "FEMA Regulations"],
+    industries: ["manufacturing", "food-processing", "pharma-sciences", "chemicals", "textiles", "logistics-supply-chain"]
+  },
+  {
+    id: "licensing-permits",
+    title: "Licensing, Permits & Approvals",
+    category: "Regulatory & Statutory Compliance",
+    problem: "Navigating multi-tier Central, State, and Municipal authorizations across multiple operating facilities causes delayed project rollouts and statutory shutdown risks.",
+    solution: "We offer a single-window licensing lifecycle management engine covering factory licenses, trade licenses, pollution clearances (CTE/CTO), and sector-specific permits.",
+    benefits: [
+      "100% on-time license renewals with automated expiry tracking.",
+      "Turnkey procurement of state and central operating clearances.",
+      "Zero operational downtime caused by regulatory lapses."
+    ],
+    standards: ["Factories Act", "State Municipal Acts", "Air & Water Acts", "FSSAI", "CDSCO"],
+    industries: ["manufacturing", "healthcare", "food-processing", "telecom", "energy-utilities", "real-estate-infra"]
+  },
+  {
+    id: "escrow-services",
+    title: "Escrow & Transaction Support Services",
+    category: "Trade & Transaction Compliance",
+    problem: "High-value commercial transactions, cross-border acquisitions, and milestone-linked contracts suffer from counterparty distrust, payment defaults, and protracted disputes.",
+    solution: "We provide independent, neutral escrow custody for transaction funds, source code, and commercial assets with milestone-driven, legally verified release workflows.",
+    benefits: [
+      "Completely de-risked financial closings for M&A, project financing, and trade.",
+      "Milestone-linked disbursement ensuring contract fulfillment prior to fund release.",
+      "FEMA-compliant cross-border settlement with authorized dealer banks."
+    ],
+    standards: ["RBI Escrow Guidelines", "Companies Act", "FEMA Regulations", "RERA Framework"],
+    industries: ["bfsi", "real-estate-infra", "it-services", "manufacturing", "energy-utilities"]
+  },
+  {
+    id: "audit-readiness",
+    title: "100% Audit Readiness Programs",
+    category: "Audit & Assurance",
+    problem: "Surprise regulatory inspections and annual statutory audits result in frantic fire-fighting, incomplete registers, and severe penalty notices.",
+    solution: "We execute continuous pre-audit simulations, mock inspections, and digital evidence centralization so your enterprise is perpetually inspection-ready.",
+    benefits: [
+      "Zero non-compliance findings during external regulatory audits.",
+      "Instant evidence retrieval through a tamper-evident digital vault.",
+      "On-site representation by senior GRC attorneys during statutory visits."
+    ],
+    standards: ["ISO 19011", "Companies Act", "RBI Master Directions", "SEBI LODR"],
+    industries: ["bfsi", "healthcare", "manufacturing", "telecom", "pharma-sciences"]
+  },
+  {
+    id: "contract-labour",
+    title: "Contract Labour & Principal Employer Compliance",
+    category: "Labour & Employment",
+    problem: "Contractor statutory lapses trigger direct legal liability, financial claims, and criminal prosecution against principal employers under the CLRA.",
+    solution: "We deploy strict contractor compliance governance, conducting monthly wage, PF, and ESI verification drills and insulating enterprise assets.",
+    benefits: [
+      "Complete legal shield against co-employment and contractor defaults.",
+      "100% verified wage disbursements and statutory deposits for contract staff.",
+      "Defensible contractor audit reports ready for Labour Department review."
+    ],
+    standards: ["Contract Labour (R&A) Act 1970", "Code on Wages", "EPF & MP Act", "ESI Act"],
+    industries: ["manufacturing", "logistics-supply-chain", "facility-management", "real-estate-infra", "it-services"]
+  },
+  {
+    id: "payroll-statutory",
+    title: "Payroll Statutory Compliance (PF/ESI/PT/LWF)",
+    category: "Labour & Employment",
+    problem: "Multi-state wage differences, shifting PF/ESI rules, and state-specific tax slabs create complex payroll errors leading to inspection notices and interest penalties.",
+    solution: "We deliver flawless, automated statutory payroll computation, return filing, and challan reconciliation across all 28 Indian states.",
+    benefits: [
+      "Zero-defect statutory deduction calculations and on-time deposit challans.",
+      "Single-point management of multi-state Professional Tax and Labour Welfare Funds.",
+      "Seamless resolution of EPFO and ESIC department notices."
+    ],
+    standards: ["Payment of Wages Act", "EPFO Rules", "ESIC Act", "State PT & LWF Acts"],
+    industries: ["it-services", "bfsi", "manufacturing", "healthcare", "retail"]
+  },
+  {
+    id: "customs-fema",
+    title: "Customs, SEZ & FEMA Compliance",
+    category: "Trade & Transaction Compliance",
+    problem: "Cross-border capital inflows, transfer pricing adjustments, and SEZ operations face intense regulatory scrutiny under Customs and FEMA regulations.",
+    solution: "We provide comprehensive customs classification, SEZ unit compliance filings, and Foreign Exchange Management compliance advisory.",
+    benefits: [
+      "Optimized customs duty classification and Special Valuation Branch (SVB) approval.",
+      "Uninterrupted zero-rated procurement for SEZ manufacturing and service units.",
+      "Complete filing of FC-GPR, FC-TRS, and FLA returns with RBI."
+    ],
+    standards: ["Customs Act", "FEMA 1999", "SEZ Act 2005", "RBI Master Directions"],
+    industries: ["manufacturing", "it-services", "pharma-sciences", "bfsi"]
+  },
+  {
+    id: "waste-management",
+    title: "Hazardous, E-Waste & Plastic Waste Compliance",
+    category: "Environmental & EHS",
+    problem: "Strict CPCB waste management norms and Extended Producer Responsibility (EPR) mandates threaten polluters with massive environmental compensation penalties.",
+    solution: "We manage end-to-end hazardous waste manifests, TSDF disposal agreements, and EPR registration, credit sourcing, and annual filing.",
+    benefits: [
+      "100% verified fulfillment of annual EPR targets for Plastic and E-Waste.",
+      "Zero legal liabilities with tamper-proof Form-4 and Form-10 manifests.",
+      "Accredited recycler partnerships ensuring compliant circularity."
+    ],
+    standards: ["Hazardous Waste Rules 2016", "E-Waste Management Rules 2022", "Plastic Waste Rules 2021"],
+    industries: ["manufacturing", "electronics", "chemicals", "fmcg", "healthcare"]
+  },
+  {
+    id: "workplace-safety",
+    title: "Factory & Workplace Safety Audits",
+    category: "Environmental & EHS",
+    problem: "Shopfloor hazards, inadequate fire preparedness, and non-compliant machine guarding expose enterprises to fatal accidents, factory shutdowns, and criminal charges.",
+    solution: "We conduct exhaustive physical safety audits, HAZOP assessments, Fire NOC certifications, and statutory safety committee structuring.",
+    benefits: [
+      "Dramatically reduced lost-time injury frequency rates (LTIFR).",
+      "Valid, up-to-date Fire NOCs and emergency disaster response plans.",
+      "Full compliance with Directorate of Industrial Safety & Health (DISH) norms."
+    ],
+    standards: ["Factories Act 1948", "National Building Code (Fire Safety)", "OSHA Guidelines"],
+    industries: ["manufacturing", "chemicals", "heavy-engineering", "logistics-supply-chain", "mining"]
+  },
+  {
+    id: "secretarial-compliance",
+    title: "Secretarial Compliance & Board Reporting",
+    category: "Governance & Secretarial",
+    problem: "Board secretarial lapses, delayed ROC e-filings, and non-compliance with Secretarial Standards result in director disqualification and hefty MCA penalties.",
+    solution: "We provide comprehensive secretarial services, drafting board packs, managing ROC e-filings, maintaining statutory registers, and conducting secretarial audits.",
+    benefits: [
+      "Flawless adherence to Secretarial Standards SS-1 and SS-2.",
+      "100% on-time MCA filing of annual financials, directors KYC, and resolutions.",
+      "Robust protection for independent directors against fiduciary liability."
+    ],
+    standards: ["Companies Act 2013", "SEBI LODR", "ICSI Secretarial Standards"],
+    industries: ["bfsi", "it-services", "manufacturing", "telecom", "healthcare"]
+  },
+  {
+    id: "compliance-officers",
+    title: "Dedicated Compliance Officers on Contract",
+    category: "Staffing & Managed Services",
+    problem: "Hiring seasoned full-time compliance heads is slow and expensive, leaving compliance gaps during rapid business expansion or key staff turnover.",
+    solution: "We deploy qualified, pre-vetted Compliance Officers, Company Secretaries, and Legal Experts on turnkey flexible contracts.",
+    benefits: [
+      "Immediate on-site leadership with seasoned domain experts.",
+      "Zero long-term headcount liability with SLA-backed replacements.",
+      "Direct oversight of day-to-day statutory filings and authority liaison."
+    ],
+    standards: ["SEBI Compliance Officer Norms", "Companies Act CS Mandates", "RBI Compliance Framework"],
+    industries: ["bfsi", "fintech", "healthcare", "manufacturing", "logistics-supply-chain"]
+  },
+  {
+    id: "managed-retainership",
+    title: "Managed Compliance Retainership",
+    category: "Staffing & Managed Services",
+    problem: "Internal teams get overwhelmed managing hundreds of central, state, and municipal filings across multi-location operations.",
+    solution: "We assume 100% operational accountability for your entire statutory compliance portfolio under guaranteed service level agreements.",
+    benefits: [
+      "Fixed monthly retainership with 99.9% filing accuracy guarantee.",
+      "Comprehensive penalty protection under contractual SLA terms.",
+      "Real-time executive compliance dashboard with zero-lag deadline tracking."
+    ],
+    standards: ["All Statutory & Labour Laws", "Pollution Control Mandates", "Municipal Regulations"],
+    industries: ["manufacturing", "retail", "healthcare", "hospitality", "it-services"]
   }
 ];
 
