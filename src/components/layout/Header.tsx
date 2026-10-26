@@ -1348,8 +1348,9 @@ export const Header = () => {
         {!isAuthenticated ? (
           <div className="hidden xl:flex items-center gap-3">
             <Link to="/login">
-              <button className="px-5 py-2.5 border border-slate-200 text-slate-800 hover:bg-slate-50 rounded-xl text-[11px] font-black transition-all">
-                Sign In
+              <button className="group flex items-center gap-1.5 px-4.5 py-2.5 bg-gradient-to-b from-slate-50 via-slate-100/90 to-slate-100 hover:from-white hover:to-blue-50/80 text-slate-700 hover:text-blue-600 border border-slate-250 hover:border-blue-300 rounded-xl text-[11px] font-black tracking-wide transition-all shadow-xs hover:shadow-md hover:scale-[1.02] active:scale-[0.98]">
+                <User className="w-3.5 h-3.5 text-slate-400 group-hover:text-blue-600 transition-colors" />
+                <span>Sign In</span>
               </button>
             </Link>
             <Link to="/contact">
@@ -1697,8 +1698,9 @@ export const Header = () => {
                   </button>
                 </Link>
                 <Link to="/login" onClick={() => setMobileOpen(false)} className="w-full">
-                  <button className="w-full py-2.5 border border-slate-200 text-slate-800 rounded-xl text-xs font-bold transition-all hover:bg-slate-50">
-                    Sign In to Portal
+                  <button className="w-full flex items-center justify-center gap-2 py-2.5 bg-gradient-to-b from-slate-50 to-slate-100 hover:bg-blue-50 border border-slate-250 text-slate-800 hover:text-blue-600 rounded-xl text-xs font-bold transition-all shadow-xs">
+                    <User className="w-3.5 h-3.5 text-slate-400" />
+                    <span>Sign In to Portal</span>
                   </button>
                 </Link>
                 <Link to="/register" onClick={() => setMobileOpen(false)} className="w-full">
