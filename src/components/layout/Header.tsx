@@ -5,10 +5,9 @@ import {
   Scale, Building, Factory, Users, ShieldAlert, UserPlus, FileSpreadsheet, Leaf,
   Heart, Coins,
   User, LogOut, CheckCircle2, Zap, Briefcase,
-  Shield, Lock, Laptop, TreePine, Droplet, Activity, Cloud,
-  Globe, Building2, Store
+  Shield, Lock, Laptop, TreePine, Droplet, Activity, Cloud
 } from "lucide-react";
-import { whomWeServeClusters, getClusterSizeSegments } from "@/data/whom-we-serve-data";
+import { whomWeServeClusters } from "@/data/whom-we-serve-data";
 import { useAuth } from "@/context/AuthContext";
 
 const offeringsVerticalTabsData: Record<string, {
@@ -733,23 +732,23 @@ export const Header = () => {
               Offerings <ChevronDown className="w-4 h-4 text-current" />
             </div>
             {activeDropdown === "what-we-offer" && (
-              <div className="absolute top-full left-1/2 -translate-x-1/2 w-[98dvw] max-w-7xl max-h-[85vh] bg-white border border-slate-200 shadow-2xl rounded-2xl flex overflow-hidden animate-slide-up-dropdown mt-1 text-left z-50">
+              <div className="absolute top-full left-1/2 -translate-x-1/2 w-[98vw] max-w-6xl xl:max-w-7xl bg-white border border-slate-200/90 shadow-2xl rounded-2xl flex overflow-hidden animate-slide-up-dropdown mt-1 text-left z-50">
                 {/* Bridge to prevent hover loss */}
                 <div className="absolute -top-8 left-0 right-0 h-8 bg-transparent" />
 
                 {/* Level 1 Sidebar - Divisions */}
-                <div className="w-[22%] bg-slate-900 text-white p-6 flex flex-col justify-between border-r border-slate-800">
-                  <div className="space-y-6">
+                <div className="w-[23%] xl:w-[22%] bg-slate-900 text-white p-6 pb-7 flex flex-col justify-between border-r border-slate-800 shrink-0">
+                  <div className="space-y-4">
                     <div>
-                      <h3 className="text-[11px] font-black text-blue-400 uppercase tracking-[0.25em] leading-tight">
+                      <h3 className="text-xs font-black text-blue-400 uppercase tracking-[0.25em] leading-tight">
                         Offerings
                       </h3>
-                      <p className="text-[10px] text-slate-400 mt-1 font-bold leading-relaxed">
+                      <p className="text-[11px] text-slate-400 mt-1.5 font-medium leading-relaxed">
                         Explore our compliance, security, ESG, and staffing solutions.
                       </p>
                     </div>
 
-                    <div className="flex flex-col gap-2">
+                    <div className="flex flex-col gap-2 pt-2">
                       {[
                         { id: "compliance", label: "Compliance" },
                         { id: "risk", label: "Risk" },
@@ -764,14 +763,14 @@ export const Header = () => {
                             setActiveOfferTab(offer.id);
                             setActiveServiceTab(offeringsVerticalTabsData[offer.id]?.items[0]?.id || "");
                           }}
-                          className={`w-full text-left px-4 py-3 rounded-xl text-xs font-black transition-all flex items-center justify-between group ${
+                          className={`w-full text-left px-4 py-3 rounded-xl text-xs xl:text-sm font-semibold transition-all flex items-center justify-between group ${
                             activeOfferTab === offer.id
-                              ? "bg-blue-600 text-white shadow-lg shadow-blue-500/15"
-                              : "text-slate-350 hover:text-white hover:bg-slate-800/60"
+                              ? "bg-blue-600 text-white shadow-sm shadow-blue-500/20"
+                              : "text-slate-300 hover:text-white hover:bg-slate-800/70"
                           }`}
                         >
                           <span>{offer.label}</span>
-                          <ArrowRight className={`w-3.5 h-3.5 opacity-0 group-hover:opacity-100 transition-opacity ${activeOfferTab === offer.id ? "opacity-100" : ""}`} />
+                          <ArrowRight className={`w-3.5 h-3.5 transition-all ${activeOfferTab === offer.id ? "opacity-100 text-white" : "opacity-0 group-hover:opacity-100 text-slate-400"}`} />
                         </button>
                       ))}
                     </div>
@@ -779,20 +778,20 @@ export const Header = () => {
                 </div>
 
                 {/* Right Pane (Dual Column Layout) */}
-                <div className="w-[78%] flex flex-col bg-white min-h-[440px]">
+                <div className="w-[77%] xl:w-[78%] flex flex-col justify-between bg-white p-6 min-h-[480px]">
                   
                   {/* Content Area */}
-                  <div className="flex flex-1 overflow-hidden">
+                  <div className="flex overflow-hidden flex-1">
 
                     {activeOfferTab === "staffing" ? (
                       /* ── Manpower 2-Panel Layout ── */
                       <>
                         {/* Left: Sector List */}
-                        <div className="w-[35%] border-r border-slate-100 p-6 flex flex-col">
-                          <div className="mb-4">
-                            <span className="text-[10px] font-black text-blue-500 uppercase tracking-[0.2em]">Manpower</span>
+                        <div className="w-[36%] border-r border-slate-100 pr-5 flex flex-col gap-2.5 overflow-y-auto shrink-0">
+                          <div className="mb-1">
+                            <span className="text-[11px] font-black text-blue-500 uppercase tracking-[0.2em]">Manpower</span>
                           </div>
-                          <div className="flex flex-col gap-1.5">
+                          <div className="flex flex-col gap-2.5">
                             {manpowerSectorsData.map((sector) => {
                               const isActive = activeManpowerSector === sector.id;
                               return (
@@ -801,11 +800,11 @@ export const Header = () => {
                                   onMouseEnter={() => setActiveManpowerSector(sector.id)}
                                   className={`w-full text-left px-4 py-3 rounded-xl border transition-all flex items-center justify-between group ${
                                     isActive
-                                      ? "bg-blue-600 border-blue-600 text-white shadow-md shadow-blue-500/20"
-                                      : "bg-transparent border-slate-100 text-slate-700 hover:border-slate-200 hover:bg-slate-50"
+                                      ? "bg-blue-600 border-blue-600 text-white shadow-sm shadow-blue-500/20"
+                                      : "bg-white border-slate-200/90 text-slate-700 hover:border-slate-300 hover:bg-slate-50"
                                   }`}
                                 >
-                                  <span className="text-xs font-bold tracking-wide">{sector.label}</span>
+                                  <span className="text-xs font-bold tracking-wide uppercase">{sector.label}</span>
                                   <ArrowRight className={`w-3.5 h-3.5 transition-all ${
                                     isActive ? "opacity-100 text-white" : "opacity-0 group-hover:opacity-60 text-slate-400"
                                   }`} />
@@ -820,63 +819,70 @@ export const Header = () => {
                           const sector = manpowerSectorsData.find(s => s.id === activeManpowerSector);
                           if (!sector) return null;
                           return (
-                            <div className="w-[65%] p-7 bg-slate-50/50 overflow-y-auto flex flex-col animate-fade-in">
-                              {/* Header */}
-                              <div className="mb-4">
-                                <h3 className="text-base font-black text-slate-900 leading-tight">{sector.label} Workforce Solutions</h3>
-                                <p className="text-xs text-slate-500 font-medium leading-relaxed mt-1.5">{sector.description}</p>
-                              </div>
-
-                              {/* 3-Column Grid */}
-                              <div className="grid grid-cols-3 gap-3 flex-1">
-                                {/* Services */}
-                                <div className="bg-white border border-slate-200 rounded-xl p-4 shadow-sm">
-                                  <h4 className="text-[9px] font-black text-blue-600 uppercase tracking-widest mb-3">Services</h4>
-                                  <ul className="space-y-1.5">
-                                    {sector.services.map((s, i) => (
-                                      <li key={i} className="flex items-start gap-1.5">
-                                        <span className="w-1 h-1 rounded-full bg-blue-400 shrink-0 mt-1.5" />
-                                        <span className="text-[10.5px] font-semibold text-slate-700 leading-snug">{s}</span>
-                                      </li>
-                                    ))}
-                                  </ul>
+                            <div className="w-[64%] pl-6 flex flex-col justify-between animate-fade-in overflow-y-auto">
+                              <div>
+                                {/* Header */}
+                                <div className="mb-5">
+                                  <h3 className="text-xl font-black text-slate-900 leading-tight tracking-tight">{sector.label} Workforce Solutions</h3>
+                                  <p className="text-xs text-slate-600 font-medium leading-relaxed mt-2">{sector.description}</p>
                                 </div>
 
-                                {/* Coverage */}
-                                <div className="bg-white border border-slate-200 rounded-xl p-4 shadow-sm">
-                                  <h4 className="text-[9px] font-black text-emerald-600 uppercase tracking-widest mb-3">Coverage</h4>
-                                  <ul className="space-y-1.5">
-                                    {sector.coverage.map((c, i) => (
-                                      <li key={i} className="flex items-start gap-1.5">
-                                        <span className="w-1 h-1 rounded-full bg-emerald-400 shrink-0 mt-1.5" />
-                                        <span className="text-[10.5px] font-semibold text-slate-700 leading-snug">{c}</span>
-                                      </li>
-                                    ))}
-                                  </ul>
+                                {/* 3-Column Grid */}
+                                <div className="grid grid-cols-3 gap-4 mb-6">
+                                  {/* Services */}
+                                  <div className="bg-blue-50/20 border border-blue-100 rounded-2xl p-4.5 shadow-2xs min-h-[145px] flex flex-col justify-between">
+                                    <div>
+                                      <h4 className="text-[11px] font-black text-blue-600 uppercase tracking-wider mb-2">Services</h4>
+                                      <ul className="space-y-1.5">
+                                        {sector.services.map((s, i) => (
+                                          <li key={i} className="flex items-start gap-1.5">
+                                            <span className="w-1.5 h-1.5 rounded-full bg-blue-400 shrink-0 mt-1.5" />
+                                            <span className="text-xs font-medium text-slate-600 leading-snug">{s}</span>
+                                          </li>
+                                        ))}
+                                      </ul>
+                                    </div>
+                                  </div>
+
+                                  {/* Coverage */}
+                                  <div className="bg-emerald-50/20 border border-emerald-100 rounded-2xl p-4.5 shadow-2xs min-h-[145px] flex flex-col justify-between">
+                                    <div>
+                                      <h4 className="text-[11px] font-black text-emerald-600 uppercase tracking-wider mb-2">Coverage</h4>
+                                      <ul className="space-y-1.5">
+                                        {sector.coverage.map((c, i) => (
+                                          <li key={i} className="flex items-start gap-1.5">
+                                            <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 shrink-0 mt-1.5" />
+                                            <span className="text-xs font-medium text-slate-600 leading-snug">{c}</span>
+                                          </li>
+                                        ))}
+                                      </ul>
+                                    </div>
+                                  </div>
+
+                                  {/* Benefits */}
+                                  <div className="bg-purple-50/20 border border-purple-100 rounded-2xl p-4.5 shadow-2xs min-h-[145px] flex flex-col justify-between">
+                                    <div>
+                                      <h4 className="text-[11px] font-black text-purple-600 uppercase tracking-wider mb-2">Benefits</h4>
+                                      <ul className="space-y-1.5">
+                                        {sector.benefits.map((b, i) => (
+                                          <li key={i} className="flex items-start gap-1.5">
+                                            <CheckCircle2 className="w-3 h-3 text-purple-400 shrink-0 mt-0.5" />
+                                            <span className="text-xs font-medium text-slate-600 leading-snug">{b}</span>
+                                          </li>
+                                        ))}
+                                      </ul>
+                                    </div>
+                                  </div>
                                 </div>
 
-                                {/* Benefits */}
-                                <div className="bg-white border border-slate-200 rounded-xl p-4 shadow-sm">
-                                  <h4 className="text-[9px] font-black text-violet-600 uppercase tracking-widest mb-3">Benefits</h4>
-                                  <ul className="space-y-1.5">
-                                    {sector.benefits.map((b, i) => (
-                                      <li key={i} className="flex items-start gap-1.5">
-                                        <CheckCircle2 className="w-3 h-3 text-violet-400 shrink-0 mt-0.5" />
-                                        <span className="text-[10.5px] font-semibold text-slate-700 leading-snug">{b}</span>
-                                      </li>
-                                    ))}
-                                  </ul>
-                                </div>
-                              </div>
-
-                              {/* CTA */}
-                              <div className="mt-5">
+                                {/* Read Full Details Button */}
                                 <Link
                                   to={sector.link}
                                   onClick={() => setActiveDropdown(null)}
-                                  className="inline-flex items-center gap-2 px-5 py-2.5 bg-slate-900 hover:bg-slate-800 text-white rounded-xl text-xs font-bold transition-colors"
+                                  className="inline-flex items-center gap-2 px-6 py-2.5 bg-slate-900 hover:bg-slate-800 text-white rounded-xl text-xs font-bold transition-all shadow-sm w-fit"
                                 >
-                                  Explore {sector.label} Solutions <ArrowRight className="w-3.5 h-3.5" />
+                                  <span>Read Full Details</span>
+                                  <ArrowRight className="w-3.5 h-3.5" />
                                 </Link>
                               </div>
                             </div>
@@ -887,7 +893,7 @@ export const Header = () => {
                       /* ── Standard 3-Column Layout for all other tabs ── */
                       <>
                         {/* Middle Column: Vertical Tabs */}
-                        <div className="w-[35%] border-r border-slate-100 p-6 flex flex-col gap-2 overflow-y-auto">
+                        <div className="w-[36%] border-r border-slate-100 pr-5 flex flex-col gap-2.5 overflow-y-auto shrink-0">
                           {offeringsVerticalTabsData[activeOfferTab]?.items.map((item) => {
                             const IconComp = item.icon;
                             const isActive = activeServiceTab === item.id;
@@ -895,21 +901,21 @@ export const Header = () => {
                               <button
                                 key={item.id}
                                 onMouseEnter={() => setActiveServiceTab(item.id)}
-                                className={`w-full text-left p-3 rounded-xl border transition-all flex items-center gap-3 ${
+                                className={`w-full text-left px-4 py-3 rounded-xl border transition-all flex items-center gap-3 ${
                                   isActive 
-                                    ? "bg-blue-600 border-blue-600 text-white shadow-md shadow-blue-500/20" 
-                                    : "bg-transparent border-slate-100 text-slate-700 hover:border-slate-300 hover:bg-slate-50"
+                                    ? "bg-blue-600 border-blue-600 text-white shadow-sm shadow-blue-500/20" 
+                                    : "bg-white border-slate-200/90 text-slate-700 hover:border-slate-300 hover:bg-slate-50"
                                 }`}
                               >
                                 <IconComp className={`w-4 h-4 shrink-0 ${isActive ? "text-white" : "text-blue-500"}`} />
-                                <span className="text-xs font-bold uppercase tracking-wide flex-1">{item.title}</span>
+                                <span className="text-xs font-bold uppercase tracking-wide flex-1 text-left">{item.title}</span>
                               </button>
                             );
                           })}
                         </div>
 
                         {/* Right Column: 3-Card Detail Panel */}
-                        <div className="w-[65%] p-7 bg-slate-50/50 overflow-y-auto">
+                        <div className="w-[64%] pl-6 flex flex-col justify-between overflow-y-auto">
                           {(() => {
                             const activeItem = offeringsVerticalTabsData[activeOfferTab]?.items.find(i => i.id === activeServiceTab);
                             if (!activeItem) return null;
@@ -923,40 +929,43 @@ export const Header = () => {
                             });
 
                             const cardColors = [
-                              { header: "text-blue-600", dot: "bg-blue-400", border: "border-blue-100/60" },
-                              { header: "text-emerald-600", dot: "bg-emerald-400", border: "border-emerald-100/60" },
-                              { header: "text-violet-600", dot: "bg-violet-400", border: "border-violet-100/60" },
+                              { header: "text-blue-600", border: "border-blue-100", bg: "bg-blue-50/20" },
+                              { header: "text-emerald-600", border: "border-emerald-100", bg: "bg-emerald-50/20" },
+                              { header: "text-purple-600", border: "border-purple-100", bg: "bg-purple-50/20" },
                             ];
 
                             return (
-                              <div className="animate-fade-in flex flex-col h-full">
-                                {/* Header */}
-                                <div className="mb-4">
-                                  <h3 className="text-base font-black text-slate-900 leading-tight">{activeItem.title}</h3>
-                                  <p className="text-xs text-slate-500 font-medium leading-relaxed mt-1.5">{activeItem.description}</p>
-                                </div>
+                              <div className="animate-fade-in flex flex-col justify-between h-full">
+                                <div>
+                                  {/* Header with Title and Full Description (matching Image 2) */}
+                                  <div className="mb-5">
+                                    <h3 className="text-xl font-black text-slate-900 leading-tight tracking-tight">{activeItem.title}</h3>
+                                    <p className="text-xs text-slate-600 font-medium leading-relaxed mt-2">{activeItem.description}</p>
+                                  </div>
 
-                                {/* 3-Card Grid */}
-                                <div className="grid grid-cols-3 gap-3 flex-1">
-                                  {parsedDetails.map((detail, idx) => {
-                                    const color = cardColors[idx] || cardColors[0];
-                                    return (
-                                      <div key={idx} className={`bg-white border ${color.border} rounded-xl p-4 shadow-sm`}>
-                                        <h4 className={`text-[9px] font-black ${color.header} uppercase tracking-widest mb-2`}>{detail.label}</h4>
-                                        <p className="text-[10.5px] font-semibold text-slate-600 leading-relaxed">{detail.desc}</p>
-                                      </div>
-                                    );
-                                  })}
-                                </div>
+                                  {/* 3-Card Grid */}
+                                  <div className="grid grid-cols-3 gap-4 mb-6">
+                                    {parsedDetails.map((detail, idx) => {
+                                      const color = cardColors[idx] || cardColors[0];
+                                      return (
+                                        <div key={idx} className={`${color.bg} border ${color.border} rounded-2xl p-4.5 shadow-2xs min-h-[145px] flex flex-col justify-between`}>
+                                          <div>
+                                            <h4 className={`text-[11px] font-black ${color.header} uppercase tracking-wider mb-2`}>{detail.label}</h4>
+                                            <p className="text-xs font-medium text-slate-600 leading-relaxed">{detail.desc}</p>
+                                          </div>
+                                        </div>
+                                      );
+                                    })}
+                                  </div>
 
-                                {/* CTA */}
-                                <div className="mt-5">
+                                  {/* Prominent Read Full Details Button (matching Image 2) */}
                                   <Link
                                     to={activeItem.link}
                                     onClick={() => setActiveDropdown(null)}
-                                    className="inline-flex items-center gap-2 px-5 py-2.5 bg-slate-900 hover:bg-slate-800 text-white rounded-xl text-xs font-bold transition-colors"
+                                    className="inline-flex items-center gap-2 px-6 py-2.5 bg-slate-900 hover:bg-slate-800 text-white rounded-xl text-xs font-bold transition-all shadow-sm w-fit"
                                   >
-                                    Read Full Details <ArrowRight className="w-3.5 h-3.5" />
+                                    <span>Read Full Details</span>
+                                    <ArrowRight className="w-3.5 h-3.5" />
                                   </Link>
                                 </div>
                               </div>
@@ -966,15 +975,16 @@ export const Header = () => {
                       </>
                     )}
                   </div>
+
                   {/* Contact Us Banner */}
-                  <div className="mt-8 bg-slate-55 border border-slate-100 rounded-xl p-4 flex items-center justify-between">
-                    <span className="text-xs text-slate-500 font-medium">
+                  <div className="mt-5 bg-slate-50 border border-slate-200/80 rounded-xl p-3.5 px-6 flex items-center justify-between">
+                    <span className="text-xs text-slate-600 font-medium">
                       Need expert guidance for your specific requirements?
                     </span>
                     <Link
                       to="/contact"
                       onClick={() => setActiveDropdown(null)}
-                      className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg text-xs font-bold tracking-wide transition-all shadow-md shadow-blue-500/10"
+                      className="px-6 py-2.5 bg-blue-600 hover:bg-blue-700 text-white rounded-xl text-xs font-bold tracking-wide transition-all shadow-md shadow-blue-500/15 shrink-0 ml-4"
                     >
                       Contact Us
                     </Link>
@@ -994,7 +1004,7 @@ export const Header = () => {
               Whom We Serve <ChevronDown className="w-4 h-4 text-current" />
             </div>
             {activeDropdown === "whom-we-serve" && (
-              <div className="absolute top-full left-1/2 -translate-x-1/2 w-[98dvw] max-w-7xl max-h-[85vh] bg-white border border-slate-200 shadow-2xl rounded-2xl flex overflow-hidden animate-slide-up-dropdown mt-1 text-left z-50">
+              <div className="absolute top-full left-1/2 -translate-x-1/2 w-[98vw] max-w-6xl xl:max-w-7xl bg-white border border-slate-200/90 shadow-2xl rounded-2xl flex overflow-hidden animate-slide-up-dropdown mt-1 text-left z-50">
                 {/* Bridge to prevent hover loss */}
                 <div className="absolute -top-8 left-0 right-0 h-8 bg-transparent" />
 
@@ -1005,7 +1015,7 @@ export const Header = () => {
                       <h3 className="text-[11px] font-black text-blue-400 uppercase tracking-[0.25em] leading-tight">
                         Whom We Serve
                       </h3>
-                      <p className="text-[10px] text-slate-400 mt-1 font-bold leading-relaxed">
+                      <p className="text-[10px] text-slate-400 mt-1 font-medium leading-relaxed">
                         Explore industries and the governance, risk and compliance requirements relevant to their operations.
                       </p>
                     </div>
@@ -1023,7 +1033,7 @@ export const Header = () => {
                     </div>
                     
                     {/* Sidebar Clusters List */}
-                    <div className="flex flex-col gap-1.5 max-h-[340px] overflow-y-auto pr-1">
+                    <div className="flex flex-col gap-1 max-h-[340px] overflow-y-auto pr-1 scrollbar-thin">
                       {whomWeServeClusters.map((cluster) => {
                         const ClusterIcon = cluster.icon;
                         const isSelected = activeSubTab === cluster.id;
@@ -1034,28 +1044,28 @@ export const Header = () => {
                               setActiveSubTab(cluster.id);
                               if (industrySearchQuery) setIndustrySearchQuery("");
                             }}
-                            className={`w-full text-left px-3.5 py-2.5 rounded-xl text-xs font-bold transition-all flex items-center justify-between group ${
+                            className={`w-full text-left px-3 py-2 rounded-xl text-xs font-semibold transition-all flex items-center justify-between group ${
                               isSelected && !industrySearchQuery
-                                ? "bg-blue-600 text-white shadow-lg shadow-blue-500/15"
-                                : "text-slate-300 hover:text-white hover:bg-slate-800/60"
+                                ? "bg-blue-600 text-white shadow-sm shadow-blue-500/20"
+                                : "text-slate-350 hover:text-white hover:bg-slate-800/60"
                             }`}
                           >
                             <div className="flex items-center gap-2.5 min-w-0">
-                              <ClusterIcon className={`w-3.5 h-3.5 shrink-0 ${isSelected && !industrySearchQuery ? "text-white" : "text-blue-400"}`} />
+                              <ClusterIcon className={`w-4 h-4 shrink-0 ${isSelected && !industrySearchQuery ? "text-white" : "text-blue-400"}`} />
                               <span className="truncate">{cluster.name}</span>
                             </div>
-                            <ArrowRight className={`w-3.5 h-3.5 shrink-0 opacity-0 group-hover:opacity-100 transition-opacity ${isSelected && !industrySearchQuery ? "opacity-100" : ""}`} />
+                            <ArrowRight className={`w-3.5 h-3.5 shrink-0 transition-all ${isSelected && !industrySearchQuery ? "opacity-100" : "opacity-0 group-hover:opacity-100"}`} />
                           </button>
                         );
                       })}
                     </div>
                   </div>
 
-                  <div className="pt-4 border-t border-slate-800/80">
+                  <div className="pt-3 border-t border-slate-800/80">
                     <Link
                       to="/industries"
                       onClick={() => setActiveDropdown(null)}
-                      className="text-[11px] font-bold text-blue-400 hover:text-blue-300 inline-flex items-center gap-1.5 transition-colors"
+                      className="text-xs font-bold text-blue-400 hover:text-blue-300 inline-flex items-center gap-1.5 transition-colors"
                     >
                       <span>View All Industries Directory</span>
                       <ArrowRight className="w-3 h-3" />
@@ -1064,7 +1074,7 @@ export const Header = () => {
                 </div>
 
                 {/* Right Pane */}
-                <div className="w-[72%] p-6 flex flex-col justify-between bg-white min-h-[460px] overflow-y-auto">
+                <div className="w-[72%] p-6 flex flex-col justify-between bg-white min-h-[470px]">
                   {industrySearchQuery.trim() ? (
                     /* ── Search Results View ── */
                     (() => {
@@ -1100,42 +1110,40 @@ export const Header = () => {
                       }
 
                       return (
-                        <div className="flex-1 space-y-4">
-                          <div className="flex items-center justify-between border-b border-slate-100 pb-3">
-                            <h4 className="text-xs font-extrabold text-slate-500 uppercase tracking-wider">
-                              Search Results ({matched.length})
-                            </h4>
+                        <div className="flex-1 flex flex-col gap-3 overflow-hidden">
+                          <div className="flex items-center justify-between border-b border-slate-100 pb-2">
+                            <span className="text-xs font-bold text-slate-600">
+                              Found <span className="text-blue-600 font-extrabold">{matched.length}</span> matching industries
+                            </span>
                             <button
                               onClick={() => setIndustrySearchQuery("")}
                               className="text-xs text-blue-600 hover:underline font-semibold"
                             >
-                              Back to Clusters
+                              Clear
                             </button>
                           </div>
-                          <div className="grid grid-cols-2 gap-3 max-h-[320px] overflow-y-auto pr-1">
+                          <div className="grid grid-cols-2 gap-3 overflow-y-auto max-h-[350px] pr-1 scrollbar-thin">
                             {matched.map((sub) => {
                               const SubIcon = sub.icon;
                               return (
                                 <Link
                                   key={sub.id}
                                   to={sub.existingRoute}
-                                  onClick={() => setActiveDropdown(null)}
-                                  className="flex items-center justify-between p-3 rounded-xl hover:bg-slate-50 border border-slate-150 hover:border-blue-300 transition-all group"
+                                  onClick={() => {
+                                    setActiveDropdown(null);
+                                    setIndustrySearchQuery("");
+                                  }}
+                                  className="flex items-center justify-between p-3 rounded-xl bg-white border border-slate-150 hover:border-blue-300 hover:bg-blue-50/20 transition-all group shadow-2xs"
                                 >
-                                  <div className="flex items-center gap-3 text-left min-w-0">
-                                    <div className="p-2 bg-slate-100 text-slate-600 rounded-lg group-hover:bg-blue-50 group-hover:text-blue-600 transition-colors shrink-0">
+                                  <div className="flex items-center gap-3 min-w-0">
+                                    <div className="p-2 bg-slate-100 group-hover:bg-blue-100 text-slate-600 group-hover:text-blue-600 rounded-lg shrink-0 transition-colors">
                                       <SubIcon className="w-4 h-4" />
                                     </div>
                                     <div className="flex flex-col min-w-0">
-                                      <div className="flex items-center gap-1.5">
-                                        <span className="text-xs font-extrabold text-slate-800 group-hover:text-blue-600 transition-colors truncate">
-                                          {sub.title}
-                                        </span>
-                                      </div>
-                                      <span className="text-[10px] text-blue-600 font-semibold">{sub.clusterName}</span>
-                                      <span className="text-[10px] text-slate-400 font-medium line-clamp-1">
-                                        {sub.subtitle}
+                                      <span className="text-xs font-bold text-slate-900 group-hover:text-blue-600 transition-colors truncate">
+                                        {sub.title}
                                       </span>
+                                      <span className="text-[10px] text-blue-600 font-semibold">{sub.clusterName}</span>
                                     </div>
                                   </div>
                                   <ArrowRight className="w-3.5 h-3.5 text-slate-300 group-hover:text-blue-600 group-hover:translate-x-0.5 transition-all shrink-0 ml-2" />
@@ -1151,207 +1159,119 @@ export const Header = () => {
                     (() => {
                       const activeCluster = whomWeServeClusters.find(c => c.id === activeSubTab) || whomWeServeClusters[0];
                       return (
-                        <div className="flex-1 space-y-4">
-                          {/* Cluster Header */}
-                          <div className="border-b border-slate-100 pb-3 flex items-start justify-between gap-4">
-                            <div>
-                              <div className="flex items-center gap-2">
-                                <h4 className="text-sm font-black text-slate-900 tracking-tight">
-                                  {activeCluster.name}
-                                </h4>
-                                <span className="px-2 py-0.5 rounded-full bg-emerald-50 border border-emerald-200 text-[9.5px] font-black text-emerald-700 tracking-wide">
-                                  Verified Scope
-                                </span>
+                        <div className="flex-1 flex flex-col justify-between">
+                          <div>
+                            {/* Cluster Header */}
+                            <div className="border-b border-slate-100 pb-3 flex items-start justify-between gap-4">
+                              <div>
+                                <div className="flex items-center gap-2">
+                                  <h4 className="text-base font-black text-slate-900 tracking-tight">
+                                    {activeCluster.name}
+                                  </h4>
+                                  <span className="px-2 py-0.5 rounded-full bg-emerald-50 border border-emerald-200 text-[9.5px] font-black text-emerald-700 tracking-wide uppercase">
+                                    Verified Scope
+                                  </span>
+                                </div>
+                                <p className="text-xs text-slate-500 font-medium leading-relaxed mt-1">
+                                  {activeCluster.shortDescription}
+                                </p>
                               </div>
-                              <p className="text-xs text-slate-500 font-medium leading-relaxed mt-1 line-clamp-2">
-                                {activeCluster.shortDescription}
-                              </p>
+                              <Link
+                                to={`/industries/${activeCluster.id}`}
+                                onClick={() => setActiveDropdown(null)}
+                                className="text-xs text-blue-600 hover:text-blue-700 font-bold whitespace-nowrap inline-flex items-center gap-1 shrink-0"
+                              >
+                                Explore Sector Page <ArrowRight className="w-3 h-3" />
+                              </Link>
                             </div>
-                            <Link
-                              to={`/industries/${activeCluster.id}`}
-                              onClick={() => setActiveDropdown(null)}
-                              className="text-xs text-blue-600 hover:text-blue-700 font-bold whitespace-nowrap inline-flex items-center gap-1 shrink-0"
-                            >
-                              Explore Sector Page <ArrowRight className="w-3 h-3" />
-                            </Link>
+
+                            {/* Two-Column Industry Cards Grid (6 submenu items horizontally in 3 rows of 2) */}
+                            <div className="grid grid-cols-2 gap-3 my-4">
+                              {activeCluster.subIndustries.slice(0, 6).map((sub) => {
+                                const SubIcon = sub.icon;
+                                return (
+                                  <Link
+                                    key={sub.id}
+                                    to={sub.existingRoute}
+                                    onClick={() => setActiveDropdown(null)}
+                                    className="flex items-center justify-between p-3 rounded-xl bg-white border border-slate-150 hover:border-blue-300 hover:bg-blue-50/20 transition-all group shadow-2xs"
+                                  >
+                                    <div className="flex items-center gap-3 text-left min-w-0">
+                                      <div className="p-2 bg-slate-100 group-hover:bg-blue-100 text-slate-600 group-hover:text-blue-600 rounded-lg shrink-0 transition-colors">
+                                        <SubIcon className="w-4 h-4" />
+                                      </div>
+                                      <div className="flex flex-col min-w-0">
+                                        <span className="text-xs font-bold text-slate-900 group-hover:text-blue-600 transition-colors truncate">
+                                          {sub.title}
+                                        </span>
+                                        <span className="text-[10.5px] text-slate-400 font-medium line-clamp-1 mt-0.5">
+                                          {sub.subtitle}
+                                        </span>
+                                      </div>
+                                    </div>
+                                    <ArrowRight className="w-3.5 h-3.5 text-slate-300 group-hover:text-blue-600 group-hover:translate-x-0.5 transition-all shrink-0 ml-2" />
+                                  </Link>
+                                );
+                              })}
+                            </div>
                           </div>
 
-                          {/* 3-Column Organization-Size Segments Grid (Global | Large–Mid | Mid–Small) */}
-                          {(() => {
-                            const sizeSegments = getClusterSizeSegments(activeCluster.id);
-                            return (
-                              <div className="grid grid-cols-1 md:grid-cols-3 gap-3 flex-1 min-h-[260px] max-h-[300px] overflow-y-auto pr-1">
-                                {/* Column A — Global */}
-                                <div className="bg-slate-50/80 border border-slate-200/80 rounded-xl p-3 flex flex-col">
-                                  <div className="flex items-center justify-between pb-2 mb-2 border-b border-slate-200/80">
-                                    <div className="flex items-center gap-1.5">
-                                      <div className="p-1 rounded bg-blue-100 text-blue-700">
-                                        <Globe className="w-3.5 h-3.5" />
-                                      </div>
-                                      <div>
-                                        <h5 className="text-xs font-black text-slate-900 tracking-tight leading-none">Global</h5>
-                                        <span className="text-[9.5px] text-slate-500 font-semibold leading-tight">Multinational Enterprises</span>
-                                      </div>
-                                    </div>
-                                    <span className="px-1.5 py-0.5 rounded bg-blue-50 border border-blue-200 text-[8.5px] font-black text-blue-700 uppercase tracking-wider">
-                                      MNC Scale
+                          <div className="space-y-3 mt-1">
+                            {/* Key GRC Topics & Documented Offerings */}
+                            <div className="pt-3 border-t border-slate-100 grid grid-cols-2 gap-4 items-center">
+                              <div>
+                                <span className="text-[9.5px] font-black text-slate-400 uppercase tracking-widest block mb-1">
+                                  Applicable GRC Focus Topics
+                                </span>
+                                <div className="flex flex-wrap gap-1.5">
+                                  {activeCluster.keyGrcTopics.slice(0, 3).map((topic, i) => (
+                                    <span
+                                      key={i}
+                                      className="px-2 py-0.5 bg-slate-100 text-slate-700 rounded-md text-[10px] font-medium border border-slate-200/70 truncate max-w-[220px]"
+                                    >
+                                      {topic}
                                     </span>
-                                  </div>
-                                  <div className="space-y-1.5 overflow-y-auto flex-1 pr-0.5">
-                                    {sizeSegments.global.map((item, idx) => (
-                                      <Link
-                                        key={idx}
-                                        to={item.destinationUrl}
-                                        onClick={() => setActiveDropdown(null)}
-                                        className="group block p-2 rounded-lg bg-white border border-slate-200/70 hover:border-blue-400 hover:bg-blue-50/30 transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 shadow-2xs"
-                                      >
-                                        <div className="flex items-center justify-between gap-1">
-                                          <span className="text-[11px] font-black text-slate-800 group-hover:text-blue-600 transition-colors line-clamp-1">
-                                            {item.industryName}
-                                          </span>
-                                          <ArrowRight className="w-3 h-3 text-slate-300 group-hover:text-blue-600 group-hover:translate-x-0.5 transition-all shrink-0" />
-                                        </div>
-                                        <p className="text-[9.5px] text-slate-500 font-medium line-clamp-1 mt-0.5">
-                                          {item.businessType}
-                                        </p>
-                                      </Link>
-                                    ))}
-                                  </div>
-                                </div>
-
-                                {/* Column B — Large–Mid */}
-                                <div className="bg-slate-50/80 border border-slate-200/80 rounded-xl p-3 flex flex-col">
-                                  <div className="flex items-center justify-between pb-2 mb-2 border-b border-slate-200/80">
-                                    <div className="flex items-center gap-1.5">
-                                      <div className="p-1 rounded bg-indigo-100 text-indigo-700">
-                                        <Building2 className="w-3.5 h-3.5" />
-                                      </div>
-                                      <div>
-                                        <h5 className="text-xs font-black text-slate-900 tracking-tight leading-none">Large–Mid</h5>
-                                        <span className="text-[9.5px] text-slate-500 font-semibold leading-tight">Regional & Multi-facility</span>
-                                      </div>
-                                    </div>
-                                    <span className="px-1.5 py-0.5 rounded bg-indigo-50 border border-indigo-200 text-[8.5px] font-black text-indigo-700 uppercase tracking-wider">
-                                      Multi-Site
-                                    </span>
-                                  </div>
-                                  <div className="space-y-1.5 overflow-y-auto flex-1 pr-0.5">
-                                    {sizeSegments.largeMid.map((item, idx) => (
-                                      <Link
-                                        key={idx}
-                                        to={item.destinationUrl}
-                                        onClick={() => setActiveDropdown(null)}
-                                        className="group block p-2 rounded-lg bg-white border border-slate-200/70 hover:border-indigo-400 hover:bg-indigo-50/30 transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 shadow-2xs"
-                                      >
-                                        <div className="flex items-center justify-between gap-1">
-                                          <span className="text-[11px] font-black text-slate-800 group-hover:text-indigo-600 transition-colors line-clamp-1">
-                                            {item.industryName}
-                                          </span>
-                                          <ArrowRight className="w-3 h-3 text-slate-300 group-hover:text-indigo-600 group-hover:translate-x-0.5 transition-all shrink-0" />
-                                        </div>
-                                        <p className="text-[9.5px] text-slate-500 font-medium line-clamp-1 mt-0.5">
-                                          {item.businessType}
-                                        </p>
-                                      </Link>
-                                    ))}
-                                  </div>
-                                </div>
-
-                                {/* Column C — Mid–Small */}
-                                <div className="bg-slate-50/80 border border-slate-200/80 rounded-xl p-3 flex flex-col">
-                                  <div className="flex items-center justify-between pb-2 mb-2 border-b border-slate-200/80">
-                                    <div className="flex items-center gap-1.5">
-                                      <div className="p-1 rounded bg-emerald-100 text-emerald-700">
-                                        <Store className="w-3.5 h-3.5" />
-                                      </div>
-                                      <div>
-                                        <h5 className="text-xs font-black text-slate-900 tracking-tight leading-none">Mid–Small</h5>
-                                        <span className="text-[9.5px] text-slate-500 font-semibold leading-tight">Small & Medium Businesses</span>
-                                      </div>
-                                    </div>
-                                    <span className="px-1.5 py-0.5 rounded bg-emerald-50 border border-emerald-200 text-[8.5px] font-black text-emerald-700 uppercase tracking-wider">
-                                      MSME Scale
-                                    </span>
-                                  </div>
-                                  <div className="space-y-1.5 overflow-y-auto flex-1 pr-0.5">
-                                    {sizeSegments.midSmall.map((item, idx) => (
-                                      <Link
-                                        key={idx}
-                                        to={item.destinationUrl}
-                                        onClick={() => setActiveDropdown(null)}
-                                        className="group block p-2 rounded-lg bg-white border border-slate-200/70 hover:border-emerald-400 hover:bg-emerald-50/30 transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500 shadow-2xs"
-                                      >
-                                        <div className="flex items-center justify-between gap-1">
-                                          <span className="text-[11px] font-black text-slate-800 group-hover:text-emerald-600 transition-colors line-clamp-1">
-                                            {item.industryName}
-                                          </span>
-                                          <ArrowRight className="w-3 h-3 text-slate-300 group-hover:text-emerald-600 group-hover:translate-x-0.5 transition-all shrink-0" />
-                                        </div>
-                                        <p className="text-[9.5px] text-slate-500 font-medium line-clamp-1 mt-0.5">
-                                          {item.businessType}
-                                        </p>
-                                      </Link>
-                                    ))}
-                                  </div>
+                                  ))}
                                 </div>
                               </div>
-                            );
-                          })()}
-
-                          {/* Key GRC Topics & Documented Offerings */}
-                          <div className="pt-3 border-t border-slate-100 grid grid-cols-2 gap-4">
-                            <div>
-                              <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest block mb-1.5">
-                                Applicable GRC Focus Topics
-                              </span>
-                              <div className="flex flex-wrap gap-1.5">
-                                {activeCluster.keyGrcTopics.slice(0, 3).map((topic, i) => (
-                                  <span
-                                    key={i}
-                                    className="px-2 py-0.5 bg-slate-100 text-slate-700 rounded-md text-[10px] font-medium border border-slate-200/70 truncate max-w-[240px]"
-                                  >
-                                    {topic}
-                                  </span>
-                                ))}
+                              <div>
+                                <span className="text-[9.5px] font-black text-slate-400 uppercase tracking-widest block mb-1">
+                                  Documented GOVENICS Offerings
+                                </span>
+                                <div className="flex flex-wrap gap-1.5">
+                                  {activeCluster.documentedOfferings.slice(0, 3).map((off) => (
+                                    <Link
+                                      key={off.serviceId}
+                                      to={off.route}
+                                      onClick={() => setActiveDropdown(null)}
+                                      className="inline-flex items-center gap-1 px-2 py-0.5 bg-blue-50 hover:bg-blue-100 text-blue-700 rounded-md text-[10px] font-bold border border-blue-200/60 transition-colors"
+                                    >
+                                      <ShieldCheck className="w-3 h-3 text-blue-600 shrink-0" />
+                                      <span className="truncate max-w-[140px]">{off.serviceName}</span>
+                                    </Link>
+                                  ))}
+                                </div>
                               </div>
                             </div>
-                            <div>
-                              <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest block mb-1.5">
-                                Documented GOVENICS Offerings
+
+                            {/* Contextual Contact CTA Banner */}
+                            <div className="bg-slate-50 border border-slate-200/80 rounded-xl p-3 flex items-center justify-between">
+                              <span className="text-xs text-slate-600 font-medium">
+                                Discuss your governance, risk and compliance requirements with GOVENICS.
                               </span>
-                              <div className="flex flex-wrap gap-1.5">
-                                {activeCluster.documentedOfferings.slice(0, 3).map((off) => (
-                                  <Link
-                                    key={off.serviceId}
-                                    to={off.route}
-                                    onClick={() => setActiveDropdown(null)}
-                                    className="inline-flex items-center gap-1 px-2 py-0.5 bg-blue-50 hover:bg-blue-100 text-blue-700 rounded-md text-[10px] font-bold border border-blue-200/60 transition-colors"
-                                  >
-                                    <ShieldCheck className="w-3 h-3 text-blue-600 shrink-0" />
-                                    <span className="truncate max-w-[150px]">{off.serviceName}</span>
-                                  </Link>
-                                ))}
-                              </div>
+                              <Link
+                                to="/contact"
+                                onClick={() => setActiveDropdown(null)}
+                                className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg text-xs font-bold tracking-wide transition-all shadow-md shadow-blue-500/10 shrink-0 ml-3"
+                              >
+                                Contact Us
+                              </Link>
                             </div>
                           </div>
                         </div>
                       );
                     })()
                   )}
-
-                  {/* Contextual Contact CTA Banner */}
-                  <div className="mt-4 bg-slate-50 border border-slate-200/80 rounded-xl p-3.5 flex items-center justify-between">
-                    <span className="text-xs text-slate-600 font-medium">
-                      Discuss your governance, risk and compliance requirements with GOVENICS.
-                    </span>
-                    <Link
-                      to="/contact"
-                      onClick={() => setActiveDropdown(null)}
-                      className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg text-xs font-bold tracking-wide transition-all shadow-md shadow-blue-500/10"
-                    >
-                      Contact Us
-                    </Link>
-                  </div>
                 </div>
               </div>
             )}
@@ -1676,74 +1596,35 @@ export const Header = () => {
                 <ChevronDown className={`w-4 h-4 transition-transform ${activeDropdown === "whom-we-serve" ? "rotate-180" : ""}`} />
               </button>
               {activeDropdown === "whom-we-serve" && (
-                <div className="pl-4 my-1 flex flex-col gap-4 bg-slate-50 rounded-lg p-3 border border-slate-100 max-h-[350px] overflow-y-auto text-left">
-                  {whomWeServeClusters.map((cluster) => {
-                    const sizeSegs = getClusterSizeSegments(cluster.id);
-                    return (
-                      <div key={cluster.id} className="space-y-2 pb-2 border-b border-slate-200/60 last:border-b-0">
-                        <div className="flex items-center justify-between border-l-2 border-blue-500 pl-1.5">
-                          <span className="text-[10px] font-black text-blue-600 uppercase tracking-widest">
-                            {cluster.name}
-                          </span>
-                          <Link
-                            to={`/industries/${cluster.id}`}
-                            onClick={() => setMobileOpen(false)}
-                            className="text-[9.5px] text-blue-600 font-bold hover:underline"
-                          >
-                            Sector Page &rarr;
-                          </Link>
-                        </div>
-                        {/* Mobile: 3 sections stacked in order: Global, Large–Mid, Mid–Small */}
-                        <div className="pl-2 space-y-2">
-                          <div>
-                            <span className="text-[9px] font-black text-blue-700 uppercase tracking-wider block mb-0.5">Global</span>
-                            <div className="pl-1.5 flex flex-col gap-0.5">
-                              {sizeSegs.global.slice(0, 3).map((item, idx) => (
-                                <Link
-                                  key={idx}
-                                  to={item.destinationUrl}
-                                  onClick={() => setMobileOpen(false)}
-                                  className="text-xs text-slate-700 hover:text-blue-600 font-medium py-0.5 block truncate"
-                                >
-                                  {item.industryName}
-                                </Link>
-                              ))}
-                            </div>
-                          </div>
-                          <div>
-                            <span className="text-[9px] font-black text-indigo-700 uppercase tracking-wider block mb-0.5">Large–Mid</span>
-                            <div className="pl-1.5 flex flex-col gap-0.5">
-                              {sizeSegs.largeMid.slice(0, 3).map((item, idx) => (
-                                <Link
-                                  key={idx}
-                                  to={item.destinationUrl}
-                                  onClick={() => setMobileOpen(false)}
-                                  className="text-xs text-slate-700 hover:text-indigo-600 font-medium py-0.5 block truncate"
-                                >
-                                  {item.industryName}
-                                </Link>
-                              ))}
-                            </div>
-                          </div>
-                          <div>
-                            <span className="text-[9px] font-black text-emerald-700 uppercase tracking-wider block mb-0.5">Mid–Small</span>
-                            <div className="pl-1.5 flex flex-col gap-0.5">
-                              {sizeSegs.midSmall.slice(0, 3).map((item, idx) => (
-                                <Link
-                                  key={idx}
-                                  to={item.destinationUrl}
-                                  onClick={() => setMobileOpen(false)}
-                                  className="text-xs text-slate-700 hover:text-emerald-600 font-medium py-0.5 block truncate"
-                                >
-                                  {item.industryName}
-                                </Link>
-                              ))}
-                            </div>
-                          </div>
-                        </div>
+                <div className="pl-4 my-1 flex flex-col gap-3 bg-slate-50 rounded-lg p-3 border border-slate-100 max-h-[350px] overflow-y-auto text-left">
+                  {whomWeServeClusters.map((cluster) => (
+                    <div key={cluster.id} className="space-y-1 pb-2 border-b border-slate-200/60 last:border-b-0">
+                      <div className="flex items-center justify-between border-l-2 border-blue-500 pl-1.5">
+                        <span className="text-[10px] font-black text-blue-600 uppercase tracking-widest">
+                          {cluster.name}
+                        </span>
+                        <Link
+                          to={`/industries/${cluster.id}`}
+                          onClick={() => setMobileOpen(false)}
+                          className="text-[9.5px] text-blue-600 font-bold hover:underline"
+                        >
+                          Sector Page &rarr;
+                        </Link>
                       </div>
-                    );
-                  })}
+                      <div className="pl-2 flex flex-col gap-0.5">
+                        {cluster.subIndustries.slice(0, 6).map((sub) => (
+                          <Link
+                            key={sub.id}
+                            to={sub.existingRoute}
+                            onClick={() => setMobileOpen(false)}
+                            className="text-xs text-slate-700 hover:text-blue-600 font-medium py-0.5 block truncate"
+                          >
+                            {sub.title}
+                          </Link>
+                        ))}
+                      </div>
+                    </div>
+                  ))}
                 </div>
               )}
             </div>

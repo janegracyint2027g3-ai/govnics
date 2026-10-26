@@ -1,8 +1,10 @@
 import { 
   Car, Wrench, Settings, ShieldAlert, Store, Laptop, Cpu, PhoneCall, FlaskConical, Zap, 
-  BrickWall, Hammer, Building2, Home, Milestone, Fuel, BatteryCharging, Sun, Anchor, Train, 
-  Landmark, Coins, HeartHandshake, ShoppingCart, Gem, Pill, Activity, Stethoscope, Dna, Leaf, 
-  ShoppingBag, Tv, Scissors, Utensils, Film, Hotel, Plane, GraduationCap, Sprout
+  BrickWall, Hammer, Building2, Home, Milestone, Fuel, Sun, Train, 
+  Landmark, Coins, ShoppingCart, Gem, Pill, Activity, Stethoscope, Dna, Leaf, 
+  Tv, Scissors, Utensils, Film, Hotel, Plane, GraduationCap, Sprout,
+  ShieldCheck, Shield, Mountain, Wind, Briefcase, CreditCard,
+  Microscope, Sparkles, Snowflake, Apple, Bike, Trophy, Anchor
 } from "lucide-react";
 
 export interface IndustrySegment {
@@ -24,14 +26,16 @@ export interface IndustrySegment {
 }
 
 export const industriesData: IndustrySegment[] = [
-  // Cluster 1: Manufacturing & Industrial
+  // ==========================================
+  // CLUSTER 1: MANUFACTURING & INDUSTRIAL
+  // ==========================================
   {
     id: "automobiles",
-    title: "Automobiles",
+    title: "Automotive Manufacturing",
     subtitle: "Automotive Manufacturing & EHS Compliance",
     icon: Car,
     focusAreas: ["Assembly Safety", "EHS Registers", "Supply Chain Audit"],
-    regulations: ["Factories Act", "ISO 14001", "Motor Vehicles Act", "BIS Standard"],
+    regulations: ["Factories Act 1948", "ISO 14001", "Motor Vehicles Act", "BIS Standards"],
     challenges: [
       "Dynamic assembly-line safety regulations and factory compliance audits.",
       "Tracking supplier certifications and raw material footprints globally."
@@ -51,957 +55,1310 @@ export const industriesData: IndustrySegment[] = [
   },
   {
     id: "auto-components",
-    title: "Auto Components",
+    title: "Auto Components & Ancillaries",
     subtitle: "Tier-1/2 Supplier Audits & Quality Standards",
     icon: Wrench,
     focusAreas: ["Quality Control", "Subcontractor Risk", "Labour Laws"],
-    regulations: ["IATF 16949", "CLRA Act", "Factories Act", "EPA Norms"],
+    regulations: ["IATF 16949", "CLRA Act 1970", "Factories Act", "EPA Norms"],
     challenges: [
       "Meeting strict global buyer audits and IATF quality standards.",
-      "Managing massive contract workforces and wage reconciliations."
+      "Managing subcontractor compliance and labor safety at scale."
     ],
     outcomes: [
-      "Preferred Tier-1 status with seamless buyer social audits.",
-      "100% compliance with local contract labor and factory safety laws."
+      "Full supply chain transparency and automated audit readiness.",
+      "Mitigated subcontractor operational risks and labor penalties."
     ],
-    color: "from-blue-600 to-indigo-700",
+    color: "from-blue-500 to-cyan-600",
     cluster: "Manufacturing & Industrial",
     stats: [
-      { value: "100", suffix: "%", label: "OEM Audit Pass Rate" },
-      { value: "↓ 40", suffix: "%", label: "Subcontractor Risks" },
-      { value: "↓ 50", suffix: "%", label: "Wage Dispute Events" },
-      { value: "12-15", suffix: " mo", label: "Average ROI Period" }
+      { value: "100", suffix: "%", label: "IATF 16949 Pass Rate" },
+      { value: "↓ 70", suffix: "%", label: "Vendor Non-Conformities" },
+      { value: "0", label: "CLRA Penalty Notices" },
+      { value: "12-18", suffix: " mo", label: "Payback Horizon" }
     ]
   },
   {
     id: "engineering-capital-goods",
-    title: "Engineering & Capital Goods",
+    title: "Capital Goods & Heavy Machinery",
     subtitle: "Heavy Machinery Safety & Operational Risk",
     icon: Settings,
-    focusAreas: ["Operational Safety", "Machinery Standards", "EHS Audit"],
-    regulations: ["Factories Act", "ISO 45001", "BOCW Safety", "Customs Act"],
+    focusAreas: ["Heavy Machinery Safety", "Site EHS", "Customs GFR"],
+    regulations: ["Factories Act", "ISO 45001", "Indian Boiler Regulations", "Customs Act"],
     challenges: [
-      "Hazards associated with heavy machinery fabrication and testing.",
-      "Managing logistics and customs documentation for imported machinery components."
+      "Managing high-hazard heavy engineering plants and high-pressure boiler certifications.",
+      "Navigating complex import-export customs audits and export obligation fulfillments."
     ],
     outcomes: [
-      "Stellar workplace safety rating, minimizing liability claims.",
-      "Clean customs audits and uninterrupted supply chains."
+      "Flawless plant safety record with zero catastrophic equipment failures.",
+      "Accelerated customs clearance and zero duty penalty disputes."
     ],
-    color: "from-blue-600 to-indigo-700",
+    color: "from-slate-700 to-blue-800",
     cluster: "Manufacturing & Industrial",
     stats: [
-      { value: "0", label: "Major Rig Accidents" },
-      { value: "100", suffix: "%", label: "Customs Audit Clearance" },
-      { value: "↓ 35", suffix: "%", label: "Reporting Overheads" },
-      { value: "18-24", suffix: " mo", label: "Average ROI Period" }
+      { value: "0", label: "Critical Site Hazards" },
+      { value: "100", suffix: "%", label: "Boiler License Currency" },
+      { value: "↓ 50", suffix: "%", label: "Inspection Lead Time" },
+      { value: "14-20", suffix: " mo", label: "Payback Period" }
     ]
   },
   {
     id: "defence-manufacturing",
-    title: "Defence Manufacturing",
+    title: "Defence & Aerospace Manufacturing",
     subtitle: "Military Logistics & Strict Security GRC",
     icon: ShieldAlert,
-    focusAreas: ["Information Security", "NDAs & IP Protection", "Quality Assurance"],
-    regulations: ["DPD Guidelines", "ISO 27001", "Armaments Act", "DRDO Standards"],
+    focusAreas: ["Export Controls", "AS9100D Quality", "Classified IP"],
+    regulations: ["SCOMET / ITAR Guidelines", "AS9100D", "MoD Security Directives", "ISO 27001"],
     challenges: [
-      "Stringent cybersecurity and national security data protection rules.",
-      "Fiduciary liabilities regarding military supply contracts and audits."
+      "Maintaining dual-use SCOMET export controls and strict MoD security clearances.",
+      "Meeting stringent AS9100D aerospace quality tolerances and domestic offset audits."
     ],
     outcomes: [
-      "Approved military vendor certification, zero security leaks.",
-      "Perfect ratings on product quality and traceability checks."
+      "Approved military supplier standing with 100% export control compliance.",
+      "Impenetrable defense IP protection and verified offset credits."
     ],
-    color: "from-blue-600 to-indigo-700",
+    color: "from-indigo-700 to-slate-900",
     cluster: "Manufacturing & Industrial",
     stats: [
-      { value: "0", label: "Military Data Leaks" },
-      { value: "100", suffix: "%", label: "DRDO Standards Audited" },
-      { value: "↓ 75", suffix: "%", label: "Audit Prep Overhead" },
-      { value: "18-24", suffix: " mo", label: "Average ROI Period" }
+      { value: "100", suffix: "%", label: "SCOMET Audit Clearance" },
+      { value: "0", label: "Classified Data Leaks" },
+      { value: "100", suffix: "%", label: "DGQA Quality Score" },
+      { value: "18-24", suffix: " mo", label: "ROI Horizon" }
     ]
   },
   {
     id: "msme",
-    title: "MSME",
-    subtitle: "Scaling Business Compliance & Government Schemes",
-    icon: Store,
-    focusAreas: ["Statutory Compliance", "Working Capital Audits", "GST Filing"],
-    regulations: ["MSMED Act", "GST Rules", "CLRA Act", "EPF & ESIC"],
+    title: "MSME Manufacturing",
+    subtitle: "Scaling Business Compliance & Statutory Records",
+    icon: Home,
+    focusAreas: ["Statutory Baseline", "Payroll EHS", "ZED Certification"],
+    regulations: ["Factories Act", "MSMED Act", "ZED Scheme Norms", "EPFO / ESIC Rules"],
     challenges: [
-      "High compliance overhead relative to limited administrative staff.",
-      "Managing regulatory updates and accessing central incentives."
+      "Navigating scattered state and central manufacturing licenses on constrained budgets.",
+      "Transitioning from informal operations to audited corporate supplier panels."
     ],
     outcomes: [
-      "Legally compliant operations, avoiding costly penalties.",
-      "Smooth financing audits with verified financial and compliance logs."
+      "Complete statutory compliance baseline established within 30 days.",
+      "ZED Gold certification accelerating access to enterprise procurement tenders."
     ],
-    color: "from-blue-600 to-indigo-700",
+    color: "from-blue-600 to-indigo-600",
     cluster: "Manufacturing & Industrial",
     stats: [
-      { value: "↓ 50", suffix: "%", label: "Compliance Costs" },
-      { value: "100", suffix: "%", label: "Statutory Registers Filed" },
-      { value: "↓ 60", suffix: "%", label: "Tax Penalty Exposures" },
-      { value: "6-12", suffix: " mo", label: "Average ROI Period" }
+      { value: "30", suffix: " Days", label: "Full Baseline Setup" },
+      { value: "100", suffix: "%", label: "Statutory Filing Accuracy" },
+      { value: "↓ 80", suffix: "%", label: "Vendor Rejection Rate" },
+      { value: "6-12", suffix: " mo", label: "Capital Payback" }
+    ]
+  },
+  {
+    id: "chemicals-specialty",
+    title: "Chemicals & Specialty Coatings",
+    subtitle: "Process Safety & Hazardous Chemical Compliance",
+    icon: FlaskConical,
+    focusAreas: ["Process Safety (PSM)", "PESO Consents", "Hazardous Waste"],
+    regulations: ["MSIHC Rules 1989", "PESO Explosives Rules", "Factories Act Sec 41B", "CPCB/SPCB Rules"],
+    challenges: [
+      "Mitigating exothermic chemical reaction hazards and toxic gas releases.",
+      "Complying with stringent SPCB effluent treatment and hazardous waste manifest returns."
+    ],
+    outcomes: [
+      "Zero chemical leakage incidents and 100% valid PESO storage licenses.",
+      "Unbroken SPCB Consent to Operate (CTO) with certified pollution overwatch."
+    ],
+    color: "from-emerald-700 to-teal-800",
+    cluster: "Manufacturing & Industrial",
+    stats: [
+      { value: "0", label: "Toxic Chemical Spills" },
+      { value: "100", suffix: "%", label: "PESO License Currency" },
+      { value: "↓ 85", suffix: "%", label: "SPCB Audit Notice Risk" },
+      { value: "12-18", suffix: " mo", label: "Compliance ROI" }
     ]
   },
 
-  // Cluster 2: Technology & Electronics
+  // ==========================================
+  // CLUSTER 2: TECHNOLOGY & ELECTRONICS
+  // ==========================================
   {
     id: "it-bpm",
-    title: "IT & BPM",
-    subtitle: "Information Security & Global Data Governance",
+    title: "IT & BPM Services",
+    subtitle: "Global Data Protection & SOC 2 Auditing",
     icon: Laptop,
-    focusAreas: ["Data Protection", "ISO 27001", "Client SLA Audits"],
-    regulations: ["DPDP Act 2023", "GDPR Compliance", "SOC 2 Type II", "CERT-In"],
+    focusAreas: ["Information Security", "SOC 2 Type II", "DPDP Compliance"],
+    regulations: ["DPDP Act 2023", "ISO 27001", "SOC 2 Criteria", "STPI / SEZ Rules"],
     challenges: [
-      "Managing cross-border customer records under diverse privacy rules.",
-      "Mitigating cybersecurity threats across vast remote worker networks."
+      "Navigating cross-border client data privacy requirements under GDPR and DPDP.",
+      "Managing complex remote workforce security and sub-service vendor risk."
     ],
     outcomes: [
-      "Enterprise trust and eligibility for premium offshore contracts.",
-      "Secure data pipelines with zero reportable leakage incidents."
+      "Seamless SOC 2 Type II clearances that accelerate enterprise contract closings.",
+      "Fully codified DPDP architecture protecting millions of customer records."
     ],
-    color: "from-cyan-600 to-blue-600",
+    color: "from-blue-600 to-indigo-600",
     cluster: "Technology & Electronics",
     stats: [
-      { value: "0", label: "Reportable DPDP Leaks" },
-      { value: "100", suffix: "%", label: "User Consent Audited" },
-      { value: "↓ 80", suffix: "%", label: "Audit Prep Speedup" },
-      { value: "12-18", suffix: " mo", label: "Average ROI Period" }
+      { value: "100", suffix: "%", label: "SOC 2 Type II Audit Pass" },
+      { value: "0", label: "Privacy Penalty Notices" },
+      { value: "↓ 75", suffix: "%", label: "Vendor Vetting Cycle" },
+      { value: "9-15", suffix: " mo", label: "ROI Horizon" }
     ]
   },
   {
     id: "electronics-semiconductor",
     title: "Electronics & Semiconductor",
-    subtitle: "Cleanroom EHS & IP Protection",
+    subtitle: "Cleanroom EHS & E-Waste Management",
     icon: Cpu,
-    focusAreas: ["IP Protection", "Chemical Hazards", "Supply Chain Traceability"],
-    regulations: ["E-Waste Rules", "Factories Act", "EPA Guidelines", "Customs Act"],
+    focusAreas: ["Cleanroom EHS", "E-Waste EPR", "RoHS Verification"],
+    regulations: ["E-Waste Rules 2022", "RoHS Directives", "Factories Act", "Semiconductor PLI"],
     challenges: [
-      "Handling toxic semiconductor fabrication waste safely.",
-      "Protecting proprietary circuit designs and intellectual property."
+      "Toxic silane/arsine gas containment and cleanroom continuous EHS monitoring.",
+      "Tracking complex Extended Producer Responsibility (EPR) electronic scrap targets."
     ],
     outcomes: [
-      "Environmentally compliant fabrication, zero SPCB warnings.",
-      "Audit-proof IP protection workflows and secure dev networks."
+      "Zero cleanroom toxic exposure incidents and verified RoHS export eligibility.",
+      "100% EPR electronic waste quota fulfillment through authorized recyclers."
     ],
-    color: "from-cyan-600 to-blue-600",
+    color: "from-cyan-600 to-blue-700",
     cluster: "Technology & Electronics",
     stats: [
-      { value: "0", label: "Cleanroom EHS Events" },
-      { value: "100", suffix: "%", label: "E-Waste Target Compliance" },
-      { value: "↓ 40", suffix: "%", label: "Customs Hold-Ups" },
-      { value: "18-24", suffix: " mo", label: "Average ROI Period" }
+      { value: "0", label: "Cleanroom Safety Incidents" },
+      { value: "100", suffix: "%", label: "EPR Target Fulfilment" },
+      { value: "100", suffix: "%", label: "RoHS Export Clearance" },
+      { value: "12-18", suffix: " mo", label: "Payback Period" }
     ]
   },
   {
     id: "telecommunications",
-    title: "Telecommunications",
-    subtitle: "Spectrum Licensing & User Privacy",
+    title: "Telecommunications & Digital Infrastructure",
+    subtitle: "Spectrum Licensing & Critical Infrastructure Security",
     icon: PhoneCall,
-    focusAreas: ["Spectrum Adherence", "User Privacy", "EMF Radiation"],
-    regulations: ["TRAI Regulations", "DPDP Act", "EMF Guidelines", "ISO 27001"],
+    focusAreas: ["DoT Licensing", "Trusted Hardware", "Subscriber eKYC"],
+    regulations: ["DoT Unified License", "NSDT Directives", "TRAI QoS Norms", "IT Act"],
     challenges: [
-      "Compliance with TRAI Quality of Service (QoS) and emission limits.",
-      "Encrypting call data records and managing user consent profiles."
+      "Reconciling Adjusted Gross Revenue (AGR) calculations and license fee filings.",
+      "Vetting telecom supply chains under the National Security Directive on Telecommunications."
     ],
     outcomes: [
-      "Zero spectrum penalties, smooth audits from TRAI and DOperating Theatres (OT).",
-      "Enhanced user trust with DPDP-compliant communication channels."
+      "100% accurate AGR reporting with zero dispute demand notices from DoT.",
+      "Certified 'Trusted Source' network rollouts with zero unauthorized hardware risks."
     ],
-    color: "from-cyan-600 to-blue-600",
+    color: "from-indigo-600 to-blue-800",
     cluster: "Technology & Electronics",
     stats: [
-      { value: "0", label: "Spectrum Quality Fines" },
-      { value: "100", suffix: "%", label: "EMF Tower Clearances" },
-      { value: "↓ 65", suffix: "%", label: "Consent Audit Timelines" },
-      { value: "12-18", suffix: " mo", label: "Average ROI Period" }
-    ]
-  },
-  {
-    id: "science-technology",
-    title: "Science & Technology",
-    subtitle: "R&D Lab Standards & Ethics Governance",
-    icon: FlaskConical,
-    focusAreas: ["Lab Safety", "Bio-Safety SOPs", "Ethics Review"],
-    regulations: ["EPA 1986", "Hazardous Waste Rules", "IP Acts", "ISO 9001"],
-    challenges: [
-      "Regulatory safety clearances for biological and chemical testing labs.",
-      "Governance of research datasets and ethical review filings."
-    ],
-    outcomes: [
-      "Accredited test facilities with clean bio-safety reports.",
-      "Streamlined patent filing processes with audit-ready documentation."
-    ],
-    color: "from-cyan-600 to-blue-600",
-    cluster: "Technology & Electronics",
-    stats: [
-      { value: "100", suffix: "%", label: "NABL Accreditation" },
-      { value: "0", label: "Biohazard Escapes" },
-      { value: "↓ 50", suffix: "%", label: "IP Audits Redundancies" },
-      { value: "12-15", suffix: " mo", label: "Average ROI Period" }
+      { value: "100", suffix: "%", label: "DoT Statutory Currency" },
+      { value: "0", label: "Trusted Source Violations" },
+      { value: "↓ 80", suffix: "%", label: "Subscriber KYC Delays" },
+      { value: "12-18", suffix: " mo", label: "Compliance ROI" }
     ]
   },
   {
     id: "electric-vehicles",
-    title: "Electric Vehicles",
-    subtitle: "Battery Safety & Green Manufacturing",
+    title: "Electric Vehicles & Clean Mobility",
+    subtitle: "Battery Safety & AIS Regulations",
     icon: Zap,
-    focusAreas: ["Battery Safety Standards", "FAME Incentives Audits", "E-Waste"],
-    regulations: ["AIS 156 Standards", "FAME Guidelines", "E-Waste Rules", "Motor Vehicles Act"],
+    focusAreas: ["AIS 156 Battery Safety", "FAME/EMPS Subsidies", "Battery EPR"],
+    regulations: ["AIS 156 / AIS 038", "CMVR Rules", "Battery Waste Rules 2022", "PMP Norms"],
     challenges: [
-      "Meeting battery testing and thermal runway protection rules.",
-      "Audit logs verification for availing clean energy incentives."
+      "Meeting stringent thermal runaway and water immersion battery safety benchmarks.",
+      "Proving Phased Manufacturing Program (PMP) domestic value addition for subsidies."
     ],
     outcomes: [
-      "100% compliant battery packs, preventing safety incidents.",
-      "Successful FAME audits unlocking regulatory subsidies."
+      "Rapid ARAI/ICAT battery type approvals and zero thermal fire recalls.",
+      "Accelerated government subsidy disbursement with zero retrospective clawbacks."
     ],
-    color: "from-cyan-600 to-blue-600",
+    color: "from-emerald-600 to-teal-700",
     cluster: "Technology & Electronics",
     stats: [
-      { value: "100", suffix: "%", label: "AIS 156 Battery Stamp" },
-      { value: "0", label: "Battery Fire Events" },
-      { value: "↓ 60", suffix: "%", label: "FAME Audit Timelines" },
-      { value: "18-24", suffix: " mo", label: "Average ROI Period" }
+      { value: "0", label: "Thermal Battery Recalls" },
+      { value: "100", suffix: "%", label: "AIS 156 Pass Rate" },
+      { value: "100", suffix: "%", label: "PMP Subsidy Realization" },
+      { value: "12-18", suffix: " mo", label: "Capital Recovery" }
+    ]
+  },
+  {
+    id: "cybersecurity-services",
+    title: "Cybersecurity & InfoSec Services",
+    subtitle: "Managed Security & CERT-In Compliance",
+    icon: ShieldCheck,
+    focusAreas: ["CERT-In 6-Hour Filings", "SOC 2 Type II", "Vulnerability GRC"],
+    regulations: ["CERT-In Directives 2022", "ISO 27001:2022", "DPDP Act 2023", "NCIIPC Guidelines"],
+    challenges: [
+      "Adhering to mandatory 6-hour cybersecurity incident reporting to CERT-In.",
+      "Maintaining air-gapped forensic log retention and continuous multi-tenant security."
+    ],
+    outcomes: [
+      "100% statutory CERT-In reporting currency with zero non-compliance notices.",
+      "Elite SOC 2 Type II attestation driving premium enterprise client onboarding."
+    ],
+    color: "from-blue-700 to-indigo-900",
+    cluster: "Technology & Electronics",
+    stats: [
+      { value: "100", suffix: "%", label: "CERT-In 6-Hr Compliance" },
+      { value: "0", label: "Critical Log Gaps" },
+      { value: "↓ 70", suffix: "%", label: "Audit Evidence Prep Time" },
+      { value: "9-12", suffix: " mo", label: "Payback Period" }
+    ]
+  },
+  {
+    id: "fintech-digital-payments",
+    title: "Fintech & Digital Payments",
+    subtitle: "RBI Payment Aggregator Norms & Data Security",
+    icon: CreditCard,
+    focusAreas: ["RBI PA/PG Licensing", "Escrow Reconciliation", "Tokenisation"],
+    regulations: ["RBI PA Guidelines", "PCI-DSS v4.0", "PMLA 2002", "RBI Tokenisation Rules"],
+    challenges: [
+      "Reconciling high-velocity merchant settlement escrows under RBI T+1 rules.",
+      "Ensuring card-on-file tokenization architecture passes PCI-DSS Level 1 audits."
+    ],
+    outcomes: [
+      "Flawless RBI regulatory standing with zero merchant settlement escrow slippage.",
+      "100% PCI-DSS v4.0 certification guaranteeing end-to-end payment security."
+    ],
+    color: "from-indigo-600 to-purple-800",
+    cluster: "Technology & Electronics",
+    stats: [
+      { value: "100", suffix: "%", label: "Escrow Audit Accuracy" },
+      { value: "0", label: "RBI Settlement Infractions" },
+      { value: "100", suffix: "%", label: "PCI-DSS v4.0 Currency" },
+      { value: "12-15", suffix: " mo", label: "ROI Horizon" }
     ]
   },
 
-  // Cluster 3: Infrastructure & Construction
-  {
-    id: "cement",
-    title: "Cement",
-    subtitle: "Heavy Mining Safety & Carbon Footprints",
-    icon: BrickWall,
-    focusAreas: ["Carbon Emission Tracking", "Mine Safety", "Logistics Audits"],
-    regulations: ["Mines Act", "EPA Guidelines", "BRSR Standards", "Factories Act"],
-    challenges: [
-      "Mitigating carbon emissions and monitoring stack emission limits.",
-      "HSE protocols for limestone mining and high-heat kiln processes."
-    ],
-    outcomes: [
-      "Compliance with environmental norms, avoiding factory shutdowns.",
-      "Stellar ESG rankings, unlocking sustainable development funding."
-    ],
-    color: "from-orange-600 to-amber-600",
-    cluster: "Infrastructure & Construction",
-    stats: [
-      { value: "0", label: "Mines Act Violations" },
-      { value: "100", suffix: "%", label: "CEMS Realtime Compliance" },
-      { value: "↓ 40", suffix: "%", label: "ESG Reporting Delays" },
-      { value: "18-24", suffix: " mo", label: "Average ROI Period" }
-    ]
-  },
-  {
-    id: "steel",
-    title: "Steel",
-    subtitle: "Metallurgy EHS & Industrial Compliance",
-    icon: Hammer,
-    focusAreas: ["Furnace Safety", "Contractor Wages", "Waste Management"],
-    regulations: ["Factories Act", "ISO 14001", "CLRA Act", "SPCB Norms"],
-    challenges: [
-      "Extreme safety hazards and environmental compliance in steel plants.",
-      "Ensuring social compliance audits across extensive vendor bases."
-    ],
-    outcomes: [
-      "Stellar safety registers, avoiding administrative penalties.",
-      "Uninterrupted manufacturing with clean environmental approvals."
-    ],
-    color: "from-orange-600 to-amber-600",
-    cluster: "Infrastructure & Construction",
-    stats: [
-      { value: "0", label: "Furnace EHS Incidents" },
-      { value: "100", suffix: "%", label: "ZLD Effluent Compliance" },
-      { value: "↓ 50", suffix: "%", label: "Contractor Wage Claims" },
-      { value: "18-24", suffix: " mo", label: "Average ROI Period" }
-    ]
-  },
-  {
-    id: "infrastructure",
-    title: "Infrastructure",
-    subtitle: "EPC Project Risk & Environmental Clearances",
-    icon: Building2,
-    focusAreas: ["EPC Governance", "Forest & Environment Clearances", "SLA Audits"],
-    regulations: ["BOCW Act", "Land Acquisition Act", "EPA 1986", "ISO 9001"],
-    challenges: [
-      "Complex environmental clearances for highways and bridge projects.",
-      "Site safety compliance for thousands of on-site contract workers."
-    ],
-    outcomes: [
-      "Zero litigation and delay on environmental clearances.",
-      "Safe project construction sites conforming to BOCW safety laws."
-    ],
-    color: "from-orange-600 to-amber-600",
-    cluster: "Infrastructure & Construction",
-    stats: [
-      { value: "100", suffix: "%", label: "BOCW Scaffold Clearance" },
-      { value: "0", label: "Environmental Closures" },
-      { value: "↓ 55", suffix: "%", label: "Project Delay Risks" },
-      { value: "18-24", suffix: " mo", label: "Average ROI Period" }
-    ]
-  },
+  // ==========================================
+  // CLUSTER 3: INFRASTRUCTURE & CONSTRUCTION
+  // ==========================================
   {
     id: "real-estate",
-    title: "Real Estate",
-    subtitle: "RERA Disclosures & Escrow Cash Audits",
-    icon: Home,
-    focusAreas: ["RERA Filings", "Escrow Reconciliation", "BOCW Safety"],
-    regulations: ["RERA Act 2016", "Building Bye-Laws", "CLRA Act", "BOCW Act"],
+    title: "Real Estate & Urban Development",
+    subtitle: "RERA Governance & Project Disclosures",
+    icon: Building2,
+    focusAreas: ["RERA Quarterly Filings", "Site EHS & BOCW", "Environmental NOC"],
+    regulations: ["Real Estate (RERA) Act", "BOCW Act", "SEIAA Guidelines", "National Building Code"],
     challenges: [
-      "Strict quarterly project disclosures and customer grievance registers.",
-      "Managing funds within designated project escrow accounts."
+      "Complying with 70% dedicated escrow fund withdrawal rules and quarterly progress filings.",
+      "Controlling construction site scaffolding hazards and migrant worker welfare."
     ],
     outcomes: [
-      "Stronger buyer confidence with zero warning letters from RERA.",
-      "Audit-proof financial accounting, minimizing cash-routing penalties."
+      "Zero RERA delay penalties and uninterrupted project sales permissions.",
+      "Zero fatal construction falls and full BOCW labor cess compliance."
     ],
-    color: "from-orange-600 to-amber-600",
+    color: "from-blue-600 to-cyan-700",
     cluster: "Infrastructure & Construction",
     stats: [
-      { value: "100", suffix: "%", label: "RERA Quarterly Filings" },
-      { value: "0", label: "Escrow Cash Penalties" },
-      { value: "↓ 70", suffix: "%", label: "Buyer Dispute Speeds" },
-      { value: "12-18", suffix: " mo", label: "Average ROI Period" }
+      { value: "0", label: "RERA Stop-Sale Orders" },
+      { value: "100", suffix: "%", label: "BOCW Compliance Rate" },
+      { value: "↓ 70", suffix: "%", label: "QPR Filing Overhead" },
+      { value: "12-18", suffix: " mo", label: "Payback Period" }
     ]
   },
   {
     id: "roads-highways",
-    title: "Roads & Highways",
-    subtitle: "Public Concessions & Contractor Oversight",
+    title: "Highways & Transport Infrastructure",
+    subtitle: "EPC Contract Governance & Environmental Approvals",
     icon: Milestone,
-    focusAreas: ["Concession SLA", "Environmental Restoration", "NHAI Norms"],
-    regulations: ["NHAI Guidelines", "BOCW Act", "EPA", "Arbitration Act"],
+    focusAreas: ["EPC Concession Agreements", "Work-Zone Safety", "Forest Clearances"],
+    regulations: ["NHAI Guidelines", "IRC Safety Norms", "Forest Conservation Act", "Motor Vehicles Act"],
     challenges: [
-      "Adhering to strict concession agreements and NHAI specifications.",
-      "Post-construction environmental remediation audits."
+      "Mitigating liquidated damages risks from Right-of-Way (RoW) and utility shifting delays.",
+      "Maintaining high-speed traffic diversion barricading under Indian Roads Congress norms."
     ],
     outcomes: [
-      "Successful project handovers with zero concession penalties.",
-      "100% compliance with green belt and dust control regulations."
+      "Zero concession agreement penalty claims and accelerated project milestone annuity releases.",
+      "Pristine highway work-zone safety record with certified environmental clearances."
     ],
-    color: "from-orange-600 to-amber-600",
+    color: "from-slate-700 to-blue-800",
     cluster: "Infrastructure & Construction",
     stats: [
-      { value: "0", label: "NHAI Concession Fines" },
-      { value: "100", suffix: "%", label: "Toll Cash Audit Traces" },
-      { value: "↓ 45", suffix: "%", label: "Environmental Audits" },
-      { value: "18-24", suffix: " mo", label: "Average ROI Period" }
+      { value: "0", label: "Liquidated Damage Events" },
+      { value: "100", suffix: "%", label: "Work-Zone IRC Compliance" },
+      { value: "↓ 60", suffix: "%", label: "Clearance Delay Costs" },
+      { value: "14-20", suffix: " mo", label: "ROI Horizon" }
+    ]
+  },
+  {
+    id: "cement",
+    title: "Cement & Building Materials",
+    subtitle: "Emissions Monitoring & Quarry Licensing",
+    icon: BrickWall,
+    focusAreas: ["Kiln CEMS Telemetry", "Quarry Mining Leases", "Alternative Fuels"],
+    regulations: ["CPCB Emission Standards", "Mines Act", "Atomic Energy / Fly Ash Norms", "Factories Act"],
+    challenges: [
+      "Managing continuous online stack emissions telemetry connected to CPCB/SPCB.",
+      "Operating captive limestone quarries in compliance with progressive mine closure rules."
+    ],
+    outcomes: [
+      "100% valid pollution consents with zero kiln shutdown orders.",
+      "Unbroken quarry mining lease currency and safe alternative fuel co-processing."
+    ],
+    color: "from-amber-700 to-slate-800",
+    cluster: "Infrastructure & Construction",
+    stats: [
+      { value: "0", label: "Pollution Closure Orders" },
+      { value: "100", suffix: "%", label: "CEMS Data Availability" },
+      { value: "100", suffix: "%", label: "Quarry Mining Compliance" },
+      { value: "12-18", suffix: " mo", label: "Payback Period" }
+    ]
+  },
+  {
+    id: "steel",
+    title: "Steel & Basic Metals",
+    subtitle: "Heavy Metallurgy Safety & Slag Management",
+    icon: Hammer,
+    focusAreas: ["Melt-Shop EHS", "Slag Environmental Returns", "BIS Steel QCO"],
+    regulations: ["Steel Quality Control Orders", "Factories Act", "SPCB Hazardous Waste Norms", "PESO"],
+    challenges: [
+      "Preventing blast furnace molten metal accidents and toxic carbon monoxide leaks.",
+      "Guaranteeing mandatory Bureau of Indian Standards (BIS) mark compliance across structural steel."
+    ],
+    outcomes: [
+      "Zero melt-shop catastrophic incidents and 100% BIS certification currency.",
+      "100% blast furnace slag recycling compliance with clean environmental standing."
+    ],
+    color: "from-slate-600 to-indigo-900",
+    cluster: "Infrastructure & Construction",
+    stats: [
+      { value: "0", label: "Melt-Shop Lost Time Incidents" },
+      { value: "100", suffix: "%", label: "BIS QCO Mark Currency" },
+      { value: "100", suffix: "%", label: "Slag Recycling Adherence" },
+      { value: "16-24", suffix: " mo", label: "Compliance ROI" }
+    ]
+  },
+  {
+    id: "ports-logistics",
+    title: "Ports & Logistics Hubs",
+    subtitle: "Customs Compliance & Port EHS Governance",
+    icon: Anchor,
+    focusAreas: ["Customs SCMTR", "Dock Safety Regulations", "MARPOL Compliance"],
+    regulations: ["Major Port Authorities Act", "Customs Act 1962", "MARPOL 73/78", "Dock Workers Act"],
+    challenges: [
+      "Navigating Sea Cargo Manifest and Transhipment Regulations (SCMTR) filing timelines.",
+      "Maintaining high-tonnage gantry crane safety and dangerous goods container segregations."
+    ],
+    outcomes: [
+      "Zero customs seizure fines and accelerated container evacuation cycles.",
+      "Flawless dock safety inspectorate clearance with zero marine pollution violations."
+    ],
+    color: "from-cyan-700 to-blue-900",
+    cluster: "Infrastructure & Construction",
+    stats: [
+      { value: "0", label: "Customs Manifest Fines" },
+      { value: "100", suffix: "%", label: "Dock Safety Clearance" },
+      { value: "↓ 65", suffix: "%", label: "Vessel Dwell Penalties" },
+      { value: "12-18", suffix: " mo", label: "ROI Horizon" }
+    ]
+  },
+  {
+    id: "metro-rail-transit",
+    title: "Urban Metro & Rail Transit",
+    subtitle: "Metro Rail Safety & Public Works Compliance",
+    icon: Train,
+    focusAreas: ["CMRS Safety Dossiers", "25kV Traction Safety", "Station Fire Egress"],
+    regulations: ["Metro Railways Act 2002", "CMRS Directives", "National Building Code", "Electricity Act"],
+    challenges: [
+      "Compiling exhaustive Commissioner of Metro Railway Safety (CMRS) safety cases for commercial launch.",
+      "Managing high-voltage overhead catenary wire maintenance and underground tunnel settlement sensors."
+    ],
+    outcomes: [
+      "100% CMRS clearance on initial submission, avoiding expensive project launch delays.",
+      "Zero passenger traction accidents and verified subterranean structural stability."
+    ],
+    color: "from-blue-600 to-indigo-800",
+    cluster: "Infrastructure & Construction",
+    stats: [
+      { value: "100", suffix: "%", label: "CMRS First-Time Clearance" },
+      { value: "0", label: "Traction Electrical Incidents" },
+      { value: "100", suffix: "%", label: "Station Fire NOC Currency" },
+      { value: "18-24", suffix: " mo", label: "Capital Recovery" }
     ]
   },
 
-  // Cluster 4: Energy & Utilities
-  {
-    id: "oil-gas",
-    title: "Oil & Gas",
-    subtitle: "Pipeline Safety & Environmental Overwatch",
-    icon: Fuel,
-    focusAreas: ["Refinery EHS", "Pipeline Integrity", "Pollution Compliance"],
-    regulations: ["OISD Guidelines", "EPA 1986", "PNG Rules", "ISO 14001"],
-    challenges: [
-      "Extremely high-hazard refinery operations and gas pipeline leakage risks.",
-      "Stringent maritime and environmental pollution regulations at terminals."
-    ],
-    outcomes: [
-      "Zero oil spill incidents, fully compliant OISD safety audits.",
-      "Continuous operations with active environmental licenses."
-    ],
-    color: "from-yellow-600 to-amber-500",
-    cluster: "Energy & Utilities",
-    stats: [
-      { value: "0", label: "OISD Refinery Violations" },
-      { value: "100", suffix: "%", label: "Pipeline Integrity Logs" },
-      { value: "↓ 80", suffix: "%", label: "Audit Timeline Spans" },
-      { value: "18-24", suffix: " mo", label: "Average ROI Period" }
-    ]
-  },
-  {
-    id: "power",
-    title: "Power",
-    subtitle: "Grid Reliability & Tariff GRC",
-    icon: BatteryCharging,
-    focusAreas: ["Grid Compliance", "Tariff GRC", "Emission Monitoring"],
-    regulations: ["CERC/SERC Rules", "EPA Norms", "Grid Code", "ISO 50001"],
-    challenges: [
-      "Complex grid compliance codes and real-time frequency targets.",
-      "Filing and tracking tariff schedules across state agencies."
-    ],
-    outcomes: [
-      "Protected revenue with optimized tariff capture and filings.",
-      "Grid stability and zero regulatory non-compliance events."
-    ],
-    color: "from-yellow-600 to-amber-500",
-    cluster: "Energy & Utilities",
-    stats: [
-      { value: "0", label: "Grid Code Deviations" },
-      { value: "100", suffix: "%", label: "CEMS Emission Compliance" },
-      { value: "↓ 50", suffix: "%", label: "Tariff Filing Delay" },
-      { value: "18-24", suffix: " mo", label: "Average ROI Period" }
-    ]
-  },
+  // ==========================================
+  // CLUSTER 4: ENERGY & UTILITIES
+  // ==========================================
   {
     id: "renewable-energy",
-    title: "Renewable Energy",
-    subtitle: "Solar & Wind Subsidy Audits",
+    title: "Renewable Energy (Solar & Wind)",
+    subtitle: "Grid Compliance & Land Due Diligence",
     icon: Sun,
-    focusAreas: ["Carbon Credits", "Subsidy Verification", "Land Approvals"],
-    regulations: ["RPO Guidelines", "REC Mechanisms", "Land Acts", "CEA Rules"],
+    focusAreas: ["Land Title Diligence", "Grid SLDC Scheduling", "PPA Obligations"],
+    regulations: ["CERC Grid Code", "Electricity Act 2003", "Solar / Wind PPA Norms", "E-Waste Rules"],
     challenges: [
-      "Fulfilling renewable purchase obligations (RPO) and carbon credit logs.",
-      "Auditing land acquisitions for large wind/solar parks."
+      "Securing clear, undisputed title deeds for multi-thousand-acre solar and wind parks.",
+      "Minimizing Deviation Settlement Mechanism (DSM) penalties through accurate power forecasting."
     ],
     outcomes: [
-      "Unlocked carbon credits and green energy incentives.",
-      "Stellar ESG profile, securing international sustainable financing."
+      "100% bankable, litigation-free land titles ready for project finance syndication.",
+      "Minimization of DSM grid penalties and full PPA minimum generation adherence."
     ],
-    color: "from-yellow-600 to-amber-500",
+    color: "from-amber-500 to-emerald-600",
     cluster: "Energy & Utilities",
     stats: [
-      { value: "100", suffix: "%", label: "Carbon Credit Stamp" },
-      { value: "0", label: "Land Title Disputes" },
-      { value: "↓ 60", suffix: "%", label: "REC Audit Timelines" },
-      { value: "12-18", suffix: " mo", label: "Average ROI Period" }
+      { value: "0", label: "Title Deed Disputes" },
+      { value: "↓ 70", suffix: "%", label: "DSM Grid Penalties" },
+      { value: "100", suffix: "%", label: "PPA Quota Fulfilment" },
+      { value: "10-16", suffix: " mo", label: "Payback Period" }
     ]
   },
   {
-    id: "ports",
-    title: "Ports",
-    subtitle: "Maritime Security & Customs Audits",
-    icon: Anchor,
-    focusAreas: ["Maritime Security", "Customs Audits", "EHS at Docks"],
-    regulations: ["ISPS Code", "Customs Act", "Major Port Trusts Act", "EPA"],
+    id: "oil-gas",
+    title: "Oil, Gas & Refining",
+    subtitle: "PESO Licensing & Pipeline Safety",
+    icon: Fuel,
+    focusAreas: ["PESO Approvals", "Pipeline Integrity EHS", "Refinery Emissions"],
+    regulations: ["Petroleum Act 1934", "Oil Mines Regulations 2017", "PESO Rules", "CPCB CEMS Norms"],
     challenges: [
-      "Ensuring port facility security under international ISPS maritime codes.",
-      "Tracking container clearances and avoiding cargo congestion penalties."
+      "Preventing well-site blowout hazards and pipeline corrosion leaks across long cross-country routes.",
+      "Sustaining multi-point PESO operational licenses across hazardous terminal depots."
     ],
     outcomes: [
-      "International port compliance, attracting premium shipping lines.",
-      "Efficient cargo throughput with clean customs auditing trails."
+      "Zero catastrophic pipeline breaches and continuous valid PESO operating permissions.",
+      "100% compliance with CPCB sulfur recovery and fence-line VOC emission standards."
     ],
-    color: "from-yellow-600 to-amber-500",
+    color: "from-amber-600 to-slate-800",
     cluster: "Energy & Utilities",
     stats: [
-      { value: "0", label: "ISPS Rating Warnings" },
-      { value: "100", suffix: "%", label: "Cargo Customs Trace" },
-      { value: "↓ 40", suffix: "%", label: "Container Congestions" },
-      { value: "18-24", suffix: " mo", label: "Average ROI Period" }
+      { value: "0", label: "Pipeline Containment Losses" },
+      { value: "100", suffix: "%", label: "PESO License Currency" },
+      { value: "100", suffix: "%", label: "Refinery Emission Compliance" },
+      { value: "16-24", suffix: " mo", label: "Compliance ROI" }
     ]
   },
   {
-    id: "railways",
-    title: "Railways",
-    subtitle: "Track EHS & Metro Rail Safety",
-    icon: Train,
-    focusAreas: ["Metro Safety", "Track Maintenance EHS", "Procurement GRC"],
-    regulations: ["Railway Act", "CMRS Guidelines", "BOCW Safety", "GFR Rules"],
+    id: "power-grid",
+    title: "Power Transmission & Distribution",
+    subtitle: "Grid Reliability & Substation EHS",
+    icon: Zap,
+    focusAreas: ["CEA Safety Regulations", "Arc-Flash Safety", "SCADA Cybersecurity"],
+    regulations: ["Electricity Act 2003", "CEA Safety & Supply Rules", "IEGC Grid Code", "NCIIPC Norms"],
     challenges: [
-      "Securing safety clearances from the Commissioner of Railway Safety (CMRS).",
-      "Procurement transparency for massive rail coaches and systems."
+      "Managing high-voltage substation arc-flash safety and lockout/tagout protocols for maintenance crews.",
+      "Hardening SCADA energy telemetry against state-sponsored critical infrastructure cyberattacks."
     ],
     outcomes: [
-      "Successful metro rail line clearances, zero safety incidents.",
-      "Audit-proof procurement records under GFR rules."
+      "Zero fatal electrocution accidents across transmission grid operations.",
+      "Hardened SCADA telemetry with certified NCIIPC critical infrastructure protections."
     ],
-    color: "from-yellow-600 to-amber-500",
+    color: "from-blue-600 to-indigo-700",
     cluster: "Energy & Utilities",
     stats: [
-      { value: "100", suffix: "%", label: "CMRS Safety Approvals" },
-      { value: "0", label: "Metro Safety Incidents" },
-      { value: "↓ 50", suffix: "%", label: "Procurement Overheads" },
-      { value: "18-24", suffix: " mo", label: "Average ROI Period" }
+      { value: "0", label: "Fatal Substation Incidents" },
+      { value: "100", suffix: "%", label: "CEA Safety Clearance" },
+      { value: "0", label: "SCADA Cyber Intrusions" },
+      { value: "12-18", suffix: " mo", label: "Payback Horizon" }
+    ]
+  },
+  {
+    id: "mining",
+    title: "Mining & Mineral Operations",
+    subtitle: "DGMS Guidelines & Environmental Restoration",
+    icon: Mountain,
+    focusAreas: ["DGMS Slope Stability", "Blasting Explosives EHS", "Reclamation Escrow"],
+    regulations: ["Mines Act 1952", "MMDR Act", "DGMS Circulars", "Forest Conservation Act"],
+    challenges: [
+      "Controlling open-cast pit wall slope failures through radar telemetry overwatch.",
+      "Accounting for progressive mine closure funds and forest compensatory afforestation registers."
+    ],
+    outcomes: [
+      "Zero slope collapse incidents and flawless DGMS quarterly inspection clearances.",
+      "100% legal compliance with IBM mine closure plans, safeguarding mining lease renewals."
+    ],
+    color: "from-slate-700 to-amber-800",
+    cluster: "Energy & Utilities",
+    stats: [
+      { value: "0", label: "DGMS Stop-Work Orders" },
+      { value: "100", suffix: "%", label: "Blasting Safety Compliance" },
+      { value: "100", suffix: "%", label: "Reclamation Fund Audit" },
+      { value: "14-20", suffix: " mo", label: "ROI Horizon" }
+    ]
+  },
+  {
+    id: "bioenergy",
+    title: "Biomass & Waste-to-Energy",
+    subtitle: "Bio-Power Safety & Emission Consents",
+    icon: Leaf,
+    focusAreas: ["Boiler IBR Inspection", "Flue Gas CEMS", "Feedstock Fire EHS"],
+    regulations: ["Solid Waste Management Rules", "Indian Boiler Regulations", "CPCB CEMS Standards"],
+    challenges: [
+      "Managing high-temperature biomass boiler tube erosion and statutory IBR annual approvals.",
+      "Preventing spontaneous combustion fires across multi-acre agricultural residue fuel yards."
+    ],
+    outcomes: [
+      "Zero boiler shutdown orders with 100% valid IBR certificates.",
+      "Verified flue gas emissions within CPCB dioxin/furan limits, maintaining green power status."
+    ],
+    color: "from-emerald-600 to-teal-800",
+    cluster: "Energy & Utilities",
+    stats: [
+      { value: "0", label: "Boiler Failure Days" },
+      { value: "100", suffix: "%", label: "CEMS Emission Compliance" },
+      { value: "0", label: "Feedstock Fire Incidents" },
+      { value: "12-18", suffix: " mo", label: "Payback Period" }
+    ]
+  },
+  {
+    id: "hydrogen-gas",
+    title: "Industrial Gas & Clean Hydrogen",
+    subtitle: "PESO Gas Standards & Clean Hydrogen Safety",
+    icon: Wind,
+    focusAreas: ["PESO Cascade Vessels", "H2 Embrittlement", "Zone 0/1 Hazardous EHS"],
+    regulations: ["Gas Cylinders Rules 2016", "SMPV Rules", "PESO Hydrogen Norms", "ISO 19880"],
+    challenges: [
+      "Detecting micro-leaks in ultra-high pressure (700 bar) hydrogen dispensing networks.",
+      "Maintaining intrinsic safety certifications for electrical equipment in Zone 0/1 areas."
+    ],
+    outcomes: [
+      "Zero explosive gas containment losses and 100% current PESO storage permits.",
+      "Certified National Green Hydrogen Mission compliance accelerating production subsidies."
+    ],
+    color: "from-cyan-600 to-blue-800",
+    cluster: "Energy & Utilities",
+    stats: [
+      { value: "0", label: "High-Pressure Gas Leaks" },
+      { value: "100", suffix: "%", label: "PESO License Currency" },
+      { value: "100", suffix: "%", label: "Green Subsidy Eligibility" },
+      { value: "14-20", suffix: " mo", label: "Compliance ROI" }
     ]
   },
 
-  // Cluster 5: Financial Services
+  // ==========================================
+  // CLUSTER 5: FINANCIAL SERVICES
+  // ==========================================
   {
     id: "banking",
-    title: "Banking",
-    subtitle: "Banking Compliance & Risk Governance",
+    title: "Commercial & Cooperative Banking",
+    subtitle: "Banking Compliance & RBI Risk Governance",
     icon: Landmark,
-    focusAreas: ["AML & KYC", "RBI Master Circulars", "Cyber Resilience"],
-    regulations: ["RBI Master Directions", "PMLA Act", "FEMA Rules", "ISO 27001"],
+    focusAreas: ["RBI Master Directions", "Cybersecurity (CSFB)", "AML / KYC Oversight"],
+    regulations: ["Banking Regulation Act", "RBI CSFB Framework", "PMLA 2002", "RBI Outsourcing Norms"],
     challenges: [
-      "Dynamic KYC, AML monitoring, and fraudulent transactions prevention.",
-      "Adhering to strict RBI IT outsourcing and vendor risk frameworks."
+      "Adhering to RBI Master Directions on asset classifications, capital adequacy, and board reporting.",
+      "Maintaining 24/7 continuous SOC overwatch across core banking and SWIFT transaction nodes."
     ],
     outcomes: [
-      "Flawless RBI inspection ratings, avoiding central banking penalties.",
-      "Protected user deposits with secure, audited network controls."
+      "Pristine RBI Annual Financial Inspection (AFI) ratings with zero supervisory penalty notices.",
+      "Hardened banking infrastructure insulated from cyber extortion and unauthorized wire fraud."
     ],
-    color: "from-stone-600 to-neutral-700",
+    color: "from-blue-700 to-indigo-900",
     cluster: "Financial Services",
     stats: [
-      { value: "0", label: "RBI Statutory Penalties" },
-      { value: "100", suffix: "%", label: "PMLA KYC Compliance" },
-      { value: "↓ 80", suffix: "%", label: "RBI IT Outsourcing Risks" },
-      { value: "12-18", suffix: " mo", label: "Average ROI Period" }
+      { value: "0", label: "Supervisory Penalty Events" },
+      { value: "100", suffix: "%", label: "RBI CSFB Adherence" },
+      { value: "↓ 80", suffix: "%", label: "Audit Evidence Prep Time" },
+      { value: "12-18", suffix: " mo", label: "Payback Horizon" }
     ]
   },
   {
     id: "financial-services",
-    title: "Financial Services",
-    subtitle: "Corporate Finance & Capital Markets Risk",
-    icon: Coins,
-    focusAreas: ["SEBI Disclosures", "Compliance Auditing", "Risk Registers"],
-    regulations: ["SEBI Regulations", "Companies Act 2013", "FEMA", "DPDP Act"],
+    title: "Capital Markets & NBFCs",
+    subtitle: "Corporate Finance & SEBI Disclosure Risk",
+    icon: Briefcase,
+    focusAreas: ["SEBI LODR Disclosures", "NBFC Scale-Based Regs", "Insider Trading SDD"],
+    regulations: ["SEBI (LODR) Regulations", "RBI Scale-Based Regulations", "SEBI (PIT) Rules", "PMLA 2002"],
     challenges: [
-      "Complying with complex SEBI LODR corporate disclosure schedules.",
-      "Mitigating market and operational risks inside capital service firms."
+      "Automating structured digital database (SDD) maintenance for unpublished price-sensitive info (UPSI).",
+      "Meeting RBI Scale-Based Regulation capital adequacy (CRAR) and asset-liability management rules."
     ],
     outcomes: [
-      "Highest standards of corporate governance, attracting investors.",
-      "Protected user records, fully DPDP-compliant operations."
+      "Zero stock exchange scrutiny notices and 100% SEBI LODR disclosure compliance.",
+      "Seamless NBFC regulatory capital compliance ensuring uninterrupted institutional debt access."
     ],
-    color: "from-stone-600 to-neutral-700",
+    color: "from-indigo-600 to-purple-800",
     cluster: "Financial Services",
     stats: [
-      { value: "100", suffix: "%", label: "SEBI LODR Compliance" },
-      { value: "0", label: "Disclosure Omission Fines" },
-      { value: "↓ 70", suffix: "%", label: "DPDP Consent Timelines" },
-      { value: "12-18", suffix: " mo", label: "Average ROI Period" }
+      { value: "0", label: "SEBI Inquiry Notices" },
+      { value: "100", suffix: "%", label: "CRAR Capital Compliance" },
+      { value: "100", suffix: "%", label: "UPSI SDD Verification" },
+      { value: "12-18", suffix: " mo", label: "Compliance ROI" }
     ]
   },
   {
     id: "insurance",
-    title: "Insurance",
+    title: "Insurance Companies & Intermediaries",
     subtitle: "IRDAI Audits & Claim Settlement Governance",
-    icon: HeartHandshake,
-    focusAreas: ["Claim Audits", "IRDAI Reporting", "Data Classification"],
-    regulations: ["IRDAI Guidelines", "DPDP Act", "Insurance Act", "PMLA"],
+    icon: Shield,
+    focusAreas: ["IRDAI Solvency Margins", "Policyholder Protection", "Fraud Analytics"],
+    regulations: ["Insurance Act 1938", "IRDAI Regulations", "Use & File Guidelines", "PMLA 2002"],
     challenges: [
-      "Ensuring fair claim settlement practices under IRDAI consumer codes.",
-      "Securing policyholder medical and financial records against leaks."
+      "Calculating and defending statutory solvency margin ratios with the IRDAI.",
+      "Meeting strict claim settlement turnaround times while detecting organized fraud syndicates."
     ],
     outcomes: [
-      "High claim settlement ratio status with clean IRDAI compliance logs.",
-      "100% compliance with data privacy regulations, boosting policyholder trust."
+      "100% solvency margin currency and accelerated 'Use and File' product approvals.",
+      "Elevated claim settlement ratio with minimized fraud claim loss leakage."
     ],
-    color: "from-stone-600 to-neutral-700",
+    color: "from-blue-600 to-teal-700",
     cluster: "Financial Services",
     stats: [
-      { value: "0", label: "IRDAI Consumer Fines" },
-      { value: "100", suffix: "%", label: "Medical Data Privacy" },
-      { value: "↓ 60", suffix: "%", label: "Claim Leakage Rates" },
-      { value: "12-18", suffix: " mo", label: "Average ROI Period" }
+      { value: "100", suffix: "%", label: "Solvency Margin Currency" },
+      { value: "0", label: "IRDAI Mis-Selling Penalties" },
+      { value: "↓ 60", suffix: "%", label: "Claim Investigation TAT" },
+      { value: "12-18", suffix: " mo", label: "Capital Recovery" }
     ]
   },
   {
-    id: "ecommerce",
-    title: "E-Commerce",
-    subtitle: "Marketplace Integrity & User Trust",
-    icon: ShoppingCart,
-    focusAreas: ["Data Privacy", "GST Reconciliation", "Consumer Protection"],
-    regulations: ["DPDP Act", "Consumer Protection Act", "FDI Guidelines", "GST Rules"],
+    id: "microfinance",
+    title: "Microfinance & Rural Lending",
+    subtitle: "NBFC-MFI Fair Practices & Priority Lending",
+    icon: Coins,
+    focusAreas: ["Income Assessment Norms", "Recovery Fair Practices", "PSL Compliance"],
+    regulations: ["RBI Microfinance Directions 2022", "PMLA 2002", "Priority Sector Lending Norms"],
     challenges: [
-      "Managing user consent and tracking data processing activities.",
-      "Regulatory alignment with FDI guidelines on marketplace inventory."
+      "Ensuring field agents strictly adhere to qualifying household income assessment rules.",
+      "Eliminating coercive collection tactics across thousands of rural borrower self-help groups."
     ],
     outcomes: [
-      "Complete legal compliance for consumer data portals.",
-      "Protected platform operations with zero FDI compliance investigations."
+      "Zero borrower harassment grievances and sustained top-tier MFIN rating.",
+      "100% Priority Sector Lending (PSL) portfolio verification, accelerating bank funding."
     ],
-    color: "from-stone-600 to-neutral-700",
+    color: "from-emerald-600 to-teal-800",
     cluster: "Financial Services",
     stats: [
-      { value: "100", suffix: "%", label: "FDI Guidelines Audited" },
-      { value: "0", label: "PCI-DSS Data Leaks" },
-      { value: "↓ 50", suffix: "%", label: "Shopper Dispute Filing" },
-      { value: "12-15", suffix: " mo", label: "Average ROI Period" }
+      { value: "0", label: "Borrower Harassment Claims" },
+      { value: "100", suffix: "%", label: "Household Income Audits" },
+      { value: "100", suffix: "%", label: "PSL Verification Score" },
+      { value: "9-15", suffix: " mo", label: "Payback Period" }
     ]
   },
   {
-    id: "gems-jewellery",
-    title: "Gems & Jewellery",
-    subtitle: "Gold Hallmarking & Supply Traceability",
-    icon: Gem,
-    focusAreas: ["Supply Traceability", "Gold Hallmarking", "PMLA Compliance"],
-    regulations: ["BIS Hallmarking", "PMLA Rules", "Customs Act", "FEMA"],
+    id: "wealth-management",
+    title: "Wealth & Asset Management",
+    subtitle: "SEBI Portfolio Governance & AIF Compliance",
+    icon: Briefcase,
+    focusAreas: ["SEBI PMS Regulations", "AIF Fund Governance", "Advisory Segregation"],
+    regulations: ["SEBI (PMS) Regulations 2020", "SEBI (AIF) Regulations 2012", "PMLA KYC Rules"],
     challenges: [
-      "Ensuring absolute origin tracking and BIS hallmarking compliance.",
-      "High KYC and transaction monitoring under PMLA anti-money laundering codes."
+      "Maintaining auditable client risk-profiling histories and minimum investment tracking.",
+      "Ensuring strict arm's-length segregation between wealth distribution and advisory fees."
     ],
     outcomes: [
-      "Approved BIS jeweller status, guaranteeing product integrity.",
-      "Audit-proof PMLA registers, avoiding transaction-monitoring penalties."
+      "Flawless SEBI inspection reports with zero investor mis-selling grievances.",
+      "Complete AIF valuation transparency attracting global institutional capital."
     ],
-    color: "from-stone-600 to-neutral-700",
+    color: "from-indigo-700 to-slate-900",
     cluster: "Financial Services",
     stats: [
-      { value: "100", suffix: "%", label: "BIS Hallmarking Stamps" },
-      { value: "0", label: "PMLA Compliance Warnings" },
-      { value: "↓ 40", suffix: "%", label: "Customs Hold Delays" },
-      { value: "12-18", suffix: " mo", label: "Average ROI Period" }
+      { value: "100", suffix: "%", label: "SEBI PMS Inspection Pass" },
+      { value: "0", label: "Mis-Selling Penalty Orders" },
+      { value: "↓ 70", suffix: "%", label: "Investor Onboarding TAT" },
+      { value: "12-18", suffix: " mo", label: "ROI Horizon" }
+    ]
+  },
+  {
+    id: "payments",
+    title: "Payment Aggregators & Gateways",
+    subtitle: "RBI Payment Gateways & Tokenisation Norms",
+    icon: CreditCard,
+    focusAreas: ["RBI PA Guidelines", "Escrow Reconciliation", "Tokenisation"],
+    regulations: ["RBI Payment Aggregator Directives", "PCI-DSS v4.0", "DPDP Act 2023"],
+    challenges: [
+      "Reconciling complex T+1 merchant funds settlement across multiple nodal banking partners.",
+      "Meeting stringent PCI-DSS v4.0 card-on-file tokenization and vault security mandates."
+    ],
+    outcomes: [
+      "100% verified settlement escrow balance accuracy with zero RBI compliance infractions.",
+      "Unbroken PCI-DSS Level 1 certification securing billions in transaction volume."
+    ],
+    color: "from-purple-600 to-indigo-800",
+    cluster: "Financial Services",
+    stats: [
+      { value: "100", suffix: "%", label: "Escrow Audit Accuracy" },
+      { value: "0", label: "Settlement Dispute Notices" },
+      { value: "100", suffix: "%", label: "PCI-DSS v4.0 Certification" },
+      { value: "12-18", suffix: " mo", label: "Compliance ROI" }
     ]
   },
 
-  // Cluster 6: Healthcare & Life Sciences
+  // ==========================================
+  // CLUSTER 6: HEALTHCARE & LIFE SCIENCES
+  // ==========================================
   {
-    id: "pharmaceuticals",
-    title: "Pharmaceuticals",
-    subtitle: "GMP Data Integrity & CDSCO Audits",
-    icon: Pill,
-    focusAreas: ["GMP Compliance", "Data Integrity", "Schedule M"],
-    regulations: ["USFDA Norms", "CDSCO Guidelines", "Schedule M", "ALCOA+ Rules"],
+    id: "healthcare",
+    title: "Hospitals & Healthcare Networks",
+    subtitle: "NABH Accreditation & Clinical Quality",
+    icon: Stethoscope,
+    focusAreas: ["NABH Accreditation", "Bio-Medical Waste EHS", "Patient Health Privacy"],
+    regulations: ["Clinical Establishments Act", "NABH Standards", "Bio-Medical Waste Rules", "DPDP Act"],
     challenges: [
-      "Maintaining absolute data integrity (ALCOA+) on batch records.",
-      "Securing clean GMP approvals for exports to US and European markets."
+      "Sustaining hospital-wide clinical audit registers, surgical safety checklists, and incident logs.",
+      "Preventing bio-medical waste segregation failures across wards, ICUs, and laboratories."
     ],
     outcomes: [
-      "Successful global drug inspections, zero USFDA warning letters.",
-      "Seamless CDSCO audit approvals for local pharmaceutical units."
+      "Unbroken NABH hospital accreditation renewal with elite clinical quality scoring.",
+      "Zero bio-medical waste pollution board violations and protected patient health data privacy."
     ],
-    color: "from-emerald-600 to-teal-600",
+    color: "from-blue-600 to-teal-700",
     cluster: "Healthcare & Life Sciences",
     stats: [
-      { value: "0", label: "USFDA Warning Letters" },
-      { value: "100", suffix: "%", label: "ALCOA+ Data Integrity" },
-      { value: "↓ 70", suffix: "%", label: "SPCB Water Clearance" },
-      { value: "18-24", suffix: " mo", label: "Average ROI Period" }
+      { value: "100", suffix: "%", label: "NABH Audit Compliance" },
+      { value: "0", label: "Bio-Waste Notice Events" },
+      { value: "0", label: "Patient Data Leaks" },
+      { value: "12-18", suffix: " mo", label: "Payback Period" }
     ]
   },
   {
-    id: "healthcare",
-    title: "Healthcare",
-    subtitle: "NABH Accreditation & Clinical Quality",
-    icon: Activity,
-    focusAreas: ["NABH Quality", "Patient Privacy", "Clinical SOPs"],
-    regulations: ["NABH Standards", "DPDP Act", "Clinical Establishments Act", "NMC Guidelines"],
+    id: "pharmaceuticals",
+    title: "Pharmaceuticals & Formulations",
+    subtitle: "GMP Data Integrity & CDSCO Audits",
+    icon: Pill,
+    focusAreas: ["cGMP Form 28", "21 CFR Part 11 Integrity", "Cleanroom Qualification"],
+    regulations: ["Drugs and Cosmetics Act", "US FDA cGMP", "WHO-GMP", "Schedule M (Revised)"],
     challenges: [
-      "Meeting hundreds of quality indicators for NABH accreditation.",
-      "Protecting patients' health records against cloud database leaks."
+      "Passing unannounced US FDA and CDSCO regulatory audits with zero Form 483 citations.",
+      "Validating computerized laboratory instrument audit trails to prevent data falsification."
     ],
     outcomes: [
-      "Accredited hospital status, improving healthcare brand value.",
-      "100% DPDP-compliant hospital record management systems."
+      "100% data integrity compliance with clean US FDA and European GMP inspection outcomes.",
+      "Protected active pharmaceutical supply lines to regulated global healthcare markets."
     ],
-    color: "from-emerald-600 to-teal-600",
+    color: "from-emerald-600 to-blue-700",
     cluster: "Healthcare & Life Sciences",
     stats: [
-      { value: "100", suffix: "%", label: "NABH Quality Accredit" },
-      { value: "0", label: "EMR Health Data Leaks" },
-      { value: "↓ 60", suffix: "%", label: "Biohazard Fine Risks" },
-      { value: "12-18", suffix: " mo", label: "Average ROI Period" }
+      { value: "0", label: "FDA 483 Observations" },
+      { value: "100", suffix: "%", label: "21 CFR Part 11 Integrity" },
+      { value: "↓ 80", suffix: "%", label: "Batch Record Audit Time" },
+      { value: "18-24", suffix: " mo", label: "Compliance ROI" }
     ]
   },
   {
     id: "medical-devices",
-    title: "Medical Devices",
-    subtitle: "Hardware Safety & Clinical Trials",
-    icon: Stethoscope,
-    focusAreas: ["Device Validation", "Clinical Trials", "ISO 13485"],
-    regulations: ["MDR 2017", "CDSCO Guidelines", "ISO 13485", "ISO 14971"],
+    title: "Medical Devices & Diagnostics",
+    subtitle: "Device Quality Systems & CDSCO MDR Compliance",
+    icon: Activity,
+    focusAreas: ["CDSCO MDR 2017", "ISO 13485 QMS", "Unique Device ID (UDI)"],
+    regulations: ["Medical Device Rules 2017", "ISO 13485:2016", "ISO 14971", "EU MDR"],
     challenges: [
-      "Complex CDSCO registration for life-critical medical devices.",
-      "Running clinical investigations according to ethical guidelines."
+      "Compiling Device Master Files (DMF) for Class A/B/C/D manufacturing and import approvals.",
+      "Implementing GS1 Unique Device Identification (UDI) serialization and labeling rules."
     ],
     outcomes: [
-      "Device manufacturing clearance, zero product recalls.",
-      "Accurate device trial datasets with approved ethics logs."
+      "Accelerated CDSCO regulatory marketing authorizations and unrestricted export access.",
+      "100% ISO 13485 certified quality management system with zero post-market recall notices."
     ],
-    color: "from-emerald-600 to-teal-600",
+    color: "from-cyan-600 to-indigo-700",
     cluster: "Healthcare & Life Sciences",
     stats: [
-      { value: "100", suffix: "%", label: "ISO 13485 QMS Standard" },
-      { value: "0", label: "Product Recalls Events" },
-      { value: "↓ 50", suffix: "%", label: "Clinical Trial Delays" },
-      { value: "18-24", suffix: " mo", label: "Average ROI Period" }
+      { value: "100", suffix: "%", label: "CDSCO License Currency" },
+      { value: "0", label: "Device Recall Notices" },
+      { value: "100", suffix: "%", label: "UDI Barcode Adherence" },
+      { value: "12-18", suffix: " mo", label: "Payback Horizon" }
     ]
   },
   {
     id: "biotechnology",
-    title: "Biotechnology",
-    subtitle: "Bio-Safety Clearances & DNA Governance",
+    title: "Biotechnology & Clinical Research",
+    subtitle: "Bio-Safety SOPs & Clinical Trial Ethics",
     icon: Dna,
-    focusAreas: ["Bio-Safety SOPs", "IP Audits", "Waste Pathways"],
-    regulations: ["RCGM Guidelines", "EPA 1986", "Patent Act", "Hazardous Waste Rules"],
+    focusAreas: ["RCGM / GEAC Approvals", "BSL-2/3 Containment", "Clinical Trials (GCP)"],
+    regulations: ["Rules 1989 (EPA)", "Good Clinical Practices (GCP)", "Biological Diversity Act"],
     challenges: [
-      "Obiting clearances from the Review Committee on Genetic Manipulation (RCGM).",
-      "Responsible storage and disposal of bio-hazardous lab materials."
+      "Navigating Review Committee on Genetic Manipulation (RCGM) approvals for recombinant products.",
+      "Managing Biosafety Level 2/3 containment integrity and worker biohazard protection."
     ],
     outcomes: [
-      "Approved bio-tech facility status, zero biosafety incidents.",
-      "Audit-proof IP protection workflows for biotech discoveries."
+      "100% statutory biosecurity approvals, fast-tracking biosimilar clinical trial phases.",
+      "Zero pathogen containment breaches and flawless ethical committee clinical trial compliance."
     ],
-    color: "from-emerald-600 to-teal-600",
+    color: "from-purple-600 to-indigo-800",
     cluster: "Healthcare & Life Sciences",
     stats: [
-      { value: "100", suffix: "%", label: "RCGM Safety Approvals" },
-      { value: "0", label: "Lab Biohazard Incidents" },
-      { value: "↓ 55", suffix: "%", label: "Patent Filing Overheads" },
-      { value: "18-24", suffix: " mo", label: "Average ROI Period" }
+      { value: "100", suffix: "%", label: "RCGM Approval Currency" },
+      { value: "0", label: "Biocontainment Breaches" },
+      { value: "100", suffix: "%", label: "GCP Trial Ethics Pass" },
+      { value: "14-20", suffix: " mo", label: "ROI Horizon" }
+    ]
+  },
+  {
+    id: "diagnostic-labs",
+    title: "Diagnostic & Pathology Laboratories",
+    subtitle: "NABL Accreditation & Bio-Waste Management",
+    icon: Microscope,
+    focusAreas: ["NABL ISO 15189", "Bio-Waste Autoclave EHS", "Diagnostic Data Privacy"],
+    regulations: ["NABL ISO 15189:2022", "Clinical Establishments Act", "Bio-Medical Waste Rules", "DPDP"],
+    challenges: [
+      "Maintaining calibrator reagent traceability and internal quality control (IQC) documentation.",
+      "Ensuring diagnostic test results and sensitive patient health data are encrypted and protected."
+    ],
+    outcomes: [
+      "Unbroken NABL ISO 15189 laboratory accreditation driving clinician trust.",
+      "Zero specimen mix-up incidents and full statutory bio-medical waste compliance."
+    ],
+    color: "from-teal-600 to-blue-800",
+    cluster: "Healthcare & Life Sciences",
+    stats: [
+      { value: "100", suffix: "%", label: "NABL Accreditation Score" },
+      { value: "0", label: "Sample Mix-Up Errors" },
+      { value: "0", label: "Bio-Waste Disposal Fines" },
+      { value: "10-16", suffix: " mo", label: "Payback Period" }
     ]
   },
   {
     id: "ayush",
-    title: "Ayush",
-    subtitle: "Traditional Medicine GMP & Standardisation",
-    icon: Leaf,
-    focusAreas: ["GMP Compliance", "Ingredient Verification", "Ayush Mark"],
-    regulations: ["Ayush Mark Rules", "Schedule T GMP", "FSSAI Guidelines", "WLPA Act"],
+    title: "AYUSH & Integrative Medicine",
+    subtitle: "Ministry of AYUSH Standards & GMP Licensing",
+    icon: Sparkles,
+    focusAreas: ["Schedule T GMP", "Botanical Purity Testing", "Advertising Claims"],
+    regulations: ["Drugs and Cosmetics Act (Schedule T)", "AYUSH Premium Mark", "Magic Remedies Act"],
     challenges: [
-      "Authenticating raw herb sourcing under wildlife protection codes.",
-      "Conforming to traditional formulations under Schedule T GMP."
+      "Proving absence of heavy metals (lead, arsenic) and pesticide residues in botanical raw materials.",
+      "Complying with Drugs and Magic Remedies advertising guidelines to avoid marketing litigation."
     ],
     outcomes: [
-      "Gold-level Ayush Mark certification, boosting product sales.",
-      "Statutory herbal raw material sourcing audits, fully verified."
+      "Attainment of AYUSH Premium Mark certification, unlocking lucrative export contracts.",
+      "Zero misleading advertisement notices with validated scientific claim substantiation."
     ],
-    color: "from-emerald-600 to-teal-600",
+    color: "from-emerald-700 to-teal-800",
     cluster: "Healthcare & Life Sciences",
     stats: [
-      { value: "100", suffix: "%", label: "Schedule T GMP Audited" },
-      { value: "100", suffix: "%", label: "Ayush Mark Certification" },
-      { value: "↓ 40", suffix: "%", label: "Herb Source Violations" },
-      { value: "12-15", suffix: " mo", label: "Average ROI Period" }
+      { value: "100", suffix: "%", label: "Schedule T GMP Pass" },
+      { value: "0", label: "Heavy Metal Residue Violations" },
+      { value: "0", label: "Magic Remedies Notices" },
+      { value: "12-18", suffix: " mo", label: "Compliance ROI" }
     ]
   },
 
-  // Cluster 7: Consumer & Retail
+  // ==========================================
+  // CLUSTER 7: FOOD PROCESSING, PHARMA & HEALTHCARE
+  // ==========================================
   {
-    id: "fmcg",
-    title: "FMCG",
-    subtitle: "Supply Chain Traceability & ESG Reporting",
-    icon: ShoppingBag,
-    focusAreas: ["Batch Traceability", "Legal Metrology", "EHS Registers"],
-    regulations: ["FSSAI", "Legal Metrology Act", "E-Waste Rules", "BRSR Standards"],
+    id: "food-processing",
+    title: "Food Processing & Packaged Goods",
+    subtitle: "HACCP Safety & Traceability Logs",
+    icon: Utensils,
+    focusAreas: ["FSSAI Licensing", "HACCP / ISO 22000", "Packaging Legal Metrology"],
+    regulations: ["FSSAI Act 2006", "ISO 22000 (FSMS)", "Legal Metrology Packaged Rules", "BIS Standards"],
     challenges: [
-      "Strict labeling, packaging, and shelf-life regulations under FSSAI.",
-      "Managing carbon footprint data across high-volume supply networks."
+      "Enforcing strict farm-to-fork batch traceability and allergen cross-contamination controls.",
+      "Ensuring nutritional labeling, ingredient disclosures, and Legal Metrology meet statutory rules."
     ],
     outcomes: [
-      "Smooth product packaging checks, zero legal metrology notices.",
-      "Verified ESG metrics aligned with BRSR corporate standards."
+      "Zero product recall orders and 100% clean FSSAI state and central inspection audits.",
+      "Verified raw material provenance and certified food safety management across all lines."
     ],
-    color: "from-purple-600 to-pink-600",
-    cluster: "Consumer & Retail",
+    color: "from-amber-600 to-emerald-700",
+    cluster: "Food Processing, Pharma & Healthcare",
     stats: [
-      { value: "100", suffix: "%", label: "FSSAI Labeling Norms" },
-      { value: "0", label: "Food Recall Disasters" },
-      { value: "↓ 60", suffix: "%", label: "BRSR ESG Reporting" },
-      { value: "12-18", suffix: " mo", label: "Average ROI Period" }
+      { value: "0", label: "FSSAI Product Recalls" },
+      { value: "100", suffix: "%", label: "FSMS Audit Pass Rate" },
+      { value: "↓ 75", suffix: "%", label: "Batch Traceability Speedup" },
+      { value: "12-18", suffix: " mo", label: "Payback Horizon" }
     ]
   },
+  {
+    id: "pharmaceutical-manufacturing",
+    title: "Pharmaceutical Manufacturing",
+    subtitle: "GMP Data Integrity & CDSCO Audits",
+    icon: Pill,
+    focusAreas: ["Revised Schedule M", "Sterile Parenteral Validation", "API Precursor Logs"],
+    regulations: ["Drugs & Cosmetics Act", "Schedule M (Revised 2023)", "WHO-GMP", "US FDA cGMP"],
+    challenges: [
+      "Complying with upgraded Schedule M HVAC differential pressure and computerized system validation.",
+      "Maintaining zero contamination in sterile injectable formulation filling lines."
+    ],
+    outcomes: [
+      "Pristine CDSCO and international GMP audit clearances with zero critical observations.",
+      "100% batch manufacturing record (BMR) data integrity and continuous drug license currency."
+    ],
+    color: "from-blue-600 to-indigo-800",
+    cluster: "Food Processing, Pharma & Healthcare",
+    stats: [
+      { value: "0", label: "Critical GMP Audit Findings" },
+      { value: "100", suffix: "%", label: "Schedule M Validation" },
+      { value: "100", suffix: "%", label: "Drug License Currency" },
+      { value: "16-24", suffix: " mo", label: "ROI Horizon" }
+    ]
+  },
+  {
+    id: "healthcare-delivery",
+    title: "Healthcare Delivery Systems",
+    subtitle: "Hospital Quality & Patient Safety Governance",
+    icon: Stethoscope,
+    focusAreas: ["Clinical Governance", "Infection Control EHS", "EHR Patient Privacy"],
+    regulations: ["Clinical Establishments Act", "NABH Standards", "Bio-Medical Waste Rules", "DPDP Act"],
+    challenges: [
+      "Maintaining continuous compliance with hospital infection control and surgical safety checklists.",
+      "Protecting patient health diagnostic histories under the Digital Personal Data Protection Act."
+    ],
+    outcomes: [
+      "Unbroken NABH hospital accreditation, cementing reputation as an elite care institution.",
+      "Zero healthcare-associated outbreak penalties and protected patient electronic health records."
+    ],
+    color: "from-teal-600 to-blue-800",
+    cluster: "Food Processing, Pharma & Healthcare",
+    stats: [
+      { value: "100", suffix: "%", label: "NABH Accreditation Score" },
+      { value: "0", label: "Infection Control Breaches" },
+      { value: "0", label: "Patient Privacy Incidents" },
+      { value: "12-18", suffix: " mo", label: "Payback Period" }
+    ]
+  },
+  {
+    id: "dairy-beverages",
+    title: "Dairy, Beverages & Breweries",
+    subtitle: "FSSAI Safety Standards & Effluent Oversight",
+    icon: Sprout,
+    focusAreas: ["Raw Milk Adulteration GRC", "Pasteurization Thermal Logs", "High-BOD Wastewater"],
+    regulations: ["FSSAI Milk Standards", "CPCB Zero Liquid Discharge", "BIS 14543", "Boiler Act"],
+    challenges: [
+      "Detecting chemical adulteration and antibiotic residues at farm milk chilling centers.",
+      "Operating high-BOD anaerobic brewery wastewater digesters within strict SPCB limits."
+    ],
+    outcomes: [
+      "100% pure raw milk intake with complete pasteurizer thermal recorder compliance.",
+      "Zero environmental pollution notices and successful biogas energy recovery."
+    ],
+    color: "from-emerald-600 to-teal-700",
+    cluster: "Food Processing, Pharma & Healthcare",
+    stats: [
+      { value: "0", label: "Milk Adulteration Incidents" },
+      { value: "100", suffix: "%", label: "Pasteurization Telemetry Logs" },
+      { value: "100", suffix: "%", label: "SPCB Wastewater Currency" },
+      { value: "12-18", suffix: " mo", label: "Compliance ROI" }
+    ]
+  },
+  {
+    id: "cold-chain",
+    title: "Cold Chain & Perishable Logistics",
+    subtitle: "Cold Chain FSMS & Temperature Integrity",
+    icon: Snowflake,
+    focusAreas: ["FSMS Temperature Telemetry", "Reefer Fleet Driver EHS", "Pharma GDP Traceability"],
+    regulations: ["FSSAI Cold Chain Norms", "CDSCO GDP Guidelines", "Motor Transport Workers Act", "ISO 22000"],
+    challenges: [
+      "Preventing temperature excursion spoilage across multimodal road, air, and staging hubs.",
+      "Complying with hazardous refrigerant gas containment and statutory commercial driver rest hours."
+    ],
+    outcomes: [
+      "Zero temperature excursion product losses and 100% auditable IoT temperature records.",
+      "Fully certified WHO-GDP distribution for life-saving vaccines and premium perishables."
+    ],
+    color: "from-cyan-600 to-blue-700",
+    cluster: "Food Processing, Pharma & Healthcare",
+    stats: [
+      { value: "0", label: "Temperature Spoilage Loss" },
+      { value: "100", suffix: "%", label: "IoT Telemetry Uptime" },
+      { value: "100", suffix: "%", label: "WHO-GDP Audit Compliance" },
+      { value: "10-16", suffix: " mo", label: "Capital Payback" }
+    ]
+  },
+  {
+    id: "nutraceuticals",
+    title: "Nutraceuticals & Health Supplements",
+    subtitle: "Nutraceutical Regulations & Labeling Audits",
+    icon: Apple,
+    focusAreas: ["FSSAI Health Supplements 2022", "Heavy Metal Testing", "Claim Substantiation"],
+    regulations: ["FSSAI (Nutraceuticals) Regulations", "Consumer Protection Act", "Legal Metrology Rules"],
+    challenges: [
+      "Ensuring formulation dosages remain within statutory Recommended Dietary Allowance (RDA) limits.",
+      "Substantiating therapeutic and wellness claims with validated clinical evidence to satisfy regulators."
+    ],
+    outcomes: [
+      "100% compliant product formulations avoiding regulatory seizure and marketing injunctions.",
+      "Zero misleading advertisement notices from ASCI or the Central Consumer Protection Authority."
+    ],
+    color: "from-teal-600 to-emerald-700",
+    cluster: "Food Processing, Pharma & Healthcare",
+    stats: [
+      { value: "100", suffix: "%", label: "FSSAI RDA Limit Adherence" },
+      { value: "0", label: "Misleading Claim Notices" },
+      { value: "0", label: "Heavy Metal Residue Violations" },
+      { value: "9-15", suffix: " mo", label: "Payback Period" }
+    ]
+  },
+
+  // ==========================================
+  // CLUSTER 8: CONSUMER & RETAIL
+  // ==========================================
   {
     id: "retail",
-    title: "Retail",
-    subtitle: "Shop Safety & Inventory GRC",
+    title: "Retail Stores & Supermarkets",
+    subtitle: "Shop Safety & Workforce Compliance",
     icon: Store,
-    focusAreas: ["Shop Act License", "Labour compliance", "Consumer Disputes"],
-    regulations: ["Shops & Establishments Act", "Consumer Protection Act", "CLRA", "GST"],
+    focusAreas: ["Shops & Establishments", "Legal Metrology MRP", "Fire Safety Egress"],
+    regulations: ["State Shops & Establishments Acts", "Legal Metrology Act", "Municipal Fire NOCs"],
     challenges: [
-      "Ensuring work hours limits and wage compliance for thousands of staff.",
-      "Managing consumer complaints and warranty service SLA trackers."
+      "Managing municipal shop licenses, opening hour variances, and statutory displays across hundreds of stores.",
+      "Preventing Legal Metrology inspector notices regarding dual pricing and packaged commodity labeling."
     ],
     outcomes: [
-      "Uninterrupted retail store operations with valid municipal licenses.",
-      "Stellar rating on consumer grievance redressal systems."
+      "100% current shop registrations nationwide with zero store closure notices.",
+      "Zero Legal Metrology seizure penalties and verified in-store fire emergency egress safety."
     ],
-    color: "from-purple-600 to-pink-600",
+    color: "from-blue-600 to-indigo-700",
     cluster: "Consumer & Retail",
     stats: [
-      { value: "100", suffix: "%", label: "Shop Act Licenses Clear" },
-      { value: "0", label: "Labor Code Penalties" },
-      { value: "↓ 50", suffix: "%", label: "Consumer Forum Suits" },
-      { value: "12-15", suffix: " mo", label: "Average ROI Period" }
-    ]
-  },
-  {
-    id: "consumer-durables",
-    title: "Consumer Durables",
-    subtitle: "Electronic Testing & E-Waste Audits",
-    icon: Tv,
-    focusAreas: ["BEE Energy Rating", "E-Waste Target Compliance", "EHS at Plant"],
-    regulations: ["BEE Guidelines", "E-Waste Rules", "BIS Standards", "Factories Act"],
-    challenges: [
-      "Obtaining BEE star ratings and BIS safety certificates for home appliances.",
-      "Fulfilling EPR (Extended Producer Responsibility) e-waste collection targets."
-    ],
-    outcomes: [
-      "Certified energy-efficient appliances, zero BIS safety notices.",
-      "Successful EPR audits, avoiding electronic waste penalties."
-    ],
-    color: "from-purple-600 to-pink-600",
-    cluster: "Consumer & Retail",
-    stats: [
-      { value: "100", suffix: "%", label: "BEE Energy Ratings" },
-      { value: "100", suffix: "%", label: "BIS Safety Stamp Pass" },
-      { value: "↓ 60", suffix: "%", label: "EPR Recycled Targets" },
-      { value: "18-24", suffix: " mo", label: "Average ROI Period" }
+      { value: "100", suffix: "%", label: "Shop License Currency" },
+      { value: "0", label: "Municipal Store Sealings" },
+      { value: "0", label: "Legal Metrology Fines" },
+      { value: "9-15", suffix: " mo", label: "Payback Horizon" }
     ]
   },
   {
     id: "textiles",
-    title: "Textiles",
+    title: "Textiles, Garments & Apparel",
     subtitle: "Social Compliance & Zero Liquid Discharge",
     icon: Scissors,
-    focusAreas: ["Social Audits", "ZLD Compliance", "Contractor Wages"],
-    regulations: ["BSCI Code", "CLRA Act", "Factories Act", "SPCB Consent Norms"],
+    focusAreas: ["Buyer Social Audits (SMETA)", "ZLD Dyeing ETP", "Cotton Dust Health EHS"],
+    regulations: ["Factories Act", "WRAP / SMETA Criteria", "SPCB ZLD Norms", "ZDHC Guidelines"],
     challenges: [
-      "Meeting strict social audit criteria (BSCI, GOTS) for export buyers.",
-      "Operating Zero Liquid Discharge (ZLD) effluent units at dyeing plants."
+      "Passing unannounced global buyer social audits regarding working hours, overtime pay, and labor welfare.",
+      "Operating complex Zero Liquid Discharge (ZLD) effluent plants in textile processing clusters."
     ],
     outcomes: [
-      "Preferred global textile vendor status, zero audit warnings.",
-      "Clean water discharge records, fully compliant environmental licenses."
+      "Preferred export vendor status with 100% buyer social audit pass ratings.",
+      "Continuous ZLD consent currency protecting production lines from environmental closure orders."
     ],
-    color: "from-purple-600 to-pink-600",
+    color: "from-indigo-600 to-purple-700",
     cluster: "Consumer & Retail",
     stats: [
-      { value: "100", suffix: "%", label: "BSCI / GOTS Audit Stamp" },
-      { value: "100", suffix: "%", label: "ZLD Effluent Clearances" },
-      { value: "0", label: "Child Labor Violations" },
-      { value: "18-24", suffix: " mo", label: "Average ROI Period" }
+      { value: "100", suffix: "%", label: "Buyer Audit Pass Rate" },
+      { value: "0", label: "ZLD Non-Compliance Days" },
+      { value: "0", label: "Labor Department Penalties" },
+      { value: "12-18", suffix: " mo", label: "ROI Horizon" }
     ]
   },
   {
-    id: "food-processing",
-    title: "Food Processing",
-    subtitle: "HACCP Safety & Traceability Logs",
-    icon: Utensils,
-    focusAreas: ["Food Safety SOPs", "Batch Traceability", "HACCP Audit"],
-    regulations: ["FSSAI Rules", "ISO 22000", "EPA Guidelines", "Customs Act"],
+    id: "ecommerce",
+    title: "E-Commerce & Digital Marketplaces",
+    subtitle: "Marketplace Integrity & User Trust",
+    icon: ShoppingCart,
+    focusAreas: ["Consumer Protection Rules", "DPDP Customer Privacy", "Warehouse Logistics EHS"],
+    regulations: ["Consumer Protection (E-Commerce) Rules", "DPDP Act 2023", "IT Act Sec 79 (Safe Harbor)"],
     challenges: [
-      "Ensuring cleanrooms hygiene and absolute food safety controls.",
-      "Maintaining batch-traceability records from farm to retail packaging."
+      "Complying with country-of-origin disclosure rules, ticketed customer grievance turnaround times.",
+      "Protecting buyer address and payment token vaults under the Digital Personal Data Protection Act."
     ],
     outcomes: [
-      "Successful FSSAI audits, preventing batch contamination recalls.",
-      "ISO 22000 certified processing plants, unlocking export channels."
+      "100% compliance with consumer protection rules, maintaining statutory safe harbor protections.",
+      "Zero consumer data breaches and fully compliant fulfillment center warehouse operations."
     ],
-    color: "from-purple-600 to-pink-600",
+    color: "from-blue-600 to-cyan-700",
     cluster: "Consumer & Retail",
     stats: [
-      { value: "100", suffix: "%", label: "ISO 22000 Certified" },
-      { value: "100", suffix: "%", label: "Batch Traceability Logs" },
-      { value: "0", label: "Contamination Events" },
-      { value: "12-18", suffix: " mo", label: "Average ROI Period" }
+      { value: "100", suffix: "%", label: "Consumer Rule Compliance" },
+      { value: "0", label: "Safe Harbor Loss Events" },
+      { value: "0", label: "Customer Data Leaks" },
+      { value: "10-16", suffix: " mo", label: "Payback Period" }
+    ]
+  },
+  {
+    id: "jewellery",
+    title: "Gems, Jewellery & Luxury Retail",
+    subtitle: "BIS Hallmarking & AML/CFT Due Diligence",
+    icon: Gem,
+    focusAreas: ["BIS 6-Digit HUID", "PMLA / FIU-IND Reporting", "Strongroom Vault EHS"],
+    regulations: ["BIS Hallmarking Regulations", "PMLA (Bullion Dealer Norms)", "Consumer Protection Act"],
+    challenges: [
+      "Enforcing 100% Hallmark Unique Identification (HUID) laser serialization across every inventory piece.",
+      "Reporting high-value cash transactions and verifying customer identity under FIU-IND anti-money laundering rules."
+    ],
+    outcomes: [
+      "100% BIS hallmarking compliance with zero counterfeit gold seizure events.",
+      "Flawless FIU-IND audit record and fully insured strongroom physical security."
+    ],
+    color: "from-amber-600 to-indigo-800",
+    cluster: "Consumer & Retail",
+    stats: [
+      { value: "100", suffix: "%", label: "HUID Hallmarking Rate" },
+      { value: "0", label: "FIU-IND Penalty Notices" },
+      { value: "100", suffix: "%", label: "Insurance Warranty Compliance" },
+      { value: "12-18", suffix: " mo", label: "Capital Recovery" }
+    ]
+  },
+  {
+    id: "consumer-durables",
+    title: "Consumer Durables & Electronics",
+    subtitle: "BEE Star Labeling & E-Waste EPR",
+    icon: Tv,
+    focusAreas: ["BEE Energy Labeling", "E-Waste EPR Targets", "BIS Mandatory QCO"],
+    regulations: ["BEE Energy Conservation Act", "E-Waste Rules 2022", "BIS Electronics QCO Orders"],
+    challenges: [
+      "Renewing Bureau of Energy Efficiency star ratings and submitting annual production test logs.",
+      "Fulfilling nationwide e-waste collection and certified recycling targets through CPCB portals."
+    ],
+    outcomes: [
+      "Unbroken BEE star label currency and zero retail market product seizure risks.",
+      "100% Extended Producer Responsibility (EPR) quota fulfillment without statutory penalty fines."
+    ],
+    color: "from-blue-700 to-indigo-900",
+    cluster: "Consumer & Retail",
+    stats: [
+      { value: "100", suffix: "%", label: "BEE Star Rating Currency" },
+      { value: "100", suffix: "%", label: "E-Waste EPR Fulfilment" },
+      { value: "0", label: "BIS QCO Seizure Notices" },
+      { value: "12-18", suffix: " mo", label: "Payback Period" }
+    ]
+  },
+  {
+    id: "quick-commerce",
+    title: "Quick Commerce & Hyperlocal Delivery",
+    subtitle: "Dark Store Safety & Gig Workforce Compliance",
+    icon: Bike,
+    focusAreas: ["Dark Store Municipal NOC", "Gig Worker Welfare", "Perishable Expiry Logs"],
+    regulations: ["Shops & Establishments Act", "Code on Social Security (Gig Workers)", "Municipal Fire Codes"],
+    challenges: [
+      "Licensing dense urban dark store micro-warehouses while meeting stringent fire egress and load limits.",
+      "Managing gig delivery rider accident insurance, EV battery safety, and local noise restrictions."
+    ],
+    outcomes: [
+      "100% licensed operational dark stores with zero municipal sealing notices.",
+      "Ethical, compliant gig workforce management insulated from labor department citations."
+    ],
+    color: "from-emerald-600 to-blue-700",
+    cluster: "Consumer & Retail",
+    stats: [
+      { value: "100", suffix: "%", label: "Dark Store License Currency" },
+      { value: "0", label: "Municipal Sealing Actions" },
+      { value: "100", suffix: "%", label: "Rider Insurance Adherence" },
+      { value: "9-15", suffix: " mo", label: "ROI Horizon" }
     ]
   },
 
-  // Cluster 8: Media & Services
+  // ==========================================
+  // CLUSTER 9: MEDIA & SERVICES
+  // ==========================================
   {
-    id: "media-entertainment",
-    title: "Media & Entertainment",
-    subtitle: "IP Protection & Content Broadcasting GRC",
-    icon: Film,
-    focusAreas: ["IP Protection", "Broadcasting GRC", "Tax Compliance"],
-    regulations: ["Copyright Act", "Broadcasting Code", "DPDP Act", "IT Act"],
+    id: "education-training",
+    title: "Higher Education & Training Institutions",
+    subtitle: "Institutional Governance & Accreditation",
+    icon: GraduationCap,
+    focusAreas: ["UGC / AICTE Accreditation", "Campus Fire Safety", "Student Data Privacy"],
+    regulations: ["UGC Regulations", "AICTE Norms", "NAAC Guidelines", "DPDP Act 2023"],
     challenges: [
-      "Mitigating digital piracy and protecting proprietary content library IPs.",
-      "Complying with central broadcasting standards and advisory codes."
+      "Managing vast institutional evidence archives for NAAC and NBA accreditation cycles.",
+      "Securing student personal databases and online examination portals from cyber tampering."
     ],
     outcomes: [
-      "Tamper-proof copyright structures, securing content asset values.",
-      "Compliant broadcasting workflows, avoiding regulatory warnings."
+      "Attainment of prestigious NAAC Grade A+ accreditation status, elevating institutional standing.",
+      "Zero campus safety incidents and robust DPDP personal data protections for all students."
     ],
-    color: "from-sky-700 to-blue-800",
+    color: "from-blue-600 to-indigo-700",
     cluster: "Media & Services",
     stats: [
-      { value: "100", suffix: "%", label: "IP Copyright Registry" },
-      { value: "0", label: "Broadcasting Code Fines" },
-      { value: "↓ 50", suffix: "%", label: "Subscriber Data Risks" },
-      { value: "12-18", suffix: " mo", label: "Average ROI Period" }
+      { value: "100", suffix: "%", label: "NAAC Criteria Compliance" },
+      { value: "0", label: "Campus Safety Deviations" },
+      { value: "0", label: "Examination Data Leaks" },
+      { value: "12-18", suffix: " mo", label: "Payback Period" }
     ]
   },
   {
     id: "tourism-hospitality",
-    title: "Tourism & Hospitality",
-    subtitle: "Hotel Safety & Customer Privacy",
+    title: "Hospitality & Hotels",
+    subtitle: "Hotel Safety & Guest Privacy",
     icon: Hotel,
-    focusAreas: ["Hotel Safety", "Customer Privacy", "FSSAI Food Safety"],
-    regulations: ["DPDP Act", "FSSAI Guidelines", "Sarais Act", "Local Licenses"],
+    focusAreas: ["HRACC Star Classification", "Kitchen FSSAI Hygiene", "Police C-Form Filings"],
+    regulations: ["Ministry of Tourism Guidelines", "FSSAI Regulations", "Foreigners Act (C-Form)", "Fire NOC"],
     challenges: [
-      "Securing hotel guest passport and credit card data from database leaks.",
-      "Managing food hygiene and liquor licensing across hospital operations."
+      "Passing rigorous 5-Star HRACC inspections across room amenities, kitchen hygiene, and accessibility.",
+      "Managing daily commercial banquet food safety logs and mandatory police guest registration portals."
     ],
     outcomes: [
-      "Highly secure guest database systems, avoiding privacy breaches.",
-      "Valid operational licenses, zero hygiene penalty notices."
+      "Elite 5-Star / Heritage hotel categorization award driving premium room yields.",
+      "Zero food safety incidents and 100% timely immigration police compliance."
     ],
-    color: "from-sky-700 to-blue-800",
+    color: "from-amber-600 to-slate-800",
     cluster: "Media & Services",
     stats: [
-      { value: "100", suffix: "%", label: "Sarai Act Compliance" },
-      { value: "0", label: "Guest Database Leaks" },
-      { value: "↓ 70", suffix: "%", label: "Food Safety Warnings" },
-      { value: "12-15", suffix: " mo", label: "Average ROI Period" }
+      { value: "100", suffix: "%", label: "HRACC Star Classification" },
+      { value: "0", label: "Food Hygiene Penalty Events" },
+      { value: "100", suffix: "%", label: "Police C-Form Compliance" },
+      { value: "12-18", suffix: " mo", label: "Capital Recovery" }
+    ]
+  },
+  {
+    id: "media-entertainment",
+    title: "Media & Entertainment",
+    subtitle: "IP Protection & Broadcasting Compliance",
+    icon: Film,
+    focusAreas: ["CBFC / OTT Age Rating", "Copyright Chain of Title", "Production Set EHS"],
+    regulations: ["Cinematograph Act 1952", "IT Rules 2021 (Digital Media)", "Copyright Act", "NCPCR Guidelines"],
+    challenges: [
+      "Navigating Central Board of Film Certification (CBFC) and OTT self-regulatory body rating codes.",
+      "Ensuring stunt pyrotechnics, high-altitude rigging, and child artist hours comply with strict safety rules."
+    ],
+    outcomes: [
+      "On-schedule theatrical and streaming releases with zero legal injunction stoppages.",
+      "Pristine production set safety record with zero insurance claim disputes."
+    ],
+    color: "from-purple-600 to-indigo-800",
+    cluster: "Media & Services",
+    stats: [
+      { value: "100", suffix: "%", label: "Release Schedule Clearance" },
+      { value: "0", label: "Copyright Injunctions" },
+      { value: "0", label: "Film Set Lost-Time Accidents" },
+      { value: "10-16", suffix: " mo", label: "Payback Horizon" }
     ]
   },
   {
     id: "aviation",
-    title: "Aviation",
-    subtitle: "Aircraft EHS & DGCA Regulatory Compliance",
+    title: "Aviation, Airlines & Airport Hubs",
+    subtitle: "DGCA Safety Standards & Airport EHS",
     icon: Plane,
-    focusAreas: ["Aircraft Maintenance EHS", "DGCA Compliance", "Security Audits"],
-    regulations: ["DGCA Rules", "BCAS Guidelines", "Aircraft Act", "ISO 9001"],
+    focusAreas: ["DGCA Safety Requirements", "Aerodrome Fire (ARFF)", "BCAS Security Passes"],
+    regulations: ["DGCA Civil Aviation Requirements (CAR)", "Aircraft Rules 1937", "BCAS Norms", "ICAO Annexes"],
     challenges: [
-      "Adhering to strict DGCA aircraft maintenance and air crew hour limits.",
-      "BCAS airport security clearance guidelines for operations."
+      "Adhering to mandatory DGCA pilot flight duty time limitations (FDTL) and airworthiness directives.",
+      "Maintaining airport rescue and firefighting (ARFF) response times under strict aerodrome licensing rules."
     ],
     outcomes: [
-      "Airworthiness certification, zero regulatory safety actions.",
-      "Approved airport operations under secure security logs."
+      "100% DGCA safety audit pass rate with zero flight grounding orders.",
+      "Continuous aerodrome license validity and uncompromised airside security."
     ],
-    color: "from-sky-700 to-blue-800",
+    color: "from-blue-600 to-cyan-700",
     cluster: "Media & Services",
     stats: [
-      { value: "0", label: "DGCA Safety Fines" },
-      { value: "100", suffix: "%", label: "BCAS Security Clearance" },
-      { value: "100", suffix: "%", label: "Aircraft Flight Logs Clear" },
-      { value: "18-24", suffix: " mo", label: "Average ROI Period" }
+      { value: "100", suffix: "%", label: "DGCA Safety Audit Score" },
+      { value: "0", label: "Regulatory Flight Groundings" },
+      { value: "100", suffix: "%", label: "Aerodrome License Currency" },
+      { value: "16-24", suffix: " mo", label: "Compliance ROI" }
     ]
   },
   {
-    id: "education-training",
-    title: "Education & Training",
-    subtitle: "Institutional Governance & Accreditation",
-    icon: GraduationCap,
-    focusAreas: ["Accreditation Audits", "Student Data Privacy", "HR Policies"],
-    regulations: ["UGC/AICTE Norms", "NAAC Guidelines", "DPDP Act", "CLRA"],
+    id: "broadcasting",
+    title: "Television Broadcasting & Cable Networks",
+    subtitle: "Broadcasting Code & Telecom Regulations",
+    icon: Tv,
+    focusAreas: ["MIB Uplinking Permissions", "Cable TV Programme Code", "TRAI Quality of Service"],
+    regulations: ["Cable TV Networks Act 1995", "MIB Policy Guidelines 2022", "TRAI QoS Regulations"],
     challenges: [
-      "Documenting compliance indicators for UGC/AICTE affiliation cycles.",
-      "Managing student and parent personal data records under the DPDP Act."
+      "Ensuring 24/7 broadcast transmission feeds strictly comply with advertising and programme codes.",
+      "Auditing digital addressable system (DAS) encryption logs and subscriber billing records for TRAI."
     ],
     outcomes: [
-      "Higher NAAC/NBA scores, improving institutional reputation.",
-      "Audit-proof student portals with DPDP-compliant consent."
+      "100% broadcast license currency with zero Ministry of Information & Broadcasting show-cause notices.",
+      "Flawless TRAI audit record with zero consumer grievance financial penalties."
     ],
-    color: "from-sky-700 to-blue-800",
+    color: "from-indigo-600 to-slate-800",
     cluster: "Media & Services",
     stats: [
-      { value: "100", suffix: "%", label: "NAAC Accreditation Pass" },
-      { value: "100", suffix: "%", label: "Student DPDP Consent" },
-      { value: "↓ 80", suffix: "%", label: "UGC Affiliation Overheads" },
-      { value: "12-18", suffix: " mo", label: "Average ROI Period" }
+      { value: "100", suffix: "%", label: "MIB License Currency" },
+      { value: "0", label: "Broadcast Advisory Warnings" },
+      { value: "100", suffix: "%", label: "TRAI QoS Audit Clearance" },
+      { value: "12-18", suffix: " mo", label: "Payback Period" }
     ]
   },
   {
-    id: "agriculture-allied",
-    title: "Agriculture & Allied",
-    subtitle: "Pesticide Limits & Traceable Organic Sourcing",
-    icon: Sprout,
-    focusAreas: ["Organic Audits", "Pesticide SOPs", "Logistics Operations"],
-    regulations: ["APEDA Rules", "EPA 1986", "Insecticides Act", "FSSAI Standards"],
+    id: "sports-events",
+    title: "Sports Leagues, Arenas & Large Events",
+    subtitle: "Mass Gathering Safety & Fire NOC Protocols",
+    icon: Trophy,
+    focusAreas: ["Stadium Structural Safety", "Multi-Agency Police NOC", "Spectator Liability EHS"],
+    regulations: ["Disaster Management Act 2005", "National Building Code", "Police Public Amusement Rules"],
     challenges: [
-      "Conforming to strict pesticide limits and organic farming records.",
-      "Managing logistics pipelines for perishable crop inventories."
+      "Securing engineering certifications for temporary spectator grandstands, staging, and turnstiles.",
+      "Coordinating multi-agency permits across local police, municipal fire, and medical response units."
     ],
     outcomes: [
-      "APEDA certified organic crop status, securing price premiums.",
-      "Minimized crop wastage and flawless statutory compliance registers."
+      "100% pre-event safety clearance with zero crowd surge or structural safety incidents.",
+      "Comprehensive public liability and event cancellation insurance protection."
     ],
-    color: "from-sky-700 to-blue-800",
+    color: "from-amber-600 to-blue-800",
     cluster: "Media & Services",
     stats: [
-      { value: "100", suffix: "%", label: "APEDA Organic Certificate" },
-      { value: "0", label: "Pesticide Over-Limit Alerts" },
-      { value: "↓ 50", suffix: "%", label: "Supply Chain Waste" },
-      { value: "12-18", suffix: " mo", label: "Average ROI Period" }
+      { value: "100", suffix: "%", label: "Pre-Event NOC Approvals" },
+      { value: "0", label: "Crowd Safety Incidents" },
+      { value: "100", suffix: "%", label: "Structural Safety Score" },
+      { value: "10-16", suffix: " mo", label: "ROI Horizon" }
     ]
   }
 ];
 
-export const getIndustryIcon = (id: string) => {
-  const segment = industriesData.find(ind => ind.id === id);
-  return segment ? segment.icon : Landmark;
+export const getIndustryById = (id: string): IndustrySegment | undefined => {
+  return industriesData.find(ind => ind.id === id);
 };

@@ -5,7 +5,9 @@ import {
   HeartHandshake, ShoppingCart, Pill, Activity, Stethoscope, 
   Dna, ShoppingBag, Scissors, Utensils, Film, Hotel, 
   GraduationCap, Factory,
-  Package, Radio, HardHat
+  Package, Radio, HardHat,
+  Droplets, Leaf, Truck, Globe, CreditCard, BarChart3, Microscope,
+  FlaskConical, ChefHat, Tractor, Plane, Tv, Building, Users, Wifi
 } from "lucide-react";
 
 export interface DocumentedOfferingLink {
@@ -21,7 +23,7 @@ export interface BusinessSegmentItem {
   typicalOperatingModel?: string;
   relevantIndustryRisks: string[];
   applicableGrcConsiderations: string[];
-  relatedVerifiedOfferings: string[];
+  relatedVerifiedOfferings?: string[];
 }
 
 export interface SubIndustryRecord {
@@ -383,6 +385,144 @@ export const whomWeServeClusters: IndustryClusterRecord[] = [
         searchKeywords: ["msme", "sme", "small business", "factories", "statutory registers"],
         verificationStatus: "confirmed",
         publicationStatus: "published"
+      },
+      {
+        id: "chemicals-specialty",
+        title: "Chemicals & Specialty Coatings",
+        slug: "chemicals-specialty",
+        parentClusterId: "manufacturing-industrial",
+        parentClusterName: "Manufacturing & Industrial",
+        subtitle: "Process Safety & Hazardous Chemical Compliance",
+        overview: "Specialty chemical plants, paint manufacturers, and adhesive producers operating under stringent Factories Act hazardous process schedules, CPCB effluent limits, and chemical import licensing frameworks.",
+        icon: FlaskConical,
+        iconName: "FlaskConical",
+        displayOrder: 6,
+        regulations: ["Factories Act (Hazardous Processes)", "EPA 1986", "CPCB Emission Norms", "Customs Hazardous Chemicals Rules"],
+        focusAreas: ["Hazardous Chemical Storage", "ETP Effluent Monitoring", "Process Safety"],
+        businessSegments: [
+          {
+            name: "Specialty Coatings & Adhesive Manufacturing",
+            description: "Solvent-based paints, industrial adhesives, and anti-corrosion coating units.",
+            relevantIndustryRisks: ["VOC emission limit breaches", "Flammable solvent storage safety"],
+            applicableGrcConsiderations: ["SPCB stack emission consents", "Flammable storage safety certificates"],
+            relatedVerifiedOfferings: ["environmental-compliance", "regulatory-compliance"]
+          }
+        ],
+        relevantGrcTopics: [
+          "Factories Act Schedule IV hazardous process notifications",
+          "Effluent trade consent renewals and online monitoring portal uploads",
+          "Chemical import license and SDS (Safety Data Sheet) regulatory registers"
+        ],
+        linkedOfferings: [
+          {
+            serviceId: "environmental-compliance",
+            serviceName: "Environmental Compliance",
+            route: "/services/environmental-compliance",
+            relevance: "CPCB/SPCB consent-to-establish, consent-to-operate, and effluent reports."
+          },
+          {
+            serviceId: "regulatory-compliance",
+            serviceName: "Regulatory Compliance",
+            route: "/services/regulatory-compliance",
+            relevance: "Hazardous process statutory registers and chemical import documentation."
+          }
+        ],
+        existingRoute: "/industries/manufacturing-industrial#chemicals-specialty",
+        searchKeywords: ["chemicals", "coatings", "paint", "adhesive", "hazardous process", "etp", "voc"],
+        verificationStatus: "confirmed",
+        publicationStatus: "published"
+      },
+      {
+        id: "plastics-rubber",
+        title: "Plastics & Rubber Processing",
+        slug: "plastics-rubber",
+        parentClusterId: "manufacturing-industrial",
+        parentClusterName: "Manufacturing & Industrial",
+        subtitle: "EPR Compliance & Polymer Waste Management",
+        overview: "Polymer compounders, injection moulding units, and rubber goods manufacturers managing Extended Producer Responsibility (EPR) obligations, plastic waste rules, and factory floor chemical safety.",
+        icon: Package,
+        iconName: "Package",
+        displayOrder: 7,
+        regulations: ["Plastic Waste Management Rules 2016", "Factories Act", "BIS Standards", "EPR Guidelines"],
+        focusAreas: ["EPR Registration", "Plastic Waste Reduction", "Factory Safety"],
+        businessSegments: [
+          {
+            name: "Injection Moulding & Polymer Components",
+            description: "High-volume plastic part manufacturers supplying automotive and consumer sectors.",
+            relevantIndustryRisks: ["EPR target non-fulfilment", "Plasticizer chemical exposure"],
+            applicableGrcConsiderations: ["CPCB EPR portal registration", "Worker chemical hazard exposure monitoring"],
+            relatedVerifiedOfferings: ["environmental-compliance", "labour-law-compliance"]
+          }
+        ],
+        relevantGrcTopics: [
+          "CPCB Extended Producer Responsibility (EPR) portal registration and annual targets",
+          "Plastic Waste Management Rules 2016 producer obligations and compliance returns",
+          "Factory floor chemical exposure monitoring and occupational health records"
+        ],
+        linkedOfferings: [
+          {
+            serviceId: "environmental-compliance",
+            serviceName: "Environmental Compliance",
+            route: "/services/environmental-compliance",
+            relevance: "EPR returns, plastic waste collection targets, and environmental registers."
+          },
+          {
+            serviceId: "labour-law-compliance",
+            serviceName: "Labour Law Compliance",
+            route: "/services/labour-law-compliance",
+            relevance: "Factory Act statutory registers and occupational health surveillance."
+          }
+        ],
+        existingRoute: "/industries/manufacturing-industrial#plastics-rubber",
+        searchKeywords: ["plastics", "rubber", "polymer", "epr", "injection moulding", "plastic waste"],
+        verificationStatus: "confirmed",
+        publicationStatus: "published"
+      },
+      {
+        id: "glass-ceramics",
+        title: "Glass, Ceramics & Refractories",
+        slug: "glass-ceramics",
+        parentClusterId: "manufacturing-industrial",
+        parentClusterName: "Manufacturing & Industrial",
+        subtitle: "High-Temperature Process Safety & Emission Monitoring",
+        overview: "Flat glass producers, ceramic sanitaryware manufacturers, and refractory brick units operating high-temperature kilns subject to continuous emission norms, silica dust controls, and energy efficiency regulations.",
+        icon: Droplets,
+        iconName: "Droplets",
+        displayOrder: 8,
+        regulations: ["Environment Protection Act 1986", "Factories Act", "CPCB Emission Norms", "Energy Conservation Act"],
+        focusAreas: ["Kiln Emissions", "Silica Dust Controls", "Energy Efficiency"],
+        businessSegments: [
+          {
+            name: "Flat Glass & Container Glass Production",
+            description: "Continuous tank furnaces for architectural and packaging glass.",
+            relevantIndustryRisks: ["Particulate emission spikes from furnaces", "Silica sand dust inhalation hazards"],
+            applicableGrcConsiderations: ["CEMS emission data uploads", "Silica occupational exposure limit monitoring"],
+            relatedVerifiedOfferings: ["environmental-compliance", "labour-law-compliance"]
+          }
+        ],
+        relevantGrcTopics: [
+          "Continuous Emission Monitoring System (CEMS) compliance for high-temperature kilns",
+          "Silica dust exposure measurement and respiratory health surveillance",
+          "BEE energy star ratings and designated consumer energy audit records"
+        ],
+        linkedOfferings: [
+          {
+            serviceId: "environmental-compliance",
+            serviceName: "Environmental Compliance",
+            route: "/services/environmental-compliance",
+            relevance: "CEMS monitoring, particulate emission registers, and SPCB filings."
+          },
+          {
+            serviceId: "labour-law-compliance",
+            serviceName: "Labour Law Compliance",
+            route: "/services/labour-law-compliance",
+            relevance: "Occupational health records and silica hazard exposure logs under the Factories Act."
+          }
+        ],
+        existingRoute: "/industries/manufacturing-industrial#glass-ceramics",
+        searchKeywords: ["glass", "ceramics", "refractories", "kilns", "silica", "cems", "emission"],
+        verificationStatus: "confirmed",
+        publicationStatus: "published"
       }
     ]
   },
@@ -622,6 +762,190 @@ export const whomWeServeClusters: IndustryClusterRecord[] = [
         searchKeywords: ["ev", "electric vehicles", "battery", "ais-156", "clean mobility", "epr"],
         verificationStatus: "confirmed",
         publicationStatus: "published"
+      },
+      {
+        id: "cybersecurity-services",
+        title: "Cybersecurity & InfoSec Services",
+        slug: "cybersecurity-services",
+        parentClusterId: "technology-electronics",
+        parentClusterName: "Technology & Electronics",
+        subtitle: "Managed Security & CERT-In Compliance",
+        overview: "Managed security service providers (MSSPs), penetration testing firms, and security operations centres (SOCs) delivering threat detection, incident response, and compliance assurance services to regulated clients.",
+        icon: ShieldAlert,
+        iconName: "ShieldAlert",
+        displayOrder: 5,
+        regulations: ["CERT-In Directions 2022", "IT Act 2000", "ISO 27001", "DPDP Act 2023"],
+        focusAreas: ["SOC Operations", "CERT-In Incident Reporting", "Penetration Testing"],
+        businessSegments: [
+          {
+            name: "Managed Security Operations Centres (MSSP/SOC)",
+            description: "24×7 threat monitoring, SIEM management, and client compliance dashboards.",
+            relevantIndustryRisks: ["SLA breach for incident response", "Sub-processor data exposure"],
+            applicableGrcConsiderations: ["CERT-In 6-hour reporting playbooks", "Client data handling policies"],
+            relatedVerifiedOfferings: ["cybersecurity-iso27001", "incident-response"]
+          }
+        ],
+        relevantGrcTopics: [
+          "CERT-In mandatory 6-hour cyber incident reporting and log retention requirements",
+          "ISO 27001 ISMS gap assessments for security service providers",
+          "Client data classification and cross-border transfer controls under DPDP"
+        ],
+        linkedOfferings: [
+          {
+            serviceId: "cybersecurity-iso27001",
+            serviceName: "Cybersecurity & ISO 27001",
+            route: "/services/cybersecurity-iso27001",
+            relevance: "ISMS framework design, vulnerability management, and SOC 2 readiness."
+          },
+          {
+            serviceId: "data-privacy-dpdp",
+            serviceName: "Data Privacy & DPDP",
+            route: "/services/data-privacy-dpdp",
+            relevance: "Client data processing agreements and DPDP consent architecture."
+          }
+        ],
+        existingRoute: "/industries/technology-electronics#cybersecurity-services",
+        searchKeywords: ["cybersecurity", "mssp", "soc", "cert-in", "iso 27001", "penetration testing"],
+        verificationStatus: "confirmed",
+        publicationStatus: "published"
+      },
+      {
+        id: "fintech-digital-payments",
+        title: "Fintech & Digital Payments",
+        slug: "fintech-digital-payments",
+        parentClusterId: "technology-electronics",
+        parentClusterName: "Technology & Electronics",
+        subtitle: "RBI Payment Aggregator Norms & Data Security",
+        overview: "Payment aggregators, lending platforms, and digital wallet operators complying with RBI Payment Aggregator guidelines, NPCI operational standards, and PCI-DSS security requirements.",
+        icon: CreditCard,
+        iconName: "CreditCard",
+        displayOrder: 6,
+        regulations: ["RBI Payment Aggregator Guidelines 2020", "PCI-DSS", "DPDP Act 2023", "PMLA 2002"],
+        focusAreas: ["RBI Authorization", "PCI-DSS Compliance", "AML & KYC"],
+        businessSegments: [
+          {
+            name: "Payment Aggregators & Digital Wallets",
+            description: "Online merchant payment acceptance platforms and stored-value wallets.",
+            relevantIndustryRisks: ["Fraudulent transaction spikes", "RBI networth covenant breach"],
+            applicableGrcConsiderations: ["RBI escrow account monitoring", "PCI-DSS annual QSA assessments"],
+            relatedVerifiedOfferings: ["regulatory-compliance", "cybersecurity-iso27001"]
+          }
+        ],
+        relevantGrcTopics: [
+          "RBI Payment Aggregator authorization and net-worth thresholds compliance",
+          "PCI-DSS card data environment scoping and quarterly ASV scans",
+          "PMLA transaction monitoring and suspicious activity reporting for fintechs"
+        ],
+        linkedOfferings: [
+          {
+            serviceId: "regulatory-compliance",
+            serviceName: "Regulatory Compliance",
+            route: "/services/regulatory-compliance",
+            relevance: "RBI PA/PG licensing compliance and NPCI operational standards tracking."
+          },
+          {
+            serviceId: "cybersecurity-iso27001",
+            serviceName: "Cybersecurity Services",
+            route: "/services/cybersecurity-iso27001",
+            relevance: "PCI-DSS scoping, card data environment audits, and penetration testing."
+          }
+        ],
+        existingRoute: "/industries/technology-electronics#fintech-digital-payments",
+        searchKeywords: ["fintech", "payments", "rbi pa", "pci-dss", "wallet", "digital payments", "npci"],
+        verificationStatus: "confirmed",
+        publicationStatus: "published"
+      },
+      {
+        id: "cloud-data-centres",
+        title: "Cloud & Data Centre Operations",
+        slug: "cloud-data-centres",
+        parentClusterId: "technology-electronics",
+        parentClusterName: "Technology & Electronics",
+        subtitle: "Data Localisation & Infrastructure Security",
+        overview: "Hyperscale and co-location data centre operators, cloud service providers, and edge computing facilities managing data residency regulations, ISO 27001 physical security, and energy compliance.",
+        icon: Globe,
+        iconName: "Globe",
+        displayOrder: 7,
+        regulations: ["DPDP Act 2023 (Data Localisation)", "ISO 27001", "CERT-In Directions", "Electricity Act 2003"],
+        focusAreas: ["Data Residency", "Physical Security", "Environmental Footprint"],
+        businessSegments: [
+          {
+            name: "Co-location & Cloud Hosting Providers",
+            description: "Enterprise-grade data centres offering managed infrastructure and IaaS.",
+            relevantIndustryRisks: ["Cross-border data transfer non-compliance", "Physical intrusion and insider threats"],
+            applicableGrcConsiderations: ["DPDP data fiduciary obligations", "ISO 27001 A.11 physical security controls"],
+            relatedVerifiedOfferings: ["cybersecurity-iso27001", "data-privacy-dpdp"]
+          }
+        ],
+        relevantGrcTopics: [
+          "DPDP Act data localisation mandates and cross-border transfer safeguards",
+          "ISO 27001 data centre physical security (CCTV, access control, visitor logs)",
+          "Power Usage Effectiveness (PUE) energy efficiency and environmental regulatory logs"
+        ],
+        linkedOfferings: [
+          {
+            serviceId: "cybersecurity-iso27001",
+            serviceName: "Cybersecurity & ISO 27001",
+            route: "/services/cybersecurity-iso27001",
+            relevance: "Data centre ISMS and physical security audit preparation."
+          },
+          {
+            serviceId: "data-privacy-dpdp",
+            serviceName: "Data Privacy & DPDP",
+            route: "/services/data-privacy-dpdp",
+            relevance: "Data localisation compliance and cross-border processing safeguards."
+          }
+        ],
+        existingRoute: "/industries/technology-electronics#cloud-data-centres",
+        searchKeywords: ["cloud", "data centre", "hosting", "iaas", "data localisation", "dpdp"],
+        verificationStatus: "confirmed",
+        publicationStatus: "published"
+      },
+      {
+        id: "edtech-elearning",
+        title: "EdTech & E-Learning Platforms",
+        slug: "edtech-elearning",
+        parentClusterId: "technology-electronics",
+        parentClusterName: "Technology & Electronics",
+        subtitle: "Student Data Privacy & Platform Governance",
+        overview: "Online learning platforms, skill development companies, and educational technology providers handling student personal data, payment records, and academic performance under emerging EdTech regulatory scrutiny.",
+        icon: GraduationCap,
+        iconName: "GraduationCap",
+        displayOrder: 8,
+        regulations: ["DPDP Act 2023", "IT Act 2000", "Consumer Protection Act 2019", "UGC Online Education Norms"],
+        focusAreas: ["Minor Data Protection", "Consumer Grievances", "IT Rules 2021"],
+        businessSegments: [
+          {
+            name: "Online Learning & Upskilling Platforms",
+            description: "Subscription-based professional skill and K-12 academic platforms.",
+            relevantIndustryRisks: ["Minor learner personal data misuse", "Refund policy consumer disputes"],
+            applicableGrcConsiderations: ["DPDP parental consent for minors", "Consumer Protection grievance officer portal"],
+            relatedVerifiedOfferings: ["data-privacy-dpdp", "regulatory-compliance"]
+          }
+        ],
+        relevantGrcTopics: [
+          "DPDP Act 2023 consent requirements for minor learner data and parental consent",
+          "Consumer Protection (E-Commerce) Rules grievance officer and refund policies",
+          "IT Rules 2021 intermediary due diligence and content moderation policies"
+        ],
+        linkedOfferings: [
+          {
+            serviceId: "data-privacy-dpdp",
+            serviceName: "Data Privacy & DPDP",
+            route: "/services/data-privacy-dpdp",
+            relevance: "Student data mapping, parental consent architecture, and RoPA registers."
+          },
+          {
+            serviceId: "regulatory-compliance",
+            serviceName: "Regulatory Compliance",
+            route: "/services/regulatory-compliance",
+            relevance: "IT Rules 2021 intermediary compliance and UGC online education filings."
+          }
+        ],
+        existingRoute: "/industries/technology-electronics#edtech-elearning",
+        searchKeywords: ["edtech", "e-learning", "online education", "student data", "minor data", "ugc"],
+        verificationStatus: "confirmed",
+        publicationStatus: "published"
       }
     ]
   },
@@ -854,6 +1178,190 @@ export const whomWeServeClusters: IndustryClusterRecord[] = [
         searchKeywords: ["steel", "metals", "blast furnace", "slag", "metallurgy", "rolling mills"],
         verificationStatus: "confirmed",
         publicationStatus: "published"
+      },
+      {
+        id: "ports-logistics",
+        title: "Ports & Logistics Hubs",
+        slug: "ports-logistics",
+        parentClusterId: "infrastructure-construction",
+        parentClusterName: "Infrastructure & Construction",
+        subtitle: "Customs Compliance & Port EHS Governance",
+        overview: "Major and minor port trusts, logistics park developers, and integrated warehousing hubs managing dock worker safety, customs warehousing licenses, dangerous goods handling, and multimodal transport EHS.",
+        icon: Truck,
+        iconName: "Truck",
+        displayOrder: 5,
+        regulations: ["Major Port Authorities Act 2021", "Customs Act 1962", "BOCW Safety Norms", "Dangerous Goods Rules"],
+        focusAreas: ["Dock Worker Safety", "Customs Warehousing", "Dangerous Goods"],
+        businessSegments: [
+          {
+            name: "Container Terminals & Warehousing Parks",
+            description: "Deep-water container berths and bonded logistics warehousing facilities.",
+            relevantIndustryRisks: ["Crane and dock worker fatality risks", "Dangerous goods mislabelling"],
+            applicableGrcConsiderations: ["Dock Workers Safety Regulations", "Customs bonded warehouse license audits"],
+            relatedVerifiedOfferings: ["labour-law-compliance", "regulatory-compliance"]
+          }
+        ],
+        relevantGrcTopics: [
+          "Dock Workers (Safety, Health and Welfare) Regulations compliance",
+          "Customs bonded warehouse licensing and periodic reconciliation audits",
+          "Dangerous goods classification, labelling, and segregation records"
+        ],
+        linkedOfferings: [
+          {
+            serviceId: "labour-law-compliance",
+            serviceName: "Labour Law Compliance",
+            route: "/services/labour-law-compliance",
+            relevance: "Dock and contract worker safety registers and statutory insurance compliance."
+          },
+          {
+            serviceId: "regulatory-compliance",
+            serviceName: "Regulatory Compliance",
+            route: "/services/regulatory-compliance",
+            relevance: "Port authority licensing and customs warehousing compliance filings."
+          }
+        ],
+        existingRoute: "/industries/infrastructure-construction#ports-logistics",
+        searchKeywords: ["ports", "logistics", "dock", "warehousing", "customs", "container terminal"],
+        verificationStatus: "confirmed",
+        publicationStatus: "published"
+      },
+      {
+        id: "metro-rail-transit",
+        title: "Urban Metro & Rail Transit",
+        slug: "metro-rail-transit",
+        parentClusterId: "infrastructure-construction",
+        parentClusterName: "Infrastructure & Construction",
+        subtitle: "Metro Rail Safety & Public Works Compliance",
+        overview: "Metro rail corporations, urban rapid transit operators, and railway infrastructure contractors managing electrical safety, tunneling EHS, passenger safety standards, and government contract compliance.",
+        icon: Milestone,
+        iconName: "Milestone",
+        displayOrder: 6,
+        regulations: ["Metro Railway Act 2002", "Electricity Act 2003", "BOCW Act", "Fire Safety Standards"],
+        focusAreas: ["Tunneling Safety", "Electrical Clearances", "Labour Compliance"],
+        businessSegments: [
+          {
+            name: "Metro Rail Civil & Systems Contractors",
+            description: "Tunnel boring, elevated viaduct, and station civil contractors.",
+            relevantIndustryRisks: ["Underground tunneling collapse hazards", "High-voltage OHE electrocution risks"],
+            applicableGrcConsiderations: ["Tunneling safety management plans", "Electrical inspector clearances"],
+            relatedVerifiedOfferings: ["labour-law-compliance", "environmental-compliance"]
+          }
+        ],
+        relevantGrcTopics: [
+          "BOCW cess deduction, payment proof, and site injury registers for tunneling works",
+          "Electrical Inspector to Government (EIG) clearances for traction and signaling systems",
+          "Vibration and noise impact monitoring during underground drilling and blasting"
+        ],
+        linkedOfferings: [
+          {
+            serviceId: "labour-law-compliance",
+            serviceName: "Labour Law Compliance",
+            route: "/services/labour-law-compliance",
+            relevance: "BOCW statutory compliance for large-scale civil construction workforces."
+          },
+          {
+            serviceId: "environmental-compliance",
+            serviceName: "Environmental Compliance",
+            route: "/services/environmental-compliance",
+            relevance: "Dust, vibration, and noise pollution control at urban transit worksites."
+          }
+        ],
+        existingRoute: "/industries/infrastructure-construction#metro-rail-transit",
+        searchKeywords: ["metro", "rail transit", "tunneling", "railway", "bocw", "urban transit"],
+        verificationStatus: "confirmed",
+        publicationStatus: "published"
+      },
+      {
+        id: "water-infrastructure",
+        title: "Water Infrastructure & Treatment",
+        slug: "water-infrastructure",
+        parentClusterId: "infrastructure-construction",
+        parentClusterName: "Infrastructure & Construction",
+        subtitle: "WTP/STP Environmental Compliance & Safety",
+        overview: "Municipal water treatment plants (WTP), sewage treatment plants (STP), and bulk water pipeline infrastructure operators ensuring treated water quality standards, CPCB effluent compliance, and contractor safety.",
+        icon: Droplets,
+        iconName: "Droplets",
+        displayOrder: 7,
+        regulations: ["Environment Protection Act 1986", "CPCB Water Quality Standards", "BOCW Act", "National Water Policy"],
+        focusAreas: ["Effluent Quality Compliance", "STP/WTP Inspections", "Labour Safety"],
+        businessSegments: [
+          {
+            name: "Sewage Treatment Plant (STP) Operations",
+            description: "Urban municipal wastewater treatment and reuse infrastructure.",
+            relevantIndustryRisks: ["Effluent discharge exceeding BOD/COD limits", "Confined space worker asphyxiation"],
+            applicableGrcConsiderations: ["CPCB/SPCB trade effluent standards monitoring", "Confined space entry permit registers"],
+            relatedVerifiedOfferings: ["environmental-compliance", "labour-law-compliance"]
+          }
+        ],
+        relevantGrcTopics: [
+          "CPCB treated wastewater quality standards (BOD, COD, pH) compliance monitoring",
+          "Confined space permit-to-work registers for STP maintenance operations",
+          "Contractor wage reconciliation and BOCW safety compliance at project sites"
+        ],
+        linkedOfferings: [
+          {
+            serviceId: "environmental-compliance",
+            serviceName: "Environmental Compliance",
+            route: "/services/environmental-compliance",
+            relevance: "STP/WTP effluent quality monitoring logs and SPCB discharge consents."
+          },
+          {
+            serviceId: "labour-law-compliance",
+            serviceName: "Labour Law Compliance",
+            route: "/services/labour-law-compliance",
+            relevance: "Confined space worker safety permits and BOCW statutory compliance."
+          }
+        ],
+        existingRoute: "/industries/infrastructure-construction#water-infrastructure",
+        searchKeywords: ["water treatment", "sewage", "stp", "wtp", "effluent", "municipal infrastructure"],
+        verificationStatus: "confirmed",
+        publicationStatus: "published"
+      },
+      {
+        id: "industrial-parks-sez",
+        title: "Industrial Parks & Special Economic Zones",
+        slug: "industrial-parks-sez",
+        parentClusterId: "infrastructure-construction",
+        parentClusterName: "Infrastructure & Construction",
+        subtitle: "SEZ Compliance & Multi-Tenant EHS Governance",
+        overview: "SEZ developers, industrial park operators, and plug-and-play manufacturing hub managers ensuring common facility environmental compliance, zone authority filings, and multi-tenant contractor safety governance.",
+        icon: Building2,
+        iconName: "Building2",
+        displayOrder: 8,
+        regulations: ["SEZ Act 2005", "Environment Protection Act", "Factories Act", "BOCW Act"],
+        focusAreas: ["Zone Authority Compliance", "Common ETP Operations", "Multi-Tenant Labour"],
+        businessSegments: [
+          {
+            name: "SEZ Developer & Zone Management",
+            description: "Infrastructure development and facility management for manufacturing SEZ units.",
+            relevantIndustryRisks: ["Zone authority compliance lapses", "Common ETP overloading"],
+            applicableGrcConsiderations: ["SEZ annual performance statement filings", "CPCB common ETP consent conditions"],
+            relatedVerifiedOfferings: ["regulatory-compliance", "environmental-compliance"]
+          }
+        ],
+        relevantGrcTopics: [
+          "SEZ Act 2005 zone authority annual reports and unit-wise performance statements",
+          "Common Effluent Treatment Plant (CETP) regulatory consent and trade waste allocation",
+          "Multi-tenant contractor workforce compliance and site safety coordination"
+        ],
+        linkedOfferings: [
+          {
+            serviceId: "regulatory-compliance",
+            serviceName: "Regulatory Compliance",
+            route: "/services/regulatory-compliance",
+            relevance: "Zone authority filings, unit-level trade licenses, and SEZ annual returns."
+          },
+          {
+            serviceId: "environmental-compliance",
+            serviceName: "Environmental Compliance",
+            route: "/services/environmental-compliance",
+            relevance: "Common ETP compliance management and multi-unit environmental returns."
+          }
+        ],
+        existingRoute: "/industries/infrastructure-construction#industrial-parks-sez",
+        searchKeywords: ["sez", "industrial park", "special economic zone", "cetp", "zone authority", "plug-and-play"],
+        verificationStatus: "confirmed",
+        publicationStatus: "published"
       }
     ]
   },
@@ -1080,6 +1588,278 @@ export const whomWeServeClusters: IndustryClusterRecord[] = [
         searchKeywords: ["mining", "dgms", "minerals", "mines act", "quarry", "extraction"],
         verificationStatus: "confirmed",
         publicationStatus: "published"
+      },
+      {
+        id: "bioenergy-waste-to-power",
+        title: "Biomass & Waste-to-Energy",
+        slug: "bioenergy-waste-to-power",
+        parentClusterId: "energy-utilities",
+        parentClusterName: "Energy & Utilities",
+        subtitle: "Bio-Power Safety & Emission Consents",
+        overview: "Operators of biomass generation, landfill gas capture, and municipal waste-to-energy plants manage municipal concessions, stack emission limits, ash disposal protocols, and feed-in tariff reconciliations.",
+        icon: Leaf,
+        iconName: "Leaf",
+        displayOrder: 5,
+        regulations: [
+          "Solid Waste Management Rules, 2016",
+          "Air (Prevention and Control of Pollution) Act, 1981",
+          "Central Electricity Authority (Technical Standards) Regulations",
+          "Indian Boilers Act, 1923"
+        ],
+        focusAreas: [
+          "Municipal solid waste feedstock supply compliance",
+          "Continuous stack emission monitoring system (CEMS) compliance",
+          "Fly ash and bottom ash management and disposal verification",
+          "Power purchase agreement (PPA) statutory reconciliations"
+        ],
+        businessSegments: [
+          {
+            name: "Global Clean Energy Conglomerates",
+            description: "Multinational renewable energy firms running municipal waste-to-energy assets in emerging markets.",
+            relevantIndustryRisks: ["Strict emission threshold penalties", "Feedstock volume guarantee defaults", "Cross-border turbine technology compliance"],
+            applicableGrcConsiderations: ["Comprehensive ESG and carbon credit validation", "Continuous CEMS tracking", "Contractual indemnities and risk mitigation"]
+          },
+          {
+            name: "Large–Mid Independent Power Producers (IPPs)",
+            description: "Regional IPPs running grid-connected agricultural biomass and municipal waste plants.",
+            relevantIndustryRisks: ["State pollution control board inspections", "Seasonal feedstock supply fluctuations", "Grid synchronization stability mandates"],
+            applicableGrcConsiderations: ["Consent-to-operate renewals", "Environmental register maintenance", "Labour safety in fuel handling yards"]
+          },
+          {
+            name: "Mid–Small Bio-Energy & Bio-CNG Operators",
+            description: "Decentralized bio-CNG, agricultural residue pelletization, and municipal biogas processors.",
+            relevantIndustryRisks: ["Local municipal contract disputes", "On-site industrial hygiene and fire hazards", "Subsidies and state nodal agency clearances"],
+            applicableGrcConsiderations: ["Fire and safety licensing", "Factory Act boiler registrations", "Statutory wage and vendor filings"]
+          }
+        ],
+        relevantGrcTopics: [
+          "Waste feedstock compliance",
+          "Continuous emission monitoring",
+          "Environmental consent filings",
+          "Industrial boiler safety"
+        ],
+        linkedOfferings: [
+          {
+            serviceId: "environmental-compliance",
+            serviceName: "Environmental Compliance",
+            route: "/services/environmental-compliance",
+            relevance: "CEMS integration, stack emissions, and ash disposal register adherence."
+          },
+          {
+            serviceId: "esg-sustainability",
+            serviceName: "ESG & Sustainability Advisory",
+            route: "/services/esg-sustainability",
+            relevance: "Carbon credit assurance, circular economy reporting, and BRSR filings."
+          }
+        ],
+        existingRoute: "/industries/energy-utilities#bioenergy",
+        searchKeywords: ["biomass", "waste to energy", "biogas", "bio cng", "cems", "renewable power"],
+        verificationStatus: "confirmed",
+        publicationStatus: "published"
+      },
+      {
+        id: "hydrogen-gas-supply",
+        title: "Industrial Gas & Clean Hydrogen",
+        slug: "hydrogen-gas-supply",
+        parentClusterId: "energy-utilities",
+        parentClusterName: "Energy & Utilities",
+        subtitle: "PESO Gas Standards & Clean Hydrogen Safety",
+        overview: "Green hydrogen electrolyzer operators and industrial gas producers navigate stringent pressure vessel certifications, explosive atmosphere regulations, hazardous handling norms, and green hydrogen standard accreditations.",
+        icon: Fuel,
+        iconName: "Fuel",
+        displayOrder: 6,
+        regulations: [
+          "Static and Mobile Pressure Vessels (Unfired) Rules, 2016 (PESO)",
+          "Gas Cylinders Rules, 2016",
+          "National Green Hydrogen Mission Standards & Specifications",
+          "Manufacture, Storage and Import of Hazardous Chemical Rules, 1989"
+        ],
+        focusAreas: [
+          "PESO licensing for high-pressure cryogenic and compressed hydrogen storage",
+          "Green hydrogen origin certification and additionality tracking",
+          "Process safety management (PSM) and leak detection governance",
+          "Emergency response and disaster management plans (ERDMP)"
+        ],
+        businessSegments: [
+          {
+            name: "Global Energy & Chemical Multinationals",
+            description: "International leaders developing giga-scale green hydrogen hubs and ammonia export terminals.",
+            relevantIndustryRisks: ["PESO pipeline right-of-way compliance", "Export port safety certifications", "International green hydrogen accreditation standards"],
+            applicableGrcConsiderations: ["Cross-border carbon border adjustment (CBAM) alignment", "Global process safety standards", "Continuous leak monitoring governance"]
+          },
+          {
+            name: "Large–Mid Industrial Gas Suppliers",
+            description: "Producers of oxygen, nitrogen, and argon supplying steel, pharma, and manufacturing clusters.",
+            relevantIndustryRisks: ["Fleet cylinder compliance and testing cycles", "Bulk cryogenic tanker transport licensing", "Industrial customer safety SLA breaches"],
+            applicableGrcConsiderations: ["SMPV testing audits", "Driver hazardous material handling certifications", "Depot environmental consents"]
+          },
+          {
+            name: "Mid–Small Gas Bottling & Distribution Units",
+            description: "Regional gas filling plants, medical oxygen distributors, and specialized gas retailers.",
+            relevantIndustryRisks: ["Cylinder inspection lapses", "Static electricity and fire incidents", "Local municipal and fire NOC non-compliances"],
+            applicableGrcConsiderations: ["Local PESO license renewals", "Factory safety audits", "Contract labour statutory registrations"]
+          }
+        ],
+        relevantGrcTopics: [
+          "PESO pressure vessel compliance",
+          "Hazardous chemical storage",
+          "Process safety management",
+          "Green hydrogen certification"
+        ],
+        linkedOfferings: [
+          {
+            serviceId: "regulatory-compliance",
+            serviceName: "Regulatory Compliance Management",
+            route: "/services/regulatory-compliance",
+            relevance: "PESO licensing, hazardous material approvals, and environmental filings."
+          },
+          {
+            serviceId: "enterprise-risk-management",
+            serviceName: "Enterprise Risk Management",
+            route: "/services/enterprise-risk-management",
+            relevance: "Process safety risk registers, ERDMP drills, and supply chain continuity."
+          }
+        ],
+        existingRoute: "/industries/energy-utilities#hydrogen-gas",
+        searchKeywords: ["hydrogen", "green hydrogen", "industrial gas", "peso", "cryogenic", "pressure vessels"],
+        verificationStatus: "confirmed",
+        publicationStatus: "published"
+      },
+      {
+        id: "thermal-power-generation",
+        title: "Thermal & Conventional Power",
+        slug: "thermal-power-generation",
+        parentClusterId: "energy-utilities",
+        parentClusterName: "Energy & Utilities",
+        subtitle: "Stack Emissions & Ash Pond Safety",
+        overview: "Conventional power utilities operate under rigorous flue-gas desulfurization (FGD) installation deadlines, coal linkage audits, water withdrawal clearances, and electrical safety standards.",
+        icon: Zap,
+        iconName: "Zap",
+        displayOrder: 7,
+        regulations: [
+          "Electricity Act, 2003 and CEA Safety Regulations, 2010",
+          "MoEFCC Emission Norms for Thermal Power Plants (SOx, NOx, SPM)",
+          "Central Electricity Regulatory Commission (CERC) Grid Code",
+          "Water (Prevention and Control of Pollution) Act, 1974"
+        ],
+        focusAreas: [
+          "FGD retrofitting and emission benchmark adherence",
+          "Fly ash 100% utilization mandate compliance",
+          "Cooling water intake and thermal discharge monitoring",
+          "Captive power generation statutory reporting and duty payments"
+        ],
+        businessSegments: [
+          {
+            name: "Global & National Power Utilities",
+            description: "Large-scale public and private utility corporations operating supercritical coal and combined-cycle plants.",
+            relevantIndustryRisks: ["Non-compliance penalties for emission retrofit milestones", "Coal quality and linkage reconciliations", "Grid stability and dynamic scheduling compliance"],
+            applicableGrcConsiderations: ["Integrated CERC regulatory compliance tracking", "Continuous emission and water telemetry governance", "BRSR and carbon reduction reporting"]
+          },
+          {
+            name: "Large–Mid Captive Power Plants (CPPs)",
+            description: "Industrial captive plants powering steel mills, chemical complexes, and aluminum smelters.",
+            relevantIndustryRisks: ["Electricity duty assessment disputes", "Ash disposal storage limit breaches", "Factory Act boiler inspection lapses"],
+            applicableGrcConsiderations: ["State electricity regulatory commission (SERC) filings", "Boiler safety compliance audits", "Contract labour health and safety"]
+          },
+          {
+            name: "Mid–Small Gas & Cogeneration Units",
+            description: "Combined heat and power (CHP) installations serving sugar mills, textile parks, and chemical zones.",
+            relevantIndustryRisks: ["Gas supply contract penalties", "Local air pollution board notices", "Boiler license renewal delays"],
+            applicableGrcConsiderations: ["Pollution control board consent renewals", "Annual boiler inspections", "Vendor compliance reviews"]
+          }
+        ],
+        relevantGrcTopics: [
+          "Flue-gas emission compliance",
+          "Fly ash utilization registers",
+          "Boiler safety certifications",
+          "Grid code adherence"
+        ],
+        linkedOfferings: [
+          {
+            serviceId: "environmental-compliance",
+            serviceName: "Environmental Compliance",
+            route: "/services/environmental-compliance",
+            relevance: "Fly ash utilization, stack emissions, and effluent discharge monitoring."
+          },
+          {
+            serviceId: "regulatory-compliance",
+            serviceName: "Regulatory Compliance Management",
+            route: "/services/regulatory-compliance",
+            relevance: "CERC/SERC tariff compliance, grid regulations, and statutory filings."
+          }
+        ],
+        existingRoute: "/industries/energy-utilities#thermal-power",
+        searchKeywords: ["thermal power", "coal power", "fgd", "cerc", "boiler", "cooling water"],
+        verificationStatus: "confirmed",
+        publicationStatus: "published"
+      },
+      {
+        id: "water-desalination-utilities",
+        title: "Water Utilities & Desalination",
+        slug: "water-desalination-utilities",
+        parentClusterId: "energy-utilities",
+        parentClusterName: "Energy & Utilities",
+        subtitle: "Desalination Water Quality & EHS Norms",
+        overview: "Water treatment and utility operators must maintain potable water health standards, marine brine disposal compliance, groundwater extraction NOCs, and municipal concession contracts.",
+        icon: Droplets,
+        iconName: "Droplets",
+        displayOrder: 8,
+        regulations: [
+          "Central Ground Water Authority (CGWA) Guidelines",
+          "Coastal Regulation Zone (CRZ) Notifications for Marine Outfalls",
+          "Water (Prevention and Control of Pollution) Cess Act, 1977",
+          "Bureau of Indian Standards IS 10500 Drinking Water Specifications"
+        ],
+        focusAreas: [
+          "CGWA abstraction permits and digital flowmeter compliance",
+          "Desalination plant marine brine discharge impact monitoring",
+          "Sludge disposal and heavy metal leachate testing",
+          "Public-private partnership (PPP) concession agreement governance"
+        ],
+        businessSegments: [
+          {
+            name: "Global Water Infrastructure Operators",
+            description: "International desalination and wastewater concessionaires operating giga-scale treatment assets.",
+            relevantIndustryRisks: ["CRZ marine outfall environmental litigation", "Concession tariff indexation disputes", "Plant availability SLA penalties"],
+            applicableGrcConsiderations: ["Environmental and marine impact audits", "Concession contract risk management", "Continuous water quality telemetry"]
+          },
+          {
+            name: "Large–Mid Industrial Water Treatment Plants",
+            description: "Zero Liquid Discharge (ZLD) plants and common effluent treatment plants (CETP) in industrial estates.",
+            relevantIndustryRisks: ["SPCB online BOD/COD telemetry breach notices", "Hazardous solid salt disposal compliance", "Industrial member discharge non-compliance"],
+            applicableGrcConsiderations: ["CETP regulatory compliance oversight", "Hazardous waste manifest management", "Member industry effluent monitoring"]
+          },
+          {
+            name: "Mid–Small Water Supply & Purification Units",
+            description: "Packaged drinking water plants, commercial filtration networks, and municipal water kiosks.",
+            relevantIndustryRisks: ["BIS license suspension for microbiological contamination", "Unregistered borehole extraction fines", "Local public health notices"],
+            applicableGrcConsiderations: ["BIS IS 10500 testing governance", "CGWA NOC application tracking", "Food safety (FSSAI) potable water licenses"]
+          }
+        ],
+        relevantGrcTopics: [
+          "CGWA groundwater abstraction",
+          "Marine brine disposal compliance",
+          "Zero liquid discharge monitoring",
+          "BIS drinking water standards"
+        ],
+        linkedOfferings: [
+          {
+            serviceId: "environmental-compliance",
+            serviceName: "Environmental Compliance",
+            route: "/services/environmental-compliance",
+            relevance: "Groundwater NOC, brine discharge compliance, and SPCB consent filings."
+          },
+          {
+            serviceId: "regulatory-compliance",
+            serviceName: "Regulatory Compliance Management",
+            route: "/services/regulatory-compliance",
+            relevance: "Municipal concession contracts, BIS licensing, and statutory reports."
+          }
+        ],
+        existingRoute: "/industries/energy-utilities#water-utilities",
+        searchKeywords: ["water utilities", "desalination", "cgwa", "zld", "effluent", "cetp"],
+        verificationStatus: "confirmed",
+        publicationStatus: "published"
       }
     ]
   },
@@ -1264,6 +2044,346 @@ export const whomWeServeClusters: IndustryClusterRecord[] = [
         ],
         existingRoute: "/industries/financial-services#insurance",
         searchKeywords: ["insurance", "irdai", "claims", "policyholders", "actuarial", "underwriting"],
+        verificationStatus: "confirmed",
+        publicationStatus: "published"
+      },
+      {
+        id: "microfinance-institutions",
+        title: "Microfinance & Rural Lending",
+        slug: "microfinance-institutions",
+        parentClusterId: "financial-services",
+        parentClusterName: "Financial Services",
+        subtitle: "NBFC-MFI Fair Practices & Priority Lending",
+        overview: "Microfinance institutions handle high-volume field operations, field officer code-of-conduct adherence, RBI harmonized microfinance regulatory frameworks, customer grievance mechanisms, and borrower data confidentiality.",
+        icon: Users,
+        iconName: "Users",
+        displayOrder: 4,
+        regulations: [
+          "RBI Regulatory Framework for Microfinance Loans Directions, 2022",
+          "Fair Practices Code (FPC) for NBFC-MFIs",
+          "Prevention of Money Laundering Act (PMLA), 2002",
+          "Digital Personal Data Protection Act, 2023 (DPDPA)"
+        ],
+        focusAreas: [
+          "Household income assessment and qualifying asset calculation",
+          "Recovery agent conduct and grievance redressal monitoring",
+          "Credit bureau submission (CIC) hygiene and data accuracy",
+          "Cash-in-transit security and branch statutory registers"
+        ],
+        businessSegments: [
+          {
+            name: "Global & Pan-India NBFC-MFIs",
+            description: "Institutional lenders operating extensive multi-state rural branch footprints.",
+            relevantIndustryRisks: ["Systemic credit cycle volatility", "Borrower over-indebtedness scrutiny", "Fair practices regulatory inspection findings"],
+            applicableGrcConsiderations: ["Centralized RBI compliance monitoring", "Automated CIC reporting governance", "Internal audit of loan disbursements"]
+          },
+          {
+            name: "Large–Mid Regional Cooperative Banks",
+            description: "District central cooperative banks and urban cooperative financial institutions.",
+            relevantIndustryRisks: ["Asset quality classification delays", "State cooperative registrar dual-regulation conflicts", "IT security and phishing vulnerabilities"],
+            applicableGrcConsiderations: ["RBI cyber security framework for UCBs", "Statutory audit compliance", "Anti-money laundering KYC verification"]
+          },
+          {
+            name: "Mid–Small Rural Credit Societies & NGOs",
+            description: "Grassroots self-help group promoters and localized micro-lending entities.",
+            relevantIndustryRisks: ["Manual register tracking errors", "Cash handling misappropriation risks", "Local community dispute escalations"],
+            applicableGrcConsiderations: ["Standardized credit register maintenance", "Cash management controls", "Basic privacy and consent protocols"]
+          }
+        ],
+        relevantGrcTopics: [
+          "RBI microfinance directions",
+          "Fair practices code",
+          "Borrower household income assessment",
+          "Grievance redressal mechanisms"
+        ],
+        linkedOfferings: [
+          {
+            serviceId: "regulatory-compliance",
+            serviceName: "Regulatory Compliance Management",
+            route: "/services/regulatory-compliance",
+            relevance: "RBI master directions, qualifying asset registers, and supervisory returns."
+          },
+          {
+            serviceId: "internal-audit",
+            serviceName: "Internal Audit & Risk Controls",
+            route: "/services/internal-audit",
+            relevance: "Branch cash audits, loan underwriting verification, and AML checks."
+          }
+        ],
+        existingRoute: "/industries/financial-services#microfinance",
+        searchKeywords: ["microfinance", "mfi", "nbfc-mfi", "rbi", "priority sector", "cooperative"],
+        verificationStatus: "confirmed",
+        publicationStatus: "published"
+      },
+      {
+        id: "wealth-asset-management",
+        title: "Wealth & Asset Management",
+        slug: "wealth-asset-management",
+        parentClusterId: "financial-services",
+        parentClusterName: "Financial Services",
+        subtitle: "SEBI Portfolio Governance & AIF Compliance",
+        overview: "Asset and wealth managers navigate SEBI mutual fund regulations, AIF private placement memorandums, valuation governance, prevention of front-running, and digital distributor onboarding compliance.",
+        icon: BarChart3,
+        iconName: "BarChart3",
+        displayOrder: 5,
+        regulations: [
+          "SEBI (Mutual Funds) Regulations, 1996",
+          "SEBI (Alternative Investment Funds) Regulations, 2012",
+          "SEBI (Portfolio Managers) Regulations, 2020",
+          "PMLA & Financial Intelligence Unit (FIU-IND) Reporting Guidelines"
+        ],
+        focusAreas: [
+          "Front-running and insider trading surveillance systems",
+          "AIF private placement memorandum (PPM) audit compliance",
+          "Net asset value (NAV) calculation and valuation committee governance",
+          "KYC, beneficial ownership verification, and PEP screening"
+        ],
+        businessSegments: [
+          {
+            name: "Global Asset Managers & Private Equity Funds",
+            description: "Sovereign wealth funds and global AMCs managing Category II & III AIFs in India.",
+            relevantIndustryRisks: ["Cross-border tax treaty reporting changes", "Stewardship code and ESG disclosure mandates", "High-frequency trading surveillance alerts"],
+            applicableGrcConsiderations: ["SEBI PPM compliance reviews", "FATCA/CRS statutory submissions", "Institutional trade surveillance"]
+          },
+          {
+            name: "Large–Mid Domestic AMCs & Wealth Managers",
+            description: "Registered mutual fund houses and wealth managers offering discretionary PMS solutions.",
+            relevantIndustryRisks: ["Distributor commission disclosure violations", "Liquidity stress testing non-compliance", "Personal trading code-of-conduct breaches"],
+            applicableGrcConsiderations: ["Automated employee trade pre-clearance", "Risk-o-meter classification audits", "SEBI inspection readiness reviews"]
+          },
+          {
+            name: "Mid–Small Family Offices & Boutique AIFs",
+            description: "Independent multi-family offices, angel funds, and niche Category I AIFs.",
+            relevantIndustryRisks: ["Unregistered investment advisory notices", "Unlisted asset valuation methodology challenges", "Conflict of interest disclosures"],
+            applicableGrcConsiderations: ["Chartered valuation compliance checks", "Investor KYC registers", "Annual statutory secretarial compliance"]
+          }
+        ],
+        relevantGrcTopics: [
+          "SEBI mutual fund regulations",
+          "AIF PPM compliance audits",
+          "Trade surveillance and insider trading",
+          "Valuation committee oversight"
+        ],
+        linkedOfferings: [
+          {
+            serviceId: "regulatory-compliance",
+            serviceName: "Regulatory Compliance Management",
+            route: "/services/regulatory-compliance",
+            relevance: "SEBI filings, compliance officer registers, and PPM audit support."
+          },
+          {
+            serviceId: "internal-audit",
+            serviceName: "Internal Audit & Risk Controls",
+            route: "/services/internal-audit",
+            relevance: "NAV calculation reviews, front-running surveillance, and AML-KYC audits."
+          }
+        ],
+        existingRoute: "/industries/financial-services#wealth-management",
+        searchKeywords: ["amc", "mutual fund", "aif", "pms", "wealth management", "sebi", "front running"],
+        verificationStatus: "confirmed",
+        publicationStatus: "published"
+      },
+      {
+        id: "payments-settlement-systems",
+        title: "Payment Aggregators & Gateways",
+        slug: "payments-settlement-systems",
+        parentClusterId: "financial-services",
+        parentClusterName: "Financial Services",
+        subtitle: "RBI Payment Gateways & Tokenisation Norms",
+        overview: "Licensed payment entities must comply with RBI Payment Aggregator (PA) guidelines, card-on-file tokenization, escrow account reconciliations, PCI-DSS requirements, and fraud monitoring mandates.",
+        icon: CreditCard,
+        iconName: "CreditCard",
+        displayOrder: 6,
+        regulations: [
+          "RBI Guidelines on Regulation of Payment Aggregators and Payment Gateways, 2020",
+          "Payment and Settlement Systems Act, 2007 (PSSA)",
+          "PCI-DSS v4.0 Payment Card Industry Data Security Standard",
+          "RBI Master Direction on Cyber Resilience and Digital Payment Security"
+        ],
+        focusAreas: [
+          "Nodal/escrow account reconciliation and fund settlement timelines (T+1/T+2)",
+          "Merchant onboarding due diligence, risk categorization, and site verification",
+          "System audit report (SAR) and cyber security audit submissions to RBI",
+          "Chargeback, dispute resolution, and cardholder data purge cycles"
+        ],
+        businessSegments: [
+          {
+            name: "Global FinTech Payment Processors",
+            description: "Cross-border payment giants providing international checkout and merchant acquiring infrastructure.",
+            relevantIndustryRisks: ["Card-on-file data storage non-compliance", "Cross-border merchant trade compliance violations", "Escrow audit exceptions"],
+            applicableGrcConsiderations: ["Periodic RBI system audit reports (SAR)", "Continuous transaction anomaly surveillance", "Global PCI-DSS v4.0 certification"]
+          },
+          {
+            name: "Large–Mid Domestic Payment Aggregators",
+            description: "Licensed Indian PAs supporting UPI, netbanking, and credit card payments for domestic e-commerce.",
+            relevantIndustryRisks: ["Merchant fraud and rogue merchant liability", "Settlement delays causing regulatory warnings", "DPDP data localization lapses"],
+            applicableGrcConsiderations: ["Merchant KYC and risk categorization", "Escrow turnover reconciliation audits", "Third-party vendor penetration testing"]
+          },
+          {
+            name: "Mid–Small Specialized Payment Gateways",
+            description: "Niche B2B invoicing solutions, transit card aggregators, and digital micro-payment facilitators.",
+            relevantIndustryRisks: ["RBI PA-CB licensing threshold bottlenecks", "API key leak and integration vulnerability", "Dispute resolution SLA breaches"],
+            applicableGrcConsiderations: ["Application security code reviews", "Standardized merchant agreements", "Disaster recovery failover tests"]
+          }
+        ],
+        relevantGrcTopics: [
+          "RBI payment aggregator guidelines",
+          "PCI-DSS v4.0 certification",
+          "Escrow account reconciliation",
+          "Merchant due diligence & KYC"
+        ],
+        linkedOfferings: [
+          {
+            serviceId: "cybersecurity-iso27001",
+            serviceName: "Cybersecurity & ISO 27001",
+            route: "/services/cybersecurity-iso27001",
+            relevance: "PCI-DSS compliance, RBI SAR audit preparation, and penetration testing."
+          },
+          {
+            serviceId: "regulatory-compliance",
+            serviceName: "Regulatory Compliance Management",
+            route: "/services/regulatory-compliance",
+            relevance: "RBI PA licensing, nodal escrow audits, and quarterly regulatory filings."
+          }
+        ],
+        existingRoute: "/industries/financial-services#payments",
+        searchKeywords: ["payment aggregator", "payment gateway", "rbi", "pci-dss", "upi", "escrow"],
+        verificationStatus: "confirmed",
+        publicationStatus: "published"
+      },
+      {
+        id: "corporate-treasury-forex",
+        title: "Treasury & Cross-Border Forex",
+        slug: "corporate-treasury-forex",
+        parentClusterId: "financial-services",
+        parentClusterName: "Financial Services",
+        subtitle: "FEMA Compliance & Cross-Border Forex",
+        overview: "Cross-border remittance providers and corporate treasuries adhere to FEMA regulations, Liberalised Remittance Scheme (LRS) caps, EDPMS/IDPMS trade reconciliations, and anti-money laundering monitoring.",
+        icon: Landmark,
+        iconName: "Landmark",
+        displayOrder: 7,
+        regulations: [
+          "Foreign Exchange Management Act, 1999 (FEMA) and RBI Master Directions",
+          "Liberalised Remittance Scheme (LRS) Regulations",
+          "RBI Export Data Processing and Monitoring System (EDPMS)",
+          "Prevention of Money Laundering (Maintenance of Records) Rules"
+        ],
+        focusAreas: [
+          "FEMA trade credit and external commercial borrowing (ECB) reporting",
+          "EDPMS/IDPMS outstanding shipping bill reconciliation",
+          "LRS annual remittance threshold tracking and TCS tax collection",
+          "Suspicious transaction reporting (STR) to FIU-IND"
+        ],
+        businessSegments: [
+          {
+            name: "Global Corporate Treasuries & AD Banks",
+            description: "Multinational treasury hubs managing currency hedging, overseas direct investment, and trade credit.",
+            relevantIndustryRisks: ["FEMA compounding proceedings for delay in ODI filings", "Derivative transaction reporting mismatch", "Cross-border transfer pricing scrutiny"],
+            applicableGrcConsiderations: ["Comprehensive FEMA statutory register audits", "Automated RBI APR/FLA return workflows", "Hedging policy risk governance"]
+          },
+          {
+            name: "Large–Mid Foreign Exchange Intermediaries",
+            description: "Authorized Dealers Category II, money changing firms, and overseas education remittance platforms.",
+            relevantIndustryRisks: ["LRS limit exceedance fines", "Customer identification lapse in cash currency exchange", "Concurrent audit qualification points"],
+            applicableGrcConsiderations: ["Concurrent audit oversight", "Daily currency holding reconciliations", "Digital customer KYC checks"]
+          },
+          {
+            name: "Mid–Small Money Changers & Travel Treasuries",
+            description: "Full-Fledged Money Changers (FFMC) serving airport hubs and localized business travelers.",
+            relevantIndustryRisks: ["Expired RBI license operations", "Counterfeit currency handling liabilities", "Manual FLM register record errors"],
+            applicableGrcConsiderations: ["RBI FFMC license renewal maintenance", "Cash register verification", "Anti-counterfeit SOP implementations"]
+          }
+        ],
+        relevantGrcTopics: [
+          "FEMA & RBI Master Directions",
+          "EDPMS / IDPMS reconciliations",
+          "LRS compliance & TCS tracking",
+          "FIU-IND reporting obligations"
+        ],
+        linkedOfferings: [
+          {
+            serviceId: "regulatory-compliance",
+            serviceName: "Regulatory Compliance Management",
+            route: "/services/regulatory-compliance",
+            relevance: "FEMA compounding advisory, FLA/APR returns, and AD-II regulatory filings."
+          },
+          {
+            serviceId: "internal-audit",
+            serviceName: "Internal Audit & Risk Controls",
+            route: "/services/internal-audit",
+            relevance: "Concurrent audit of forex branches and trade finance document verifications."
+          }
+        ],
+        existingRoute: "/industries/financial-services#treasury-forex",
+        searchKeywords: ["fema", "forex", "treasury", "edpms", "idpms", "lrs", "ffmc", "remittance"],
+        verificationStatus: "confirmed",
+        publicationStatus: "published"
+      },
+      {
+        id: "credit-esg-rating",
+        title: "Credit & ESG Rating Agencies",
+        slug: "credit-esg-rating",
+        parentClusterId: "financial-services",
+        parentClusterName: "Financial Services",
+        subtitle: "SEBI Rating Code & ESG Assurance",
+        overview: "Rating agencies maintain stringent conflict-of-interest walls, rating committee governance, default recognition methodologies, and SEBI CRA/ERP disclosure requirements.",
+        icon: Coins,
+        iconName: "Coins",
+        displayOrder: 8,
+        regulations: [
+          "SEBI (Credit Rating Agencies) Regulations, 1999",
+          "SEBI Master Circular for Credit Rating Agencies, 2023",
+          "SEBI Regulatory Framework for ESG Rating Providers (ERPs), 2023",
+          "IOSCO Code of Conduct Fundamentals for Credit Rating Agencies"
+        ],
+        focusAreas: [
+          "Rating committee independence and analyst compensation segregation",
+          "Mandatory rating review and prompt default recognition protocols",
+          "ESG rating provider (ERP) methodology disclosure and transparency",
+          "Issuer non-cooperation (INC) classification criteria compliance"
+        ],
+        businessSegments: [
+          {
+            name: "Global Credit & Sustainability Rating Conglomerates",
+            description: "International rating institutions operating domestic SEBI-registered rating and ESG subsidiaries.",
+            relevantIndustryRisks: ["Conflicted advisory vs. rating services penalties", "Cross-border methodology divergence", "Regulatory show-cause notices on rating timeliness"],
+            applicableGrcConsiderations: ["Institutional code-of-conduct compliance", "SEBI inspection readiness reviews", "Methodology committee audit trails"]
+          },
+          {
+            name: "Large–Mid Domestic Credit Rating Agencies",
+            description: "Registered Indian CRAs rating bank loans, corporate bonds, commercial paper, and structured debt.",
+            relevantIndustryRisks: ["Failure to downgrade distressed issuers in time", "Analyst turnover leading to surveillance lapses", "Website disclosure delay fines"],
+            applicableGrcConsiderations: ["Comprehensive rating process audits", "Default study and transition matrix compliance", "Internal audit of rating files"]
+          },
+          {
+            name: "Mid–Small ESG & Green Bond Verifiers",
+            description: "Boutique sustainability assessors, second-party opinion providers, and accredited ESG rating firms.",
+            relevantIndustryRisks: ["Greenwashing liability allegations", "Lack of transparent scoring models", "SEBI ERP registration requirement non-compliance"],
+            applicableGrcConsiderations: ["SEBI ERP registration assistance", "Rating methodology documentation", "Data verification and assurance frameworks"]
+          }
+        ],
+        relevantGrcTopics: [
+          "SEBI credit rating agency regulations",
+          "Rating committee governance",
+          "ESG rating provider framework",
+          "Conflict-of-interest wall verification"
+        ],
+        linkedOfferings: [
+          {
+            serviceId: "regulatory-compliance",
+            serviceName: "Regulatory Compliance Management",
+            route: "/services/regulatory-compliance",
+            relevance: "SEBI CRA and ERP compliance registers, policy manuals, and regulatory audits."
+          },
+          {
+            serviceId: "esg-sustainability",
+            serviceName: "ESG & Sustainability Advisory",
+            route: "/services/esg-sustainability",
+            relevance: "ESG rating methodology alignment, BRSR core assurance, and green finance frameworks."
+          }
+        ],
+        existingRoute: "/industries/financial-services#rating-agencies",
+        searchKeywords: ["credit rating", "cra", "sebi", "esg rating", "erp", "bond rating", "default"],
         verificationStatus: "confirmed",
         publicationStatus: "published"
       }
@@ -1498,6 +2618,278 @@ export const whomWeServeClusters: IndustryClusterRecord[] = [
         searchKeywords: ["biotech", "clinical trials", "cro", "rcgm", "ethics committee", "genomics"],
         verificationStatus: "confirmed",
         publicationStatus: "published"
+      },
+      {
+        id: "diagnostic-pathology-labs",
+        title: "Diagnostic & Pathology Laboratories",
+        slug: "diagnostic-pathology-labs",
+        parentClusterId: "healthcare-life-sciences",
+        parentClusterName: "Healthcare & Life Sciences",
+        subtitle: "NABL Accreditation & Bio-Waste Management",
+        overview: "Clinical testing facilities operate under NABL ISO 15189 accreditation standards, AERB radiation safety for X-ray and CT equipment, biomedical waste authorizations, and digital patient report privacy regulations.",
+        icon: Microscope,
+        iconName: "Microscope",
+        displayOrder: 5,
+        regulations: [
+          "NABL ISO 15189 Medical Laboratories Requirements",
+          "Atomic Energy Regulatory Board (AERB) Safety Directives",
+          "Biomedical Waste Management Rules, 2016",
+          "Digital Personal Data Protection Act, 2023 (DPDPA)"
+        ],
+        focusAreas: [
+          "External Quality Assessment Scheme (EQAS) calibration compliance",
+          "AERB e-LORA registration and radiation safety officer (RSO) governance",
+          "Sample barcoding, specimen custody chain, and disposal manifests",
+          "Digital diagnostic report authenticity and patient privacy controls"
+        ],
+        businessSegments: [
+          {
+            name: "Global Diagnostic Networks",
+            description: "Multinational clinical pathology and molecular testing chains with reference laboratories.",
+            relevantIndustryRisks: ["Cross-border biological specimen shipping restrictions", "CAP and CLIA international accreditation audit findings", "Cybersecurity breaches of central lab information systems (LIS)"],
+            applicableGrcConsiderations: ["Enterprise LIS data security and encryption", "Global reference standard validation", "Statutory infectious disease reporting (IDSP)"]
+          },
+          {
+            name: "Large–Mid Regional Lab Chains",
+            description: "Diagnostic chains operating regional hubs, spoke collection centers, and imaging facilities.",
+            relevantIndustryRisks: ["Collection center biomedical waste handling lapses", "AERB equipment licensing expiration notices", "Technician competency and sign-off non-compliances"],
+            applicableGrcConsiderations: ["NABL internal audit cycles", "Routine e-LORA AERB compliance tracking", "Collection center SLA and safety oversight"]
+          },
+          {
+            name: "Mid–Small Independent Pathology Clinics",
+            description: "Doctor-led localized pathology and ultrasound clinics in urban and semi-urban localities.",
+            relevantIndustryRisks: ["PNDT Act recordkeeping infractions", "Improper sharps disposal citations", "Unregistered diagnostic analyzer equipment"],
+            applicableGrcConsiderations: ["Strict PC-PNDT statutory register maintenance", "Local biomedical waste agency tie-ups", "Basic doctor sign-off verification"]
+          }
+        ],
+        relevantGrcTopics: [
+          "NABL ISO 15189 accreditation",
+          "AERB radiation safety licensing",
+          "PC-PNDT statutory registers",
+          "Biomedical waste manifests"
+        ],
+        linkedOfferings: [
+          {
+            serviceId: "accreditation-services",
+            serviceName: "Healthcare Accreditation Advisory",
+            route: "/services/accreditation-services",
+            relevance: "NABL ISO 15189 pre-assessment, audit readiness, and SOP preparation."
+          },
+          {
+            serviceId: "regulatory-compliance",
+            serviceName: "Regulatory Compliance Management",
+            route: "/services/regulatory-compliance",
+            relevance: "AERB e-LORA approvals, PC-PNDT compliance, and BMW authorization filings."
+          }
+        ],
+        existingRoute: "/industries/healthcare-life-sciences#diagnostic-labs",
+        searchKeywords: ["pathology", "nabl", "aerb", "diagnostics", "radiology", "iso 15189", "pndt"],
+        verificationStatus: "confirmed",
+        publicationStatus: "published"
+      },
+      {
+        id: "ayush-wellness-centres",
+        title: "AYUSH & Integrative Medicine",
+        slug: "ayush-wellness-centres",
+        parentClusterId: "healthcare-life-sciences",
+        parentClusterName: "Healthcare & Life Sciences",
+        subtitle: "Ministry of AYUSH Standards & GMP Licensing",
+        overview: "AYUSH healthcare centers and wellness retreats must comply with Ministry of AYUSH clinical standards, NABH AYUSH accreditation standards, herbal medicine GMP guidelines, and medical tourism statutory disclosures.",
+        icon: Leaf,
+        iconName: "Leaf",
+        displayOrder: 6,
+        regulations: [
+          "Ministry of AYUSH Guidelines for Clinical Establishments",
+          "NABH Accreditation Standards for AYUSH Hospitals",
+          "Drugs and Cosmetics Act, 1940 (Schedule T - AYUSH GMP)",
+          "Clinical Establishments (Registration and Regulation) Act, 2010"
+        ],
+        focusAreas: [
+          "Schedule T GMP compliance for in-house medicine preparations",
+          "Practitioner credentialing and AYUSH state registration boards",
+          "Therapeutic treatment consenting and medical tourism visa compliance",
+          "Herbal raw material traceability and heavy metal testing records"
+        ],
+        businessSegments: [
+          {
+            name: "Global Integrative Health & Wellness Resorts",
+            description: "Luxury ayurvedic retreats catering to international medical and wellness tourists.",
+            relevantIndustryRisks: ["Foreign tourist medical reporting violations", "Cross-border herbal shipment customs hold-ups", "Misleading wellness cure claim liabilities"],
+            applicableGrcConsiderations: ["ASCI advertising code compliance for wellness claims", "Foreign national FRRO and medical visa tracking", "NABH AYUSH accreditation governance"]
+          },
+          {
+            name: "Large–Mid AYUSH Hospital Networks",
+            description: "Dedicated inpatient ayurvedic and homeopathic healthcare facilities and hospital chains.",
+            relevantIndustryRisks: ["Clinical establishment act registration delays", "Insurance cashless empanelement documentation gaps", "Panchakarma biomedical waste disposal citations"],
+            applicableGrcConsiderations: ["NABH pre-accreditation audits", "Biomedical waste management documentation", "Standardized treatment clinical protocols"]
+          },
+          {
+            name: "Mid–Small Herbal Treatment Clinics & Spas",
+            description: "Local wellness centers, herbal therapy clinics, and specialized naturopathy spas.",
+            relevantIndustryRisks: ["Unregistered practitioner practice risks", "In-house medicine labeling non-compliance", "Local trade license and fire safety lapses"],
+            applicableGrcConsiderations: ["Doctor registration register maintenance", "Local municipal licensing", "Fire and safety compliance checks"]
+          }
+        ],
+        relevantGrcTopics: [
+          "NABH AYUSH standards",
+          "Schedule T GMP compliance",
+          "Clinical Establishment registration",
+          "Herbal traceability and safety"
+        ],
+        linkedOfferings: [
+          {
+            serviceId: "accreditation-services",
+            serviceName: "Healthcare Accreditation Advisory",
+            route: "/services/accreditation-services",
+            relevance: "NABH AYUSH accreditation standards, clinical audit, and quality documentation."
+          },
+          {
+            serviceId: "regulatory-compliance",
+            serviceName: "Regulatory Compliance Management",
+            route: "/services/regulatory-compliance",
+            relevance: "AYUSH department licensing, Clinical Establishment Act filings, and GMP audits."
+          }
+        ],
+        existingRoute: "/industries/healthcare-life-sciences#ayush",
+        searchKeywords: ["ayush", "ayurveda", "nabh ayush", "wellness", "homeopathy", "schedule t", "naturopathy"],
+        verificationStatus: "confirmed",
+        publicationStatus: "published"
+      },
+      {
+        id: "telehealth-digital-health",
+        title: "Telehealth & Digital Health",
+        slug: "telehealth-digital-health",
+        parentClusterId: "healthcare-life-sciences",
+        parentClusterName: "Healthcare & Life Sciences",
+        subtitle: "Telemedicine Practice Guidelines & DPDP",
+        overview: "Telemedicine platforms and health-tech providers adhere to Telemedicine Practice Guidelines, ABDM (Ayushman Bharat Digital Mission) integration mandates, Electronic Health Record (EHR) standards, and DPDP patient privacy rules.",
+        icon: Laptop,
+        iconName: "Laptop",
+        displayOrder: 7,
+        regulations: [
+          "Telemedicine Practice Guidelines, 2020 (NMC)",
+          "Ayushman Bharat Digital Mission (ABDM) Integration Standards",
+          "Digital Personal Data Protection Act, 2023 (DPDPA)",
+          "Information Technology (Intermediary Guidelines) Rules, 2021"
+        ],
+        focusAreas: [
+          "Patient explicit consent and digital health record retention",
+          "Doctor identity and medical council registration verification (NPR)",
+          "Restricted medicine prescription scheduling adherence (Schedule X/H1 limits)",
+          "Health data interoperability and FHIR standard encryption"
+        ],
+        businessSegments: [
+          {
+            name: "Global HealthTech & E-Consultation Giants",
+            description: "Multinational tele-health aggregators and AI-assisted clinical triage platforms.",
+            relevantIndustryRisks: ["Cross-border patient data transfer non-compliance", "Misdiagnosis algorithmic liability", "ABDM milestone integration default"],
+            applicableGrcConsiderations: ["Comprehensive DPDP health data impact assessments", "Clinical algorithm risk validation", "SOC 2 Type II and ISO 27701 certification"]
+          },
+          {
+            name: "Large–Mid Domestic Telemedicine & E-Pharmacy Platforms",
+            description: "Integrated health apps providing doctor booking, teleconsultation, and prescription delivery.",
+            relevantIndustryRisks: ["Dispensing drugs without verified prescription", "Practitioner credential verification lapses", "Intermediary platform liability notices"],
+            applicableGrcConsiderations: ["Automated doctor credential verification against NMC", "Prescription audit trails", "Digital grievance redressal mechanisms"]
+          },
+          {
+            name: "Mid–Small Specialty Telehealth Startups",
+            description: "Mental health platforms, remote chronic care monitoring apps, and maternal care trackers.",
+            relevantIndustryRisks: ["Informed consent capture gaps", "Cloud patient record exposure", "Consumer protection misleading claim notices"],
+            applicableGrcConsiderations: ["Standardized teleconsultation consent forms", "Cloud security audits", "Terms of service and privacy policy reviews"]
+          }
+        ],
+        relevantGrcTopics: [
+          "Telemedicine Practice Guidelines",
+          "ABDM compliance & M1/M2/M3 milestones",
+          "Digital patient health privacy",
+          "Doctor credential verification"
+        ],
+        linkedOfferings: [
+          {
+            serviceId: "data-privacy-dpdp",
+            serviceName: "DPDP Data Privacy Management",
+            route: "/services/data-privacy-dpdp",
+            relevance: "Patient health data consent frameworks, ABDM compliance, and EHR data governance."
+          },
+          {
+            serviceId: "cybersecurity-iso27001",
+            serviceName: "Cybersecurity & ISO 27001",
+            route: "/services/cybersecurity-iso27001",
+            relevance: "Telemedicine platform penetration testing, FHIR API security, and HIPAA/ISO 27701 alignment."
+          }
+        ],
+        existingRoute: "/industries/healthcare-life-sciences#telehealth",
+        searchKeywords: ["telemedicine", "telehealth", "abdm", "healthtech", "ehr", "dpdp", "e-pharmacy"],
+        verificationStatus: "confirmed",
+        publicationStatus: "published"
+      },
+      {
+        id: "dental-specialty-clinics",
+        title: "Dental & Ambulatory Care",
+        slug: "dental-specialty-clinics",
+        parentClusterId: "healthcare-life-sciences",
+        parentClusterName: "Healthcare & Life Sciences",
+        subtitle: "AERB Radiation & Daycare Clinical Safety",
+        overview: "Daycare and dental facilities manage biomedical waste autoclaving, AERB dental X-ray/CBCT approvals, Dental Council of India practitioner licensing, and localized clinical establishment registrations.",
+        icon: Stethoscope,
+        iconName: "Stethoscope",
+        displayOrder: 8,
+        regulations: [
+          "Dentists Act, 1948 and Dental Council of India Regulations",
+          "AERB Safety Directives for Dental X-Ray & CBCT Units",
+          "Biomedical Waste Management Rules, 2016",
+          "State Clinical Establishments Acts"
+        ],
+        focusAreas: [
+          "Autoclaving validation and infection control sterilization protocols",
+          "AERB registration for intraoral X-ray and CBCT imaging units",
+          "Sharps and mercury amalgam separator waste management",
+          "Patient treatment consent and medical indemnity records"
+        ],
+        businessSegments: [
+          {
+            name: "Pan-India Dental & Daycare Chains",
+            description: "Multi-city dental clinic chains and corporatized ambulatory surgery networks.",
+            relevantIndustryRisks: ["Clinic-to-clinic sterilization divergence", "AERB equipment licensing lapses across branches", "Cross-infection liability claims"],
+            applicableGrcConsiderations: ["Centralized AERB compliance tracking", "Sterilization autoclave spore testing logs", "Standardized patient consent workflows"]
+          },
+          {
+            name: "Large–Mid Ambulatory & Daycare Surgical Centers",
+            description: "Short-stay ophthalmic, laparoscopic, and cosmetic surgery facilities.",
+            relevantIndustryRisks: ["Clinical Establishment Act inspection notices", "Post-operative infection audit flags", "Biomedical waste agency manifest non-compliances"],
+            applicableGrcConsiderations: ["Infection control committee audits", "BMW monthly return submissions", "Emergency transfer protocol agreements"]
+          },
+          {
+            name: "Mid–Small Standalone Dental Practices",
+            description: "Independent dental surgeries, orthodontic clinics, and local dental labs.",
+            relevantIndustryRisks: ["Unregistered dental X-ray units", "Improper disposal of dental amalgam and sharps", "Trade and signage license non-compliances"],
+            applicableGrcConsiderations: ["Basic AERB e-LORA filing", "Authorized BMW collection tie-ups", "Dentist council registration renewals"]
+          }
+        ],
+        relevantGrcTopics: [
+          "Dental clinic sterilization compliance",
+          "AERB dental X-ray licensing",
+          "Amalgam & biomedical waste disposal",
+          "Clinical establishment registration"
+        ],
+        linkedOfferings: [
+          {
+            serviceId: "regulatory-compliance",
+            serviceName: "Regulatory Compliance Management",
+            route: "/services/regulatory-compliance",
+            relevance: "AERB dental equipment approvals, municipal health licenses, and clinical registrations."
+          },
+          {
+            serviceId: "accreditation-services",
+            serviceName: "Healthcare Accreditation Advisory",
+            route: "/services/accreditation-services",
+            relevance: "NABH Daycare and Dental Clinic accreditation standards and audit readiness."
+          }
+        ],
+        existingRoute: "/industries/healthcare-life-sciences#dental-clinics",
+        searchKeywords: ["dental", "daycare surgery", "aerb", "cbct", "sterilization", "autoclave", "dentist"],
+        verificationStatus: "confirmed",
+        publicationStatus: "published"
       }
     ]
   },
@@ -1622,7 +3014,7 @@ export const whomWeServeClusters: IndustryClusterRecord[] = [
             relevance: "Drug authority filings and statutory manufacturing registers."
           }
         ],
-        existingRoute: "/industries/healthcare-life-sciences#pharmaceuticals",
+        existingRoute: "/industries/food-processing-pharma-healthcare#pharmaceutical-manufacturing",
         searchKeywords: ["pharma", "pharmaceutical manufacturing", "drugs", "cleanroom", "cdsco"],
         verificationStatus: "confirmed",
         publicationStatus: "published"
@@ -1668,8 +3060,348 @@ export const whomWeServeClusters: IndustryClusterRecord[] = [
             relevance: "Health record privacy and consent management."
           }
         ],
-        existingRoute: "/industries/healthcare-life-sciences#healthcare",
+        existingRoute: "/industries/food-processing-pharma-healthcare#healthcare-delivery",
         searchKeywords: ["healthcare", "hospitals", "clinics", "clinical quality", "patient safety"],
+        verificationStatus: "confirmed",
+        publicationStatus: "published"
+      },
+      {
+        id: "dairy-beverage-processing",
+        title: "Dairy, Beverages & Breweries",
+        slug: "dairy-beverage-processing",
+        parentClusterId: "food-processing-pharma-healthcare",
+        parentClusterName: "Food Processing, Pharma & Healthcare",
+        subtitle: "FSSAI Safety Standards & Effluent Oversight",
+        overview: "Dairy and beverage manufacturers comply with FSSAI microbiological limits, BIS packaged water certifications, state excise regulations for breweries, groundwater NOCs, and effluent treatment standards.",
+        icon: Droplets,
+        iconName: "Droplets",
+        displayOrder: 4,
+        regulations: [
+          "FSSAI (Food Products Standards and Food Additives) Regulations, 2011",
+          "Bureau of Indian Standards IS 14543 (Packaged Drinking Water)",
+          "State Excise Acts & Brewery Licensing Rules",
+          "Central Ground Water Authority (CGWA) Guidelines"
+        ],
+        focusAreas: [
+          "Milk adulteration testing (aflatoxin M1, antibiotics, urea) protocols",
+          "BIS certification surveillance audits for bottled water and soda",
+          "State excise bonded warehouse register maintenance and batch tracking",
+          "High-COD dairy effluent treatment and biogas capture compliance"
+        ],
+        businessSegments: [
+          {
+            name: "Global Beverage & Dairy Conglomerates",
+            description: "Multinational beverage corporations operating high-speed automated bottling and dairy plants.",
+            relevantIndustryRisks: ["Groundwater depletion public litigation", "FSSAI product recall orders for pesticide residues", "Extended Producer Responsibility (EPR) plastic defaults"],
+            applicableGrcConsiderations: ["Enterprise CGWA telemetry monitoring", "Global GFSI benchmark audits", "Centralized EPR credit management"]
+          },
+          {
+            name: "Large–Mid Regional Dairy Cooperatives & Distilleries",
+            description: "State dairy federations, craft breweries, and regional fruit juice bottlers.",
+            relevantIndustryRisks: ["Milk chilling center contamination incidents", "State excise permit delay losses", "Effluent discharge notice from state PCB"],
+            applicableGrcConsiderations: ["Chilling center hygiene audit programs", "Excise register reconciliation audits", "Effluent telemetry governance"]
+          },
+          {
+            name: "Mid–Small Packaged Water & Dairy Units",
+            description: "Local 20-litre water jar plants, paneer and ghee manufacturing units, and microbreweries.",
+            relevantIndustryRisks: ["BIS license suspension for coliform detection", "Illegal groundwater extraction penalties", "Unregistered contract workers"],
+            applicableGrcConsiderations: ["Periodic BIS sample testing records", "Factory Act registrations", "Basic FSSAI hygiene logbooks"]
+          }
+        ],
+        relevantGrcTopics: [
+          "FSSAI dairy & beverage standards",
+          "BIS packaged water certifications",
+          "CGWA groundwater extraction permits",
+          "State excise bonded compliance"
+        ],
+        linkedOfferings: [
+          {
+            serviceId: "regulatory-compliance",
+            serviceName: "Regulatory Compliance Management",
+            route: "/services/regulatory-compliance",
+            relevance: "FSSAI central licenses, BIS certifications, and state excise compliance."
+          },
+          {
+            serviceId: "environmental-compliance",
+            serviceName: "Environmental Compliance",
+            route: "/services/environmental-compliance",
+            relevance: "Groundwater NOCs, high-BOD effluent treatment, and plastic EPR filings."
+          }
+        ],
+        existingRoute: "/industries/food-processing-pharma-healthcare#dairy-beverages",
+        searchKeywords: ["dairy", "beverage", "brewery", "bottling", "bis water", "fssai", "excise"],
+        verificationStatus: "confirmed",
+        publicationStatus: "published"
+      },
+      {
+        id: "cold-chain-logistics-fp",
+        title: "Cold Chain & Perishable Logistics",
+        slug: "cold-chain-logistics-fp",
+        parentClusterId: "food-processing-pharma-healthcare",
+        parentClusterName: "Food Processing, Pharma & Healthcare",
+        subtitle: "Cold Chain FSMS & Temperature Integrity",
+        overview: "Cold chain logistics providers ensure continuous temperature mapping, CDSCO Good Distribution Practices (GDP) for pharmaceuticals, FSSAI perishable cold-storage mandates, and ammonia refrigeration safety.",
+        icon: Truck,
+        iconName: "Truck",
+        displayOrder: 5,
+        regulations: [
+          "CDSCO Good Distribution Practices (GDP) Guidelines",
+          "FSSAI Guidelines on Cold Chain Logistics and Warehousing",
+          "Petroleum and Explosives Safety Organization (PESO) Ammonia Norms",
+          "Motor Vehicles Act - Refrigerated Transport Specifications"
+        ],
+        focusAreas: [
+          "Multi-point continuous temperature data logger calibration and audit trails",
+          "Cold-room thermal mapping validation (empty and loaded states)",
+          "Refrigeration plant ammonia leak detection and emergency response (PSM)",
+          "Cross-contamination prevention in multi-commodity cold stores"
+        ],
+        businessSegments: [
+          {
+            name: "Global Pharma & Perishable Cold Logistics",
+            description: "Multinational 3PL cold-chain operators managing pharma airport hubs and perishable sea freight.",
+            relevantIndustryRisks: ["Biologics temperature excursion insurance claims", "Customs clearance delay spoilage", "Cross-border GDP audit disqualifications"],
+            applicableGrcConsiderations: ["GDP and WHO-standard thermal mapping", "Real-time IoT temperature telemetry", "Cold chain business continuity planning"]
+          },
+          {
+            name: "Large–Mid Regional Cold Storage Networks",
+            description: "Commercial cold-storage parks and reefer truck fleet operators across agricultural belts.",
+            relevantIndustryRisks: ["Ammonia cylinder rupture accidents", "Farmer crop spoilage disputes", "Power failure backup downtime liabilities"],
+            applicableGrcConsiderations: ["PESO pressure vessel inspections", "Factory Act annual safety audits", "Generator diesel statutory permits"]
+          },
+          {
+            name: "Mid–Small Reefer Fleets & Pack Houses",
+            description: "Local refrigerated van operators, fruit ripening chambers, and dairy delivery hubs.",
+            relevantIndustryRisks: ["Reefer temperature log falsification claims", "Food safety hygiene notices", "Driver safety and resting hour violations"],
+            applicableGrcConsiderations: ["Digital temperature sensor calibration", "Basic FSSAI transport licenses", "Driver statutory compliance records"]
+          }
+        ],
+        relevantGrcTopics: [
+          "Cold chain GDP compliance",
+          "Thermal mapping & data logging",
+          "Ammonia refrigeration safety",
+          "Perishable food hygiene"
+        ],
+        linkedOfferings: [
+          {
+            serviceId: "supply-chain-compliance",
+            serviceName: "Supply Chain & Logistics Compliance",
+            route: "/services/supply-chain-compliance",
+            relevance: "Reefer fleet audit, temperature logging validation, and vendor SLAs."
+          },
+          {
+            serviceId: "regulatory-compliance",
+            serviceName: "Regulatory Compliance Management",
+            route: "/services/regulatory-compliance",
+            relevance: "PESO ammonia licenses, FSSAI warehouse approvals, and factory safety."
+          }
+        ],
+        existingRoute: "/industries/food-processing-pharma-healthcare#cold-chain",
+        searchKeywords: ["cold chain", "reefer", "cold storage", "gdp", "temperature mapping", "ammonia"],
+        verificationStatus: "confirmed",
+        publicationStatus: "published"
+      },
+      {
+        id: "nutraceuticals-dietary",
+        title: "Nutraceuticals & Health Supplements",
+        slug: "nutraceuticals-dietary",
+        parentClusterId: "food-processing-pharma-healthcare",
+        parentClusterName: "Food Processing, Pharma & Healthcare",
+        subtitle: "Nutraceutical Regulations & Labeling Audits",
+        overview: "Nutraceutical manufacturers navigate FSSAI Nutraceutical Regulations, permissible ingredient limits (RDA benchmarks), banned sports substance screenings, health claim substantiations, and GMP standards.",
+        icon: Pill,
+        iconName: "Pill",
+        displayOrder: 6,
+        regulations: [
+          "FSSAI (Health Supplements, Nutraceuticals, Food for Special Dietary Use) Regulations, 2022",
+          "Legal Metrology (Packaged Commodities) Rules, 2011",
+          "Drugs and Magic Remedies (Objectionable Advertisements) Act, 1954",
+          "Consumer Protection Act (E-Commerce) Rules, 2020"
+        ],
+        focusAreas: [
+          "Recommended Dietary Allowance (RDA 2020) formula limit adherence",
+          "Clinical substantiation dossiers for product health claims",
+          "Heavy metal, microbiological, and pesticide residue batch testing",
+          "Online marketplace product listing and labeling disclosure compliance"
+        ],
+        businessSegments: [
+          {
+            name: "Global Nutrition & Supplement Brands",
+            description: "Multinational wellness corporations marketing vitamins, protein powders, and functional foods.",
+            relevantIndustryRisks: ["Misleading health claim penalties by CCPA", "FSSAI unapproved ingredient notices", "Counterfeiting on digital marketplaces"],
+            applicableGrcConsiderations: ["Comprehensive health claim validation reviews", "FSSAI non-specified food approval tracking", "Online anti-counterfeiting governance"]
+          },
+          {
+            name: "Large–Mid Contract Supplement Manufacturers (CDMOs)",
+            description: "Specialized formulation plants manufacturing capsules, gummies, and powders for third-party brands.",
+            relevantIndustryRisks: ["Batch contamination and cross-allergen issues", "FSSAI Schedule 4 GMP inspection flags", "Contractual liability for label inaccuracies"],
+            applicableGrcConsiderations: ["GMP and HACCP certified cleanroom audits", "Allergen control and clean-in-place (CIP) logs", "Finished product batch release protocols"]
+          },
+          {
+            name: "Mid–Small Direct-to-Consumer (D2C) Wellness Startups",
+            description: "Digital-first brands selling herbal teas, collagen gummies, and Ayurvedic wellness supplements.",
+            relevantIndustryRisks: ["Social media influencer misleading endorsement fines", "Mandatory nutritional table omission notices", "Customer allergy complaints"],
+            applicableGrcConsiderations: ["ASCI influencer marketing guidelines compliance", "Legal metrology label audits", "Customer grievance and return policies"]
+          }
+        ],
+        relevantGrcTopics: [
+          "FSSAI nutraceutical regulations",
+          "RDA ingredient limit compliance",
+          "Health claim substantiation",
+          "Allergen control & GMP audits"
+        ],
+        linkedOfferings: [
+          {
+            serviceId: "regulatory-compliance",
+            serviceName: "Regulatory Compliance Management",
+            route: "/services/regulatory-compliance",
+            relevance: "FSSAI formulation approvals, label compliance, and advertising clearance."
+          },
+          {
+            serviceId: "internal-audit",
+            serviceName: "Internal Audit & Risk Controls",
+            route: "/services/internal-audit",
+            relevance: "CDMO contract compliance, batch manufacturing record audits, and QA checks."
+          }
+        ],
+        existingRoute: "/industries/food-processing-pharma-healthcare#nutraceuticals",
+        searchKeywords: ["nutraceuticals", "supplements", "fssai", "rda", "gummies", "whey protein", "health claims"],
+        verificationStatus: "confirmed",
+        publicationStatus: "published"
+      },
+      {
+        id: "organic-agri-processing",
+        title: "Organic Foods & Agri-Commodities",
+        slug: "organic-agri-processing",
+        parentClusterId: "food-processing-pharma-healthcare",
+        parentClusterName: "Food Processing, Pharma & Healthcare",
+        subtitle: "APEDA Certification & Organic SOPs",
+        overview: "Agri-processors and organic exporters manage APEDA NPOP organic certifications, Jaivik Bharat compliance, Spices Board sampling norms, mandi market fees, and warehouse commodity testing.",
+        icon: Leaf,
+        iconName: "Leaf",
+        displayOrder: 7,
+        regulations: [
+          "National Programme for Organic Production (NPOP) - APEDA",
+          "FSSAI (Organic Foods) Regulations, 2017 (Jaivik Bharat)",
+          "Spices Board (Quality Evaluation System) Regulations",
+          "Warehousing (Development and Regulation) Act, 2007 (WDRA)"
+        ],
+        focusAreas: [
+          "Farmer cluster internal control systems (ICS) and farm inspection trails",
+          "NPOP third-party certification audits and Jaivik Bharat logo usage",
+          "Ethylene oxide (EtO) and aflatoxin testing protocols for export consignments",
+          "WDRA accredited warehouse negotiable warehouse receipt (e-NWR) audits"
+        ],
+        businessSegments: [
+          {
+            name: "Global Agri-Commodity Exporters",
+            description: "Multinational agricultural trading houses exporting certified organic spices, tea, and grains.",
+            relevantIndustryRisks: ["Export consignment rejection at EU/US ports", "NPOP certification suspension", "Traceability gap findings in ICS farmer groups"],
+            applicableGrcConsiderations: ["Comprehensive farm-to-shipment traceability audits", "APEDA Tracenet portal reconciliations", "Multi-residue pesticide laboratory screening"]
+          },
+          {
+            name: "Large–Mid Food Processing Mills",
+            description: "Rice mills, flour mills, pulse processing units, and edible oil extraction plants.",
+            relevantIndustryRisks: ["FSSAI solvent residue exceedances in oils", "Mandi cess payment dispute assessments", "Air pollution dust notices from state PCB"],
+            applicableGrcConsiderations: ["Solvent extraction safety compliance", "Mandi market statutory registers", "Dust extraction environmental compliance"]
+          },
+          {
+            name: "Mid–Small Organic Farmer Producer Organizations (FPOs)",
+            description: "Farmer producer companies aggregating organic honey, millets, and pulses.",
+            relevantIndustryRisks: ["Incomplete ICS documentation causing cert loss", "Packaging labeling mistakes under Legal Metrology", "Working capital loan covenant breaches"],
+            applicableGrcConsiderations: ["Farmer group ICS register training", "FSSAI basic registration assistance", "Statutory ROC annual secretarial compliance"]
+          }
+        ],
+        relevantGrcTopics: [
+          "NPOP organic certification",
+          "Jaivik Bharat logo compliance",
+          "APEDA Tracenet traceability",
+          "Pesticide & aflatoxin testing"
+        ],
+        linkedOfferings: [
+          {
+            serviceId: "supply-chain-compliance",
+            serviceName: "Supply Chain & Logistics Compliance",
+            route: "/services/supply-chain-compliance",
+            relevance: "Farmer group traceability audits, organic certification checks, and supplier verification."
+          },
+          {
+            serviceId: "regulatory-compliance",
+            serviceName: "Regulatory Compliance Management",
+            route: "/services/regulatory-compliance",
+            relevance: "APEDA registrations, Spices Board clearances, and FSSAI organic compliance."
+          }
+        ],
+        existingRoute: "/industries/food-processing-pharma-healthcare#organic-agri",
+        searchKeywords: ["organic", "apeda", "npop", "jaivik bharat", "spices", "fpo", "agri processing"],
+        verificationStatus: "confirmed",
+        publicationStatus: "published"
+      },
+      {
+        id: "commercial-catering-qsr",
+        title: "Commercial Catering & QSR Kitchens",
+        slug: "commercial-catering-qsr",
+        parentClusterId: "food-processing-pharma-healthcare",
+        parentClusterName: "Food Processing, Pharma & Healthcare",
+        subtitle: "Central Kitchen Hygiene & FSSAI Licensure",
+        overview: "Centralized commercial food providers handle FSSAI Food Safety Supervisor mandates, grease trap and wastewater norms, pest control logs, cold holding temperatures, and food allergen disclosures.",
+        icon: ChefHat,
+        iconName: "ChefHat",
+        displayOrder: 8,
+        regulations: [
+          "FSSAI (Licensing and Registration of Food Businesses) Regulations, 2011",
+          "State Municipal Corporation Public Health By-Laws",
+          "Legal Metrology (Packaged Commodities) Rules, 2011",
+          "Water & Air Pollution Acts (Grease Trap & Kitchen Exhaust Norms)"
+        ],
+        focusAreas: [
+          "Central commissary HACCP and hygiene rating scheme audits",
+          "Kitchen grease trap maintenance and biological wastewater compliance",
+          "Cooked food temperature holding logs and blast chilling records",
+          "Menu labeling for caloric value, allergens, and nutritional facts"
+        ],
+        businessSegments: [
+          {
+            name: "Global QSR & Master Franchisees",
+            description: "International fast-food brands and master franchise operators with national store footprints.",
+            relevantIndustryRisks: ["Viral food poisoning outbreak liabilities", "Menu labeling non-compliance penalties", "Franchisee food hygiene divergence"],
+            applicableGrcConsiderations: ["Third-party store food hygiene mystery audits", "Centralized FSSAI multi-unit license governance", "Menu nutritional validation"]
+          },
+          {
+            name: "Large–Mid Corporate Catering & Cloud Kitchens",
+            description: "Institutional dining providers servicing IT tech parks, factories, and dark kitchen networks.",
+            relevantIndustryRisks: ["Large-scale food contamination incidents", "Municipal health trade license delays", "Exhaust duct fire safety lapses"],
+            applicableGrcConsiderations: ["Central kitchen HACCP implementation", "Fire safety suppression system audits", "Food handler medical fitness certificates"]
+          },
+          {
+            name: "Mid–Small Local Caterers & Independent Eateries",
+            description: "Localized banquet caterers, event food contractors, and standalone bakeries.",
+            relevantIndustryRisks: ["Unregistered kitchen operation notices", "Expired raw material citations", "Casual labour wage statutory issues"],
+            applicableGrcConsiderations: ["FSSAI state license registration", "Clean water potability testing logs", "Labour wage register maintenance"]
+          }
+        ],
+        relevantGrcTopics: [
+          "FSSAI hygiene rating scheme",
+          "Central commissary HACCP",
+          "Grease trap effluent compliance",
+          "Food handler medical fitness"
+        ],
+        linkedOfferings: [
+          {
+            serviceId: "regulatory-compliance",
+            serviceName: "Regulatory Compliance Management",
+            route: "/services/regulatory-compliance",
+            relevance: "FSSAI state/central licensing, municipal health trade permits, and fire NOCs."
+          },
+          {
+            serviceId: "internal-audit",
+            serviceName: "Internal Audit & Risk Controls",
+            route: "/services/internal-audit",
+            relevance: "Central kitchen hygiene audits, food wastage tracking, and vendor verification."
+          }
+        ],
+        existingRoute: "/industries/food-processing-pharma-healthcare#catering-qsr",
+        searchKeywords: ["catering", "qsr", "cloud kitchen", "haccp", "fssai hygiene", "grease trap", "commissary"],
         verificationStatus: "confirmed",
         publicationStatus: "published"
       }
@@ -1844,6 +3576,346 @@ export const whomWeServeClusters: IndustryClusterRecord[] = [
         ],
         existingRoute: "/industries/consumer-retail#ecommerce",
         searchKeywords: ["ecommerce", "d2c", "marketplace", "consumer protection", "online retail"],
+        verificationStatus: "confirmed",
+        publicationStatus: "published"
+      },
+      {
+        id: "luxury-gems-jewellery",
+        title: "Gems, Jewellery & Luxury Retail",
+        slug: "luxury-gems-jewellery",
+        parentClusterId: "consumer-retail",
+        parentClusterName: "Consumer & Retail",
+        subtitle: "BIS Hallmarking & AML/CFT Due Diligence",
+        overview: "Jewellery retailers and bullion dealers comply with mandatory BIS hallmarking, PMLA reporting for precious metals, Cash transaction limits (Section 269ST), conflict-free diamond Kimberly Process certifications, and showroom physical security.",
+        icon: Coins,
+        iconName: "Coins",
+        displayOrder: 4,
+        regulations: [
+          "Bureau of Indian Standards (BIS) Mandatory Hallmarking Regulations",
+          "Prevention of Money Laundering Act (PMLA) for Gems and Jewellery",
+          "Income Tax Act, 1961 (Section 269ST Cash Transaction Limits)",
+          "Kimberley Process Certification Scheme (KPCS)"
+        ],
+        focusAreas: [
+          "BIS Hallmarking Unique Identification (HUID) laser registration and tracking",
+          "PMLA high-value customer KYC thresholds and Cash Transaction Reports (CTR)",
+          "Section 269ST cash acceptance monitoring and PAN card verification",
+          "Physical vault security, armed guard licenses, and transit insurance warranties"
+        ],
+        businessSegments: [
+          {
+            name: "Global Luxury & Diamond Conglomerates",
+            description: "Multinational fine jewellery houses and diamond cutters with international retail boutiques.",
+            relevantIndustryRisks: ["Cross-border conflict diamond tracking violations", "Customs duty valuation disputes on imported gemstones", "FIU-IND non-reporting show cause notices"],
+            applicableGrcConsiderations: ["Comprehensive Kimberley Process audit trails", "Automated FIU-IND compliance reporting", "Global supply chain ethical sourcing audits"]
+          },
+          {
+            name: "Large–Mid National Jewellery Showroom Chains",
+            description: "Listed and organized Indian jewellery retailers with extensive multi-city showroom networks.",
+            relevantIndustryRisks: ["Store-level HUID hallmarking inventory discrepancies", "Cash sale limit violations during festive rushes", "Transit heist and insurance non-admissibility"],
+            applicableGrcConsiderations: ["Centralized HUID ERP inventory integration", "Automated POS cash transaction controls", "Showroom security and vault standard audits"]
+          },
+          {
+            name: "Mid–Small Standalone Jewellers & Goldsmiths",
+            description: "Family-owned traditional jewellery stores, bullion brokers, and localized artisans.",
+            relevantIndustryRisks: ["Unregistered artisan subcontracting risks", "BIS hallmarking spot-check penalties", "PAN collection record lapses"],
+            applicableGrcConsiderations: ["BIS license registration and renewal", "Standardized customer KYC forms", "Basic fire and police NOC verifications"]
+          }
+        ],
+        relevantGrcTopics: [
+          "BIS HUID hallmarking compliance",
+          "PMLA precious metals KYC",
+          "Section 269ST cash limit controls",
+          "Kimberley Process certification"
+        ],
+        linkedOfferings: [
+          {
+            serviceId: "regulatory-compliance",
+            serviceName: "Regulatory Compliance Management",
+            route: "/services/regulatory-compliance",
+            relevance: "BIS hallmarking licensing, PMLA reporting to FIU-IND, and tax compliance."
+          },
+          {
+            serviceId: "internal-audit",
+            serviceName: "Internal Audit & Risk Controls",
+            route: "/services/internal-audit",
+            relevance: "Showroom gold inventory reconciliation, POS cash audit, and vault security."
+          }
+        ],
+        existingRoute: "/industries/consumer-retail#jewellery",
+        searchKeywords: ["jewellery", "gems", "huid", "hallmarking", "pmla", "fiu", "diamonds", "gold"],
+        verificationStatus: "confirmed",
+        publicationStatus: "published"
+      },
+      {
+        id: "consumer-durables-electronics",
+        title: "Consumer Durables & Electronics",
+        slug: "consumer-durables-electronics",
+        parentClusterId: "consumer-retail",
+        parentClusterName: "Consumer & Retail",
+        subtitle: "BEE Star Labeling & E-Waste EPR",
+        overview: "Consumer durable manufacturers and retailers adhere to BEE Star Labeling energy efficiency norms, E-Waste Management EPR targets, BIS CRS safety registrations, and consumer warranty redressal rules.",
+        icon: Settings,
+        iconName: "Settings",
+        displayOrder: 5,
+        regulations: [
+          "Bureau of Energy Efficiency (BEE) Star Rating Regulations",
+          "E-Waste (Management) Rules, 2022 (EPR Portals)",
+          "Bureau of Indian Standards Compulsory Registration Scheme (CRS)",
+          "Consumer Protection (Jurisdiction of the Commissions) Rules"
+        ],
+        focusAreas: [
+          "BEE energy rating label accuracy and periodic star rating upgrade compliance",
+          "E-waste recycling target fulfillment and CPCB EPR credit procurement",
+          "BIS CRS testing reports for imported and domestic electronic components",
+          "Warranty policy clarity, spare parts availability periods, and CCPA right-to-repair"
+        ],
+        businessSegments: [
+          {
+            name: "Global Electronics & White Goods OEMs",
+            description: "Multinational appliance brands manufacturing refrigerators, ACs, and televisions.",
+            relevantIndustryRisks: ["CPCB heavy fines for EPR e-waste shortfall", "BEE star rating downgrades during check-testing", "BIS CRS non-registration port customs blockages"],
+            applicableGrcConsiderations: ["BEE test laboratory audit governance", "E-waste EPR portal reconciliation", "Customs electronics conformity documentation"]
+          },
+          {
+            name: "Large–Mid Electronics Retail Superstores",
+            description: "Omnichannel electronics retailers operating multi-brand electronics hypermarkets.",
+            relevantIndustryRisks: ["Selling older non-compliant BEE star inventory", "Consumer court claims on defective products and service delays", "Extended warranty mis-selling allegations"],
+            applicableGrcConsiderations: ["Store inventory BEE rating expiry filters", "Consumer dispute grievance redressal framework", "Standardized warranty terms"]
+          },
+          {
+            name: "Mid–Small Regional Dealers & Service Centers",
+            description: "Authorized appliance repair franchises, spare parts distributors, and regional dealerships.",
+            relevantIndustryRisks: ["Improper disposal of hazardous refrigerant gases (ODS/HFCs)", "Unauthorized duplicate spare parts liabilities", "Labour overtime in repair centers"],
+            applicableGrcConsiderations: ["Ozone Depleting Substances (ODS) refrigerant handling logs", "Authorized genuine spare part audit trails", "Contract technician labour compliance"]
+          }
+        ],
+        relevantGrcTopics: [
+          "BEE Star Labeling regulations",
+          "CPCB E-Waste EPR targets",
+          "BIS CRS electronics testing",
+          "Right to repair & warranty compliance"
+        ],
+        linkedOfferings: [
+          {
+            serviceId: "environmental-compliance",
+            serviceName: "Environmental Compliance",
+            route: "/services/environmental-compliance",
+            relevance: "E-waste EPR credit management, CPCB portal reporting, and hazardous materials."
+          },
+          {
+            serviceId: "regulatory-compliance",
+            serviceName: "Regulatory Compliance Management",
+            route: "/services/regulatory-compliance",
+            relevance: "BEE registration, BIS CRS approvals, and Legal Metrology packaging compliance."
+          }
+        ],
+        existingRoute: "/industries/consumer-retail#consumer-durables",
+        searchKeywords: ["consumer durables", "appliances", "bee star", "e-waste", "epr", "bis crs", "electronics"],
+        verificationStatus: "confirmed",
+        publicationStatus: "published"
+      },
+      {
+        id: "quick-commerce-darkstores",
+        title: "Quick Commerce & Hyperlocal Delivery",
+        slug: "quick-commerce-darkstores",
+        parentClusterId: "consumer-retail",
+        parentClusterName: "Consumer & Retail",
+        subtitle: "Dark Store Safety & Gig Workforce Compliance",
+        overview: "Quick commerce operators must comply with municipal dark store zoning rules, gig worker social security code provisions, rider traffic safety standards, FSSAI dark store food registrations, and DPDP customer location privacy.",
+        icon: ShoppingCart,
+        iconName: "ShoppingCart",
+        displayOrder: 6,
+        regulations: [
+          "Code on Social Security, 2020 (Gig and Platform Workers Provisions)",
+          "Motor Vehicles Act and State Aggregator Guidelines",
+          "FSSAI Food Safety Licensing for Dark Stores & Fulfillment Hubs",
+          "Digital Personal Data Protection Act, 2023 (Customer Location & Phone Masking)"
+        ],
+        focusAreas: [
+          "Dark store commercial zoning, noise abatement, and municipal trade permits",
+          "Gig worker accident insurance, helmet compliance, and resting facilities",
+          "Perishable inventory shelf-life expiry tracking and rapid cold storage",
+          "Customer phone number masking and delivery address redaction protocols"
+        ],
+        businessSegments: [
+          {
+            name: "Pan-India Quick Commerce Platforms",
+            description: "High-volume delivery platforms operating thousands of urban dark store nodes.",
+            relevantIndustryRisks: ["Municipal sealing of residential-zone dark stores", "Rider accident liabilities and regulatory speed caps", "Aggregator license withholding by state transport departments"],
+            applicableGrcConsiderations: ["Centralized dark store licensing trackers", "Rider safety telemetry and dynamic route speed limits", "Gig worker social security fund contributions"]
+          },
+          {
+            name: "Large–Mid Hyperlocal Fleet & Logistics Partners",
+            description: "3PL electric two-wheeler delivery fleets and logistics staffing agencies serving e-grocery.",
+            relevantIndustryRisks: ["EV battery fire incidents in charging hubs", "Unregistered contract rider wage disputes", "High rider attrition leading to background check omissions"],
+            applicableGrcConsiderations: ["EV charging facility fire and electrical safety audits", "Automated digital rider background verification", "Statutory accident insurance records"]
+          },
+          {
+            name: "Mid–Small Local Grocery Express Operators",
+            description: "Neighborhood supermarket express delivery units and localized delivery startups.",
+            relevantIndustryRisks: ["Expired packaged goods delivery complaints", "Local police notices on delivery van street blockages", "Cash-on-delivery pilferage"],
+            applicableGrcConsiderations: ["Dark store daily expiry checklist audits", "Local trade license registrations", "Rider cash reconciliation controls"]
+          }
+        ],
+        relevantGrcTopics: [
+          "Gig worker social security compliance",
+          "Dark store municipal trade licensing",
+          "Customer location data privacy",
+          "Rider road safety & insurance"
+        ],
+        linkedOfferings: [
+          {
+            serviceId: "managed-staffing-risk-shield",
+            serviceName: "Managed Staffing Risk Shield",
+            route: "/services/managed-staffing-risk-shield",
+            relevance: "Gig delivery rider compliance, accident insurance, and aggregator safety."
+          },
+          {
+            serviceId: "data-privacy-dpdp",
+            serviceName: "Data Privacy & DPDP",
+            route: "/services/data-privacy-dpdp",
+            relevance: "Phone number masking, delivery geolocation privacy, and app user consents."
+          }
+        ],
+        existingRoute: "/industries/consumer-retail#quick-commerce",
+        searchKeywords: ["quick commerce", "dark stores", "hyperlocal", "gig workers", "delivery", "fssai", "10 minute delivery"],
+        verificationStatus: "confirmed",
+        publicationStatus: "published"
+      },
+      {
+        id: "fmcg-personal-care",
+        title: "FMCG & Personal Care Cosmetics",
+        slug: "fmcg-personal-care",
+        parentClusterId: "consumer-retail",
+        parentClusterName: "Consumer & Retail",
+        subtitle: "Drugs & Cosmetics Act Compliance",
+        overview: "Cosmetic and personal care manufacturers comply with CDSCO Cosmetics Rules, heavy metal testing for formulations, microplastic bans, Legal Metrology packaging declarations, and plastic EPR targets.",
+        icon: Package,
+        iconName: "Package",
+        displayOrder: 7,
+        regulations: [
+          "Cosmetics Rules, 2020 under Drugs and Cosmetics Act, 1940",
+          "Bureau of Indian Standards IS 4707 (Dyes and Colorants in Cosmetics)",
+          "Plastic Waste Management Rules, 2016 (EPR Obligations)",
+          "Legal Metrology (Packaged Commodities) Rules, 2011"
+        ],
+        focusAreas: [
+          "CDSCO cosmetic manufacturing license and import registration (Form COS-2)",
+          "Banned ingredient screening (heavy metals, arsenic, lead) and microbiological testing",
+          "Consumer packaging font sizes, batch numbering, and country of origin disclosures",
+          "Rigid and flexible plastic EPR registration and recycling certificate submission"
+        ],
+        businessSegments: [
+          {
+            name: "Global FMCG & Beauty Multinationals",
+            description: "Multinational personal care leaders marketing international cosmetic and skincare brands.",
+            relevantIndustryRisks: ["Import registration certificate (COS-2) expiration delays", "ASCI penalties for unsubstantiated cosmetic efficacy claims", "CPCB plastic EPR multi-crore default notices"],
+            applicableGrcConsiderations: ["Centralized CDSCO cosmetic import portals", "Clinical efficacy dossier verification", "Enterprise plastic packaging circularity tracking"]
+          },
+          {
+            name: "Large–Mid Contract Cosmetics Manufacturers (OEM/ODM)",
+            description: "Third-party private label manufacturers producing soaps, shampoos, serums, and fragrances.",
+            relevantIndustryRisks: ["State FDA cosmetic license inspection flags", "Cross-contamination in multi-brand filling lines", "Raw material certificate-of-analysis (CoA) errors"],
+            applicableGrcConsiderations: ["Good Manufacturing Practices (GMP) cosmetic audits", "Raw material batch testing verification", "Cleanroom air particulate monitoring"]
+          },
+          {
+            name: "Mid–Small D2C Organic Beauty Brands",
+            description: "Clean beauty startups selling sulfate-free, cruelty-free, and vegan personal care products.",
+            relevantIndustryRisks: ["Mislabeled 'organic' claims without AYUSH or NPOP certification", "Customer contact dermatitis allergy complaints", "Inadequate tamper-evident packaging"],
+            applicableGrcConsiderations: ["Label claim legal verification", "Cosmetic stability and patch test documentation", "Customer complaint adverse event registers"]
+          }
+        ],
+        relevantGrcTopics: [
+          "CDSCO Cosmetics Rules, 2020",
+          "IS 4707 permissible colorants",
+          "Plastic waste EPR obligations",
+          "Packaged commodity label compliance"
+        ],
+        linkedOfferings: [
+          {
+            serviceId: "regulatory-compliance",
+            serviceName: "Regulatory Compliance Management",
+            route: "/services/regulatory-compliance",
+            relevance: "CDSCO cosmetic licenses, state FDA approvals, and packaging legal metrology."
+          },
+          {
+            serviceId: "environmental-compliance",
+            serviceName: "Environmental Compliance",
+            route: "/services/environmental-compliance",
+            relevance: "Plastic packaging EPR credits, effluent treatment, and CPCB annual filings."
+          }
+        ],
+        existingRoute: "/industries/consumer-retail#fmcg-cosmetics",
+        searchKeywords: ["fmcg", "cosmetics", "personal care", "cdsco", "epr", "skincare", "beauty", "legal metrology"],
+        verificationStatus: "confirmed",
+        publicationStatus: "published"
+      },
+      {
+        id: "agri-inputs-rural-retail",
+        title: "Agri-Inputs & Rural Distribution",
+        slug: "agri-inputs-rural-retail",
+        parentClusterId: "consumer-retail",
+        parentClusterName: "Consumer & Retail",
+        subtitle: "Insecticides Act & Seed License Governance",
+        overview: "Agri-input distributors and rural retail hubs operate under the Fertilizer Control Order (FCO), Insecticides Act, Seeds Act, DBT subsidy reconciliations, and hazardous warehouse safety norms.",
+        icon: Tractor,
+        iconName: "Tractor",
+        displayOrder: 8,
+        regulations: [
+          "Fertilizer (Inorganic, Organic or Mixed) (Control) Order, 1985 (FCO)",
+          "Insecticides Act, 1968 and Insecticides Rules, 1971",
+          "Seeds Act, 1966 and Seeds (Control) Order, 1983",
+          "Direct Benefit Transfer (DBT) in Fertilizers Guidelines"
+        ],
+        focusAreas: [
+          "Department of Fertilizers POS machine biometric transaction reconciliation",
+          "Retail insecticide storage license renewals and dealer display boards",
+          "Seed germination lot testing and truth-in-labeling compliance",
+          "Spill containment, ventilation, and fire safety in rural agrochemical warehouses"
+        ],
+        businessSegments: [
+          {
+            name: "Global Crop Science & Fertilizer Corporations",
+            description: "Multinational agrochemical manufacturers selling patented crop protection and hybrid seeds.",
+            relevantIndustryRisks: ["Counterfeit seed/chemical proliferation harming brand reputation", "DBT subsidy payment audit delays by government", "Central Insecticides Board registration delays"],
+            applicableGrcConsiderations: ["Digital anti-counterfeit QR code traceability", "Automated DBT subsidy reconciliation portals", "CIB&RC statutory registration governance"]
+          },
+          {
+            name: "Large–Mid Regional Agri-Input Dealer Networks",
+            description: "Wholesale seed and chemical distributors managing thousands of rural dealer touchpoints.",
+            relevantIndustryRisks: ["Dealer POS non-authentication of farmers", "Stock expiry and unsellable chemical disposal liabilities", "State agriculture department quality sampling seizures"],
+            applicableGrcConsiderations: ["Dealer network statutory compliance monitoring", "Pesticide disposal manifest management", "Legal defense for sample test variance"]
+          },
+          {
+            name: "Mid–Small Rural Retail Outlets & Krishi Kendras",
+            description: "Panchayat-level agrochemical shops and localized agri-service centers.",
+            relevantIndustryRisks: ["Selling expired pesticide batches", "Missing FCO retail sale licenses", "Storage of chemicals next to cattle feed"],
+            applicableGrcConsiderations: ["Local agriculture officer license renewals", "Safe chemical segregation SOPs", "Basic GST and cash book maintenance"]
+          }
+        ],
+        relevantGrcTopics: [
+          "Fertilizer Control Order (FCO)",
+          "Insecticides Act & CIB&RC licensing",
+          "DBT fertilizer subsidy reconciliation",
+          "Seed quality & truth-in-labeling"
+        ],
+        linkedOfferings: [
+          {
+            serviceId: "regulatory-compliance",
+            serviceName: "Regulatory Compliance Management",
+            route: "/services/regulatory-compliance",
+            relevance: "Insecticide retail/wholesale licensing, FCO compliance, and seed registrations."
+          },
+          {
+            serviceId: "supply-chain-compliance",
+            serviceName: "Supply Chain & Logistics Compliance",
+            route: "/services/supply-chain-compliance",
+            relevance: "Rural dealer POS audits, warehouse chemical safety, and anti-counterfeiting."
+          }
+        ],
+        existingRoute: "/industries/consumer-retail#agri-inputs",
+        searchKeywords: ["agri inputs", "fertilizers", "fco", "insecticides", "seeds", "dbt", "rural retail", "krishi"],
         verificationStatus: "confirmed",
         publicationStatus: "published"
       }
@@ -2024,6 +4096,346 @@ export const whomWeServeClusters: IndustryClusterRecord[] = [
         ],
         existingRoute: "/industries/media-services#media-entertainment",
         searchKeywords: ["media", "entertainment", "ott", "broadcasting", "copyright", "streaming"],
+        verificationStatus: "confirmed",
+        publicationStatus: "published"
+      },
+      {
+        id: "aviation-airports",
+        title: "Aviation, Airlines & Airport Hubs",
+        slug: "aviation-airports",
+        parentClusterId: "media-services",
+        parentClusterName: "Media & Services",
+        subtitle: "DGCA Safety Standards & Airport EHS",
+        overview: "Aviation operators comply with DGCA civil aviation requirements (CAR), BCAS aviation security mandates, airport environmental noise/emissions standards, passenger charter rights, and dangerous goods handling protocols.",
+        icon: Plane,
+        iconName: "Plane",
+        displayOrder: 4,
+        regulations: [
+          "Directorate General of Civil Aviation (DGCA) Civil Aviation Requirements (CAR)",
+          "Bureau of Civil Aviation Security (BCAS) Security Circulars",
+          "Aircraft Act, 1934 and Aircraft Rules, 1937",
+          "MoEFCC Airport Environmental Noise & Emissions Norms"
+        ],
+        focusAreas: [
+          "DGCA flight safety management systems (SMS) and pilot/crew duty time limits (FDTL)",
+          "BCAS airport perimeter security, passenger frisking, and airside pass governance",
+          "Aviation turbine fuel (ATF) handling and aircraft maintenance (MRO) safety logs",
+          "Passenger charter refund compliance and baggage loss compensation workflows"
+        ],
+        businessSegments: [
+          {
+            name: "Global Airlines & International Hub Airports",
+            description: "Multinational commercial airlines and international hub airport operators.",
+            relevantIndustryRisks: ["Cross-border ICAO safety audit observations", "Ground collision and airside ramp safety penalties", "Aviation emissions carbon offsetting (CORSIA) mandates"],
+            applicableGrcConsiderations: ["Enterprise aviation safety management (SMS)", "Continuous BCAS and IATA security compliance", "CORSIA carbon emissions verification"]
+          },
+          {
+            name: "Large–Mid Ground Handling & Airport MRO Operators",
+            description: "Dedicated airport ground handlers, air cargo terminals, and aircraft line maintenance centers.",
+            relevantIndustryRisks: ["Dangerous goods handling (DGR) infractions", "Airside apron driving license non-compliances", "Contract baggage handler labour law disputes"],
+            applicableGrcConsiderations: ["Airside safety protocol auditing", "Contract labour statutory wage compliance", "Dangerous goods regulation (DGR) training logs"]
+          },
+          {
+            name: "Mid–Small Regional Charter & Flying Clubs",
+            description: "Helicopter operators, pilot training academies, and non-scheduled operator permit (NSOP) holders.",
+            relevantIndustryRisks: ["Airworthiness certificate renewal lapses", "Pilot flight logbook discrepancies", "Local airstrip emergency preparedness gaps"],
+            applicableGrcConsiderations: ["DGCA NSOP compliance registers", "Pilot medical certificate tracking", "Aviation fuel storage safety inspections"]
+          }
+        ],
+        relevantGrcTopics: [
+          "DGCA CAR regulations & FDTL",
+          "BCAS aviation security compliance",
+          "Airport airside safety management",
+          "Dangerous goods handling (DGR)"
+        ],
+        linkedOfferings: [
+          {
+            serviceId: "regulatory-compliance",
+            serviceName: "Regulatory Compliance Management",
+            route: "/services/regulatory-compliance",
+            relevance: "DGCA approvals, BCAS security clearances, and aviation passenger charter compliance."
+          },
+          {
+            serviceId: "enterprise-risk-management",
+            serviceName: "Enterprise Risk Management",
+            route: "/services/enterprise-risk-management",
+            relevance: "Airside safety risk registers, aviation crisis management, and emergency response drills."
+          }
+        ],
+        existingRoute: "/industries/media-services#aviation",
+        searchKeywords: ["aviation", "airlines", "dgca", "bcas", "airports", "mro", "ground handling", "fdtl"],
+        verificationStatus: "confirmed",
+        publicationStatus: "published"
+      },
+      {
+        id: "broadcasting-cable-tv",
+        title: "Television Broadcasting & Cable Networks",
+        slug: "broadcasting-cable-tv",
+        parentClusterId: "media-services",
+        parentClusterName: "Media & Services",
+        subtitle: "Broadcasting Code & Telecom Regulations",
+        overview: "Linear broadcasting and distribution companies comply with TRAI Interconnection Regulations, Ministry of Information & Broadcasting uplinking/downlinking guidelines, Programme and Advertising Codes, and subscriber privacy.",
+        icon: Tv,
+        iconName: "Tv",
+        displayOrder: 5,
+        regulations: [
+          "TRAI Telecommunication (Broadcasting and Cable) Services Interconnection Regulations",
+          "MIB Policy Guidelines for Uplinking and Downlinking of TV Channels",
+          "Cable Television Networks (Regulation) Act, 1995 & Programme Code",
+          "Broadcasting Content Complaints Council (BCCC) Directives"
+        ],
+        focusAreas: [
+          "MIB channel license renewal, teleport security, and annual permission fee payments",
+          "Programme Code content advisory, self-regulation, and BCCC complaint redressal",
+          "TRAI subscriber management system (SMS) audits and conditional access compliance",
+          "Satellite transponder lease agreements and WPC wireless operating licenses"
+        ],
+        businessSegments: [
+          {
+            name: "Global Media & Broadcasting Networks",
+            description: "Multinational television networks beaming entertainment, news, and sports channels.",
+            relevantIndustryRisks: ["MIB show-cause notices for Programme Code breaches", "Transponder spectrum license revocation", "TRAI tariff order litigation"],
+            applicableGrcConsiderations: ["24x7 content legal clearance protocols", "MIB uplinking statutory register governance", "Internal grievance redressal council"]
+          },
+          {
+            name: "Large–Mid DTH & Digital Cable Networks (MSOs)",
+            description: "Direct-to-home satellite providers and multi-system digital cable distribution operators.",
+            relevantIndustryRisks: ["TRAI subscriber reporting audit penalties", "Signal theft and unauthorized local channel insertion", "Customer privacy breaches in subscriber billing"],
+            applicableGrcConsiderations: ["Annual TRAI SMS audit preparations", "Digital conditional access system (CAS) security", "Automated billing DPDP compliance"]
+          },
+          {
+            name: "Mid–Small Local Cable Operators (LCOs)",
+            description: "Franchised neighborhood cable operators and regional commercial advertising channels.",
+            relevantIndustryRisks: ["Postal department cable registration lapses", "Unauthorized local advertisement broadcasts", "Overhead fiber optic cable civic body cutting"],
+            applicableGrcConsiderations: ["Local cable operator license renewals", "Civic right-of-way (RoW) adherence", "Copyright royalty payments"]
+          }
+        ],
+        relevantGrcTopics: [
+          "MIB uplinking/downlinking guidelines",
+          "Programme and Advertising Codes",
+          "TRAI interconnection & SMS audits",
+          "BCCC content grievance redressal"
+        ],
+        linkedOfferings: [
+          {
+            serviceId: "regulatory-compliance",
+            serviceName: "Regulatory Compliance Management",
+            route: "/services/regulatory-compliance",
+            relevance: "MIB television channel permissions, WPC wireless licenses, and TRAI filings."
+          },
+          {
+            serviceId: "data-privacy-dpdp",
+            serviceName: "Data Privacy & DPDP",
+            route: "/services/data-privacy-dpdp",
+            relevance: "Subscriber billing data privacy, consent management, and customer data security."
+          }
+        ],
+        existingRoute: "/industries/media-services#broadcasting",
+        searchKeywords: ["broadcasting", "television", "trai", "mib", "dth", "cable tv", "programme code"],
+        verificationStatus: "confirmed",
+        publicationStatus: "published"
+      },
+      {
+        id: "sports-stadiums-events",
+        title: "Sports Leagues, Arenas & Large Events",
+        slug: "sports-stadiums-events",
+        parentClusterId: "media-services",
+        parentClusterName: "Media & Services",
+        subtitle: "Mass Gathering Safety & Fire NOC Protocols",
+        overview: "Large-scale event and venue organizers adhere to police crowd control guidelines, municipal fire safety licenses, anti-doping regulations (NADA/WADA), performer labour laws, and public liability insurance requirements.",
+        icon: Film,
+        iconName: "Film",
+        displayOrder: 6,
+        regulations: [
+          "State Police Public Entertainment & Performance Licensing Rules",
+          "National Disaster Management Authority (NDMA) Crowd Management Guidelines",
+          "National Anti-Doping Act, 2022 (NADA Guidelines)",
+          "Public Liability Insurance Act, 1991 & Municipal Fire Codes"
+        ],
+        focusAreas: [
+          "Stadium maximum occupancy calculations, emergency evacuation, and turnstile crowd flow",
+          "Fire safety NOC, temporary structure structural stability, and electrical safety certificates",
+          "Athlete anti-doping whereabouts tracking, TUE approvals, and integrity monitoring",
+          "Event security contractor background screening and police permission compliances"
+        ],
+        businessSegments: [
+          {
+            name: "Global Sports Franchises & Tournament Promoters",
+            description: "International cricket, football, and motorsport promoters managing multi-city leagues.",
+            relevantIndustryRisks: ["Event cancellation and catastrophic crowd surge liabilities", "NADA athlete sanction litigation", "Cross-border broadcasting broadcast rights piracy"],
+            applicableGrcConsiderations: ["NDMA crowd safety risk modeling", "Athlete health and anti-doping integrity protocols", "Event cancellation insurance warranty tracking"]
+          },
+          {
+            name: "Large–Mid Arena & Convention Center Operators",
+            description: "Multi-purpose indoor arenas, exhibition grounds, and corporate convention centres.",
+            relevantIndustryRisks: ["Structural stability certificate delays", "Municipal sound decibel level violation fines", "Food poisoning in stadium concessions"],
+            applicableGrcConsiderations: ["Periodic building and fire safety audits", "Concessionaire FSSAI hygiene audits", "Sound pollution monitoring logs"]
+          },
+          {
+            name: "Mid–Small Event Management & Production Agencies",
+            description: "Live music promoters, cultural festivals, wedding planners, and corporate conclave organizers.",
+            relevantIndustryRisks: ["Last-minute police permission revocations", "Rigging and stage collapse accidents", "Casual event crew labour wage disputes"],
+            applicableGrcConsiderations: ["Single-window municipal event licensing", "Rigging and scaffolding safety checks", "Event crew accident coverage"]
+          }
+        ],
+        relevantGrcTopics: [
+          "NDMA crowd management guidelines",
+          "Stadium fire safety & structural stability",
+          "NADA sports anti-doping compliance",
+          "Event licensing & public liability"
+        ],
+        linkedOfferings: [
+          {
+            serviceId: "enterprise-risk-management",
+            serviceName: "Enterprise Risk Management",
+            route: "/services/enterprise-risk-management",
+            relevance: "Crowd risk assessments, crisis management protocols, and venue safety audits."
+          },
+          {
+            serviceId: "regulatory-compliance",
+            serviceName: "Regulatory Compliance Management",
+            route: "/services/regulatory-compliance",
+            relevance: "Police permissions, fire NOCs, amusement licenses, and copyright performance permits."
+          }
+        ],
+        existingRoute: "/industries/media-services#sports-events",
+        searchKeywords: ["sports", "stadium", "events", "crowd management", "nada", "concerts", "festivals"],
+        verificationStatus: "confirmed",
+        publicationStatus: "published"
+      },
+      {
+        id: "professional-advisory-services",
+        title: "Professional & Corporate Advisory",
+        slug: "professional-advisory-services",
+        parentClusterId: "media-services",
+        parentClusterName: "Media & Services",
+        subtitle: "MCA Secretarial Standards & ICAI Rules",
+        overview: "Professional services partnerships navigate ICAI/ICSI ethical standards, Bar Council regulations, client data confidentiality, professional indemnity liabilities, and statutory multi-partner firm disclosures.",
+        icon: Building,
+        iconName: "Building",
+        displayOrder: 7,
+        regulations: [
+          "Institute of Chartered Accountants of India (ICAI) Code of Ethics",
+          "Advocates Act, 1961 and Bar Council of India Rules",
+          "Companies (Registered Valuers and Valuation) Rules, 2017",
+          "Digital Personal Data Protection Act, 2023 (Confidential Client Files)"
+        ],
+        focusAreas: [
+          "Conflict-of-interest checks and employee investment pre-clearance tracking",
+          "Audit workpaper retention policies, SQC-1 quality control, and peer review readiness",
+          "Confidential client M&A data encryption and restricted access controls",
+          "Professional indemnity insurance adequacy and limitation-of-liability contracting"
+        ],
+        businessSegments: [
+          {
+            name: "Global Professional Services Networks",
+            description: "Multinational accounting, consulting, and legal networks operating Indian member firms.",
+            relevantIndustryRisks: ["NFRA regulatory scrutiny and inspection orders", "Cross-border brand fee transfer pricing litigation", "Insider trading leaks regarding listed clients"],
+            applicableGrcConsiderations: ["NFRA audit quality framework alignment", "Automated firm-wide independence tracking", "ISO 27001 client data security"]
+          },
+          {
+            name: "Large–Mid Corporate Law & Advisory Firms",
+            description: "Full-service corporate law firms, chartered accountant partnerships, and tax advisory practices.",
+            relevantIndustryRisks: ["Bar Council restrictions on advertising and firm websites", "Professional liability claims on transactional opinions", "PoSH compliance in high-stress consulting environments"],
+            applicableGrcConsiderations: ["Bar Council website compliance reviews", "Standardized engagement letter risk terms", "PoSH committee governance and training"]
+          },
+          {
+            name: "Mid–Small Regional Audit & Secretarial Practices",
+            description: "Independent CA firms, practicing company secretaries, and registered valuer entities.",
+            relevantIndustryRisks: ["ICAI peer review qualification remarks", "UDIN generation deadline lapses", "Digital signature token (DSC) custody misuse"],
+            applicableGrcConsiderations: ["ICAI SQC-1 quality standard manuals", "UDIN tracking registers", "Secure digital signature policies"]
+          }
+        ],
+        relevantGrcTopics: [
+          "NFRA & ICAI Code of Ethics",
+          "Independence & conflict of interest",
+          "Client confidential data protection",
+          "Professional indemnity governance"
+        ],
+        linkedOfferings: [
+          {
+            serviceId: "governance-framework",
+            serviceName: "Corporate Governance & Secretarial",
+            route: "/services/governance-framework",
+            relevance: "Partnership agreements, professional disclosures, and secretarial compliance."
+          },
+          {
+            serviceId: "data-privacy-dpdp",
+            serviceName: "Data Privacy & DPDP",
+            route: "/services/data-privacy-dpdp",
+            relevance: "Confidential client document privacy, non-disclosure compliance, and NDAs."
+          }
+        ],
+        existingRoute: "/industries/media-services#advisory",
+        searchKeywords: ["consulting", "law firms", "accounting", "icai", "nfra", "advisory", "audit"],
+        verificationStatus: "confirmed",
+        publicationStatus: "published"
+      },
+      {
+        id: "digital-advertising-martech",
+        title: "Digital Advertising, Media & MarTech",
+        slug: "digital-advertising-martech",
+        parentClusterId: "media-services",
+        parentClusterName: "Media & Services",
+        subtitle: "ASCI Advertising Codes & Data Privacy",
+        overview: "Advertising agencies and ad-tech firms operate under Advertising Standards Council of India (ASCI) codes, Central Consumer Protection Authority (CCPA) misleading ad guidelines, cookie consent frameworks, and influencer disclosure norms.",
+        icon: Wifi,
+        iconName: "Wifi",
+        displayOrder: 8,
+        regulations: [
+          "Consumer Protection (Prevention of Misleading Advertisements) Guidelines, 2022",
+          "ASCI Code for Self-Regulation in Advertising & Influencer Guidelines",
+          "Digital Personal Data Protection Act, 2023 (Ad-Targeting & Behavioral Tracking)",
+          "Information Technology (Intermediary Guidelines) Rules, 2021"
+        ],
+        focusAreas: [
+          "CCPA surrogate advertising prohibitions and claim substantiation dossiers",
+          "Influencer paid partnership disclosures and ASCI hashtag tagging compliance",
+          "Third-party cookie phase-out, user consent collection, and tracking opt-outs",
+          "Ad-fraud prevention, brand safety whitelist verification, and invalid traffic filtering"
+        ],
+        businessSegments: [
+          {
+            name: "Global Advertising Holding Companies",
+            description: "Multinational media buying networks and creative advertising agency holding groups.",
+            relevantIndustryRisks: ["CCPA multi-crore misleading advertisement penalties for clients", "Cross-border user profiling privacy investigations", "Programmatic ad placement next to harmful content (brand safety)"],
+            applicableGrcConsiderations: ["Comprehensive creative legal clearance review workflows", "Enterprise DPDP behavioral tracking compliance", "Automated brand safety verification"]
+          },
+          {
+            name: "Large–Mid Influencer & Performance Marketing Agencies",
+            description: "Specialized influencer management agencies, affiliate marketing networks, and programmatic buyers.",
+            relevantIndustryRisks: ["Influencer undisclosed sponsorship notices", "Dark pattern user interface litigation", "Affiliate network bot traffic and fraud clawbacks"],
+            applicableGrcConsiderations: ["Influencer contract disclosure clause audits", "CCPA dark pattern prevention checks", "Affiliate anti-fraud traffic monitoring"]
+          },
+          {
+            name: "Mid–Small Creative Studios & Social Media Boutiques",
+            description: "Boutique digital marketing agencies, SEO service providers, and local creative shops.",
+            relevantIndustryRisks: ["Copyright infringement for unlicensed stock imagery/music", "Client contract SLA disputes", "Unauthorized user data collection on campaign landing pages"],
+            applicableGrcConsiderations: ["Commercial asset licensing verification", "Standardized client campaign contracts", "Landing page privacy policy and cookie notices"]
+          }
+        ],
+        relevantGrcTopics: [
+          "CCPA misleading advertisement guidelines",
+          "ASCI influencer marketing disclosures",
+          "Behavioral ad targeting & DPDP consent",
+          "Brand safety & ad-fraud governance"
+        ],
+        linkedOfferings: [
+          {
+            serviceId: "data-privacy-dpdp",
+            serviceName: "Data Privacy & DPDP",
+            route: "/services/data-privacy-dpdp",
+            relevance: "MarTech cookie consent architecture, user profiling privacy, and DPDP adherence."
+          },
+          {
+            serviceId: "regulatory-compliance",
+            serviceName: "Regulatory Compliance Management",
+            route: "/services/regulatory-compliance",
+            relevance: "CCPA advertising guidelines, ASCI self-regulation clearance, and consumer protection."
+          }
+        ],
+        existingRoute: "/industries/media-services#martech",
+        searchKeywords: ["martech", "advertising", "asci", "influencer", "ccpa", "adtech", "digital marketing"],
         verificationStatus: "confirmed",
         publicationStatus: "published"
       }

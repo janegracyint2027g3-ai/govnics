@@ -200,21 +200,57 @@ export default function IndustryDetailPage() {
   const [activeSectorTabs, setActiveSectorTabs] = useState<Record<string, number>>({});
 
   useEffect(() => {
-    window.scrollTo({ top: 0, behavior: "smooth" });
+    const handleScroll = () => {
+      if (window.location.hash) {
+        const hashId = window.location.hash.replace('#', '');
+        const el = document.getElementById(hashId);
+        if (el) {
+          el.scrollIntoView({ behavior: "smooth", block: "start" });
+          return;
+        }
+      }
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    };
+
+    const timer = setTimeout(handleScroll, 180);
+    return () => clearTimeout(timer);
   }, [clusterId]);
+
+  useEffect(() => {
+    const onHashChange = () => {
+      if (window.location.hash) {
+        const hashId = window.location.hash.replace('#', '');
+        const el = document.getElementById(hashId);
+        if (el) {
+          el.scrollIntoView({ behavior: "smooth", block: "start" });
+        }
+      }
+    };
+    window.addEventListener('hashchange', onHashChange);
+    return () => window.removeEventListener('hashchange', onHashChange);
+  }, []);
 
   // Map cluster ID to name
   const getClusterName = (id: string) => {
     switch (id) {
-      case "manufacturing-industrial": return "Manufacturing & Industrial";
-      case "technology-electronics": return "Technology & Electronics";
-      case "infrastructure-construction": return "Infrastructure & Construction";
-      case "energy-utilities": return "Energy & Utilities";
-      case "financial-services": return "Financial Services";
-      case "healthcare-life-sciences": return "Healthcare & Life Sciences";
-      case "consumer-retail": return "Consumer & Retail";
-      case "media-services": return "Media & Services";
-      case "food-processing-pharma-healthcare": return "Food Processing, Pharma & Healthcare";
+      case "manufacturing-industrial":
+      case "manufacturing": return "Manufacturing & Industrial";
+      case "technology-electronics":
+      case "technology": return "Technology & Electronics";
+      case "infrastructure-construction":
+      case "infrastructure": return "Infrastructure & Construction";
+      case "energy-utilities":
+      case "energy": return "Energy & Utilities";
+      case "financial-services":
+      case "banking": return "Financial Services";
+      case "healthcare-life-sciences":
+      case "healthcare": return "Healthcare & Life Sciences";
+      case "consumer-retail":
+      case "retail": return "Consumer & Retail";
+      case "media-services":
+      case "media": return "Media & Services";
+      case "food-processing-pharma-healthcare":
+      case "food-processing": return "Food Processing, Pharma & Healthcare";
       default: return "Manufacturing & Industrial";
     }
   };
