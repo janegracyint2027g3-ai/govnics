@@ -84,15 +84,15 @@ export const GrcResources = () => {
                 onClick={() => handleTabChange(tab)}
                 className={`px-3.5 py-1.5 rounded-xl text-[10px] font-extrabold uppercase tracking-wider transition-all ${
                   activeTab === tab
-                    ? "bg-blue-650 text-white shadow-md shadow-blue-500/15"
-                    : "bg-white text-slate-500 hover:text-slate-800 hover:border-slate-350 border border-slate-200 shadow-sm"
+                    ? "bg-blue-600 text-white shadow-md shadow-blue-500/20"
+                    : "bg-white text-slate-600 hover:text-slate-900 hover:border-slate-300 border border-slate-200 shadow-sm"
                 }`}
               >
                 {tab === "All" ? "All Formats" : tab + "s"}
               </button>
             ))}
           </div>
- 
+
           {/* GRC Classification Filters */}
           <div className="flex flex-wrap justify-center gap-2 items-center">
             <span className="text-[10px] font-black uppercase tracking-wider text-slate-400 mr-2">GRC Topics:</span>
@@ -102,8 +102,8 @@ export const GrcResources = () => {
                 onClick={() => handleGrcTypeChange(type)}
                 className={`px-3.5 py-1.5 rounded-xl text-[10px] font-extrabold uppercase tracking-wider transition-all ${
                   selectedGrcType === type
-                    ? "bg-blue-650 text-white shadow-md shadow-blue-500/15"
-                    : "bg-white text-slate-500 hover:text-slate-800 hover:border-slate-350 border border-slate-200 shadow-sm"
+                    ? "bg-blue-600 text-white shadow-md shadow-blue-500/20"
+                    : "bg-white text-slate-600 hover:text-slate-900 hover:border-slate-300 border border-slate-200 shadow-sm"
                 }`}
               >
                 {type === "All" ? "All Classifications" : type === "Rule" ? "Rules & Guidelines" : type === "Compliance" ? "Compliances" : type === "Standard" ? "Standards" : type + "s"}

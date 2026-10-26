@@ -41,6 +41,20 @@ export default {
           DEFAULT: "#FFFFFF", // Solid white premium cards
           foreground: "#171717",
         },
+        blue: {
+          550: "#2563eb",
+          650: "#1d4ed8",
+        },
+        slate: {
+          250: "#e2e8f0",
+          350: "#cbd5e1",
+          455: "#94a3b8",
+          650: "#475569",
+          850: "#1e293b",
+        },
+        indigo: {
+          650: "#4338ca",
+        },
       },
       fontFamily: {
         heading: ["Outfit", "sans-serif"],
