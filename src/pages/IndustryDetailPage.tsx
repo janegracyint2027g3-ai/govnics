@@ -214,6 +214,7 @@ export default function IndustryDetailPage() {
       case "healthcare-life-sciences": return "Healthcare & Life Sciences";
       case "consumer-retail": return "Consumer & Retail";
       case "media-services": return "Media & Services";
+      case "food-processing-pharma-healthcare": return "Food Processing, Pharma & Healthcare";
       default: return "Manufacturing & Industrial";
     }
   };
