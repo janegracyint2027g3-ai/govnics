@@ -728,26 +728,6 @@ export const Header = () => {
 
         {/* Action & CTA Buttons Cluster */}
         <div className="hidden xl:flex items-center gap-2 2xl:gap-2.5">
-          <Link
-            to="/contact#book-strategy-session"
-            id="nav-cta-strategy"
-            onClick={(e) => {
-              if (window.location.pathname === "/contact") {
-                e.preventDefault();
-                const el = document.getElementById("book-strategy-session");
-                if (el) {
-                  const offset = 112;
-                  const top = el.getBoundingClientRect().top + window.scrollY - offset;
-                  window.scrollTo({ top, behavior: "smooth" });
-                }
-              }
-            }}
-            className="inline-flex items-center justify-center gap-2 h-10 px-4 bg-gradient-to-r from-blue-600 via-blue-600 to-indigo-600 hover:from-blue-700 hover:via-blue-700 hover:to-indigo-700 text-white rounded-xl text-xs font-bold tracking-wide transition-all duration-200 shadow-sm hover:shadow-md hover:-translate-y-0.5 active:translate-y-0 whitespace-nowrap shrink-0 border border-blue-400/30"
-          >
-            <CalendarCheck className="w-3.5 h-3.5 shrink-0" />
-            <span className="whitespace-nowrap leading-none">Book Strategy Session</span>
-          </Link>
-
           {!isAuthenticated ? (
             <>
               <Link to="/login" className="inline-flex items-center">
@@ -988,28 +968,6 @@ export const Header = () => {
           <div className="flex flex-col gap-2.5 pt-4 border-t border-slate-100 text-left">
             {!isAuthenticated ? (
               <>
-                <Link
-                  to="/contact#book-strategy-session"
-                  id="mobile-nav-cta-strategy"
-                  onClick={(e) => {
-                    setMobileOpen(false);
-                    if (window.location.pathname === "/contact") {
-                      e.preventDefault();
-                      const el = document.getElementById("book-strategy-session");
-                      if (el) {
-                        const offset = 112;
-                        const top = el.getBoundingClientRect().top + window.scrollY - offset;
-                        window.scrollTo({ top, behavior: "smooth" });
-                      }
-                    }
-                  }}
-                  className="w-full"
-                >
-                  <button className="w-full flex items-center justify-center gap-2 py-3 bg-gradient-to-r from-blue-600 via-blue-600 to-indigo-600 text-white rounded-xl text-xs font-black tracking-wide shadow-md shadow-blue-500/20">
-                    <CalendarCheck className="w-4 h-4 shrink-0" />
-                    Book Strategy Session
-                  </button>
-                </Link>
                 <Link to="/contact" onClick={() => setMobileOpen(false)} className="w-full">
                   <button className="w-full flex items-center justify-center gap-1.5 py-2.5 bg-slate-900 text-white rounded-xl text-xs font-bold">
                     Contact Us <ArrowRight className="w-3.5 h-3.5" />
