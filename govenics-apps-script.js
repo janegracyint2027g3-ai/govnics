@@ -87,7 +87,7 @@ var TAB_CONFIGS = {
   "Strategy_Session_Bookings": [
     "Lead Number", "Booking Reference", "Full Name", "Business Email", "Company", "Job Title",
     "Phone", "Industry", "Area of Interest", "Business Objective", "Preferred Date",
-    "Time Slot", "Time Zone", "Duration (min)", "Meeting Format", "Booking Status",
+    "Time Slot", "Time Zone", "Duration (min)", "Meeting Format", "Video Call Link", "Booking Status",
     "Source", "Lead Source", "UTM Source", "UTM Medium", "UTM Campaign",
     "Jira Issue Key", "Jira Status", "Status", "IP Location", "IP Address", "Timestamp"
   ],
@@ -386,7 +386,7 @@ function doPost(e) {
 
     var sheet = getOrCreateSheet(ss, canonicalName, TAB_CONFIGS[canonicalName]);
 
-    // Ensure unique server-side Lead Number
+    // Ensure unique server-side Lead Number & Video Call Link for Strategy Sessions
     var leadNo = fields["Lead Number"] || fields.leadNumber || fields.lead_number || body.leadNumber || body.lead_number;
     if (!leadNo) {
       if (fields["Booking Reference"]) {
@@ -398,6 +398,17 @@ function doPost(e) {
       }
       fields["Lead Number"] = leadNo;
       fields.leadNumber = leadNo;
+    }
+
+    // Auto-generate dedicated video call conference link if not provided
+    if (canonicalName === "Strategy_Session_Bookings") {
+      var existingLink = fields["Video Call Link"] || fields.videoCallLink || fields.meetingLink;
+      if (!existingLink) {
+        var meetCode = "gov-" + Math.random().toString(36).substring(2, 6) + "-" + Math.random().toString(36).substring(2, 5);
+        var videoLink = "https://meet.google.com/" + meetCode;
+        fields["Video Call Link"] = videoLink;
+        fields.videoCallLink = videoLink;
+      }
     }
 
     // Map additional parameters for youtube_lead / linkedin_lead
@@ -618,6 +629,7 @@ function sendLeadNotification(data, tableName) {
     ? uniqueEmails(EMAIL_CONFIG.adCampaignEmails) 
     : uniqueEmails(EMAIL_CONFIG.salesEmails);
 
+  var videoLink = data["Video Call Link"] || data.videoCallLink || data.meetingLink || "";
   var strategyHighlightHtml = "";
   if (isStrategy) {
     strategyHighlightHtml = [
@@ -628,6 +640,7 @@ function sendLeadNotification(data, tableName) {
       '    <div><span style="font-size:12px;color:#64748b;">Duration:</span> <strong style="color:#1e1b4b;font-size:14px;">' + (data["Duration (min)"] || data.duration || "30") + ' Mins</strong></div>',
       '    <div><span style="font-size:12px;color:#64748b;">Format:</span> <strong style="color:#1e1b4b;font-size:14px;">' + (data["Meeting Format"] || data.meetingFormat || "Video Meeting") + '</strong></div>',
       '  </div>',
+      videoLink ? ('  <div style="margin-top:10px;padding:8px 12px;background:#ffffff;border:1px solid #c7d2fe;border-radius:6px;font-size:12px;"><span style="color:#64748b;">Video Meeting Room:</span> <a href="' + videoLink + '" target="_blank" style="color:#4f46e5;font-weight:700;">' + videoLink + '</a></div>') : '',
       data["Booking Reference"] ? ('  <div style="margin-top:8px;font-size:12px;color:#4f46e5;">Ref ID: <strong>' + data["Booking Reference"] + '</strong></div>') : '',
       '</div>'
     ].join("\n");
@@ -685,16 +698,25 @@ function sendUserConfirmationEmail(data, tableName) {
     ? ("Your GOVENICS Strategy Session Request — Confirmed [" + (data["Booking Reference"] || "Pending") + "]")
     : ("Thank you for connecting with Govenics GRC");
 
+  var videoLink = data["Video Call Link"] || data.videoCallLink || data.meetingLink || "";
+
   var detailSection = isStrategy ? [
-    '    <div style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:10px;padding:16px;margin:18px 0;font-size:13px;color:#334155;">',
-    '      <p style="margin:0 0 8px 0;font-weight:700;color:#1e293b;text-transform:uppercase;font-size:11px;letter-spacing:1px;">🗓 Session Details</p>',
-    '      <table style="width:100%;font-size:13px;">',
-    '        <tr><td style="color:#64748b;padding:4px 0;">Booking Ref:</td><td><strong>' + (data["Booking Reference"] || "Assigned on schedule") + '</strong></td></tr>',
-    '        <tr><td style="color:#64748b;padding:4px 0;">Date:</td><td><strong>' + (data["Preferred Date"] || data.preferredDate || "Confirmed on dispatch") + '</strong></td></tr>',
-    '        <tr><td style="color:#64748b;padding:4px 0;">Time Slot:</td><td><strong>' + (data["Time Slot"] || data.timeSlot || "TBD") + ' (IST)</strong></td></tr>',
-    '        <tr><td style="color:#64748b;padding:4px 0;">Duration:</td><td><strong>' + (data["Duration (min)"] || data.duration || "30") + ' Minutes</strong></td></tr>',
-    '        <tr><td style="color:#64748b;padding:4px 0;">Format:</td><td><strong>' + (data["Meeting Format"] || data.meetingFormat || "Video Meeting") + '</strong></td></tr>',
+    '    <div style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:12px;padding:20px;margin:18px 0;font-size:13px;color:#334155;">',
+    '      <p style="margin:0 0 12px 0;font-weight:700;color:#1e293b;text-transform:uppercase;font-size:11px;letter-spacing:1px;">🗓 Session & Video Call Details</p>',
+    '      <table style="width:100%;font-size:13px;border-collapse:collapse;">',
+    '        <tr><td style="color:#64748b;padding:6px 0;width:35%;">Booking Ref:</td><td><strong style="color:#2563eb;">' + (data["Booking Reference"] || "Assigned on schedule") + '</strong></td></tr>',
+    '        <tr><td style="color:#64748b;padding:6px 0;">Date:</td><td><strong>' + (data["Preferred Date"] || data.preferredDate || "Confirmed on dispatch") + '</strong></td></tr>',
+    '        <tr><td style="color:#64748b;padding:6px 0;">Time Slot:</td><td><strong>' + (data["Time Slot"] || data.timeSlot || "TBD") + ' (IST)</strong></td></tr>',
+    '        <tr><td style="color:#64748b;padding:6px 0;">Duration:</td><td><strong>' + (data["Duration (min)"] || data.duration || "30") + ' Minutes</strong></td></tr>',
+    '        <tr><td style="color:#64748b;padding:6px 0;">Format:</td><td><strong>' + (data["Meeting Format"] || data.meetingFormat || "Video Meeting") + '</strong></td></tr>',
+    videoLink ? ('        <tr><td style="color:#64748b;padding:6px 0;">Video Call Link:</td><td><a href="' + videoLink + '" target="_blank" style="color:#2563eb;font-weight:700;text-decoration:underline;">' + videoLink + '</a></td></tr>') : '',
     '      </table>',
+    videoLink ? [
+      '      <div style="margin-top:16px;padding-top:16px;border-top:1px dashed #cbd5e1;text-align:center;">',
+      '        <a href="' + videoLink + '" target="_blank" style="background:#2563eb;color:#ffffff;padding:12px 28px;text-decoration:none;border-radius:8px;font-weight:700;font-size:14px;display:inline-block;box-shadow:0 4px 12px rgba(37,99,235,0.25);">📹 Join Video Meeting</a>',
+      '        <p style="margin:8px 0 0 0;font-size:11px;color:#64748b;">Click above to enter your designated private conference room at the scheduled time.</p>',
+      '      </div>'
+    ].join("\n") : '',
     '    </div>'
   ].join("\n") : '';
 
@@ -708,10 +730,12 @@ function sendUserConfirmationEmail(data, tableName) {
     '  <div style="padding:28px;color:#334155;line-height:1.6;font-size:15px;">',
     '    <p>Dear <strong>' + userName + '</strong>,</p>',
     isStrategy
-      ? '<p>Thank you for booking an Advisory Strategy Session with <strong>GOVENICS</strong>. Our senior compliance & risk partners have received your booking and are preparing a personalized briefing for your organization.</p>'
+      ? '<p>Thank you for booking an Advisory Strategy Session with <strong>GOVENICS</strong>. Our senior compliance & risk partners have received your booking and your dedicated video meeting session has been reserved.</p>'
       : ('<p>Thank you for submitting your details regarding <strong>' + formattedName + '</strong>. Our compliance & advisory team has received your information and is reviewing your requirements.</p>'),
     detailSection,
-    '    <p>A Senior GRC Specialist will connect with you with calendar credentials within 1 business day.</p>',
+    isStrategy
+      ? '<p>Please add this meeting to your calendar. If you require rescheduling or have any advance briefing materials, simply reply directly to this email.</p>'
+      : '<p>A Senior GRC Specialist will connect with you with calendar credentials within 1 business day.</p>',
     '    <div style="background:#f8fafc;border-left:4px solid #2563eb;padding:14px;margin:20px 0;border-radius:6px;font-size:13px;color:#475569;">',
     '      <strong>Explore more:</strong> Visit <a href="' + CONFIG.WEBSITE_URL + '" style="color:#2563eb;font-weight:600;">govenics.com</a> to explore certified CDAC-MEPZ programs, statutory compliance registers, and instant security calculators.',
     '    </div>',

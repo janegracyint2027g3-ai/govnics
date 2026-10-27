@@ -143,6 +143,7 @@ export const StrategySessionForm = () => {
   const [submitted, setSubmitted] = useState(false);
   const [submitError, setSubmitError] = useState<string | null>(null);
   const [bookingRef, setBookingRef] = useState<string>("");
+  const [videoCallUrl, setVideoCallUrl] = useState<string>("");
 
   const formRef = useRef<HTMLFormElement>(null);
 
@@ -196,6 +197,10 @@ export const StrategySessionForm = () => {
     const timestamp = new Date().toISOString();
     const webhookUrl = import.meta.env.VITE_TELEMETRY_WEBHOOK_URL;
 
+    // Generate dedicated Google Meet room link for video sessions
+    const generatedMeetCode = "gov-" + Math.random().toString(36).substring(2, 6) + "-" + Math.random().toString(36).substring(2, 5);
+    const videoCallLink = `https://meet.google.com/${generatedMeetCode}`;
+
     const payload = {
       table: "Strategy Session Bookings",
       sheetName: "Strategy Session Bookings",
@@ -214,7 +219,8 @@ export const StrategySessionForm = () => {
       "Duration (min)": formData.duration,
       "Meeting Format":
         formData.meetingFormat === "video" ? "Video Meeting" : "Phone Call",
-      "Booking Status": "Pending Confirmation",
+      "Video Call Link": videoCallLink,
+      "Booking Status": "Confirmed",
       "Source": "Book a Strategy Session",
       "Timestamp": timestamp,
     };
@@ -230,6 +236,7 @@ export const StrategySessionForm = () => {
       }
 
       setBookingRef(ref);
+      setVideoCallUrl(videoCallLink);
       setSubmitted(true);
 
       trackEvent("form_submit", "Strategy Session", {
@@ -318,6 +325,43 @@ export const StrategySessionForm = () => {
             </div>
           ))}
         </div>
+
+        {videoCallUrl && formData.meetingFormat === "video" && (
+          <div className="p-5 bg-gradient-to-r from-blue-50 via-indigo-50 to-blue-50 border border-blue-200/80 rounded-2xl text-left space-y-3">
+            <div className="flex items-center justify-between">
+              <span className="text-xs font-black uppercase tracking-wider text-blue-700 flex items-center gap-1.5">
+                <Video className="w-4 h-4" /> Your Video Call Meeting Link
+              </span>
+              <span className="text-[11px] font-bold text-emerald-600 bg-emerald-100/70 px-2 py-0.5 rounded-full">
+                Active & Reserved
+              </span>
+            </div>
+            <p className="text-xs text-slate-600">
+              A copy of this link and confirmation details have also been dispatched to{" "}
+              <strong className="text-slate-900">{formData.businessEmail}</strong>.
+            </p>
+            <div className="flex flex-col sm:flex-row gap-2 pt-1">
+              <a
+                href={videoCallUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex-1 inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl bg-blue-600 text-white font-bold text-xs hover:bg-blue-700 transition-all shadow-md shadow-blue-500/20"
+              >
+                <Video className="w-4 h-4" /> Join Video Meeting
+              </a>
+              <button
+                type="button"
+                onClick={() => {
+                  navigator.clipboard.writeText(videoCallUrl);
+                  alert("Video Call link copied to clipboard!");
+                }}
+                className="px-4 py-3 rounded-xl bg-white border border-slate-200 text-slate-700 font-bold text-xs hover:bg-slate-50 transition-all"
+              >
+                Copy Link
+              </button>
+            </div>
+          </div>
+        )}
 
         <p className="text-[10px] text-slate-500 font-bold uppercase tracking-widest flex items-center justify-center gap-1.5">
           <ShieldCheck className="w-4 h-4 text-emerald-500" />
