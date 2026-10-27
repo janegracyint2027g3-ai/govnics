@@ -99,6 +99,7 @@ var TAB_CONFIGS = {
   ],
   "Consultation_Requests": [
     "Lead Number", "Full Name", "Email", "Phone", "Company", "Industry",
+    "Company Size", "Offerings", "Functional Areas",
     "Audit Scope", "Timeline", "Message", "Lead Source",
     "UTM Source", "UTM Medium", "UTM Campaign",
     "Jira Issue Key", "Jira Status", "Status", "IP Location", "IP Address", "Timestamp"

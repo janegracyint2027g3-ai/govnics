@@ -9,6 +9,9 @@ export const GrcContact = () => {
     name: "",
     org: "",
     industry: "",
+    companySize: "Under 500",
+    offering: "GRC",
+    functionalAreas: ["GRC"],
     requirement: "",
     phone: "",
     email: ""
@@ -19,16 +22,32 @@ export const GrcContact = () => {
 
   const times = ["09:30 AM IST", "11:00 AM IST", "02:30 PM IST", "04:00 PM IST"];
 
+  const handleFunctionalAreaToggle = (area: string) => {
+    setFormData((prev) => {
+      const exists = prev.functionalAreas.includes(area);
+      const next = exists
+        ? prev.functionalAreas.filter((a) => a !== area)
+        : [...prev.functionalAreas, area];
+      return { ...prev, functionalAreas: next.length > 0 ? next : [area] };
+    });
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setSubmitting(true);
     
+    const functionalAreasStr = formData.functionalAreas.join(", ");
+
     // Log form submit event to GRC analytics
     trackEvent("form_submit", "Statutory GRC", {
       name: formData.name,
       email: formData.email,
       company: formData.org,
-      interest: formData.industry || "General GRC Consultation",
+      industry: formData.industry || "Healthcare",
+      companySize: formData.companySize,
+      offering: formData.offering,
+      functionalAreas: functionalAreasStr,
+      interest: `${formData.offering} — ${functionalAreasStr}`,
       phone: formData.phone,
       slotTime: selectedTime || "Not Selected",
       message: formData.requirement
@@ -49,7 +68,10 @@ export const GrcContact = () => {
             "Phone": formData.phone,
             "Company": formData.org,
             "Industry": formData.industry,
-            "Audit Scope": formData.industry || "GRC Consultation",
+            "Company Size": formData.companySize,
+            "Offerings": formData.offering,
+            "Functional Areas": functionalAreasStr,
+            "Audit Scope": `${formData.offering} (${functionalAreasStr})`,
             "Timeline": selectedTime || "Earliest Available",
             "Message": formData.requirement,
             "Lead Source": "Schedule GRC Audit Form",
@@ -63,7 +85,17 @@ export const GrcContact = () => {
 
     setSubmitting(false);
     setSuccess(true);
-    setFormData({ name: "", org: "", industry: "", requirement: "", phone: "", email: "" });
+    setFormData({
+      name: "",
+      org: "",
+      industry: "",
+      companySize: "Under 500",
+      offering: "GRC",
+      functionalAreas: ["GRC"],
+      requirement: "",
+      phone: "",
+      email: ""
+    });
     setSelectedTime(null);
   };
 
@@ -198,9 +230,50 @@ export const GrcContact = () => {
                       className="w-full h-14 px-5 rounded-2xl bg-white border border-slate-250 text-sm font-semibold text-slate-600 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 outline-none transition-all select-light-theme"
                     >
                       <option value="">Select Industry</option>
-                      {industriesData.map((ind) => (
+                      <option value="Healthcare">Healthcare & Life Sciences</option>
+                      <option value="Hospitals & Healthcare Networks">Hospitals & Healthcare Networks</option>
+                      <option value="Pharmaceuticals & Formulations">Pharmaceuticals & Formulations</option>
+                      <option value="Banking, Financial Services & Insurance (BFSI)">Banking, Financial Services & Insurance (BFSI)</option>
+                      <option value="Information Technology & SaaS">Information Technology & SaaS</option>
+                      <option value="Manufacturing & Industrial">Manufacturing & Industrial</option>
+                      <option value="Energy, Oil & Utilities">Energy, Oil & Utilities</option>
+                      <option value="Logistics & Supply Chain">Logistics & Supply Chain</option>
+                      <option value="Retail & E-Commerce">Retail & E-Commerce</option>
+                      {industriesData.filter(i => !["healthcare", "pharmaceuticals"].includes(i.id)).map((ind) => (
                         <option key={ind.id} value={ind.title}>{ind.title}</option>
                       ))}
+                    </select>
+                  </div>
+                  <div className="space-y-2">
+                    <label className="text-[10px] font-black text-slate-500 uppercase tracking-widest">Size of the Company</label>
+                    <select
+                      required
+                      value={formData.companySize}
+                      onChange={(e) => setFormData({ ...formData, companySize: e.target.value })}
+                      className="w-full h-14 px-5 rounded-2xl bg-white border border-slate-250 text-sm font-semibold text-slate-600 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 outline-none transition-all select-light-theme"
+                    >
+                      <option value="Under 500">Under 500 employees</option>
+                      <option value="Above 500">Above 500 employees</option>
+                      <option value="Above 2000">Above 2000 employees</option>
+                      <option value="Above 5000+">Above 5000+ employees</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div className="space-y-2">
+                    <label className="text-[10px] font-black text-slate-500 uppercase tracking-widest">Offerings</label>
+                    <select
+                      required
+                      value={formData.offering}
+                      onChange={(e) => setFormData({ ...formData, offering: e.target.value })}
+                      className="w-full h-14 px-5 rounded-2xl bg-white border border-slate-250 text-sm font-semibold text-slate-600 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 outline-none transition-all select-light-theme"
+                    >
+                      <option value="GRC">GRC (Governance, Risk & Compliance)</option>
+                      <option value="Enterprise Risk Management">Enterprise Risk Management</option>
+                      <option value="Statutory Compliance Audit">Statutory Compliance Audit</option>
+                      <option value="Cybersecurity & DPDP Governance">Cybersecurity & DPDP Governance</option>
+                      <option value="ESG & BRSR Assurance">ESG & BRSR Assurance</option>
                     </select>
                   </div>
                   <div className="space-y-2">
@@ -213,6 +286,43 @@ export const GrcContact = () => {
                       onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                       className="w-full h-14 px-5 rounded-2xl bg-white border border-slate-250 text-sm font-semibold text-slate-900 placeholder-slate-455 placeholder-slate-400 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 outline-none transition-all"
                     />
+                  </div>
+                </div>
+
+                {/* Functional Areas (Multiple Selection Pills) */}
+                <div className="space-y-2.5">
+                  <div className="flex items-center justify-between">
+                    <label className="text-[10px] font-black text-slate-500 uppercase tracking-widest">
+                      Functional Areas (Select applicable)
+                    </label>
+                    <span className="text-[10px] font-bold text-blue-600">
+                      {formData.functionalAreas.length} selected
+                    </span>
+                  </div>
+                  <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5">
+                    {[
+                      { id: "GRC", label: "GRC" },
+                      { id: "ESG", label: "ESG" },
+                      { id: "Finance", label: "Finance" },
+                      { id: "Labour Compliance", label: "Labour Compliance" }
+                    ].map((item) => {
+                      const isSelected = formData.functionalAreas.includes(item.id);
+                      return (
+                        <button
+                          type="button"
+                          key={item.id}
+                          onClick={() => handleFunctionalAreaToggle(item.id)}
+                          className={`h-12 px-3.5 rounded-xl border text-xs font-bold transition-all flex items-center justify-center gap-2 ${
+                            isSelected
+                              ? "bg-blue-600 text-white border-blue-600 shadow-md shadow-blue-500/20"
+                              : "bg-white text-slate-700 border-slate-200 hover:border-slate-300 hover:bg-slate-50"
+                          }`}
+                        >
+                          <span className={`w-2 h-2 rounded-full ${isSelected ? "bg-white" : "bg-slate-300"}`} />
+                          {item.label}
+                        </button>
+                      );
+                    })}
                   </div>
                 </div>
 
