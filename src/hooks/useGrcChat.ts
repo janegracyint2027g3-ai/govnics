@@ -177,6 +177,79 @@ export const useGrcChat = () => {
     }, 400);
   };
 
+  // Track every chatbot interaction into Chatbot_Leads with debouncing
+  const lastInteractionLoggedRef = useRef<number>(0);
+  const trackChatInteraction = (userQuery: string, topicLabel?: string) => {
+    const webhookUrl = import.meta.env.VITE_TELEMETRY_WEBHOOK_URL;
+    if (!webhookUrl || !userQuery.trim()) return;
+
+    const now = Date.now();
+    // Debounce rapid repeated posts within 1 second
+    if (now - lastInteractionLoggedRef.current < 1000) return;
+    lastInteractionLoggedRef.current = now;
+
+    // Check if user has stored contact info from earlier or active session
+    let existingName = leadData.name || "";
+    let existingEmail = leadData.email || "";
+    let existingPhone = leadData.phone || "";
+
+    try {
+      const storedUser = localStorage.getItem("govenics_grc_active_session");
+      if (storedUser) {
+        const u = JSON.parse(storedUser);
+        if (u.fullName) existingName = existingName || u.fullName;
+        if (u.email) existingEmail = existingEmail || u.email;
+        if (u.companyName) existingName = existingName ? `${existingName} (${u.companyName})` : u.companyName;
+      }
+    } catch {}
+
+    let ip = "Web Client";
+    let location = "Direct Visitor";
+    try {
+      const geoStr = localStorage.getItem("govenics_geo_info");
+      if (geoStr) {
+        const geo = JSON.parse(geoStr);
+        ip = geo.ip || ip;
+        location = geo.location || location;
+      }
+    } catch {}
+
+    const payload = {
+      sheetName: "Chatbot_Leads",
+      table: "Chatbot_Leads",
+      "Timestamp": new Date().toISOString(),
+      "Name": existingName || "Website Visitor",
+      "Email": existingEmail || "Pending Input",
+      "Phone": existingPhone || "Pending Input",
+      "Topic": topicLabel || currentContext.pageTitle || "General Consultation",
+      "Discussion_Summary": `User asked: "${userQuery.substring(0, 250)}" on page ${window.location.pathname}`,
+      "Lead Source": "Govey AI Chatbot Interaction",
+      "UTM Source": new URLSearchParams(window.location.search).get("utm_source") || "Direct",
+      "UTM Campaign": new URLSearchParams(window.location.search).get("utm_campaign") || "",
+      "IP Location": location,
+      "Status": existingEmail ? "Engaged Lead" : "Live Chat Interaction",
+      // Backwards-compatible aliases
+      name: existingName || "Website Visitor",
+      email: existingEmail || "",
+      phone: existingPhone || "",
+      topic: topicLabel || currentContext.pageTitle || "General Consultation",
+      message: userQuery,
+      status: existingEmail ? "Engaged Lead" : "Live Chat Interaction",
+      ipAddress: ip,
+      location: location,
+      timestamp: new Date().toISOString()
+    };
+
+    fetch(webhookUrl, {
+      method: "POST",
+      mode: "no-cors",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload)
+    }).catch(err => {
+      console.warn("Could not dispatch chatbot interaction:", err);
+    });
+  };
+
   const submitLeadToSheets = async (name: string, email: string, phone: string, topic: string) => {
     const webhookUrl = import.meta.env.VITE_TELEMETRY_WEBHOOK_URL;
     if (!webhookUrl) return;
@@ -201,16 +274,18 @@ export const useGrcChat = () => {
       "Email": email,
       "Phone": phone,
       "Topic": topic,
-      "Discussion_Summary": `Chatbot inquiry on: ${topic}`,
-      "Lead Source": "Govey AI Chatbot",
+      "Discussion_Summary": `Qualified Lead: ${name} (${email}, ${phone}) requested callback regarding ${topic}`,
+      "Lead Source": "Govey AI Chatbot Lead Capture",
+      "UTM Source": new URLSearchParams(window.location.search).get("utm_source") || "Direct",
+      "UTM Campaign": new URLSearchParams(window.location.search).get("utm_campaign") || "",
       "IP Location": location,
-      "Status": "New Lead",
+      "Status": "Qualified Lead",
       // Backwards-compatible aliases
       name,
       email,
       phone,
       topic,
-      status: "New Lead",
+      status: "Qualified Lead",
       ipAddress: ip,
       location: location,
       timestamp: new Date().toISOString()
@@ -225,7 +300,7 @@ export const useGrcChat = () => {
         },
         body: JSON.stringify(payload)
       });
-      console.log("Chatbot lead submitted successfully to sheet ChatbotLeads.");
+      console.log("Chatbot lead submitted successfully to sheet Chatbot_Leads.");
     } catch (err) {
       console.warn("Failed to submit GRC chatbot lead:", err);
     }
@@ -765,6 +840,9 @@ export const useGrcChat = () => {
 
     setMessages(prev => [...prev, userMsg]);
     setIsTyping(true);
+
+    // Persist interaction directly to Google Sheets Chatbot_Leads tab
+    trackChatInteraction(text);
 
     const valStr = text.trim();
     const valNum = parseFloat(valStr);
