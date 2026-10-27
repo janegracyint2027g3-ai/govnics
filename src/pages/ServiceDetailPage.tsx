@@ -891,7 +891,3 @@ function SearchIconComponent({ className }: { className?: string }) {
     </svg>
   );
 }
-
-
-          <div className="container mx-auto px-6 max-w-6xl relative z-10">
-            <div className="grid lg:grid-cols-12 gap-12 items-center">
