@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { 
   Menu, X, ArrowRight, ShieldCheck, ChevronDown, Search,
-  User, LogOut, Shield, FileCheck
+  User, LogOut, Shield, FileCheck, CalendarCheck
 } from "lucide-react";
 import { whomWeServeClusters } from "@/data/whom-we-serve-data";
 import { useAuth } from "@/context/AuthContext";
@@ -703,39 +703,55 @@ export const Header = () => {
           <Link to="/about" className={getLinkClass("/about")}>
             About Us
           </Link>
-
-
-          {/* Prominent CTA Button */}
-          <div className="h-full flex items-center pl-2">
-            <Link
-              to="#lead-capture"
-              id="nav-cta-assessment"
-              className="inline-flex items-center justify-center gap-2.5 h-11 px-6 bg-gradient-to-r from-blue-600 via-blue-600 to-indigo-600 hover:from-blue-700 hover:via-blue-700 hover:to-indigo-700 text-white rounded-xl text-xs font-black tracking-wide transition-all duration-200 shadow-md shadow-blue-500/25 hover:shadow-lg hover:shadow-blue-500/35 hover:-translate-y-0.5 active:translate-y-0 whitespace-nowrap shrink-0 border border-blue-400/30"
-            >
-              <ShieldCheck className="w-4 h-4 shrink-0" />
-              <span className="whitespace-nowrap leading-none">Get Free Assessment</span>
-            </Link>
-          </div>
         </div>
 
-        {/* Action Buttons */}
-        {!isAuthenticated ? (
-          <div className="hidden xl:flex items-center gap-3">
-            <Link to="/login" className="inline-flex items-center">
-              <button className="group inline-flex items-center justify-center gap-2 h-10 px-6 bg-gradient-to-b from-slate-50 via-slate-100/90 to-slate-100 hover:from-white hover:to-blue-50/80 text-slate-800 hover:text-blue-600 border border-slate-250 hover:border-blue-300 rounded-xl text-xs font-bold tracking-wide transition-all shadow-xs hover:shadow-md hover:scale-[1.02] active:scale-[0.98]">
-                <User className="w-4 h-4 text-slate-400 group-hover:text-blue-600 transition-colors shrink-0" />
-                <span className="whitespace-nowrap">Sign In</span>
-              </button>
-            </Link>
-            <Link to="/contact" className="inline-flex items-center">
-              <button className="inline-flex items-center justify-center gap-2 h-10 px-6 bg-slate-900 hover:bg-slate-800 text-white rounded-xl shadow-lg shadow-slate-900/20 text-xs font-bold tracking-wide transition-all hover:scale-[1.02] active:scale-[0.98]">
-                <span className="whitespace-nowrap">Contact Us</span>
-                <ArrowRight className="w-4 h-4 shrink-0" />
-              </button>
-            </Link>
-          </div>
-        ) : (
-          <div className="hidden xl:flex items-center gap-3 relative">
+        {/* Action & CTA Buttons Cluster */}
+        <div className="hidden xl:flex items-center gap-2 2xl:gap-2.5">
+          <Link
+            to="#lead-capture"
+            id="nav-cta-assessment"
+            className="inline-flex items-center justify-center gap-2 h-10 px-3.5 2xl:px-4 bg-gradient-to-r from-blue-600 via-blue-600 to-indigo-600 hover:from-blue-700 hover:via-blue-700 hover:to-indigo-700 text-white rounded-xl text-xs font-bold tracking-wide transition-all duration-200 shadow-sm hover:shadow-md hover:-translate-y-0.5 active:translate-y-0 whitespace-nowrap shrink-0 border border-blue-400/30"
+          >
+            <ShieldCheck className="w-3.5 h-3.5 shrink-0" />
+            <span className="whitespace-nowrap leading-none">Get Free Assessment</span>
+          </Link>
+          <Link
+            to="/contact#book-strategy-session"
+            id="nav-cta-strategy"
+            onClick={(e) => {
+              if (window.location.pathname === "/contact") {
+                e.preventDefault();
+                const el = document.getElementById("book-strategy-session");
+                if (el) {
+                  const offset = 112;
+                  const top = el.getBoundingClientRect().top + window.scrollY - offset;
+                  window.scrollTo({ top, behavior: "smooth" });
+                }
+              }
+            }}
+            className="inline-flex items-center justify-center gap-2 h-10 px-3.5 2xl:px-4 bg-white hover:bg-slate-50 text-slate-800 hover:text-indigo-700 border border-slate-200 hover:border-indigo-300 rounded-xl text-xs font-bold tracking-wide transition-all duration-200 shadow-2xs hover:shadow-sm hover:-translate-y-0.5 active:translate-y-0 whitespace-nowrap shrink-0"
+          >
+            <CalendarCheck className="w-3.5 h-3.5 shrink-0 text-indigo-600" />
+            <span className="whitespace-nowrap leading-none">Book Strategy Session</span>
+          </Link>
+
+          {!isAuthenticated ? (
+            <>
+              <Link to="/login" className="inline-flex items-center">
+                <button className="group inline-flex items-center justify-center gap-1.5 h-10 px-3.5 2xl:px-4 bg-slate-50 hover:bg-white text-slate-800 hover:text-blue-600 border border-slate-200 hover:border-blue-300 rounded-xl text-xs font-bold tracking-wide transition-all duration-200 shadow-2xs hover:shadow-sm whitespace-nowrap">
+                  <User className="w-3.5 h-3.5 text-slate-400 group-hover:text-blue-600 transition-colors shrink-0" />
+                  <span className="whitespace-nowrap">Sign In</span>
+                </button>
+              </Link>
+              <Link to="/contact" className="inline-flex items-center">
+                <button className="inline-flex items-center justify-center gap-1.5 h-10 px-4 2xl:px-4.5 bg-slate-900 hover:bg-slate-800 text-white rounded-xl shadow-sm hover:shadow-md text-xs font-bold tracking-wide transition-all duration-200 hover:scale-[1.01] active:scale-[0.99] whitespace-nowrap">
+                  <span className="whitespace-nowrap">Contact Us</span>
+                  <ArrowRight className="w-3.5 h-3.5 shrink-0" />
+                </button>
+              </Link>
+            </>
+          ) : (
+            <div className="relative">
             <button 
               onClick={() => setProfileDropdownOpen(!profileDropdownOpen)}
               className="flex items-center gap-2 px-3 py-1.5 bg-slate-50/80 hover:bg-slate-100 border border-slate-200/80 rounded-xl transition-all cursor-pointer select-none"
@@ -831,6 +847,7 @@ export const Header = () => {
             )}
           </div>
         )}
+      </div>
 
         {/* Mobile Toggle */}
         <button
@@ -958,9 +975,31 @@ export const Header = () => {
                     <span className="whitespace-nowrap leading-none">Get Free Assessment</span>
                   </button>
                 </Link>
+                <Link
+                  to="/contact#book-strategy-session"
+                  id="mobile-nav-cta-strategy"
+                  onClick={(e) => {
+                    setMobileOpen(false);
+                    if (window.location.pathname === "/contact") {
+                      e.preventDefault();
+                      const el = document.getElementById("book-strategy-session");
+                      if (el) {
+                        const offset = 112;
+                        const top = el.getBoundingClientRect().top + window.scrollY - offset;
+                        window.scrollTo({ top, behavior: "smooth" });
+                      }
+                    }
+                  }}
+                  className="w-full"
+                >
+                  <button className="w-full flex items-center justify-center gap-2 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl text-xs font-black tracking-wide shadow-lg shadow-indigo-500/20">
+                    <CalendarCheck className="w-3.5 h-3.5 shrink-0" />
+                    Book a Strategy Session
+                  </button>
+                </Link>
                 <Link to="/contact" onClick={() => setMobileOpen(false)} className="w-full">
                   <button className="w-full flex items-center justify-center gap-1.5 py-2.5 bg-slate-900 text-white rounded-xl text-xs font-bold">
-                    Book Consultation <ArrowRight className="w-3.5 h-3.5" />
+                    Contact Us <ArrowRight className="w-3.5 h-3.5" />
                   </button>
                 </Link>
                 <Link to="/login" onClick={() => setMobileOpen(false)} className="w-full">

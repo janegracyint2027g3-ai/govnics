@@ -211,7 +211,7 @@ function handleLeadForm(ss, tableName, body) {
     if (body.fields && typeof body.fields === 'object' && !Array.isArray(body.fields)) {
         dataFields = body.fields;
     } else {
-        const { table, ...rest } = body;
+        const { table, sheetName, ...rest } = body;
         dataFields = rest;
     }
 

@@ -1,7 +1,8 @@
 import { useState } from "react";
-import { Mail, MapPin, Calendar, Clock, CheckCircle2, ShieldCheck } from "lucide-react";
+import { Mail, MapPin, Calendar, Clock, CheckCircle2, ShieldCheck, Target, BookOpen } from "lucide-react";
 import { industriesData } from "@/data/industries-data";
 import { trackEvent } from "@/utils/analytics";
+import { StrategySessionForm } from "@/components/contact/StrategySessionForm";
 
 export const GrcContact = () => {
   const [formData, setFormData] = useState({
@@ -241,6 +242,77 @@ export const GrcContact = () => {
           </div>
         )}
 
+      </div>
+
+      {/* ══════════════════════════════════════════════════════════════════════
+          BOOK A STRATEGY SESSION
+          id="book-strategy-session" — anchor target for nav link
+      ══════════════════════════════════════════════════════════════════════ */}
+      <div
+        id="book-strategy-session"
+        className="container mx-auto px-6 max-w-6xl relative z-10 scroll-mt-28 pt-12 pb-4 border-t border-slate-200/80"
+      >
+        {/* Section Header */}
+        <div className="text-center max-w-3xl mx-auto space-y-4 mb-12">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 bg-indigo-500/10 border border-indigo-500/20 text-indigo-600 text-xs font-bold uppercase tracking-widest rounded-full">
+            <Target className="w-3.5 h-3.5" />
+            Advisory Strategy Sessions
+          </div>
+          <h2 className="text-3xl md:text-4xl lg:text-5xl font-black text-slate-900 leading-tight font-heading">
+            Book a Strategy Session
+          </h2>
+          <p className="text-slate-600 text-sm md:text-base leading-relaxed max-w-2xl mx-auto font-medium">
+            Connect with GOVENICS to discuss your business challenges, understand your governance, risk, and compliance priorities, and explore a practical strategy tailored to your organisation.
+          </p>
+          <p className="text-slate-500 text-sm leading-relaxed max-w-2xl mx-auto">
+            This session is designed for organisations seeking expert guidance on{" "}
+            <strong className="text-slate-700 font-semibold">GRC, Risk Management, Regulatory Compliance, ESG, Supply-Chain Compliance, Internal Audit,</strong>{" "}
+            and related consulting services. Our senior advisors will help you identify gaps, set priorities, and chart a clear compliance roadmap.
+          </p>
+          {/* Service tags */}
+          <div className="flex flex-wrap justify-center gap-2 pt-2">
+            {[
+              "GRC Advisory",
+              "Enterprise Risk",
+              "Regulatory Compliance",
+              "ESG & Sustainability",
+              "Supply Chain",
+              "Internal Audit",
+              "Governance Advisory",
+              "Risk Assessment",
+            ].map((tag) => (
+              <span
+                key={tag}
+                className="px-3 py-1 bg-slate-100 text-slate-600 text-[10px] font-bold uppercase tracking-wider rounded-full border border-slate-200"
+              >
+                {tag}
+              </span>
+            ))}
+          </div>
+        </div>
+
+        {/* Form Card */}
+        <div className="max-w-4xl mx-auto bg-slate-50 border border-slate-200 rounded-3xl p-8 md:p-12 shadow-2xl relative overflow-hidden">
+          <div className="absolute top-0 right-0 w-64 h-64 bg-indigo-600/5 rounded-full blur-[80px] -translate-y-1/2 translate-x-1/2 pointer-events-none" />
+          <div className="absolute bottom-0 left-0 w-48 h-48 bg-blue-600/5 rounded-full blur-[60px] translate-y-1/2 -translate-x-1/2 pointer-events-none" />
+          <div className="relative z-10 space-y-6">
+            {/* Card header */}
+            <div className="flex items-center gap-3 pb-6 border-b border-slate-200">
+              <div className="w-10 h-10 rounded-2xl bg-gradient-to-br from-indigo-600 to-blue-700 flex items-center justify-center shadow-lg shadow-indigo-500/20">
+                <BookOpen className="w-5 h-5 text-white" />
+              </div>
+              <div>
+                <h3 className="text-base font-black text-slate-900 font-heading">
+                  Strategy Session Booking Form
+                </h3>
+                <p className="text-[11px] text-slate-500 font-semibold mt-0.5">
+                  Fields marked with <span className="text-rose-500">*</span> are required &bull; All information is treated as strictly confidential
+                </p>
+              </div>
+            </div>
+            <StrategySessionForm />
+          </div>
+        </div>
       </div>
     </section>
   );
