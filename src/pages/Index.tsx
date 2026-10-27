@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { Layout } from "@/components/layout/Layout";
 import { GrcHero } from "@/components/hero/GrcHero";
-import { Building2, Sparkles } from "lucide-react";
+import { Building2, Sparkles, ArrowRight } from "lucide-react";
 import { GrcTrust } from "@/components/trust/GrcTrust";
 import { GrcIndustries } from "@/components/industries/GrcIndustries";
 import { GrcServices } from "@/components/services/GrcServices";
@@ -11,9 +11,8 @@ import { GrcCases } from "@/components/cases/GrcCases";
 import { GrcResources } from "@/components/resources/GrcResources";
 import { ComplianceRisk } from "@/components/risk/ComplianceRisk";
 import { CompanySize } from "@/components/company-size/CompanySize";
-import { ComplianceCTA } from "@/components/cta/ComplianceCTA";
 import { LeadCaptureForm } from "@/components/lead/LeadCaptureForm";
-import { FloatingCTA } from "@/components/ui/FloatingCTA";
+import { Link } from "react-router-dom";
 
 export default function Index() {
   useEffect(() => {
@@ -31,7 +30,7 @@ export default function Index() {
 
   return (
     <Layout noPadding={true}>
-      {/* Hero Section */}
+      {/* Hero Section — "Get Free Assessment" CTA scrolls to LeadCaptureForm below */}
       <GrcHero />
 
       {/* Strategic Evolution Section */}
@@ -99,23 +98,14 @@ export default function Index() {
       {/* Trust Metrics + Partner Ecosystem */}
       <GrcTrust />
 
-      {/* Compliance Risk Categories — NEW */}
+      {/* Compliance Risk Categories */}
       <ComplianceRisk />
 
-      {/* CTA: Risk */}
-      <ComplianceCTA variant="risk" />
-
-      {/* Company Size Segmentation — NEW */}
+      {/* Company Size Segmentation */}
       <CompanySize />
-
-      {/* CTA: Company Size */}
-      <ComplianceCTA variant="companySize" />
 
       {/* Industries We Serve */}
       <GrcIndustries />
-
-      {/* CTA: Industries */}
-      <ComplianceCTA variant="industries" />
 
       {/* Services Lifecycle */}
       <GrcLifecycleSlider />
@@ -123,24 +113,50 @@ export default function Index() {
       {/* Service Ecosystem */}
       <GrcServices />
 
-      {/* CTA: Services */}
-      <ComplianceCTA variant="services" />
-
       {/* Why Govenics */}
       <WhyGovenics />
 
       {/* Case Studies */}
       <GrcCases />
 
-      {/* Lead Capture Form — NEW */}
+      {/* ── GET FREE ASSESSMENT — Lead Capture Form ────────────────────────── */}
       <LeadCaptureForm />
+
+      {/* ── STRATEGY SESSION CTA — Clean, single call-to-action ────────────── */}
+      <section className="py-16 bg-gradient-to-br from-slate-900 via-slate-900 to-blue-950 border-t border-slate-800">
+        <div className="container mx-auto px-6 max-w-4xl text-center space-y-6">
+          <span className="inline-flex items-center gap-2 px-3.5 py-1.5 bg-blue-500/20 border border-blue-400/30 text-blue-400 text-[10px] font-bold uppercase tracking-widest rounded-full">
+            Expert Advisory
+          </span>
+          <h2 className="text-2xl sm:text-3xl font-black text-white font-heading leading-tight">
+            Need a Personalized GRC Strategy Session?
+          </h2>
+          <p className="text-sm text-slate-400 max-w-xl mx-auto leading-relaxed">
+            Connect with our senior advisory partners for a structured consultation on compliance gaps, risk frameworks, or ESG readiness — tailored to your industry and company size.
+          </p>
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-2">
+            <Link
+              to="/contact"
+              className="inline-flex items-center gap-2 px-8 py-4 bg-blue-600 hover:bg-blue-500 text-white font-bold text-sm rounded-2xl transition-all shadow-lg shadow-blue-500/20 hover:scale-[1.02]"
+            >
+              Book a Strategy Session <ArrowRight className="w-4 h-4" />
+            </Link>
+            <Link
+              to="/grc"
+              className="inline-flex items-center gap-2 px-8 py-4 bg-white/10 hover:bg-white/15 text-white font-bold text-sm rounded-2xl border border-white/10 transition-all"
+            >
+              Explore GRC Services
+            </Link>
+          </div>
+        </div>
+      </section>
 
       {/* Resources Hub */}
       <GrcResources />
 
-      {/* Mobile Floating CTA — NEW */}
-      <FloatingCTA />
     </Layout>
   );
 }
+
+
 

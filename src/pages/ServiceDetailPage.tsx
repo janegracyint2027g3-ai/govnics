@@ -785,29 +785,30 @@ export default function ServiceDetailPage() {
           </section>
         )}
 
-        {/* ── SECTION 9: FINAL CTA & CONSULTATION ENQUIRY FORM ─────────── */}
+        {/* ── SECTION 9: STRATEGY SESSION CTA ─────────────────────────────── */}
         <section id="consultation-form" className="py-24 bg-gradient-to-br from-slate-950 via-slate-900 to-blue-950 text-white relative overflow-hidden">
           <div className="absolute inset-0 bg-[radial-gradient(#3B82F6_1px,transparent_1px)] [background-size:24px_24px] opacity-10 pointer-events-none" />
+          <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-blue-600/5 rounded-full blur-[140px] pointer-events-none" />
 
-          <div className="container mx-auto px-6 max-w-6xl relative z-10">
-            <div className="grid lg:grid-cols-12 gap-12 items-center">
+          <div className="container mx-auto px-6 max-w-5xl relative z-10">
+            <div className="grid lg:grid-cols-2 gap-12 items-center">
 
-              {/* Left Column: Value Proposition & Contact Details */}
-              <div className="lg:col-span-6 space-y-6 text-left">
+              {/* Left Column: Value Proposition */}
+              <div className="space-y-6 text-left">
                 <span className="inline-flex items-center gap-2 px-3.5 py-1.5 bg-blue-500/20 border border-blue-500/30 text-blue-300 text-[10px] font-bold uppercase tracking-widest rounded-full">
                   Direct Partner Access
                 </span>
-                <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-white font-heading leading-tight">
+                <h2 className="text-3xl sm:text-4xl font-black text-white font-heading leading-tight">
                   Ready to Fortify Your {service.title}?
                 </h2>
-                <p className="text-sm sm:text-base text-blue-200/80 font-semibold leading-relaxed">
-                  Initiate a structured consultation with Govnics risk partners. We evaluate your operational baseline, review relevant statutory exposure, and outline an actionable roadmap toward 100% audit defensibility.
+                <p className="text-sm text-blue-200/80 font-semibold leading-relaxed">
+                  Book a structured Strategy Session with our senior advisory partners. We evaluate your operational baseline, review statutory exposure, and outline an actionable compliance roadmap.
                 </p>
 
                 <div className="space-y-3 pt-2">
                   <div className="flex items-center gap-3 text-xs sm:text-sm font-bold text-white">
                     <CheckCircle2 className="w-5 h-5 text-emerald-400 shrink-0" />
-                    <span>Non-disclosure agreement (NDA) protected preliminary discovery</span>
+                    <span>NDA-protected preliminary discovery session</span>
                   </div>
                   <div className="flex items-center gap-3 text-xs sm:text-sm font-bold text-white">
                     <CheckCircle2 className="w-5 h-5 text-emerald-400 shrink-0" />
@@ -816,6 +817,10 @@ export default function ServiceDetailPage() {
                   <div className="flex items-center gap-3 text-xs sm:text-sm font-bold text-white">
                     <CheckCircle2 className="w-5 h-5 text-emerald-400 shrink-0" />
                     <span>Clear engagement milestones with fixed delivery timelines</span>
+                  </div>
+                  <div className="flex items-center gap-3 text-xs sm:text-sm font-bold text-white">
+                    <CheckCircle2 className="w-5 h-5 text-emerald-400 shrink-0" />
+                    <span>Industry-specific compliance scoping tailored to your sector</span>
                   </div>
                 </div>
 
@@ -831,147 +836,42 @@ export default function ServiceDetailPage() {
                 </div>
               </div>
 
-              {/* Right Column: Interactive Consultation Enquiry Form */}
-              <div className="lg:col-span-6">
-                <div className="bg-white rounded-3xl p-8 sm:p-10 shadow-2xl text-slate-800 border border-slate-200">
-                  {formSubmitted ? (
-                    <div className="text-center py-10 space-y-4">
-                      <div className="w-16 h-16 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center mx-auto">
-                        <Check className="w-8 h-8" />
-                      </div>
-                      <h3 className="text-2xl font-black text-slate-900 font-heading">Consultation Request Received</h3>
-                      <p className="text-xs sm:text-sm text-slate-600 font-semibold max-w-sm mx-auto leading-relaxed">
-                        Thank you, <strong className="text-slate-900">{formData.name}</strong>. A Govnics Senior Advisory Partner will review your operational requirements for <strong className="text-slate-900">{formData.serviceInterest}</strong> and contact you within 1 business day.
-                      </p>
-                      <button
-                        onClick={() => setFormSubmitted(false)}
-                        className="px-6 py-2.5 bg-slate-100 hover:bg-slate-200 rounded-xl text-xs font-bold text-slate-700 transition-colors"
-                      >
-                        Submit Another Request
-                      </button>
-                    </div>
-                  ) : (
-                    <form onSubmit={handleFormSubmit} className="space-y-4 text-left">
-                      <div className="mb-2">
-                        <span className="text-[10px] font-black text-blue-600 uppercase tracking-widest block">
-                          Enterprise Consultation
-                        </span>
-                        <h3 className="text-xl font-black text-slate-900 font-heading">
-                          Request Executive Briefing
-                        </h3>
-                      </div>
-
-                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                        <div>
-                          <label className="block text-[11px] font-bold text-slate-700 uppercase tracking-wider mb-1">
-                            Your Name *
-                          </label>
-                          <div className="relative">
-                            <User className="w-4 h-4 text-slate-400 absolute left-3 top-3.5" />
-                            <input
-                              type="text"
-                              required
-                              value={formData.name}
-                              onChange={e => setFormData({ ...formData, name: e.target.value })}
-                              placeholder="e.g. Rahul Sharma"
-                              className="w-full pl-9 pr-3 py-2.5 rounded-xl border border-slate-200 text-xs font-semibold focus:outline-none focus:border-blue-600 transition-colors"
-                            />
-                          </div>
-                        </div>
-
-                        <div>
-                          <label className="block text-[11px] font-bold text-slate-700 uppercase tracking-wider mb-1">
-                            Company / Entity *
-                          </label>
-                          <div className="relative">
-                            <Building2 className="w-4 h-4 text-slate-400 absolute left-3 top-3.5" />
-                            <input
-                              type="text"
-                              required
-                              value={formData.company}
-                              onChange={e => setFormData({ ...formData, company: e.target.value })}
-                              placeholder="e.g. Acme Enterprises Ltd"
-                              className="w-full pl-9 pr-3 py-2.5 rounded-xl border border-slate-200 text-xs font-semibold focus:outline-none focus:border-blue-600 transition-colors"
-                            />
-                          </div>
-                        </div>
-                      </div>
-
-                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                        <div>
-                          <label className="block text-[11px] font-bold text-slate-700 uppercase tracking-wider mb-1">
-                            Corporate Email *
-                          </label>
-                          <div className="relative">
-                            <Mail className="w-4 h-4 text-slate-400 absolute left-3 top-3.5" />
-                            <input
-                              type="email"
-                              required
-                              value={formData.email}
-                              onChange={e => setFormData({ ...formData, email: e.target.value })}
-                              placeholder="name@company.com"
-                              className="w-full pl-9 pr-3 py-2.5 rounded-xl border border-slate-200 text-xs font-semibold focus:outline-none focus:border-blue-600 transition-colors"
-                            />
-                          </div>
-                        </div>
-
-                        <div>
-                          <label className="block text-[11px] font-bold text-slate-700 uppercase tracking-wider mb-1">
-                            Phone Number *
-                          </label>
-                          <div className="relative">
-                            <Phone className="w-4 h-4 text-slate-400 absolute left-3 top-3.5" />
-                            <input
-                              type="tel"
-                              required
-                              value={formData.phone}
-                              onChange={e => setFormData({ ...formData, phone: e.target.value })}
-                              placeholder="+91 98000 00000"
-                              className="w-full pl-9 pr-3 py-2.5 rounded-xl border border-slate-200 text-xs font-semibold focus:outline-none focus:border-blue-600 transition-colors"
-                            />
-                          </div>
-                        </div>
-                      </div>
-
-                      <div>
-                        <label className="block text-[11px] font-bold text-slate-700 uppercase tracking-wider mb-1">
-                          Service Focus Area
-                        </label>
-                        <input
-                          type="text"
-                          readOnly
-                          value={formData.serviceInterest}
-                          className="w-full px-3 py-2.5 rounded-xl bg-slate-100 border border-slate-200 text-xs font-bold text-slate-700 cursor-not-allowed"
-                        />
-                      </div>
-
-                      <div>
-                        <label className="block text-[11px] font-bold text-slate-700 uppercase tracking-wider mb-1">
-                          Operational Scope / Objectives
-                        </label>
-                        <textarea
-                          rows={3}
-                          value={formData.message}
-                          onChange={e => setFormData({ ...formData, message: e.target.value })}
-                          placeholder="Briefly describe your facilities, timeline, or current compliance pain points..."
-                          className="w-full p-3 rounded-xl border border-slate-200 text-xs font-semibold focus:outline-none focus:border-blue-600 transition-colors resize-none"
-                        />
-                      </div>
-
-                      <button
-                        type="submit"
-                        className="w-full py-4 bg-blue-600 hover:bg-blue-700 text-white font-extrabold text-sm rounded-xl transition-all shadow-lg shadow-blue-500/25 flex items-center justify-center gap-2 group hover:scale-[1.01]"
-                      >
-                        <span>Schedule Enterprise Consultation</span>
-                        <Send className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-                      </button>
-
-                      <p className="text-[10px] text-slate-400 text-center font-semibold pt-1">
-                        All inquiries are treated under non-disclosure obligations. No spam, ever.
-                      </p>
-                    </form>
-                  )}
+              {/* Right Column: CTA Card */}
+              <div className="bg-white/5 backdrop-blur-md border border-white/10 rounded-3xl p-8 sm:p-10 space-y-6 text-center">
+                <div className="w-16 h-16 rounded-2xl bg-blue-600/20 border border-blue-500/30 flex items-center justify-center mx-auto">
+                  <Target className="w-8 h-8 text-blue-400" />
                 </div>
+                <div className="space-y-2">
+                  <h3 className="text-xl font-black text-white font-heading">Book a Strategy Session</h3>
+                  <p className="text-sm text-slate-400 leading-relaxed">
+                    Our structured intake form captures your industry, company size, and functional areas — so your advisory call is prepared and focused from the first minute.
+                  </p>
+                </div>
+                <div className="space-y-3 text-left">
+                  {[
+                    "Select your industry & company size",
+                    "Choose GRC, ESG, Finance or Labour focus",
+                    "Receive email confirmation + video call link",
+                    "Connect with a senior advisory partner"
+                  ].map((step, i) => (
+                    <div key={i} className="flex items-center gap-3 text-sm text-slate-300">
+                      <span className="w-6 h-6 rounded-full bg-blue-600/30 border border-blue-500/30 flex items-center justify-center text-blue-400 text-[10px] font-black shrink-0">
+                        {i + 1}
+                      </span>
+                      <span>{step}</span>
+                    </div>
+                  ))}
+                </div>
+                <Link
+                  to="/contact"
+                  className="w-full inline-flex items-center justify-center gap-2 px-8 py-4 bg-blue-600 hover:bg-blue-500 text-white font-bold text-sm rounded-2xl transition-all shadow-lg shadow-blue-500/25 hover:scale-[1.02]"
+                >
+                  <ArrowRight className="w-4 h-4" />
+                  Book Strategy Session Now
+                </Link>
+                <p className="text-[10px] text-slate-500 font-medium">
+                  Confidential — protected under enterprise NDA. No spam, ever.
+                </p>
               </div>
 
             </div>
@@ -991,3 +891,7 @@ function SearchIconComponent({ className }: { className?: string }) {
     </svg>
   );
 }
+
+
+          <div className="container mx-auto px-6 max-w-6xl relative z-10">
+            <div className="grid lg:grid-cols-12 gap-12 items-center">

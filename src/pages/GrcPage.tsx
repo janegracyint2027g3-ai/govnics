@@ -994,22 +994,23 @@ export default function GrcPage() {
           </div>
         </section>
 
-        {/* ── SECTION 9: FINAL CTA & EXECUTIVE ADVISORY ENQUIRY FORM ─── */}
+        {/* ── SECTION 9: STRATEGY SESSION CTA ─────────────────────────────── */}
         <section id="consultation-form" className="py-24 bg-gradient-to-br from-slate-950 via-slate-900 to-blue-950 text-white relative overflow-hidden">
           <div className="absolute inset-0 bg-[radial-gradient(#2563eb_1px,transparent_1px)] [background-size:24px_24px] opacity-10" />
+          <div className="absolute top-1/3 left-1/4 w-[500px] h-[500px] bg-blue-600/10 rounded-full blur-[120px] pointer-events-none" />
 
-          <div className="container mx-auto px-6 max-w-6xl relative z-10">
-            <div className="grid lg:grid-cols-12 gap-12 items-center">
+          <div className="container mx-auto px-6 max-w-5xl relative z-10">
+            <div className="grid lg:grid-cols-2 gap-12 items-center">
 
-              {/* Left Column: CTA Context */}
-              <div className="lg:col-span-5 space-y-6 text-left">
+              {/* Left Column: Context */}
+              <div className="space-y-6 text-left">
                 <span className="inline-flex items-center gap-2 px-3.5 py-1.5 bg-blue-500/20 border border-blue-400/30 text-blue-400 text-[10px] font-bold uppercase tracking-widest rounded-full">
                   Executive Consultation
                 </span>
                 <h2 className="text-3xl sm:text-4xl font-black text-white font-heading leading-tight">
                   Ready to Transform Your GRC Operations?
                 </h2>
-                <p className="text-xs sm:text-sm text-slate-300 font-medium leading-relaxed">
+                <p className="text-sm text-slate-300 font-medium leading-relaxed">
                   Engage our senior advisory team for an executive briefing, multi-state statutory audit scoping, or diagnostic assessment tailored to your enterprise.
                 </p>
 
@@ -1023,7 +1024,6 @@ export default function GrcPage() {
                       <p className="text-[11px] text-slate-400">Strict Non-Disclosure Agreement (NDA) protection on all corporate operational assessments.</p>
                     </div>
                   </div>
-
                   <div className="flex items-start gap-3">
                     <div className="w-8 h-8 rounded-xl bg-blue-500/20 flex items-center justify-center text-blue-400 shrink-0">
                       <Clock className="w-4 h-4" />
@@ -1033,7 +1033,6 @@ export default function GrcPage() {
                       <p className="text-[11px] text-slate-400">Engage directly with experienced GRC practitioners, not junior sales representatives.</p>
                     </div>
                   </div>
-
                   <div className="flex items-start gap-3">
                     <div className="w-8 h-8 rounded-xl bg-blue-500/20 flex items-center justify-center text-blue-400 shrink-0">
                       <Building2 className="w-4 h-4" />
@@ -1048,156 +1047,49 @@ export default function GrcPage() {
                 <div className="pt-4 border-t border-slate-800 flex flex-wrap gap-4 text-xs text-slate-400">
                   <span className="flex items-center gap-1.5">
                     <Mail className="w-3.5 h-3.5 text-blue-400" />
-                    contact@govnics.com
+                    contact@govenics.com
                   </span>
                   <span className="flex items-center gap-1.5">
                     <Phone className="w-3.5 h-3.5 text-blue-400" />
-                    +91 (0) 800-GOVNICS
+                    +91 98840 50000
                   </span>
                 </div>
               </div>
 
-              {/* Right Column: Advisory Form */}
-              <div className="lg:col-span-7">
-                <div className="bg-white/95 backdrop-blur-md rounded-3xl p-8 sm:p-10 shadow-2xl text-slate-800">
-                  {formSubmitted ? (
-                    <div className="py-12 text-center space-y-4">
-                      <div className="w-16 h-16 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center mx-auto">
-                        <Check className="w-8 h-8" />
-                      </div>
-                      <h3 className="text-2xl font-black text-slate-900 font-heading">
-                        Consultation Request Received
-                      </h3>
-                      <p className="text-xs text-slate-600 font-medium max-w-md mx-auto leading-relaxed">
-                        Thank you, <span className="font-bold text-slate-900">{formData.name}</span>. A Senior GRC Advisory Partner has received your inquiry for <span className="font-bold text-slate-900">{formData.company}</span> and will connect within 1 business day.
-                      </p>
-                      <button
-                        onClick={() => {
-                          setFormSubmitted(false);
-                          setFormData({ name: "", company: "", email: "", phone: "", serviceInterest: "Comprehensive GRC Advisory", message: "" });
-                        }}
-                        className="mt-4 px-6 py-2.5 bg-slate-900 text-white text-xs font-bold rounded-xl hover:bg-slate-800 transition-colors"
-                      >
-                        Submit Another Request
-                      </button>
-                    </div>
-                  ) : (
-                    <form onSubmit={handleFormSubmit} className="space-y-4 text-left">
-                      <div>
-                        <h3 className="text-xl font-black text-slate-900 font-heading">
-                          Request an Executive GRC Scoping Call
-                        </h3>
-                        <p className="text-xs text-slate-500 font-medium mt-1">
-                          Complete the brief dossier below to connect with our practice leads.
-                        </p>
-                      </div>
-
-                      <div className="grid sm:grid-cols-2 gap-4 pt-2">
-                        <div className="space-y-1.5">
-                          <label className="text-[11px] font-bold uppercase tracking-wider text-slate-700 flex items-center gap-1">
-                            <User className="w-3 h-3 text-blue-600" /> Full Name *
-                          </label>
-                          <input
-                            type="text"
-                            required
-                            placeholder="e.g. Ramesh Varma"
-                            value={formData.name}
-                            onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                            className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-900 focus:outline-none focus:border-blue-600 focus:bg-white transition-all font-medium"
-                          />
-                        </div>
-
-                        <div className="space-y-1.5">
-                          <label className="text-[11px] font-bold uppercase tracking-wider text-slate-700 flex items-center gap-1">
-                            <Building2 className="w-3 h-3 text-blue-600" /> Enterprise / Company *
-                          </label>
-                          <input
-                            type="text"
-                            required
-                            placeholder="e.g. Apex Industrial Corp"
-                            value={formData.company}
-                            onChange={(e) => setFormData({ ...formData, company: e.target.value })}
-                            className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-900 focus:outline-none focus:border-blue-600 focus:bg-white transition-all font-medium"
-                          />
-                        </div>
-                      </div>
-
-                      <div className="grid sm:grid-cols-2 gap-4">
-                        <div className="space-y-1.5">
-                          <label className="text-[11px] font-bold uppercase tracking-wider text-slate-700 flex items-center gap-1">
-                            <Mail className="w-3 h-3 text-blue-600" /> Corporate Email *
-                          </label>
-                          <input
-                            type="email"
-                            required
-                            placeholder="name@company.com"
-                            value={formData.email}
-                            onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                            className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-900 focus:outline-none focus:border-blue-600 focus:bg-white transition-all font-medium"
-                          />
-                        </div>
-
-                        <div className="space-y-1.5">
-                          <label className="text-[11px] font-bold uppercase tracking-wider text-slate-700 flex items-center gap-1">
-                            <Phone className="w-3 h-3 text-blue-600" /> Phone Number *
-                          </label>
-                          <input
-                            type="tel"
-                            required
-                            placeholder="+91 98765 43210"
-                            value={formData.phone}
-                            onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                            className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-900 focus:outline-none focus:border-blue-600 focus:bg-white transition-all font-medium"
-                          />
-                        </div>
-                      </div>
-
-                      <div className="space-y-1.5">
-                        <label className="text-[11px] font-bold uppercase tracking-wider text-slate-700 flex items-center gap-1">
-                          <Briefcase className="w-3 h-3 text-blue-600" /> Primary Practice / Service Interest
-                        </label>
-                        <select
-                          value={formData.serviceInterest}
-                          onChange={(e) => setFormData({ ...formData, serviceInterest: e.target.value })}
-                          className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-900 focus:outline-none focus:border-blue-600 focus:bg-white transition-all font-medium"
-                        >
-                          <option value="Comprehensive GRC Advisory">Comprehensive GRC Advisory & Diagnostic</option>
-                          <option value="Statutory & Factory Compliance">Statutory & Factory Compliance</option>
-                          <option value="Enterprise Risk Management (ERM)">Enterprise Risk Management (ERM)</option>
-                          <option value="Corporate Governance & Internal Audit">Corporate Governance & Internal Audit</option>
-                          <option value="Managed Workforce Staffing">Managed Workforce Staffing</option>
-                          <option value="Cybersecurity & Data Privacy (DPDP)">Cybersecurity & Data Privacy (DPDP)</option>
-                          <option value="ESG & BRSR Sustainability">ESG & BRSR Sustainability</option>
-                        </select>
-                      </div>
-
-                      <div className="space-y-1.5">
-                        <label className="text-[11px] font-bold uppercase tracking-wider text-slate-700">
-                          Scope & Operational Context (Optional)
-                        </label>
-                        <textarea
-                          rows={3}
-                          placeholder="Briefly describe your operating footprint, number of operating plants/branches, or immediate compliance requirements..."
-                          value={formData.message}
-                          onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                          className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-900 focus:outline-none focus:border-blue-600 focus:bg-white transition-all font-medium"
-                        />
-                      </div>
-
-                      <button
-                        type="submit"
-                        className="w-full py-4 bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs uppercase tracking-wider rounded-xl transition-all shadow-lg shadow-blue-500/25 flex items-center justify-center gap-2 hover:scale-[1.01]"
-                      >
-                        <Send className="w-4 h-4" />
-                        <span>Submit Executive Consultation Dossier</span>
-                      </button>
-
-                      <p className="text-[10px] text-slate-400 text-center font-medium">
-                        Information submitted is confidential and protected by enterprise NDAs. No spam guarantee.
-                      </p>
-                    </form>
-                  )}
+              {/* Right Column: CTA Card (no duplicate form) */}
+              <div className="bg-white/5 backdrop-blur-md border border-white/10 rounded-3xl p-8 sm:p-10 space-y-6 text-center">
+                <div className="w-16 h-16 rounded-2xl bg-blue-600/20 border border-blue-500/30 flex items-center justify-center mx-auto">
+                  <Target className="w-8 h-8 text-blue-400" />
                 </div>
+                <div className="space-y-2">
+                  <h3 className="text-xl font-black text-white font-heading">Book a Strategy Session</h3>
+                  <p className="text-sm text-slate-400 leading-relaxed">
+                    Fill in our structured intake form to describe your compliance needs, company size, and functional areas. We'll schedule a dedicated advisory call within 1 business day.
+                  </p>
+                </div>
+                <div className="space-y-3">
+                  {[
+                    "Industry-specific compliance scoping",
+                    "Company size & framework alignment",
+                    "GRC, ESG, Finance & Labour advisory",
+                    "Dedicated senior partner access"
+                  ].map((point, i) => (
+                    <div key={i} className="flex items-center gap-2.5 text-sm text-slate-300">
+                      <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
+                      <span>{point}</span>
+                    </div>
+                  ))}
+                </div>
+                <Link
+                  to="/contact"
+                  className="w-full inline-flex items-center justify-center gap-2 px-8 py-4 bg-blue-600 hover:bg-blue-500 text-white font-bold text-sm rounded-2xl transition-all shadow-lg shadow-blue-500/25 hover:scale-[1.02]"
+                >
+                  <ArrowRight className="w-4 h-4" />
+                  Book Strategy Session Now
+                </Link>
+                <p className="text-[10px] text-slate-500 font-medium">
+                  Confidential — protected under enterprise NDA. No spam, ever.
+                </p>
               </div>
 
             </div>
