@@ -31,12 +31,30 @@ export const GrcExitIntentPopup = () => {
     setIsOpen(false);
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!feedback.trim()) return;
-    
-    // Simulate feedback submission
-    console.log("Feedback submitted:", feedback);
+
+    const webhookUrl = import.meta.env.VITE_TELEMETRY_WEBHOOK_URL;
+    if (webhookUrl) {
+      try {
+        await fetch(webhookUrl, {
+          method: "POST",
+          mode: "no-cors",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            sheetName: "Exit_Intent_Feedback",
+            table: "Exit_Intent_Feedback",
+            "Feedback": feedback,
+            "Source Page": window.location.pathname,
+            "Timestamp": new Date().toISOString(),
+          }),
+        });
+      } catch (err) {
+        console.warn("Exit feedback submission error:", err);
+      }
+    }
+
     setIsSubmitted(true);
     setTimeout(() => {
       setIsOpen(false);

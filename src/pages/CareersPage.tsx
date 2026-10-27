@@ -114,7 +114,7 @@ export default function CareersPage() {
     setIsSubmitting(true);
     
     const payload = {
-      sheetName: "CareerApplications",
+      sheetName: "Career_Applications",
       timestamp: new Date().toISOString(),
       ...formData,
       resumeFilename: resumeFile?.name,

@@ -275,32 +275,42 @@ const dispatchWebhook = async (evt: GrcAnalyticsEvent) => {
   let payload: Record<string, any> = {};
 
   if (evt.type === "form_submit") {
-    const isPartner = evt.details.formName === "PartnerForm";
+    const formName = evt.details.formName || "";
+    const isPartner = formName === "PartnerForm";
+    const isStrategy = formName === "StrategySession";
+    const isAssessment = formName === "ComplianceAssessment" || formName === "LeadCapture";
+    const sheetName = isPartner ? "Partner_Applications"
+      : isStrategy ? "Strategy_Session_Bookings"
+      : isAssessment ? "Inbound_Leads"
+      : "Consultation_Requests";
+
     payload = {
-      sheetName: isPartner ? "PartnerForm" : "ContactForm",
-      name: evt.details.name || "",
-      email: evt.details.email || "",
-      company: evt.details.company || "",
-      phone: evt.details.phone || "",
-      message: evt.details.message || "",
-      status: "New",
+      sheetName,
+      "Full Name": evt.details.name || "",
+      "Email": evt.details.email || "",
+      "Company": evt.details.company || "",
+      "Phone": evt.details.phone || "",
+      "Message": evt.details.message || "",
+      "Lead Status": "New",
+      "Lead Source": `Website Form — ${formName || "Generic"}`,
+      "Source Page": evt.path || "",
       ipLocation: geo.location,
       location: geo.location,
       ipAddress: geo.ip,
-      timestamp: evt.timestamp
+      "Timestamp": evt.timestamp
     };
 
     if (isPartner) {
-      payload.designation = evt.details.designation || "";
-      payload.partnershipType = evt.details.partnershipType || "";
+      payload["Designation"] = evt.details.designation || "";
+      payload["Partnership Type"] = evt.details.partnershipType || "";
+      payload["Location"] = evt.details.location || "";
     } else {
-      payload.industry = evt.details.interest || "";
-      payload.slotTime = evt.details.slotTime || "";
-      payload.serviceInterest = evt.details.interest || "General Consultation";
+      payload["Industry"] = evt.details.industry || evt.details.interest || "";
+      payload["Service Interest"] = evt.details.serviceInterest || evt.details.interest || "General Consultation";
     }
   } else if (evt.type === "estimator_calc") {
     payload = {
-      sheetName: "EstimatorCalculations",
+      sheetName: "Estimator_Calculations",
       sessionId: evt.sessionToken,
       statesCount: evt.details.state || "",
       workforceRange: evt.details.employeeCount || "",
@@ -316,7 +326,7 @@ const dispatchWebhook = async (evt: GrcAnalyticsEvent) => {
     };
   } else if (evt.type === "page_view") {
     payload = {
-      sheetName: "TrafficAnalytics",
+      sheetName: "Traffic_Analytics",
       sessionId: evt.sessionToken,
       visitorId: "visitor_grc",
       pagePath: evt.path,
@@ -330,7 +340,7 @@ const dispatchWebhook = async (evt: GrcAnalyticsEvent) => {
     };
   } else {
     payload = {
-      sheetName: "BehaviorMetrics",
+      sheetName: "Behavior_Metrics",
       sessionId: evt.sessionToken,
       visitorId: "visitor_grc",
       pageUrl: evt.path,

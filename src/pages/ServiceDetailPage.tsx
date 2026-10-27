@@ -337,9 +337,36 @@ export default function ServiceDetailPage() {
     }
   ];
 
-  const handleFormSubmit = (e: React.FormEvent) => {
+  const handleFormSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!formData.name || !formData.email || !formData.phone) return;
+
+    const webhookUrl = import.meta.env.VITE_TELEMETRY_WEBHOOK_URL;
+    if (webhookUrl) {
+      try {
+        await fetch(webhookUrl, {
+          method: "POST",
+          mode: "no-cors",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            sheetName: "Consultation_Requests",
+            table: "Consultation_Requests",
+            "Full Name": formData.name,
+            "Email": formData.email,
+            "Phone": formData.phone,
+            "Company": formData.company,
+            "Service Interest": formData.serviceInterest || service?.title || "Service Detail Inquiry",
+            "Source Page": window.location.pathname,
+            "Lead Source": "Service Detail Page — Executive Briefing Form",
+            "Booking Status": "New Inquiry",
+            "Timestamp": new Date().toISOString(),
+          }),
+        });
+      } catch (err) {
+        console.warn("Service detail form submission error:", err);
+      }
+    }
+
     setFormSubmitted(true);
   };
 

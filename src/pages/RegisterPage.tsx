@@ -135,6 +135,34 @@ export default function RegisterPage() {
       };
 
       await register(userData);
+
+      // Log registration to Google Sheets (fire-and-forget)
+      const webhookUrl = import.meta.env.VITE_TELEMETRY_WEBHOOK_URL;
+      if (webhookUrl) {
+        fetch(webhookUrl, {
+          method: "POST",
+          mode: "no-cors",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            sheetName: "Registered_Users",
+            table: "Registered_Users",
+            "Full Name": fullName,
+            "Email": email,
+            "Company": companyName,
+            "Designation": designation,
+            "Industry": industry,
+            "Org Size": orgSize,
+            "GRC Scope": Array.isArray(grcScope) ? grcScope.join(", ") : grcScope,
+            "Primary Standard": primaryStandard,
+            "Maturity Level": maturity,
+            "Geo Footprint": geoFootprint,
+            "Source Page": "/register",
+            "Lead Source": "Website Registration",
+            "Timestamp": new Date().toISOString(),
+          }),
+        }).catch(() => {/* silent */});
+      }
+
       // Registration auto-logs in and handles redirection
     } catch (err: any) {
       setError(err?.message || "Registration failed. Please check credentials.");

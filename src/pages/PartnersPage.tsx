@@ -10,7 +10,6 @@ import {
   ChevronLeft, ChevronRight, Quote
 } from "lucide-react";
 
-import { trackEvent } from "@/utils/analytics";
 
 // ── Data ──────────────────────────────────────────────────────────────────────
 
@@ -288,21 +287,43 @@ export default function PartnersPage() {
     return Object.keys(newErrors).length === 0;
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!validateForm()) return;
     setIsSubmitting(true);
-    trackEvent("form_submit", "General", {
-      formName: "PartnerForm",
-      name: formData.name, email: formData.email, company: formData.company,
-      designation: formData.designation, phone: formData.phone,
-      location: formData.location, partnershipType: formData.partnershipType, message: formData.message,
-    });
-    setTimeout(() => {
-      setIsSubmitting(false);
-      setSuccess(true);
-      setFormData({ name: "", email: "", company: "", designation: "", phone: "", location: "", partnershipType: "", message: "", privacyConsent: false });
-    }, 1500);
+
+    const webhookUrl = import.meta.env.VITE_TELEMETRY_WEBHOOK_URL;
+    if (webhookUrl) {
+      try {
+        await fetch(webhookUrl, {
+          method: "POST",
+          mode: "no-cors",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            sheetName: "Partner_Applications",
+            table: "Partner_Applications",
+            "Full Name": formData.name,
+            "Email": formData.email,
+            "Company": formData.company,
+            "Designation": formData.designation,
+            "Phone": formData.phone,
+            "Location": formData.location,
+            "Partnership Type": formData.partnershipType,
+            "Message": formData.message,
+            "Source Page": "/partners",
+            "Lead Source": "Partners Page — Alliance Application Form",
+            "Lead Status": "New Application",
+            "Timestamp": new Date().toISOString(),
+          }),
+        });
+      } catch (err) {
+        console.warn("Partner form submission error:", err);
+      }
+    }
+
+    setIsSubmitting(false);
+    setSuccess(true);
+    setFormData({ name: "", email: "", company: "", designation: "", phone: "", location: "", partnershipType: "", message: "", privacyConsent: false });
   };
 
   return (
