@@ -128,9 +128,7 @@ export const Header = () => {
 
         {/* Desktop Navigation Links */}
         <div className="hidden xl:flex items-stretch gap-1 h-full">
-          <Link to="/" className={getLinkClass("/")}>
-            Home
-          </Link>
+
 
 
 
@@ -1137,9 +1135,7 @@ export const Header = () => {
       {mobileOpen && (
         <div className="xl:hidden bg-white border-t border-slate-200/80 p-6 space-y-4 max-h-[85vh] overflow-y-auto shadow-2xl">
           <div className="flex flex-col gap-1.5">
-            <Link to="/" onClick={() => setMobileOpen(false)} className="p-2 text-sm font-bold text-slate-800 hover:bg-slate-50 rounded-lg">
-              Home
-            </Link>
+
 
 
 
