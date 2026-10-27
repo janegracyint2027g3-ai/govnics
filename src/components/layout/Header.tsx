@@ -2,15 +2,26 @@ import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { 
   Menu, X, ArrowRight, ShieldCheck, ChevronDown, Search,
-  User, LogOut, CalendarCheck, CheckCircle2
+  User, LogOut, CalendarCheck,
+  Scale, Coins, Building, Lock, Layers, Globe
 } from "lucide-react";
 import { whomWeServeClusters } from "@/data/whom-we-serve-data";
 import { useAuth } from "@/context/AuthContext";
 
-import { offeringsData, offeringsList } from "@/data/offerings-data";
+import { offeringsData, megaOfferingsCategories } from "@/data/offerings-data";
 import { TwoColumnMegaMenu } from "./TwoColumnMegaMenu";
 import { solutionsMenuData } from "@/data/solutionsMenuData";
 import { caseStudiesMenuData } from "@/data/caseStudiesMenuData";
+
+const megaIconMap: Record<string, any> = {
+  Scale,
+  Coins,
+  Building,
+  Lock,
+  Layers,
+  Globe,
+  ShieldCheck
+};
 
 const offeringsVerticalTabsData = offeringsData;
 export const Header = () => {
@@ -19,12 +30,13 @@ export const Header = () => {
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
   const [profileDropdownOpen, setProfileDropdownOpen] = useState(false);
   const [activeSubTab, setActiveSubTab] = useState<string>("");
+  const [openMegaOfferCat, setOpenMegaOfferCat] = useState<string>("statutory-operational");
   const [activeOfferTab, setActiveOfferTab] = useState<string>("regulatory-compliance");
   const [activeServiceTab, setActiveServiceTab] = useState<string>("statutory-tracking");
   const [industrySearchQuery, setIndustrySearchQuery] = useState<string>("");
-  const [hoveredDetailCard, setHoveredDetailCard] = useState<number>(0);
   const { pathname } = useLocation();
   const { user, isAuthenticated, logout } = useAuth();
+
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 40);
@@ -137,239 +149,243 @@ export const Header = () => {
               Offerings <ChevronDown className="w-4 h-4 text-current" />
             </div>
             {activeDropdown === "what-we-offer" && (
-              <div className="absolute top-full left-1/2 -translate-x-1/2 w-[98vw] max-w-6xl xl:max-w-7xl 2xl:max-w-[1380px] bg-white border border-slate-200/90 shadow-2xl rounded-2xl flex overflow-hidden animate-slide-up-dropdown mt-1 text-left z-50">
+              <div className="absolute top-full left-1/2 -translate-x-1/2 w-[98vw] max-w-6xl xl:max-w-7xl 2xl:max-w-[1360px] bg-white border border-slate-200/90 shadow-2xl rounded-2xl flex overflow-hidden animate-slide-up-dropdown mt-1 text-left z-50">
                 {/* Bridge to prevent hover loss */}
                 <div className="absolute -top-8 left-0 right-0 h-8 bg-transparent" />
 
-                {/* Level 1 Sidebar - 13 Practice Areas */}
-                <div className="w-[27%] xl:w-[24%] bg-slate-900 text-white p-4 pb-5 flex flex-col justify-between border-r border-slate-800 shrink-0">
-                  <div className="space-y-3">
-                    <div className="px-1.5 pt-1">
+                {/* Left Column (Dark Navy): Mega Categories with in-place Dropdown */}
+                <div className="w-[330px] xl:w-[360px] bg-[#0A1630] text-white p-4.5 flex flex-col justify-between border-r border-slate-800 shrink-0">
+                  <div className="space-y-3 flex flex-col min-h-0">
+                    {/* Header */}
+                    <div className="px-1 pt-1">
                       <div className="flex items-center justify-between">
-                        <h3 className="text-xs font-black text-blue-400 uppercase tracking-[0.2em] leading-tight">
-                          What We Offer
+                        <h3 className="text-xs font-black text-sky-400 uppercase tracking-[0.2em] leading-tight">
+                          Offerings
                         </h3>
-                        <span className="text-[9px] font-bold px-1.5 py-0.5 rounded bg-blue-500/20 text-blue-300 uppercase tracking-wider">
-                          12 Practices
+                        <span className="text-[9px] font-bold px-2 py-0.5 rounded bg-blue-500/20 text-sky-300 uppercase tracking-wider">
+                          4 Domains • 12 Practices
                         </span>
                       </div>
                       <p className="text-[10.5px] text-slate-400 mt-1 font-medium leading-relaxed">
-                        End-to-end statutory compliance, trade, escrow & governance.
+                        Grouped statutory, tax, risk & technical governance.
                       </p>
                     </div>
 
-                    <div className="flex flex-col gap-1 overflow-y-auto max-h-[460px] pr-1 scrollbar-thin">
-                      {offeringsList.map((offer) => (
-                        <button
-                          key={offer.id}
-                          onMouseEnter={() => {
-                            setActiveOfferTab(offer.id);
-                            setActiveServiceTab(offeringsVerticalTabsData[offer.id]?.items[0]?.id || "");
-                          }}
-                          className={`w-full text-left px-3 py-2.5 rounded-xl text-xs font-semibold transition-all flex items-center justify-between group ${
-                            activeOfferTab === offer.id
-                              ? "bg-blue-600 text-white shadow-sm shadow-blue-500/20 font-bold"
-                              : "text-slate-300 hover:text-white hover:bg-slate-800/70"
-                          }`}
-                        >
-                          <span className="whitespace-normal leading-snug flex-1 pr-2">{offer.label}</span>
-                          <ArrowRight className={`w-3.5 h-3.5 shrink-0 transition-all ${activeOfferTab === offer.id ? "opacity-100 text-white" : "opacity-0 group-hover:opacity-100 text-slate-400"}`} />
-                        </button>
-                      ))}
+                    {/* Mega Categories Accordion / In-place Dropdown */}
+                    <div className="flex flex-col gap-2 overflow-y-auto max-h-[460px] pr-1 scrollbar-thin">
+                      {megaOfferingsCategories.map((megaCat) => {
+                        const isCatOpen = openMegaOfferCat === megaCat.id;
+                        const containsActivePractice = megaCat.practices.some(p => p.id === activeOfferTab);
+                        const IconComp = megaIconMap[megaCat.iconName] || Layers;
+
+                        return (
+                          <div
+                            key={megaCat.id}
+                            className={`rounded-xl border transition-all overflow-hidden ${
+                              containsActivePractice
+                                ? "border-blue-500/50 bg-[#132347]"
+                                : "border-slate-800/80 bg-slate-900/60 hover:border-slate-700"
+                            }`}
+                          >
+                            {/* Mega Category Accordion Header */}
+                            <button
+                              onClick={() => {
+                                const nextState = isCatOpen ? "" : megaCat.id;
+                                setOpenMegaOfferCat(nextState);
+                                if (nextState && megaCat.practices.length > 0) {
+                                  const first = megaCat.practices[0];
+                                  setActiveOfferTab(first.id);
+                                  setActiveServiceTab(offeringsVerticalTabsData[first.id]?.items[0]?.id || "");
+                                }
+                              }}
+                              className={`w-full text-left p-2.5 flex items-center justify-between transition-colors ${
+                                isCatOpen || containsActivePractice
+                                  ? "text-white"
+                                  : "text-slate-200 hover:text-white"
+                              }`}
+                            >
+                              <div className="flex items-center gap-2.5 min-w-0 pr-2">
+                                <div
+                                  className={`w-7 h-7 rounded-lg flex items-center justify-center shrink-0 transition-colors ${
+                                    containsActivePractice
+                                      ? "bg-blue-600 text-white shadow-sm shadow-blue-500/30"
+                                      : "bg-slate-800/90 text-sky-400"
+                                  }`}
+                                >
+                                  <IconComp className="w-3.5 h-3.5" />
+                                </div>
+                                <div className="min-w-0">
+                                  <div className="text-xs font-bold leading-tight truncate">
+                                    {megaCat.name}
+                                  </div>
+                                  <div className="text-[9.5px] text-slate-400 truncate">
+                                    {megaCat.practices.length} Practices
+                                  </div>
+                                </div>
+                              </div>
+                              <ChevronDown
+                                className={`w-3.5 h-3.5 shrink-0 transition-transform duration-200 text-slate-400 ${
+                                  isCatOpen ? "rotate-180 text-sky-400" : ""
+                                }`}
+                              />
+                            </button>
+
+                            {/* In-place Dropdown: Sub-practices listed cleanly in this same column */}
+                            {isCatOpen && (
+                              <div className="p-1.5 pt-0 border-t border-slate-800/60 bg-[#0c1a36] space-y-1">
+                                {megaCat.practices.map((practice) => {
+                                  const isPracticeActive = activeOfferTab === practice.id;
+                                  return (
+                                    <button
+                                      key={practice.id}
+                                      onClick={() => {
+                                        setActiveOfferTab(practice.id);
+                                        setActiveServiceTab(offeringsVerticalTabsData[practice.id]?.items[0]?.id || "");
+                                      }}
+                                      onMouseEnter={() => {
+                                        setActiveOfferTab(practice.id);
+                                        setActiveServiceTab(offeringsVerticalTabsData[practice.id]?.items[0]?.id || "");
+                                      }}
+                                      className={`w-full text-left px-2.5 py-2 rounded-lg text-xs transition-all flex items-center justify-between group ${
+                                        isPracticeActive
+                                          ? "bg-blue-600 text-white font-bold shadow-sm shadow-blue-500/30"
+                                          : "text-slate-300 hover:text-white hover:bg-slate-800/70"
+                                      }`}
+                                    >
+                                      <div className="flex items-center gap-2 min-w-0">
+                                        <span
+                                          className={`w-1.5 h-1.5 rounded-full shrink-0 ${
+                                            isPracticeActive ? "bg-white" : "bg-sky-400"
+                                          }`}
+                                        />
+                                        <span className="truncate">{practice.label}</span>
+                                      </div>
+                                      {practice.tag && (
+                                        <span
+                                          className={`text-[8.5px] px-1.5 py-0.5 rounded font-bold shrink-0 ${
+                                            isPracticeActive
+                                              ? "bg-blue-700/90 text-white"
+                                              : "bg-slate-800 text-slate-400"
+                                          }`}
+                                        >
+                                          {practice.tag}
+                                        </span>
+                                      )}
+                                    </button>
+                                  );
+                                })}
+                              </div>
+                            )}
+                          </div>
+                        );
+                      })}
                     </div>
+                  </div>
+
+                  {/* Bottom link in left sidebar */}
+                  <div className="pt-3 border-t border-slate-800/90 mt-2">
+                    <Link
+                      to="/services"
+                      onClick={() => setActiveDropdown(null)}
+                      className="text-xs font-semibold text-sky-400 hover:text-sky-300 inline-flex items-center justify-between w-full transition-colors group"
+                    >
+                      <span>Explore All 12 Offerings</span>
+                      <ArrowRight className="w-3.5 h-3.5 transition-transform group-hover:translate-x-1" />
+                    </Link>
                   </div>
                 </div>
 
-                {/* Right Pane (Dual Column Layout) */}
-                <div className="w-[73%] xl:w-[76%] flex flex-col justify-between bg-white p-6 min-h-[510px]">
-                  
-                  {/* Content Area */}
-                  <div className="flex overflow-hidden flex-1">
-                    {/* Middle Column: Vertical Submenu Topics */}
-                    <div className="w-[32%] border-r border-slate-100 pr-4 flex flex-col justify-between overflow-y-auto shrink-0 max-h-[500px]">
-                      <div>
-                        {/* Category Header */}
-                        <div className="mb-3 space-y-1">
-                          <span className="text-[11px] font-black text-blue-600 uppercase tracking-[0.2em] block">
-                            {offeringsVerticalTabsData[activeOfferTab]?.title || "PRACTICE TOPICS"}
-                          </span>
-                          <p className="text-[11px] text-slate-500 leading-relaxed font-medium">
-                            {offeringsVerticalTabsData[activeOfferTab]?.shortDesc}
-                          </p>
-                        </div>
-                        <div className="flex flex-col gap-1.5">
-                          {offeringsVerticalTabsData[activeOfferTab]?.items.map((item) => {
-                            const IconComp = item.icon || ShieldCheck;
-                            const isActive = activeServiceTab === item.id;
-                            return (
-                              <button
-                                key={item.id}
-                                onMouseEnter={() => {
-                                  setActiveServiceTab(item.id);
-                                  setHoveredDetailCard(0);
-                                }}
-                                className={`w-full text-left px-3.5 py-2.5 rounded-xl border transition-all flex items-center justify-between group ${
-                                  isActive 
-                                    ? "bg-blue-600 border-blue-600 text-white shadow-sm shadow-blue-500/20" 
-                                    : "bg-white border-slate-200/90 text-slate-700 hover:border-slate-300 hover:bg-slate-50"
-                                }`}
-                              >
-                                <div className="flex items-center gap-2.5 min-w-0">
-                                  <IconComp className={`w-4 h-4 shrink-0 ${isActive ? "text-white" : "text-blue-500"}`} />
-                                  <span className="text-[11px] font-bold uppercase tracking-wide truncate">{item.title}</span>
-                                </div>
-                                <ArrowRight className={`w-3.5 h-3.5 shrink-0 transition-transform ${isActive ? "text-white translate-x-0.5" : "text-slate-300 group-hover:text-slate-600"}`} />
-                              </button>
-                            );
-                          })}
-                        </div>
-                      </div>
-                    </div>
+                {/* Right Column: Full-Width Detail Area (No awkward middle column!) */}
+                {/* Right Column: Clean Topics Grid (Only Topics, No Clutter!) */}
+                <div className="flex-1 flex flex-col justify-between bg-white p-6 min-h-[460px] overflow-hidden">
+                  {(() => {
+                    const currentOffering = offeringsVerticalTabsData[activeOfferTab] || offeringsVerticalTabsData["regulatory-compliance"];
+                    const currentParentCategory = megaOfferingsCategories.find(c => 
+                      c.practices.some(p => p.id === activeOfferTab)
+                    );
+                    const practiceItems = currentOffering?.items || [];
 
-                    {/* Right Column: Clean Detail Panel with Interactive Hover-Reveal */}
-                    <div className="w-[68%] pl-6 flex flex-col justify-between overflow-y-auto max-h-[500px]">
-                      {(() => {
-                        const activeItem = offeringsVerticalTabsData[activeOfferTab]?.items.find(i => i.id === activeServiceTab) 
-                          || offeringsVerticalTabsData[activeOfferTab]?.items[0];
-                        if (!activeItem) return null;
-
-                        // Parse pipe-delimited format: "Label|Overview|Bullet1|Bullet2|Bullet3"
-                        const parsedDetails = activeItem.keyDetails.map(detail => {
-                          const parts = detail.split("|");
-                          if (parts.length >= 2) {
-                            return {
-                              label: parts[0].trim(),
-                              overview: parts[1].trim(),
-                              bullets: parts.slice(2).map(b => b.trim()).filter(Boolean),
-                            };
-                          }
-                          const colonIdx = detail.indexOf(": ");
-                          return colonIdx !== -1
-                            ? { label: detail.substring(0, colonIdx), overview: detail.substring(colonIdx + 2), bullets: [] }
-                            : { label: detail, overview: "", bullets: [] };
-                        });
-
-                        const cardThemes = [
-                          { accent: "border-blue-500 bg-blue-50/60 text-blue-700", header: "text-blue-700", border: "border-blue-200", dot: "bg-blue-500" },
-                          { accent: "border-emerald-500 bg-emerald-50/60 text-emerald-700", header: "text-emerald-700", border: "border-emerald-200", dot: "bg-emerald-500" },
-                          { accent: "border-purple-500 bg-purple-50/60 text-purple-700", header: "text-purple-700", border: "border-purple-200", dot: "bg-purple-500" },
-                        ];
-
-                        const badgeLabels = ["Core Deliverables", "Process Execution", "Audit Assurance"];
-                        const currentDetail = parsedDetails[hoveredDetailCard] || parsedDetails[0];
-                        const currentTheme = cardThemes[hoveredDetailCard] || cardThemes[0];
-
-                        return (
-                          <div className="animate-fade-in flex flex-col h-full justify-between gap-4">
-                            {/* Service Header */}
-                            <div className="pb-3 border-b border-slate-100 flex items-start gap-3.5">
-                              <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-blue-600 to-indigo-700 flex items-center justify-center shrink-0 mt-0.5 shadow-md shadow-blue-500/20 text-white">
-                                {(() => { const Icon = activeItem.icon; return <Icon className="w-5 h-5" />; })()}
-                              </div>
-                              <div className="flex-1 min-w-0">
-                                <h3 className="text-base font-black text-slate-900 leading-tight tracking-tight">{activeItem.title}</h3>
-                                <p className="text-xs text-slate-500 font-medium leading-relaxed mt-0.5">{activeItem.description}</p>
-                              </div>
-                            </div>
-
-                            {/* 3 Overview Cards — Clean, neat, and uncrowded */}
-                            <div className="grid grid-cols-3 gap-3">
-                              {parsedDetails.map((detail, idx) => {
-                                const theme = cardThemes[idx] || cardThemes[0];
-                                const isSelected = hoveredDetailCard === idx;
-                                return (
-                                  <div
-                                    key={idx}
-                                    onMouseEnter={() => setHoveredDetailCard(idx)}
-                                    className={`rounded-xl p-3 border transition-all cursor-pointer flex flex-col justify-between ${
-                                      isSelected
-                                        ? "bg-white border-blue-500 shadow-md ring-2 ring-blue-500/20"
-                                        : "bg-slate-50/70 border-slate-200/80 hover:bg-white hover:border-slate-300 shadow-2xs"
-                                    }`}
-                                  >
-                                    <div className="space-y-1">
-                                      <div className="flex items-center justify-between">
-                                        <span className={`text-[9px] font-black uppercase tracking-wider px-2 py-0.5 rounded-md ${theme.accent} border inline-flex items-center gap-1`}>
-                                          <span className={`w-1.5 h-1.5 rounded-full ${theme.dot}`} />
-                                          {badgeLabels[idx]}
-                                        </span>
-                                        <span className={`text-[9px] font-bold ${isSelected ? "text-blue-600" : "text-slate-400"}`}>
-                                          {isSelected ? "Active" : "Hover to view"}
-                                        </span>
-                                      </div>
-                                      <h4 className="text-xs font-black text-slate-900 uppercase tracking-wide leading-snug pt-0.5">
-                                        {detail.label}
-                                      </h4>
-                                      <p className="text-[10px] font-medium text-slate-500 leading-relaxed line-clamp-2">
-                                        {detail.overview}
-                                      </p>
-                                    </div>
-
-                                    <div className="pt-2 border-t border-slate-100 mt-2 flex items-center justify-between text-[9px] font-bold">
-                                      <span className="text-slate-400">{detail.bullets.length} Deliverables</span>
-                                      <span className={isSelected ? "text-blue-600" : "text-slate-400"}>Inspect &rarr;</span>
-                                    </div>
-                                  </div>
-                                );
-                              })}
-                            </div>
-
-                            {/* Dynamic Hover-Revealed Detailed Deliverables Container — Clean & Concise */}
-                            {currentDetail && currentDetail.bullets.length > 0 && (
-                              <div className="bg-gradient-to-br from-slate-50 to-blue-50/30 border border-slate-200/90 rounded-xl p-3.5 space-y-2.5 transition-all">
-                                <div className="flex items-center justify-between border-b border-slate-200/70 pb-2">
-                                  <div className="flex items-center gap-2">
-                                    <span className={`text-[9.5px] font-black uppercase tracking-wider px-2 py-0.5 rounded-md ${currentTheme.accent} border`}>
-                                      {badgeLabels[hoveredDetailCard]}
-                                    </span>
-                                    <span className="text-xs font-black text-slate-800">
-                                      {currentDetail.label} — Key Deliverables
-                                    </span>
-                                  </div>
-                                  <span className="text-[10px] text-slate-400 font-medium">
-                                    Hover any card above to explore its deliverables
-                                  </span>
-                                </div>
-
-                                <div className="grid grid-cols-2 gap-x-6 gap-y-2">
-                                  {currentDetail.bullets.slice(0, 4).map((bullet, bi) => (
-                                    <div key={bi} className="flex items-start gap-2">
-                                      <CheckCircle2 className="w-3.5 h-3.5 text-blue-600 shrink-0 mt-0.5" />
-                                      <span className="text-xs text-slate-700 font-medium leading-snug truncate">{bullet}</span>
-                                    </div>
-                                  ))}
-                                </div>
-                              </div>
-                            )}
-
-                            {/* Bottom action row */}
-                            <div className="pt-2 border-t border-slate-100 flex items-center justify-between">
-                              <div className="flex items-center gap-2">
-                                <Link
-                                  to={activeItem.link}
-                                  onClick={() => setActiveDropdown(null)}
-                                  className="inline-flex items-center gap-2 px-4 py-2 bg-slate-900 hover:bg-slate-800 text-white rounded-xl text-[10.5px] font-bold transition-all shadow-sm"
-                                >
-                                  <span>Read Full Details</span>
-                                  <ArrowRight className="w-3 h-3" />
-                                </Link>
-                                <Link
-                                  to="/contact"
-                                  onClick={() => setActiveDropdown(null)}
-                                  className="inline-flex items-center gap-1.5 px-3.5 py-2 bg-blue-50 hover:bg-blue-100 text-blue-700 rounded-xl text-[10.5px] font-bold transition-all border border-blue-200/60"
-                                >
-                                  <span>Speak to Practice Leader</span>
-                                </Link>
-                              </div>
-                              <span className="text-[10px] text-slate-400 font-semibold">
-                                {offeringsVerticalTabsData[activeOfferTab]?.items.length} specialized modules in this practice
+                    return (
+                      <div className="animate-fade-in flex flex-col h-full justify-between gap-4">
+                        {/* 1. Practice Header */}
+                        <div className="pb-3 border-b border-slate-100 flex items-start justify-between gap-4">
+                          <div className="space-y-1 min-w-0">
+                            <div className="flex items-center gap-2">
+                              <span className="text-[10px] font-black uppercase tracking-wider px-2 py-0.5 rounded bg-blue-50 text-blue-700 border border-blue-200/60">
+                                {currentParentCategory?.name || "OFFERING"}
+                              </span>
+                              <span className="text-slate-300">•</span>
+                              <span className="text-xs font-black text-slate-900 tracking-wide">
+                                {currentOffering.label}
                               </span>
                             </div>
+                            <h3 className="text-base font-black text-slate-900 leading-tight tracking-tight pt-0.5">
+                              {currentOffering.title}
+                            </h3>
+                            <p className="text-xs text-slate-500 font-medium leading-relaxed max-w-2xl">
+                              {currentOffering.shortDesc}
+                            </p>
                           </div>
-                        );
-                      })()}
-                    </div>
-                  </div>
+                          
+                          <Link
+                            to={`/services`}
+                            onClick={() => setActiveDropdown(null)}
+                            className="inline-flex items-center gap-1.5 px-3.5 py-2 bg-slate-900 hover:bg-slate-800 text-white rounded-xl text-xs font-bold transition-all shadow-sm shrink-0 mt-0.5"
+                          >
+                            <span>Explore Page</span>
+                            <ArrowRight className="w-3.5 h-3.5" />
+                          </Link>
+                        </div>
+
+                        {/* 2. Topics List (Clean Grid - Only Topics Displayed) */}
+                        <div className="flex-1 overflow-y-auto max-h-[350px] pr-1 scrollbar-thin">
+                          <div className="grid grid-cols-2 gap-3">
+                            {practiceItems.map((topic) => {
+                              const TopicIcon = topic.icon || ShieldCheck;
+                              return (
+                                <Link
+                                  key={topic.id}
+                                  to={topic.link}
+                                  onClick={() => setActiveDropdown(null)}
+                                  className="group p-3.5 rounded-xl border border-slate-200/80 bg-slate-50/50 hover:bg-white hover:border-blue-500 hover:shadow-md transition-all flex items-start gap-3"
+                                >
+                                  <div className="w-9 h-9 rounded-xl bg-blue-50 text-blue-600 group-hover:bg-blue-600 group-hover:text-white flex items-center justify-center shrink-0 transition-colors mt-0.5">
+                                    <TopicIcon className="w-4.5 h-4.5" />
+                                  </div>
+                                  <div className="flex-1 min-w-0">
+                                    <div className="flex items-center justify-between gap-1">
+                                      <h4 className="text-xs font-bold text-slate-900 group-hover:text-blue-600 transition-colors leading-snug">
+                                        {topic.title}
+                                      </h4>
+                                      <ArrowRight className="w-3.5 h-3.5 text-slate-300 group-hover:text-blue-600 group-hover:translate-x-0.5 transition-all shrink-0 ml-1" />
+                                    </div>
+                                    <p className="text-[11px] text-slate-500 line-clamp-2 mt-1 leading-relaxed">
+                                      {topic.description}
+                                    </p>
+                                  </div>
+                                </Link>
+                              );
+                            })}
+                          </div>
+                        </div>
+
+                        {/* 3. Clean Footer */}
+                        <div className="pt-3 border-t border-slate-100 flex items-center justify-between">
+                          <span className="text-[11px] text-slate-500 font-medium">
+                            {practiceItems.length} specialized topics in <span className="font-bold text-slate-700">{currentOffering.label}</span>
+                          </span>
+                          <Link
+                            to="/contact"
+                            onClick={() => setActiveDropdown(null)}
+                            className="text-xs font-bold text-blue-600 hover:text-blue-700 inline-flex items-center gap-1 transition-colors"
+                          >
+                            <span>Speak to Practice Leader</span>
+                            <ArrowRight className="w-3.5 h-3.5" />
+                          </Link>
+                        </div>
+                      </div>
+                    );
+                  })()}
                 </div>
               </div>
             )}
@@ -868,30 +884,42 @@ export const Header = () => {
               </button>
               {activeDropdown === "what-we-offer" && (
                 <div className="pl-3 my-1 flex flex-col gap-3 bg-slate-50 rounded-lg p-3 border border-slate-150 max-h-[500px] overflow-y-auto text-left">
-                  {offeringsList.map((category) => {
-                    const data = offeringsVerticalTabsData[category.id];
-                    return (
-                      <div key={category.id} className="space-y-1.5 pb-2 border-b border-slate-200/60 last:border-b-0">
-                        <div className="flex items-center justify-between border-l-2 border-blue-500 pl-2">
-                          <span className="text-[11px] font-black text-slate-900 uppercase tracking-wider">
-                            {category.label}
-                          </span>
-                        </div>
-                        <div className="pl-2 flex flex-col gap-1">
-                          {data?.items.map((item) => (
-                            <Link
-                              key={item.id}
-                              to={item.link}
-                              onClick={() => setMobileOpen(false)}
-                              className="text-xs text-slate-600 hover:text-blue-600 font-medium py-0.5 block truncate"
-                            >
-                              {item.title}
-                            </Link>
-                          ))}
-                        </div>
+                  {megaOfferingsCategories.map((megaCat) => (
+                    <div key={megaCat.id} className="space-y-2 pb-3 border-b border-slate-200/80 last:border-b-0">
+                      <div className="flex items-center justify-between border-l-2 border-blue-600 pl-2">
+                        <span className="text-xs font-black text-slate-900 uppercase tracking-wider">
+                          {megaCat.name}
+                        </span>
+                        <span className="text-[9px] font-bold px-1.5 py-0.5 rounded bg-blue-50 text-blue-700">
+                          {megaCat.practices.length} practices
+                        </span>
                       </div>
-                    );
-                  })}
+                      <div className="pl-2 flex flex-col gap-2">
+                        {megaCat.practices.map((practice) => {
+                          const data = offeringsVerticalTabsData[practice.id];
+                          return (
+                            <div key={practice.id} className="bg-white p-2 rounded-lg border border-slate-200/60 shadow-2xs">
+                              <span className="text-xs font-bold text-blue-700 block mb-1">
+                                {practice.label}
+                              </span>
+                              <div className="flex flex-col gap-1 pl-1.5">
+                                {data?.items.map((item) => (
+                                  <Link
+                                    key={item.id}
+                                    to={item.link}
+                                    onClick={() => setMobileOpen(false)}
+                                    className="text-[11px] text-slate-600 hover:text-blue-600 font-medium py-0.5 block truncate"
+                                  >
+                                    • {item.title}
+                                  </Link>
+                                ))}
+                              </div>
+                            </div>
+                          );
+                        })}
+                      </div>
+                    </div>
+                  ))}
                   <div className="pt-2 border-t border-slate-200 mt-1">
                     <Link
                       to="/contact#book-strategy-session"

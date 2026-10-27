@@ -1118,3 +1118,63 @@ export const offeringsList = [
   { id: "cybersecurity-data", label: "Cybersecurity & Data Privacy" },
   { id: "esg-sustainability", label: "ESG & Sustainability" },
 ];
+
+export interface MegaOfferingGroup {
+  id: string;
+  name: string;
+  tagline: string;
+  iconName: string;
+  practices: {
+    id: string;
+    label: string;
+    tag?: string;
+  }[];
+}
+
+export const megaOfferingsCategories: MegaOfferingGroup[] = [
+  {
+    id: "statutory-operational",
+    name: "Statutory & Operations",
+    tagline: "Labor, pollution boards, safety audits & industrial permits",
+    iconName: "Scale",
+    practices: [
+      { id: "regulatory-compliance", label: "Regulatory Compliance", tag: "Statutory" },
+      { id: "labour-employment", label: "Labour & Employment", tag: "Audits" },
+      { id: "environmental-ehs", label: "Environmental & EHS", tag: "PCB / NOC" },
+      { id: "licensing-permits", label: "Licensing & Permits", tag: "Fast-Track" },
+    ]
+  },
+  {
+    id: "tax-trade-supply",
+    name: "Tax, Trade & Escrow",
+    tagline: "Direct & indirect tax, export customs, and transaction escrow",
+    iconName: "Coins",
+    practices: [
+      { id: "taxation-trade", label: "Taxation & Trade", tag: "GST / IT" },
+      { id: "export-trade", label: "Export & Trade Services", tag: "DGFT" },
+      { id: "supply-chain", label: "Supply Chain Compliance", tag: "Vendors" },
+      { id: "escrow-services", label: "Escrow Services", tag: "Tripartite" },
+    ]
+  },
+  {
+    id: "governance-risk-esg",
+    name: "Governance, Risk & ESG",
+    tagline: "Secretarial compliance, enterprise risk, and ESG disclosures",
+    iconName: "Building",
+    practices: [
+      { id: "enterprise-governance", label: "Enterprise Governance", tag: "MCA / ROC" },
+      { id: "risk-management", label: "Risk Management", tag: "ERM" },
+      { id: "esg-sustainability", label: "ESG & Sustainability", tag: "BRSR" },
+    ]
+  },
+  {
+    id: "cybersecurity-privacy",
+    name: "Cybersecurity & Privacy",
+    tagline: "DPDP Act compliance, ISO 27001, and cloud security defense",
+    iconName: "Lock",
+    practices: [
+      { id: "cybersecurity-data", label: "Cybersecurity & Data Privacy", tag: "DPDP / ISO" },
+    ]
+  }
+];
+
