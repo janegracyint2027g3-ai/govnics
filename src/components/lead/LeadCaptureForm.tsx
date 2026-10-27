@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
+import { trackEvent } from "@/utils/analytics";
 import {
   ArrowRight,
   Phone,
@@ -67,6 +68,7 @@ export const LeadCaptureForm = () => {
     preferredDate: "",
   });
   const [submitted, setSubmitted] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
   const [errors, setErrors] = useState<Record<string, string>>({});
 
   const validate = () => {
@@ -81,7 +83,7 @@ export const LeadCaptureForm = () => {
     return newErrors;
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     const errs = validate();
     if (Object.keys(errs).length > 0) {
@@ -89,6 +91,46 @@ export const LeadCaptureForm = () => {
       return;
     }
     setErrors({});
+    setSubmitting(true);
+
+    trackEvent("form_submit", "Compliance Assessment", {
+      name: formData.name,
+      email: formData.email,
+      company: formData.companyName,
+      industry: formData.industry,
+      phone: formData.phone,
+    });
+
+    const webhookUrl = import.meta.env.VITE_TELEMETRY_WEBHOOK_URL;
+    if (webhookUrl) {
+      try {
+        await fetch(webhookUrl, {
+          method: "POST",
+          mode: "no-cors",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            sheetName: "Inbound_Leads",
+            table: "Inbound_Leads",
+            "Full Name": formData.name,
+            "Email": formData.email,
+            "Phone": formData.phone,
+            "Company": formData.companyName,
+            "Industry": formData.industry,
+            "Company Size": formData.companySize,
+            "Requirement": formData.complianceChallenge || "Free Compliance Assessment Request",
+            "Preferred Date": formData.preferredDate || "Earliest Available",
+            "Advisory Scope": "Free Compliance Assessment",
+            "Source Page": window.location.pathname,
+            "Lead Source": "Website Assessment Form",
+            Timestamp: new Date().toISOString(),
+          }),
+        });
+      } catch (err) {
+        console.error("Lead submission error:", err);
+      }
+    }
+
+    setSubmitting(false);
     setSubmitted(true);
   };
 
@@ -399,9 +441,10 @@ export const LeadCaptureForm = () => {
                 <button
                   type="submit"
                   id="lead-form-submit"
-                  className="w-full flex items-center justify-center gap-2 py-4 bg-blue-600 hover:bg-blue-700 text-white rounded-xl font-bold text-sm tracking-wide transition-all shadow-lg shadow-blue-500/20 hover:scale-[1.01]"
+                  disabled={submitting}
+                  className="w-full flex items-center justify-center gap-2 py-4 bg-blue-600 hover:bg-blue-700 text-white rounded-xl font-bold text-sm tracking-wide transition-all shadow-lg shadow-blue-500/20 hover:scale-[1.01] disabled:opacity-60 disabled:cursor-not-allowed"
                 >
-                  Get Free Compliance Assessment
+                  {submitting ? "Submitting Request..." : "Get Free Compliance Assessment"}
                   <ArrowRight className="w-4 h-4" />
                 </button>
 

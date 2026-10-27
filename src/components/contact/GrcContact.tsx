@@ -19,7 +19,7 @@ export const GrcContact = () => {
 
   const times = ["09:30 AM IST", "11:00 AM IST", "02:30 PM IST", "04:00 PM IST"];
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setSubmitting(true);
     
@@ -34,12 +34,37 @@ export const GrcContact = () => {
       message: formData.requirement
     });
 
-    setTimeout(() => {
-      setSubmitting(false);
-      setSuccess(true);
-      setFormData({ name: "", org: "", industry: "", requirement: "", phone: "", email: "" });
-      setSelectedTime(null);
-    }, 1500);
+    const webhookUrl = import.meta.env.VITE_TELEMETRY_WEBHOOK_URL;
+    if (webhookUrl) {
+      try {
+        await fetch(webhookUrl, {
+          method: "POST",
+          mode: "no-cors",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            sheetName: "Consultation_Requests",
+            table: "Consultation_Requests",
+            "Full Name": formData.name,
+            "Email": formData.email,
+            "Phone": formData.phone,
+            "Company": formData.org,
+            "Industry": formData.industry,
+            "Audit Scope": formData.industry || "GRC Consultation",
+            "Timeline": selectedTime || "Earliest Available",
+            "Message": formData.requirement,
+            "Lead Source": "Schedule GRC Audit Form",
+            Timestamp: new Date().toISOString(),
+          }),
+        });
+      } catch (err) {
+        console.error("Consultation request webhook error:", err);
+      }
+    }
+
+    setSubmitting(false);
+    setSuccess(true);
+    setFormData({ name: "", org: "", industry: "", requirement: "", phone: "", email: "" });
+    setSelectedTime(null);
   };
 
   return (

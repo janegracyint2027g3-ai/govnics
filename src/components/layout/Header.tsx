@@ -412,7 +412,7 @@ export const Header = () => {
             onMouseLeave={() => setActiveDropdown(null)}
           >
             <div className={getNavItemClass() + " cursor-pointer"}>
-              Whom We Serve <ChevronDown className="w-4 h-4 text-current" />
+              Industries <ChevronDown className="w-4 h-4 text-current" />
             </div>
             {activeDropdown === "whom-we-serve" && (
               <div className="absolute top-full left-1/2 -translate-x-1/2 w-[98vw] max-w-6xl xl:max-w-7xl bg-white border border-slate-200/90 shadow-2xl rounded-2xl flex overflow-hidden animate-slide-up-dropdown mt-1 text-left z-50">
@@ -424,7 +424,7 @@ export const Header = () => {
                   <div className="space-y-4">
                     <div>
                       <h3 className="text-[11px] font-black text-blue-400 uppercase tracking-[0.25em] leading-tight">
-                        Whom We Serve
+                        Industries
                       </h3>
                       <p className="text-[10px] text-slate-400 mt-1 font-medium leading-relaxed">
                         Explore industries and the governance, risk and compliance requirements relevant to their operations.
@@ -913,7 +913,7 @@ export const Header = () => {
                 onClick={() => toggleDropdown("whom-we-serve")}
                 className="w-full flex justify-between items-center p-2 text-sm font-bold text-slate-800 hover:bg-slate-50 rounded-lg text-left"
               >
-                <span>Whom We Serve</span>
+                <span>Industries</span>
                 <ChevronDown className={`w-4 h-4 transition-transform ${activeDropdown === "whom-we-serve" ? "rotate-180" : ""}`} />
               </button>
               {activeDropdown === "whom-we-serve" && (

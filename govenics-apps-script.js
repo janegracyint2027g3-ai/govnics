@@ -1,2272 +1,1525 @@
 /**
- * Trustgrid.ai – Universal Google Sheets Bridge (v3)
- * ─────────────────────────────────────────────────────────────────────────────
- * Handles ALL data submissions from the Trustgrid.ai website:
- *   • User Behavior analytics (93-field events)
- *   • Lead forms (Inbound Leads, Book for Consultation, Talk to Expert, etc.)
- *   • Traffic Analysis
+ * ═════════════════════════════════════════════════════════════════════════════
+ * GOVENICS GRC — SHEET 1: DATA COLLECTION, WEBHOOK & TALENT PIPELINE ENGINE
+ * VERSION: V7.2 - ULTRA PRO ENTERPRISE EDITION (REFINED)
+ * ═════════════════════════════════════════════════════════════════════════════
+ * Target Spreadsheet: Sheet 1 (Raw Data Collection Sheet)
+ * Spreadsheet ID: 1TxCoTbCSnPo6dCZyHoIb399x4P--ov677WgYDFUeErs
  *
- * HOW TO DEPLOY:
- *  1. Paste this entire file into Google Apps Script (Extensions → Apps Script)
- *  2. Click Save (disk icon)
- *  3. Click Deploy → New Deployment
- *  4. Type: Web App | Execute as: Me | Who has access: Anyone
- *  5. Click Deploy → Authorize → Allow
- *  6. Copy the /exec URL → paste into Vercel env vars as VITE_GOOGLE_SCRIPT_URL and GOOGLE_SCRIPT_URL
- *  7. Redeploy your Vercel project
- * ─────────────────────────────────────────────────────────────────────────────
+ * Core Capabilities:
+ *  1. Unified Webhook Ingestion (doPost) for all Govenics digital presences:
+ *     - Strategy Session Bookings (Interactive Date, Time, Duration, Format)
+ *     - Free Compliance Assessment / Inbound Leads
+ *     - Schedule GRC Audit / Consultation Requests
+ *     - Career Applications (with automated Google Drive resume archiving)
+ *     - CDAC-MEPZ Course Enquiries, Partner Applications & Chatbot Leads
+ *     - Traffic Analytics, Behavioral Metrics & Exit Feedback
+ *  2. Drive Resume Archiving: Stored securely in Google Drive with public share links.
+ *  3. Instant Executive HTML Alerts with meeting pills, resume attachments & quick actions.
+ *  4. Branded User Confirmation Auto-Responders for all form types.
+ *  5. Monthly Career Applications & Resume Forwarder (Runs 1st of month at 9:00 AM IST).
+ *  6. In-Sheet Reporting Tables (Daily_Reports, Weekly_Reports, Monthly_Reports, Database_Summary).
+ * ═════════════════════════════════════════════════════════════════════════════
  */
 
-// ── Configuration ─────────────────────────────────────────────────────────────
-const SPREADSHEET_ID = '1HLLZ_DfV-IPrw7i5c7lz323OpL77dFpAXkSkbAsuTSU';
+// ═════════════════════════════════════════════════════════════════════════════
+// 1. GLOBAL CONFIGURATION & RECIPIENT LISTS
+// ═════════════════════════════════════════════════════════════════════════════
 
-// ── Email & Automation Configuration ──────────────────────────────────────────
-const ADMIN_EMAIL = 'pooja@deeptrust.tech, bv@trustflow.in';
-const PRIMARY_ADMIN = 'pooja@deeptrust.tech';
+var CONFIG = {
+  // Sheet 1: Raw Data Collection Spreadsheet ID
+  DATA_SPREADSHEET_ID: "1TxCoTbCSnPo6dCZyHoIb399x4P--ov677WgYDFUeErs",
 
-// SMTP Settings (Note: GAS uses GmailApp, these are stored for reference/tracking)
-const SMTP_CONFIG = {
-    username: 'pooja@deeptrust.tech',
-    password: 'India@2050',
-    outgoing_server: 'mail.deeptrust.tech',
-    smtp_port: 465
+  // Sheet 2: Executive Analytics Spreadsheet ID
+  ANALYTICS_SPREADSHEET_ID: "1rx7MDWlPo8uex0wf3dEYyhmVJ2E8bJV9O4947qPj4b4",
+
+  // Google Drive folder used to archive candidate resumes
+  CAREER_RESUMES_FOLDER_NAME: "Govenics_Career_Resumes",
+
+  // Brand Info
+  BRAND_NAME: "Govenics GRC",
+  WEBSITE_URL: "https://govenics.com"
 };
-/**
- * ── Spreadsheet UI Menu ──────────────────────────────────────────────────────
- * Adds a custom menu to the spreadsheet to refresh the dashboard.
- */
-function onOpen() {
-    const ui = SpreadsheetApp.getUi();
-    ui.createMenu('🚀 Trustgrid Setup')
-        .addItem('Refresh Analytics Dashboard', 'updateAnalyticsDashboard')
-        .addSeparator()
-        .addSubMenu(ui.createMenu('📊 Behaviour Analytics')
-            .addItem('🔄 Refresh All Behaviour Analytics', 'refreshAllBehaviourAnalytics')
-            .addSeparator()
-            .addItem('📈 Update Engagement Metrics', 'updateEngagementMetrics')
-            .addItem('🧠 Update Behaviour Metrics', 'updateBehaviourMetrics')
-            .addItem('🚦 Update Traffic Analytics', 'updateTrafficAnalytics')
-            .addItem('👤 Update User Behaviour Library', 'updateUserBehaviourLibrary')
-            .addSeparator()
-            .addItem('📋 Generate Daily Report', 'generateDailyReport')
-            .addItem('📅 Generate Weekly Report', 'generateWeeklyReport')
-            .addItem('📊 Update Reports & Trends', 'updateReportsAndTrends')
-            .addSeparator()
-            .addItem('⏰ Setup Cron Triggers', 'setupCronTriggers'))
-        .addSeparator()
-        .addItem('Run Email Test (Verify Config)', 'testEmail')
-        .addSeparator()
-        .addItem('Help & Documentation', 'showHelp')
-        .addToUi();
-}
 
-function showHelp() {
-    const message = 'The dashboard aggregates "User Behavior" data into rankings and visualizations.\n\n' +
-        '1. Pareto Chart: Shows which pages drive the most traffic.\n' +
-        '2. Map Chart: Visualizes global visitor distribution.\n' +
-        '3. Weighted Ranking: Ranks pages by (Count × Total Duration).\n' +
-        '4. Co-Occurrence Matrix: Relationships between pages (Duration / Page Count).\n' +
-        '5. Time Analysis: Peak visitor hours (Morning, Evening, etc.).\n\n' +
-        'Click "Refresh Dashboard" whenever you want to see the latest data.';
-    SpreadsheetApp.getUi().alert('Analytics Help', message, SpreadsheetApp.getUi().ButtonSet.OK);
-}
+var EMAIL_CONFIG = {
+  name: "Govenics GRC Notification Engine",
+  website: "https://govenics.com",
+  replyTo: "poojasri.aram@gmail.com",
 
-// Column order for User Behavior sheet (93 fields, strictly ordered)
-const USER_BEHAVIOR_COLUMNS = [
-    'ip_address', 'geo_country', 'geo_state', 'geo_city', 'geo_latitude', 'geo_longitude',
-    'user_id', 'user_name', 'user_email', 'user_type', 'returning_user',
-    'first_visit_timestamp', 'last_visit_timestamp', 'total_sessions', 'total_time_spent', 'avg_session_duration',
-    'session_id', 'session_number', 'session_start_time', 'session_end_time',
-    'total_session_duration', 'total_pages_visited', 'bounce',
-    'traffic_source', 'referrer_url', 'campaign_name', 'utm_source', 'utm_medium',
-    'utm_campaign', 'utm_term', 'utm_content',
-    'page', 'page_url', 'previous_page', 'next_page', 'entry_page', 'exit_page',
-    'page_title', 'time_on_page', 'scroll_percentage', 'max_scroll_depth',
-    'interaction_count', 'inactivity_time',
-    'event_id', 'event_name', 'event_category', 'event_action', 'event_label', 'section',
-    'element_type', 'element_id', 'element_class', 'element_text',
-    'click_position_x', 'click_position_y',
-    'form_id', 'form_field_name', 'form_completion_status', 'form_abandonment',
-    'goal_name', 'goal_completed', 'conversion_id', 'conversion_value', 'funnel_step',
-    'device_type', 'device_brand', 'device_model', 'operating_system',
-    'browser', 'browser_version', 'screen_width', 'screen_height',
-    'viewport_width', 'viewport_height', 'language', 'timezone',
-    'network_type', 'connection_speed', 'page_load_time', 'dom_load_time',
-    'first_contentful_paint', 'largest_contentful_paint', 'time_to_interactive',
-    'js_error_message', 'api_error_message', 'http_status_code',
-    'cpu_cores', 'memory_size',
-    'tab_visibility_status', 'back_button_used', 'copy_event', 'paste_event', 'rage_click_detected',
-    'user_segment', 'timestamp'
-];
+  // Inbound Business Leads, Consultations & Strategy Sessions
+  salesEmails: [
+    "v.varshith@isisecurity.in",
+    "v.vishal@isisecurity.in",
+    "bv@trustflow.in",
+    "poojasri.aram@gmail.com"
+  ],
 
-// ── Main Entry Point ──────────────────────────────────────────────────────────
-function doPost(e) {
-    try {
-        // Parse body — handles both JSON string and form-encoded data
-        let body = {};
-        if (e.postData && e.postData.contents) {
-            body = JSON.parse(e.postData.contents);
-        }
+  // Career Applications & Monthly Resume Digests
+  careerEmails: [
+    "v.varshith@isisecurity.in",
+    "v.vishal@isisecurity.in",
+    "bv@trustflow.in",
+    "poojasri.aram@gmail.com"
+  ],
 
-        const tableName = body.table || body.sheetName || 'Inbound Leads';
-        const ss = SpreadsheetApp.openById(SPREADSHEET_ID);
+  // Paid Ad & Campaign Lead Generation
+  adCampaignEmails: [
+    "v.varshith@isisecurity.in",
+    "v.vishal@isisecurity.in",
+    "bv@trustflow.in",
+    "poojasri.aram@gmail.com"
+  ],
 
-        // ── Route to correct handler ────────────────────────────────────────────
-        if (tableName === 'User Behavior') {
-            handleUserBehavior(ss, body);
-        } else if (tableName === 'Chatbot Leads') {
-            handleChatbotLead(ss, body);
-        } else if (tableName === 'CareerApplications') {
-            handleCareerApplication(ss, body);
-        } else {
-            handleLeadForm(ss, tableName, body);
-        }
+  // Executive Analytics Reports
+  reportEmails: [
+    "v.varshith@isisecurity.in",
+    "v.vishal@isisecurity.in",
+    "bv@trustflow.in",
+    "poojasri.aram@gmail.com"
+  ]
+};
 
-        return buildResponse({ status: 'success', table: tableName, dashboardUpdated: true });
+// ═════════════════════════════════════════════════════════════════════════════
+// 2. MASTER DATABASE SCHEMAS & COLUMN DEFINITIONS
+// ═════════════════════════════════════════════════════════════════════════════
 
-    } catch (err) {
-        console.error('doPost error:', err);
-        return buildResponse({ status: 'error', message: err.toString() });
-    }
-}
+var TAB_CONFIGS = {
+  "Strategy_Session_Bookings": [
+    "Lead Number", "Booking Reference", "Full Name", "Business Email", "Company", "Job Title",
+    "Phone", "Industry", "Area of Interest", "Business Objective", "Preferred Date",
+    "Time Slot", "Time Zone", "Duration (min)", "Meeting Format", "Booking Status",
+    "Source", "Lead Source", "UTM Source", "UTM Medium", "UTM Campaign",
+    "Jira Issue Key", "Jira Status", "Status", "IP Location", "IP Address", "Timestamp"
+  ],
+  "Inbound_Leads": [
+    "Lead Number", "Full Name", "Email", "Phone", "Company", "Designation", "Industry", "Company Size",
+    "Requirement", "Advisory Scope", "Preferred Date", "Source Page", "Lead Source",
+    "UTM Source", "UTM Medium", "UTM Campaign", "UTM Term", "UTM Content",
+    "Jira Issue Key", "Jira Status", "Status", "IP Location", "IP Address", "Timestamp"
+  ],
+  "Consultation_Requests": [
+    "Lead Number", "Full Name", "Email", "Phone", "Company", "Industry",
+    "Audit Scope", "Timeline", "Message", "Lead Source",
+    "UTM Source", "UTM Medium", "UTM Campaign",
+    "Jira Issue Key", "Jira Status", "Status", "IP Location", "IP Address", "Timestamp"
+  ],
+  "Career_Applications": [
+    "Timestamp", "Role", "Name", "Email", "Phone", "Experience",
+    "Portfolio_URL", "Resume_Filename", "Resume_File_Link", "Drive_File_ID",
+    "Cover_Note", "UTM Source", "UTM Medium", "UTM Campaign", "Status"
+  ],
+  "Course_Enquiries": [
+    "Lead Number", "Full Name", "Email", "Phone", "Organization", "Role",
+    "Program / Course", "Experience Level", "Learning Goal", "Message",
+    "Source Page", "Lead Source", "UTM Source", "UTM Medium", "UTM Campaign",
+    "Jira Issue Key", "Jira Status", "Status", "IP Location", "IP Address", "Timestamp"
+  ],
+  "Partner_Applications": [
+    "Lead Number", "Full Name", "Email", "Company", "Partnership Type", "Phone",
+    "Location", "Coverage Scope", "Message", "Lead Source",
+    "UTM Source", "UTM Medium", "UTM Campaign",
+    "Jira Issue Key", "Jira Status", "Status", "IP Location", "IP Address", "Timestamp"
+  ],
+  "Chatbot_Leads": [
+    "Timestamp", "Name", "Email", "Phone", "Topic", "Discussion_Summary",
+    "Lead Source", "UTM Source", "UTM Campaign", "IP Location", "Status"
+  ],
+  "Registered_Users": [
+    "Timestamp", "Full Name", "Work Email", "Phone", "Company", "Designation",
+    "Interest Area", "Account Status", "IP Location", "IP Address"
+  ],
+  "User_Logins": [
+    "Timestamp", "Email", "Auth Provider", "Login Status", "IP Location", "IP Address", "User Agent"
+  ],
+  "Estimator_Calculations": [
+    "Timestamp", "Company Size", "Frameworks Selected", "Cloud Scope", "Employee Count",
+    "Estimated Cost (INR)", "Readiness Score (%)", "User Email", "Phone", "IP Location"
+  ],
+  "Exit_Intent_Feedback": [
+    "Timestamp", "Feedback", "Page URL", "Time On Page (s)", "IP Location", "IP Address"
+  ],
+  "Google_Ad_Leads": [
+    "Lead Number", "Full Name", "Email", "Phone", "Company", "Ad Scope",
+    "UTM Source", "UTM Medium", "UTM Campaign", "UTM Term", "UTM Content",
+    "Jira Issue Key", "Jira Status", "IP Location", "IP Address", "Timestamp"
+  ],
+  "youtube_lead": [
+    "Lead Number", "Name", "Email", "Phone", "Company", "Designation",
+    "Requirement", "Page", "Page Name", "Lead Source", "UTM Source",
+    "UTM Medium", "UTM Campaign", "UTM Term", "UTM Content", "YouTube Campaign",
+    "YouTube Video", "YouTube Channel ID", "Timestamp", "Lead Status",
+    "Jira Issue Key", "Jira Status", "Jira URL"
+  ],
+  "linkedin_lead": [
+    "Lead Number", "LinkedIn Lead ID", "Name", "First Name", "Last Name",
+    "Email", "Phone", "Company", "Designation", "Job Title", "Requirement",
+    "LinkedIn Form ID", "Campaign ID", "Campaign Name", "Creative ID",
+    "Lead Source", "UTM Source", "UTM Medium", "UTM Campaign", "UTM Term",
+    "UTM Content", "Page", "Timestamp", "Lead Status", "Jira Issue Key",
+    "Jira Status", "Jira URL"
+  ],
+  "Traffic_Analytics": [
+    "Session ID", "Visitor ID", "Page Path", "Page Title", "Referrer", "Traffic Source",
+    "UTM Source", "UTM Medium", "UTM Campaign", "UTM Term", "UTM Content",
+    "Organization", "IP Location", "IP Address", "Variant", "Timestamp"
+  ],
+  "Behavior_Metrics": [
+    "Session ID", "Visitor ID", "Page URL", "Category", "Metric Name", "Value",
+    "Element Info", "Metadata", "IP Location", "IP Address", "Variant", "Timestamp"
+  ]
+};
 
-// Also handle GET (for testing the script is live)
+// Centralized source-to-sheet routing configuration
+var LEAD_SHEETS = {
+  youtube: "youtube_lead",
+  linkedin: "linkedin_lead"
+};
+
+// Aliases mapping varied client submissions to canonical tab names
+var SHEET_NAME_ALIASES = {
+  // Strategy Session Bookings
+  "strategy_session_bookings": "Strategy_Session_Bookings",
+  "strategysessionbookings": "Strategy_Session_Bookings",
+  "strategy_session": "Strategy_Session_Bookings",
+  "strategysession": "Strategy_Session_Bookings",
+  "strategysessions": "Strategy_Session_Bookings",
+  "strategy": "Strategy_Session_Bookings",
+  "book_strategy_session": "Strategy_Session_Bookings",
+  "bookstrategysession": "Strategy_Session_Bookings",
+  "book_strategy": "Strategy_Session_Bookings",
+  "bookstrategy": "Strategy_Session_Bookings",
+
+  // Inbound Leads / Free Compliance Assessment
+  "inbound_leads": "Inbound_Leads",
+  "inboundleads": "Inbound_Leads",
+  "contactform": "Inbound_Leads",
+  "contact_form": "Inbound_Leads",
+  "contact": "Inbound_Leads",
+  "leads": "Inbound_Leads",
+  "lead_capture": "Inbound_Leads",
+  "leadcapture": "Inbound_Leads",
+  "assessment": "Inbound_Leads",
+  "compliance_assessment": "Inbound_Leads",
+
+  // Consultation Requests / Schedule GRC Audit
+  "consultation_requests": "Consultation_Requests",
+  "consultationrequests": "Consultation_Requests",
+  "consultation": "Consultation_Requests",
+  "consultations": "Consultation_Requests",
+  "audit": "Consultation_Requests",
+  "grc_audit": "Consultation_Requests",
+  "schedule_audit": "Consultation_Requests",
+
+  // Career Applications
+  "career_applications": "Career_Applications",
+  "careerapplications": "Career_Applications",
+  "careers": "Career_Applications",
+  "career": "Career_Applications",
+  "jobs": "Career_Applications",
+
+  // CDAC-MEPZ Course Enquiries
+  "course_enquiries": "Course_Enquiries",
+  "courseenquiries": "Course_Enquiries",
+  "course": "Course_Enquiries",
+  "courses": "Course_Enquiries",
+  "academy": "Course_Enquiries",
+  "training": "Course_Enquiries",
+
+  // Partner Alliances
+  "partner_applications": "Partner_Applications",
+  "partnerapplications": "Partner_Applications",
+  "partners": "Partner_Applications",
+  "partner": "Partner_Applications",
+
+  // Social & Paid Ad Campaigns
+  "youtube_lead": "youtube_lead",
+  "youtubelead": "youtube_lead",
+  "youtube_leads": "youtube_lead",
+  "youtubeleads": "youtube_lead",
+  "youtube": "youtube_lead",
+  "yt_lead": "youtube_lead",
+  "yt": "youtube_lead",
+
+  "linkedin_lead": "linkedin_lead",
+  "linkedinlead": "linkedin_lead",
+  "linkedin_leads": "linkedin_lead",
+  "linkedinleads": "linkedin_lead",
+  "linkedin": "linkedin_lead",
+  "li_lead": "linkedin_lead",
+  "li": "linkedin_lead",
+
+  "google_ad_leads": "Google_Ad_Leads",
+  "googleadleads": "Google_Ad_Leads",
+  "adcampaign": "Google_Ad_Leads",
+  "ad_leads": "Google_Ad_Leads",
+
+  // Portal & Estimators
+  "registered_users": "Registered_Users",
+  "registeredusers": "Registered_Users",
+  "register": "Registered_Users",
+  "users": "Registered_Users",
+
+  "user_logins": "User_Logins",
+  "userlogins": "User_Logins",
+  "logins": "User_Logins",
+
+  "estimator_calculations": "Estimator_Calculations",
+  "estimatorcalculations": "Estimator_Calculations",
+  "estimator": "Estimator_Calculations",
+  "calculator": "Estimator_Calculations",
+
+  "chatbot_leads": "Chatbot_Leads",
+  "chatbotleads": "Chatbot_Leads",
+  "chatbot": "Chatbot_Leads",
+  "chat": "Chatbot_Leads",
+
+  "exit_intent_feedback": "Exit_Intent_Feedback",
+  "exitintentfeedback": "Exit_Intent_Feedback",
+  "exit_feedback": "Exit_Intent_Feedback",
+
+  "trafficanalytics": "Traffic_Analytics",
+  "traffic_analytics": "Traffic_Analytics",
+  "traffic": "Traffic_Analytics",
+  "behaviormetrics": "Behavior_Metrics",
+  "behavior_metrics": "Behavior_Metrics"
+};
+
+// ═════════════════════════════════════════════════════════════════════════════
+// 3. MAIN WEBHOOK ENDPOINT (doPost & doGet)
+// ═════════════════════════════════════════════════════════════════════════════
+
 function doGet(e) {
-    return buildResponse({ status: 'ok', message: 'Trustgrid Analytics Bridge is running.' });
+  return ContentService.createTextOutput(JSON.stringify({
+    status: "online",
+    service: "Govenics GRC Data Collection Engine (V7.2 Ultra Pro)",
+    time: new Date().toISOString(),
+    spreadsheetId: CONFIG.DATA_SPREADSHEET_ID
+  })).setMimeType(ContentService.MimeType.JSON);
 }
 
-// ── User Behavior Handler ─────────────────────────────────────────────────────
-function handleUserBehavior(ss, body) {
-    const name = 'User Behavior';
-    let sheet = ss.getSheetByName(name);
-    if (!sheet) {
-        sheet = ss.insertSheet(name);
-        sheet.appendRow(USER_BEHAVIOR_COLUMNS);
-        sheet.getRange(1, 1, 1, USER_BEHAVIOR_COLUMNS.length).setFontWeight('bold').setBackground('#1e293b').setFontColor('#ffffff');
-        sheet.setFrozenRows(1);
-    }
-
-    let events = [];
-    if (body.events && Array.isArray(body.events)) {
-        events = body.events;
-    } else if (body.fields) {
-        events = [body.fields];
-    } else {
-        events = [body];
-    }
-
-    if (events.length === 0) return;
-    
-    // Filter out localhost data
-    events = events.filter(function(event) {
-        if (!event.page_url) return true;
-        const pageUrl = event.page_url.toLowerCase();
-        return !pageUrl.includes("localhost") && !pageUrl.includes("127.0.0.1");
-    });
-    if (events.length === 0) return;
-
-    let currentHeaders = sheet.getRange(1, 1, 1, Math.max(1, sheet.getLastColumn())).getValues()[0];
-    let headerMap = {};
-    currentHeaders.forEach(function (h, i) { if (h) headerMap[h] = i + 1; });
-
-    let allRequiredHeaders = [...USER_BEHAVIOR_COLUMNS];
-    Object.keys(events[0]).forEach(function (key) {
-        if (key !== 'table' && !allRequiredHeaders.includes(key) && !headerMap[key]) {
-            allRequiredHeaders.push(key);
-        }
-    });
-
-    let newHeaders = [...currentHeaders];
-    let headersChanged = false;
-    allRequiredHeaders.forEach(function (h) {
-        if (!headerMap[h]) {
-            newHeaders.push(h);
-            headerMap[h] = newHeaders.length;
-            headersChanged = true;
-        }
-    });
-
-    if (headersChanged) {
-        sheet.getRange(1, 1, 1, newHeaders.length).setValues([newHeaders]);
-        sheet.getRange(1, 1, 1, newHeaders.length).setFontWeight('bold').setBackground('#1e293b').setFontColor('#ffffff');
-        currentHeaders = newHeaders;
-    }
-
-    events.forEach(function (event) {
-        const row = currentHeaders.map(function (h) {
-            if (h === 'timestamp' || h === 'Timestamp') return new Date().toISOString();
-            const val = event[h];
-            if (val === null || val === undefined) return '';
-            if (typeof val === 'boolean') return val.toString();
-            return val;
-        });
-        sheet.appendRow(row);
-    });
-}
-
-// ── Lead Form Handler ─────────────────────────────────────────────────────────
-function handleLeadForm(ss, tableName, body) {
-    const sheet = getOrCreateSheet(ss, tableName, null);
-    let dataFields = {};
-    if (body.fields && typeof body.fields === 'object' && !Array.isArray(body.fields)) {
-        dataFields = body.fields;
-    } else {
-        const { table, sheetName, ...rest } = body;
-        dataFields = rest;
-    }
-
-    if (!dataFields['Timestamp'] && !dataFields['submitted_at']) {
-        dataFields['Timestamp'] = new Date().toISOString();
-    }
-
-    if (sheet.getLastRow() === 0) {
-        const headers = Object.keys(dataFields);
-        sheet.appendRow(headers);
-        const headerRange = sheet.getRange(1, 1, 1, headers.length);
-        headerRange.setFontWeight('bold').setBackground('#1e293b').setFontColor('#ffffff');
-        sheet.setFrozenRows(1);
-    }
-
-    const headers = sheet.getRange(1, 1, 1, sheet.getLastColumn()).getValues()[0];
-    const row = headers.map(function (h) {
-        if (h === 'Timestamp') return new Date().toISOString();
-        return dataFields[h] !== undefined ? dataFields[h] : '';
-    });
-
-    sheet.appendRow(row);
-
-    // ── Post-Submission Actions ─────────────────────────────────────────────
-    try {
-        // 1. Internal Notification (Let the team know)
-        sendInternalNotification(dataFields, tableName);
-
-        // 2. User Acknowledgement (Thank the customer)
-        sendConfirmationEmail(dataFields, tableName);
-
-        // 3. Specialized handlers
-        if (tableName === 'Book for Consultation') {
-            handleConsultationInvite(dataFields);
-        }
-    } catch (e) {
-        console.error('Post-submission error:', e);
-        logToSystem('Action failed for ' + tableName + ': ' + e.toString());
-    }
-}
-
-/**
- * ── Internal Lead Notification (For Admin) ──────────────────────────────────
- * Sends a professional 'Lead Report' to pooja@deeptrust.tech.
- */
-function sendInternalNotification(dataFields, tableName) {
-    const userName = dataFields['First Name'] || dataFields['Name'] || 'New Prospect';
-    const userEmail = dataFields['Email'] || dataFields['email'] || dataFields['Work Email'] || 'N/A';
-    const logoUrl = 'https://trustgrid.ai/brand-icon.png';
-
-    const subject = `🚀 [NEW LEAD] ${tableName} - ${userName}`;
-
-    const htmlBody = `
-    <!DOCTYPE html>
-    <html>
-    <head>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <style>
-            @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700&display=swap');
-            body { font-family: 'Outfit', sans-serif; background-color: #f1f5f9; margin: 0; padding: 0; }
-        </style>
-    </head>
-    <body style="margin: 0; padding: 40px 0; background-color: #f1f5f9;">
-        <div style="max-width: 600px; margin: 0 auto; background-color: #ffffff; border-radius: 20px; overflow: hidden; box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1);">
-            <div style="background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%); padding: 40px; text-align: center;">
-                <img src="${logoUrl}" alt="TrustGrid AI" style="width: 140px; margin-bottom: 20px;">
-                <h1 style="color: #ffffff; margin: 0; font-size: 24px; font-weight: 700;">New Lead Generated</h1>
-                <p style="color: #94a3b8; margin: 10px 0 0 0;">Source: ${tableName}</p>
-            </div>
-            <div style="padding: 40px;">
-                <div style="border-left: 4px solid #3b82f6; padding-left: 20px; margin-bottom: 30px;">
-                    <h2 style="margin: 0; font-size: 18px; color: #1e293b;">Lead Captured</h2>
-                    <p style="margin: 5px 0 0 0; color: #64748b;">${new Date().toLocaleString()}</p>
-                </div>
-                <table style="width: 100%; border-collapse: collapse; margin-bottom: 30px;">
-                    ${Object.entries(dataFields)
-            .filter(([key]) => !['Timestamp', 'table', 'submitted_at', 'id'].includes(key))
-            .map(([key, value]) => `
-                        <tr>
-                            <td style="padding: 12px 0; border-bottom: 1px solid #f1f5f9; color: #64748b; font-weight: 500;">${key}</td>
-                            <td style="padding: 12px 0; border-bottom: 1px solid #f1f5f9; color: #0f172a; font-weight: 600; text-align: right;">${value}</td>
-                        </tr>
-                    `).join('')}
-                </table>
-                <div style="text-align: center;">
-                    <a href="https://docs.google.com/spreadsheets/d/${SPREADSHEET_ID}" style="display: inline-block; background-color: #3b82f6; color: #ffffff; padding: 16px 32px; border-radius: 12px; text-decoration: none; font-weight: 600; box-shadow: 0 4px 6px -1px rgba(59, 130, 246, 0.5);">Open Spreadsheet</a>
-                </div>
-            </div>
-            <div style="background-color: #f8fafc; padding: 20px; text-align: center; color: #94a3b8; font-size: 12px;">
-                Lead automation powered by TrustGrid AI System
-            </div>
-        </div>
-    </body>
-    </html>
-    `;
-
-    try {
-        GmailApp.sendEmail(ADMIN_EMAIL, subject, "", {
-            htmlBody: htmlBody,
-            name: "TrustGrid AI Lead Engine",
-            replyTo: userEmail
-        });
-        console.log('Internal lead alert sent.');
-    } catch (err) {
-        console.error('Internal Notification Error:', err);
-    }
-}
-
-function logToSystem(message) {
-    try {
-        const ss = SpreadsheetApp.openById(SPREADSHEET_ID);
-        const logSheet = getOrCreateSheet(ss, "System Logs", ["Timestamp", "Status/Message"]);
-        logSheet.appendRow([new Date().toLocaleString(), message]);
-        // Keep logs slightly cleaner by auto-resizing
-        logSheet.autoResizeColumns(1, 2);
-    } catch (err) {
-        console.error('Logging failed:', err);
-    }
-}
-
-function getOrCreateSheet(ss, name, columns) {
-    let sheet = ss.getSheetByName(name);
-    if (!sheet) sheet = ss.insertSheet(name);
-    if (columns && (sheet.getLastRow() === 0)) {
-        sheet.appendRow(columns);
-        sheet.getRange(1, 1, 1, columns.length).setFontWeight('bold').setBackground('#1e293b').setFontColor('#ffffff');
-        sheet.setFrozenRows(1);
-    }
-    return sheet;
-}
-
-/**
- * ── professional User Acknowledgement Email ──────────────────────────────────
- * A premium 'Thank You' email for the customer.
- */
-function sendConfirmationEmail(dataFields, tableName) {
-    const userEmail = dataFields['Email'] || dataFields['email'] || dataFields['Work Email'] || dataFields['Email Address'] || dataFields['user_email'];
-    const userName = dataFields['First Name'] || dataFields['Name'] || dataFields['user_name'] || 'there';
-    const logoUrl = 'https://trustgrid.ai/brand-icon.png';
-
-    if (!userEmail) return;
-
-    let subject = "Confirmed: Your Inquiry with TrustGrid.AI";
-    let headerTitle = "We've Received Your Request";
-    let welcomeMsg = "Thank you for reaching out to TrustGrid.AI. We've received your request and our acceleration team is already looking into how we can best support your goals.";
-
-    if (tableName === 'Book for Consultation') {
-        subject = "Scheduled: Your TrustGrid.AI Consultation Request";
-        headerTitle = "Consultation Confirmed";
-        welcomeMsg = "We're excited to partner with you. A senior strategist is reviewing your details to ensure our upcoming session is tailored precisely to your revenue challenges.";
-    }
-
-    const htmlBody = `
-    <!DOCTYPE html>
-    <html>
-    <head>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <style>
-            @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700&display=swap');
-            body { font-family: 'Outfit', sans-serif; color: #0f172a; margin: 0; padding: 0; }
-        </style>
-    </head>
-    <body style="margin: 0; padding: 0; background-color: #ffffff;">
-        <table width="100%" border="0" cellspacing="0" cellpadding="0">
-            <tr>
-                <td align="center" style="padding: 40px 0;">
-                    <div style="max-width: 600px; text-align: left; border: 1px solid #e2e8f0; border-radius: 12px; overflow: hidden;">
-                        <!-- Gradient Header -->
-                        <div style="background: linear-gradient(to right, #2563eb, #1d4ed8); padding: 60px 40px; text-align: center;">
-                            <img src="${logoUrl}" alt="TrustGrid AI" style="width: 150px; margin-bottom: 30px;">
-                            <h1 style="color: #ffffff; margin: 0; font-size: 32px; font-weight: 700; letter-spacing: -0.02em;">${headerTitle}</h1>
-                        </div>
-
-                        <!-- Content Body -->
-                        <div style="padding: 50px 40px;">
-                            <p style="font-size: 18px; line-height: 1.6; margin-bottom: 25px;">Hi ${userName},</p>
-                            <p style="font-size: 17px; line-height: 1.6; color: #334155; margin-bottom: 35px;">${welcomeMsg}</p>
-                            
-                            <!-- Detail Card -->
-                            <div style="background-color: #f8fafc; border: 1px dotted #cbd5e1; border-radius: 10px; padding: 30px; margin-bottom: 40px;">
-                                <h3 style="margin: 0 0 20px 0; font-size: 14px; text-transform: uppercase; color: #64748b; letter-spacing: 0.1em;">Request Summary</h3>
-                                <table width="100%" style="font-size: 15px;">
-                                    ${Object.entries(dataFields)
-            .filter(([key]) => !['Timestamp', 'table', 'submitted_at'].includes(key))
-            .map(([key, value]) => `
-                                        <tr>
-                                            <td style="padding: 10px 0; border-bottom: 1px solid #f1f5f9; color: #64748b;">${key}</td>
-                                            <td style="padding: 10px 0; border-bottom: 1px solid #f1f5f9; font-weight: 600; text-align: right;">${value}</td>
-                                        </tr>
-                                    `).join('')}
-                                </table>
-                            </div>
-
-                            <div style="text-align: center;">
-                                <a href="https://trustgrid.ai" style="display: inline-block; background-color: #0f172a; color: #ffffff; padding: 18px 40px; border-radius: 8px; text-decoration: none; font-weight: 600; font-size: 16px;">Visit TrustGrid Website</a>
-                            </div>
-
-                            <p style="margin-top: 50px; border-top: 1px solid #f1f5f9; padding-top: 30px; font-size: 15px; color: #64748b;">
-                                Best regards,<br>
-                                <span style="color: #0f172a; font-weight: 700; font-size: 18px;">The TrustGrid AI Team</span>
-                            </p>
-                        </div>
-
-                        <!-- Professional Footer -->
-                        <div style="background-color: #f8fafc; padding: 40px; border-top: 1px solid #f1f5f9; text-align: center;">
-                            <h2 style="font-size: 16px; margin-bottom: 10px;">TrustGrid.AI</h2>
-                            <p style="color: #94a3b8; font-size: 13px; margin-bottom: 20px;">
-                                501 E Kennedy Blvd Suite 1400, Tampa, FL 33602<br>
-                                Enterprise-Grade Revenue Intelligence
-                            </p>
-                            <div style="font-size: 13px;">
-                                <a href="https://trustgrid.ai" style="color: #2563eb; text-decoration: none; margin: 0 10px;">Website</a>
-                                <a href="https://trustgrid.ai/privacy" style="color: #2563eb; text-decoration: none; margin: 0 10px;">Privacy Policy</a>
-                            </div>
-                        </div>
-                    </div>
-                </td>
-            </tr>
-        </table>
-    </body>
-    </html>
-    `;
-
-    try {
-        GmailApp.sendEmail(userEmail, subject, "", {
-            htmlBody: htmlBody,
-            name: "TrustGrid AI Notification",
-            replyTo: PRIMARY_ADMIN
-        });
-        console.log('Acknowledgement sent to client.');
-    } catch (err) {
-        console.error('Acknowledgement Email Error:', err);
-    }
-}
-
-function handleConsultationInvite(dataFields) {
-    const userEmail = dataFields['Email'] || dataFields['email'] || dataFields['Work Email'] || dataFields['Email Address'];
-    const userName = dataFields['First Name'] || dataFields['Name'] || 'Guest';
-    const dateStr = dataFields['Preferred Date'];
-    const timeStr = dataFields['Preferred Time'];
-
-    if (!userEmail || !dateStr || !timeStr) return;
-
-    try {
-        const start = new Date(dateStr + 'T' + timeStr + ':00');
-        if (isNaN(start.getTime())) return;
-        const end = new Date(start.getTime() + 30 * 60 * 1000); // 30 mins
-
-        CalendarApp.getDefaultCalendar().createEvent(
-            'Consultation: TrustGrid AI x ' + userName,
-            start,
-            end,
-            {
-                guests: userEmail,
-                sendInvites: true,
-                description: 'TrustGrid AI Consultation Session'
-            }
-        );
-    } catch (e) {
-        console.error('Calendar Error:', e);
-    }
-}
-
-function testEmail() {
-    const ui = SpreadsheetApp.getUi();
-    try {
-        GmailApp.sendEmail(ADMIN_EMAIL, "TrustGrid AI System Test", "If you see this, your email automation is authorized!");
-        ui.alert('Success!', 'A test email has been sent to ' + ADMIN_EMAIL + '. Please check your inbox.', ui.ButtonSet.OK);
-    } catch (err) {
-        ui.alert('Test Failed', 'Error: ' + err.toString(), ui.ButtonSet.OK);
-    }
-}
-
-function logToSystem(message) {
-    try {
-        const ss = SpreadsheetApp.openById(SPREADSHEET_ID);
-        const logSheet = getOrCreateSheet(ss, "System Logs", ["Timestamp", "Status/Message"]);
-        logSheet.appendRow([new Date().toLocaleString(), message]);
-        logSheet.autoResizeColumns(1, 2);
-    } catch (err) {
-        console.error('Logging failed:', err);
-    }
-}
-
-// ── Analytics Dashboard Engine ───────────────────────────────────────────────
-
-function updateAnalyticsDashboard() {
-    const ss = SpreadsheetApp.openById(SPREADSHEET_ID);
-    const sourceSheet = ss.getSheetByName('User Behavior');
-    if (!sourceSheet || sourceSheet.getLastRow() < 2) return;
-
-    const data = sourceSheet.getDataRange().getValues();
-    const headers = data[0];
-    const pageUrlIdx = headers.indexOf('page_url');
-    // Filter out localhost data from the entire set
-    const rows = data.slice(1).filter(function (row) {
-        const url = (row[pageUrlIdx] || '').toLowerCase();
-        return !url.includes('localhost') && !url.includes('127.0.0.1');
-    });
-
-    const pageIdx = headers.indexOf('page');
-    const durationIdx = headers.indexOf('time_on_page');
-    const countryIdx = headers.indexOf('geo_country');
-    const segmentIdx = headers.indexOf('user_segment');
-
-    const pageStats = {};
-    const countryStats = {};
-    const segmentStats = {};
-    let totalVisits = 0;
-
-    rows.forEach(function (row) {
-        const page = row[pageIdx] || 'Unknown';
-        const duration = parseFloat(row[durationIdx]) || 0;
-        const country = row[countryIdx] || 'Unknown';
-        const segment = row[segmentIdx] || 'Casual Browser';
-
-        if (!pageStats[page]) pageStats[page] = { count: 0, totalDuration: 0 };
-        pageStats[page].count++;
-        pageStats[page].totalDuration += duration;
-        totalVisits++;
-
-        if (!countryStats[country]) countryStats[country] = 0;
-        countryStats[country]++;
-
-        if (!segmentStats[segment]) segmentStats[segment] = 0;
-        segmentStats[segment]++;
-    });
-
-    let pageRanking = Object.keys(pageStats).map(function (page) {
-        const stats = pageStats[page];
-        const durationSeconds = stats.totalDuration / 1000;
-        const avgDuration = durationSeconds / stats.count;
-        const weight = stats.count * (durationSeconds / 60);
-        return [page, stats.count, durationSeconds, avgDuration, weight];
-    });
-
-    pageRanking.sort(function (a, b) { return b[1] - a[1]; });
-
-    let cumulativeCount = 0;
-    pageRanking = pageRanking.map(function (row) {
-        cumulativeCount += row[1];
-        return [...row, (cumulativeCount / totalVisits)];
-    });
-
-    const geoRanking = Object.keys(countryStats).map(function (c) { return [c, countryStats[c]]; }).sort(function (a, b) { return b[1] - a[1]; });
-    const mapData = geoRanking.filter(function (r) {
-        const c = r[0].toLowerCase();
-        return c !== 'unknown' && c !== 'unknown country' && c !== 'undefined' && c !== '';
-    });
-    const segmentRanking = Object.keys(segmentStats).map(function (s) { return [s, segmentStats[s]]; }).sort(function (a, b) { return b[1] - a[1]; });
-
-    let dashSheet = ss.getSheetByName('Analytics Dashboard');
-    if (!dashSheet) dashSheet = ss.insertSheet('Analytics Dashboard');
-    dashSheet.clear();
-
-    const headStyle = { fontWeight: 'bold', background: '#2563eb', fontColor: '#ffffff' };
-
-    // 1. Summary Table (Sorted by Count)
-    writeTable(dashSheet, 1, 1, ['Page Name', 'Visit Count', 'Total Duration (s)', 'Avg Duration (s)', 'Engagement Score', 'Cumulative %'], pageRanking, headStyle);
-
-    // 2. Page Ranking by Duration (Sorted by Duration)
-    const pageRankingByDuration = [...pageRanking].sort(function (a, b) { return b[2] - a[2]; });
-    writeTable(dashSheet, pageRanking.length + 4, 1, ['Page Name (by Duration)', 'Duration (s)'], pageRankingByDuration.map(r => [r[0], r[2]]), headStyle);
-
-    // 3. Page Ranking by Engagement (Sorted by Score)
-    const pageRankingByWeight = [...pageRanking].sort(function (a, b) { return b[4] - a[4]; });
-    writeTable(dashSheet, (pageRanking.length * 2) + 7, 1, ['Page Name (by Score)', 'Engagement Score'], pageRankingByWeight.map(r => [r[0], r[4]]), headStyle);
-
-    // 4. Geo and Segment Tables
-    writeTable(dashSheet, 1, 8, ['Country', 'Visitor Count'], geoRanking, headStyle);
-    writeTable(dashSheet, geoRanking.length + 4, 8, ['User Segment', 'Event Count'], segmentRanking, headStyle);
-
-    // 5. Build Map Data (Placed at a fixed offset to avoid calculation errors)
-    const mapStartRow = 100; // Place map data far down out of sight
-    writeTable(dashSheet, mapStartRow, 1, ['Country', 'Visitors'], mapData, headStyle);
-
-    dashSheet.getRange(2, 6, pageRanking.length, 1).setNumberFormat('0.0%');
-    dashSheet.autoResizeColumns(1, 15);
-
-    buildDashboardCharts(dashSheet, pageRanking.length, mapData.length, segmentRanking.length, mapStartRow);
-    updateTimeAnalysis(ss, rows, headers);
-    updateCoOccurrenceMatrix(ss, rows, headers);
-}
-
-function writeTable(sheet, startRow, startCol, headers, data, style) {
-    if (data.length === 0) return;
-    sheet.getRange(startRow, startCol, 1, headers.length).setValues([headers]).setFontWeight(style.fontWeight).setBackground(style.background).setFontColor(style.fontColor);
-    sheet.getRange(startRow + 1, startCol, data.length, headers.length).setValues(data);
-}
-
-function buildDashboardCharts(sheet, pageCount, mapCount, segmentCount, mapStartRow) {
-    const existing = sheet.getCharts();
-    existing.forEach(function (c) { sheet.removeChart(c); });
-
-    const chartWidth = 550;
-    const chartHeight = 350;
-    const labelRange = sheet.getRange(1, 1, pageCount + 1, 1);
-    const countRange = sheet.getRange(1, 2, pageCount + 1, 1);
-    const durationRange = sheet.getRange(1, 3, pageCount + 1, 1);
-    const weightRange = sheet.getRange(1, 5, pageCount + 1, 1);
-    const cumulativeRange = sheet.getRange(1, 6, pageCount + 1, 1);
-
-    // 1. Page Ranking by Count
-    const countChart = sheet.newChart()
-        .setChartType(Charts.ChartType.BAR)
-        .addRange(labelRange).addRange(countRange)
-        .setPosition(2, 11, 0, 0)
-        .setOption('title', 'Top Pages (by Visit Count)')
-        .setOption('width', chartWidth).setOption('height', chartHeight).build();
-    sheet.insertChart(countChart);
-
-    // 2. Page Ranking by Session Duration
-    const durationChart = sheet.newChart()
-        .setChartType(Charts.ChartType.BAR)
-        .addRange(labelRange).addRange(durationRange)
-        .setPosition(2, 19, 0, 0)
-        .setOption('title', 'Top Pages (by Total Duration s)')
-        .setOption('width', chartWidth).setOption('height', chartHeight).build();
-    sheet.insertChart(durationChart);
-
-    // 3. Page Ranking by Count X Duration (Weight)
-    const weightChart = sheet.newChart()
-        .setChartType(Charts.ChartType.COLUMN)
-        .addRange(labelRange).addRange(weightRange)
-        .setPosition(20, 11, 0, 0)
-        .setOption('title', 'Engagement Score (Count x Duration)')
-        .setOption('width', chartWidth).setOption('height', chartHeight).build();
-    sheet.insertChart(weightChart);
-
-    // 4. Pareto Analysis
-    const paretoChart = sheet.newChart()
-        .setChartType(Charts.ChartType.COMBO)
-        .addRange(labelRange).addRange(countRange).addRange(cumulativeRange)
-        .setPosition(20, 19, 0, 0)
-        .setOption('title', 'Pareto Analysis (80/20 Traffic)')
-        .setOption('series', { 0: { type: 'bars' }, 1: { type: 'line', targetAxisIndex: 1 } })
-        .setOption('width', chartWidth).setOption('height', chartHeight).build();
-    sheet.insertChart(paretoChart);
-
-    // 5. Google Map Graph
-    if (mapCount > 0) {
-        const geoRange = sheet.getRange(mapStartRow, 1, mapCount + 1, 2);
-        const mapChart = sheet.newChart()
-            .setChartType(Charts.ChartType.GEO)
-            .addRange(geoRange)
-            .setPosition(38, 11, 0, 0)
-            .setOption('title', 'Global Traffic Distribution (Map)')
-            .setOption('width', chartWidth * 2)
-            .setOption('height', 450)
-            .setOption('region', 'world')
-            .setOption('displayMode', 'regions')
-            .setOption('colorAxis', { colors: ['#e3f2fd', '#1565c0'] }) // Soft to Deep blue
-            .build();
-        sheet.insertChart(mapChart);
-    }
-}
-
-/**
- * Redesigned Co-Occurrence Matrix (Pure Heatmap Chart Look)
- */
-function updateCoOccurrenceMatrix(ss, rows, headers) {
-    const pageIdx = headers.indexOf('page');
-    const sessionIdIdx = headers.indexOf('session_id');
-    const timeOnPageIdx = headers.indexOf('time_on_page');
-    if (pageIdx === -1 || sessionIdIdx === -1) return;
-
-    const sessionData = {};
-    const allPagesSet = new Set();
-
-    rows.forEach(function (row) {
-        const sid = row[sessionIdIdx];
-        const page = row[pageIdx] || 'Unknown';
-        const duration = parseFloat(row[timeOnPageIdx]) || 0;
-        if (!sid) return;
-        allPagesSet.add(page);
-        if (!sessionData[sid]) { sessionData[sid] = { pages: new Set(), totalDuration: 0 }; }
-        sessionData[sid].pages.add(page);
-        sessionData[sid].totalDuration += duration;
-    });
-
-    const pageList = Array.from(allPagesSet).sort();
-    if (pageList.length === 0) return;
-
-    // Initialize Matrix and Occurrence Tally
-    const matrix = {};
-    const countMatrix = {};
-    pageList.forEach(function (p1) {
-        matrix[p1] = {};
-        countMatrix[p1] = {};
-        pageList.forEach(function (p2) {
-            matrix[p1][p2] = 0;
-            countMatrix[p1][p2] = 0;
-        });
-    });
-
-    // Populate Matrix
-    Object.values(sessionData).forEach(function (session) {
-        const uniquePages = Array.from(session.pages);
-        if (uniquePages.length === 0) return;
-
-        // Base value: (Total Session Duration / Unique Pages)
-        // We accumulate this across all sessions where these pages co-occur
-        const val = (session.totalDuration / uniquePages.length);
-
-        uniquePages.forEach(function (p1) {
-            uniquePages.forEach(function (p2) {
-                matrix[p1][p2] += val;
-                countMatrix[p1][p2]++;
-            });
-        });
-    });
-
-    // Calculate final Average (and convert to seconds)
-    pageList.forEach(function (p1) {
-        pageList.forEach(function (p2) {
-            if (countMatrix[p1][p2] > 0) {
-                // Average milliseconds / 1000 = Average Seconds
-                matrix[p1][p2] = (matrix[p1][p2] / countMatrix[p1][p2]) / 1000;
-            }
-        });
-    });
-
-
-    let sheet = ss.getSheetByName('Co-Occurrence Matrix');
-    if (!sheet) sheet = ss.insertSheet('Co-Occurrence Matrix');
-    sheet.clear();
-
-    const output = [];
-    pageList.forEach(function (p1) {
-        const row = [p1];
-        pageList.forEach(function (p2) { row.push(matrix[p1][p2]); });
-        output.push(row);
-    });
-    output.push(['', ...pageList]);
-
-    const fullRange = sheet.getRange(1, 1, output.length, output[0].length);
-    fullRange.setValues(output);
-
-    const rowCount = pageList.length;
-    const colCount = pageList.length;
-    const cellSize = 45;
-
-    if (rowCount > 0) {
-        sheet.setRowHeights(1, rowCount, cellSize);
-        sheet.setRowHeight(rowCount + 1, 150); // Larger space for angled labels
-        for (let i = 2; i <= colCount + 1; i++) {
-            sheet.setColumnWidth(i, cellSize + 10);
-        }
-    }
-    sheet.autoResizeColumn(1);
-
-    if (rowCount > 0 && colCount > 0) {
-        const dataRange = sheet.getRange(1, 2, rowCount, colCount);
-        dataRange.setFontSize(8)
-            .setHorizontalAlignment('center')
-            .setVerticalAlignment('middle')
-            .setNumberFormat('0') // Round to nearest second for readability
-            .setBorder(true, true, true, true, true, true, '#e2e8f0', SpreadsheetApp.BorderStyle.SOLID);
-
-        // Ensure text is visible (remove transparent color if it was there)
-        dataRange.setFontColor('#1e293b');
-
-        sheet.getRange(1, 1, rowCount, 1)
-            .setHorizontalAlignment('right')
-            .setVerticalAlignment('middle')
-            .setFontSize(10)
-            .setFontColor('#1e293b')
-            .setFontWeight('bold');
-
-        sheet.getRange(rowCount + 1, 2, 1, colCount)
-            .setTextRotation(45)
-            .setVerticalAlignment('top')
-            .setHorizontalAlignment('left')
-            .setFontSize(10)
-            .setFontColor('#1e293b')
-            .setFontWeight('bold');
-
-        // MANUAL Heatmap (Bypasses buggy Conditional Formatting API)
-        const dataValues = dataRange.getValues();
-        let maxVal = 0;
-        dataValues.forEach(function (r) { r.forEach(function (v) { if (v > maxVal) maxVal = v; }); });
-
-        const colors = dataValues.map(function (row) {
-            return row.map(function (val) {
-                if (maxVal === 0) return '#ffffff';
-                return interpolateColor('#ffffff', '#1d4ed8', val / maxVal);
-            });
-        });
-        dataRange.setBackgrounds(colors);
-    }
-    sheet.setFrozenColumns(1);
-}
-
-function updateTimeAnalysis(ss, rows, headers) {
-    const timestampIdx = headers.indexOf('timestamp');
-    if (timestampIdx === -1) return;
-    const hourlyStats = Array(24).fill(0).map((_, i) => [`${i}:00`, 0]);
-    const periodStats = { 'Early (5-8)': 0, 'Morning (8-12)': 0, 'Afternoon (12-17)': 0, 'Evening (17-21)': 0, 'Night (21-24)': 0, 'Late Night (0-5)': 0 };
-
-    rows.forEach(function (row) {
-        const ts = row[timestampIdx];
-        if (!ts) return;
-        const date = new Date(ts);
-        if (isNaN(date.getTime())) return;
-        const hour = date.getHours();
-        hourlyStats[hour][1]++;
-        if (hour >= 5 && hour < 8) periodStats['Early (5-8)']++;
-        else if (hour >= 8 && hour < 12) periodStats['Morning (8-12)']++;
-        else if (hour >= 12 && hour < 17) periodStats['Afternoon (12-17)']++;
-        else if (hour >= 17 && hour < 21) periodStats['Evening (17-21)']++;
-        else if (hour >= 21 || hour < 0) periodStats['Night (21-24)']++;
-        else periodStats['Late Night (0-5)']++;
-    });
-
-    let sheet = ss.getSheetByName('Time Analysis');
-    if (!sheet) sheet = ss.insertSheet('Time Analysis');
-    sheet.clear();
-    writeTable(sheet, 1, 1, ['Period', 'Visits'], Object.keys(periodStats).map(k => [k, periodStats[k]]), { fontWeight: 'bold', background: '#2563eb', fontColor: '#ffffff' });
-    writeTable(sheet, 1, 4, ['Hour', 'Count'], hourlyStats, { fontWeight: 'bold', background: '#2563eb', fontColor: '#ffffff' });
-
-    const existing = sheet.getCharts();
-    existing.forEach(function (c) { sheet.removeChart(c); });
-
-    const hourlyChart = sheet.newChart().setChartType(Charts.ChartType.COLUMN).addRange(sheet.getRange(1, 4, 25, 2))
-        .setPosition(1, 7, 0, 0).setOption('title', 'Hourly Traffic').setOption('width', 800).build();
-    sheet.insertChart(hourlyChart);
-}
-
-function interpolateColor(color1, color2, ratio) {
-    const r1 = parseInt(color1.substring(1, 3), 16), g1 = parseInt(color1.substring(3, 5), 16), b1 = parseInt(color1.substring(5, 7), 16);
-    const r2 = parseInt(color2.substring(1, 3), 16), g2 = parseInt(color2.substring(3, 5), 16), b2 = parseInt(color2.substring(5, 7), 16);
-    const r = Math.round(r1 + (r2 - r1) * ratio).toString(16).padStart(2, '0');
-    const g = Math.round(g1 + (g2 - g1) * ratio).toString(16).padStart(2, '0');
-    const b = Math.round(b1 + (b2 - b1) * ratio).toString(16).padStart(2, '0');
-    return '#' + r + g + b;
-}
-
-function buildResponse(data) {
-    return ContentService.createTextOutput(JSON.stringify(data)).setMimeType(ContentService.MimeType.JSON);
-}
-
-// ══════════════════════════════════════════════════════════════════════════════
-// ██  BEHAVIOUR ANALYTICS MODULE                                            ██
-// ══════════════════════════════════════════════════════════════════════════════
-
-// ── 1. CHATBOT LEADS ──────────────────────────────────────────────────────────
-// Tracks all chatbot interactions that qualify as leads (user provided info,
-// requested demo, wanted callback, asked to speak to expert, etc.)
-
-const CHATBOT_LEADS_COLUMNS = [
-    'Timestamp', 'Lead ID', 'Session ID', 'IP Address',
-    'Country', 'State', 'City',
-    'User Name', 'User Email', 'User Phone',
-    'Chat Intent', 'Quick Action Used', 'Lead Score',
-    'Messages Count', 'Chat Duration (s)', 'Conversation Summary',
-    'Page Where Chat Started', 'Referrer URL', 'Device Type',
-    'Lead Status', 'Follow Up Required', 'Agent Name'
-];
-
-function handleChatbotLead(ss, body) {
-    const name = 'Chatbot Leads';
-    const sheet = getOrCreateSheet(ss, name, CHATBOT_LEADS_COLUMNS);
-
-    let dataFields = body.fields || body;
-    dataFields['Timestamp'] = new Date().toISOString();
-    dataFields['Lead ID'] = dataFields['Lead ID'] || Utilities.getUuid();
-
-    // Score the lead based on intent
-    const intent = (dataFields['Chat Intent'] || '').toLowerCase();
-    let score = 30; // Base score
-    if (intent.includes('demo') || intent.includes('book')) score = 90;
-    else if (intent.includes('expert') || intent.includes('consult')) score = 85;
-    else if (intent.includes('partner')) score = 80;
-    else if (intent.includes('offering') || intent.includes('product')) score = 60;
-    else if (intent.includes('job') || intent.includes('career')) score = 20;
-    else if (intent.includes('browsing')) score = 10;
-    dataFields['Lead Score'] = score;
-    dataFields['Lead Status'] = score >= 70 ? 'Hot' : score >= 40 ? 'Warm' : 'Cold';
-    dataFields['Follow Up Required'] = score >= 60 ? 'Yes' : 'No';
-
-    const headers = sheet.getRange(1, 1, 1, sheet.getLastColumn()).getValues()[0];
-    const row = headers.map(function (h) {
-        return dataFields[h] !== undefined ? dataFields[h] : '';
-    });
-    sheet.appendRow(row);
-
-    // Send notification for hot leads
-    if (score >= 70) {
-        try {
-            sendInternalNotification(dataFields, 'Chatbot Lead (HOT 🔥)');
-        } catch (e) {
-            console.error('Chatbot lead notification error:', e);
-        }
-    }
-}
-
-
-// ── 2. ENGAGEMENT METRICS ─────────────────────────────────────────────────────
-// Computes engagement metrics from User Behavior data
-
-function updateEngagementMetrics() {
-    const ss = SpreadsheetApp.openById(SPREADSHEET_ID);
-    const sourceSheet = ss.getSheetByName('User Behavior');
-    if (!sourceSheet || sourceSheet.getLastRow() < 2) return;
-
-    const data = sourceSheet.getDataRange().getValues();
-    const headers = data[0];
-    const rows = data.slice(1);
-
-    const pageIdx = headers.indexOf('page');
-    const timeOnPageIdx = headers.indexOf('time_on_page');
-    const scrollIdx = headers.indexOf('scroll_percentage');
-    const interactionIdx = headers.indexOf('interaction_count');
-    const bounceIdx = headers.indexOf('bounce');
-    const sessionIdIdx = headers.indexOf('session_id');
-    const eventNameIdx = headers.indexOf('event_name');
-    const rageClickIdx = headers.indexOf('rage_click_detected');
-    const inactivityIdx = headers.indexOf('inactivity_time');
-    const formCompletionIdx = headers.indexOf('form_completion_status');
-
-    // Aggregate metrics
-    const pageEngagement = {};
-    const sessions = new Set();
-    let totalBounces = 0;
-    let totalPageViews = 0;
-    let totalClicks = 0;
-    let totalScrollDepths = 0;
-    let totalFormSubmits = 0;
-    let totalFormAbandons = 0;
-    let totalRageClicks = 0;
-
-    rows.forEach(function (row) {
-        const page = row[pageIdx] || 'Unknown';
-        const timeOnPage = parseFloat(row[timeOnPageIdx]) || 0;
-        const scroll = parseFloat(row[scrollIdx]) || 0;
-        const interactions = parseInt(row[interactionIdx]) || 0;
-        const bounce = row[bounceIdx] === true || row[bounceIdx] === 'true';
-        const sessionId = row[sessionIdIdx];
-        const eventName = row[eventNameIdx] || '';
-        const rageClick = row[rageClickIdx] === true || row[rageClickIdx] === 'true';
-        const formStatus = row[formCompletionIdx] || '';
-
-        if (sessionId) sessions.add(sessionId);
-        if (bounce) totalBounces++;
-        if (eventName === 'click') totalClicks++;
-        if (rageClick) totalRageClicks++;
-        if (formStatus === 'submitted') totalFormSubmits++;
-        if (formStatus === 'abandoned') totalFormAbandons++;
-
-        totalPageViews++;
-        totalScrollDepths += scroll;
-
-        if (!pageEngagement[page]) {
-            pageEngagement[page] = {
-                views: 0, totalTime: 0, totalScroll: 0,
-                totalInteractions: 0, bounces: 0
-            };
-        }
-        pageEngagement[page].views++;
-        pageEngagement[page].totalTime += timeOnPage;
-        pageEngagement[page].totalScroll += scroll;
-        pageEngagement[page].totalInteractions += interactions;
-        if (bounce) pageEngagement[page].bounces++;
-    });
-
-    const totalSessions = sessions.size || 1;
-    const avgScrollDepth = totalPageViews > 0 ? (totalScrollDepths / totalPageViews).toFixed(1) : 0;
-    const bounceRate = ((totalBounces / totalSessions) * 100).toFixed(1);
-    const avgPagesPerSession = (totalPageViews / totalSessions).toFixed(1);
-
-    // Build Engagement Metrics sheet
-    let sheet = ss.getSheetByName('Engagement Metrics');
-    if (!sheet) sheet = ss.insertSheet('Engagement Metrics');
-    sheet.clear();
-
-    const headStyle = { fontWeight: 'bold', background: '#059669', fontColor: '#ffffff' };
-
-    // Summary KPIs
-    const summaryData = [
-        ['Total Page Views', totalPageViews],
-        ['Total Unique Sessions', totalSessions],
-        ['Bounce Rate', bounceRate + '%'],
-        ['Avg Pages per Session', avgPagesPerSession],
-        ['Avg Scroll Depth', avgScrollDepth + '%'],
-        ['Total Clicks', totalClicks],
-        ['Total Form Submissions', totalFormSubmits],
-        ['Total Form Abandonments', totalFormAbandons],
-        ['Rage Clicks Detected', totalRageClicks],
-        ['Generated At', new Date().toLocaleString()]
-    ];
-    writeTable(sheet, 1, 1, ['Metric', 'Value'], summaryData, headStyle);
-
-    // Per-Page Engagement
-    const pageData = Object.keys(pageEngagement).map(function (page) {
-        const p = pageEngagement[page];
-        const avgTime = (p.totalTime / p.views / 1000).toFixed(1);
-        const avgScroll = (p.totalScroll / p.views).toFixed(1);
-        const pageBounceRate = ((p.bounces / p.views) * 100).toFixed(1);
-        const engagementScore = (
-            (p.views * 0.3) +
-            (parseFloat(avgTime) * 0.3) +
-            (parseFloat(avgScroll) * 0.2) +
-            (p.totalInteractions * 0.2)
-        ).toFixed(1);
-        return [page, p.views, avgTime + 's', avgScroll + '%', pageBounceRate + '%', p.totalInteractions, engagementScore];
-    }).sort(function (a, b) { return parseFloat(b[6]) - parseFloat(a[6]); });
-
-    writeTable(sheet, 14, 1, [
-        'Page', 'Views', 'Avg Time on Page', 'Avg Scroll Depth',
-        'Bounce Rate', 'Total Interactions', 'Engagement Score'
-    ], pageData, headStyle);
-
-    sheet.autoResizeColumns(1, 10);
-    logToSystem('Engagement Metrics updated successfully.');
-}
-
-
-// ── 3. BEHAVIOUR METRICS ──────────────────────────────────────────────────────
-// Segments and analyzes user behaviour patterns
-
-function updateBehaviourMetrics() {
-    const ss = SpreadsheetApp.openById(SPREADSHEET_ID);
-    const sourceSheet = ss.getSheetByName('User Behavior');
-    if (!sourceSheet || sourceSheet.getLastRow() < 2) return;
-
-    const data = sourceSheet.getDataRange().getValues();
-    const headers = data[0];
-    const rows = data.slice(1);
-
-    const segmentIdx = headers.indexOf('user_segment');
-    const userTypeIdx = headers.indexOf('user_type');
-    const deviceIdx = headers.indexOf('device_type');
-    const browserIdx = headers.indexOf('browser');
-    const osIdx = headers.indexOf('operating_system');
-    const sessionIdIdx = headers.indexOf('session_id');
-    const pageIdx = headers.indexOf('page');
-    const timeOnPageIdx = headers.indexOf('time_on_page');
-    const copyIdx = headers.indexOf('copy_event');
-    const pasteIdx = headers.indexOf('paste_event');
-    const rageIdx = headers.indexOf('rage_click_detected');
-    const backBtnIdx = headers.indexOf('back_button_used');
-    const tabVisIdx = headers.indexOf('tab_visibility_status');
-    const entryPageIdx = headers.indexOf('entry_page');
-    const exitPageIdx = headers.indexOf('exit_page');
-
-    // Segment breakdown
-    const segmentCounts = {};
-    const deviceCounts = {};
-    const browserCounts = {};
-    const osCounts = {};
-    const userTypeCounts = { 'new': 0, 'returning': 0 };
-
-    // Behavioural signals
-    let copyEvents = 0, pasteEvents = 0, rageClicks = 0, backButtonUsed = 0;
-    let hiddenTabCount = 0;
-
-    // Entry/Exit analysis
-    const entryPages = {};
-    const exitPages = {};
-
-    // Session flow analysis
-    const sessionFlows = {};
-
-    rows.forEach(function (row) {
-        const segment = row[segmentIdx] || 'Unknown';
-        const device = row[deviceIdx] || 'Unknown';
-        const browser = row[browserIdx] || 'Unknown';
-        const os = row[osIdx] || 'Unknown';
-        const userType = row[userTypeIdx] || 'new';
-        const sessionId = row[sessionIdIdx] || '';
-        const page = row[pageIdx] || '';
-        const entryPage = row[entryPageIdx] || '';
-        const exitPage = row[exitPageIdx] || '';
-
-        segmentCounts[segment] = (segmentCounts[segment] || 0) + 1;
-        deviceCounts[device] = (deviceCounts[device] || 0) + 1;
-        browserCounts[browser] = (browserCounts[browser] || 0) + 1;
-        osCounts[os] = (osCounts[os] || 0) + 1;
-        if (userTypeCounts[userType] !== undefined) userTypeCounts[userType]++;
-
-        if (row[copyIdx] === true || row[copyIdx] === 'true') copyEvents++;
-        if (row[pasteIdx] === true || row[pasteIdx] === 'true') pasteEvents++;
-        if (row[rageIdx] === true || row[rageIdx] === 'true') rageClicks++;
-        if (row[backBtnIdx] === true || row[backBtnIdx] === 'true') backButtonUsed++;
-        if (row[tabVisIdx] === 'hidden') hiddenTabCount++;
-
-        if (entryPage) entryPages[entryPage] = (entryPages[entryPage] || 0) + 1;
-        if (exitPage) exitPages[exitPage] = (exitPages[exitPage] || 0) + 1;
-
-        if (sessionId && page) {
-            if (!sessionFlows[sessionId]) sessionFlows[sessionId] = [];
-            sessionFlows[sessionId].push(page);
-        }
-    });
-
-    // Build Behaviour Metrics sheet
-    let sheet = ss.getSheetByName('Behaviour Metrics');
-    if (!sheet) sheet = ss.insertSheet('Behaviour Metrics');
-    sheet.clear();
-
-    const headStyle = { fontWeight: 'bold', background: '#7c3aed', fontColor: '#ffffff' };
-
-    // User Segments
-    const segmentData = Object.keys(segmentCounts).map(function (s) {
-        return [s, segmentCounts[s], ((segmentCounts[s] / rows.length) * 100).toFixed(1) + '%'];
-    }).sort(function (a, b) { return b[1] - a[1]; });
-    writeTable(sheet, 1, 1, ['User Segment', 'Count', '% of Total'], segmentData, headStyle);
-
-    // Behavioural Signals Summary
-    const signalData = [
-        ['Copy Events', copyEvents],
-        ['Paste Events', pasteEvents],
-        ['Rage Clicks', rageClicks],
-        ['Back Button Uses', backButtonUsed],
-        ['Tab Hidden Transitions', hiddenTabCount],
-        ['New Users', userTypeCounts['new']],
-        ['Returning Users', userTypeCounts['returning']],
-        ['Generated At', new Date().toLocaleString()]
-    ];
-    writeTable(sheet, segmentData.length + 4, 1, ['Behavioural Signal', 'Count'], signalData, headStyle);
-
-    // Device Breakdown
-    const deviceData = Object.keys(deviceCounts).map(function (d) {
-        return [d, deviceCounts[d]];
-    }).sort(function (a, b) { return b[1] - a[1]; });
-    writeTable(sheet, 1, 5, ['Device Type', 'Count'], deviceData, headStyle);
-
-    // Browser Breakdown
-    const browserData = Object.keys(browserCounts).map(function (b) {
-        return [b, browserCounts[b]];
-    }).sort(function (a, b) { return b[1] - a[1]; });
-    writeTable(sheet, deviceData.length + 4, 5, ['Browser', 'Count'], browserData, headStyle);
-
-    // OS Breakdown
-    const osData = Object.keys(osCounts).map(function (o) {
-        return [o, osCounts[o]];
-    }).sort(function (a, b) { return b[1] - a[1]; });
-    writeTable(sheet, deviceData.length + browserData.length + 7, 5, ['Operating System', 'Count'], osData, headStyle);
-
-    // Top Entry Pages
-    const entryData = Object.keys(entryPages).map(function (p) {
-        return [p, entryPages[p]];
-    }).sort(function (a, b) { return b[1] - a[1]; }).slice(0, 10);
-    writeTable(sheet, 1, 8, ['Top Entry Page', 'Count'], entryData, headStyle);
-
-    // Top Exit Pages
-    const exitData = Object.keys(exitPages).map(function (p) {
-        return [p, exitPages[p]];
-    }).sort(function (a, b) { return b[1] - a[1]; }).slice(0, 10);
-    writeTable(sheet, entryData.length + 4, 8, ['Top Exit Page', 'Count'], exitData, headStyle);
-
-    sheet.autoResizeColumns(1, 12);
-    logToSystem('Behaviour Metrics updated successfully.');
-}
-
-
-// ── 4. TRAFFIC ANALYTICS ──────────────────────────────────────────────────────
-// Aggregated traffic source and campaign analysis
-
-function updateTrafficAnalytics() {
-    const ss = SpreadsheetApp.openById(SPREADSHEET_ID);
-    const sourceSheet = ss.getSheetByName('User Behavior');
-    if (!sourceSheet || sourceSheet.getLastRow() < 2) return;
-
-    const data = sourceSheet.getDataRange().getValues();
-    const headers = data[0];
-    const rows = data.slice(1);
-
-    const sourceIdx = headers.indexOf('traffic_source');
-    const referrerIdx = headers.indexOf('referrer_url');
-    const utmSourceIdx = headers.indexOf('utm_source');
-    const utmMediumIdx = headers.indexOf('utm_medium');
-    const utmCampaignIdx = headers.indexOf('utm_campaign');
-    const sessionIdIdx = headers.indexOf('session_id');
-    const ipIdx = headers.indexOf('ip_address');
-    const pageIdx = headers.indexOf('page');
-    const countryIdx = headers.indexOf('geo_country');
-    const cityIdx = headers.indexOf('geo_city');
-    const timeOnPageIdx = headers.indexOf('time_on_page');
-    const bounceIdx = headers.indexOf('bounce');
-
-    // Traffic Source Aggregation
-    const sources = {};
-    const referrers = {};
-    const campaigns = {};
-    const utmBreakdown = {};
-    const countrySessions = {};
-    const citySessions = {};
-    const uniqueIPs = new Set();
-
-    rows.forEach(function (row) {
-        const source = row[sourceIdx] || 'direct';
-        const referrer = row[referrerIdx] || '';
-        const utmSource = row[utmSourceIdx] || '';
-        const utmMedium = row[utmMediumIdx] || '';
-        const utmCampaign = row[utmCampaignIdx] || '';
-        const ip = row[ipIdx] || '';
-        const country = row[countryIdx] || 'Unknown';
-        const city = row[cityIdx] || 'Unknown';
-        const timeOnPage = parseFloat(row[timeOnPageIdx]) || 0;
-        const bounce = row[bounceIdx] === true || row[bounceIdx] === 'true';
-
-        if (ip) uniqueIPs.add(ip);
-
-        if (!sources[source]) sources[source] = { sessions: 0, totalTime: 0, bounces: 0 };
-        sources[source].sessions++;
-        sources[source].totalTime += timeOnPage;
-        if (bounce) sources[source].bounces++;
-
-        if (referrer && !referrer.includes('trustgrid')) {
-            const domain = referrer.replace(/https?:\/\//, '').split('/')[0];
-            referrers[domain] = (referrers[domain] || 0) + 1;
-        }
-
-        if (utmCampaign) {
-            if (!campaigns[utmCampaign]) campaigns[utmCampaign] = 0;
-            campaigns[utmCampaign]++;
-        }
-
-        const utmKey = [utmSource, utmMedium, utmCampaign].filter(Boolean).join(' / ');
-        if (utmKey) utmBreakdown[utmKey] = (utmBreakdown[utmKey] || 0) + 1;
-
-        countrySessions[country] = (countrySessions[country] || 0) + 1;
-        citySessions[city] = (citySessions[city] || 0) + 1;
-    });
-
-    // Build Traffic Analytics sheet
-    let sheet = ss.getSheetByName('Traffic Analytics');
-    if (!sheet) sheet = ss.insertSheet('Traffic Analytics');
-    sheet.clear();
-
-    const headStyle = { fontWeight: 'bold', background: '#dc2626', fontColor: '#ffffff' };
-
-    // Summary
-    const summaryData = [
-        ['Total Events', rows.length],
-        ['Unique IPs', uniqueIPs.size],
-        ['Unique Countries', Object.keys(countrySessions).length],
-        ['Unique Cities', Object.keys(citySessions).length],
-        ['Generated At', new Date().toLocaleString()]
-    ];
-    writeTable(sheet, 1, 1, ['Traffic Summary', 'Value'], summaryData, headStyle);
-
-    // Source Breakdown
-    const sourceData = Object.keys(sources).map(function (s) {
-        const d = sources[s];
-        const avgTime = (d.totalTime / d.sessions / 1000).toFixed(1);
-        const bounceRate = ((d.bounces / d.sessions) * 100).toFixed(1);
-        return [s, d.sessions, avgTime + 's', bounceRate + '%'];
-    }).sort(function (a, b) { return b[1] - a[1]; });
-    writeTable(sheet, 9, 1, ['Traffic Source', 'Sessions', 'Avg Time', 'Bounce Rate'], sourceData, headStyle);
-
-    // Top Referrers
-    const referrerData = Object.keys(referrers).map(function (r) {
-        return [r, referrers[r]];
-    }).sort(function (a, b) { return b[1] - a[1]; }).slice(0, 15);
-    writeTable(sheet, 1, 6, ['Referring Domain', 'Count'], referrerData, headStyle);
-
-    // Campaign Performance
-    const campaignData = Object.keys(campaigns).map(function (c) {
-        return [c, campaigns[c]];
-    }).sort(function (a, b) { return b[1] - a[1]; });
-    if (campaignData.length > 0) {
-        writeTable(sheet, referrerData.length + 4, 6, ['Campaign', 'Sessions'], campaignData, headStyle);
-    }
-
-    // UTM Breakdown
-    const utmData = Object.keys(utmBreakdown).map(function (u) {
-        return [u, utmBreakdown[u]];
-    }).sort(function (a, b) { return b[1] - a[1]; });
-    if (utmData.length > 0) {
-        writeTable(sheet, 1, 9, ['UTM (Source / Medium / Campaign)', 'Count'], utmData, headStyle);
-    }
-
-    // Top Countries
-    const countryData = Object.keys(countrySessions).map(function (c) {
-        return [c, countrySessions[c]];
-    }).sort(function (a, b) { return b[1] - a[1]; }).slice(0, 20);
-    writeTable(sheet, utmData.length + 4, 9, ['Country', 'Sessions'], countryData, headStyle);
-
-    // Top Cities
-    const cityData = Object.keys(citySessions).map(function (c) {
-        return [c, citySessions[c]];
-    }).sort(function (a, b) { return b[1] - a[1]; }).slice(0, 20);
-    writeTable(sheet, utmData.length + countryData.length + 7, 9, ['City', 'Sessions'], cityData, headStyle);
-
-    sheet.autoResizeColumns(1, 12);
-    logToSystem('Traffic Analytics updated successfully.');
-}
-
-
-// ── 5. USER BEHAVIOUR LIBRARY ─────────────────────────────────────────────────
-// Per-user aggregated behaviour profile
-
-function updateUserBehaviourLibrary() {
-    const ss = SpreadsheetApp.openById(SPREADSHEET_ID);
-    const sourceSheet = ss.getSheetByName('User Behavior');
-    if (!sourceSheet || sourceSheet.getLastRow() < 2) return;
-
-    const data = sourceSheet.getDataRange().getValues();
-    const headers = data[0];
-    const rows = data.slice(1);
-
-    const userIdIdx = headers.indexOf('user_id');
-    const ipIdx = headers.indexOf('ip_address');
-    const countryIdx = headers.indexOf('geo_country');
-    const cityIdx = headers.indexOf('geo_city');
-    const sessionIdIdx = headers.indexOf('session_id');
-    const pageIdx = headers.indexOf('page');
-    const timeOnPageIdx = headers.indexOf('time_on_page');
-    const deviceIdx = headers.indexOf('device_type');
-    const browserIdx = headers.indexOf('browser');
-    const segmentIdx = headers.indexOf('user_segment');
-    const timestampIdx = headers.indexOf('timestamp');
-    const firstVisitIdx = headers.indexOf('first_visit_timestamp');
-    const entryPageIdx = headers.indexOf('entry_page');
-    const totalSessionsIdx = headers.indexOf('total_sessions');
-    const userTypeIdx = headers.indexOf('user_type');
-
-    const users = {};
-
-    rows.forEach(function (row) {
-        const userId = row[userIdIdx] || 'anonymous';
-        const ip = row[ipIdx] || '';
-        const country = row[countryIdx] || '';
-        const city = row[cityIdx] || '';
-        const sessionId = row[sessionIdIdx] || '';
-        const page = row[pageIdx] || '';
-        const timeOnPage = parseFloat(row[timeOnPageIdx]) || 0;
-        const device = row[deviceIdx] || '';
-        const browser = row[browserIdx] || '';
-        const segment = row[segmentIdx] || '';
-        const timestamp = row[timestampIdx] || '';
-        const firstVisit = row[firstVisitIdx] || '';
-        const entryPage = row[entryPageIdx] || '';
-        const totalSessions = parseInt(row[totalSessionsIdx]) || 1;
-
-        if (!users[userId]) {
-            users[userId] = {
-                ip: ip,
-                country: country,
-                city: city,
-                sessions: new Set(),
-                pages: {},
-                totalTime: 0,
-                device: device,
-                browser: browser,
-                segment: segment,
-                firstVisit: firstVisit || timestamp,
-                lastVisit: timestamp,
-                entryPage: entryPage,
-                totalSessions: totalSessions,
-                events: 0
-            };
-        }
-
-        const u = users[userId];
-        if (sessionId) u.sessions.add(sessionId);
-        u.pages[page] = (u.pages[page] || 0) + 1;
-        u.totalTime += timeOnPage;
-        u.events++;
-        if (timestamp > u.lastVisit) u.lastVisit = timestamp;
-        if (segment) u.segment = segment; // Use latest segment
-    });
-
-    // Build User Behaviour Library sheet
-    let sheet = ss.getSheetByName('User Behaviour Library');
-    if (!sheet) sheet = ss.insertSheet('User Behaviour Library');
-    sheet.clear();
-
-    const headStyle = { fontWeight: 'bold', background: '#0ea5e9', fontColor: '#ffffff' };
-
-    const libraryHeaders = [
-        'User ID', 'IP Address', 'Country', 'City',
-        'Total Sessions', 'Total Events', 'Total Time (s)',
-        'Avg Session Time (s)', 'Pages Visited', 'Top Page',
-        'Device', 'Browser', 'Segment',
-        'First Visit', 'Last Visit', 'Days Active'
-    ];
-
-    const libraryData = Object.keys(users).map(function (uid) {
-        const u = users[uid];
-        const sessionCount = Math.max(u.sessions.size, u.totalSessions);
-        const totalTimeSec = (u.totalTime / 1000).toFixed(0);
-        const avgSessionTime = sessionCount > 0 ? (u.totalTime / sessionCount / 1000).toFixed(0) : 0;
-        const pagesVisited = Object.keys(u.pages).length;
-        const topPage = Object.keys(u.pages).sort(function (a, b) {
-            return u.pages[b] - u.pages[a];
-        })[0] || '';
-
-        let daysActive = 0;
-        try {
-            const first = new Date(u.firstVisit);
-            const last = new Date(u.lastVisit);
-            daysActive = Math.max(1, Math.ceil((last - first) / (1000 * 60 * 60 * 24)));
-        } catch (e) { daysActive = 1; }
-
-        return [
-            uid, u.ip, u.country, u.city,
-            sessionCount, u.events, totalTimeSec,
-            avgSessionTime, pagesVisited, topPage,
-            u.device, u.browser, u.segment,
-            u.firstVisit, u.lastVisit, daysActive
-        ];
-    }).sort(function (a, b) { return b[5] - a[5]; }); // Sort by events desc
-
-    writeTable(sheet, 1, 1, libraryHeaders, libraryData, headStyle);
-
-    // Summary stats at bottom
-    const totalUsers = libraryData.length;
-    const returningUsers = libraryData.filter(function (r) { return r[4] > 1; }).length;
-    const avgEvents = totalUsers > 0 ? (libraryData.reduce(function (s, r) { return s + r[5]; }, 0) / totalUsers).toFixed(0) : 0;
-
-    const summaryRow = libraryData.length + 4;
-    writeTable(sheet, summaryRow, 1, ['Library Summary', 'Value'], [
-        ['Total Unique Users', totalUsers],
-        ['Returning Users', returningUsers],
-        ['New Users', totalUsers - returningUsers],
-        ['Avg Events per User', avgEvents],
-        ['Generated At', new Date().toLocaleString()]
-    ], headStyle);
-
-    sheet.autoResizeColumns(1, 16);
-    logToSystem('User Behaviour Library updated successfully.');
-}
-
-
-// ── 6. DAILY REPORTS ──────────────────────────────────────────────────────────
-// Generates daily summary report (date, total sessions, unique IPs, top page, generated at)
-
-function generateDailyReport() {
-    const ss = SpreadsheetApp.openById(SPREADSHEET_ID);
-    const sourceSheet = ss.getSheetByName('User Behavior');
-    if (!sourceSheet || sourceSheet.getLastRow() < 2) return;
-
-    const data = sourceSheet.getDataRange().getValues();
-    const headers = data[0];
-    const rows = data.slice(1);
-
-    const timestampIdx = headers.indexOf('timestamp');
-    const sessionIdIdx = headers.indexOf('session_id');
-    const ipIdx = headers.indexOf('ip_address');
-    const pageIdx = headers.indexOf('page');
-    const bounceIdx = headers.indexOf('bounce');
-    const timeOnPageIdx = headers.indexOf('time_on_page');
-    const scrollIdx = headers.indexOf('scroll_percentage');
-    const interactionIdx = headers.indexOf('interaction_count');
-
-    const today = new Date();
-    const todayStr = Utilities.formatDate(today, Session.getScriptTimeZone(), 'yyyy-MM-dd');
-
-    // Filter today's data
-    const todayRows = rows.filter(function (row) {
-        const ts = row[timestampIdx];
-        if (!ts) return false;
-        try {
-            const rowDate = Utilities.formatDate(new Date(ts), Session.getScriptTimeZone(), 'yyyy-MM-dd');
-            return rowDate === todayStr;
-        } catch (e) { return false; }
-    });
-
-    if (todayRows.length === 0) {
-        logToSystem('No data found for Daily Report on ' + todayStr);
-        return;
-    }
-
-    const sessions = new Set();
-    const ips = new Set();
-    const pageCounts = {};
-    const pageEngagement = {};
-    const sourceCounts = {};
-    let totalBounces = 0;
-    let totalTime = 0;
-    let totalScroll = 0;
-    let totalInteractions = 0;
-
-    todayRows.forEach(function (row) {
-        const sid = row[sessionIdIdx];
-        const ip = row[ipIdx];
-        let page = row[pageIdx] || 'Unknown';
-        if (page === '/book-demo') page = '/book-consultation';
-        
-        const isBounce = row[bounceIdx] === true || row[bounceIdx] === 'true';
-        const timeOnPage = parseFloat(row[timeOnPageIdx]) || 0;
-        const scroll = parseFloat(row[scrollIdx]) || 0;
-        const interactions = parseInt(row[interactionIdx]) || 0;
-        const source = row[headers.indexOf('traffic_source')] || 'direct';
-
-        if (sid) sessions.add(sid);
-        if (ip) ips.add(ip);
-        if (isBounce) totalBounces++;
-        
-        totalTime += timeOnPage;
-        totalScroll += scroll;
-        totalInteractions += interactions;
-        sourceCounts[source] = (sourceCounts[source] || 0) + 1;
-
-        pageCounts[page] = (pageCounts[page] || 0) + 1;
-        if (!pageEngagement[page]) pageEngagement[page] = { views: 0, score: 0 };
-        pageEngagement[page].views++;
-        pageEngagement[page].score += ((timeOnPage / 10000) * 0.4) + ((scroll / 100) * 0.4) + (interactions * 0.2);
-    });
-
-    const totalSessions = sessions.size || 1;
-    const bounceRate = ((totalBounces / totalSessions) * 100).toFixed(1);
-    const avgEngagement = (totalInteractions / totalSessions).toFixed(1);
-    
-    // Format sources for email
-    const topSources = Object.keys(sourceCounts).map(s => {
-        return { name: s, count: sourceCounts[s], share: ((sourceCounts[s] / todayRows.length) * 100).toFixed(0) };
-    }).sort((a, b) => b.count - a.count).slice(0, 3);
-
-    const sortedPages = Object.keys(pageCounts).sort(function (a, b) {
-        return pageCounts[b] - pageCounts[a];
-    });
-    const topPage = sortedPages[0] || 'N/A';
-    const top5Pages = sortedPages.slice(0, 5).map(p => {
-        return { name: p, views: pageCounts[p], score: (pageEngagement[p].score / pageEngagement[p].views).toFixed(1) };
-    });
-
-    // Write to Daily Reports sheet
-    const sheetName = 'Daily Reports';
-    let sheet = ss.getSheetByName(sheetName);
-    const reportHeaders = ['Date', 'Sessions', 'Unique IPs', 'Page Views', 'Bounce Rate', 'Avg Engagement', 'Top Page', 'Generated At'];
-    
-    if (!sheet) {
-        sheet = ss.insertSheet(sheetName);
-        sheet.appendRow(reportHeaders);
-        sheet.getRange(1, 1, 1, reportHeaders.length).setFontWeight('bold').setBackground('#f59e0b').setFontColor('#ffffff');
-        sheet.setFrozenRows(1);
-    }
-
-    // Trend Logic: Get yesterday's sessions
-    const existingData = sheet.getDataRange().getValues();
-    let yesterdaySessions = 0;
-    if (existingData.length > 1) {
-        yesterdaySessions = existingData[existingData.length - 1][1]; 
-    }
-    const sessionTrend = yesterdaySessions > 0 ? (((sessions.size - yesterdaySessions) / yesterdaySessions) * 100).toFixed(1) : 0;
-
-    let rowToUpdate = -1;
-    for (let i = 1; i < existingData.length; i++) {
-        if (existingData[i][0] === todayStr) {
-            rowToUpdate = i + 1;
-            break;
-        }
-    }
-
-    const reportRow = [todayStr, sessions.size, ips.size, todayRows.length, bounceRate + '%', avgEngagement, topPage, new Date().toLocaleString()];
-
-    if (rowToUpdate > 0) {
-        sheet.getRange(rowToUpdate, 1, 1, reportHeaders.length).setValues([reportRow]);
-    } else {
-        sheet.appendRow(reportRow);
-    }
-
-    sheet.autoResizeColumns(1, reportHeaders.length);
-    logToSystem('Detailed Daily Report generated for ' + todayStr);
-
-    // Send daily summary email
-    try {
-        const metrics = {
-            sessions: sessions.size,
-            ips: ips.size,
-            views: todayRows.length,
-            bounceRate: bounceRate + '%',
-            engagement: avgEngagement,
-            trend: sessionTrend,
-            topPages: top5Pages,
-            sources: topSources
-        };
-        sendDailyReportEmail(todayStr, metrics);
-    } catch (e) {
-        console.error('Daily report email failed:', e);
-    }
-}
-
-function sendDailyReportEmail(date, m) {
-    const logoUrl = 'https://trustgrid.ai/brand-icon.png';
-    const spreadsheetUrl = `https://docs.google.com/spreadsheets/d/${SPREADSHEET_ID}`;
-    const subject = `📊 Analytics Intelligence – ${date}`;
-
-    const trendColor = m.trend >= 0 ? '#10b981' : '#ef4444';
-    const trendIcon = m.trend >= 0 ? '↑' : '↓';
-
-    const pagesHtml = m.topPages.map((p, i) => `
-        <tr>
-            <td style="padding: 12px 0; border-bottom: 1px solid #f1f5f9; color: #64748b; font-size: 13px;">${i + 1}</td>
-            <td style="padding: 12px 0; border-bottom: 1px solid #f1f5f9; color: #0f172a; font-weight: 600; font-size: 13px;">${p.name}</td>
-            <td style="padding: 12px 0; border-bottom: 1px solid #f1f5f9; color: #0f172a; font-weight: 700; text-align: right; font-size: 13px;">${p.views}</td>
-            <td style="padding: 12px 0; border-bottom: 1px solid #f1f5f9; text-align: right;"><span style="background: #eff6ff; color: #3b82f6; padding: 4px 8px; border-radius: 6px; font-size: 11px; font-weight: 700;">${p.score}</span></td>
-        </tr>
-    `).join('');
-
-    const sourcesHtml = m.sources.map(s => `
-        <div style="flex: 1; min-width: 80px; text-align: center;">
-            <div style="font-size: 11px; color: #64748b; text-transform: uppercase; font-weight: 700; margin-bottom: 4px;">${s.name}</div>
-            <div style="font-size: 16px; font-weight: 700; color: #0f172a;">${s.share}%</div>
-        </div>
-    `).join('');
-
-    const htmlBody = `
-    <!DOCTYPE html>
-    <html>
-    <head>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <style>
-            @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700&display=swap');
-            body { font-family: 'Outfit', sans-serif; background-color: #f8fafc; margin: 0; padding: 0; }
-        </style>
-    </head>
-    <body style="margin: 0; padding: 40px 0; background-color: #f8fafc;">
-        <div style="max-width: 600px; margin: 0 auto; background-color: #ffffff; border-radius: 24px; overflow: hidden; box-shadow: 0 20px 25px -5px rgba(0,0,0,0.05);">
-            <div style="background: #0f172a; padding: 40px; text-align: center;">
-                <img src="${logoUrl}" alt="TrustGrid AI" style="width: 120px; margin-bottom: 24px;">
-                <h1 style="color: #ffffff; margin: 0; font-size: 24px; font-weight: 700;">Daily Performance Insight</h1>
-                <p style="color: #94a3b8; margin: 8px 0 0 0; font-size: 15px;">${date}</p>
-            </div>
-
-            <div style="padding: 40px;">
-                <!-- KPI Section -->
-                <div style="display: flex; gap: 16px; margin-bottom: 24px;">
-                    <div style="flex: 1; background: #f1f5f9; border-radius: 16px; padding: 16px; text-align: center;">
-                        <div style="font-size: 11px; color: #64748b; text-transform: uppercase; font-weight: 700; margin-bottom: 4px;">Sessions</div>
-                        <div style="font-size: 24px; font-weight: 700; color: #0f172a;">${m.sessions}</div>
-                        <div style="font-size: 11px; color: ${trendColor}; font-weight: 600; margin-top: 2px;">${trendIcon} ${Math.abs(m.trend)}% vs yest.</div>
-                    </div>
-                    <div style="flex: 1; background: #f1f5f9; border-radius: 16px; padding: 16px; text-align: center;">
-                        <div style="font-size: 11px; color: #64748b; text-transform: uppercase; font-weight: 700; margin-bottom: 4px;">Bounce Rate</div>
-                        <div style="font-size: 24px; font-weight: 700; color: #0f172a;">${m.bounceRate}</div>
-                    </div>
-                </div>
-
-                <div style="display: flex; gap: 16px; margin-bottom: 32px;">
-                    <div style="flex: 1; background: #eff6ff; border-radius: 16px; padding: 16px; text-align: center;">
-                        <div style="font-size: 11px; color: #3b82f6; text-transform: uppercase; font-weight: 700; margin-bottom: 4px;">Engagement</div>
-                        <div style="font-size: 24px; font-weight: 700; color: #1e3a8a;">${m.engagement}</div>
-                    </div>
-                    <div style="flex: 1; background: #f0fdf4; border-radius: 16px; padding: 16px; text-align: center;">
-                        <div style="font-size: 11px; color: #10b981; text-transform: uppercase; font-weight: 700; margin-bottom: 4px;">Visitors</div>
-                        <div style="font-size: 24px; font-weight: 700; color: #064e3b;">${m.ips}</div>
-                    </div>
-                </div>
-
-                <!-- Traffic Sources -->
-                <div style="background: #f8fafc; border-radius: 16px; padding: 20px; margin-bottom: 32px;">
-                    <h4 style="margin: 0 0 16px 0; font-size: 12px; color: #94a3b8; text-transform: uppercase; text-align: center;">Traffic Source Breakdown</h4>
-                    <div style="display: flex; justify-content: space-around;">
-                        ${sourcesHtml}
-                    </div>
-                </div>
-
-                <!-- Pages Table -->
-                <h3 style="margin: 0 0 16px 0; font-size: 15px; color: #0f172a; font-weight: 700; border-left: 4px solid #3b82f6; padding-left: 12px;">Top Content Analytics</h3>
-                <table style="width: 100%; border-collapse: collapse; margin-bottom: 32px;">
-                    <thead>
-                        <tr>
-                            <th style="text-align: left; padding-bottom: 8px; border-bottom: 1px solid #f1f5f9; color: #94a3b8; font-size: 11px;">RANK</th>
-                            <th style="text-align: left; padding-bottom: 11px; border-bottom: 1px solid #f1f5f9; color: #94a3b8; font-size: 11px;">CONTENT</th>
-                            <th style="text-align: right; padding-bottom: 11px; border-bottom: 1px solid #f1f5f9; color: #94a3b8; font-size: 11px;">VIEWS</th>
-                            <th style="text-align: right; padding-bottom: 11px; border-bottom: 1px solid #f1f5f9; color: #94a3b8; font-size: 11px;">SCORE</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        ${pagesHtml}
-                    </tbody>
-                </table>
-
-                <div style="text-align: center;">
-                    <a href="${spreadsheetUrl}" style="display: inline-block; background: #0f172a; color: #ffffff; padding: 16px 32px; border-radius: 10px; text-decoration: none; font-weight: 700; font-size: 15px;">Access Live Analytics Workspace</a>
-                </div>
-            </div>
-
-            <div style="background: #f1f5f9; padding: 24px; text-align: center; color: #94a3b8; font-size: 11px;">
-                Generated automatically by Trustflow.ai Bridge
-            </div>
-        </div>
-    </body>
-    </html>`;
-
-    GmailApp.sendEmail(ADMIN_EMAIL, subject, '', {
-        htmlBody: htmlBody,
-        name: 'Trustflow Analytics'
-    });
-}
-
-
-// ── 7. WEEKLY REPORTS ─────────────────────────────────────────────────────────
-// Generates weekly summary (week start, end, total sessions, unique IPs, top 5 pages, generated at)
-
-function generateWeeklyReport() {
-    const ss = SpreadsheetApp.openById(SPREADSHEET_ID);
-    const sourceSheet = ss.getSheetByName('User Behavior');
-    if (!sourceSheet || sourceSheet.getLastRow() < 2) return;
-
-    const data = sourceSheet.getDataRange().getValues();
-    const headers = data[0];
-    const rows = data.slice(1);
-
-    const timestampIdx = headers.indexOf('timestamp');
-    const sessionIdIdx = headers.indexOf('session_id');
-    const ipIdx = headers.indexOf('ip_address');
-    const pageIdx = headers.indexOf('page');
-
-    // Calculate week boundaries (Monday to Sunday)
-    const today = new Date();
-    const dayOfWeek = today.getDay();
-    const mondayOffset = dayOfWeek === 0 ? -6 : 1 - dayOfWeek;
-
-    const weekStart = new Date(today);
-    weekStart.setDate(today.getDate() + mondayOffset);
-    weekStart.setHours(0, 0, 0, 0);
-
-    const weekEnd = new Date(weekStart);
-    weekEnd.setDate(weekStart.getDate() + 6);
-    weekEnd.setHours(23, 59, 59, 999);
-
-    const weekStartStr = Utilities.formatDate(weekStart, Session.getScriptTimeZone(), 'yyyy-MM-dd');
-    const weekEndStr = Utilities.formatDate(weekEnd, Session.getScriptTimeZone(), 'yyyy-MM-dd');
-
-    // Filter this week's data
-    const weekRows = rows.filter(function (row) {
-        const ts = row[timestampIdx];
-        if (!ts) return false;
-        try {
-            const rowDate = new Date(ts);
-            return rowDate >= weekStart && rowDate <= weekEnd;
-        } catch (e) { return false; }
-    });
-
-    const sessions = new Set();
-    const ips = new Set();
-    const pageCounts = {};
-
-    weekRows.forEach(function (row) {
-        const sid = row[sessionIdIdx];
-        const ip = row[ipIdx];
-        let page = row[pageIdx] || 'Unknown';
-        if (page === '/book-demo') page = '/book-consultation';
-
-        if (sid) sessions.add(sid);
-        if (ip) ips.add(ip);
-        pageCounts[page] = (pageCounts[page] || 0) + 1;
-    });
-
-    // Get top 5 pages
-    const topPages = Object.keys(pageCounts).sort(function (a, b) {
-        return pageCounts[b] - pageCounts[a];
-    }).slice(0, 5);
-    const top5PagesStr = topPages.map(function (p, i) {
-        return (i + 1) + '. ' + p + ' (' + pageCounts[p] + ')';
-    }).join(' | ');
-
-    // Write to Weekly Reports sheet
-    const sheetName = 'Weekly Reports';
-    let sheet = ss.getSheetByName(sheetName);
-    if (!sheet) {
-        sheet = ss.insertSheet(sheetName);
-        sheet.appendRow(['Week Starting', 'Week Ending', 'Total Sessions', 'Unique IPs', 'Top 5 Pages', 'Generated At']);
-        sheet.getRange(1, 1, 1, 6).setFontWeight('bold').setBackground('#8b5cf6').setFontColor('#ffffff');
-        sheet.setFrozenRows(1);
-    }
-
-    // Check if this week's report already exists
-    const existingData = sheet.getDataRange().getValues();
-    let rowToUpdate = -1;
-    for (let i = 1; i < existingData.length; i++) {
-        if (existingData[i][0] === weekStartStr) {
-            rowToUpdate = i + 1;
-            break;
-        }
-    }
-
-    const reportRow = [weekStartStr, weekEndStr, sessions.size, ips.size, top5PagesStr, new Date().toLocaleString()];
-
-    if (rowToUpdate > 0) {
-        sheet.getRange(rowToUpdate, 1, 1, 6).setValues([reportRow]);
-    } else {
-        sheet.appendRow(reportRow);
-    }
-
-    sheet.autoResizeColumns(1, 6);
-    logToSystem('Weekly Report generated for ' + weekStartStr + ' to ' + weekEndStr);
-
-    // Send weekly summary email
-    try {
-        sendWeeklyReportEmail(weekStartStr, weekEndStr, sessions.size, ips.size, topPages, pageCounts);
-    } catch (e) {
-        console.error('Weekly report email failed:', e);
-    }
-}
-
-function sendWeeklyReportEmail(weekStart, weekEnd, sessions, uniqueIPs, topPages, pageCounts) {
-    const logoUrl = 'https://trustgrid.ai/brand-icon.png';
-    const subject = '📈 Weekly Analytics Report – ' + weekStart + ' to ' + weekEnd;
-
-    const pagesHtml = topPages.map(function (p, i) {
-        return '<tr><td style="padding: 10px 0; border-bottom: 1px solid #f1f5f9; color: #64748b;">#' + (i + 1) + '</td><td style="padding: 10px 0; border-bottom: 1px solid #f1f5f9; font-weight: 600;">' + p + '</td><td style="padding: 10px 0; border-bottom: 1px solid #f1f5f9; text-align: right; font-weight: 700;">' + (pageCounts[p] || 0) + '</td></tr>';
-    }).join('');
-
-    const htmlBody = `
-    <!DOCTYPE html>
-    <html>
-    <head>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <style>
-            @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700&display=swap');
-            body { font-family: 'Outfit', sans-serif; background-color: #f1f5f9; margin: 0; padding: 0; }
-        </style>
-    </head>
-    <body style="margin: 0; padding: 40px 0; background-color: #f1f5f9;">
-        <div style="max-width: 600px; margin: 0 auto; background-color: #ffffff; border-radius: 20px; overflow: hidden; box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1);">
-            <div style="background: linear-gradient(135deg, #8b5cf6 0%, #6d28d9 100%); padding: 40px; text-align: center;">
-                <img src="${logoUrl}" alt="TrustGrid AI" style="width: 120px; margin-bottom: 20px;">
-                <h1 style="color: #ffffff; margin: 0; font-size: 24px; font-weight: 700;">Weekly Analytics Report</h1>
-                <p style="color: #e9d5ff; margin: 10px 0 0 0;">${weekStart} → ${weekEnd}</p>
-            </div>
-            <div style="padding: 40px;">
-                <div style="display: flex; gap: 20px; margin-bottom: 30px;">
-                    <div style="flex: 1; background: #f8fafc; border-radius: 12px; padding: 20px; text-align: center;">
-                        <div style="font-size: 32px; font-weight: 700; color: #0f172a;">${sessions}</div>
-                        <div style="font-size: 13px; color: #64748b; margin-top: 4px;">Total Sessions</div>
-                    </div>
-                    <div style="flex: 1; background: #f8fafc; border-radius: 12px; padding: 20px; text-align: center;">
-                        <div style="font-size: 32px; font-weight: 700; color: #0f172a;">${uniqueIPs}</div>
-                        <div style="font-size: 13px; color: #64748b; margin-top: 4px;">Unique IPs</div>
-                    </div>
-                </div>
-                <h3 style="font-size: 14px; text-transform: uppercase; color: #64748b; letter-spacing: 0.1em; margin-bottom: 16px;">Top 5 Pages</h3>
-                <table style="width: 100%; border-collapse: collapse;">
-                    <tr><th style="text-align: left; padding: 10px 0; border-bottom: 2px solid #e2e8f0; color: #94a3b8; font-size: 12px;">Rank</th><th style="text-align: left; padding: 10px 0; border-bottom: 2px solid #e2e8f0; color: #94a3b8; font-size: 12px;">Page</th><th style="text-align: right; padding: 10px 0; border-bottom: 2px solid #e2e8f0; color: #94a3b8; font-size: 12px;">Views</th></tr>
-                    ${pagesHtml}
-                </table>
-            </div>
-            <div style="background-color: #f8fafc; padding: 20px; text-align: center; color: #94a3b8; font-size: 12px;">
-                TrustGrid AI – Automated Weekly Report
-            </div>
-        </div>
-    </body>
-    </html>`;
-
-    GmailApp.sendEmail(ADMIN_EMAIL, subject, '', {
-        htmlBody: htmlBody,
-        name: 'TrustGrid AI Weekly Report'
-    });
-}
-
-
-// ── 8. REPORTS & TRENDS ───────────────────────────────────────────────────────
-// Dashboard: Daily Traffic Trend, Weekly Sessions Comparison, Traffic Source Breakdown,
-// Cron Trigger Execution Log
-
-function updateReportsAndTrends() {
-    const ss = SpreadsheetApp.openById(SPREADSHEET_ID);
-
-    let sheet = ss.getSheetByName('Reports & Trends');
-    if (!sheet) sheet = ss.insertSheet('Reports & Trends');
-    sheet.clear();
-
-    const headStyle = { fontWeight: 'bold', background: '#0f172a', fontColor: '#ffffff' };
-
-    // ─── A. Daily Traffic Trend ─────────────────────────────────────────────
-    const sourceSheet = ss.getSheetByName('User Behavior');
-    if (sourceSheet && sourceSheet.getLastRow() >= 2) {
-        const data = sourceSheet.getDataRange().getValues();
-        const headers = data[0];
-        const rows = data.slice(1);
-        const timestampIdx = headers.indexOf('timestamp');
-        const sessionIdIdx = headers.indexOf('session_id');
-        const ipIdx = headers.indexOf('ip_address');
-        const pageIdx = headers.indexOf('page');
-        const sourceIdx = headers.indexOf('traffic_source');
-
-        // Aggregate by date
-        const dailyData = {};
-        const sourceCounts = {};
-
-        rows.forEach(function (row) {
-            const ts = row[timestampIdx];
-            const source = row[sourceIdx] || 'direct';
-            if (!ts) return;
-            try {
-                const dateStr = Utilities.formatDate(new Date(ts), Session.getScriptTimeZone(), 'yyyy-MM-dd');
-                if (!dailyData[dateStr]) {
-                    dailyData[dateStr] = { sessions: new Set(), ips: new Set(), pageViews: 0 };
-                }
-                const sessionId = row[sessionIdIdx];
-                const ip = row[ipIdx];
-                if (sessionId) dailyData[dateStr].sessions.add(sessionId);
-                if (ip) dailyData[dateStr].ips.add(ip);
-                dailyData[dateStr].pageViews++;
-
-                sourceCounts[source] = (sourceCounts[source] || 0) + 1;
-            } catch (e) { }
-        });
-
-        // Daily trend table
-        const dailyTrend = Object.keys(dailyData).sort().map(function (date) {
-            const d = dailyData[date];
-            return [date, d.sessions.size, d.ips.size, d.pageViews];
-        });
-
-        writeTable(sheet, 1, 1, ['Date', 'Sessions', 'Unique IPs', 'Page Views'], dailyTrend, headStyle);
-
-        // Build daily traffic chart
-        if (dailyTrend.length > 0) {
-            const existing = sheet.getCharts();
-            existing.forEach(function (c) { sheet.removeChart(c); });
-
-            const chartRange = sheet.getRange(1, 1, dailyTrend.length + 1, 4);
-            const trendChart = sheet.newChart()
-                .setChartType(Charts.ChartType.LINE)
-                .addRange(chartRange)
-                .setPosition(1, 6, 0, 0)
-                .setOption('title', 'Daily Traffic Trend')
-                .setOption('width', 700)
-                .setOption('height', 350)
-                .setOption('curveType', 'function')
-                .build();
-            sheet.insertChart(trendChart);
-        }
-
-        // ─── B. Weekly Sessions Comparison (from Weekly Reports) ────────────
-        const weeklySheet = ss.getSheetByName('Weekly Reports');
-        if (weeklySheet && weeklySheet.getLastRow() >= 2) {
-            const weeklyData = weeklySheet.getDataRange().getValues();
-            const weeklyRows = weeklyData.slice(1);
-
-            const weeklyComparison = weeklyRows.map(function (row) {
-                return [row[0] + ' – ' + row[1], row[2], row[3]];
-            });
-
-            const weeklyStartRow = dailyTrend.length + 4;
-            writeTable(sheet, weeklyStartRow, 1, ['Week', 'Sessions', 'Unique IPs'], weeklyComparison, headStyle);
-
-            if (weeklyComparison.length > 1) {
-                const wcRange = sheet.getRange(weeklyStartRow, 1, weeklyComparison.length + 1, 3);
-                const wcChart = sheet.newChart()
-                    .setChartType(Charts.ChartType.COLUMN)
-                    .addRange(wcRange)
-                    .setPosition(weeklyStartRow, 6, 0, 0)
-                    .setOption('title', 'Weekly Sessions Comparison')
-                    .setOption('width', 700)
-                    .setOption('height', 350)
-                    .build();
-                sheet.insertChart(wcChart);
-            }
-        }
-
-        // ─── C. Traffic Source Breakdown ─────────────────────────────────────
-        const sourceData = Object.keys(sourceCounts).map(function (s) {
-            return [s, sourceCounts[s], ((sourceCounts[s] / rows.length) * 100).toFixed(1) + '%'];
-        }).sort(function (a, b) { return b[1] - a[1]; });
-
-        const sourceStartRow = (dailyTrend.length || 0) + 20 + 4;
-        writeTable(sheet, sourceStartRow, 1, ['Traffic Source', 'Count', '% Share'], sourceData, headStyle);
-
-        if (sourceData.length > 0) {
-            const srcRange = sheet.getRange(sourceStartRow, 1, sourceData.length + 1, 2);
-            const pieChart = sheet.newChart()
-                .setChartType(Charts.ChartType.PIE)
-                .addRange(srcRange)
-                .setPosition(sourceStartRow, 6, 0, 0)
-                .setOption('title', 'Traffic Source Breakdown')
-                .setOption('width', 500)
-                .setOption('height', 350)
-                .setOption('pieHole', 0.4)
-                .build();
-            sheet.insertChart(pieChart);
-        }
-    }
-
-    // ─── D. Cron Trigger Execution Log ──────────────────────────────────────
-    const cronSheet = ss.getSheetByName('Cron Execution Log');
-    if (cronSheet && cronSheet.getLastRow() >= 2) {
-        const cronData = cronSheet.getDataRange().getValues();
-        const cronRows = cronData.slice(1).slice(-20); // Last 20 entries
-
-        const cronStartRow = 50;
-        writeTable(sheet, cronStartRow, 1, cronData[0], cronRows,
-            { fontWeight: 'bold', background: '#64748b', fontColor: '#ffffff' });
-    }
-
-    sheet.autoResizeColumns(1, 12);
-    logToSystem('Reports & Trends dashboard updated.');
-}
-
-
-// ── CRON TRIGGER SETUP & EXECUTION ────────────────────────────────────────────
-// Sets up time-based triggers for automated report generation
-
-function setupCronTriggers() {
-    // Remove existing triggers to avoid duplicates
-    const triggers = ScriptApp.getProjectTriggers();
-    triggers.forEach(function (trigger) {
-        const funcName = trigger.getHandlerFunction();
-        if (['cronDailyReport', 'cronWeeklyReport', 'cronRefreshAllAnalytics'].includes(funcName)) {
-            ScriptApp.deleteTrigger(trigger);
-        }
-    });
-
-    // HR Weekly Report - runs every Friday at 5:00 PM
-    ScriptApp.newTrigger('cronWeeklyAlertsHR')
-        .timeBased()
-        .onWeekDay(ScriptApp.WeekDay.FRIDAY)
-        .atHour(17)
-        .nearMinute(0)
-        .create();
-
-    // HR Monthly Report - runs 1st of every month at 9:00 AM
-    ScriptApp.newTrigger('cronMonthlyAlertsHR')
-        .timeBased()
-        .onMonthDay(1)
-        .atHour(9)
-        .nearMinute(0)
-        .create();
-
-    // Daily Report – runs every day at 11:30 PM
-    ScriptApp.newTrigger('cronDailyReport')
-        .timeBased()
-        .everyDays(1)
-        .atHour(23)
-        .nearMinute(30)
-        .create();
-
-    // Weekly Report – runs every Monday at 8:00 AM
-    ScriptApp.newTrigger('cronWeeklyReport')
-        .timeBased()
-        .onWeekDay(ScriptApp.WeekDay.MONDAY)
-        .atHour(8)
-        .nearMinute(0)
-        .create();
-
-    // Full Analytics Refresh – runs every 6 hours
-    ScriptApp.newTrigger('cronRefreshAllAnalytics')
-        .timeBased()
-        .everyHours(6)
-        .create();
-
-    logCronExecution('setupCronTriggers', 'All cron triggers configured successfully.');
-    SpreadsheetApp.getUi().alert('✅ Cron Triggers Set Up',
-        'The following automated tasks are now scheduled:\n\n' +
-        '• Daily Report → Every day at 11:30 PM\n' +
-        '• Weekly Report → Every Monday at 8:00 AM\n' +
-        '• Full Analytics Refresh → Every 6 hours',
-        SpreadsheetApp.getUi().ButtonSet.OK);
-}
-
-function cronDailyReport() {
-    logCronExecution('cronDailyReport', 'Starting...');
-    try {
-        generateDailyReport();
-        logCronExecution('cronDailyReport', '✅ Completed successfully.');
-    } catch (e) {
-        logCronExecution('cronDailyReport', '❌ Failed: ' + e.toString());
-    }
-}
-
-function cronWeeklyReport() {
-    logCronExecution('cronWeeklyReport', 'Starting...');
-    try {
-        generateWeeklyReport();
-        updateReportsAndTrends();
-        logCronExecution('cronWeeklyReport', '✅ Completed successfully.');
-    } catch (e) {
-        logCronExecution('cronWeeklyReport', '❌ Failed: ' + e.toString());
-    }
-}
-
-function cronRefreshAllAnalytics() {
-    logCronExecution('cronRefreshAllAnalytics', 'Starting full refresh...');
-    try {
-        updateEngagementMetrics();
-        updateBehaviourMetrics();
-        updateTrafficAnalytics();
-        updateUserBehaviourLibrary();
-        updateAnalyticsDashboard();
-        updateReportsAndTrends();
-        logCronExecution('cronRefreshAllAnalytics', '✅ Full refresh completed.');
-    } catch (e) {
-        logCronExecution('cronRefreshAllAnalytics', '❌ Failed: ' + e.toString());
-    }
-}
-
-function logCronExecution(functionName, status) {
-    try {
-        const ss = SpreadsheetApp.openById(SPREADSHEET_ID);
-        const sheetName = 'Cron Execution Log';
-        let sheet = ss.getSheetByName(sheetName);
-        if (!sheet) {
-            sheet = ss.insertSheet(sheetName);
-            sheet.appendRow(['Timestamp', 'Function', 'Status']);
-            sheet.getRange(1, 1, 1, 3).setFontWeight('bold').setBackground('#334155').setFontColor('#ffffff');
-            sheet.setFrozenRows(1);
-        }
-        sheet.appendRow([new Date().toLocaleString(), functionName, status]);
-        sheet.autoResizeColumns(1, 3);
-    } catch (e) {
-        console.error('Cron log error:', e);
-    }
-}
-
-
-// ── MASTER REFRESH (Manual via Menu) ──────────────────────────────────────────
-// Runs all behaviour analytics updates at once
-
-function refreshAllBehaviourAnalytics() {
-    const ui = SpreadsheetApp.getUi();
-    ui.alert('🔄 Refreshing...', 'All Behaviour Analytics sheets are being updated. This may take a moment.', ui.ButtonSet.OK);
-
-    try {
-        updateEngagementMetrics();
-        updateBehaviourMetrics();
-        updateTrafficAnalytics();
-        updateUserBehaviourLibrary();
-        generateDailyReport();
-        generateWeeklyReport();
-        updateReportsAndTrends();
-        updateAnalyticsDashboard();
-
-        ui.alert('✅ Complete', 'All Behaviour Analytics sheets have been updated successfully!', ui.ButtonSet.OK);
-    } catch (e) {
-        ui.alert('❌ Error', 'Something went wrong: ' + e.toString(), ui.ButtonSet.OK);
-        logToSystem('refreshAllBehaviourAnalytics failed: ' + e.toString());
-    }
-}
-
-
-
-// ==========================================
-// CAREER APPLICATIONS MODULE (GOVENICS)
-// ==========================================
-
-function handleCareerApplication(ss, data) {
-    const sheetName = 'CareerApplications';
-    const sheet = getOrCreateSheet(ss, sheetName, ['Timestamp', 'name', 'email', 'phone', 'experience', 'position', 'linkedinUrl', 'message', 'resumeFilename']);
-    
-    // Add row
-    const headers = sheet.getRange(1, 1, 1, sheet.getLastColumn()).getValues()[0];
-    const row = headers.map(h => {
-        if (h === 'Timestamp') return new Date().toISOString();
-        if (h === 'resumeFilename') return data.resumeFilename || '';
-        return data[h] !== undefined ? data[h] : '';
-    });
-    sheet.appendRow(row);
-    
-    let attachment = null;
-    if (data.resumeData && data.resumeFilename) {
-        try {
-            const decoded = Utilities.base64Decode(data.resumeData);
-            attachment = Utilities.newBlob(decoded, data.resumeMimeType || 'application/pdf', data.resumeFilename);
-        } catch (err) {
-            console.error('Failed to decode base64 resume', err);
-        }
-    }
-    
-    const subject = `New Career Application: ${data.name || 'Candidate'} for ${data.position || 'Open Role'}`;
-    const bodyText = `
-Hello HR Team,
-
-A new career application has been received.
-
-Name: ${data.name || ''}
-Email: ${data.email || ''}
-Phone: ${data.phone || ''}
-Position: ${data.position || ''}
-Experience: ${data.experience || ''}
-LinkedIn: ${data.linkedinUrl || 'N/A'}
-
-Message:
-${data.message || 'N/A'}
-
-Regards,
-Automated System
-    `;
-    
-    const emailOptions = {
-        to: 'hrms2026@isisecurity.in,pooja.test2026@gmail.com',
-        subject: subject,
-        body: bodyText
+function doPost(e) {
+  if (!e || !e.postData || !e.postData.contents) {
+    console.warn("doPost received empty body. Initializing manual test payload...");
+    e = {
+      postData: {
+        contents: JSON.stringify({
+          sheetName: "Inbound_Leads",
+          fields: {
+            name: "Enterprise Test",
+            email: "test@govenics.com",
+            phone: "+91 98401 23456",
+            company: "Govenics Test Lab",
+            requirement: "ISO 27001 Gap Audit"
+          }
+        })
+      }
     };
-    if (attachment) {
-        emailOptions.attachments = [attachment];
-    }
-    
-    MailApp.sendEmail(emailOptions);
-}
+  }
 
-// ------------------------------------------
-// HR ALERTS
-// ------------------------------------------
+  try {
+    var ss = getSpreadsheet(); // Ensure spreadsheet instance is initialized
 
-function generateAlertsHR(title, daysAgo) {
-    const ss = SpreadsheetApp.openById(SPREADSHEET_ID);
-    let totalCareers = 0;
-    
-    const careersSheet = ss.getSheetByName('CareerApplications');
-    if (careersSheet && careersSheet.getLastRow() > 1) {
-        totalCareers = countRecentRows(careersSheet, daysAgo);
-    }
-    
-    const subject = `Govenics GRC - ${title} Summary`;
-    const bodyText = `
-Hello Team,
-
-Here is your ${title} summary from the Govenics website.
-
-- New Career Applications: ${totalCareers}
-
-Please check the Google Sheet for full details.
-
-Regards,
-Govenics Automated System
-    `;
-    
-    MailApp.sendEmail('hrms2026@isisecurity.in,pooja.test2026@gmail.com', subject, bodyText);
-}
-
-function cronWeeklyAlertsHR() {
-    logCronExecution('cronWeeklyAlertsHR', 'Starting...');
+    var body;
     try {
-        generateAlertsHR('Weekly HR', 7);
-        logCronExecution('cronWeeklyAlertsHR', '✅ Completed.');
-    } catch(e) {
-        logCronExecution('cronWeeklyAlertsHR', '❌ Failed: ' + e.toString());
+      body = JSON.parse(e.postData.contents);
+    } catch(err) {
+      return ContentService.createTextOutput("Error: Invalid JSON payload").setMimeType(ContentService.MimeType.TEXT);
     }
-}
 
-function cronMonthlyAlertsHR() {
-    logCronExecution('cronMonthlyAlertsHR', 'Starting...');
+    var fields = body.fields || body;
+    var rawSheetName = body.sheetName || body.table || body.type || "";
+    var normName = rawSheetName.toLowerCase().replace(/[\s\-_]/g, '');
+    var canonicalName = SHEET_NAME_ALIASES[normName] || rawSheetName || "Inbound_Leads";
+
+    // Strictly preserve Career Applications (File archive & Drive integration)
+    if (canonicalName === "Career_Applications") {
+      handleCareerApplication(ss, body);
+      return ContentService.createTextOutput(JSON.stringify({
+        success: true,
+        sheet: "Career_Applications",
+        message: "Career Application Processed & Resume Archived"
+      })).setMimeType(ContentService.MimeType.JSON);
+    }
+
+    // Lead Source Detection Priority:
+    // 1. Explicit lead source supplied
+    // 2. UTM Source
+    // 3. Referrer
+    // 4. Campaign metadata
+    // 5. Page/source information
+    var explicitSource = (fields.lead_source || fields.leadSource || fields["Lead Source"] || body.leadSource || body.lead_source || "").toLowerCase().trim();
+    var utmSource = (fields.utm_source || fields.utmSource || fields["UTM Source"] || body.utmSource || "").toLowerCase().trim();
+    var referrer = (fields.referrer || body.referrer || "").toLowerCase().trim();
+    var ytCampaign = fields.youtube_campaign || fields.youtubeCampaign || fields["YouTube Campaign"] || "";
+    var liCampaign = fields.linkedin_campaign || fields.linkedinCampaign || fields["LinkedIn Campaign"] || "";
+    var pageUrl = (fields.page_url || fields.pageUrl || fields.page || fields["Page"] || body.pageUrl || "").toLowerCase();
+
+    var isYouTube = explicitSource.includes("youtube") || explicitSource.includes("youtu.be") ||
+                    utmSource.includes("youtube") || utmSource === "yt" ||
+                    referrer.includes("youtube.com") || referrer.includes("youtu.be") ||
+                    ytCampaign !== "" || pageUrl.includes("utm_source=youtube");
+
+    var isLinkedIn = explicitSource.includes("linkedin") ||
+                     utmSource.includes("linkedin") || utmSource === "li" ||
+                     referrer.includes("linkedin.com") || referrer.includes("lnkd.in") ||
+                     liCampaign !== "" || pageUrl.includes("utm_source=linkedin");
+
+    var leadPrefix = "GOV-";
+    var detectedSource = fields["Lead Source"] || fields.leadSource || "Website Form";
+
+    if (canonicalName === "Strategy_Session_Bookings") {
+      leadPrefix = "GOV-SS-";
+      detectedSource = "Book a Strategy Session";
+    } else if (isYouTube && !canonicalName.toLowerCase().includes("career")) {
+      canonicalName = LEAD_SHEETS.youtube;
+      detectedSource = "YouTube";
+      fields["Lead Source"] = "YouTube";
+      fields.leadSource = "YouTube";
+      leadPrefix = "GOV-YT-";
+    } else if (isLinkedIn && !canonicalName.toLowerCase().includes("career")) {
+      canonicalName = LEAD_SHEETS.linkedin;
+      detectedSource = "LinkedIn";
+      fields["Lead Source"] = "LinkedIn";
+      fields.leadSource = "LinkedIn";
+      leadPrefix = "GOV-LI-";
+    }
+
+    var sheet = getOrCreateSheet(ss, canonicalName, TAB_CONFIGS[canonicalName]);
+
+    // Ensure unique server-side Lead Number
+    var leadNo = fields["Lead Number"] || fields.leadNumber || fields.lead_number || body.leadNumber || body.lead_number;
+    if (!leadNo) {
+      if (fields["Booking Reference"]) {
+        leadNo = fields["Booking Reference"];
+      } else {
+        var nextRow = Math.max(sheet.getLastRow(), 1);
+        var paddedNum = ("000000" + nextRow).slice(-6);
+        leadNo = leadPrefix + paddedNum;
+      }
+      fields["Lead Number"] = leadNo;
+      fields.leadNumber = leadNo;
+    }
+
+    // Map additional parameters for youtube_lead / linkedin_lead
+    if (canonicalName === LEAD_SHEETS.youtube) {
+      if (!fields["YouTube Campaign"] && (fields.utm_campaign || fields.utmCampaign)) {
+        fields["YouTube Campaign"] = fields.utm_campaign || fields.utmCampaign;
+      }
+      if (!fields["YouTube Video / Content"] && (fields.utm_content || fields.utmContent)) {
+        fields["YouTube Video / Content"] = fields.utm_content || fields.utmContent;
+      }
+    } else if (canonicalName === LEAD_SHEETS.linkedin) {
+      if (!fields["LinkedIn Campaign"] && (fields.utm_campaign || fields.utmCampaign)) {
+        fields["LinkedIn Campaign"] = fields.utm_campaign || fields.utmCampaign;
+      }
+      if (!fields["LinkedIn Form / Campaign ID"] && (fields.linkedin_form || fields.utm_term || fields.utmTerm)) {
+        fields["LinkedIn Form / Campaign ID"] = fields.linkedin_form || fields.utm_term || fields.utmTerm;
+      }
+    }
+
+    // Dynamic header sync: Ensure any extra fields submitted have a column header
+    syncHeadersWithFields(sheet, fields);
+
+    var row = buildRowFromHeaders(sheet, fields);
+    sheet.appendRow(row);
+
+    // Send real-time email notification
     try {
-        generateAlertsHR('Monthly HR', 30);
-        logCronExecution('cronMonthlyAlertsHR', '✅ Completed.');
-    } catch(e) {
-        logCronExecution('cronMonthlyAlertsHR', '❌ Failed: ' + e.toString());
+      sendLeadNotification(fields, canonicalName);
+      sendUserConfirmationEmail(fields, canonicalName);
+    } catch(mailErr) {
+      console.error("Email notification error: " + mailErr.toString());
     }
+
+    return ContentService.createTextOutput(JSON.stringify({
+      success: true,
+      leadNumber: leadNo,
+      sheet: canonicalName,
+      leadSource: detectedSource,
+      message: "Record successfully appended to " + canonicalName
+    })).setMimeType(ContentService.MimeType.JSON);
+
+  } catch(globalErr) {
+    console.error("doPost critical error: " + globalErr.toString());
+    return ContentService.createTextOutput(JSON.stringify({
+      success: false,
+      error: globalErr.toString()
+    })).setMimeType(ContentService.MimeType.JSON);
+  }
 }
 
-function countRecentRows(sheet, days) {
-    const data = sheet.getDataRange().getValues();
-    if (data.length <= 1) return 0;
-    
-    const headers = data[0];
-    const timeIndex = headers.indexOf('Timestamp');
-    if (timeIndex === -1) return data.length - 1;
-    
-    const now = new Date();
-    const threshold = new Date(now.getTime() - (days * 24 * 60 * 60 * 1000));
-    
-    let count = 0;
-    for (let i = 1; i < data.length; i++) {
-        const timestamp = new Date(data[i][timeIndex]);
-        if (timestamp >= threshold) {
-            count++;
+// ═════════════════════════════════════════════════════════════════════════════
+// 4. CAREER RESUME DECODER & GOOGLE DRIVE ARCHIVER
+// ═════════════════════════════════════════════════════════════════════════════
+
+function handleCareerApplication(ss, body) {
+  var sheet = getOrCreateSheet(ss, "Career_Applications", TAB_CONFIGS["Career_Applications"]);
+  var f = body.fields || body;
+
+  var candidateName = f.name || f.Name || f.fullName || f["Full Name"] || "Candidate";
+  var filename = f.resumeFilename || f.filename || f.fileName || (candidateName.replace(/[^a-zA-Z0-9_\s]/g, '').trim().replace(/\s+/g, '_') + "_Resume.pdf");
+  var resumeData = f.resumeData || f.resume || f.resumeBlob || f.resumeBase64 || f.fileBlob;
+  var mime = f.resumeMimeType || f.mimeType || "application/pdf";
+
+  var driveResult = null;
+  var attachments = [];
+
+  // Decode base64 and archive to Drive
+  if (resumeData && typeof resumeData === "string") {
+    driveResult = saveResumeToDrive(resumeData, filename, mime);
+    if (driveResult && driveResult.blob) {
+      attachments.push(driveResult.blob);
+    }
+  }
+
+  var driveLink = driveResult ? driveResult.url : (f.resumeUrl || f.resume_file_link || f.portfolio || "N/A");
+  var driveId = driveResult ? driveResult.id : "N/A";
+
+  var row = [
+    new Date().toLocaleString("en-IN", { timeZone: "Asia/Kolkata" }),
+    f.role || f.Role || f.jobTitle || f.position || "GRC Consultant",
+    candidateName,
+    f.email || f.Email || "N/A",
+    f.phone || f.Phone || "N/A",
+    f.experience || f.Experience || "N/A",
+    f.portfolio || f.Portfolio || f.portfolioUrl || "N/A",
+    filename,
+    driveLink,
+    driveId,
+    f.coverNote || f.message || f.coverLetter || "N/A",
+    f.utmSource || f.utm_source || "Website Direct",
+    f.utmMedium || f.utm_medium || "",
+    f.utmCampaign || f.utm_campaign || "",
+    "New Application"
+  ];
+  sheet.appendRow(row);
+
+  // Send real-time HR notification with attached resume file
+  try {
+    sendCareerEmailWithResume(f, attachments, driveLink);
+    sendUserConfirmationEmail(f, "Career_Applications");
+  } catch(err) {
+    console.error("Career email dispatch error: " + err.toString());
+  }
+}
+
+function saveResumeToDrive(base64Data, filename, mimeType) {
+  try {
+    var folderName = CONFIG.CAREER_RESUMES_FOLDER_NAME || "Govenics_Career_Resumes";
+    var folders = DriveApp.getFoldersByName(folderName);
+    var folder = folders.hasNext() ? folders.next() : DriveApp.createFolder(folderName);
+
+    var cleanBase64 = base64Data;
+    if (cleanBase64.indexOf("base64,") > -1) {
+      cleanBase64 = cleanBase64.split("base64,")[1];
+    } else if (cleanBase64.indexOf("data:") === 0 && cleanBase64.indexOf(",") > -1) {
+      cleanBase64 = cleanBase64.split(",")[1];
+    }
+    cleanBase64 = cleanBase64.replace(/[\r\n\s"']/g, "");
+    cleanBase64 = cleanBase64.replace(/-/g, "+").replace(/_/g, "/");
+    while (cleanBase64.length % 4 !== 0) { cleanBase64 += "="; }
+
+    var decodedBytes = Utilities.base64Decode(cleanBase64);
+    var mime = mimeType || "application/pdf";
+    var blob = Utilities.newBlob(decodedBytes, mime, filename);
+    var file = folder.createFile(blob);
+
+    try {
+      file.setSharing(DriveApp.Access.ANYONE_WITH_LINK, DriveApp.Permission.VIEW);
+    } catch(shareErr) {}
+
+    return {
+      url: file.getUrl(),
+      id: file.getId(),
+      blob: blob
+    };
+  } catch(e) {
+    console.error("Failed to archive resume to Drive: " + e.toString());
+    try {
+      var fallbackBlob = Utilities.newBlob(Utilities.base64Decode(base64Data), mimeType || "application/pdf", filename);
+      return { url: "N/A", id: "N/A", blob: fallbackBlob };
+    } catch(err2) {
+      return null;
+    }
+  }
+}
+
+// ═════════════════════════════════════════════════════════════════════════════
+// 5. EXECUTIVE EMAIL DISPATCHER (LEADS, STRATEGY SESSIONS & CAREERS)
+// ═════════════════════════════════════════════════════════════════════════════
+
+function sendCareerEmailWithResume(data, attachments, driveLink) {
+  var candidateName = data.name || data.Name || data.fullName || "Candidate";
+  var role = data.role || data.Role || data.jobTitle || "GRC Position";
+  var email = data.email || data.Email || "";
+  var phone = data.phone || data.Phone || "";
+  var exp = data.experience || data.Experience || "N/A";
+  var coverNote = data.coverNote || data.message || data.coverLetter || "N/A";
+  var filename = data.resumeFilename || data.filename || (candidateName + "_Resume.pdf");
+
+  var subject = "💼 [Career Application] " + candidateName + " — " + role;
+  var sheetUrl = "https://docs.google.com/spreadsheets/d/" + CONFIG.DATA_SPREADSHEET_ID;
+  var hasDrive = driveLink && driveLink.indexOf("http") === 0;
+
+  var recipients = uniqueEmails(EMAIL_CONFIG.careerEmails);
+
+  var html = [
+    '<!DOCTYPE html><html><body style="font-family:\'Segoe UI\',Roboto,Helvetica,Arial,sans-serif;background:#f8fafc;padding:24px;margin:0;">',
+    '<div style="max-width:640px;margin:0 auto;background:#ffffff;border-radius:14px;overflow:hidden;border:1px solid #e2e8f0;box-shadow:0 10px 25px rgba(0,0,0,0.06);">',
+    '  <div style="background:linear-gradient(135deg,#064e3b 0%,#047857 50%,#0f766e 100%);padding:28px 24px;color:#ffffff;text-align:center;">',
+    '    <span style="background:rgba(255,255,255,0.2);padding:4px 12px;border-radius:20px;font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;">Govenics Talent Acquisition</span>',
+    '    <h2 style="margin:10px 0 0 0;font-size:22px;">New Candidate: ' + candidateName + '</h2>',
+    '    <p style="margin:4px 0 0 0;color:#d1fae5;font-size:14px;">Applied for <strong>' + role + '</strong> via ' + CONFIG.WEBSITE_URL + '/careers</p>',
+    '  </div>',
+    '  <div style="padding:24px;">',
+    '    <table style="width:100%;border-collapse:collapse;font-size:14px;margin-bottom:20px;">',
+    '      <tr><td style="padding:10px;border-bottom:1px solid #f1f5f9;font-weight:600;color:#64748b;width:35%;">Role Applied</td><td style="padding:10px;border-bottom:1px solid #f1f5f9;font-weight:700;color:#047857;">' + role + '</td></tr>',
+    '      <tr><td style="padding:10px;border-bottom:1px solid #f1f5f9;font-weight:600;color:#64748b;">Candidate Name</td><td style="padding:10px;border-bottom:1px solid #f1f5f9;font-weight:700;color:#0f172a;">' + candidateName + '</td></tr>',
+    '      <tr><td style="padding:10px;border-bottom:1px solid #f1f5f9;font-weight:600;color:#64748b;">Email Address</td><td style="padding:10px;border-bottom:1px solid #f1f5f9;"><a href="mailto:' + email + '" style="color:#2563eb;text-decoration:none;">' + email + '</a></td></tr>',
+    '      <tr><td style="padding:10px;border-bottom:1px solid #f1f5f9;font-weight:600;color:#64748b;">Phone Number</td><td style="padding:10px;border-bottom:1px solid #f1f5f9;color:#0f172a;">' + phone + '</td></tr>',
+    '      <tr><td style="padding:10px;border-bottom:1px solid #f1f5f9;font-weight:600;color:#64748b;">Experience</td><td style="padding:10px;border-bottom:1px solid #f1f5f9;color:#0f172a;">' + exp + '</td></tr>',
+    '      <tr><td style="padding:10px;border-bottom:1px solid #f1f5f9;font-weight:600;color:#64748b;">Resume Document</td><td style="padding:10px;border-bottom:1px solid #f1f5f9;font-weight:600;color:#047857;">📎 ' + filename + ' (Attached)</td></tr>',
+    hasDrive ? '      <tr><td style="padding:10px;border-bottom:1px solid #f1f5f9;font-weight:600;color:#64748b;">Google Drive Link</td><td style="padding:10px;border-bottom:1px solid #f1f5f9;"><a href="' + driveLink + '" target="_blank" style="color:#047857;font-weight:700;text-decoration:underline;">Open in Drive ↗</a></td></tr>' : '',
+    '      <tr><td style="padding:10px;border-bottom:1px solid #f1f5f9;font-weight:600;color:#64748b;">Cover Note</td><td style="padding:10px;border-bottom:1px solid #f1f5f9;color:#334155;font-style:italic;">' + coverNote + '</td></tr>',
+    '    </table>',
+    '    <div style="text-align:center;margin-top:24px;">',
+    '      <a href="' + sheetUrl + '" style="background:#047857;color:#ffffff;padding:12px 24px;text-decoration:none;border-radius:8px;font-weight:700;font-size:13px;display:inline-block;margin:4px;">📊 Open HR Database (Sheet 1)</a>',
+    '      <a href="mailto:' + email + '?subject=Govenics Interview: ' + encodeURIComponent(role) + '" style="background:#0f172a;color:#ffffff;padding:12px 24px;text-decoration:none;border-radius:8px;font-weight:700;font-size:13px;display:inline-block;margin:4px;">✉️ Reply to Candidate</a>',
+    '    </div>',
+    '  </div>',
+    '  <div style="background:#f1f5f9;padding:14px;text-align:center;color:#64748b;font-size:11px;">Govenics Talent Acquisition Engine • Delivered to: ' + recipients.join(", ") + '</div>',
+    '</div></body></html>'
+  ].join("\n");
+
+  MailApp.sendEmail({
+    to: recipients.join(","),
+    subject: subject,
+    htmlBody: html,
+    name: "Govenics HR & Careers",
+    replyTo: email || EMAIL_CONFIG.replyTo,
+    attachments: attachments || []
+  });
+}
+
+function sendLeadNotification(data, tableName) {
+  var isStrategy = (tableName === "Strategy_Session_Bookings");
+  var formattedName = tableName.replace(/_/g, ' ');
+
+  var userEmail = data.email || data.Email || data.workEmail || data["Business Email"] || data.businessEmail || "";
+  var userName = data.name || data.Name || data.fullName || data["Full Name"] || "Prospective Client";
+  var phone = data.phone || data.Phone || "";
+  var company = data.company || data.Company || data.organization || "";
+
+  var subject = isStrategy
+    ? ("📅 [Strategy Session Booked] " + userName + (company ? (" (" + company + ")") : "") + " — " + (data["Preferred Date"] || data.preferredDate || "") + " @ " + (data["Time Slot"] || data.timeSlot || ""))
+    : ("🚀 New Govenics Submission: [" + formattedName + "] — " + userName + (company ? (" (" + company + ")") : ""));
+
+  var recipients = (tableName === "Google_Ad_Leads") 
+    ? uniqueEmails(EMAIL_CONFIG.adCampaignEmails) 
+    : uniqueEmails(EMAIL_CONFIG.salesEmails);
+
+  var strategyHighlightHtml = "";
+  if (isStrategy) {
+    strategyHighlightHtml = [
+      '<div style="background:#eef2ff;border:1px solid #c7d2fe;border-radius:10px;padding:16px;margin-bottom:20px;">',
+      '  <div style="font-size:11px;font-weight:800;color:#4f46e5;text-transform:uppercase;letter-spacing:1px;margin-bottom:6px;">⚡ Scheduled Advisory Session</div>',
+      '  <div style="display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;">',
+      '    <div><span style="font-size:12px;color:#64748b;">Date & Slot:</span> <strong style="color:#1e1b4b;font-size:14px;">' + (data["Preferred Date"] || data.preferredDate || "TBD") + ' (' + (data["Time Slot"] || data.timeSlot || "TBD") + ')</strong></div>',
+      '    <div><span style="font-size:12px;color:#64748b;">Duration:</span> <strong style="color:#1e1b4b;font-size:14px;">' + (data["Duration (min)"] || data.duration || "30") + ' Mins</strong></div>',
+      '    <div><span style="font-size:12px;color:#64748b;">Format:</span> <strong style="color:#1e1b4b;font-size:14px;">' + (data["Meeting Format"] || data.meetingFormat || "Video Meeting") + '</strong></div>',
+      '  </div>',
+      data["Booking Reference"] ? ('  <div style="margin-top:8px;font-size:12px;color:#4f46e5;">Ref ID: <strong>' + data["Booking Reference"] + '</strong></div>') : '',
+      '</div>'
+    ].join("\n");
+  }
+
+  var rowsHtml = Object.keys(data).map(function(k) {
+    if (k === "table" || k === "sheetName" || k === "resumeData" || k === "resumeBlob" || typeof data[k] === "object") return "";
+    var prettyKey = k.replace(/([A-Z])/g, ' $1').replace(/_/g, ' ').replace(/^./, function(s){ return s.toUpperCase(); }).trim();
+    return '<tr><td style="padding:10px 12px;border-bottom:1px solid #f1f5f9;font-weight:600;color:#64748b;width:35%;">' + prettyKey + '</td><td style="padding:10px 12px;border-bottom:1px solid #f1f5f9;color:#0f172a;font-weight:500;">' + data[k] + '</td></tr>';
+  }).join("");
+
+  var sheetUrl = "https://docs.google.com/spreadsheets/d/" + CONFIG.DATA_SPREADSHEET_ID;
+
+  var html = [
+    '<!DOCTYPE html><html><body style="font-family:\'Segoe UI\',Roboto,Helvetica,Arial,sans-serif;background:#f8fafc;padding:24px;margin:0;">',
+    '<div style="max-width:640px;margin:0 auto;background:#ffffff;border-radius:14px;overflow:hidden;border:1px solid #e2e8f0;box-shadow:0 10px 25px rgba(0,0,0,0.06);">',
+    '  <div style="background:' + (isStrategy ? 'linear-gradient(135deg,#312e81 0%,#4338ca 50%,#2563eb 100%)' : 'linear-gradient(135deg,#0f172a 0%,#1e293b 50%,#334155 100%)') + ';padding:28px 24px;color:#ffffff;text-align:center;">',
+    '    <span style="background:rgba(255,255,255,0.15);padding:4px 12px;border-radius:20px;font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;">' + (isStrategy ? 'Priority Strategy Consultation' : 'Enterprise GRC Telemetry') + '</span>',
+    '    <h2 style="margin:10px 0 0 0;font-size:22px;">' + formattedName + '</h2>',
+    '    <p style="margin:4px 0 0 0;color:#c7d2fe;font-size:14px;">Instant submission captured from ' + CONFIG.WEBSITE_URL + '</p>',
+    '  </div>',
+    '  <div style="padding:24px;">',
+    strategyHighlightHtml,
+    '    <table style="width:100%;border-collapse:collapse;font-size:14px;margin-bottom:20px;">',
+    rowsHtml,
+    '    </table>',
+    '    <div style="text-align:center;margin-top:24px;">',
+    phone ? '      <a href="tel:' + phone + '" style="background:#0f172a;color:#ffffff;padding:12px 20px;text-decoration:none;border-radius:8px;font-weight:700;font-size:13px;display:inline-block;margin:4px;">📞 Call ' + phone + '</a>' : '',
+    userEmail ? '      <a href="mailto:' + userEmail + '?subject=Re: Govenics ' + encodeURIComponent(formattedName) + '" style="background:#2563eb;color:#ffffff;padding:12px 20px;text-decoration:none;border-radius:8px;font-weight:700;font-size:13px;display:inline-block;margin:4px;">✉️ Reply via Email</a>' : '',
+    '      <a href="' + sheetUrl + '" style="background:#475569;color:#ffffff;padding:12px 20px;text-decoration:none;border-radius:8px;font-weight:700;font-size:13px;display:inline-block;margin:4px;">📊 Open Master Sheet</a>',
+    '    </div>',
+    '  </div>',
+    '  <div style="background:#f1f5f9;padding:14px;text-align:center;color:#64748b;font-size:11px;">Govenics Lead Engine • Delivered to: ' + recipients.join(", ") + '</div>',
+    '</div></body></html>'
+  ].join("\n");
+
+  MailApp.sendEmail({
+    to: recipients.join(","),
+    subject: subject,
+    htmlBody: html,
+    name: "Govenics Lead Engine",
+    replyTo: userEmail || EMAIL_CONFIG.replyTo
+  });
+}
+
+function sendUserConfirmationEmail(data, tableName) {
+  var userEmail = data.email || data.Email || data.workEmail || data["Business Email"] || data.businessEmail;
+  if (!userEmail || userEmail.indexOf("@") === -1) return;
+
+  var isStrategy = (tableName === "Strategy_Session_Bookings");
+  var userName = data.name || data.Name || data.fullName || data["Full Name"] || "Valued Professional";
+  var formattedName = tableName.replace(/_/g, ' ');
+
+  var subject = isStrategy
+    ? ("Your GOVENICS Strategy Session Request — Confirmed [" + (data["Booking Reference"] || "Pending") + "]")
+    : ("Thank you for connecting with Govenics GRC");
+
+  var detailSection = isStrategy ? [
+    '    <div style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:10px;padding:16px;margin:18px 0;font-size:13px;color:#334155;">',
+    '      <p style="margin:0 0 8px 0;font-weight:700;color:#1e293b;text-transform:uppercase;font-size:11px;letter-spacing:1px;">🗓 Session Details</p>',
+    '      <table style="width:100%;font-size:13px;">',
+    '        <tr><td style="color:#64748b;padding:4px 0;">Booking Ref:</td><td><strong>' + (data["Booking Reference"] || "Assigned on schedule") + '</strong></td></tr>',
+    '        <tr><td style="color:#64748b;padding:4px 0;">Date:</td><td><strong>' + (data["Preferred Date"] || data.preferredDate || "Confirmed on dispatch") + '</strong></td></tr>',
+    '        <tr><td style="color:#64748b;padding:4px 0;">Time Slot:</td><td><strong>' + (data["Time Slot"] || data.timeSlot || "TBD") + ' (IST)</strong></td></tr>',
+    '        <tr><td style="color:#64748b;padding:4px 0;">Duration:</td><td><strong>' + (data["Duration (min)"] || data.duration || "30") + ' Minutes</strong></td></tr>',
+    '        <tr><td style="color:#64748b;padding:4px 0;">Format:</td><td><strong>' + (data["Meeting Format"] || data.meetingFormat || "Video Meeting") + '</strong></td></tr>',
+    '      </table>',
+    '    </div>'
+  ].join("\n") : '';
+
+  var html = [
+    '<!DOCTYPE html><html><body style="font-family:\'Segoe UI\',Roboto,Helvetica,Arial,sans-serif;background:#f8fafc;padding:24px;margin:0;">',
+    '<div style="max-width:580px;margin:0 auto;background:#ffffff;border-radius:14px;overflow:hidden;border:1px solid #e2e8f0;box-shadow:0 6px 18px rgba(0,0,0,0.05);">',
+    '  <div style="background:#0f172a;padding:28px;color:#ffffff;text-align:center;">',
+    '    <h2 style="margin:0;font-size:22px;letter-spacing:-0.5px;">Govenics GRC & CDAC-MEPZ</h2>',
+    '    <p style="margin:6px 0 0 0;color:#94a3b8;font-size:14px;">Enterprise Governance, Risk & Compliance Advisory</p>',
+    '  </div>',
+    '  <div style="padding:28px;color:#334155;line-height:1.6;font-size:15px;">',
+    '    <p>Dear <strong>' + userName + '</strong>,</p>',
+    isStrategy
+      ? '<p>Thank you for booking an Advisory Strategy Session with <strong>GOVENICS</strong>. Our senior compliance & risk partners have received your booking and are preparing a personalized briefing for your organization.</p>'
+      : ('<p>Thank you for submitting your details regarding <strong>' + formattedName + '</strong>. Our compliance & advisory team has received your information and is reviewing your requirements.</p>'),
+    detailSection,
+    '    <p>A Senior GRC Specialist will connect with you with calendar credentials within 1 business day.</p>',
+    '    <div style="background:#f8fafc;border-left:4px solid #2563eb;padding:14px;margin:20px 0;border-radius:6px;font-size:13px;color:#475569;">',
+    '      <strong>Explore more:</strong> Visit <a href="' + CONFIG.WEBSITE_URL + '" style="color:#2563eb;font-weight:600;">govenics.com</a> to explore certified CDAC-MEPZ programs, statutory compliance registers, and instant security calculators.',
+    '    </div>',
+    '    <p>Best regards,<br><strong>Govenics Executive Advisory Team</strong><br><span style="color:#64748b;font-size:13px;">' + EMAIL_CONFIG.replyTo + '</span></p>',
+    '  </div>',
+    '  <div style="background:#f1f5f9;padding:14px;text-align:center;color:#94a3b8;font-size:11px;">&copy; ' + new Date().getFullYear() + ' Govenics. All rights reserved.</div>',
+    '</div></body></html>'
+  ].join("\n");
+
+  MailApp.sendEmail({
+    to: userEmail,
+    subject: subject,
+    htmlBody: html,
+    name: "Govenics GRC Advisory",
+    replyTo: EMAIL_CONFIG.replyTo
+  });
+}
+
+// ═════════════════════════════════════════════════════════════════════════════
+// 6. MONTHLY CAREER APPLICATIONS & RESUME FORWARDER ENGINE
+// ═════════════════════════════════════════════════════════════════════════════
+
+function forwardMonthlyCareerApplications() {
+  console.log("🚀 Starting Monthly Career Applications & Resume Forwarder...");
+  var ss = getSpreadsheet();
+  var sheet = ss.getSheetByName("Career_Applications");
+  if (!sheet || sheet.getLastRow() < 2) {
+    console.log("No career applications found for monthly digest.");
+    return;
+  }
+
+  var data = sheet.getDataRange().getValues();
+  var headers = data[0];
+  var roleIdx  = headers.indexOf("Role");
+  var nameIdx  = headers.indexOf("Name");
+  var emailIdx = headers.indexOf("Email");
+  var phoneIdx = headers.indexOf("Phone");
+  var expIdx   = headers.indexOf("Experience");
+  var fileIdx  = headers.indexOf("Resume_Filename");
+  var linkIdx  = headers.indexOf("Resume_File_Link");
+  var idIdx    = headers.indexOf("Drive_File_ID");
+
+  var now = new Date();
+  var thirtyDaysAgo = new Date(now.getTime() - (31 * 24 * 60 * 60 * 1000));
+  var candidates = [];
+  var attachments = [];
+  var totalAttachmentSize = 0;
+  var MAX_ATTACHMENT_BYTES = 20 * 1024 * 1024; // 20 MB safe limit
+
+  for (var i = 1; i < data.length; i++) {
+    var row = data[i];
+    var ts = new Date(row[0]);
+    if (isNaN(ts.getTime()) || ts >= thirtyDaysAgo) {
+      var candidate = {
+        timestamp: row[0] || "Recent",
+        role: row[roleIdx] || "GRC Consultant",
+        name: row[nameIdx] || "Candidate",
+        email: row[emailIdx] || "",
+        phone: row[phoneIdx] || "",
+        experience: row[expIdx] || "N/A",
+        filename: row[fileIdx] || "Resume.pdf",
+        driveLink: linkIdx > -1 ? row[linkIdx] : "",
+        driveId: idIdx > -1 ? row[idIdx] : ""
+      };
+
+      if (candidate.driveId && candidate.driveId !== "N/A") {
+        try {
+          var file = DriveApp.getFileById(candidate.driveId);
+          var blob = file.getBlob();
+          var size = blob.getBytes().length;
+          if (totalAttachmentSize + size < MAX_ATTACHMENT_BYTES) {
+            blob.setName(candidate.name.replace(/[^a-zA-Z0-9_\s]/g, '') + "_" + candidate.filename);
+            attachments.push(blob);
+            totalAttachmentSize += size;
+          }
+        } catch(e) {
+          console.warn("Could not attach Drive file: " + candidate.driveId);
         }
+      }
+
+      candidates.push(candidate);
     }
-    return count;
+  }
+
+  if (candidates.length === 0) {
+    console.log("No candidates recorded in the last 30 days.");
+    return;
+  }
+
+  var monthStr = Utilities.formatDate(now, "Asia/Kolkata", "MMMM yyyy");
+  var subject = "📋 [Monthly Talent Digest] " + candidates.length + " Resumes Collected — " + monthStr;
+  var sheetUrl = "https://docs.google.com/spreadsheets/d/" + CONFIG.DATA_SPREADSHEET_ID;
+  var recipients = uniqueEmails(EMAIL_CONFIG.careerEmails);
+
+  var candidateRowsHtml = candidates.map(function(c) {
+    var resumeDisplay = (c.driveLink && c.driveLink.indexOf("http") === 0)
+      ? '<a href="' + c.driveLink + '" target="_blank" style="color:#047857;font-weight:700;text-decoration:underline;">View Resume in Drive</a>'
+      : '<span style="color:#94a3b8;">Attached to Email</span>';
+
+    return '<tr style="border-bottom:1px solid #e2e8f0;">' +
+           '<td style="padding:10px 12px;font-weight:700;color:#0f172a;">' + c.name + '</td>' +
+           '<td style="padding:10px 12px;color:#047857;font-weight:600;">' + c.role + '</td>' +
+           '<td style="padding:10px 12px;color:#475569;">' + c.experience + '</td>' +
+           '<td style="padding:10px 12px;"><a href="mailto:' + c.email + '" style="color:#2563eb;text-decoration:none;">' + c.email + '</a><br/><span style="color:#64748b;font-size:12px;">' + c.phone + '</span></td>' +
+           '<td style="padding:10px 12px;text-align:center;">' + resumeDisplay + '</td>' +
+           '</tr>';
+  }).join("");
+
+  var html = [
+    '<!DOCTYPE html><html><body style="font-family:\'Segoe UI\',Roboto,Helvetica,Arial,sans-serif;background:#f8fafc;padding:24px;margin:0;">',
+    '<div style="max-width:760px;margin:0 auto;background:#ffffff;border-radius:14px;overflow:hidden;border:1px solid #e2e8f0;box-shadow:0 10px 25px rgba(0,0,0,0.06);">',
+    '  <div style="background:linear-gradient(135deg,#064e3b 0%,#047857 50%,#0f766e 100%);padding:30px 24px;color:#ffffff;text-align:center;">',
+    '    <span style="background:rgba(255,255,255,0.2);padding:4px 12px;border-radius:20px;font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;">Monthly HR Intelligence</span>',
+    '    <h2 style="margin:10px 0 0 0;font-size:24px;">Govenics Talent Acquisition Digest</h2>',
+    '    <p style="margin:4px 0 0 0;color:#d1fae5;font-size:14px;">Consolidated candidate applications for <strong>' + monthStr + '</strong> (' + candidates.length + ' Total Applicants)</p>',
+    '  </div>',
+    '  <div style="padding:24px;">',
+    '    <p style="font-size:14px;color:#475569;margin-bottom:16px;">Candidate resume files are enclosed as attachments to this email and archived into Google Drive.</p>',
+    '    <table style="width:100%;border-collapse:collapse;font-size:13px;margin-bottom:24px;">',
+    '      <tr style="background:#f1f5f9;color:#334155;font-weight:700;">',
+    '        <th style="padding:10px 12px;text-align:left;">Candidate</th>',
+    '        <th style="padding:10px 12px;text-align:left;">Role</th>',
+    '        <th style="padding:10px 12px;text-align:left;">Experience</th>',
+    '        <th style="padding:10px 12px;text-align:left;">Contact</th>',
+    '        <th style="padding:10px 12px;text-align:center;">Resume</th>',
+    '      </tr>',
+    candidateRowsHtml,
+    '    </table>',
+    '    <div style="text-align:center;">',
+    '      <a href="' + sheetUrl + '" style="background:#047857;color:#ffffff;padding:12px 28px;text-decoration:none;border-radius:8px;font-weight:700;font-size:14px;display:inline-block;">Open Govenics HR Sheet</a>',
+    '    </div>',
+    '  </div>',
+    '  <div style="background:#f1f5f9;padding:14px;text-align:center;color:#64748b;font-size:11px;">Govenics Monthly Talent Consolidation • Recipients: ' + recipients.join(", ") + '</div>',
+    '</div></body></html>'
+  ].join("\n");
+
+  MailApp.sendEmail({
+    to: recipients.join(","),
+    subject: subject,
+    htmlBody: html,
+    name: "Govenics HR Executive",
+    attachments: attachments
+  });
+
+  console.log("✅ Monthly Career Digest successfully delivered to: " + recipients.join(", "));
+}
+
+// ═════════════════════════════════════════════════════════════════════════════
+// 7. IN-SHEET 1 REPORT GENERATION (Daily, Weekly, Monthly & DB Summary)
+// ═════════════════════════════════════════════════════════════════════════════
+
+function GENERATE_ALL_SHEET1_REPORTS() {
+  var ss = getSpreadsheet();
+  try { generateDailyReportInSheet1(ss); } catch(e) { console.error("Daily report error: " + e); }
+  try { generateWeeklyReportInSheet1(ss); } catch(e) { console.error("Weekly report error: " + e); }
+  try { generateMonthlyReportInSheet1(ss); } catch(e) { console.error("Monthly report error: " + e); }
+  try { generateDatabaseSummaryInSheet1(ss); } catch(e) { console.error("DB summary error: " + e); }
+
+  var ui = null;
+  try { ui = SpreadsheetApp.getUi(); } catch(e) {}
+  if (ui) ui.alert("✅ SUCCESS! Daily, Weekly, Monthly reports & Database Summary refreshed in Sheet 1.");
+}
+
+function generateDailyReportInSheet1(ss) {
+  var headers = ["Date", "Strategy Sessions", "Inbound Leads", "Course Enquiries", "Audit Consultations", "Partner Apps", "Career Apps", "Estimators", "Registrations", "Total Actions"];
+  var sh = getOrCreateSheet(ss, "Daily_Reports", headers);
+  sh.clearContents();
+
+  var dailyMap = {};
+  var getDayKey = function(ts) {
+    if (!ts) return Utilities.formatDate(new Date(), "Asia/Kolkata", "yyyy-MM-dd");
+    try { return Utilities.formatDate(new Date(ts), "Asia/Kolkata", "yyyy-MM-dd"); } catch(e) { return "Recent"; }
+  };
+
+  var aggregate = function(sheetName, prop) {
+    try {
+      var s = ss.getSheetByName(sheetName);
+      if (s && s.getLastRow() > 1) {
+        var d = s.getDataRange().getValues();
+        for (var r = 1; r < d.length; r++) {
+          var k = getDayKey(d[r][0] || d[r][1]);
+          if (!dailyMap[k]) dailyMap[k] = { strategy: 0, leads: 0, courses: 0, audits: 0, partners: 0, careers: 0, estimators: 0, members: 0 };
+          dailyMap[k][prop]++;
+        }
+      }
+    } catch(e) {}
+  };
+
+  aggregate("Strategy_Session_Bookings", "strategy");
+  aggregate("Inbound_Leads", "leads");
+  aggregate("Course_Enquiries", "courses");
+  aggregate("Consultation_Requests", "audits");
+  aggregate("Partner_Applications", "partners");
+  aggregate("Career_Applications", "careers");
+  aggregate("Estimator_Calculations", "estimators");
+  aggregate("Registered_Users", "members");
+
+  var dates = Object.keys(dailyMap).sort().reverse();
+  var rows = [];
+  dates.forEach(function(d) {
+    var it = dailyMap[d];
+    var tot = it.strategy + it.leads + it.courses + it.audits + it.partners + it.careers + it.estimators + it.members;
+    rows.push([d, it.strategy, it.leads, it.courses, it.audits, it.partners, it.careers, it.estimators, it.members, tot]);
+  });
+
+  if (rows.length === 0) {
+    rows = [[Utilities.formatDate(new Date(), "Asia/Kolkata", "yyyy-MM-dd"), 0, 0, 0, 0, 0, 0, 0, 0, 0]];
+  }
+
+  sh.getRange(1, 1, 1, headers.length).setValues([headers]).setFontWeight("bold").setBackground("#1e293b").setFontColor("#ffffff");
+  sh.getRange(2, 1, rows.length, headers.length).setValues(rows);
+  sh.setFrozenRows(1);
+}
+
+function generateWeeklyReportInSheet1(ss) {
+  var headers = ["Week Period", "Strategy Sessions", "Inbound Leads", "Course Enquiries", "Audit Consultations", "Partner Apps", "Career Apps", "Estimators", "Total Form Submissions"];
+  var sh = getOrCreateSheet(ss, "Weekly_Reports", headers);
+  sh.clearContents();
+
+  var weekMap = {};
+  var getWeekKey = function(ts) {
+    if (!ts) return "Current Week";
+    try {
+      var d = new Date(ts);
+      var onejan = new Date(d.getFullYear(), 0, 1);
+      var millisecsInDay = 86400000;
+      var weekNum = Math.ceil((((d - onejan) / millisecsInDay) + onejan.getDay() + 1) / 7);
+      return d.getFullYear() + "-W" + (weekNum < 10 ? "0" + weekNum : weekNum);
+    } catch(e) { return "Current Week"; }
+  };
+
+  var aggregateWeek = function(sheetName, prop) {
+    try {
+      var s = ss.getSheetByName(sheetName);
+      if (s && s.getLastRow() > 1) {
+        var d = s.getDataRange().getValues();
+        for (var r = 1; r < d.length; r++) {
+          var k = getWeekKey(d[r][0] || d[r][1]);
+          if (!weekMap[k]) weekMap[k] = { strategy: 0, leads: 0, courses: 0, audits: 0, partners: 0, careers: 0, estimators: 0 };
+          weekMap[k][prop]++;
+        }
+      }
+    } catch(e) {}
+  };
+
+  aggregateWeek("Strategy_Session_Bookings", "strategy");
+  aggregateWeek("Inbound_Leads", "leads");
+  aggregateWeek("Course_Enquiries", "courses");
+  aggregateWeek("Consultation_Requests", "audits");
+  aggregateWeek("Partner_Applications", "partners");
+  aggregateWeek("Career_Applications", "careers");
+  aggregateWeek("Estimator_Calculations", "estimators");
+
+  var weeks = Object.keys(weekMap).sort().reverse();
+  var rows = [];
+  weeks.forEach(function(w) {
+    var it = weekMap[w];
+    var tot = it.strategy + it.leads + it.courses + it.audits + it.partners + it.careers + it.estimators;
+    rows.push([w, it.strategy, it.leads, it.courses, it.audits, it.partners, it.careers, it.estimators, tot]);
+  });
+
+  if (rows.length === 0) {
+    rows = [["Current Week", 0, 0, 0, 0, 0, 0, 0, 0]];
+  }
+
+  sh.getRange(1, 1, 1, headers.length).setValues([headers]).setFontWeight("bold").setBackground("#1e293b").setFontColor("#ffffff");
+  sh.getRange(2, 1, rows.length, headers.length).setValues(rows);
+  sh.setFrozenRows(1);
+}
+
+function generateMonthlyReportInSheet1(ss) {
+  var headers = ["Month", "Strategy Sessions", "Inbound Leads", "Course Enquiries", "Audit Consultations", "Partner Apps", "Career Apps", "Estimators", "Total Form Submissions"];
+  var sh = getOrCreateSheet(ss, "Monthly_Reports", headers);
+  sh.clearContents();
+
+  var monthMap = {};
+  var getMonthKey = function(ts) {
+    if (!ts) return Utilities.formatDate(new Date(), "Asia/Kolkata", "yyyy-MM");
+    try { return Utilities.formatDate(new Date(ts), "Asia/Kolkata", "yyyy-MM"); } catch(e) { return "Recent"; }
+  };
+
+  var aggregateMonth = function(sheetName, prop) {
+    try {
+      var s = ss.getSheetByName(sheetName);
+      if (s && s.getLastRow() > 1) {
+        var d = s.getDataRange().getValues();
+        for (var r = 1; r < d.length; r++) {
+          var k = getMonthKey(d[r][0] || d[r][1]);
+          if (!monthMap[k]) monthMap[k] = { strategy: 0, leads: 0, courses: 0, audits: 0, partners: 0, careers: 0, estimators: 0 };
+          monthMap[k][prop]++;
+        }
+      }
+    } catch(e) {}
+  };
+
+  aggregateMonth("Strategy_Session_Bookings", "strategy");
+  aggregateMonth("Inbound_Leads", "leads");
+  aggregateMonth("Course_Enquiries", "courses");
+  aggregateMonth("Consultation_Requests", "audits");
+  aggregateMonth("Partner_Applications", "partners");
+  aggregateMonth("Career_Applications", "careers");
+  aggregateMonth("Estimator_Calculations", "estimators");
+
+  var months = Object.keys(monthMap).sort().reverse();
+  var rows = [];
+  months.forEach(function(m) {
+    var it = monthMap[m];
+    var tot = it.strategy + it.leads + it.courses + it.audits + it.partners + it.careers + it.estimators;
+    rows.push([m, it.strategy, it.leads, it.courses, it.audits, it.partners, it.careers, it.estimators, tot]);
+  });
+
+  if (rows.length === 0) {
+    rows = [[Utilities.formatDate(new Date(), "Asia/Kolkata", "yyyy-MM"), 0, 0, 0, 0, 0, 0, 0, 0]];
+  }
+
+  sh.getRange(1, 1, 1, headers.length).setValues([headers]).setFontWeight("bold").setBackground("#1e293b").setFontColor("#ffffff");
+  sh.getRange(2, 1, rows.length, headers.length).setValues(rows);
+  sh.setFrozenRows(1);
+}
+
+function generateDatabaseSummaryInSheet1(ss) {
+  var sh = getOrCreateSheet(ss, "Database_Summary", ["Table Name", "Total Records", "Status", "Table Type", "Last Updated"]);
+  sh.clearContents();
+
+  var tables = [
+    { name: "Strategy_Session_Bookings", type: "Executive Strategy Consultation" },
+    { name: "Inbound_Leads", type: "Core Lead & Assessment Form" },
+    { name: "Consultation_Requests", type: "Executive Audit Consultation" },
+    { name: "Career_Applications", type: "Recruitment & HR" },
+    { name: "Course_Enquiries", type: "CDAC-MEPZ Education" },
+    { name: "Partner_Applications", type: "Partner Alliance" },
+    { name: "Chatbot_Leads", type: "AI Chat Conversions" },
+    { name: "Registered_Users", type: "Portal Members" },
+    { name: "User_Logins", type: "Authentication Telemetry" },
+    { name: "Estimator_Calculations", type: "Audit Scope & Liability" },
+    { name: "Exit_Intent_Feedback", type: "Exit Intent Survey" },
+    { name: "Google_Ad_Leads", type: "Paid Ad Campaigns" },
+    { name: "youtube_lead", type: "YouTube Video Campaigns" },
+    { name: "linkedin_lead", type: "LinkedIn Lead Forms" },
+    { name: "Traffic_Analytics", type: "Website Traffic" },
+    { name: "Behavior_Metrics", type: "Granular Behavioral Events" }
+  ];
+
+  var rows = tables.map(function(t) {
+    var s = ss.getSheetByName(t.name);
+    var count = (s && s.getLastRow() > 1) ? (s.getLastRow() - 1) : 0;
+    return [t.name, count, count > 0 ? "🟢 Live Data" : "⚪ Ready for Data", t.type, new Date().toLocaleString("en-IN", { timeZone: "Asia/Kolkata" })];
+  });
+
+  var headers = ["Table Name", "Total Records", "Status", "Table Type", "Last Updated"];
+  sh.getRange(1, 1, 1, headers.length).setValues([headers]).setFontWeight("bold").setBackground("#1e293b").setFontColor("#ffffff");
+  sh.getRange(2, 1, rows.length, headers.length).setValues(rows);
+  sh.setFrozenRows(1);
+}
+
+// ═════════════════════════════════════════════════════════════════════════════
+// 8. SCHEDULED EXECUTIVE EMAIL BRIEFS (DAILY, WEEKLY, MONTHLY)
+// ═════════════════════════════════════════════════════════════════════════════
+
+function dailyReport() {
+  var ss = getSpreadsheet();
+  generateDailyReportInSheet1(ss);
+  
+  var dateStr = Utilities.formatDate(new Date(), "Asia/Kolkata", "d MMMM yyyy");
+  var recipients = uniqueEmails(EMAIL_CONFIG.reportEmails);
+  
+  var strategyCount = countRows(ss, "Strategy_Session_Bookings");
+  var leadsCount = countRows(ss, "Inbound_Leads");
+  var courseCount = countRows(ss, "Course_Enquiries");
+  var auditCount = countRows(ss, "Consultation_Requests");
+  var partnerCount = countRows(ss, "Partner_Applications");
+  var careerCount = countRows(ss, "Career_Applications");
+  var estCount = countRows(ss, "Estimator_Calculations");
+  var trafficCount = countRows(ss, "Traffic_Analytics");
+
+  var totalLeads = strategyCount + leadsCount + courseCount + auditCount + partnerCount + careerCount + estCount;
+
+  var html = [
+    '<!DOCTYPE html><html><body style="font-family:\'Segoe UI\',Roboto,Helvetica,Arial,sans-serif;background:#f8fafc;padding:24px;margin:0;">',
+    '<div style="max-width:640px;margin:0 auto;background:#ffffff;border-radius:14px;overflow:hidden;border:1px solid #e2e8f0;box-shadow:0 10px 25px rgba(0,0,0,0.06);">',
+    '  <div style="background:linear-gradient(135deg,#002255 0%,#003380 100%);padding:28px 24px;color:#ffffff;">',
+    '    <span style="background:#0ea5e9;padding:4px 12px;border-radius:20px;font-size:11px;font-weight:800;letter-spacing:1px;text-transform:uppercase;">Daily Intelligence</span>',
+    '    <h2 style="margin:10px 0 0 0;font-size:22px;">Govenics Executive Daily Brief</h2>',
+    '    <p style="margin:4px 0 0 0;color:#93c5fd;font-size:13px;">Performance Digest &bull; ' + dateStr + '</p>',
+    '  </div>',
+    '  <div style="padding:24px;">',
+    '    <table style="width:100%;border-collapse:collapse;margin-bottom:20px;">',
+    '      <tr>',
+    '        <td style="padding:12px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:8px;text-align:center;width:50%;">',
+    '          <div style="font-size:11px;font-weight:700;color:#64748b;text-transform:uppercase;">Total Pipeline Leads</div>',
+    '          <div style="font-size:24px;font-weight:800;color:#059669;margin-top:4px;">' + totalLeads + '</div>',
+    '        </td>',
+    '        <td style="width:10px;"></td>',
+    '        <td style="padding:12px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:8px;text-align:center;width:50%;">',
+    '          <div style="font-size:11px;font-weight:700;color:#64748b;text-transform:uppercase;">Traffic Hits</div>',
+    '          <div style="font-size:24px;font-weight:800;color:#003380;margin-top:4px;">' + trafficCount + '</div>',
+    '        </td>',
+    '      </tr>',
+    '    </table>',
+    '    <h4 style="margin:0 0 10px 0;font-size:12px;color:#003380;text-transform:uppercase;letter-spacing:0.05em;">Conversion Breakdown</h4>',
+    '    <table style="width:100%;border-collapse:collapse;font-size:13px;margin-bottom:20px;">',
+    '      <tr style="border-bottom:1px solid #f1f5f9;"><td style="padding:8px 0;color:#475569;">Strategy Session Bookings</td><td style="padding:8px 0;text-align:right;font-weight:700;color:#4f46e5;">' + strategyCount + '</td></tr>',
+    '      <tr style="border-bottom:1px solid #f1f5f9;"><td style="padding:8px 0;color:#475569;">Inbound Advisory Leads</td><td style="padding:8px 0;text-align:right;font-weight:700;color:#0f172a;">' + leadsCount + '</td></tr>',
+    '      <tr style="border-bottom:1px solid #f1f5f9;"><td style="padding:8px 0;color:#475569;">CDAC-MEPZ Course Enquiries</td><td style="padding:8px 0;text-align:right;font-weight:700;color:#d97706;">' + courseCount + '</td></tr>',
+    '      <tr style="border-bottom:1px solid #f1f5f9;"><td style="padding:8px 0;color:#475569;">Audit Consultation Requests</td><td style="padding:8px 0;text-align:right;font-weight:700;color:#dc2626;">' + auditCount + '</td></tr>',
+    '      <tr style="border-bottom:1px solid #f1f5f9;"><td style="padding:8px 0;color:#475569;">Partner Applications</td><td style="padding:8px 0;text-align:right;font-weight:700;color:#7c3aed;">' + partnerCount + '</td></tr>',
+    '      <tr style="border-bottom:1px solid #f1f5f9;"><td style="padding:8px 0;color:#475569;">Career Applications</td><td style="padding:8px 0;text-align:right;font-weight:700;color:#0d9488;">' + careerCount + '</td></tr>',
+    '      <tr><td style="padding:8px 0;color:#475569;">Estimator Calculations</td><td style="padding:8px 0;text-align:right;font-weight:700;color:#b45309;">' + estCount + '</td></tr>',
+    '    </table>',
+    '    <div style="text-align:center;">',
+    '      <a href="' + ss.getUrl() + '" style="background:#003380;color:#ffffff;padding:12px 24px;text-decoration:none;border-radius:8px;font-weight:700;font-size:13px;display:inline-block;">Open Data Collection Sheet</a>',
+    '    </div>',
+    '  </div>',
+    '  <div style="background:#f8fafc;padding:14px;text-align:center;color:#94a3b8;font-size:11px;">Govenics Executive Intelligence &bull; Authorized Leadership Only</div>',
+    '</div></body></html>'
+  ].join("\n");
+
+  MailApp.sendEmail({
+    to: recipients.join(","),
+    subject: "📊 [Govenics GRC] Daily Executive Analytics Brief – " + dateStr,
+    htmlBody: html,
+    name: "Govenics Executive Analytics"
+  });
+  console.log("✅ Daily Report email sent to: " + recipients.join(", "));
+}
+
+function weeklyReport() {
+  var ss = getSpreadsheet();
+  generateWeeklyReportInSheet1(ss);
+
+  var now = new Date();
+  var w1Start = new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000);
+  var rangeStr = Utilities.formatDate(w1Start, "Asia/Kolkata", "d MMM") + " – " + Utilities.formatDate(now, "Asia/Kolkata", "d MMM yyyy");
+  var recipients = uniqueEmails(EMAIL_CONFIG.reportEmails);
+
+  var strategyCount = countRows(ss, "Strategy_Session_Bookings");
+  var leadsCount = countRows(ss, "Inbound_Leads");
+  var courseCount = countRows(ss, "Course_Enquiries");
+  var auditCount = countRows(ss, "Consultation_Requests");
+  var partnerCount = countRows(ss, "Partner_Applications");
+  var careerCount = countRows(ss, "Career_Applications");
+  var estCount = countRows(ss, "Estimator_Calculations");
+
+  var totalPipeline = strategyCount + leadsCount + courseCount + auditCount + partnerCount + careerCount + estCount;
+
+  var html = [
+    '<!DOCTYPE html><html><body style="font-family:\'Segoe UI\',Roboto,Helvetica,Arial,sans-serif;background:#f8fafc;padding:24px;margin:0;">',
+    '<div style="max-width:640px;margin:0 auto;background:#ffffff;border-radius:14px;overflow:hidden;border:1px solid #e2e8f0;box-shadow:0 10px 25px rgba(0,0,0,0.06);">',
+    '  <div style="background:linear-gradient(135deg,#1e1b4b 0%,#4338ca 100%);padding:28px 24px;color:#ffffff;">',
+    '    <span style="background:#6366f1;padding:4px 12px;border-radius:20px;font-size:11px;font-weight:800;letter-spacing:1px;text-transform:uppercase;">Weekly Performance</span>',
+    '    <h2 style="margin:10px 0 0 0;font-size:22px;">Govenics Weekly Executive Brief</h2>',
+    '    <p style="margin:4px 0 0 0;color:#c7d2fe;font-size:13px;">Week Period &bull; ' + rangeStr + '</p>',
+    '  </div>',
+    '  <div style="padding:24px;">',
+    '    <div style="background:#f8fafc;border-left:4px solid #4338ca;padding:16px;border-radius:4px;margin-bottom:20px;">',
+    '      <div style="font-size:12px;color:#4338ca;font-weight:800;text-transform:uppercase;">Weekly Form Pipeline Total</div>',
+    '      <div style="font-size:26px;font-weight:800;color:#0f172a;margin-top:4px;">' + totalPipeline + ' Submissions</div>',
+    '    </div>',
+    '    <table style="width:100%;border-collapse:collapse;font-size:13px;margin-bottom:20px;">',
+    '      <tr style="border-bottom:1px solid #f1f5f9;"><td style="padding:8px 0;color:#475569;">Strategy Session Bookings</td><td style="padding:8px 0;text-align:right;font-weight:700;color:#4f46e5;">' + strategyCount + '</td></tr>',
+    '      <tr style="border-bottom:1px solid #f1f5f9;"><td style="padding:8px 0;color:#475569;">Inbound Advisory Leads</td><td style="padding:8px 0;text-align:right;font-weight:700;color:#0f172a;">' + leadsCount + '</td></tr>',
+    '      <tr style="border-bottom:1px solid #f1f5f9;"><td style="padding:8px 0;color:#475569;">CDAC-MEPZ Course Enquiries</td><td style="padding:8px 0;text-align:right;font-weight:700;color:#d97706;">' + courseCount + '</td></tr>',
+    '      <tr style="border-bottom:1px solid #f1f5f9;"><td style="padding:8px 0;color:#475569;">Audit Consultation Requests</td><td style="padding:8px 0;text-align:right;font-weight:700;color:#dc2626;">' + auditCount + '</td></tr>',
+    '      <tr style="border-bottom:1px solid #f1f5f9;"><td style="padding:8px 0;color:#475569;">Partner Applications</td><td style="padding:8px 0;text-align:right;font-weight:700;color:#7c3aed;">' + partnerCount + '</td></tr>',
+    '      <tr style="border-bottom:1px solid #f1f5f9;"><td style="padding:8px 0;color:#475569;">Career Applications</td><td style="padding:8px 0;text-align:right;font-weight:700;color:#0d9488;">' + careerCount + '</td></tr>',
+    '      <tr><td style="padding:8px 0;color:#475569;">Estimator Calculations</td><td style="padding:8px 0;text-align:right;font-weight:700;color:#b45309;">' + estCount + '</td></tr>',
+    '    </table>',
+    '    <div style="text-align:center;">',
+    '      <a href="' + ss.getUrl() + '" style="background:#4338ca;color:#ffffff;padding:12px 24px;text-decoration:none;border-radius:8px;font-weight:700;font-size:13px;display:inline-block;">Open Master Database</a>',
+    '    </div>',
+    '  </div>',
+    '  <div style="background:#f8fafc;padding:14px;text-align:center;color:#94a3b8;font-size:11px;">Govenics Weekly Growth Engine &bull; Authorized Leadership Only</div>',
+    '</div></body></html>'
+  ].join("\n");
+
+  MailApp.sendEmail({
+    to: recipients.join(","),
+    subject: "📅 [Govenics GRC] Weekly Executive Analytics Brief – " + rangeStr,
+    htmlBody: html,
+    name: "Govenics Executive Analytics"
+  });
+  console.log("✅ Weekly Report email sent to: " + recipients.join(", "));
+}
+
+function monthlyReport() {
+  var ss = getSpreadsheet();
+  generateMonthlyReportInSheet1(ss);
+
+  var monthStr = Utilities.formatDate(new Date(), "Asia/Kolkata", "MMMM yyyy");
+  var recipients = uniqueEmails(EMAIL_CONFIG.reportEmails);
+
+  var strategyCount = countRows(ss, "Strategy_Session_Bookings");
+  var leadsCount = countRows(ss, "Inbound_Leads");
+  var courseCount = countRows(ss, "Course_Enquiries");
+  var auditCount = countRows(ss, "Consultation_Requests");
+  var partnerCount = countRows(ss, "Partner_Applications");
+  var careerCount = countRows(ss, "Career_Applications");
+  var estCount = countRows(ss, "Estimator_Calculations");
+  var totalPipeline = strategyCount + leadsCount + courseCount + auditCount + partnerCount + careerCount + estCount;
+
+  var html = [
+    '<!DOCTYPE html><html><body style="font-family:\'Segoe UI\',Roboto,Helvetica,Arial,sans-serif;background:#f8fafc;padding:24px;margin:0;">',
+    '<div style="max-width:640px;margin:0 auto;background:#ffffff;border-radius:14px;overflow:hidden;border:1px solid #e2e8f0;box-shadow:0 10px 25px rgba(0,0,0,0.06);">',
+    '  <div style="background:linear-gradient(135deg,#064e3b 0%,#047857 100%);padding:28px 24px;color:#ffffff;">',
+    '    <span style="background:#10b981;padding:4px 12px;border-radius:20px;font-size:11px;font-weight:800;letter-spacing:1px;text-transform:uppercase;">Monthly Strategic Digest</span>',
+    '    <h2 style="margin:10px 0 0 0;font-size:22px;">Govenics Monthly Strategic Growth Digest</h2>',
+    '    <p style="margin:4px 0 0 0;color:#a7f3d0;font-size:13px;">Month of ' + monthStr + '</p>',
+    '  </div>',
+    '  <div style="padding:24px;">',
+    '    <p style="color:#475569;font-size:14px;">Total Pipeline Form Actions: <strong>' + totalPipeline + '</strong> (Includes ' + strategyCount + ' Strategy Sessions)</p>',
+    '    <div style="text-align:center;margin-top:20px;">',
+    '      <a href="' + ss.getUrl() + '" style="background:#047857;color:#ffffff;padding:12px 24px;text-decoration:none;border-radius:8px;font-weight:700;font-size:13px;display:inline-block;">Open Sheet 1 Master Database</a>',
+    '    </div>',
+    '  </div>',
+    '</div></body></html>'
+  ].join("\n");
+
+  MailApp.sendEmail({
+    to: recipients.join(","),
+    subject: "📁 [Govenics GRC] Monthly Strategic Growth Digest – " + monthStr,
+    htmlBody: html,
+    name: "Govenics Executive Analytics"
+  });
+  console.log("✅ Monthly Report email sent to: " + recipients.join(", "));
+}
+
+function countRows(ss, sheetName) {
+  try {
+    var s = ss.getSheetByName(sheetName);
+    return (s && s.getLastRow() > 1) ? (s.getLastRow() - 1) : 0;
+  } catch(e) { return 0; }
+}
+
+// ═════════════════════════════════════════════════════════════════════════════
+// 9. AUTOMATED TRIGGERS & PREVIEW TEST SUITE
+// ═════════════════════════════════════════════════════════════════════════════
+
+function clearAllProjectTriggers() {
+  var triggers = ScriptApp.getProjectTriggers();
+  triggers.forEach(function(t) { ScriptApp.deleteTrigger(t); });
+  console.log("✅ Cleared all active triggers in Sheet 1.");
+}
+
+function setupAllDataCollectionTriggers() {
+  clearAllProjectTriggers();
+
+  // 1. Daily Report at 8:30 AM IST
+  ScriptApp.newTrigger("dailyReport")
+    .timeBased()
+    .everyDays(1)
+    .atHour(8)
+    .create();
+
+  // 2. Weekly Report on Friday at 8:30 AM IST
+  ScriptApp.newTrigger("weeklyReport")
+    .timeBased()
+    .onWeekDay(ScriptApp.WeekDay.FRIDAY)
+    .atHour(8)
+    .create();
+
+  // 3. Monthly Strategic Report on 1st of month at 8:30 AM IST
+  ScriptApp.newTrigger("monthlyReport")
+    .timeBased()
+    .onMonthDay(1)
+    .atHour(8)
+    .create();
+
+  // 4. Monthly Career Resume Digest on 1st of month at 9:00 AM IST
+  ScriptApp.newTrigger("forwardMonthlyCareerApplications")
+    .timeBased()
+    .onMonthDay(1)
+    .atHour(9)
+    .create();
+
+  console.log("✅ All 4 Scheduled Triggers registered in Sheet 1 (Daily, Weekly, Monthly, Career Digest)!");
+  var ui = null;
+  try { ui = SpreadsheetApp.getUi(); } catch(e) {}
+  if (ui) ui.alert("✅ All Automation Triggers Configured in Sheet 1!\n\n1. Daily Report: Every day at 8:30 AM IST\n2. Weekly Report: Every Friday at 8:30 AM IST\n3. Monthly Report: 1st of every month at 8:30 AM IST\n4. Monthly Career Digest: 1st of every month at 9:00 AM IST\n\nRecipients:\n" + EMAIL_CONFIG.reportEmails.join("\n"));
+}
+
+function SEND_ALL_GOVENICS_TEST_EMAILS() {
+  var ui = null;
+  try { ui = SpreadsheetApp.getUi(); } catch(e) {}
+
+  try {
+    // 1. Sample Strategy Session Booking Alert
+    sendLeadNotification({
+      "Booking Reference": "GOVNICS-SS-TEST01",
+      "Full Name": "Dr. Vikram Seth",
+      "Business Email": "vikram.seth@novaprime.com",
+      "Company": "NovaPrime Technologies",
+      "Job Title": "Chief Risk Officer",
+      "Phone": "+91 98765 43210",
+      "Industry": "Technology, SaaS & Cloud Services",
+      "Area of Interest": "Regulatory Compliance & Audit Readiness",
+      "Business Objective": "SOC 2 Type II and ISO 27001 audit roadmap preparation",
+      "Preferred Date": "2026-11-05",
+      "Time Slot": "02:30 PM",
+      "Duration (min)": "45",
+      "Meeting Format": "Video Meeting",
+      "Lead Source": "Book a Strategy Session"
+    }, "Strategy_Session_Bookings");
+
+    // 2. Sample Inbound Lead Alert
+    sendLeadNotification({
+      name: "Rajesh Varma",
+      email: "rajesh.varma@fintechsolutions.in",
+      phone: "+91 98401 23456",
+      company: "FinTech Solutions India Ltd",
+      requirement: "ISO 27001 & SOC 2 Readiness Audit",
+      leadSource: "Google Ads",
+      utmCampaign: "iso27001_enterprise_q3"
+    }, "Inbound_Leads");
+
+    // 3. Sample Career Application with Resume Attachment
+    var sampleBlob = Utilities.newBlob(
+      "GOVENICS GRC — SAMPLE CANDIDATE RESUME\n\nCandidate: Sneha Raman\nPosition: Senior GRC Consultant\nExperience: 6+ Years (ISO 27001, SOC 2, DPDP Act)\nCertifications: CISA, CRISC, ISO 27001 Lead Auditor\nLocation: Chennai / Bengaluru",
+      "application/pdf",
+      "Sneha_Raman_Sample_Resume.pdf"
+    );
+
+    sendCareerEmailWithResume({
+      name: "Sneha Raman",
+      email: "sneha.raman@grcexpert.in",
+      phone: "+91 97910 88765",
+      role: "Senior GRC Consultant & Lead Auditor",
+      experience: "6+ Years in statutory cybersecurity & data privacy compliance",
+      resumeFilename: "Sneha_Raman_Sample_Resume.pdf",
+      coverNote: "I have over 6 years of experience leading GRC advisory across BFSI and Healthcare clients."
+    }, [sampleBlob], "https://drive.google.com");
+
+    // 4. Sample Course Enquiry (CDAC-MEPZ)
+    sendLeadNotification({
+      name: "Aditya Nambiar",
+      email: "aditya.nambiar@techcyber.in",
+      phone: "+91 91234 56780",
+      company: "TechCyber Advisory",
+      course: "CDAC Certified GRC Officer",
+      experience: "3-5 Years",
+      leadSource: "Website Course Page",
+      utmSource: "linkedin",
+      utmCampaign: "cdac_mepz_certification"
+    }, "Course_Enquiries");
+
+    // 5. Daily, Weekly, Monthly briefs
+    dailyReport();
+    weeklyReport();
+    monthlyReport();
+
+    if (ui) ui.alert("✅ SUCCESS! Full Sample Preview Suite Dispatched to:\n" + EMAIL_CONFIG.reportEmails.join("\n"));
+  } catch(err) {
+    if (ui) ui.alert("❌ Error sending test preview suite: " + err.toString());
+  }
+}
+
+// ═════════════════════════════════════════════════════════════════════════════
+// 10. SPREADSHEET UI MENU
+// ═════════════════════════════════════════════════════════════════════════════
+
+function onOpen() {
+  SpreadsheetApp.getUi()
+    .createMenu('🚀 GOVENICS DATA ENGINE')
+    .addItem('⚡ Initialize All Master Tables & Schemas', 'INITIALIZE_ALL_SHEETS')
+    .addSeparator()
+    .addItem('📊 Send Sample Daily Executive Brief', 'dailyReport')
+    .addItem('📅 Send Sample Weekly Executive Brief', 'weeklyReport')
+    .addItem('📆 Send Sample Monthly Strategic Digest', 'monthlyReport')
+    .addItem('📋 Forward Monthly Resumes Digest Now', 'forwardMonthlyCareerApplications')
+    .addSeparator()
+    .addItem('📨 Send Full Sample Preview Suite (All Emails)', 'SEND_ALL_GOVENICS_TEST_EMAILS')
+    .addItem('⏰ Set Up Automated Daily/Weekly/Monthly Triggers', 'setupAllDataCollectionTriggers')
+    .addItem('🧹 Clear All Triggers', 'clearAllProjectTriggers')
+    .addSeparator()
+    .addItem('🔄 Refresh In-Sheet Daily/Weekly/Monthly Reports', 'GENERATE_ALL_SHEET1_REPORTS')
+    .addToUi();
+}
+
+function INITIALIZE_ALL_SHEETS() {
+  var ss = getSpreadsheet();
+  Object.keys(TAB_CONFIGS).forEach(function(tabName) {
+    getOrCreateSheet(ss, tabName, TAB_CONFIGS[tabName]);
+  });
+  GENERATE_ALL_SHEET1_REPORTS();
+  var ui = null;
+  try { ui = SpreadsheetApp.getUi(); } catch(e) {}
+  if (ui) ui.alert("✅ SUCCESS! All master database tabs & in-sheet reporting schemas initialized.");
+}
+
+// ═════════════════════════════════════════════════════════════════════════════
+// 11. HELPER FUNCTIONS
+// ═════════════════════════════════════════════════════════════════════════════
+
+function getSpreadsheet() {
+  try {
+    var active = SpreadsheetApp.getActiveSpreadsheet();
+    if (active) return active;
+  } catch(e) {}
+  return SpreadsheetApp.openById(CONFIG.DATA_SPREADSHEET_ID);
+}
+
+function getOrCreateSheet(ss, name, headers) {
+  var sheet = ss.getSheetByName(name);
+  if (!sheet) {
+    sheet = ss.insertSheet(name);
+    if (headers && headers.length > 0) {
+      sheet.getRange(1, 1, 1, headers.length)
+           .setValues([headers])
+           .setFontWeight("bold")
+           .setBackground("#1e293b")
+           .setFontColor("#ffffff");
+      sheet.setFrozenRows(1);
+    }
+  } else if (sheet.getLastRow() === 0 && headers && headers.length > 0) {
+    sheet.getRange(1, 1, 1, headers.length)
+         .setValues([headers])
+         .setFontWeight("bold")
+         .setBackground("#1e293b")
+         .setFontColor("#ffffff");
+    sheet.setFrozenRows(1);
+  }
+  return sheet;
+}
+
+function syncHeadersWithFields(sheet, fields) {
+  try {
+    if (sheet.getLastRow() === 0) return;
+    var lastCol = Math.max(sheet.getLastColumn(), 1);
+    var existingHeaders = sheet.getRange(1, 1, 1, lastCol).getValues()[0];
+    var existingHeaderMap = {};
+    existingHeaders.forEach(function(h) {
+      if (h) existingHeaderMap[h.toLowerCase().replace(/[\s\-_/]/g, '')] = true;
+    });
+
+    var newHeaders = [];
+    Object.keys(fields).forEach(function(k) {
+      if (k === "table" || k === "sheetName" || k === "resumeData" || k === "resumeBlob" || typeof fields[k] === "object") return;
+      var clean = k.toLowerCase().replace(/[\s\-_/]/g, '');
+      if (!existingHeaderMap[clean]) {
+        newHeaders.push(k);
+        existingHeaderMap[clean] = true;
+      }
+    });
+
+    if (newHeaders.length > 0) {
+      var startCol = lastCol + 1;
+      var range = sheet.getRange(1, startCol, 1, newHeaders.length);
+      range.setValues([newHeaders])
+           .setFontWeight("bold")
+           .setBackground("#1e293b")
+           .setFontColor("#ffffff");
+    }
+  } catch(e) {
+    console.warn("Could not sync headers: " + e.toString());
+  }
+}
+
+function buildRowFromHeaders(sheet, fields) {
+  var lastCol = Math.max(sheet.getLastColumn(), 1);
+  var headers = sheet.getRange(1, 1, 1, lastCol).getValues()[0];
+  var nowStr = new Date().toLocaleString("en-IN", { timeZone: "Asia/Kolkata" });
+
+  return headers.map(function(h) {
+    if (!h) return "";
+    if (fields[h] !== undefined && fields[h] !== null && fields[h] !== "") {
+      return (typeof fields[h] === "object") ? JSON.stringify(fields[h]) : fields[h];
+    }
+
+    var cleanHeader = h.toLowerCase().replace(/[\s\-_/]/g, '');
+
+    if (cleanHeader === "timestamp") {
+      return fields.timestamp || fields.Timestamp || fields.submitted_at || nowStr;
+    }
+    if (cleanHeader === "leadstatus" || cleanHeader === "status") {
+      return fields.lead_status || fields.leadStatus || fields.status || fields["Booking Status"] || "New";
+    }
+    if (cleanHeader === "page" || cleanHeader === "sourcepage") {
+      return fields.page || fields.page_url || fields.pageUrl || fields.source_page || fields.sourcePage || fields.source || fields["Source"] || "https://govenics.com";
+    }
+    if (cleanHeader === "jiraissuekey") {
+      return fields.jira_issue_key || fields.jiraIssueKey || fields.jiraKey || "N/A";
+    }
+    if (cleanHeader === "jirastatus") {
+      return fields.jira_status || fields.jiraStatus || "Pending";
+    }
+    if (cleanHeader === "jiraurl") {
+      return fields.jira_url || fields.jiraUrl || "N/A";
+    }
+
+    for (var key in fields) {
+      var cleanKey = key.toLowerCase().replace(/[\s\-_/]/g, '');
+      if (cleanKey === cleanHeader) {
+        var v = fields[key];
+        return (typeof v === "object" && v !== null) ? JSON.stringify(v) : (v !== undefined ? v : "");
+      }
+    }
+    return "";
+  });
+}
+
+function uniqueEmails(list) {
+  var seen = {};
+  var out = [];
+  (list || []).forEach(function(addr) {
+    if (!addr || typeof addr !== "string") return;
+    var clean = addr.trim().toLowerCase();
+    if (!clean || clean.indexOf("@") === -1 || seen[clean]) return;
+    seen[clean] = true;
+    out.push(addr.trim());
+  });
+  return out;
 }
