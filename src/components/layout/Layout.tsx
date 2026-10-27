@@ -5,6 +5,7 @@ import { useLocation } from "react-router-dom";
 import { GrcExitIntentPopup } from "../ui/GrcExitIntentPopup";
 import { GrcChatBot } from "../ai/GrcChatBot";
 import { QuickInquiry } from "../ui/QuickInquiry";
+import { SessionIntelligencePopup } from "../ui/SessionIntelligencePopup";
 
 interface LayoutProps {
   children: React.ReactNode;
@@ -63,6 +64,7 @@ export const Layout = ({ children, noPadding = false, hideHeaderFooter = false }
       {!hideHeaderFooter && <Footer />}
       {!hideHeaderFooter && <GrcChatBot />}
       {!hideHeaderFooter && <QuickInquiry />}
+      {!hideHeaderFooter && <SessionIntelligencePopup />}
       <GrcExitIntentPopup />
     </div>
   );
