@@ -278,9 +278,9 @@ export default function SolutionsPage() {
               </a>
               <Link
                 to="/case-studies"
-                className="bg-emerald-50 hover:bg-emerald-100 text-emerald-800 font-semibold px-4 py-3 rounded-xl border border-emerald-200 transition-all text-sm inline-flex items-center gap-1.5"
+                className="bg-blue-50 hover:bg-blue-100 text-blue-700 font-semibold px-4 py-3 rounded-xl border border-blue-200 transition-all text-sm inline-flex items-center gap-1.5"
               >
-                <Award className="w-4 h-4 text-emerald-600" />
+                <Award className="w-4 h-4 text-blue-600" />
                 <span>View Case Studies &rarr;</span>
               </Link>
             </motion.div>
@@ -310,7 +310,7 @@ export default function SolutionsPage() {
                 label: "Statutory Audit Defense",
                 subtext: "Zero material findings across active clients",
                 icon: ShieldCheck,
-                color: "text-emerald-600",
+                color: "text-blue-600",
                 badge: "Guaranteed"
               },
               {
@@ -472,7 +472,7 @@ export default function SolutionsPage() {
                     <div className="mt-6 pt-6 border-t border-slate-200 space-y-3">
                       <div className="flex items-center justify-between text-xs text-slate-700 font-medium">
                         <span>Turnkey Audit Registers</span>
-                        <span className="font-bold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">Included</span>
+                        <span className="font-bold text-blue-700 bg-blue-50 px-2 py-0.5 rounded border border-blue-200">Included</span>
                       </div>
                       <div className="flex items-center justify-between text-xs text-slate-700 font-medium">
                         <span>API &amp; Connector Suite</span>
@@ -480,7 +480,7 @@ export default function SolutionsPage() {
                       </div>
                       <div className="flex items-center justify-between text-xs text-slate-700 font-medium">
                         <span>External Auditor Read-Only Room</span>
-                        <span className="font-bold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">Pre-Configured</span>
+                        <span className="font-bold text-blue-700 bg-blue-50 px-2 py-0.5 rounded border border-blue-200">Pre-Configured</span>
                       </div>
                     </div>
                   </div>
@@ -677,7 +677,7 @@ export default function SolutionsPage() {
                         {item.badge}
                       </span>
                       {item.metricsHighlight && (
-                        <span className="text-[10px] font-semibold text-emerald-800 bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200 truncate max-w-[170px]">
+                        <span className="text-[10px] font-semibold text-blue-700 bg-blue-50 px-2 py-0.5 rounded border border-blue-200 truncate max-w-[170px]">
                           ✓ {item.metricsHighlight}
                         </span>
                       )}
@@ -821,7 +821,7 @@ export default function SolutionsPage() {
                     <span className="text-[10px] font-bold text-slate-500 uppercase tracking-wider block">
                       Cost Reduction
                     </span>
-                    <div className="text-2xl sm:text-3xl font-extrabold text-emerald-600 font-['Sora',sans-serif] mt-1">
+                    <div className="text-2xl sm:text-3xl font-extrabold text-blue-600 font-['Sora',sans-serif] mt-1">
                       ₹{calculatedSavings.costSavedInLakhs} Lakhs
                     </div>
                     <span className="text-[10px] text-slate-500 mt-1 block">
@@ -924,7 +924,7 @@ export default function SolutionsPage() {
 
         {/* ── 7. CROSS-LINK TO CASE STUDIES ── */}
         <section className="px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto my-16">
-          <div className="bg-gradient-to-r from-blue-50 via-sky-50 to-emerald-50 border border-blue-200 rounded-3xl p-8 sm:p-12 text-center relative overflow-hidden shadow-md">
+          <div className="bg-gradient-to-r from-blue-50 via-sky-50 to-indigo-50 border border-blue-200 rounded-3xl p-8 sm:p-12 text-center relative overflow-hidden shadow-md">
             <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-slate-900 font-['Sora',sans-serif] mb-3">
               Want to See Real-World Audited Impact?
             </h2>
@@ -934,7 +934,7 @@ export default function SolutionsPage() {
             <div className="flex flex-wrap items-center justify-center gap-3">
               <Link
                 to="/case-studies"
-                className="bg-emerald-600 hover:bg-emerald-700 text-white font-bold px-6 py-3.5 rounded-xl text-sm transition-all shadow-md shadow-emerald-600/20 inline-flex items-center gap-2"
+                className="bg-blue-600 hover:bg-blue-700 text-white font-bold px-6 py-3.5 rounded-xl text-sm transition-all shadow-md shadow-blue-600/20 inline-flex items-center gap-2"
               >
                 <Award className="w-4 h-4" />
                 <span>Explore 40+ Audited Case Studies</span>
@@ -972,7 +972,7 @@ export default function SolutionsPage() {
                     {selectedSolutionModal.badge}
                   </span>
                   {selectedSolutionModal.metricsHighlight && (
-                    <span className="text-xs font-semibold text-emerald-800 bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">
+                    <span className="text-xs font-semibold text-blue-700 bg-blue-50 px-2 py-0.5 rounded border border-blue-200">
                       ✓ {selectedSolutionModal.metricsHighlight}
                     </span>
                   )}

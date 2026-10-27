@@ -224,9 +224,9 @@ export default function CaseStudiesPage() {
 
   return (
     <Layout>
-      <div className="min-h-screen bg-slate-50 text-slate-800 font-['Plus_Jakarta_Sans',sans-serif] selection:bg-emerald-600 selection:text-white pb-24">
+      <div className="min-h-screen bg-slate-50 text-slate-800 font-['Plus_Jakarta_Sans',sans-serif] selection:bg-blue-600 selection:text-white pb-24">
         {/* Ambient Top Glow */}
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-7xl h-96 bg-gradient-to-b from-emerald-100/60 via-teal-50/40 to-transparent blur-3xl pointer-events-none" />
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-7xl h-96 bg-gradient-to-b from-blue-100/60 via-sky-50/40 to-transparent blur-3xl pointer-events-none" />
 
         {/* ── 1. HERO SECTION ── */}
         <section className="relative pt-32 pb-16 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
@@ -234,9 +234,9 @@ export default function CaseStudiesPage() {
             <motion.div
               initial={{ opacity: 0, y: -10 }}
               animate={{ opacity: 1, y: 0 }}
-              className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-800 text-xs font-bold uppercase tracking-wider shadow-xs"
+              className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-blue-50 border border-blue-200 text-blue-700 text-xs font-bold uppercase tracking-wider shadow-xs"
             >
-              <Award className="w-3.5 h-3.5 text-emerald-600" />
+              <Award className="w-3.5 h-3.5 text-blue-600" />
               <span>Audited Client Success &amp; Impact Evidence</span>
             </motion.div>
 
@@ -246,7 +246,7 @@ export default function CaseStudiesPage() {
               transition={{ delay: 0.1 }}
               className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-slate-900 tracking-tight leading-[1.15] font-['Sora',sans-serif]"
             >
-              Proven Enterprise Case Studies &amp; <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-600 via-teal-600 to-sky-600">Regulatory Triumphs</span>
+              Proven Enterprise Case Studies &amp; <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 via-sky-500 to-indigo-600">Regulatory Triumphs</span>
             </motion.h1>
 
             <motion.p
@@ -266,7 +266,7 @@ export default function CaseStudiesPage() {
             >
               <a
                 href="#case-studies-grid"
-                className="bg-emerald-600 hover:bg-emerald-700 text-white font-bold px-6 py-3 rounded-xl transition-all shadow-md shadow-emerald-600/20 inline-flex items-center gap-2 text-sm"
+                className="bg-blue-600 hover:bg-blue-700 text-white font-bold px-6 py-3 rounded-xl transition-all shadow-md shadow-blue-600/20 inline-flex items-center gap-2 text-sm"
               >
                 <span>Browse All Case Studies</span>
                 <ArrowRight className="w-4 h-4" />
@@ -275,12 +275,12 @@ export default function CaseStudiesPage() {
                 href="#outcome-metrics"
                 className="bg-white hover:bg-slate-100 text-slate-800 font-semibold px-5 py-3 rounded-xl border border-slate-300 transition-all text-sm inline-flex items-center gap-2 shadow-xs"
               >
-                <TrendingUp className="w-4 h-4 text-emerald-600" />
+                <TrendingUp className="w-4 h-4 text-blue-600" />
                 <span>Audited Outcome KPIs</span>
               </a>
               <Link
                 to="/solutions"
-                className="bg-blue-50 hover:bg-blue-100 text-blue-800 font-semibold px-4 py-3 rounded-xl border border-blue-200 transition-all text-sm inline-flex items-center gap-1.5"
+                className="bg-blue-50 hover:bg-blue-100 text-blue-700 font-semibold px-4 py-3 rounded-xl border border-blue-200 transition-all text-sm inline-flex items-center gap-1.5"
               >
                 <Layers className="w-4 h-4 text-blue-600" />
                 <span>View Solutions Catalog &rarr;</span>
@@ -296,7 +296,7 @@ export default function CaseStudiesPage() {
                 label: "Statutory Penalties Avoided",
                 subtext: "Across 120+ client regulatory audits",
                 icon: DollarSign,
-                color: "text-emerald-600",
+                color: "text-blue-600",
                 badge: "Zero Fines"
               },
               {
@@ -320,7 +320,7 @@ export default function CaseStudiesPage() {
                 label: "Critical Material Exceptions",
                 subtext: "Across 350+ external regulatory checks",
                 icon: Award,
-                color: "text-purple-600",
+                color: "text-indigo-600",
                 badge: "100% Defense"
               }
             ].map((stat, i) => {
@@ -331,10 +331,10 @@ export default function CaseStudiesPage() {
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.1 * i }}
-                  className="bg-white border border-slate-200/90 hover:border-emerald-500/50 p-5 rounded-2xl relative overflow-hidden transition-all duration-300 hover:-translate-y-1 hover:shadow-lg shadow-sm group"
+                  className="bg-white border border-slate-200/90 hover:border-blue-500/50 p-5 rounded-2xl relative overflow-hidden transition-all duration-300 hover:-translate-y-1 hover:shadow-lg shadow-sm group"
                 >
                   <div className="flex items-center justify-between mb-3">
-                    <div className="w-10 h-10 rounded-xl bg-slate-100 flex items-center justify-center text-slate-700 group-hover:bg-emerald-50 group-hover:text-emerald-700 transition-colors">
+                    <div className="w-10 h-10 rounded-xl bg-slate-100 flex items-center justify-center text-slate-700 group-hover:bg-blue-50 group-hover:text-blue-600 transition-colors">
                       <StatIcon className="w-5 h-5" />
                     </div>
                     <span className="text-[11px] font-bold px-2 py-0.5 rounded-full bg-slate-100 text-slate-700 border border-slate-200">
@@ -360,7 +360,7 @@ export default function CaseStudiesPage() {
         <section className="relative px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto my-12">
           <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-6">
             <div>
-              <div className="inline-flex items-center gap-2 text-xs font-bold text-emerald-700 uppercase tracking-widest mb-1">
+              <div className="inline-flex items-center gap-2 text-xs font-bold text-blue-600 uppercase tracking-widest mb-1">
                 <Sparkles className="w-3.5 h-3.5" />
                 <span>Executive Case Spotlight</span>
               </div>
@@ -382,7 +382,7 @@ export default function CaseStudiesPage() {
                 <ChevronLeft className="w-5 h-5" />
               </button>
               <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-white border border-slate-300 text-xs font-semibold text-slate-600 shadow-xs">
-                <span className="text-emerald-700 font-bold">{activeSpotlightIndex + 1}</span>
+                <span className="text-blue-600 font-bold">{activeSpotlightIndex + 1}</span>
                 <span>/</span>
                 <span>{spotlightCases.length}</span>
               </div>
@@ -406,7 +406,7 @@ export default function CaseStudiesPage() {
             className="bg-white border border-slate-200/90 rounded-3xl p-6 sm:p-8 lg:p-10 shadow-xl shadow-slate-200/70 relative overflow-hidden"
           >
             {/* Background Accent */}
-            <div className="absolute top-0 right-0 w-80 h-80 bg-emerald-100/40 rounded-full blur-3xl pointer-events-none" />
+            <div className="absolute top-0 right-0 w-80 h-80 bg-blue-100/40 rounded-full blur-3xl pointer-events-none" />
 
             <AnimatePresence mode="wait">
               <motion.div
@@ -421,7 +421,7 @@ export default function CaseStudiesPage() {
                 <div className="lg:col-span-7 space-y-4">
                   <div className="flex flex-wrap items-center gap-2.5">
                     <span className="text-2xl">{currentSpotlight.avatar}</span>
-                    <span className="text-xs font-bold px-3 py-1 rounded-full bg-emerald-50 text-emerald-800 border border-emerald-200">
+                    <span className="text-xs font-bold px-3 py-1 rounded-full bg-blue-50 text-blue-700 border border-blue-200">
                       {currentSpotlight.sector}
                     </span>
                     <span className="text-xs font-semibold px-2.5 py-1 rounded-full bg-slate-100 text-slate-700 border border-slate-200">
@@ -432,7 +432,7 @@ export default function CaseStudiesPage() {
                   <h3 className="text-2xl sm:text-3xl font-extrabold text-slate-900 font-['Sora',sans-serif] leading-tight">
                     {currentSpotlight.client}
                   </h3>
-                  <p className="text-sm font-semibold text-emerald-700">
+                  <p className="text-sm font-semibold text-blue-600">
                     {currentSpotlight.tagline}
                   </p>
 
@@ -446,8 +446,8 @@ export default function CaseStudiesPage() {
                       </p>
                     </div>
 
-                    <div className="bg-emerald-50/60 border border-emerald-200/80 rounded-xl p-3.5">
-                      <span className="text-[11px] font-bold uppercase tracking-wider text-emerald-800 block mb-1">
+                    <div className="bg-blue-50/60 border border-blue-200/80 rounded-xl p-3.5">
+                      <span className="text-[11px] font-bold uppercase tracking-wider text-blue-800 block mb-1">
                         The GOVENICS Turnkey Solution
                       </span>
                       <p className="text-xs text-slate-700 leading-relaxed">
@@ -476,7 +476,7 @@ export default function CaseStudiesPage() {
                     <span className="text-xs font-bold uppercase tracking-wider text-slate-500">
                       Audited Metric Highlight
                     </span>
-                    <div className="text-4xl sm:text-5xl font-black text-transparent bg-clip-text bg-gradient-to-r from-emerald-600 to-teal-700 font-['Sora',sans-serif] my-2">
+                    <div className="text-4xl sm:text-5xl font-black text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-600 font-['Sora',sans-serif] my-2">
                       {currentSpotlight.statValue}
                     </div>
                     <div className="text-sm font-bold text-slate-900">
@@ -484,12 +484,12 @@ export default function CaseStudiesPage() {
                     </div>
 
                     <div className="mt-6 pt-6 border-t border-slate-200 space-y-3">
-                      <span className="text-xs font-bold uppercase tracking-wider text-emerald-800 block">
+                      <span className="text-xs font-bold uppercase tracking-wider text-blue-700 block">
                         Documented Client Outcomes:
                       </span>
                       {currentSpotlight.results.map((res, idx) => (
                         <div key={idx} className="flex items-start gap-2.5 text-xs text-slate-700">
-                          <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
+                          <CheckCircle2 className="w-4 h-4 text-blue-600 shrink-0 mt-0.5" />
                           <span className="font-medium">{res}</span>
                         </div>
                       ))}
@@ -501,7 +501,7 @@ export default function CaseStudiesPage() {
                       const matchedItem = allCaseStudies.find(c => c.title.toLowerCase().includes(currentSpotlight.tagline.toLowerCase()) || c.industry.includes(currentSpotlight.sector.split("&")[0].trim()));
                       if (matchedItem) setSelectedCaseModal(matchedItem);
                     }}
-                    className="mt-6 w-full py-3 bg-emerald-600 hover:bg-emerald-700 text-white font-bold rounded-xl text-xs transition-colors flex items-center justify-center gap-2 cursor-pointer shadow-sm"
+                    className="mt-6 w-full py-3 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-xl text-xs transition-colors flex items-center justify-center gap-2 cursor-pointer shadow-sm"
                   >
                     <span>View Complete Verification Dossier</span>
                     <ArrowUpRight className="w-4 h-4" />
@@ -520,7 +520,7 @@ export default function CaseStudiesPage() {
                     setActiveSpotlightIndex(idx);
                   }}
                   className={`h-2 rounded-full transition-all duration-300 cursor-pointer ${
-                    activeSpotlightIndex === idx ? "w-8 bg-emerald-600" : "w-2 bg-slate-300 hover:bg-slate-400"
+                    activeSpotlightIndex === idx ? "w-8 bg-blue-600" : "w-2 bg-slate-300 hover:bg-slate-400"
                   }`}
                   aria-label={`Jump to slide ${idx + 1}`}
                 />
@@ -577,32 +577,32 @@ export default function CaseStudiesPage() {
             </div>
 
             {/* After Card */}
-            <div className="bg-emerald-50/50 border border-emerald-200 rounded-2xl p-6 sm:p-7 relative overflow-hidden shadow-md shadow-emerald-100/50">
+            <div className="bg-blue-50/50 border border-blue-200 rounded-2xl p-6 sm:p-7 relative overflow-hidden shadow-md shadow-blue-100/50">
               <div className="flex items-center gap-2.5 mb-4">
-                <span className="w-8 h-8 rounded-lg bg-emerald-100 text-emerald-800 flex items-center justify-center font-bold text-sm">
+                <span className="w-8 h-8 rounded-lg bg-blue-100 text-blue-700 flex items-center justify-center font-bold text-sm">
                   ✓
                 </span>
                 <div>
                   <h4 className="text-sm font-bold text-slate-900 font-['Sora',sans-serif]">
                     With GOVENICS Architecture
                   </h4>
-                  <span className="text-[11px] text-emerald-800 font-semibold">
+                  <span className="text-[11px] text-blue-700 font-semibold">
                     Automated, Turnkey &amp; Continuous
                   </span>
                 </div>
               </div>
 
               <div className="space-y-3 text-xs text-slate-700">
-                <div className="p-3.5 rounded-xl bg-white border border-emerald-200/70 shadow-xs flex items-start gap-2.5">
-                  <Check className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
+                <div className="p-3.5 rounded-xl bg-white border border-blue-200/70 shadow-xs flex items-start gap-2.5">
+                  <Check className="w-4 h-4 text-blue-600 shrink-0 mt-0.5" />
                   <span><strong>Instant Audit Readiness:</strong> Continuous automated evidence collection directly into cryptographically stamped audit rooms.</span>
                 </div>
-                <div className="p-3.5 rounded-xl bg-white border border-emerald-200/70 shadow-xs flex items-start gap-2.5">
-                  <Check className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
+                <div className="p-3.5 rounded-xl bg-white border border-blue-200/70 shadow-xs flex items-start gap-2.5">
+                  <Check className="w-4 h-4 text-blue-600 shrink-0 mt-0.5" />
                   <span><strong>Complete Supply Chain Visibility:</strong> Real-time contractor biometric verification, automated E-Way bill audits, and vendor risk dashboards.</span>
                 </div>
-                <div className="p-3.5 rounded-xl bg-white border border-emerald-200/70 shadow-xs flex items-start gap-2.5">
-                  <Check className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
+                <div className="p-3.5 rounded-xl bg-white border border-blue-200/70 shadow-xs flex items-start gap-2.5">
+                  <Check className="w-4 h-4 text-blue-600 shrink-0 mt-0.5" />
                   <span><strong>Zero Penalty Defense:</strong> Flawless regulatory compliance track record with proven 100% first-pass inspections.</span>
                 </div>
               </div>
@@ -631,7 +631,7 @@ export default function CaseStudiesPage() {
                   placeholder="Search client, regulation or keyword…"
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  className="w-full pl-10 pr-4 py-2.5 bg-white border border-slate-300 rounded-xl text-xs text-slate-900 placeholder-slate-400 focus:outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 shadow-xs transition-colors"
+                  className="w-full pl-10 pr-4 py-2.5 bg-white border border-slate-300 rounded-xl text-xs text-slate-900 placeholder-slate-400 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 shadow-xs transition-colors"
                 />
                 {searchQuery && (
                   <button
@@ -653,7 +653,7 @@ export default function CaseStudiesPage() {
                 }}
                 className={`px-4 py-2 rounded-xl text-xs font-bold whitespace-nowrap transition-all cursor-pointer ${
                   selectedSector === "all"
-                    ? "bg-emerald-600 text-white shadow-md shadow-emerald-600/20"
+                    ? "bg-blue-600 text-white shadow-md shadow-blue-600/20"
                     : "bg-white hover:bg-slate-100 text-slate-700 border border-slate-200 shadow-xs"
                 }`}
               >
@@ -668,7 +668,7 @@ export default function CaseStudiesPage() {
                   }}
                   className={`px-3.5 py-2 rounded-xl text-xs font-bold whitespace-nowrap transition-all cursor-pointer flex items-center gap-1.5 ${
                     selectedSector === cat.id
-                      ? "bg-emerald-600 text-white shadow-md shadow-emerald-600/20"
+                      ? "bg-blue-600 text-white shadow-md shadow-blue-600/20"
                       : "bg-white hover:bg-slate-100 text-slate-700 border border-slate-200 shadow-xs"
                   }`}
                 >
@@ -691,7 +691,7 @@ export default function CaseStudiesPage() {
                   setSelectedSector("all");
                   setSearchQuery("");
                 }}
-                className="mt-3 text-xs text-emerald-600 hover:underline font-bold cursor-pointer"
+                className="mt-3 text-xs text-blue-600 hover:underline font-bold cursor-pointer"
               >
                 Clear all filters
               </button>
@@ -705,7 +705,7 @@ export default function CaseStudiesPage() {
                   initial={{ opacity: 0, scale: 0.96 }}
                   animate={{ opacity: 1, scale: 1 }}
                   transition={{ duration: 0.25 }}
-                  className="bg-white hover:bg-slate-50/70 border border-slate-200/90 hover:border-emerald-500/50 rounded-2xl p-5 sm:p-6 flex flex-col justify-between transition-all duration-300 shadow-sm group hover:-translate-y-1 hover:shadow-md"
+                  className="bg-white hover:bg-slate-50/70 border border-slate-200/90 hover:border-blue-500/50 rounded-2xl p-5 sm:p-6 flex flex-col justify-between transition-all duration-300 shadow-sm group hover:-translate-y-1 hover:shadow-md"
                 >
                   <div>
                     {/* Header Badges */}
@@ -714,28 +714,28 @@ export default function CaseStudiesPage() {
                         {item.clientType}
                       </span>
                       {item.duration && (
-                        <span className="text-[10px] font-semibold text-emerald-800 bg-emerald-50 px-2 py-0.5 rounded-md border border-emerald-200 shrink-0">
+                        <span className="text-[10px] font-semibold text-blue-700 bg-blue-50 px-2 py-0.5 rounded-md border border-blue-200 shrink-0">
                           ⏱ {item.duration}
                         </span>
                       )}
                     </div>
 
                     {/* Title */}
-                    <h3 className="text-base font-bold text-slate-900 group-hover:text-emerald-700 transition-colors leading-snug font-['Sora',sans-serif] mb-2">
+                    <h3 className="text-base font-bold text-slate-900 group-hover:text-blue-600 transition-colors leading-snug font-['Sora',sans-serif] mb-2">
                       {item.title}
                     </h3>
 
                     {/* Metric Highlight Box */}
-                    <div className="bg-emerald-50/60 border border-emerald-200/80 rounded-xl p-3 my-3 flex items-center justify-between">
+                    <div className="bg-blue-50/60 border border-blue-200/80 rounded-xl p-3 my-3 flex items-center justify-between">
                       <div>
                         <div className="text-[10px] font-bold text-slate-500 uppercase tracking-wider">
                           {item.metricBadge}
                         </div>
-                        <div className="text-lg font-black text-emerald-700 font-['Sora',sans-serif]">
+                        <div className="text-lg font-black text-blue-600 font-['Sora',sans-serif]">
                           {item.metricValue}
                         </div>
                       </div>
-                      <span className="text-[10px] font-bold px-2 py-1 rounded bg-white text-emerald-800 border border-emerald-200 shadow-xs">
+                      <span className="text-[10px] font-bold px-2 py-1 rounded bg-white text-blue-700 border border-blue-200 shadow-xs">
                         {item.badge}
                       </span>
                     </div>
@@ -757,7 +757,7 @@ export default function CaseStudiesPage() {
                       </span>
                       {item.results.slice(0, 2).map((res, rIdx) => (
                         <div key={rIdx} className="flex items-start gap-1.5 text-[11px] text-slate-700">
-                          <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 shrink-0 mt-0.5" />
+                          <CheckCircle2 className="w-3.5 h-3.5 text-blue-600 shrink-0 mt-0.5" />
                           <span className="line-clamp-1">{res}</span>
                         </div>
                       ))}
@@ -768,7 +768,7 @@ export default function CaseStudiesPage() {
                   <div className="pt-5 mt-4 border-t border-slate-200">
                     <button
                       onClick={() => setSelectedCaseModal(item)}
-                      className="w-full py-2.5 px-3 bg-slate-100 hover:bg-emerald-50 border border-slate-200 hover:border-emerald-300 text-slate-800 hover:text-emerald-800 text-xs font-bold rounded-xl transition-all flex items-center justify-center gap-1.5 cursor-pointer"
+                      className="w-full py-2.5 px-3 bg-slate-100 hover:bg-blue-50 border border-slate-200 hover:border-blue-300 text-slate-800 hover:text-blue-700 text-xs font-bold rounded-xl transition-all flex items-center justify-center gap-1.5 cursor-pointer"
                     >
                       <span>Read Case Study Dossier</span>
                       <ArrowRight className="w-3.5 h-3.5" />
@@ -784,7 +784,7 @@ export default function CaseStudiesPage() {
         <section id="outcome-metrics" className="px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto my-20">
           <div className="bg-white border border-slate-200/90 rounded-3xl p-6 sm:p-10 shadow-xl shadow-slate-200/50">
             <div className="text-center max-w-2xl mx-auto mb-10">
-              <span className="text-xs font-bold text-emerald-700 uppercase tracking-widest">
+              <span className="text-xs font-bold text-blue-600 uppercase tracking-widest">
                 Benchmarked ROI &amp; Reliability
               </span>
               <h2 className="text-2xl sm:text-3xl font-bold text-slate-900 font-['Sora',sans-serif] mt-1">
@@ -809,7 +809,7 @@ export default function CaseStudiesPage() {
                       {kpiGroup.metrics.map((metric) => (
                         <div key={metric.title} className="space-y-1">
                           <div className="flex items-baseline justify-between gap-2">
-                            <span className="text-xl font-extrabold text-emerald-700 font-['Sora',sans-serif]">
+                            <span className="text-xl font-extrabold text-blue-600 font-['Sora',sans-serif]">
                               {metric.stat}
                             </span>
                             <span className="text-[10px] font-semibold text-slate-600 bg-white border border-slate-200 px-1.5 py-0.5 rounded shadow-xs">
@@ -835,9 +835,9 @@ export default function CaseStudiesPage() {
         {/* ── 7. CLIENT TESTIMONIALS SLIDER ── */}
         <section className="px-4 sm:px-6 lg:px-8 max-w-5xl mx-auto my-16">
           <div className="bg-white border border-slate-200 rounded-3xl p-6 sm:p-10 relative overflow-hidden shadow-md">
-            <Quote className="w-16 h-16 text-emerald-600/10 absolute top-4 right-4 pointer-events-none" />
+            <Quote className="w-16 h-16 text-blue-600/10 absolute top-4 right-4 pointer-events-none" />
             <div className="relative z-10">
-              <span className="text-xs font-bold text-emerald-700 uppercase tracking-widest block mb-4">
+              <span className="text-xs font-bold text-blue-600 uppercase tracking-widest block mb-4">
                 Verified Executive Testimonial
               </span>
               <p className="text-base sm:text-xl font-medium text-slate-800 italic leading-relaxed">
@@ -849,7 +849,7 @@ export default function CaseStudiesPage() {
                     {clientTestimonials[testimonialIndex].name}
                   </h4>
                   <p className="text-xs text-slate-500">
-                    {clientTestimonials[testimonialIndex].role} &bull; <strong className="text-emerald-700">{clientTestimonials[testimonialIndex].company}</strong>
+                    {clientTestimonials[testimonialIndex].role} &bull; <strong className="text-blue-600">{clientTestimonials[testimonialIndex].company}</strong>
                   </p>
                 </div>
                 <div className="flex items-center gap-2">
@@ -875,7 +875,7 @@ export default function CaseStudiesPage() {
 
         {/* ── 8. EXECUTIVE CTA ── */}
         <section className="px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto my-16">
-          <div className="bg-gradient-to-r from-emerald-50 via-teal-50 to-sky-50 border border-emerald-200 rounded-3xl p-8 sm:p-12 text-center relative overflow-hidden shadow-md">
+          <div className="bg-gradient-to-r from-blue-50 via-sky-50 to-indigo-50 border border-blue-200 rounded-3xl p-8 sm:p-12 text-center relative overflow-hidden shadow-md">
             <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-slate-900 font-['Sora',sans-serif] mb-3">
               Facing an Upcoming Regulatory Audit or Inspection?
             </h2>
@@ -885,7 +885,7 @@ export default function CaseStudiesPage() {
             <div className="flex flex-wrap items-center justify-center gap-3">
               <Link
                 to="/contact"
-                className="bg-emerald-600 hover:bg-emerald-700 text-white font-bold px-6 py-3.5 rounded-xl text-sm transition-all shadow-md shadow-emerald-600/20 inline-flex items-center gap-2"
+                className="bg-blue-600 hover:bg-blue-700 text-white font-bold px-6 py-3.5 rounded-xl text-sm transition-all shadow-md shadow-blue-600/20 inline-flex items-center gap-2"
               >
                 <span>Request Industry Case Dossier</span>
                 <ArrowRight className="w-4 h-4" />
@@ -919,7 +919,7 @@ export default function CaseStudiesPage() {
                 </button>
 
                 <div className="flex items-center gap-2 mb-2">
-                  <span className="text-xs font-bold text-emerald-800 bg-emerald-50 px-2.5 py-0.5 rounded-full border border-emerald-200">
+                  <span className="text-xs font-bold text-blue-700 bg-blue-50 px-2.5 py-0.5 rounded-full border border-blue-200">
                     {selectedCaseModal.clientType}
                   </span>
                   {selectedCaseModal.duration && (
@@ -934,16 +934,16 @@ export default function CaseStudiesPage() {
                 </h3>
 
                 {/* Primary Metric Banner */}
-                <div className="bg-emerald-50/70 border border-emerald-200 rounded-2xl p-4 my-4 flex items-center justify-between">
+                <div className="bg-blue-50/70 border border-blue-200 rounded-2xl p-4 my-4 flex items-center justify-between">
                   <div>
                     <span className="text-[10px] font-bold uppercase tracking-wider text-slate-500">
                       Primary Audited Outcome
                     </span>
-                    <div className="text-2xl font-extrabold text-emerald-700 font-['Sora',sans-serif]">
+                    <div className="text-2xl font-extrabold text-blue-600 font-['Sora',sans-serif]">
                       {selectedCaseModal.metricValue}
                     </div>
                   </div>
-                  <span className="text-xs font-bold px-3 py-1 rounded-full bg-white text-emerald-800 border border-emerald-200 shadow-xs">
+                  <span className="text-xs font-bold px-3 py-1 rounded-full bg-white text-blue-700 border border-blue-200 shadow-xs">
                     {selectedCaseModal.metricBadge}
                   </span>
                 </div>
@@ -957,7 +957,7 @@ export default function CaseStudiesPage() {
                   </div>
 
                   <div className="bg-slate-50 border border-slate-200 rounded-xl p-4">
-                    <h5 className="text-xs font-bold uppercase tracking-wider text-emerald-800 mb-1">
+                    <h5 className="text-xs font-bold uppercase tracking-wider text-blue-700 mb-1">
                       The GOVENICS Turnkey Intervention
                     </h5>
                     <p className="leading-relaxed">{selectedCaseModal.solution}</p>
@@ -970,7 +970,7 @@ export default function CaseStudiesPage() {
                     <div className="space-y-2">
                       {selectedCaseModal.results.map((res, idx) => (
                         <div key={idx} className="flex items-start gap-2">
-                          <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
+                          <CheckCircle2 className="w-4 h-4 text-blue-600 shrink-0 mt-0.5" />
                           <span>{res}</span>
                         </div>
                       ))}
@@ -987,7 +987,7 @@ export default function CaseStudiesPage() {
                   </button>
                   <Link
                     to="/contact"
-                    className="px-5 py-2 bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold rounded-xl transition-colors inline-flex items-center gap-1.5 shadow-sm"
+                    className="px-5 py-2 bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold rounded-xl transition-colors inline-flex items-center gap-1.5 shadow-sm"
                   >
                     <span>Request Full Architecture Dossier</span>
                     <ArrowRight className="w-3.5 h-3.5" />
