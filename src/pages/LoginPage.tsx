@@ -55,6 +55,28 @@ export default function LoginPage() {
     setIsSubmitting(true);
     try {
       const success = await login(email, password);
+
+      // Log login event to Google Sheets User_Logins tab
+      const webhookUrl = import.meta.env.VITE_TELEMETRY_WEBHOOK_URL;
+      if (webhookUrl) {
+        fetch(webhookUrl, {
+          method: "POST",
+          mode: "no-cors",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            sheetName: "User_Logins",
+            table: "User_Logins",
+            "Timestamp": new Date().toISOString(),
+            "Email": email,
+            "Auth Provider": "Direct Password Auth",
+            "Login Status": success ? "Success" : "Failed Credentials",
+            "IP Location": "Direct Web Client",
+            "IP Address": "Web Client",
+            "User Agent": navigator.userAgent
+          }),
+        }).catch(() => {/* silent */});
+      }
+
       if (!success) {
         setError("Invalid email address or password. Try registering if you haven't yet.");
       }

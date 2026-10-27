@@ -91,6 +91,17 @@ export const ComplianceCTA = ({ variant }: ComplianceCTAProps) => {
               <Link to={cfg.primary.href}>
                 <button
                   id={`cta-${variant}-primary`}
+                  onClick={() => {
+                    import("@/utils/analytics").then(({ trackEvent }) => {
+                      trackEvent("click", "CTA Leads", {
+                        action: `CTA Click - ${cfg.primary.label}`,
+                        elementId: `cta-${variant}-primary`,
+                        elementText: cfg.primary.label,
+                        variant: variant,
+                        targetUrl: cfg.primary.href
+                      });
+                    });
+                  }}
                   className="flex items-center justify-center gap-2 px-7 py-3.5 bg-white hover:bg-slate-50 text-slate-900 rounded-xl font-bold text-sm tracking-wide transition-all shadow-lg hover:scale-[1.02] w-full sm:w-auto whitespace-nowrap"
                 >
                   {cfg.primary.label}
@@ -100,6 +111,17 @@ export const ComplianceCTA = ({ variant }: ComplianceCTAProps) => {
               <Link to={cfg.secondary.href}>
                 <button
                   id={`cta-${variant}-secondary`}
+                  onClick={() => {
+                    import("@/utils/analytics").then(({ trackEvent }) => {
+                      trackEvent("click", "CTA Leads", {
+                        action: `CTA Click - ${cfg.secondary.label}`,
+                        elementId: `cta-${variant}-secondary`,
+                        elementText: cfg.secondary.label,
+                        variant: variant,
+                        targetUrl: cfg.secondary.href
+                      });
+                    });
+                  }}
                   className="flex items-center justify-center gap-2 px-7 py-3.5 bg-white/10 hover:bg-white/20 border border-white/30 text-white rounded-xl font-bold text-sm tracking-wide transition-all hover:scale-[1.02] w-full sm:w-auto whitespace-nowrap"
                 >
                   <MessageSquare className="w-4 h-4 shrink-0" />

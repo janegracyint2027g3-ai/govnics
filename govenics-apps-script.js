@@ -367,16 +367,29 @@ function doPost(e) {
     var leadPrefix = "GOV-";
     var detectedSource = fields["Lead Source"] || fields.leadSource || "Website Form";
 
+    var isSpecificTable = (
+      canonicalName === "Strategy_Session_Bookings" ||
+      canonicalName === "Chatbot_Leads" ||
+      canonicalName === "Registered_Users" ||
+      canonicalName === "User_Logins" ||
+      canonicalName === "Estimator_Calculations" ||
+      canonicalName === "Traffic_Analytics" ||
+      canonicalName === "Behavior_Metrics" ||
+      canonicalName === "Exit_Intent_Feedback" ||
+      canonicalName === "Partner_Applications" ||
+      canonicalName === "Course_Enquiries"
+    );
+
     if (canonicalName === "Strategy_Session_Bookings") {
       leadPrefix = "GOV-SS-";
       detectedSource = "Book a Strategy Session";
-    } else if (isYouTube && !canonicalName.toLowerCase().includes("career")) {
+    } else if (isYouTube && !isSpecificTable) {
       canonicalName = LEAD_SHEETS.youtube;
       detectedSource = "YouTube";
       fields["Lead Source"] = "YouTube";
       fields.leadSource = "YouTube";
       leadPrefix = "GOV-YT-";
-    } else if (isLinkedIn && !canonicalName.toLowerCase().includes("career")) {
+    } else if (isLinkedIn && !isSpecificTable) {
       canonicalName = LEAD_SHEETS.linkedin;
       detectedSource = "LinkedIn";
       fields["Lead Source"] = "LinkedIn";
@@ -434,12 +447,20 @@ function doPost(e) {
     var row = buildRowFromHeaders(sheet, fields);
     sheet.appendRow(row);
 
-    // Send real-time email notification
-    try {
-      sendLeadNotification(fields, canonicalName);
-      sendUserConfirmationEmail(fields, canonicalName);
-    } catch(mailErr) {
-      console.error("Email notification error: " + mailErr.toString());
+    // Send real-time email notification for actionable leads and bookings
+    var isTelemetryOnly = (
+      canonicalName === "Traffic_Analytics" ||
+      canonicalName === "Behavior_Metrics" ||
+      canonicalName === "Exit_Intent_Feedback"
+    );
+
+    if (!isTelemetryOnly) {
+      try {
+        sendLeadNotification(fields, canonicalName);
+        sendUserConfirmationEmail(fields, canonicalName);
+      } catch(mailErr) {
+        console.error("Email notification error: " + mailErr.toString());
+      }
     }
 
     return ContentService.createTextOutput(JSON.stringify({

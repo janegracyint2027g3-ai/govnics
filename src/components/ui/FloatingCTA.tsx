@@ -34,7 +34,17 @@ export const FloatingCTA = () => {
             <Link
               to="#lead-capture"
               id="floating-cta-assessment"
-              onClick={() => setDismissed(true)}
+              onClick={() => {
+                setDismissed(true);
+                import("@/utils/analytics").then(({ trackEvent }) => {
+                  trackEvent("click", "CTA Leads", {
+                    action: "Floating CTA Click - Get Free Assessment",
+                    elementId: "floating-cta-assessment",
+                    elementText: "Get Free Assessment",
+                    targetUrl: "#lead-capture"
+                  });
+                });
+              }}
               className="flex items-center gap-1.5 text-white font-bold text-sm tracking-wide"
             >
               Get Free Assessment

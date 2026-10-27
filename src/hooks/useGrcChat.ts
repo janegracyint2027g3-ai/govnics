@@ -194,11 +194,22 @@ export const useGrcChat = () => {
     } catch {}
 
     const payload = {
-      sheetName: "ChatbotLeads",
+      sheetName: "Chatbot_Leads",
+      table: "Chatbot_Leads",
+      "Timestamp": new Date().toISOString(),
+      "Name": name,
+      "Email": email,
+      "Phone": phone,
+      "Topic": topic,
+      "Discussion_Summary": `Chatbot inquiry on: ${topic}`,
+      "Lead Source": "Govey AI Chatbot",
+      "IP Location": location,
+      "Status": "New Lead",
+      // Backwards-compatible aliases
       name,
       email,
       phone,
-      message: `Inquired about: ${topic}`,
+      topic,
       status: "New Lead",
       ipAddress: ip,
       location: location,
