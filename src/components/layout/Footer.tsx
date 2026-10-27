@@ -20,9 +20,9 @@ export const Footer = () => {
                 Contact Our Team
               </button>
             </Link>
-            <Link to="#lead-capture">
+            <Link to="/contact#book-strategy-session">
               <button className="w-full sm:w-auto px-6 py-3 bg-white/10 hover:bg-white/20 border border-white/20 text-white rounded-xl font-bold text-sm transition-all">
-                Get Free Assessment
+                Book Strategy Session
               </button>
             </Link>
           </div>

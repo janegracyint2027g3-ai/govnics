@@ -368,14 +368,24 @@ export const Header = () => {
 
                             {/* Bottom action row */}
                             <div className="pt-2 border-t border-slate-100 flex items-center justify-between">
-                              <Link
-                                to={activeItem.link}
-                                onClick={() => setActiveDropdown(null)}
-                                className="inline-flex items-center gap-2 px-4 py-2 bg-slate-900 hover:bg-slate-800 text-white rounded-xl text-[10.5px] font-bold transition-all shadow-sm"
-                              >
-                                <span>Read Full Details</span>
-                                <ArrowRight className="w-3 h-3" />
-                              </Link>
+                              <div className="flex items-center gap-2">
+                                <Link
+                                  to={activeItem.link}
+                                  onClick={() => setActiveDropdown(null)}
+                                  className="inline-flex items-center gap-2 px-4 py-2 bg-slate-900 hover:bg-slate-800 text-white rounded-xl text-[10.5px] font-bold transition-all shadow-sm"
+                                >
+                                  <span>Read Full Details</span>
+                                  <ArrowRight className="w-3 h-3" />
+                                </Link>
+                                <Link
+                                  to="/contact#book-strategy-session"
+                                  onClick={() => setActiveDropdown(null)}
+                                  className="inline-flex items-center gap-1.5 px-3.5 py-2 bg-blue-50 hover:bg-blue-100 text-blue-700 rounded-xl text-[10.5px] font-bold transition-all border border-blue-200/60"
+                                >
+                                  <CalendarCheck className="w-3 h-3 text-blue-600" />
+                                  <span>Book Strategy Session</span>
+                                </Link>
+                              </div>
                               <span className="text-[9.5px] text-slate-400 font-medium">
                                 {offeringsVerticalTabsData[activeOfferTab]?.items.length} specialized modules in this practice
                               </span>
@@ -387,17 +397,28 @@ export const Header = () => {
                   </div>
 
 
-                  {/* Contact Us Banner */}
-                  <div className="mt-5 bg-slate-50 border border-slate-200/80 rounded-xl p-3.5 px-6 flex items-center justify-between">
-                    <span className="text-xs text-slate-600 font-medium">
-                      Need expert guidance for your specific requirements?
-                    </span>
+                  {/* Offerings Strategy Session Banner */}
+                  <div className="mt-5 bg-gradient-to-r from-slate-900 via-blue-950 to-indigo-950 border border-blue-900/60 rounded-xl p-3.5 px-6 flex items-center justify-between shadow-sm">
+                    <div className="flex items-center gap-3">
+                      <div className="w-8 h-8 rounded-lg bg-blue-500/20 border border-blue-400/30 flex items-center justify-center text-blue-400 shrink-0">
+                        <CalendarCheck className="w-4 h-4" />
+                      </div>
+                      <div>
+                        <span className="text-xs font-bold text-white block">
+                          Need customized governance advisory for your industry?
+                        </span>
+                        <span className="text-[10px] text-slate-400 font-medium block">
+                          Book a 30-min structured briefing with our senior GRC partners
+                        </span>
+                      </div>
+                    </div>
                     <Link
-                      to="/contact"
+                      to="/contact#book-strategy-session"
                       onClick={() => setActiveDropdown(null)}
-                      className="px-6 py-2.5 bg-blue-600 hover:bg-blue-700 text-white rounded-xl text-xs font-bold tracking-wide transition-all shadow-md shadow-blue-500/15 shrink-0 ml-4"
+                      className="inline-flex items-center gap-2 px-5 py-2 bg-blue-600 hover:bg-blue-500 text-white rounded-xl text-xs font-bold tracking-wide transition-all shadow-md shadow-blue-500/20 hover:scale-[1.02] shrink-0 ml-4"
                     >
-                      Contact Us
+                      <CalendarCheck className="w-3.5 h-3.5" />
+                      <span>Book Strategy Session</span>
                     </Link>
                   </div>
                 </div>
@@ -708,14 +729,6 @@ export const Header = () => {
         {/* Action & CTA Buttons Cluster */}
         <div className="hidden xl:flex items-center gap-2 2xl:gap-2.5">
           <Link
-            to="#lead-capture"
-            id="nav-cta-assessment"
-            className="inline-flex items-center justify-center gap-2 h-10 px-3.5 2xl:px-4 bg-gradient-to-r from-blue-600 via-blue-600 to-indigo-600 hover:from-blue-700 hover:via-blue-700 hover:to-indigo-700 text-white rounded-xl text-xs font-bold tracking-wide transition-all duration-200 shadow-sm hover:shadow-md hover:-translate-y-0.5 active:translate-y-0 whitespace-nowrap shrink-0 border border-blue-400/30"
-          >
-            <ShieldCheck className="w-3.5 h-3.5 shrink-0" />
-            <span className="whitespace-nowrap leading-none">Get Free Assessment</span>
-          </Link>
-          <Link
             to="/contact#book-strategy-session"
             id="nav-cta-strategy"
             onClick={(e) => {
@@ -729,9 +742,9 @@ export const Header = () => {
                 }
               }
             }}
-            className="inline-flex items-center justify-center gap-2 h-10 px-3.5 2xl:px-4 bg-white hover:bg-slate-50 text-slate-800 hover:text-indigo-700 border border-slate-200 hover:border-indigo-300 rounded-xl text-xs font-bold tracking-wide transition-all duration-200 shadow-2xs hover:shadow-sm hover:-translate-y-0.5 active:translate-y-0 whitespace-nowrap shrink-0"
+            className="inline-flex items-center justify-center gap-2 h-10 px-4 bg-gradient-to-r from-blue-600 via-blue-600 to-indigo-600 hover:from-blue-700 hover:via-blue-700 hover:to-indigo-700 text-white rounded-xl text-xs font-bold tracking-wide transition-all duration-200 shadow-sm hover:shadow-md hover:-translate-y-0.5 active:translate-y-0 whitespace-nowrap shrink-0 border border-blue-400/30"
           >
-            <CalendarCheck className="w-3.5 h-3.5 shrink-0 text-indigo-600" />
+            <CalendarCheck className="w-3.5 h-3.5 shrink-0" />
             <span className="whitespace-nowrap leading-none">Book Strategy Session</span>
           </Link>
 
@@ -903,6 +916,16 @@ export const Header = () => {
                       </div>
                     );
                   })}
+                  <div className="pt-2 border-t border-slate-200 mt-1">
+                    <Link
+                      to="/contact#book-strategy-session"
+                      onClick={() => setMobileOpen(false)}
+                      className="flex items-center justify-center gap-2 w-full py-2.5 bg-blue-600 hover:bg-blue-700 text-white rounded-xl text-xs font-bold shadow-md shadow-blue-500/20"
+                    >
+                      <CalendarCheck className="w-3.5 h-3.5" />
+                      <span>Book Strategy Session</span>
+                    </Link>
+                  </div>
                 </div>
               )}
             </div>
@@ -965,16 +988,6 @@ export const Header = () => {
           <div className="flex flex-col gap-2.5 pt-4 border-t border-slate-100 text-left">
             {!isAuthenticated ? (
               <>
-                {/* Mobile Primary CTA */}
-                <Link to="#lead-capture" onClick={() => setMobileOpen(false)} className="w-full">
-                  <button
-                    id="mobile-nav-cta-assessment"
-                    className="w-full h-11 flex items-center justify-center gap-2.5 px-6 bg-gradient-to-r from-blue-600 via-blue-600 to-indigo-600 active:from-blue-700 active:to-indigo-700 text-white rounded-xl text-xs font-black tracking-wide shadow-md shadow-blue-500/25 border border-blue-400/30 transition-all duration-200 active:scale-[0.99] whitespace-nowrap"
-                  >
-                    <ShieldCheck className="w-4 h-4 shrink-0" />
-                    <span className="whitespace-nowrap leading-none">Get Free Assessment</span>
-                  </button>
-                </Link>
                 <Link
                   to="/contact#book-strategy-session"
                   id="mobile-nav-cta-strategy"
@@ -992,9 +1005,9 @@ export const Header = () => {
                   }}
                   className="w-full"
                 >
-                  <button className="w-full flex items-center justify-center gap-2 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl text-xs font-black tracking-wide shadow-lg shadow-indigo-500/20">
-                    <CalendarCheck className="w-3.5 h-3.5 shrink-0" />
-                    Book a Strategy Session
+                  <button className="w-full flex items-center justify-center gap-2 py-3 bg-gradient-to-r from-blue-600 via-blue-600 to-indigo-600 text-white rounded-xl text-xs font-black tracking-wide shadow-md shadow-blue-500/20">
+                    <CalendarCheck className="w-4 h-4 shrink-0" />
+                    Book Strategy Session
                   </button>
                 </Link>
                 <Link to="/contact" onClick={() => setMobileOpen(false)} className="w-full">
