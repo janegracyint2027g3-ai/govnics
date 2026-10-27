@@ -232,27 +232,35 @@ export default function IndustryDetailPage() {
 
   // Map cluster ID to name
   const getClusterName = (id: string) => {
-    switch (id) {
-      case "manufacturing-industrial":
-      case "manufacturing": return "Manufacturing & Industrial";
-      case "technology-electronics":
-      case "technology": return "Technology & Electronics";
-      case "infrastructure-construction":
-      case "infrastructure": return "Infrastructure & Construction";
-      case "energy-utilities":
-      case "energy": return "Energy & Utilities";
-      case "financial-services":
-      case "banking": return "Financial Services";
-      case "healthcare-life-sciences":
-      case "healthcare": return "Healthcare & Life Sciences";
-      case "consumer-retail":
-      case "retail": return "Consumer & Retail";
-      case "media-services":
-      case "media": return "Media & Services";
-      case "food-processing-pharma-healthcare":
-      case "food-processing": return "Food Processing";
-      default: return "Manufacturing & Industrial";
+    const lower = (id || "").toLowerCase();
+    if (lower.includes("health") || lower.includes("hospital") || lower.includes("pharma") || lower.includes("medical")) {
+      return "Healthcare & Life Sciences";
     }
+    if (lower.includes("tech") || lower.includes("software") || lower.includes("it-") || lower.includes("saas") || lower.includes("cyber")) {
+      return "Technology & Electronics";
+    }
+    if (lower.includes("finan") || lower.includes("bank") || lower.includes("bfsi") || lower.includes("insurance") || lower.includes("lending") || lower.includes("capital")) {
+      return "Financial Services";
+    }
+    if (lower.includes("infra") || lower.includes("construct") || lower.includes("realty") || lower.includes("estate")) {
+      return "Infrastructure & Construction";
+    }
+    if (lower.includes("energy") || lower.includes("utilit") || lower.includes("power") || lower.includes("oil") || lower.includes("gas") || lower.includes("renewable")) {
+      return "Energy & Utilities";
+    }
+    if (lower.includes("retail") || lower.includes("consumer") || lower.includes("ecom") || lower.includes("d2c") || lower.includes("fmcg")) {
+      return "Consumer & Retail";
+    }
+    if (lower.includes("food")) {
+      return "Food Processing";
+    }
+    if (lower.includes("media") || lower.includes("prof") || lower.includes("consult") || lower.includes("legal") || lower.includes("audit")) {
+      return "Media & Services";
+    }
+    if (lower.includes("manuf") || lower.includes("auto") || lower.includes("industr") || lower.includes("plant") || lower.includes("factory")) {
+      return "Manufacturing & Industrial";
+    }
+    return "Manufacturing & Industrial";
   };
 
   const clusterName = getClusterName(clusterId || "");

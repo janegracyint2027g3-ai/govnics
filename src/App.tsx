@@ -25,6 +25,7 @@ import LoginPage from "@/pages/LoginPage";
 import RegisterPage from "@/pages/RegisterPage";
 import CareersPage from "@/pages/CareersPage";
 import SolutionsPage from "@/pages/SolutionsPage";
+import CaseStudiesPage from "@/pages/CaseStudiesPage";
 import { AuthProvider } from "@/context/AuthContext";
 import { TelemetryTracker } from "@/components/analytics/TelemetryTracker";
 
@@ -39,6 +40,7 @@ function App() {
           <Route path="/register" element={<RegisterPage />} />
           <Route path="/about" element={<AboutPage />} />
           <Route path="/solutions" element={<SolutionsPage />} />
+          <Route path="/case-studies" element={<CaseStudiesPage />} />
           <Route path="/grc" element={<GrcPage />} />
           <Route path="/cybersecurity" element={<CyberSecurityPage />} />
           <Route path="/esg" element={<ESGPage />} />

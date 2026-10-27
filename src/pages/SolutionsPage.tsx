@@ -1,672 +1,1050 @@
-import { useState, useEffect } from "react";
-import { Link, useSearchParams } from "react-router-dom";
+// Solutions Page - Pre-Defined GRC Blueprints & AI Solutions Catalog
+import { useState, useEffect, useMemo } from "react";
+import { useSearchParams, Link } from "react-router-dom";
 import { Layout } from "@/components/layout/Layout";
-import { 
-  solutionsByIndustrySector, 
-  solutionsByComplianceDomain, 
+import { motion, AnimatePresence } from "framer-motion";
+import {
+  solutionsByIndustrySector,
+  solutionsByComplianceDomain,
   solutionsBySolutionType,
-  caseStudiesByIndustry,
-  caseStudiesByComplianceDomain,
-  caseStudiesByOutcomeMetrics
+  type SolutionItem
 } from "@/data/solutions-data";
 import {
-  ShieldCheck, ArrowRight, CheckCircle2, Search,
-  Sparkles, Building2, Check,
-  TrendingUp, Award, Clock
+  ShieldCheck,
+  ArrowRight,
+  CheckCircle2,
+  Search,
+  Sparkles,
+  Building2,
+  Check,
+  TrendingUp,
+  Award,
+  Clock,
+  Layers,
+  ChevronLeft,
+  ChevronRight,
+  X,
+  FileCheck,
+  Landmark,
+  Stethoscope,
+  Calculator
 } from "lucide-react";
+
+// Spotlight Solutions for Carousel
+const spotlightSolutions = [
+  {
+    id: "spotlight-rbi-dlg",
+    sector: "BFSI & Fintech",
+    title: "RBI Digital Lending & LSP Regulatory Architecture",
+    badge: "Fintech Core",
+    icon: Landmark,
+    description: "End-to-end statutory blueprint for Lending Service Providers (LSPs) and Regulated Entities (REs). Includes Key Fact Statement (KFS) APR calculation engine, flow-through escrow compliance, and borrower privacy controls.",
+    timeframe: "14 Days",
+    frameworks: ["RBI Digital Lending Guidelines 2022", "PMLA Act", "PA/PG Directions"],
+    metricsHighlight: "14-day turnaround for digital lender audit certification",
+    deliverables: [
+      "Automated KFS and multilingual borrower disclosure generator",
+      "LSP third-party algorithmic and data localization due diligence pack",
+      "Pre-configured RBI inspection audit trial room"
+    ]
+  },
+  {
+    id: "spotlight-hippa-iomt",
+    sector: "Healthcare & Hospitals",
+    title: "HIPAA & IoMT Connected Health Security Vault",
+    badge: "Clinical Governance",
+    icon: Stethoscope,
+    description: "Zero-trust Protected Health Information (PHI) tokenization and Internet of Medical Things (IoMT) vulnerability shield for hospital chains and diagnostic networks.",
+    timeframe: "21 Days",
+    frameworks: ["HIPAA 45 CFR", "NABH 5th Edition", "DPDP Act 2023", "CDSCO"],
+    metricsHighlight: "100% PHI breach containment and zero audit exceptions",
+    deliverables: [
+      "Automated PHI data discovery & cryptographic tokenization",
+      "NABH digital clinical governance runbooks and mock drills",
+      "24/7 IoMT connected medical device telemetry monitor"
+    ]
+  },
+  {
+    id: "spotlight-ai-radar",
+    sector: "AI-Driven Advisory",
+    title: "Autonomous Regulatory Gazette Radar",
+    badge: "AI Intelligence",
+    icon: Sparkles,
+    description: "Continuous semantic scanning of 400+ Central and State legislative portals. Generates instant executive impact assessments and machine-redlined internal policy amendments.",
+    timeframe: "Instant API",
+    frameworks: ["400+ Central & State Gazettes", "MCA", "SEBI", "RBI"],
+    metricsHighlight: "<15 minutes from Gazette notification to operational alert",
+    deliverables: [
+      "Real-time semantic gazette parsing & operational risk mapping",
+      "Automated policy redline recommendations via LLM",
+      "Executive board-ready compliance heatmaps"
+    ]
+  },
+  {
+    id: "spotlight-rera-escrow",
+    sector: "Infrastructure & Construction",
+    title: "RERA Multi-State Compliance & Escrow Automation",
+    badge: "Real Estate Core",
+    icon: Building2,
+    description: "Turnkey statutory registers and automated milestone escrow reconciliations for real estate developers and EPC mega-infrastructure projects.",
+    timeframe: "18 Days",
+    frameworks: ["RERA Act 2016", "State RERA Rules", "BOCW Safety Act"],
+    metricsHighlight: "45-day faster quarterly RERA portal approvals",
+    deliverables: [
+      "Automated CA & Architect certificate reconciliation engine",
+      "Quarterly RERA progress filing generation with zero errors",
+      "BOCW contractor labor safety and wage verification registers"
+    ]
+  },
+  {
+    id: "spotlight-dpdp-gateway",
+    sector: "Data Privacy & Cybersecurity",
+    title: "Automated DPDP Consent & DSAR Lifecycle Gateway",
+    badge: "Privacy Engineering",
+    icon: ShieldCheck,
+    description: "Turnkey enterprise consent manager in 22 official Indian languages with automated Data Principal Right (DSAR) fulfillment under 48 hours.",
+    timeframe: "30 Days",
+    frameworks: ["Digital Personal Data Protection Act 2023", "ISO 27701", "CERT-In"],
+    metricsHighlight: "100% adherence to 72-hour DSAR resolution windows",
+    deliverables: [
+      "Multilingual consent capture widgets and SDKs",
+      "Automated data discovery & personal data cataloging",
+      "72-hour CERT-In breach notification workflow orchestrator"
+    ]
+  }
+];
 
 export default function SolutionsPage() {
   const [searchParams, setSearchParams] = useSearchParams();
-  const initialMode = searchParams.get("tab") === "cases" ? "cases" : searchParams.get("tab") === "kpis" ? "kpis" : "solutions";
-  const [activeMode, setActiveMode] = useState<"solutions" | "cases" | "kpis">(initialMode);
-  
-  // Solutions filters
-  const [solutionCategoryType, setSolutionCategoryType] = useState<"industry" | "domain" | "ai">("industry");
-  const [selectedSolutionCatId, setSelectedSolutionCatId] = useState<string>("bfsi-fintech");
-  
-  // Case Studies filters
-  const [caseCategoryType, setCaseCategoryType] = useState<"industry" | "domain">("industry");
-  const [selectedCaseCatId, setSelectedCaseCatId] = useState<string>("bfsi-fintech-cases");
-  
-  // Search query
+
+  // Top-level dimension: "industry" | "domain" | "ai"
+  const [dimensionType, setDimensionType] = useState<"industry" | "domain" | "ai">("industry");
+  const [selectedCategoryId, setSelectedCategoryId] = useState<string>("bfsi-fintech");
   const [searchQuery, setSearchQuery] = useState<string>("");
 
+  // Spotlight carousel state
+  const [activeSpotlight, setActiveSpotlight] = useState<number>(0);
+  const [isSpotlightAuto, setIsSpotlightAuto] = useState<boolean>(true);
+
+  // Selected solution modal
+  const [selectedSolutionModal, setSelectedSolutionModal] = useState<SolutionItem | null>(null);
+
+  // ROI Calculator states
+  const [companyHeadcount, setCompanyHeadcount] = useState<number>(250);
+  const [annualAuditsCount, setAnnualAuditsCount] = useState<number>(4);
+
+  // Listen to searchParams and URL hash
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: "smooth" });
-    document.title = "Enterprise Solutions & Proven Case Studies | GOVENICS GRC";
-    const metaDesc = document.querySelector('meta[name="description"]');
-    const descContent = "Explore GOVENICS pre-defined consulting assets, compliance domain blueprints, AI-driven automation solutions, and proven enterprise case studies across BFSI, Manufacturing, Healthcare, IT, and more.";
-    if (metaDesc) metaDesc.setAttribute("content", descContent);
-  }, []);
+    document.title = "Enterprise GRC Pre-Defined Solutions & Regulatory Blueprints | GOVENICS";
 
-  // Sync mode with query params
-  const handleModeChange = (mode: "solutions" | "cases" | "kpis") => {
-    setActiveMode(mode);
-    setSearchParams({ tab: mode });
-  };
+    const sectorParam = searchParams.get("sector") || (window.location.hash ? window.location.hash.replace("#", "") : "");
+    const domainParam = searchParams.get("domain");
+    const typeParam = searchParams.get("type");
 
-  // Get active dataset for Solutions
-  const currentSolutionsCategories = 
-    solutionCategoryType === "industry" ? solutionsByIndustrySector :
-    solutionCategoryType === "domain" ? solutionsByComplianceDomain :
-    solutionsBySolutionType;
+    if (sectorParam) {
+      const cleanSector = sectorParam.toLowerCase();
+      const matched = solutionsByIndustrySector.find(
+        s => s.id === cleanSector || s.id.includes(cleanSector) || cleanSector.includes(s.id) ||
+             (cleanSector.includes("health") && s.id.includes("health")) ||
+             (cleanSector.includes("tech") && s.id.includes("tech")) ||
+             (cleanSector.includes("infra") && s.id.includes("infra")) ||
+             (cleanSector.includes("energy") && s.id.includes("energy"))
+      );
+      if (matched) {
+        setDimensionType("industry");
+        setSelectedCategoryId(matched.id);
+      }
+    } else if (domainParam) {
+      const cleanDomain = domainParam.toLowerCase();
+      const matched = solutionsByComplianceDomain.find(
+        d => d.id === cleanDomain || d.id.includes(cleanDomain) || cleanDomain.includes(d.id)
+      );
+      if (matched) {
+        setDimensionType("domain");
+        setSelectedCategoryId(matched.id);
+      }
+    } else if (typeParam) {
+      setDimensionType("ai");
+      const matched = solutionsBySolutionType.find(
+        t => t.id === typeParam || t.id.includes(typeParam)
+      );
+      if (matched) {
+        setSelectedCategoryId(matched.id);
+      }
+    }
+  }, [searchParams]);
 
-  // Selected solution category
-  const activeSolutionCategory = 
-    currentSolutionsCategories.find(c => c.id === selectedSolutionCatId) || currentSolutionsCategories[0];
+  // Autoplay spotlight carousel
+  useEffect(() => {
+    if (!isSpotlightAuto) return;
+    const interval = setInterval(() => {
+      setActiveSpotlight(prev => (prev + 1) % spotlightSolutions.length);
+    }, 5500);
+    return () => clearInterval(interval);
+  }, [isSpotlightAuto]);
 
-  // Filtered solution items based on search
-  const filteredSolutionItems = (activeSolutionCategory?.items || []).filter(item => {
-    if (!searchQuery) return true;
-    const q = searchQuery.toLowerCase();
-    return item.title.toLowerCase().includes(q) || 
-      item.description.toLowerCase().includes(q) ||
-      (item.deliverables || []).some(d => d.toLowerCase().includes(q)) ||
-      (item.frameworks || []).some(f => f.toLowerCase().includes(q));
-  });
+  // Active dataset
+  const currentCategoryList = useMemo(() => {
+    if (dimensionType === "industry") return solutionsByIndustrySector;
+    if (dimensionType === "domain") return solutionsByComplianceDomain;
+    return solutionsBySolutionType;
+  }, [dimensionType]);
 
-  // Get active dataset for Case Studies
-  const currentCaseCategories = 
-    caseCategoryType === "industry" ? caseStudiesByIndustry :
-    caseStudiesByComplianceDomain;
+  const activeCategory = useMemo(() => {
+    return currentCategoryList.find(c => c.id === selectedCategoryId) || currentCategoryList[0];
+  }, [currentCategoryList, selectedCategoryId]);
 
-  // Selected case category
-  const activeCaseCategory = 
-    currentCaseCategories.find(c => c.id === selectedCaseCatId) || currentCaseCategories[0];
+  // Filtered solution items
+  const filteredItems = useMemo(() => {
+    return (activeCategory?.items || []).filter(item => {
+      if (!searchQuery) return true;
+      const q = searchQuery.toLowerCase();
+      return (
+        item.title.toLowerCase().includes(q) ||
+        item.description.toLowerCase().includes(q) ||
+        (item.deliverables || []).some(d => d.toLowerCase().includes(q)) ||
+        (item.frameworks || []).some(f => f.toLowerCase().includes(q)) ||
+        item.badge.toLowerCase().includes(q)
+      );
+    });
+  }, [activeCategory, searchQuery]);
 
-  // Filtered case study items based on search
-  const filteredCaseItems = (activeCaseCategory?.studies || []).filter(study => {
-    if (!searchQuery) return true;
-    const q = searchQuery.toLowerCase();
-    return study.title.toLowerCase().includes(q) ||
-      study.challenge.toLowerCase().includes(q) ||
-      study.solution.toLowerCase().includes(q) ||
-      study.clientType.toLowerCase().includes(q) ||
-      study.results.some(r => r.toLowerCase().includes(q));
-  });
+  // Calculate ROI estimates
+  const calculatedSavings = useMemo(() => {
+    const hoursSaved = Math.round(annualAuditsCount * companyHeadcount * 0.45);
+    const costSavedInLakhs = ((hoursSaved * 950) / 100000).toFixed(1);
+    const riskReduction = Math.min(95, Math.round(60 + annualAuditsCount * 3.5));
+    return { hoursSaved, costSavedInLakhs, riskReduction };
+  }, [companyHeadcount, annualAuditsCount]);
+
+  const currentSpotlightSlide = spotlightSolutions[activeSpotlight];
 
   return (
     <Layout>
-      <div className="bg-slate-50 min-h-screen text-slate-800">
+      <div className="min-h-screen bg-slate-50 text-slate-800 font-['Plus_Jakarta_Sans',sans-serif] selection:bg-blue-600 selection:text-white pb-24">
+        {/* Ambient Top Glow */}
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-7xl h-96 bg-gradient-to-b from-blue-100/60 via-sky-50/40 to-transparent blur-3xl pointer-events-none" />
 
-        {/* ── HERO BANNER ────────────────────────────────────────────── */}
-        <section className="relative bg-gradient-to-br from-slate-950 via-slate-900 to-blue-950 text-white pt-24 pb-20 px-6 overflow-hidden border-b border-slate-800">
-          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-blue-600/20 via-transparent to-transparent opacity-60 pointer-events-none" />
-          <div className="absolute -top-32 -left-32 w-96 h-96 bg-indigo-600/10 rounded-full blur-3xl pointer-events-none" />
+        {/* ── 1. HERO SECTION ── */}
+        <section className="relative pt-32 pb-16 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+          <div className="text-center max-w-3xl mx-auto space-y-5">
+            <motion.div
+              initial={{ opacity: 0, y: -10 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-blue-50 border border-blue-200 text-blue-700 text-xs font-bold uppercase tracking-wider shadow-xs"
+            >
+              <Sparkles className="w-3.5 h-3.5 text-blue-600" />
+              <span>Turnkey Regulatory Blueprints &amp; AI Toolkits</span>
+            </motion.div>
 
-          <div className="container mx-auto max-w-6xl relative z-10 space-y-8">
-            <div className="max-w-3xl space-y-4">
-              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-blue-500/10 border border-blue-400/20 text-blue-300 text-xs font-bold uppercase tracking-widest">
-                <Sparkles className="w-3.5 h-3.5 text-blue-400" />
-                <span>Enterprise Consulting Assets & Impact Evidence</span>
+            <motion.h1
+              initial={{ opacity: 0, y: 15 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.1 }}
+              className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-slate-900 tracking-tight leading-[1.15] font-['Sora',sans-serif]"
+            >
+              Pre-Defined Enterprise GRC Solutions &amp; <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 via-blue-500 to-indigo-600">Regulatory Blueprints</span>
+            </motion.h1>
+
+            <motion.p
+              initial={{ opacity: 0, y: 15 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.2 }}
+              className="text-base sm:text-lg text-slate-600 leading-relaxed max-w-2xl mx-auto font-medium"
+            >
+              Accelerate your regulatory readiness from months to days. Battle-tested compliance architectures, automated statutory registers, and turnkey AI governance assets tailored across 8 industry sectors.
+            </motion.p>
+
+            <motion.div
+              initial={{ opacity: 0, y: 15 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.25 }}
+              className="flex flex-wrap items-center justify-center gap-3 pt-2"
+            >
+              <a
+                href="#solutions-catalog"
+                className="bg-blue-600 hover:bg-blue-700 text-white font-bold px-6 py-3 rounded-xl transition-all shadow-md shadow-blue-600/20 inline-flex items-center gap-2 text-sm"
+              >
+                <span>Browse Solutions Catalog</span>
+                <ArrowRight className="w-4 h-4" />
+              </a>
+              <a
+                href="#roi-calculator"
+                className="bg-white hover:bg-slate-100 text-slate-800 font-semibold px-5 py-3 rounded-xl border border-slate-300 transition-all text-sm inline-flex items-center gap-2 shadow-xs"
+              >
+                <Calculator className="w-4 h-4 text-blue-600" />
+                <span>Calculate Compliance ROI</span>
+              </a>
+              <Link
+                to="/case-studies"
+                className="bg-emerald-50 hover:bg-emerald-100 text-emerald-800 font-semibold px-4 py-3 rounded-xl border border-emerald-200 transition-all text-sm inline-flex items-center gap-1.5"
+              >
+                <Award className="w-4 h-4 text-emerald-600" />
+                <span>View Case Studies &rarr;</span>
+              </Link>
+            </motion.div>
+          </div>
+
+          {/* ── 2. HIGH-IMPACT STATCARDS GRID ── */}
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mt-16">
+            {[
+              {
+                value: "65+",
+                label: "Pre-Defined Blueprints",
+                subtext: "Turnkey frameworks across 8 industry verticals",
+                icon: Layers,
+                color: "text-blue-600",
+                badge: "Ready to Deploy"
+              },
+              {
+                value: "14 Days",
+                label: "Average Implementation Velocity",
+                subtext: "From initial gap audit to audit-ready baseline",
+                icon: Clock,
+                color: "text-sky-600",
+                badge: "3x Industry Speed"
+              },
+              {
+                value: "100%",
+                label: "Statutory Audit Defense",
+                subtext: "Zero material findings across active clients",
+                icon: ShieldCheck,
+                color: "text-emerald-600",
+                badge: "Guaranteed"
+              },
+              {
+                value: "40%",
+                label: "Operational Cost Reduction",
+                subtext: "Through agentic AI & automated evidence harvesting",
+                icon: TrendingUp,
+                color: "text-purple-600",
+                badge: "Measurable ROI"
+              }
+            ].map((stat, i) => {
+              const StatIcon = stat.icon;
+              return (
+                <motion.div
+                  key={stat.label}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.1 * i }}
+                  className="bg-white border border-slate-200/90 hover:border-blue-500/50 p-5 rounded-2xl relative overflow-hidden transition-all duration-300 hover:-translate-y-1 hover:shadow-lg shadow-sm group"
+                >
+                  <div className="flex items-center justify-between mb-3">
+                    <div className="w-10 h-10 rounded-xl bg-slate-100 flex items-center justify-center text-slate-700 group-hover:bg-blue-50 group-hover:text-blue-600 transition-colors">
+                      <StatIcon className="w-5 h-5" />
+                    </div>
+                    <span className="text-[11px] font-bold px-2 py-0.5 rounded-full bg-slate-100 text-slate-700 border border-slate-200">
+                      {stat.badge}
+                    </span>
+                  </div>
+                  <div className={`text-2xl sm:text-3xl font-extrabold ${stat.color} font-['Sora',sans-serif] tracking-tight`}>
+                    {stat.value}
+                  </div>
+                  <div className="text-xs sm:text-sm font-bold text-slate-900 mt-1">
+                    {stat.label}
+                  </div>
+                  <div className="text-[11px] text-slate-500 mt-1">
+                    {stat.subtext}
+                  </div>
+                </motion.div>
+              );
+            })}
+          </div>
+        </section>
+
+        {/* ── 3. INTERACTIVE SPOTLIGHT SOLUTIONS SLIDER ── */}
+        <section className="relative px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto my-12">
+          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-6">
+            <div>
+              <div className="inline-flex items-center gap-2 text-xs font-bold text-blue-600 uppercase tracking-widest mb-1">
+                <Sparkles className="w-3.5 h-3.5" />
+                <span>Featured Architecture Spotlights</span>
               </div>
-              <h1 className="text-3xl sm:text-4xl lg:text-5xl font-black text-white font-heading tracking-tight leading-tight">
-                Pre-Defined GRC Solutions & <span className="bg-clip-text text-transparent bg-gradient-to-r from-blue-400 via-indigo-300 to-sky-400">Client Case Studies</span>
-              </h1>
-              <p className="text-base sm:text-lg text-slate-300 font-medium leading-relaxed">
-                Accelerate compliance posture with turnkey regulatory toolkits, AI-driven automation runbooks, and audited evidence from 40+ enterprise client transformations.
-              </p>
+              <h2 className="text-2xl sm:text-3xl font-bold text-slate-900 font-['Sora',sans-serif]">
+                Flagship Enterprise Solutions
+              </h2>
             </div>
 
-            {/* Quick Metrics Bar */}
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4 pt-4">
-              {[
-                { label: "Pre-defined Assets", value: "65+", desc: "Turnkey toolkits & frameworks" },
-                { label: "Industry Sectors", value: "8 Sectors", desc: "Specialized regulatory matrices" },
-                { label: "Compliance Domains", value: "8 Domains", desc: "Central, State, AI & Global" },
-                { label: "Audited Track Record", value: "100%", desc: "Zero critical audit remarks" },
-              ].map((stat, idx) => (
-                <div key={idx} className="bg-white/5 backdrop-blur-md border border-white/10 rounded-2xl p-4 space-y-1">
-                  <div className="text-2xl sm:text-3xl font-black text-white font-heading">{stat.value}</div>
-                  <div className="text-xs font-bold text-blue-300">{stat.label}</div>
-                  <div className="text-[11px] text-slate-400">{stat.desc}</div>
+            {/* Carousel Controls */}
+            <div className="flex items-center gap-2">
+              <button
+                onClick={() => {
+                  setIsSpotlightAuto(false);
+                  setActiveSpotlight((prev) => (prev - 1 + spotlightSolutions.length) % spotlightSolutions.length);
+                }}
+                className="w-10 h-10 rounded-xl bg-white hover:bg-slate-100 border border-slate-300 flex items-center justify-center text-slate-700 transition-colors shadow-xs cursor-pointer"
+                aria-label="Previous Spotlight"
+              >
+                <ChevronLeft className="w-5 h-5" />
+              </button>
+              <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-white border border-slate-300 text-xs font-semibold text-slate-600 shadow-xs">
+                <span className="text-blue-600 font-bold">{activeSpotlight + 1}</span>
+                <span>/</span>
+                <span>{spotlightSolutions.length}</span>
+              </div>
+              <button
+                onClick={() => {
+                  setIsSpotlightAuto(false);
+                  setActiveSpotlight((prev) => (prev + 1) % spotlightSolutions.length);
+                }}
+                className="w-10 h-10 rounded-xl bg-white hover:bg-slate-100 border border-slate-300 flex items-center justify-center text-slate-700 transition-colors shadow-xs cursor-pointer"
+                aria-label="Next Spotlight"
+              >
+                <ChevronRight className="w-5 h-5" />
+              </button>
+            </div>
+          </div>
+
+          {/* Spotlight Card */}
+          <div
+            onMouseEnter={() => setIsSpotlightAuto(false)}
+            onMouseLeave={() => setIsSpotlightAuto(true)}
+            className="bg-white border border-slate-200/90 rounded-3xl p-6 sm:p-8 lg:p-10 shadow-xl shadow-slate-200/70 relative overflow-hidden"
+          >
+            <div className="absolute top-0 right-0 w-80 h-80 bg-blue-100/40 rounded-full blur-3xl pointer-events-none" />
+
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={currentSpotlightSlide.id}
+                initial={{ opacity: 0, x: 20 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: -20 }}
+                transition={{ duration: 0.35 }}
+                className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center"
+              >
+                {/* Left Info */}
+                <div className="lg:col-span-7 space-y-4">
+                  <div className="flex flex-wrap items-center gap-2.5">
+                    <span className="text-xs font-bold px-3 py-1 rounded-full bg-blue-50 text-blue-700 border border-blue-200">
+                      {currentSpotlightSlide.sector}
+                    </span>
+                    <span className="text-xs font-semibold px-2.5 py-1 rounded-full bg-slate-100 text-slate-700 border border-slate-200">
+                      ⏱ Deploy Time: {currentSpotlightSlide.timeframe}
+                    </span>
+                  </div>
+
+                  <h3 className="text-2xl sm:text-3xl font-extrabold text-slate-900 font-['Sora',sans-serif] leading-tight">
+                    {currentSpotlightSlide.title}
+                  </h3>
+
+                  <p className="text-xs sm:text-sm text-slate-600 leading-relaxed font-medium">
+                    {currentSpotlightSlide.description}
+                  </p>
+
+                  <div className="bg-blue-50/60 border border-blue-200/80 rounded-2xl p-4 space-y-2">
+                    <span className="text-[11px] font-bold uppercase tracking-wider text-blue-800 block">
+                      Core Implementation Deliverables:
+                    </span>
+                    {currentSpotlightSlide.deliverables.map((item, idx) => (
+                      <div key={idx} className="flex items-start gap-2 text-xs text-slate-700">
+                        <CheckCircle2 className="w-4 h-4 text-blue-600 shrink-0 mt-0.5" />
+                        <span className="font-medium">{item}</span>
+                      </div>
+                    ))}
+                  </div>
+
+                  <div className="pt-2">
+                    <span className="text-[11px] font-bold uppercase tracking-wider text-slate-500 block mb-2">
+                      Regulatory Compliance Standards:
+                    </span>
+                    <div className="flex flex-wrap gap-1.5">
+                      {currentSpotlightSlide.frameworks.map((fw) => (
+                        <span key={fw} className="text-[11px] font-semibold bg-slate-100 text-slate-700 px-2.5 py-1 rounded-md border border-slate-200">
+                          {fw}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
                 </div>
+
+                {/* Right Callout Box */}
+                <div className="lg:col-span-5 bg-slate-50 border border-slate-200 rounded-2xl p-6 sm:p-8 flex flex-col justify-between shadow-sm">
+                  <div>
+                    <span className="text-xs font-bold uppercase tracking-wider text-slate-500">
+                      Audited Efficiency Highlight
+                    </span>
+                    <div className="text-xl sm:text-2xl font-black text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-600 font-['Sora',sans-serif] my-3 leading-snug">
+                      "{currentSpotlightSlide.metricsHighlight}"
+                    </div>
+
+                    <div className="mt-6 pt-6 border-t border-slate-200 space-y-3">
+                      <div className="flex items-center justify-between text-xs text-slate-700 font-medium">
+                        <span>Turnkey Audit Registers</span>
+                        <span className="font-bold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">Included</span>
+                      </div>
+                      <div className="flex items-center justify-between text-xs text-slate-700 font-medium">
+                        <span>API &amp; Connector Suite</span>
+                        <span className="font-bold text-blue-700 bg-blue-50 px-2 py-0.5 rounded border border-blue-200">Ready</span>
+                      </div>
+                      <div className="flex items-center justify-between text-xs text-slate-700 font-medium">
+                        <span>External Auditor Read-Only Room</span>
+                        <span className="font-bold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">Pre-Configured</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <button
+                    onClick={() => {
+                      const matched = activeCategory.items.find(i => i.title.includes(currentSpotlightSlide.title.split(" ")[0])) || activeCategory.items[0];
+                      setSelectedSolutionModal(matched);
+                    }}
+                    className="mt-6 w-full py-3 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-xl text-xs transition-colors flex items-center justify-center gap-2 cursor-pointer shadow-sm"
+                  >
+                    <span>View Architecture Blueprint</span>
+                    <ArrowRight className="w-4 h-4" />
+                  </button>
+                </div>
+              </motion.div>
+            </AnimatePresence>
+
+            {/* Slider Dots */}
+            <div className="flex items-center justify-center gap-2 mt-8 pt-4 border-t border-slate-200">
+              {spotlightSolutions.map((slide, idx) => (
+                <button
+                  key={slide.id}
+                  onClick={() => {
+                    setIsSpotlightAuto(false);
+                    setActiveSpotlight(idx);
+                  }}
+                  className={`h-2 rounded-full transition-all duration-300 cursor-pointer ${
+                    activeSpotlight === idx ? "w-8 bg-blue-600" : "w-2 bg-slate-300 hover:bg-slate-400"
+                  }`}
+                  aria-label={`Jump to slide ${idx + 1}`}
+                />
               ))}
             </div>
-
-            {/* Main Mode Toggle Buttons */}
-            <div className="pt-4 flex flex-wrap gap-2.5">
-              <button
-                onClick={() => handleModeChange("solutions")}
-                className={`inline-flex items-center gap-2 px-6 py-3 rounded-xl text-xs sm:text-sm font-bold tracking-wide transition-all ${
-                  activeMode === "solutions"
-                    ? "bg-blue-600 text-white shadow-lg shadow-blue-500/30 ring-2 ring-blue-400/50"
-                    : "bg-white/10 hover:bg-white/15 text-slate-200 border border-white/15"
-                }`}
-              >
-                <ShieldCheck className="w-4 h-4" />
-                <span>1. Solutions (Pre-defined Assets)</span>
-              </button>
-
-              <button
-                onClick={() => handleModeChange("cases")}
-                className={`inline-flex items-center gap-2 px-6 py-3 rounded-xl text-xs sm:text-sm font-bold tracking-wide transition-all ${
-                  activeMode === "cases"
-                    ? "bg-blue-600 text-white shadow-lg shadow-blue-500/30 ring-2 ring-blue-400/50"
-                    : "bg-white/10 hover:bg-white/15 text-slate-200 border border-white/15"
-                }`}
-              >
-                <Award className="w-4 h-4" />
-                <span>2. Case Studies (Client Success)</span>
-              </button>
-
-              <button
-                onClick={() => handleModeChange("kpis")}
-                className={`inline-flex items-center gap-2 px-6 py-3 rounded-xl text-xs sm:text-sm font-bold tracking-wide transition-all ${
-                  activeMode === "kpis"
-                    ? "bg-blue-600 text-white shadow-lg shadow-blue-500/30 ring-2 ring-blue-400/50"
-                    : "bg-white/10 hover:bg-white/15 text-slate-200 border border-white/15"
-                }`}
-              >
-                <TrendingUp className="w-4 h-4" />
-                <span>3. Outcome Metrics (KPIs)</span>
-              </button>
-            </div>
           </div>
         </section>
 
-
-        {/* ── SEARCH & SUB-NAVIGATION BAR ───────────────────────────── */}
-        <section className="bg-white border-b border-slate-200 sticky top-20 z-30 shadow-xs">
-          <div className="container mx-auto max-w-6xl px-6 py-3.5 flex flex-col md:flex-row items-center justify-between gap-4">
-            
-            {/* Left: Mode-Specific Sub-tabs */}
-            {activeMode === "solutions" && (
-              <div className="flex items-center gap-1.5 bg-slate-100 p-1 rounded-xl w-full md:w-auto overflow-x-auto">
-                <button
-                  onClick={() => {
-                    setSolutionCategoryType("industry");
-                    setSelectedSolutionCatId(solutionsByIndustrySector[0].id);
-                  }}
-                  className={`px-3 py-1.5 rounded-lg text-xs font-bold whitespace-nowrap transition-all ${
-                    solutionCategoryType === "industry" ? "bg-white text-blue-700 shadow-xs" : "text-slate-600 hover:text-slate-900"
-                  }`}
-                >
-                  By Industry Sector ({solutionsByIndustrySector.length})
-                </button>
-                <button
-                  onClick={() => {
-                    setSolutionCategoryType("domain");
-                    setSelectedSolutionCatId(solutionsByComplianceDomain[0].id);
-                  }}
-                  className={`px-3 py-1.5 rounded-lg text-xs font-bold whitespace-nowrap transition-all ${
-                    solutionCategoryType === "domain" ? "bg-white text-blue-700 shadow-xs" : "text-slate-600 hover:text-slate-900"
-                  }`}
-                >
-                  By Compliance Domain ({solutionsByComplianceDomain.length})
-                </button>
-                <button
-                  onClick={() => {
-                    setSolutionCategoryType("ai");
-                    setSelectedSolutionCatId(solutionsBySolutionType[0].id);
-                  }}
-                  className={`px-3 py-1.5 rounded-lg text-xs font-bold whitespace-nowrap transition-all ${
-                    solutionCategoryType === "ai" ? "bg-white text-blue-700 shadow-xs" : "text-slate-600 hover:text-slate-900"
-                  }`}
-                >
-                  By Solution Type (AI-Driven)
-                </button>
-              </div>
-            )}
-
-            {activeMode === "cases" && (
-              <div className="flex items-center gap-1.5 bg-slate-100 p-1 rounded-xl w-full md:w-auto overflow-x-auto">
-                <button
-                  onClick={() => {
-                    setCaseCategoryType("industry");
-                    setSelectedCaseCatId(caseStudiesByIndustry[0].id);
-                  }}
-                  className={`px-3.5 py-1.5 rounded-lg text-xs font-bold whitespace-nowrap transition-all ${
-                    caseCategoryType === "industry" ? "bg-white text-blue-700 shadow-xs" : "text-slate-600 hover:text-slate-900"
-                  }`}
-                >
-                  By Industry Sector ({caseStudiesByIndustry.length})
-                </button>
-                <button
-                  onClick={() => {
-                    setCaseCategoryType("domain");
-                    setSelectedCaseCatId(caseStudiesByComplianceDomain[0].id);
-                  }}
-                  className={`px-3.5 py-1.5 rounded-lg text-xs font-bold whitespace-nowrap transition-all ${
-                    caseCategoryType === "domain" ? "bg-white text-blue-700 shadow-xs" : "text-slate-600 hover:text-slate-900"
-                  }`}
-                >
-                  By Compliance Domain ({caseStudiesByComplianceDomain.length})
-                </button>
-              </div>
-            )}
-
-            {activeMode === "kpis" && (
-              <div className="text-xs font-bold text-slate-500 uppercase tracking-wider">
-                Audited Key Performance Indicators & Outcomes
-              </div>
-            )}
-
-            {/* Right: Quick Search Box */}
-            <div className="relative w-full md:w-72">
-              <Search className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
-              <input
-                type="text"
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                placeholder={activeMode === "solutions" ? "Search solutions, frameworks..." : "Search case studies, metrics..."}
-                className="w-full pl-9 pr-3 py-1.5 text-xs bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:border-blue-500 focus:bg-white transition-all"
-              />
-              {searchQuery && (
-                <button
-                  onClick={() => setSearchQuery("")}
-                  className="absolute right-2.5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 text-[10px] font-bold"
-                >
-                  Clear
-                </button>
-              )}
-            </div>
-
-          </div>
-        </section>
-
-
-        {/* ── SECTION 1: SOLUTIONS MODE ─────────────────────────────────── */}
-        {activeMode === "solutions" && (
-          <div className="container mx-auto max-w-6xl px-6 py-12">
-            
-            {/* Category Pills Navigation */}
-            <div className="flex items-center gap-2 overflow-x-auto pb-4 scrollbar-thin">
-              {currentSolutionsCategories.map((cat) => {
-                const isSelected = activeSolutionCategory?.id === cat.id;
-                return (
-                  <button
-                    key={cat.id}
-                    onClick={() => setSelectedSolutionCatId(cat.id)}
-                    className={`px-4 py-2.5 rounded-xl text-xs font-bold whitespace-nowrap transition-all shrink-0 flex items-center gap-2 border ${
-                      isSelected
-                        ? "bg-slate-900 text-white border-slate-900 shadow-sm"
-                        : "bg-white text-slate-700 hover:bg-slate-100 border-slate-200"
-                    }`}
-                  >
-                    <span>{cat.name}</span>
-                    <span className={`text-[10px] px-1.5 py-0.2 rounded-full ${isSelected ? "bg-blue-500 text-white" : "bg-slate-100 text-slate-500"}`}>
-                      {cat.items.length}
-                    </span>
-                  </button>
-                );
-              })}
-            </div>
-
-            {/* Selected Category Header */}
-            <div className="mt-4 mb-8 bg-white border border-slate-200 rounded-2xl p-6 shadow-2xs flex flex-col md:flex-row md:items-center justify-between gap-4">
-              <div className="space-y-1">
-                <span className="text-[10.5px] font-black text-blue-600 uppercase tracking-widest block">
-                  {solutionCategoryType === "industry" ? "Industry Sector Blueprint" : solutionCategoryType === "domain" ? "Statutory Compliance Domain" : "AI Autonomous Architecture"}
-                </span>
-                <h2 className="text-2xl font-black text-slate-900 font-heading">
-                  {activeSolutionCategory?.name}
+        {/* ── 4. ALL SOLUTIONS DIRECTORY & FILTER NAVIGATION ── */}
+        <section id="solutions-catalog" className="px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto my-16">
+          <div className="border-t border-slate-200 pt-12 mb-8">
+            <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6">
+              <div>
+                <h2 className="text-2xl sm:text-3xl font-bold text-slate-900 font-['Sora',sans-serif]">
+                  Pre-Defined Solutions Catalog
                 </h2>
-                <p className="text-xs sm:text-sm text-slate-500 font-medium max-w-2xl">
-                  {activeSolutionCategory?.description}
+                <p className="text-xs sm:text-sm text-slate-500 mt-1">
+                  Explore ready-to-deploy regulatory governance architectures and AI automation toolkits
                 </p>
               </div>
 
-              <Link
-                to="/contact#book-strategy-session"
-                className="inline-flex items-center justify-center gap-2 px-5 py-2.5 bg-blue-600 hover:bg-blue-500 text-white font-bold text-xs rounded-xl transition-all shadow-md shadow-blue-500/20 shrink-0"
-              >
-                <span>Request Asset Walkthrough</span>
-                <ArrowRight className="w-3.5 h-3.5" />
-              </Link>
+              {/* Search Bar */}
+              <div className="relative w-full md:w-80">
+                <Search className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none" />
+                <input
+                  type="text"
+                  placeholder="Search solutions, laws or frameworks…"
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  className="w-full pl-10 pr-4 py-2.5 bg-white border border-slate-300 rounded-xl text-xs text-slate-900 placeholder-slate-400 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 shadow-xs transition-colors"
+                />
+                {searchQuery && (
+                  <button
+                    onClick={() => setSearchQuery("")}
+                    className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600"
+                  >
+                    <X className="w-3.5 h-3.5" />
+                  </button>
+                )}
+              </div>
             </div>
 
-            {/* Solution Cards Grid */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              {filteredSolutionItems.map((item) => (
-                <div
-                  key={item.id}
-                  className="bg-white border border-slate-200/90 rounded-2xl p-6 hover:shadow-lg hover:border-blue-300 transition-all flex flex-col justify-between group space-y-5"
+            {/* Three Dimension Buttons */}
+            <div className="flex flex-wrap items-center gap-2 p-1.5 bg-slate-100 border border-slate-200 rounded-2xl w-fit mb-6">
+              <button
+                onClick={() => {
+                  setDimensionType("industry");
+                  setSelectedCategoryId(solutionsByIndustrySector[0].id);
+                  setSearchParams({ sector: solutionsByIndustrySector[0].id });
+                }}
+                className={`px-4 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer flex items-center gap-1.5 ${
+                  dimensionType === "industry"
+                    ? "bg-blue-600 text-white shadow-md shadow-blue-600/30"
+                    : "text-slate-600 hover:text-slate-900 hover:bg-slate-200/60"
+                }`}
+              >
+                <Building2 className="w-3.5 h-3.5" />
+                <span>1. By Industry Sector (8)</span>
+              </button>
+
+              <button
+                onClick={() => {
+                  setDimensionType("domain");
+                  setSelectedCategoryId(solutionsByComplianceDomain[0].id);
+                  setSearchParams({ domain: solutionsByComplianceDomain[0].id });
+                }}
+                className={`px-4 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer flex items-center gap-1.5 ${
+                  dimensionType === "domain"
+                    ? "bg-blue-600 text-white shadow-md shadow-blue-600/30"
+                    : "text-slate-600 hover:text-slate-900 hover:bg-slate-200/60"
+                }`}
+              >
+                <FileCheck className="w-3.5 h-3.5" />
+                <span>2. By Compliance Domain (8)</span>
+              </button>
+
+              <button
+                onClick={() => {
+                  setDimensionType("ai");
+                  setSelectedCategoryId(solutionsBySolutionType[0].id);
+                  setSearchParams({ type: solutionsBySolutionType[0].id });
+                }}
+                className={`px-4 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer flex items-center gap-1.5 ${
+                  dimensionType === "ai"
+                    ? "bg-blue-600 text-white shadow-md shadow-blue-600/30"
+                    : "text-slate-600 hover:text-slate-900 hover:bg-slate-200/60"
+                }`}
+              >
+                <Sparkles className="w-3.5 h-3.5" />
+                <span>3. AI-Driven Solution Types (4)</span>
+              </button>
+            </div>
+
+            {/* Category Filter Pills (Horizontal Scroll) */}
+            <div className="flex items-center gap-2 overflow-x-auto pb-3 scrollbar-thin scrollbar-thumb-slate-300">
+              {currentCategoryList.map((cat) => (
+                <button
+                  key={cat.id}
+                  onClick={() => {
+                    setSelectedCategoryId(cat.id);
+                    if (dimensionType === "industry") setSearchParams({ sector: cat.id });
+                    else if (dimensionType === "domain") setSearchParams({ domain: cat.id });
+                    else setSearchParams({ type: cat.id });
+                  }}
+                  className={`px-3.5 py-2 rounded-xl text-xs font-bold whitespace-nowrap transition-all cursor-pointer flex items-center gap-1.5 ${
+                    selectedCategoryId === cat.id
+                      ? "bg-blue-600 text-white shadow-md shadow-blue-600/20"
+                      : "bg-white hover:bg-slate-100 text-slate-700 border border-slate-200 shadow-xs"
+                  }`}
                 >
-                  <div className="space-y-4">
-                    <div className="flex items-start justify-between gap-3">
-                      <span className="px-3 py-1 bg-blue-50 border border-blue-200/70 text-blue-700 text-[10px] font-black uppercase tracking-wider rounded-lg">
+                  <span>{cat.name}</span>
+                  <span className={`text-[10px] px-1.5 py-0.2 rounded-full ${selectedCategoryId === cat.id ? "bg-white/20 text-white" : "bg-slate-100 text-slate-600"}`}>
+                    {cat.items.length}
+                  </span>
+                </button>
+              ))}
+            </div>
+          </div>
+
+          {/* Active Category Description Header */}
+          <div className="bg-white border border-slate-200 rounded-2xl p-4 sm:p-5 mb-8 flex flex-col sm:flex-row sm:items-center justify-between gap-3 shadow-xs">
+            <div>
+              <span className="text-[11px] font-bold uppercase tracking-wider text-blue-600">
+                Active Category
+              </span>
+              <h3 className="text-lg font-bold text-slate-900 font-['Sora',sans-serif]">
+                {activeCategory?.name}
+              </h3>
+              <p className="text-xs text-slate-500 mt-0.5">
+                {activeCategory?.description}
+              </p>
+            </div>
+            <span className="text-xs font-semibold px-3 py-1.5 rounded-xl bg-blue-50 text-blue-700 border border-blue-200 shrink-0 self-start sm:self-center">
+              {filteredItems.length} Solutions Available
+            </span>
+          </div>
+
+          {/* Solutions Cards Grid */}
+          {filteredItems.length === 0 ? (
+            <div className="text-center py-16 bg-white rounded-2xl border border-slate-200 shadow-xs">
+              <Search className="w-8 h-8 text-slate-400 mx-auto mb-3" />
+              <p className="text-sm font-bold text-slate-700">No solutions found matching your search query.</p>
+              <button
+                onClick={() => setSearchQuery("")}
+                className="mt-3 text-xs text-blue-600 hover:underline font-bold cursor-pointer"
+              >
+                Clear search query
+              </button>
+            </div>
+          ) : (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {filteredItems.map((item) => (
+                <motion.div
+                  key={item.id}
+                  layout
+                  initial={{ opacity: 0, scale: 0.96 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ duration: 0.25 }}
+                  className="bg-white hover:bg-slate-50/70 border border-slate-200/90 hover:border-blue-500/50 rounded-2xl p-5 sm:p-6 flex flex-col justify-between transition-all duration-300 shadow-sm group hover:-translate-y-1 hover:shadow-md"
+                >
+                  <div>
+                    {/* Badge */}
+                    <div className="flex items-center justify-between gap-2 mb-3">
+                      <span className="text-[11px] font-bold px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200">
                         {item.badge}
                       </span>
                       {item.metricsHighlight && (
-                        <span className="text-[10px] font-bold text-emerald-700 bg-emerald-50 border border-emerald-200/60 px-2 py-0.5 rounded-md flex items-center gap-1">
-                          <CheckCircle2 className="w-3 h-3 text-emerald-600" />
-                          <span>{item.metricsHighlight}</span>
+                        <span className="text-[10px] font-semibold text-emerald-800 bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200 truncate max-w-[170px]">
+                          ✓ {item.metricsHighlight}
                         </span>
                       )}
                     </div>
 
-                    <div>
-                      <h3 className="text-lg font-black text-slate-900 font-heading group-hover:text-blue-600 transition-colors">
-                        {item.title}
-                      </h3>
-                      <p className="text-xs text-slate-600 leading-relaxed font-medium mt-1.5">
-                        {item.description}
-                      </p>
-                    </div>
+                    {/* Title */}
+                    <h3 className="text-base font-bold text-slate-900 group-hover:text-blue-600 transition-colors leading-snug font-['Sora',sans-serif] mb-2">
+                      {item.title}
+                    </h3>
+
+                    {/* Description */}
+                    <p className="text-xs text-slate-600 leading-relaxed mb-4">
+                      {item.description}
+                    </p>
 
                     {/* Deliverables Checklist */}
-                    <div className="space-y-2 pt-2 border-t border-slate-100">
-                      <span className="text-[10px] font-black uppercase text-slate-400 tracking-wider block">
-                        Core Consulting Deliverables
+                    <div className="space-y-1.5 pt-2 border-t border-slate-200">
+                      <span className="text-[10px] font-bold text-slate-500 uppercase tracking-wider block">
+                        Included Deliverables:
                       </span>
-                      <div className="space-y-1.5">
-                        {item.deliverables.map((deliv, idx) => (
-                          <div key={idx} className="flex items-start gap-2 text-xs text-slate-700">
-                            <Check className="w-3.5 h-3.5 text-blue-600 shrink-0 mt-0.5" />
-                            <span>{deliv}</span>
-                          </div>
-                        ))}
-                      </div>
+                      {item.deliverables.map((deliv, dIdx) => (
+                        <div key={dIdx} className="flex items-start gap-1.5 text-[11px] text-slate-700">
+                          <Check className="w-3.5 h-3.5 text-blue-600 shrink-0 mt-0.5" />
+                          <span className="line-clamp-1">{deliv}</span>
+                        </div>
+                      ))}
                     </div>
 
-                    {/* Frameworks Pills */}
+                    {/* Frameworks tags */}
                     {item.frameworks && item.frameworks.length > 0 && (
-                      <div className="flex flex-wrap gap-1.5 pt-1">
-                        {item.frameworks.map((fw, fidx) => (
-                          <span key={fidx} className="text-[9.5px] font-bold px-2 py-0.5 bg-slate-100 text-slate-600 rounded-md border border-slate-200/60">
-                            {fw}
-                          </span>
-                        ))}
+                      <div className="mt-4 pt-3 border-t border-slate-200">
+                        <div className="flex flex-wrap gap-1">
+                          {item.frameworks.map((fw) => (
+                            <span key={fw} className="text-[10px] font-semibold bg-slate-100 text-slate-700 px-2 py-0.5 rounded border border-slate-200">
+                              {fw}
+                            </span>
+                          ))}
+                        </div>
                       </div>
                     )}
                   </div>
 
-                  {/* Card Bottom CTA */}
-                  <div className="pt-4 border-t border-slate-100 flex items-center justify-between">
-                    <Link
-                      to="/contact#book-strategy-session"
-                      className="inline-flex items-center gap-1.5 text-xs font-bold text-blue-600 hover:text-blue-800 transition-colors group/btn"
+                  {/* Button */}
+                  <div className="pt-5 mt-4 border-t border-slate-200">
+                    <button
+                      onClick={() => setSelectedSolutionModal(item)}
+                      className="w-full py-2.5 px-3 bg-slate-100 hover:bg-blue-50 border border-slate-200 hover:border-blue-300 text-slate-800 hover:text-blue-700 text-xs font-bold rounded-xl transition-all flex items-center justify-center gap-1.5 cursor-pointer"
                     >
-                      <span>Deploy this Solution</span>
-                      <ArrowRight className="w-3.5 h-3.5 group-hover/btn:translate-x-1 transition-transform" />
-                    </Link>
-                    <span className="text-[10px] text-slate-400 font-medium">Turnkey SLA Dispatch</span>
+                      <span>Explore Implementation Blueprint</span>
+                      <ArrowRight className="w-3.5 h-3.5" />
+                    </button>
                   </div>
-                </div>
+                </motion.div>
               ))}
             </div>
+          )}
+        </section>
 
-            {filteredSolutionItems.length === 0 && (
-              <div className="text-center py-16 bg-white border border-slate-200 rounded-2xl space-y-3">
-                <Search className="w-8 h-8 text-slate-400 mx-auto" />
-                <h4 className="text-base font-bold text-slate-700">No solutions matched "{searchQuery}"</h4>
-                <p className="text-xs text-slate-400">Try searching for keywords like "GST", "DPDP", "ISO", or "Safety".</p>
-                <button
-                  onClick={() => setSearchQuery("")}
-                  className="px-4 py-2 bg-blue-50 text-blue-600 rounded-xl text-xs font-bold hover:bg-blue-100 transition-colors"
-                >
-                  Clear Search
-                </button>
-              </div>
-            )}
-          </div>
-        )}
-
-
-        {/* ── SECTION 2: CASE STUDIES MODE ──────────────────────────────── */}
-        {activeMode === "cases" && (
-          <div className="container mx-auto max-w-6xl px-6 py-12">
-            
-            {/* Category Pills Navigation */}
-            <div className="flex items-center gap-2 overflow-x-auto pb-4 scrollbar-thin">
-              {currentCaseCategories.map((cat) => {
-                const isSelected = activeCaseCategory?.id === cat.id;
-                return (
-                  <button
-                    key={cat.id}
-                    onClick={() => setSelectedCaseCatId(cat.id)}
-                    className={`px-4 py-2.5 rounded-xl text-xs font-bold whitespace-nowrap transition-all shrink-0 flex items-center gap-2 border ${
-                      isSelected
-                        ? "bg-slate-900 text-white border-slate-900 shadow-sm"
-                        : "bg-white text-slate-700 hover:bg-slate-100 border-slate-200"
-                    }`}
-                  >
-                    <span>{cat.name}</span>
-                    <span className={`text-[10px] px-1.5 py-0.2 rounded-full ${isSelected ? "bg-blue-500 text-white" : "bg-slate-100 text-slate-500"}`}>
-                      {cat.studies.length}
-                    </span>
-                  </button>
-                );
-              })}
-            </div>
-
-            {/* Selected Category Header */}
-            <div className="mt-4 mb-8 bg-white border border-slate-200 rounded-2xl p-6 shadow-2xs flex flex-col md:flex-row md:items-center justify-between gap-4">
-              <div className="space-y-1">
-                <span className="text-[10.5px] font-black text-indigo-600 uppercase tracking-widest block">
-                  Audited Client Evidence
+        {/* ── 5. INTERACTIVE COMPLIANCE ROI CALCULATOR ── */}
+        <section id="roi-calculator" className="px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto my-20">
+          <div className="bg-white border border-slate-200/90 rounded-3xl p-6 sm:p-10 shadow-xl shadow-slate-200/50">
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+              <div className="lg:col-span-6 space-y-4">
+                <span className="text-xs font-bold text-blue-600 uppercase tracking-widest inline-flex items-center gap-1.5">
+                  <Calculator className="w-3.5 h-3.5" />
+                  <span>Interactive ROI Estimator</span>
                 </span>
-                <h2 className="text-2xl font-black text-slate-900 font-heading">
-                  {activeCaseCategory?.name}
+                <h2 className="text-2xl sm:text-3xl font-bold text-slate-900 font-['Sora',sans-serif]">
+                  Estimate Your Time &amp; Cost Savings with GOVENICS
                 </h2>
-                <p className="text-xs sm:text-sm text-slate-500 font-medium">
-                  Direct client outcomes, regulatory remediation speed, and quantifiable risk elimination.
+                <p className="text-xs sm:text-sm text-slate-600 leading-relaxed font-medium">
+                  Turnkey compliance frameworks and continuous evidence collection eliminate the manual bottleneck of collecting screenshots and redlining statutory filings.
                 </p>
+
+                {/* Sliders */}
+                <div className="space-y-5 pt-4">
+                  <div>
+                    <div className="flex justify-between text-xs font-bold text-slate-700 mb-1.5">
+                      <span>Total Employees / Workforce Size</span>
+                      <span className="text-blue-600 font-extrabold">{companyHeadcount} Team Members</span>
+                    </div>
+                    <input
+                      type="range"
+                      min={50}
+                      max={2500}
+                      step={50}
+                      value={companyHeadcount}
+                      onChange={(e) => setCompanyHeadcount(Number(e.target.value))}
+                      className="w-full accent-blue-600 h-2 bg-slate-200 rounded-lg cursor-pointer"
+                    />
+                    <div className="flex justify-between text-[10px] text-slate-500 mt-1">
+                      <span>50 (Startup)</span>
+                      <span>1,000 (Mid-Market)</span>
+                      <span>2,500+ (Enterprise)</span>
+                    </div>
+                  </div>
+
+                  <div>
+                    <div className="flex justify-between text-xs font-bold text-slate-700 mb-1.5">
+                      <span>Annual Statutory &amp; Regulatory Audits</span>
+                      <span className="text-blue-600 font-extrabold">{annualAuditsCount} Audits/Year</span>
+                    </div>
+                    <input
+                      type="range"
+                      min={1}
+                      max={12}
+                      step={1}
+                      value={annualAuditsCount}
+                      onChange={(e) => setAnnualAuditsCount(Number(e.target.value))}
+                      className="w-full accent-blue-600 h-2 bg-slate-200 rounded-lg cursor-pointer"
+                    />
+                    <div className="flex justify-between text-[10px] text-slate-500 mt-1">
+                      <span>1 Audit (Annual)</span>
+                      <span>4 Audits (Quarterly)</span>
+                      <span>12 Audits (Continuous)</span>
+                    </div>
+                  </div>
+                </div>
               </div>
 
-              <div className="flex items-center gap-2">
-                <span className="px-3 py-1.5 bg-emerald-50 border border-emerald-200 text-emerald-700 font-bold text-xs rounded-xl">
-                  ✓ Verified Results
+              {/* Calculated Results Box */}
+              <div className="lg:col-span-6 bg-slate-50 border border-slate-200 rounded-2xl p-6 sm:p-8 space-y-6 shadow-sm">
+                <span className="text-xs font-bold uppercase tracking-wider text-slate-500 block pb-3 border-b border-slate-200">
+                  Estimated Annual Compliance Impact
                 </span>
-              </div>
-            </div>
 
-            {/* Case Studies Cards Grid */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              {filteredCaseItems.map((study) => (
-                <div
-                  key={study.id}
-                  className="bg-white border border-slate-200/90 rounded-2xl p-6 hover:shadow-lg hover:border-indigo-300 transition-all flex flex-col justify-between group space-y-5"
-                >
-                  <div className="space-y-4">
-                    {/* Header Badges */}
-                    <div className="flex items-start justify-between gap-3">
-                      <span className="px-2.5 py-1 bg-slate-100 border border-slate-200 text-slate-700 text-[10px] font-bold rounded-lg uppercase tracking-wide">
-                        {study.badge}
-                      </span>
-                      <div className="flex items-center gap-2">
-                        {study.duration && (
-                          <span className="text-[10px] font-bold text-slate-500 bg-slate-50 px-2 py-0.5 rounded border border-slate-200/60 flex items-center gap-1">
-                            <Clock className="w-3 h-3 text-slate-400" />
-                            <span>{study.duration}</span>
-                          </span>
-                        )}
-                        <span className="text-[10px] font-black text-indigo-700 bg-indigo-50 border border-indigo-200/70 px-2.5 py-0.5 rounded-md">
-                          {study.metricValue}
-                        </span>
-                      </div>
-                    </div>
-
-                    <div>
-                      <h3 className="text-base sm:text-lg font-black text-slate-900 font-heading group-hover:text-indigo-600 transition-colors">
-                        {study.title}
-                      </h3>
-                      <div className="text-[11px] font-bold text-slate-500 mt-1 flex items-center gap-1.5">
-                        <Building2 className="w-3 h-3 text-slate-400" />
-                        <span>Client Profile: {study.clientType}</span>
-                      </div>
-                    </div>
-
-                    {/* Challenge & Solution Block */}
-                    <div className="space-y-2 pt-2 border-t border-slate-100 text-xs">
-                      <div className="p-3 bg-red-50/60 border border-red-100 rounded-xl space-y-1">
-                        <span className="text-[9.5px] font-black uppercase text-red-700 tracking-wider block">
-                          The Regulatory Vulnerability
-                        </span>
-                        <p className="text-slate-700 leading-relaxed font-medium">
-                          {study.challenge}
-                        </p>
-                      </div>
-
-                      <div className="p-3 bg-blue-50/60 border border-blue-100 rounded-xl space-y-1">
-                        <span className="text-[9.5px] font-black uppercase text-blue-700 tracking-wider block">
-                          GOVENICS Advisory Intervention
-                        </span>
-                        <p className="text-slate-700 leading-relaxed font-medium">
-                          {study.solution}
-                        </p>
-                      </div>
-                    </div>
-
-                    {/* Measurable Results Checklist */}
-                    <div className="space-y-2 pt-2 border-t border-slate-100">
-                      <span className="text-[10px] font-black uppercase text-slate-400 tracking-wider block">
-                        Verified Outcome Results
-                      </span>
-                      <div className="space-y-1.5">
-                        {study.results.map((res, ridx) => (
-                          <div key={ridx} className="flex items-start gap-2 text-xs text-slate-800 font-semibold">
-                            <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 shrink-0 mt-0.5" />
-                            <span>{res}</span>
-                          </div>
-                        ))}
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Card Bottom CTA */}
-                  <div className="pt-4 border-t border-slate-100 flex items-center justify-between">
-                    <Link
-                      to="/contact#book-strategy-session"
-                      className="inline-flex items-center gap-1.5 text-xs font-bold text-indigo-600 hover:text-indigo-800 transition-colors group/btn"
-                    >
-                      <span>Discuss a Similar Challenge</span>
-                      <ArrowRight className="w-3.5 h-3.5 group-hover/btn:translate-x-1 transition-transform" />
-                    </Link>
-                    <span className="text-[10px] text-slate-400 font-medium">Protected under NDA</span>
-                  </div>
-                </div>
-              ))}
-            </div>
-
-            {filteredCaseItems.length === 0 && (
-              <div className="text-center py-16 bg-white border border-slate-200 rounded-2xl space-y-3">
-                <Search className="w-8 h-8 text-slate-400 mx-auto" />
-                <h4 className="text-base font-bold text-slate-700">No case studies matched "{searchQuery}"</h4>
-                <p className="text-xs text-slate-400">Try adjusting your search keywords.</p>
-                <button
-                  onClick={() => setSearchQuery("")}
-                  className="px-4 py-2 bg-blue-50 text-blue-600 rounded-xl text-xs font-bold hover:bg-blue-100 transition-colors"
-                >
-                  Clear Search
-                </button>
-              </div>
-            )}
-          </div>
-        )}
-
-
-        {/* ── SECTION 3: OUTCOME METRICS (KPIs) MODE ────────────────────── */}
-        {activeMode === "kpis" && (
-          <div className="container mx-auto max-w-6xl px-6 py-12 space-y-12">
-            
-            <div className="text-center max-w-2xl mx-auto space-y-3">
-              <span className="text-xs font-black text-blue-600 uppercase tracking-widest">
-                Proven Client Return on Governance (RoG)
-              </span>
-              <h2 className="text-3xl font-black text-slate-900 font-heading">
-                Quantifiable Outcome Metrics (KPIs)
-              </h2>
-              <p className="text-sm text-slate-500 font-medium leading-relaxed">
-                Compliance is no longer an administrative cost center. Discover how GOVENICS consulting solutions protect operating margins, accelerate revenue, and build unbreakable institutional trust.
-              </p>
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-              {caseStudiesByOutcomeMetrics.map((group) => (
-                <div key={group.id} className="bg-white border border-slate-200 rounded-3xl p-6 sm:p-8 space-y-6 shadow-xs">
-                  <div className="border-b border-slate-100 pb-4 space-y-1">
-                    <span className="text-[10.5px] font-black text-blue-600 uppercase tracking-wider block">
-                      Performance Dimension
+                <div className="grid grid-cols-2 gap-4">
+                  <div className="bg-white border border-slate-200 p-4 rounded-xl shadow-xs">
+                    <span className="text-[10px] font-bold text-slate-500 uppercase tracking-wider block">
+                      Audit Hours Saved
                     </span>
-                    <h3 className="text-xl font-black text-slate-900 font-heading">
-                      {group.categoryTitle}
-                    </h3>
-                    <p className="text-xs text-slate-500 font-medium leading-relaxed">
-                      {group.description}
-                    </p>
+                    <div className="text-2xl sm:text-3xl font-extrabold text-blue-600 font-['Sora',sans-serif] mt-1">
+                      {calculatedSavings.hoursSaved.toLocaleString()} hrs
+                    </div>
+                    <span className="text-[10px] text-slate-500 mt-1 block">
+                      Saved from manual evidence hunts
+                    </span>
                   </div>
 
-                  <div className="space-y-4">
-                    {group.metrics.map((metric, midx) => (
-                      <div key={midx} className="p-4 bg-slate-50 border border-slate-150 rounded-2xl flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-                        <div className="space-y-1">
-                          <div className="flex items-center gap-2">
-                            <span className="text-xs font-black text-slate-900">{metric.title}</span>
-                            <span className="text-[9px] font-bold text-blue-700 bg-blue-100 px-1.5 py-0.5 rounded">
-                              {metric.badge}
-                            </span>
-                          </div>
-                          <p className="text-xs text-slate-600 font-medium leading-relaxed">
-                            {metric.description}
-                          </p>
-                          <div className="text-[10px] text-slate-400 font-semibold pt-1">
-                            Client Base: {metric.proofClient}
-                          </div>
-                        </div>
-
-                        <div className="sm:text-right shrink-0">
-                          <div className="text-base sm:text-lg font-black text-indigo-700 font-heading bg-indigo-50 border border-indigo-100 rounded-xl px-3 py-1.5 inline-block">
-                            {metric.stat}
-                          </div>
-                        </div>
-                      </div>
-                    ))}
+                  <div className="bg-white border border-slate-200 p-4 rounded-xl shadow-xs">
+                    <span className="text-[10px] font-bold text-slate-500 uppercase tracking-wider block">
+                      Cost Reduction
+                    </span>
+                    <div className="text-2xl sm:text-3xl font-extrabold text-emerald-600 font-['Sora',sans-serif] mt-1">
+                      ₹{calculatedSavings.costSavedInLakhs} Lakhs
+                    </div>
+                    <span className="text-[10px] text-slate-500 mt-1 block">
+                      Estimated legal &amp; advisory savings
+                    </span>
                   </div>
                 </div>
-              ))}
-            </div>
 
-            {/* Benchmark Callout */}
-            <div className="bg-gradient-to-r from-blue-900 to-indigo-950 text-white rounded-3xl p-8 sm:p-10 flex flex-col md:flex-row items-center justify-between gap-6 shadow-xl">
-              <div className="space-y-2 max-w-xl">
-                <h3 className="text-xl sm:text-2xl font-black font-heading">
-                  Benchmark Your Organization's Compliance KPIs
-                </h3>
-                <p className="text-xs sm:text-sm text-blue-200/90 leading-relaxed font-medium">
-                  Schedule a 30-minute structured strategy session. We will evaluate your sector's regulatory velocity, identify latent penalty exposures, and share relevant peer case studies.
-                </p>
+                <div className="bg-blue-50 border border-blue-200 p-4 rounded-xl flex items-center justify-between">
+                  <div>
+                    <span className="text-xs font-bold text-slate-900 block">
+                      Audit Readiness Index
+                    </span>
+                    <span className="text-[11px] text-slate-600">
+                      Zero non-compliance penalty shield
+                    </span>
+                  </div>
+                  <span className="text-xl font-black text-blue-700 font-['Sora',sans-serif]">
+                    {calculatedSavings.riskReduction}%
+                  </span>
+                </div>
+
+                <Link
+                  to="/contact"
+                  className="w-full py-3 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-xl text-xs transition-colors flex items-center justify-center gap-2 cursor-pointer shadow-sm"
+                >
+                  <span>Request Custom ROI Assessment</span>
+                  <ArrowRight className="w-4 h-4" />
+                </Link>
               </div>
+            </div>
+          </div>
+        </section>
 
-              <Link
-                to="/contact#book-strategy-session"
-                className="inline-flex items-center gap-2 px-8 py-4 bg-white hover:bg-slate-100 text-slate-900 font-bold text-xs sm:text-sm rounded-2xl transition-all shadow-lg hover:scale-[1.02] shrink-0"
+        {/* ── 6. RAPID DEPLOYMENT METHODOLOGY ── */}
+        <section className="px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto my-20">
+          <div className="text-center max-w-2xl mx-auto mb-10">
+            <span className="text-xs font-bold text-blue-600 uppercase tracking-widest">
+              Turnkey Implementation Framework
+            </span>
+            <h2 className="text-2xl sm:text-3xl font-bold text-slate-900 font-['Sora',sans-serif] mt-1">
+              4-Stage Rapid Deployment Methodology
+            </h2>
+            <p className="text-xs sm:text-sm text-slate-500 mt-2">
+              How GOVENICS moves enterprises from compliance ambiguity to verified audit readiness.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            {[
+              {
+                step: "01",
+                title: "Rapid Gap Diagnostic",
+                desc: "Autonomous semantic policy scan identifying missing statutory registers, expired consents, and audit gaps.",
+                tag: "Days 1 - 3"
+              },
+              {
+                step: "02",
+                title: "Blueprint Customization",
+                desc: "Tailoring pre-defined industry templates, risk registers, and statutory checklists to your corporate structure.",
+                tag: "Days 4 - 8"
+              },
+              {
+                step: "03",
+                title: "Automated Telemetry",
+                desc: "Plugging in continuous connectors to cloud, ERP, HRMS, and bank accounts for zero-effort evidence collection.",
+                tag: "Days 9 - 12"
+              },
+              {
+                step: "04",
+                title: "Audit Certification",
+                desc: "Opening pre-configured auditor read-only rooms and conducting synthetic regulatory inspection simulations.",
+                tag: "Days 13 - 14"
+              }
+            ].map((st) => (
+              <div
+                key={st.step}
+                className="bg-white border border-slate-200/90 rounded-2xl p-5 flex flex-col justify-between hover:border-blue-500/50 hover:shadow-md transition-all shadow-xs"
               >
-                <span>Book Strategy Session Now</span>
+                <div>
+                  <div className="flex items-center justify-between mb-3">
+                    <span className="text-2xl font-black text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-600 font-['Sora',sans-serif]">
+                      {st.step}
+                    </span>
+                    <span className="text-[10px] font-bold px-2 py-0.5 rounded bg-slate-100 text-slate-700 border border-slate-200">
+                      {st.tag}
+                    </span>
+                  </div>
+                  <h4 className="text-sm font-bold text-slate-900 font-['Sora',sans-serif] mb-2">
+                    {st.title}
+                  </h4>
+                  <p className="text-xs text-slate-500 leading-relaxed">
+                    {st.desc}
+                  </p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        {/* ── 7. CROSS-LINK TO CASE STUDIES ── */}
+        <section className="px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto my-16">
+          <div className="bg-gradient-to-r from-blue-50 via-sky-50 to-emerald-50 border border-blue-200 rounded-3xl p-8 sm:p-12 text-center relative overflow-hidden shadow-md">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-slate-900 font-['Sora',sans-serif] mb-3">
+              Want to See Real-World Audited Impact?
+            </h2>
+            <p className="text-sm sm:text-base text-slate-600 max-w-2xl mx-auto mb-6">
+              Review documented client case studies from leading organizations like Apollo Hospitals, DLF CyberCity, and Federal Bank.
+            </p>
+            <div className="flex flex-wrap items-center justify-center gap-3">
+              <Link
+                to="/case-studies"
+                className="bg-emerald-600 hover:bg-emerald-700 text-white font-bold px-6 py-3.5 rounded-xl text-sm transition-all shadow-md shadow-emerald-600/20 inline-flex items-center gap-2"
+              >
+                <Award className="w-4 h-4" />
+                <span>Explore 40+ Audited Case Studies</span>
                 <ArrowRight className="w-4 h-4" />
               </Link>
-            </div>
-          </div>
-        )}
-
-
-        {/* ── BOTTOM GLOBAL STRATEGY SESSION CTA ───────────────────────── */}
-        <section className="bg-slate-900 text-white py-16 px-6 border-t border-slate-800">
-          <div className="container mx-auto max-w-4xl text-center space-y-6">
-            <div className="w-14 h-14 rounded-2xl bg-blue-600/20 border border-blue-500/30 flex items-center justify-center mx-auto text-blue-400">
-              <ShieldCheck className="w-7 h-7" />
-            </div>
-            <div className="space-y-2">
-              <h2 className="text-2xl sm:text-3xl font-black text-white font-heading">
-                Ready to Deploy Pre-Defined Consulting Assets?
-              </h2>
-              <p className="text-xs sm:text-sm text-slate-400 max-w-xl mx-auto leading-relaxed">
-                Connect directly with our senior advisory partners. We deliver turnkey regulatory toolkits, automated compliance architectures, and full audit defense.
-              </p>
-            </div>
-            <div>
               <Link
-                to="/contact#book-strategy-session"
-                className="inline-flex items-center gap-2 px-8 py-3.5 bg-blue-600 hover:bg-blue-500 text-white font-bold text-xs sm:text-sm rounded-xl transition-all shadow-lg shadow-blue-500/25 hover:scale-[1.02]"
+                to="/contact"
+                className="bg-white hover:bg-slate-100 text-slate-800 font-semibold px-5 py-3.5 rounded-xl border border-slate-300 text-sm transition-all inline-flex items-center gap-2 shadow-xs"
               >
-                <span>Book a Strategy Session</span>
-                <ArrowRight className="w-4 h-4" />
+                <span>Schedule Solution Architecture Call</span>
               </Link>
             </div>
           </div>
         </section>
 
+        {/* ── SOLUTION BLUEPRINT MODAL ── */}
+        <AnimatePresence>
+          {selectedSolutionModal && (
+            <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-sm">
+              <motion.div
+                initial={{ opacity: 0, scale: 0.95 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.95 }}
+                className="bg-white border border-slate-200 rounded-3xl max-w-2xl w-full p-6 sm:p-8 max-h-[90vh] overflow-y-auto shadow-2xl relative"
+              >
+                <button
+                  onClick={() => setSelectedSolutionModal(null)}
+                  className="absolute top-5 right-5 w-8 h-8 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-600 hover:text-slate-900 flex items-center justify-center transition-colors cursor-pointer"
+                >
+                  <X className="w-4 h-4" />
+                </button>
+
+                <div className="flex items-center gap-2 mb-2">
+                  <span className="text-xs font-bold text-blue-700 bg-blue-50 px-2.5 py-0.5 rounded-full border border-blue-200">
+                    {selectedSolutionModal.badge}
+                  </span>
+                  {selectedSolutionModal.metricsHighlight && (
+                    <span className="text-xs font-semibold text-emerald-800 bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">
+                      ✓ {selectedSolutionModal.metricsHighlight}
+                    </span>
+                  )}
+                </div>
+
+                <h3 className="text-xl sm:text-2xl font-bold text-slate-900 font-['Sora',sans-serif] mb-3">
+                  {selectedSolutionModal.title}
+                </h3>
+
+                <p className="text-xs sm:text-sm text-slate-600 leading-relaxed mb-5">
+                  {selectedSolutionModal.description}
+                </p>
+
+                <div className="space-y-4 text-xs sm:text-sm text-slate-700">
+                  <div className="bg-slate-50 border border-slate-200 rounded-xl p-4">
+                    <h5 className="text-xs font-bold uppercase tracking-wider text-blue-600 mb-2">
+                      Included Deliverables &amp; Artifacts
+                    </h5>
+                    <div className="space-y-2">
+                      {selectedSolutionModal.deliverables.map((item, idx) => (
+                        <div key={idx} className="flex items-start gap-2">
+                          <CheckCircle2 className="w-4 h-4 text-blue-600 shrink-0 mt-0.5" />
+                          <span>{item}</span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+
+                  {selectedSolutionModal.frameworks && selectedSolutionModal.frameworks.length > 0 && (
+                    <div className="bg-slate-50 border border-slate-200 rounded-xl p-4">
+                      <h5 className="text-xs font-bold uppercase tracking-wider text-sky-700 mb-2">
+                        Target Regulatory Mandates Covered
+                      </h5>
+                      <div className="flex flex-wrap gap-1.5">
+                        {selectedSolutionModal.frameworks.map((fw) => (
+                          <span key={fw} className="text-xs font-semibold bg-slate-100 text-slate-700 px-2.5 py-1 rounded-md border border-slate-200">
+                            {fw}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+
+                  <div className="bg-blue-50/70 border border-blue-200/80 rounded-xl p-4">
+                    <h5 className="text-xs font-bold text-blue-900 mb-1">
+                      Ready to Deploy Architecture
+                    </h5>
+                    <p className="text-xs text-slate-600 leading-relaxed">
+                      This pre-defined solution can be tailored to your IT infrastructure, cloud providers, and operational branches in under 14 business days.
+                    </p>
+                  </div>
+                </div>
+
+                <div className="mt-6 pt-4 border-t border-slate-200 flex items-center justify-end gap-3">
+                  <button
+                    onClick={() => setSelectedSolutionModal(null)}
+                    className="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-semibold rounded-xl transition-colors cursor-pointer"
+                  >
+                    Close
+                  </button>
+                  <Link
+                    to="/contact"
+                    className="px-5 py-2 bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold rounded-xl transition-colors inline-flex items-center gap-1.5 shadow-sm"
+                  >
+                    <span>Request Implementation Kit</span>
+                    <ArrowRight className="w-3.5 h-3.5" />
+                  </Link>
+                </div>
+              </motion.div>
+            </div>
+          )}
+        </AnimatePresence>
       </div>
     </Layout>
   );
