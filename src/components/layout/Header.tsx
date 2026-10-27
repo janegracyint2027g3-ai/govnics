@@ -144,97 +144,80 @@ export const Header = () => {
               Offerings <ChevronDown className="w-4 h-4 text-current" />
             </div>
             {activeDropdown === "what-we-offer" && (
-              <div className="absolute top-full left-1/2 -translate-x-1/2 w-[98vw] max-w-6xl xl:max-w-7xl 2xl:max-w-[1380px] bg-white border border-slate-200/90 shadow-2xl rounded-2xl flex overflow-hidden animate-slide-up-dropdown mt-1 text-left z-50">
+              <div className="absolute top-full left-1/2 -translate-x-1/2 w-[92vw] max-w-[820px] bg-white border border-slate-200 shadow-2xl rounded-xl flex overflow-hidden animate-slide-up-dropdown mt-1 text-left z-50">
                 {/* Bridge to prevent hover loss */}
                 <div className="absolute -top-8 left-0 right-0 h-8 bg-transparent" />
 
-                {/* Level 1 Sidebar - 13 Practice Areas */}
-                <div className="w-[27%] xl:w-[24%] bg-slate-900 text-white p-4 pb-5 flex flex-col justify-between border-r border-slate-800 shrink-0">
-                  <div className="space-y-3">
-                    <div className="px-1.5 pt-1">
-                      <div className="flex items-center justify-between">
-                        <h3 className="text-xs font-black text-blue-400 uppercase tracking-[0.2em] leading-tight">
-                          What We Offer
-                        </h3>
-                        <span className="text-[9px] font-bold px-1.5 py-0.5 rounded bg-blue-500/20 text-blue-300 uppercase tracking-wider">
-                          12 Practices
-                        </span>
-                      </div>
-                      <p className="text-[10.5px] text-slate-400 mt-1 font-medium leading-relaxed">
-                        End-to-end statutory compliance, trade, escrow & governance.
-                      </p>
-                    </div>
-
-                    <div className="flex flex-col gap-1 overflow-y-auto max-h-[460px] pr-1 scrollbar-thin">
-                      {offeringsList.map((offer) => (
-                        <button
-                          key={offer.id}
-                          onMouseEnter={() => {
-                            setActiveOfferTab(offer.id);
-                            setActiveServiceTab(offeringsVerticalTabsData[offer.id]?.items[0]?.id || "");
-                          }}
-                          className={`w-full text-left px-3 py-2.5 rounded-xl text-xs font-semibold transition-all flex items-center justify-between group ${
-                            activeOfferTab === offer.id
-                              ? "bg-blue-600 text-white shadow-sm shadow-blue-500/20 font-bold"
-                              : "text-slate-300 hover:text-white hover:bg-slate-800/70"
-                          }`}
-                        >
-                          <span className="whitespace-normal leading-snug flex-1 pr-2">{offer.label}</span>
-                          <ArrowRight className={`w-3.5 h-3.5 shrink-0 transition-all ${activeOfferTab === offer.id ? "opacity-100 text-white" : "opacity-0 group-hover:opacity-100 text-slate-400"}`} />
-                        </button>
-                      ))}
-                    </div>
+                {/* Level 1 Sidebar - Practice Areas */}
+                <div className="w-[185px] bg-slate-900 text-white p-2.5 flex flex-col gap-2 border-r border-slate-800 shrink-0">
+                  <div className="px-1 pb-1.5 border-b border-slate-800/60 flex items-center justify-between">
+                    <h3 className="text-[9px] font-black text-blue-400 uppercase tracking-widest">Practice Areas</h3>
+                    <span className="text-[8px] font-bold px-1.5 py-0.5 rounded-full bg-blue-500/20 text-blue-300">12</span>
+                  </div>
+                  <div className="flex flex-col gap-0.5 overflow-y-auto max-h-[270px] scrollbar-thin">
+                    {offeringsList.map((offer) => (
+                      <button
+                        key={offer.id}
+                        onMouseEnter={() => {
+                          setActiveOfferTab(offer.id);
+                          setActiveServiceTab(offeringsVerticalTabsData[offer.id]?.items[0]?.id || "");
+                        }}
+                        className={`w-full text-left px-2 py-1.5 rounded-lg text-[10.5px] font-semibold transition-all flex items-center justify-between group ${
+                          activeOfferTab === offer.id
+                            ? "bg-blue-600 text-white shadow-xs"
+                            : "text-slate-400 hover:text-white hover:bg-slate-800/70"
+                        }`}
+                      >
+                        <span className="truncate flex-1 pr-1 leading-snug">{offer.label}</span>
+                        <ArrowRight className={`w-2.5 h-2.5 shrink-0 transition-all ${activeOfferTab === offer.id ? "opacity-100" : "opacity-0 group-hover:opacity-60"}`} />
+                      </button>
+                    ))}
                   </div>
                 </div>
 
-                {/* Right Pane (Dual Column Layout) */}
-                <div className="w-[73%] xl:w-[76%] flex flex-col justify-between bg-white p-6 min-h-[510px]">
+                {/* Right Pane */}
+                <div className="flex-1 flex flex-col bg-white p-3 max-h-[310px]">
                   
                   {/* Content Area */}
-                  <div className="flex overflow-hidden flex-1">
+                  <div className="flex overflow-hidden flex-1 gap-3">
                     {/* Middle Column: Vertical Submenu Topics */}
-                    <div className="w-[32%] border-r border-slate-100 pr-4 flex flex-col justify-between overflow-y-auto shrink-0 max-h-[500px]">
-                      <div>
-                        {/* Category Header */}
-                        <div className="mb-3 space-y-1">
-                          <span className="text-[11px] font-black text-blue-600 uppercase tracking-[0.2em] block">
-                            {offeringsVerticalTabsData[activeOfferTab]?.title || "PRACTICE TOPICS"}
-                          </span>
-                          <p className="text-[11px] text-slate-500 leading-relaxed font-medium">
-                            {offeringsVerticalTabsData[activeOfferTab]?.shortDesc}
-                          </p>
-                        </div>
-                        <div className="flex flex-col gap-1.5">
-                          {offeringsVerticalTabsData[activeOfferTab]?.items.map((item) => {
-                            const IconComp = item.icon || ShieldCheck;
-                            const isActive = activeServiceTab === item.id;
-                            return (
-                              <button
-                                key={item.id}
-                                onMouseEnter={() => {
-                                  setActiveServiceTab(item.id);
-                                  setHoveredDetailCard(0);
-                                }}
-                                className={`w-full text-left px-3.5 py-2.5 rounded-xl border transition-all flex items-center justify-between group ${
-                                  isActive 
-                                    ? "bg-blue-600 border-blue-600 text-white shadow-sm shadow-blue-500/20" 
-                                    : "bg-white border-slate-200/90 text-slate-700 hover:border-slate-300 hover:bg-slate-50"
-                                }`}
-                              >
-                                <div className="flex items-center gap-2.5 min-w-0">
-                                  <IconComp className={`w-4 h-4 shrink-0 ${isActive ? "text-white" : "text-blue-500"}`} />
-                                  <span className="text-[11px] font-bold uppercase tracking-wide truncate">{item.title}</span>
-                                </div>
-                                <ArrowRight className={`w-3.5 h-3.5 shrink-0 transition-transform ${isActive ? "text-white translate-x-0.5" : "text-slate-300 group-hover:text-slate-600"}`} />
-                              </button>
-                            );
-                          })}
-                        </div>
+                    <div className="w-[38%] border-r border-slate-100 pr-3 flex flex-col overflow-y-auto shrink-0 max-h-[270px]">
+                      {/* Category Header */}
+                      <div className="mb-1.5">
+                        <span className="text-[9px] font-black text-blue-600 uppercase tracking-wider block">
+                          {offeringsVerticalTabsData[activeOfferTab]?.title || "SPECIALIZED MODULES"}
+                        </span>
+                      </div>
+                      <div className="flex flex-col gap-0.5">
+                        {offeringsVerticalTabsData[activeOfferTab]?.items.map((item) => {
+                          const IconComp = item.icon || ShieldCheck;
+                          const isActive = activeServiceTab === item.id;
+                          return (
+                            <button
+                              key={item.id}
+                              onMouseEnter={() => {
+                                setActiveServiceTab(item.id);
+                                setHoveredDetailCard(0);
+                              }}
+                              className={`w-full text-left px-2 py-1.5 rounded-lg border transition-all flex items-center justify-between group ${
+                                isActive
+                                  ? "bg-blue-600 border-blue-600 text-white shadow-xs"
+                                  : "bg-white border-slate-200/70 text-slate-700 hover:border-blue-300 hover:bg-blue-50/30"
+                              }`}
+                            >
+                              <div className="flex items-center gap-1.5 min-w-0">
+                                <IconComp className={`w-3 h-3 shrink-0 ${isActive ? "text-white" : "text-blue-500"}`} />
+                                <span className="text-[10px] font-semibold truncate">{item.title}</span>
+                              </div>
+                              <ArrowRight className={`w-2.5 h-2.5 shrink-0 ${isActive ? "text-white" : "text-slate-300 group-hover:text-slate-500"}`} />
+                            </button>
+                          );
+                        })}
                       </div>
                     </div>
 
-                    {/* Right Column: Clean Detail Panel with Interactive Hover-Reveal */}
-                    <div className="w-[68%] pl-6 flex flex-col justify-between overflow-y-auto max-h-[500px]">
+                    {/* Right Column: Detail Panel */}
+                    <div className="flex-1 flex flex-col overflow-y-auto max-h-[270px]">
                       {(() => {
                         const activeItem = offeringsVerticalTabsData[activeOfferTab]?.items.find(i => i.id === activeServiceTab) 
                           || offeringsVerticalTabsData[activeOfferTab]?.items[0];
@@ -262,25 +245,24 @@ export const Header = () => {
                           { accent: "border-purple-500 bg-purple-50/60 text-purple-700", header: "text-purple-700", border: "border-purple-200", dot: "bg-purple-500" },
                         ];
 
-                        const badgeLabels = ["Core Deliverables", "Process Execution", "Audit Assurance"];
+                        const badgeLabels = ["Core", "Process", "Assurance"];
                         const currentDetail = parsedDetails[hoveredDetailCard] || parsedDetails[0];
-                        const currentTheme = cardThemes[hoveredDetailCard] || cardThemes[0];
 
                         return (
-                          <div className="animate-fade-in flex flex-col h-full justify-between gap-4">
+                          <div className="animate-fade-in flex flex-col gap-2">
                             {/* Service Header */}
-                            <div className="pb-3 border-b border-slate-100 flex items-start gap-3.5">
-                              <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-blue-600 to-indigo-700 flex items-center justify-center shrink-0 mt-0.5 shadow-md shadow-blue-500/20 text-white">
-                                {(() => { const Icon = activeItem.icon; return <Icon className="w-5 h-5" />; })()}
+                            <div className="pb-1.5 border-b border-slate-100 flex items-center gap-2">
+                              <div className="w-7 h-7 rounded-lg bg-gradient-to-br from-blue-600 to-indigo-700 flex items-center justify-center shrink-0 shadow-xs text-white">
+                                {(() => { const Icon = activeItem.icon; return <Icon className="w-3.5 h-3.5" />; })()}
                               </div>
                               <div className="flex-1 min-w-0">
-                                <h3 className="text-base font-black text-slate-900 leading-tight tracking-tight">{activeItem.title}</h3>
-                                <p className="text-xs text-slate-500 font-medium leading-relaxed mt-0.5">{activeItem.description}</p>
+                                <h3 className="text-[11px] font-black text-slate-900 leading-tight truncate">{activeItem.title}</h3>
+                                <p className="text-[9px] text-slate-500 leading-tight truncate">{activeItem.description}</p>
                               </div>
                             </div>
 
-                            {/* 3 Overview Cards — Clean, neat, and uncrowded */}
-                            <div className="grid grid-cols-3 gap-3">
+                            {/* 3 Mini-Cards */}
+                            <div className="grid grid-cols-3 gap-1.5">
                               {parsedDetails.map((detail, idx) => {
                                 const theme = cardThemes[idx] || cardThemes[0];
                                 const isSelected = hoveredDetailCard === idx;
@@ -288,89 +270,56 @@ export const Header = () => {
                                   <div
                                     key={idx}
                                     onMouseEnter={() => setHoveredDetailCard(idx)}
-                                    className={`rounded-xl p-3 border transition-all cursor-pointer flex flex-col justify-between ${
+                                    className={`rounded-lg p-2 border transition-all cursor-pointer ${
                                       isSelected
-                                        ? "bg-white border-blue-500 shadow-md ring-2 ring-blue-500/20"
-                                        : "bg-slate-50/70 border-slate-200/80 hover:bg-white hover:border-slate-300 shadow-2xs"
+                                        ? "bg-white border-blue-400 shadow-xs ring-1 ring-blue-400/20"
+                                        : "bg-slate-50/80 border-slate-200/70 hover:bg-white hover:border-slate-300"
                                     }`}
                                   >
-                                    <div className="space-y-1">
-                                      <div className="flex items-center justify-between">
-                                        <span className={`text-[9px] font-black uppercase tracking-wider px-2 py-0.5 rounded-md ${theme.accent} border inline-flex items-center gap-1`}>
-                                          <span className={`w-1.5 h-1.5 rounded-full ${theme.dot}`} />
-                                          {badgeLabels[idx]}
-                                        </span>
-                                        <span className={`text-[9px] font-bold ${isSelected ? "text-blue-600" : "text-slate-400"}`}>
-                                          {isSelected ? "Active" : "Hover to view"}
-                                        </span>
-                                      </div>
-                                      <h4 className="text-xs font-black text-slate-900 uppercase tracking-wide leading-snug pt-0.5">
-                                        {detail.label}
-                                      </h4>
-                                      <p className="text-[10px] font-medium text-slate-500 leading-relaxed line-clamp-2">
-                                        {detail.overview}
-                                      </p>
-                                    </div>
-
-                                    <div className="pt-2 border-t border-slate-100 mt-2 flex items-center justify-between text-[9px] font-bold">
-                                      <span className="text-slate-400">{detail.bullets.length} Deliverables</span>
-                                      <span className={isSelected ? "text-blue-600" : "text-slate-400"}>Inspect &rarr;</span>
-                                    </div>
+                                    <span className={`text-[8px] font-black uppercase tracking-wider px-1 py-0.5 rounded ${theme.accent} border inline-flex items-center gap-1 mb-1`}>
+                                      <span className={`w-1 h-1 rounded-full ${theme.dot}`} />
+                                      {badgeLabels[idx]}
+                                    </span>
+                                    <h4 className="text-[9.5px] font-black text-slate-900 uppercase tracking-tight leading-tight truncate">
+                                      {detail.label}
+                                    </h4>
+                                    <p className="text-[8.5px] text-slate-500 leading-snug line-clamp-2 mt-0.5">
+                                      {detail.overview}
+                                    </p>
                                   </div>
                                 );
                               })}
                             </div>
 
-                            {/* Dynamic Hover-Revealed Detailed Deliverables Container — Clean & Concise */}
+                            {/* Hover-reveal bullets */}
                             {currentDetail && currentDetail.bullets.length > 0 && (
-                              <div className="bg-gradient-to-br from-slate-50 to-blue-50/30 border border-slate-200/90 rounded-xl p-3.5 space-y-2.5 transition-all">
-                                <div className="flex items-center justify-between border-b border-slate-200/70 pb-2">
-                                  <div className="flex items-center gap-2">
-                                    <span className={`text-[9.5px] font-black uppercase tracking-wider px-2 py-0.5 rounded-md ${currentTheme.accent} border`}>
-                                      {badgeLabels[hoveredDetailCard]}
-                                    </span>
-                                    <span className="text-xs font-black text-slate-800">
-                                      {currentDetail.label} — Key Deliverables
-                                    </span>
+                              <div className="bg-blue-50/40 border border-blue-100 rounded-lg p-2 grid grid-cols-2 gap-x-3 gap-y-0.5">
+                                {currentDetail.bullets.slice(0, 4).map((bullet, bi) => (
+                                  <div key={bi} className="flex items-start gap-1 min-w-0">
+                                    <CheckCircle2 className="w-2.5 h-2.5 text-blue-600 shrink-0 mt-0.5" />
+                                    <span className="text-[9px] text-slate-700 leading-tight truncate">{bullet}</span>
                                   </div>
-                                  <span className="text-[10px] text-slate-400 font-medium">
-                                    Hover any card above to explore its deliverables
-                                  </span>
-                                </div>
-
-                                <div className="grid grid-cols-2 gap-x-6 gap-y-2">
-                                  {currentDetail.bullets.slice(0, 4).map((bullet, bi) => (
-                                    <div key={bi} className="flex items-start gap-2">
-                                      <CheckCircle2 className="w-3.5 h-3.5 text-blue-600 shrink-0 mt-0.5" />
-                                      <span className="text-xs text-slate-700 font-medium leading-snug truncate">{bullet}</span>
-                                    </div>
-                                  ))}
-                                </div>
+                                ))}
                               </div>
                             )}
 
-                            {/* Bottom action row */}
-                            <div className="pt-2 border-t border-slate-100 flex items-center justify-between">
-                              <div className="flex items-center gap-2">
-                                <Link
-                                  to={activeItem.link}
-                                  onClick={() => setActiveDropdown(null)}
-                                  className="inline-flex items-center gap-2 px-4 py-2 bg-slate-900 hover:bg-slate-800 text-white rounded-xl text-[10.5px] font-bold transition-all shadow-sm"
-                                >
-                                  <span>Read Full Details</span>
-                                  <ArrowRight className="w-3 h-3" />
-                                </Link>
-                                <Link
-                                  to="/contact"
-                                  onClick={() => setActiveDropdown(null)}
-                                  className="inline-flex items-center gap-1.5 px-3.5 py-2 bg-blue-50 hover:bg-blue-100 text-blue-700 rounded-xl text-[10.5px] font-bold transition-all border border-blue-200/60"
-                                >
-                                  <span>Speak to Practice Leader</span>
-                                </Link>
-                              </div>
-                              <span className="text-[10px] text-slate-400 font-semibold">
-                                {offeringsVerticalTabsData[activeOfferTab]?.items.length} specialized modules in this practice
-                              </span>
+                            {/* Action row */}
+                            <div className="pt-1.5 border-t border-slate-100 flex items-center gap-2">
+                              <Link
+                                to={activeItem.link}
+                                onClick={() => setActiveDropdown(null)}
+                                className="inline-flex items-center gap-1 px-2.5 py-1 bg-slate-900 hover:bg-slate-700 text-white rounded-lg text-[9.5px] font-bold transition-all"
+                              >
+                                <span>View Details</span>
+                                <ArrowRight className="w-2.5 h-2.5" />
+                              </Link>
+                              <Link
+                                to="/contact"
+                                onClick={() => setActiveDropdown(null)}
+                                className="inline-flex items-center gap-1 px-2.5 py-1 bg-blue-50 hover:bg-blue-100 text-blue-700 rounded-lg text-[9.5px] font-bold transition-all border border-blue-200/60"
+                              >
+                                Consult Advisor
+                              </Link>
                             </div>
                           </div>
                         );
@@ -394,36 +343,36 @@ export const Header = () => {
               Industries <ChevronDown className="w-4 h-4 text-current" />
             </div>
             {activeDropdown === "whom-we-serve" && (
-              <div className="absolute top-full left-1/2 -translate-x-1/2 w-[98vw] max-w-6xl xl:max-w-7xl bg-white border border-slate-200/90 shadow-2xl rounded-2xl flex overflow-hidden animate-slide-up-dropdown mt-1 text-left z-50">
+              <div className="absolute top-full left-1/2 -translate-x-1/2 w-[94vw] max-w-4xl xl:max-w-[940px] bg-white border border-slate-200/90 shadow-2xl rounded-2xl flex overflow-hidden animate-slide-up-dropdown mt-1 text-left z-50">
                 {/* Bridge to prevent hover loss */}
                 <div className="absolute -top-8 left-0 right-0 h-8 bg-transparent" />
 
                 {/* Left Sidebar */}
-                <div className="w-[28%] bg-slate-900 text-white border-r border-slate-800 p-6 flex flex-col justify-between">
-                  <div className="space-y-4">
-                    <div>
-                      <h3 className="text-[11px] font-black text-blue-400 uppercase tracking-[0.25em] leading-tight">
+                <div className="w-[210px] bg-slate-900 text-white border-r border-slate-800 p-3 flex flex-col justify-between shrink-0">
+                  <div className="space-y-2.5">
+                    <div className="px-1 pb-1.5 border-b border-slate-800/80">
+                      <h3 className="text-[10px] font-black text-blue-400 uppercase tracking-widest leading-none">
                         Industries
                       </h3>
-                      <p className="text-[10px] text-slate-400 mt-1 font-medium leading-relaxed">
-                        Explore industries and the governance, risk and compliance requirements relevant to their operations.
+                      <p className="text-[9.5px] text-slate-400 mt-1 font-medium leading-tight">
+                        Sector-specific compliance scope
                       </p>
                     </div>
 
                     {/* Search Field */}
                     <div className="relative">
-                      <Search className="w-3.5 h-3.5 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
+                      <Search className="w-3 h-3 text-slate-400 absolute left-2.5 top-1/2 -translate-y-1/2" />
                       <input
                         type="text"
-                        placeholder="Search industries or topics..."
+                        placeholder="Search sectors..."
                         value={industrySearchQuery}
                         onChange={(e) => setIndustrySearchQuery(e.target.value)}
-                        className="w-full pl-8 pr-3 py-1.5 bg-slate-800/80 border border-slate-700 rounded-lg text-xs text-white placeholder-slate-400 focus:outline-none focus:border-blue-500 transition-colors"
+                        className="w-full pl-7 pr-2.5 py-1 bg-slate-800/80 border border-slate-700 rounded-lg text-[11px] text-white placeholder-slate-400 focus:outline-none focus:border-blue-500 transition-colors"
                       />
                     </div>
                     
                     {/* Sidebar Clusters List */}
-                    <div className="flex flex-col gap-1 max-h-[340px] overflow-y-auto pr-1 scrollbar-thin">
+                    <div className="flex flex-col gap-0.5 max-h-[225px] overflow-y-auto pr-0.5 scrollbar-thin">
                       {whomWeServeClusters.map((cluster) => {
                         const ClusterIcon = cluster.icon;
                         const isSelected = activeSubTab === cluster.id;
@@ -434,37 +383,37 @@ export const Header = () => {
                               setActiveSubTab(cluster.id);
                               if (industrySearchQuery) setIndustrySearchQuery("");
                             }}
-                            className={`w-full text-left px-3 py-2 rounded-xl text-xs font-semibold transition-all flex items-center justify-between group ${
+                            className={`w-full text-left px-2.5 py-1.5 rounded-lg text-[10.5px] font-semibold transition-all flex items-center justify-between group ${
                               isSelected && !industrySearchQuery
-                                ? "bg-blue-600 text-white shadow-sm shadow-blue-500/20"
+                                ? "bg-blue-600 text-white shadow-xs"
                                 : "text-slate-350 hover:text-white hover:bg-slate-800/60"
                             }`}
                           >
-                            <div className="flex items-center gap-2.5 min-w-0">
-                              <ClusterIcon className={`w-4 h-4 shrink-0 ${isSelected && !industrySearchQuery ? "text-white" : "text-blue-400"}`} />
+                            <div className="flex items-center gap-2 min-w-0">
+                              <ClusterIcon className={`w-3.5 h-3.5 shrink-0 ${isSelected && !industrySearchQuery ? "text-white" : "text-blue-400"}`} />
                               <span className="truncate">{cluster.name}</span>
                             </div>
-                            <ArrowRight className={`w-3.5 h-3.5 shrink-0 transition-all ${isSelected && !industrySearchQuery ? "opacity-100" : "opacity-0 group-hover:opacity-100"}`} />
+                            <ArrowRight className={`w-3 h-3 shrink-0 transition-all ${isSelected && !industrySearchQuery ? "opacity-100" : "opacity-0 group-hover:opacity-100"}`} />
                           </button>
                         );
                       })}
                     </div>
                   </div>
 
-                  <div className="pt-3 border-t border-slate-800/80">
+                  <div className="pt-2 border-t border-slate-800/80">
                     <Link
                       to="/industries"
                       onClick={() => setActiveDropdown(null)}
-                      className="text-xs font-bold text-blue-400 hover:text-blue-300 inline-flex items-center gap-1.5 transition-colors"
+                      className="text-[10.5px] font-bold text-blue-400 hover:text-blue-300 inline-flex items-center gap-1 transition-colors"
                     >
-                      <span>View All Industries Directory</span>
+                      <span>All Industries Directory</span>
                       <ArrowRight className="w-3 h-3" />
                     </Link>
                   </div>
                 </div>
 
                 {/* Right Pane */}
-                <div className="w-[72%] p-6 flex flex-col justify-between bg-white min-h-[470px]">
+                <div className="flex-1 p-3.5 flex flex-col justify-between bg-white min-h-[340px] max-h-[375px]">
                   {industrySearchQuery.trim() ? (
                     /* ── Search Results View ── */
                     (() => {
@@ -481,17 +430,14 @@ export const Header = () => {
 
                       if (matched.length === 0) {
                         return (
-                          <div className="flex-1 flex flex-col items-center justify-center p-8 text-center space-y-3">
-                            <div className="w-12 h-12 rounded-full bg-slate-100 flex items-center justify-center text-slate-400">
-                              <Search className="w-6 h-6" />
+                          <div className="flex-1 flex flex-col items-center justify-center p-6 text-center space-y-2">
+                            <div className="w-10 h-10 rounded-full bg-slate-100 flex items-center justify-center text-slate-400">
+                              <Search className="w-5 h-5" />
                             </div>
-                            <h4 className="text-sm font-bold text-slate-700">No industry matched "{industrySearchQuery}"</h4>
-                            <p className="text-xs text-slate-400 max-w-sm leading-relaxed">
-                              Try searching for automotive, healthcare, banking, tech, construction, or EHS regulations.
-                            </p>
+                            <h4 className="text-xs font-bold text-slate-700">No industry matched "{industrySearchQuery}"</h4>
                             <button
                               onClick={() => setIndustrySearchQuery("")}
-                              className="px-3.5 py-1.5 bg-blue-50 text-blue-600 rounded-lg text-xs font-bold hover:bg-blue-100 transition-colors"
+                              className="px-3 py-1 bg-blue-50 text-blue-600 rounded-lg text-[10px] font-bold hover:bg-blue-100 transition-colors"
                             >
                               Clear Search
                             </button>
@@ -500,19 +446,19 @@ export const Header = () => {
                       }
 
                       return (
-                        <div className="flex-1 flex flex-col gap-3 overflow-hidden">
-                          <div className="flex items-center justify-between border-b border-slate-100 pb-2">
-                            <span className="text-xs font-bold text-slate-600">
+                        <div className="flex-1 flex flex-col gap-2 overflow-hidden">
+                          <div className="flex items-center justify-between border-b border-slate-100 pb-1.5">
+                            <span className="text-[11px] font-bold text-slate-600">
                               Found <span className="text-blue-600 font-extrabold">{matched.length}</span> matching industries
                             </span>
                             <button
                               onClick={() => setIndustrySearchQuery("")}
-                              className="text-xs text-blue-600 hover:underline font-semibold"
+                              className="text-[10px] text-blue-600 hover:underline font-semibold"
                             >
                               Clear
                             </button>
                           </div>
-                          <div className="grid grid-cols-2 gap-3 overflow-y-auto max-h-[350px] pr-1 scrollbar-thin">
+                          <div className="grid grid-cols-2 gap-2 overflow-y-auto max-h-[270px] pr-1 scrollbar-thin">
                             {matched.map((sub) => {
                               const SubIcon = sub.icon;
                               return (
@@ -523,20 +469,20 @@ export const Header = () => {
                                     setActiveDropdown(null);
                                     setIndustrySearchQuery("");
                                   }}
-                                  className="flex items-center justify-between p-3 rounded-xl bg-white border border-slate-150 hover:border-blue-300 hover:bg-blue-50/20 transition-all group shadow-2xs"
+                                  className="flex items-center justify-between p-2 rounded-lg bg-white border border-slate-150 hover:border-blue-300 hover:bg-blue-50/20 transition-all group shadow-2xs"
                                 >
-                                  <div className="flex items-center gap-3 min-w-0">
-                                    <div className="p-2 bg-slate-100 group-hover:bg-blue-100 text-slate-600 group-hover:text-blue-600 rounded-lg shrink-0 transition-colors">
-                                      <SubIcon className="w-4 h-4" />
+                                  <div className="flex items-center gap-2 min-w-0">
+                                    <div className="p-1.5 bg-slate-100 group-hover:bg-blue-100 text-slate-600 group-hover:text-blue-600 rounded-md shrink-0 transition-colors">
+                                      <SubIcon className="w-3.5 h-3.5" />
                                     </div>
                                     <div className="flex flex-col min-w-0">
-                                      <span className="text-xs font-bold text-slate-900 group-hover:text-blue-600 transition-colors truncate">
+                                      <span className="text-[11px] font-bold text-slate-900 group-hover:text-blue-600 transition-colors truncate">
                                         {sub.title}
                                       </span>
-                                      <span className="text-[10px] text-blue-600 font-semibold">{sub.clusterName}</span>
+                                      <span className="text-[9px] text-blue-600 font-semibold">{sub.clusterName}</span>
                                     </div>
                                   </div>
-                                  <ArrowRight className="w-3.5 h-3.5 text-slate-300 group-hover:text-blue-600 group-hover:translate-x-0.5 transition-all shrink-0 ml-2" />
+                                  <ArrowRight className="w-3 h-3 text-slate-300 group-hover:text-blue-600 group-hover:translate-x-0.5 transition-all shrink-0 ml-1" />
                                 </Link>
                               );
                             })}
@@ -552,31 +498,26 @@ export const Header = () => {
                         <div className="flex-1 flex flex-col justify-between">
                           <div>
                             {/* Cluster Header */}
-                            <div className="border-b border-slate-100 pb-3 flex items-start justify-between gap-4">
-                              <div>
-                                <div className="flex items-center gap-2">
-                                  <h4 className="text-base font-black text-slate-900 tracking-tight">
-                                    {activeCluster.name}
-                                  </h4>
-                                  <span className="px-2 py-0.5 rounded-full bg-emerald-50 border border-emerald-200 text-[9.5px] font-black text-emerald-700 tracking-wide uppercase">
-                                    Verified Scope
-                                  </span>
-                                </div>
-                                <p className="text-xs text-slate-500 font-medium leading-relaxed mt-1">
-                                  {activeCluster.shortDescription}
-                                </p>
+                            <div className="border-b border-slate-100 pb-2 flex items-center justify-between gap-3">
+                              <div className="flex items-center gap-2 min-w-0">
+                                <h4 className="text-sm font-black text-slate-900 tracking-tight truncate">
+                                  {activeCluster.name}
+                                </h4>
+                                <span className="px-1.5 py-0.2 rounded-full bg-emerald-50 border border-emerald-200 text-[8.5px] font-black text-emerald-700 tracking-wide uppercase shrink-0">
+                                  Verified Scope
+                                </span>
                               </div>
                               <Link
                                 to={`/industries/${activeCluster.id}`}
                                 onClick={() => setActiveDropdown(null)}
-                                className="text-xs text-blue-600 hover:text-blue-700 font-bold whitespace-nowrap inline-flex items-center gap-1 shrink-0"
+                                className="text-[10.5px] text-blue-600 hover:text-blue-700 font-bold whitespace-nowrap inline-flex items-center gap-1 shrink-0"
                               >
-                                Explore Sector Page <ArrowRight className="w-3 h-3" />
+                                <span>Sector Page</span> <ArrowRight className="w-3 h-3" />
                               </Link>
                             </div>
 
-                            {/* Two-Column Industry Cards Grid (6 submenu items horizontally in 3 rows of 2) */}
-                            <div className="grid grid-cols-2 gap-3 my-4">
+                            {/* Two-Column Industry Cards Grid */}
+                            <div className="grid grid-cols-2 gap-2 my-2.5">
                               {activeCluster.subIndustries.slice(0, 6).map((sub) => {
                                 const SubIcon = sub.icon;
                                 return (
@@ -584,40 +525,40 @@ export const Header = () => {
                                     key={sub.id}
                                     to={sub.existingRoute}
                                     onClick={() => setActiveDropdown(null)}
-                                    className="flex items-center justify-between p-3 rounded-xl bg-white border border-slate-150 hover:border-blue-300 hover:bg-blue-50/20 transition-all group shadow-2xs"
+                                    className="flex items-center justify-between p-2 rounded-lg bg-white border border-slate-150 hover:border-blue-300 hover:bg-blue-50/20 transition-all group shadow-2xs"
                                   >
-                                    <div className="flex items-center gap-3 text-left min-w-0">
-                                      <div className="p-2 bg-slate-100 group-hover:bg-blue-100 text-slate-600 group-hover:text-blue-600 rounded-lg shrink-0 transition-colors">
-                                        <SubIcon className="w-4 h-4" />
+                                    <div className="flex items-center gap-2 text-left min-w-0">
+                                      <div className="p-1.5 bg-slate-100 group-hover:bg-blue-100 text-slate-600 group-hover:text-blue-600 rounded-md shrink-0 transition-colors">
+                                        <SubIcon className="w-3.5 h-3.5" />
                                       </div>
                                       <div className="flex flex-col min-w-0">
-                                        <span className="text-xs font-bold text-slate-900 group-hover:text-blue-600 transition-colors truncate">
+                                        <span className="text-[10.5px] font-bold text-slate-900 group-hover:text-blue-600 transition-colors truncate">
                                           {sub.title}
                                         </span>
-                                        <span className="text-[10.5px] text-slate-400 font-medium line-clamp-1 mt-0.5">
+                                        <span className="text-[9.5px] text-slate-400 font-medium line-clamp-1">
                                           {sub.subtitle}
                                         </span>
                                       </div>
                                     </div>
-                                    <ArrowRight className="w-3.5 h-3.5 text-slate-300 group-hover:text-blue-600 group-hover:translate-x-0.5 transition-all shrink-0 ml-2" />
+                                    <ArrowRight className="w-3 h-3 text-slate-300 group-hover:text-blue-600 group-hover:translate-x-0.5 transition-all shrink-0 ml-1" />
                                   </Link>
                                 );
                               })}
                             </div>
                           </div>
 
-                          <div className="space-y-3 mt-1">
+                          <div className="space-y-2 mt-0.5">
                             {/* Key GRC Topics & Documented Offerings */}
-                            <div className="pt-3 border-t border-slate-100 grid grid-cols-2 gap-4 items-center">
+                            <div className="pt-2 border-t border-slate-100 grid grid-cols-2 gap-3 items-center">
                               <div>
-                                <span className="text-[9.5px] font-black text-slate-400 uppercase tracking-widest block mb-1">
-                                  Applicable GRC Focus Topics
+                                <span className="text-[8.5px] font-black text-slate-400 uppercase tracking-widest block mb-0.5">
+                                  GRC Focus Topics
                                 </span>
-                                <div className="flex flex-wrap gap-1.5">
+                                <div className="flex flex-wrap gap-1">
                                   {activeCluster.keyGrcTopics.slice(0, 3).map((topic, i) => (
                                     <span
                                       key={i}
-                                      className="px-2 py-0.5 bg-slate-100 text-slate-700 rounded-md text-[10px] font-medium border border-slate-200/70 truncate max-w-[220px]"
+                                      className="px-1.5 py-0.2 bg-slate-100 text-slate-700 rounded text-[9px] font-medium border border-slate-200/70 truncate max-w-[140px]"
                                     >
                                       {topic}
                                     </span>
@@ -625,19 +566,19 @@ export const Header = () => {
                                 </div>
                               </div>
                               <div>
-                                <span className="text-[9.5px] font-black text-slate-400 uppercase tracking-widest block mb-1">
-                                  Documented GOVENICS Offerings
+                                <span className="text-[8.5px] font-black text-slate-400 uppercase tracking-widest block mb-0.5">
+                                  GOVENICS Offerings
                                 </span>
-                                <div className="flex flex-wrap gap-1.5">
-                                  {activeCluster.documentedOfferings.slice(0, 3).map((off) => (
+                                <div className="flex flex-wrap gap-1">
+                                  {activeCluster.documentedOfferings.slice(0, 2).map((off) => (
                                     <Link
                                       key={off.serviceId}
                                       to={off.route}
                                       onClick={() => setActiveDropdown(null)}
-                                      className="inline-flex items-center gap-1 px-2 py-0.5 bg-blue-50 hover:bg-blue-100 text-blue-700 rounded-md text-[10px] font-bold border border-blue-200/60 transition-colors"
+                                      className="inline-flex items-center gap-1 px-1.5 py-0.2 bg-blue-50 hover:bg-blue-100 text-blue-700 rounded text-[9px] font-bold border border-blue-200/60 transition-colors"
                                     >
-                                      <ShieldCheck className="w-3 h-3 text-blue-600 shrink-0" />
-                                      <span className="truncate max-w-[140px]">{off.serviceName}</span>
+                                      <ShieldCheck className="w-2.5 h-2.5 text-blue-600 shrink-0" />
+                                      <span className="truncate max-w-[110px]">{off.serviceName}</span>
                                     </Link>
                                   ))}
                                 </div>
@@ -645,14 +586,14 @@ export const Header = () => {
                             </div>
 
                             {/* Contextual Contact CTA Banner */}
-                            <div className="bg-slate-50 border border-slate-200/80 rounded-xl p-3 flex items-center justify-between">
-                              <span className="text-xs text-slate-600 font-medium">
-                                Discuss your governance, risk and compliance requirements with GOVENICS.
+                            <div className="bg-slate-50 border border-slate-200/80 rounded-lg p-2 flex items-center justify-between">
+                              <span className="text-[10px] text-slate-600 font-medium truncate">
+                                Need custom compliance architecture for your industry?
                               </span>
                               <Link
                                 to="/contact"
                                 onClick={() => setActiveDropdown(null)}
-                                className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg text-xs font-bold tracking-wide transition-all shadow-md shadow-blue-500/10 shrink-0 ml-3"
+                                className="px-3 py-1 bg-blue-600 hover:bg-blue-700 text-white rounded-md text-[10px] font-bold tracking-wide transition-all shadow-xs shrink-0 ml-2"
                               >
                                 Contact Us
                               </Link>
@@ -678,153 +619,101 @@ export const Header = () => {
               <ChevronDown className="w-4 h-4 text-current" />
             </div>
             {activeDropdown === "solutions" && (
-              <div className="absolute top-full left-1/2 -translate-x-1/2 w-[98vw] max-w-6xl xl:max-w-7xl 2xl:max-w-[1380px] bg-white border border-slate-200/90 shadow-2xl rounded-2xl flex flex-col overflow-hidden animate-slide-up-dropdown mt-1 text-left z-50">
-                {/* Bridge to prevent hover loss */}
+              <div className="absolute top-full left-1/2 -translate-x-1/2 w-[90vw] max-w-[760px] bg-white border border-slate-200 shadow-2xl rounded-xl overflow-hidden animate-slide-up-dropdown mt-1 text-left z-50">
                 <div className="absolute -top-8 left-0 right-0 h-8 bg-transparent" />
 
-                {/* Top Section Header Bar */}
-                <div className="bg-slate-900 border-b border-slate-800 px-6 py-3 flex items-center justify-between">
-                  <div className="flex items-center gap-2.5">
-                    <div className="w-7 h-7 rounded-lg bg-blue-600/30 border border-blue-500/40 flex items-center justify-center text-blue-400">
-                      <ShieldCheck className="w-4 h-4" />
+                {/* Compact Header */}
+                <div className="bg-slate-900 px-4 py-2 flex items-center justify-between">
+                  <div className="flex items-center gap-2">
+                    <div className="w-5 h-5 rounded bg-blue-500/20 border border-blue-500/30 flex items-center justify-center">
+                      <ShieldCheck className="w-3 h-3 text-blue-400" />
                     </div>
-                    <div>
-                      <span className="text-xs font-black text-white uppercase tracking-wider block">
-                        SOLUTIONS (Pre-defined Consulting Assets)
-                      </span>
-                      <span className="text-[10px] text-slate-400 font-medium">
-                        Turnkey regulatory blueprints, automated runbooks & compliance frameworks
-                      </span>
-                    </div>
+                    <span className="text-[10.5px] font-black text-white uppercase tracking-wider">Solutions</span>
+                    <span className="text-[9px] text-slate-400 font-medium hidden sm:block">— Pre-defined Consulting Assets</span>
                   </div>
-
                   <Link
                     to="/solutions?tab=solutions"
                     onClick={() => setActiveDropdown(null)}
-                    className="text-xs font-bold text-blue-400 hover:text-blue-300 flex items-center gap-1 transition-colors"
+                    className="text-[9.5px] font-bold text-blue-400 hover:text-blue-300 flex items-center gap-1 transition-colors"
                   >
-                    <span>View All Pre-defined Assets</span>
-                    <ArrowRight className="w-3.5 h-3.5" />
+                    View All <ArrowRight className="w-2.5 h-2.5" />
                   </Link>
                 </div>
 
-                {/* Main 3-Column Content */}
-                <div className="p-6 bg-white min-h-[440px] max-h-[520px] overflow-y-auto">
-                  <div className="grid grid-cols-12 gap-6">
-                    {/* Column A: By Industry Sector (5 cols) */}
-                    <div className="col-span-5 border-r border-slate-150 pr-6 space-y-3">
-                      <div className="flex items-center justify-between border-b border-slate-100 pb-2">
-                        <span className="text-[11px] font-black text-blue-700 uppercase tracking-widest">
-                          A. By Industry Sector
-                        </span>
-                        <span className="text-[9px] font-bold px-2 py-0.5 rounded-full bg-blue-50 text-blue-600">8 Sectors</span>
-                      </div>
-                      <div className="grid grid-cols-2 gap-2 max-h-[360px] overflow-y-auto pr-1 scrollbar-thin">
-                        {solutionsByIndustrySector.map((sec) => (
-                          <Link
-                            key={sec.id}
-                            to={`/solutions?tab=solutions#${sec.id}`}
-                            onClick={() => setActiveDropdown(null)}
-                            className="p-2.5 rounded-xl border border-slate-200/80 hover:border-blue-400 hover:bg-blue-50/40 transition-all group block shadow-2xs"
-                          >
-                            <div className="text-xs font-black text-slate-900 group-hover:text-blue-600 transition-colors leading-tight truncate">
-                              {sec.name}
-                            </div>
-                            <div className="text-[10px] text-slate-500 font-medium truncate mt-0.5">
-                              {sec.items.map(i => i.title).slice(0, 2).join(", ")}...
-                            </div>
-                          </Link>
-                        ))}
-                      </div>
+                {/* 3-Column Grid */}
+                <div className="grid grid-cols-3 divide-x divide-slate-100 p-0">
+                  {/* Col A: By Industry */}
+                  <div className="p-3 space-y-1.5">
+                    <div className="flex items-center justify-between mb-2">
+                      <span className="text-[9px] font-black text-blue-700 uppercase tracking-widest">By Industry</span>
+                      <span className="text-[7.5px] font-bold px-1.5 py-0.5 rounded-full bg-blue-50 text-blue-600">8</span>
                     </div>
-
-                    {/* Column B: By Compliance Domain (4 cols) */}
-                    <div className="col-span-4 border-r border-slate-150 pr-6 space-y-3">
-                      <div className="flex items-center justify-between border-b border-slate-100 pb-2">
-                        <span className="text-[11px] font-black text-indigo-700 uppercase tracking-widest">
-                          B. By Compliance Domain
-                        </span>
-                        <span className="text-[9px] font-bold px-2 py-0.5 rounded-full bg-indigo-50 text-indigo-600">8 Domains</span>
-                      </div>
-                      <div className="flex flex-col gap-1.5 max-h-[360px] overflow-y-auto pr-1 scrollbar-thin">
-                        {solutionsByComplianceDomain.map((dom) => (
-                          <Link
-                            key={dom.id}
-                            to={`/solutions?tab=solutions#${dom.id}`}
-                            onClick={() => setActiveDropdown(null)}
-                            className="p-2 px-2.5 rounded-xl border border-slate-200/70 hover:border-indigo-400 hover:bg-indigo-50/40 transition-all group flex items-center justify-between shadow-2xs"
-                          >
-                            <span className="text-xs font-bold text-slate-800 group-hover:text-indigo-600 transition-colors truncate">
-                              {dom.name}
-                            </span>
-                            <span className="text-[10px] text-slate-400 font-bold shrink-0 ml-2">
-                              {dom.items.length} assets
-                            </span>
-                          </Link>
-                        ))}
-                      </div>
+                    <div className="space-y-1">
+                      {solutionsByIndustrySector.slice(0, 6).map((sec) => (
+                        <Link
+                          key={sec.id}
+                          to={`/solutions?tab=solutions#${sec.id}`}
+                          onClick={() => setActiveDropdown(null)}
+                          className="flex items-center justify-between px-2 py-1.5 rounded-lg hover:bg-blue-50/50 hover:text-blue-700 text-slate-700 group transition-all"
+                        >
+                          <span className="text-[10px] font-semibold truncate">{sec.name}</span>
+                          <ArrowRight className="w-2.5 h-2.5 text-slate-300 group-hover:text-blue-500 shrink-0 ml-1" />
+                        </Link>
+                      ))}
                     </div>
+                  </div>
 
-                    {/* Column C: By Solution Type (AI-Driven) (3 cols) */}
-                    <div className="col-span-3 space-y-3">
-                      <div className="flex items-center justify-between border-b border-slate-100 pb-2">
-                        <span className="text-[11px] font-black text-purple-700 uppercase tracking-widest">
-                          C. AI-Driven Solutions
-                        </span>
-                        <span className="text-[9px] font-bold px-2 py-0.5 rounded-full bg-purple-50 text-purple-600">AI Stack</span>
-                      </div>
-                      <div className="flex flex-col gap-2">
-                        {solutionsBySolutionType.map((aiType) => (
-                          <Link
-                            key={aiType.id}
-                            to={`/solutions?tab=solutions#${aiType.id}`}
-                            onClick={() => setActiveDropdown(null)}
-                            className="p-2.5 rounded-xl bg-gradient-to-r from-purple-50/60 to-indigo-50/60 border border-purple-200/60 hover:border-purple-400 transition-all group block shadow-2xs"
-                          >
-                            <div className="text-xs font-black text-slate-900 group-hover:text-purple-700 transition-colors leading-tight">
-                              {aiType.name}
-                            </div>
-                            <div className="text-[10px] text-slate-500 font-medium leading-relaxed mt-1">
-                              {aiType.description}
-                            </div>
-                          </Link>
-                        ))}
-                      </div>
+                  {/* Col B: By Compliance Domain */}
+                  <div className="p-3 space-y-1.5">
+                    <div className="flex items-center justify-between mb-2">
+                      <span className="text-[9px] font-black text-indigo-700 uppercase tracking-widest">By Domain</span>
+                      <span className="text-[7.5px] font-bold px-1.5 py-0.5 rounded-full bg-indigo-50 text-indigo-600">8</span>
+                    </div>
+                    <div className="space-y-1">
+                      {solutionsByComplianceDomain.slice(0, 6).map((dom) => (
+                        <Link
+                          key={dom.id}
+                          to={`/solutions?tab=solutions#${dom.id}`}
+                          onClick={() => setActiveDropdown(null)}
+                          className="flex items-center justify-between px-2 py-1.5 rounded-lg hover:bg-indigo-50/50 hover:text-indigo-700 text-slate-700 group transition-all"
+                        >
+                          <span className="text-[10px] font-semibold truncate">{dom.name}</span>
+                          <span className="text-[8.5px] text-slate-400 font-bold shrink-0 ml-1">{dom.items.length}</span>
+                        </Link>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* Col C: AI-Driven */}
+                  <div className="p-3 space-y-1.5">
+                    <div className="flex items-center justify-between mb-2">
+                      <span className="text-[9px] font-black text-purple-700 uppercase tracking-widest">AI-Driven</span>
+                      <span className="text-[7.5px] font-bold px-1.5 py-0.5 rounded-full bg-purple-50 text-purple-600">AI</span>
+                    </div>
+                    <div className="space-y-1.5">
+                      {solutionsBySolutionType.map((aiType) => (
+                        <Link
+                          key={aiType.id}
+                          to={`/solutions?tab=solutions#${aiType.id}`}
+                          onClick={() => setActiveDropdown(null)}
+                          className="block px-2 py-1.5 rounded-lg bg-gradient-to-r from-purple-50/50 to-indigo-50/50 border border-purple-100 hover:border-purple-300 hover:from-purple-50 hover:to-indigo-50 text-slate-800 hover:text-purple-700 transition-all group"
+                        >
+                          <span className="text-[10px] font-bold leading-tight block truncate">{aiType.name}</span>
+                          <span className="text-[8.5px] text-slate-500 leading-tight line-clamp-1">{aiType.description}</span>
+                        </Link>
+                      ))}
                     </div>
                   </div>
                 </div>
 
-                {/* Bottom Callout Bar */}
-                <div className="bg-slate-50 border-t border-slate-200/80 p-4 px-6 flex items-center justify-between">
-                  <div className="flex items-center gap-3">
-                    <div className="w-8 h-8 rounded-lg bg-blue-100 text-blue-600 flex items-center justify-center font-black text-xs">
-                      GRC
-                    </div>
-                    <div>
-                      <span className="text-xs font-bold text-slate-900 block leading-tight">
-                        Pre-defined regulatory blueprints, automated runbooks & compliance frameworks
-                      </span>
-                      <span className="text-[10.5px] text-slate-500 font-medium">
-                        Explore 35+ turnkey assets tailored for Indian & global statutory compliance
-                      </span>
-                    </div>
-                  </div>
-
-                  <div className="flex items-center gap-2">
-                    <Link
-                      to="/solutions?tab=solutions"
-                      onClick={() => setActiveDropdown(null)}
-                      className="px-4 py-2 bg-slate-900 hover:bg-slate-800 text-white rounded-xl text-xs font-bold transition-all shadow-sm"
-                    >
-                      Explore Solutions Catalog
-                    </Link>
-                    <Link
-                      to="/contact"
-                      onClick={() => setActiveDropdown(null)}
-                      className="px-4 py-2 bg-blue-600 hover:bg-blue-500 text-white rounded-xl text-xs font-bold transition-all shadow-md shadow-blue-500/20"
-                    >
-                      Contact Advisory Team
-                    </Link>
+                {/* Compact Footer */}
+                <div className="border-t border-slate-100 bg-slate-50/60 px-4 py-2 flex items-center justify-between">
+                  <span className="text-[9.5px] text-slate-500 font-medium">Turnkey regulatory blueprints & compliance frameworks</span>
+                  <div className="flex items-center gap-1.5">
+                    <Link to="/solutions?tab=solutions" onClick={() => setActiveDropdown(null)}
+                      className="px-2.5 py-1 bg-slate-900 hover:bg-slate-700 text-white rounded-lg text-[9px] font-bold transition-all">Catalog</Link>
+                    <Link to="/contact" onClick={() => setActiveDropdown(null)}
+                      className="px-2.5 py-1 bg-blue-600 hover:bg-blue-500 text-white rounded-lg text-[9px] font-bold transition-all">Consult</Link>
                   </div>
                 </div>
               </div>
@@ -842,153 +731,101 @@ export const Header = () => {
               <ChevronDown className="w-4 h-4 text-current" />
             </div>
             {activeDropdown === "case-studies" && (
-              <div className="absolute top-full left-1/2 -translate-x-1/2 w-[98vw] max-w-6xl xl:max-w-7xl 2xl:max-w-[1380px] bg-white border border-slate-200/90 shadow-2xl rounded-2xl flex flex-col overflow-hidden animate-slide-up-dropdown mt-1 text-left z-50">
-                {/* Bridge to prevent hover loss */}
+              <div className="absolute top-full left-1/2 -translate-x-1/2 w-[90vw] max-w-[760px] bg-white border border-slate-200 shadow-2xl rounded-xl overflow-hidden animate-slide-up-dropdown mt-1 text-left z-50">
                 <div className="absolute -top-8 left-0 right-0 h-8 bg-transparent" />
 
-                {/* Top Section Header Bar */}
-                <div className="bg-slate-900 border-b border-slate-800 px-6 py-3 flex items-center justify-between">
-                  <div className="flex items-center gap-2.5">
-                    <div className="w-7 h-7 rounded-lg bg-emerald-600/30 border border-emerald-500/40 flex items-center justify-center text-emerald-400">
-                      <Award className="w-4 h-4" />
+                {/* Compact Header */}
+                <div className="bg-slate-900 px-4 py-2 flex items-center justify-between">
+                  <div className="flex items-center gap-2">
+                    <div className="w-5 h-5 rounded bg-emerald-500/20 border border-emerald-500/30 flex items-center justify-center">
+                      <Award className="w-3 h-3 text-emerald-400" />
                     </div>
-                    <div>
-                      <span className="text-xs font-black text-white uppercase tracking-wider block">
-                        CASE STUDIES (Client Success & Verified Impact)
-                      </span>
-                      <span className="text-[10px] text-slate-400 font-medium">
-                        Audited enterprise outcomes, penalty avoidance metrics & zero-lag execution records
-                      </span>
-                    </div>
+                    <span className="text-[10.5px] font-black text-white uppercase tracking-wider">Case Studies</span>
+                    <span className="text-[9px] text-slate-400 font-medium hidden sm:block">— Client Success & Verified Impact</span>
                   </div>
-
                   <Link
                     to="/solutions?tab=cases"
                     onClick={() => setActiveDropdown(null)}
-                    className="text-xs font-bold text-emerald-400 hover:text-emerald-300 flex items-center gap-1 transition-colors"
+                    className="text-[9.5px] font-bold text-emerald-400 hover:text-emerald-300 flex items-center gap-1 transition-colors"
                   >
-                    <span>Browse All Documented Cases</span>
-                    <ArrowRight className="w-3.5 h-3.5" />
+                    Browse All <ArrowRight className="w-2.5 h-2.5" />
                   </Link>
                 </div>
 
-                {/* Main 3-Column Content */}
-                <div className="p-6 bg-white min-h-[440px] max-h-[520px] overflow-y-auto">
-                  <div className="grid grid-cols-12 gap-6">
-                    {/* Column A: By Industry Sector (5 cols) */}
-                    <div className="col-span-5 border-r border-slate-150 pr-6 space-y-3">
-                      <div className="flex items-center justify-between border-b border-slate-100 pb-2">
-                        <span className="text-[11px] font-black text-blue-700 uppercase tracking-widest">
-                          A. By Industry Sector
-                        </span>
-                        <span className="text-[9px] font-bold px-2 py-0.5 rounded-full bg-blue-50 text-blue-600">Verified Cases</span>
-                      </div>
-                      <div className="grid grid-cols-2 gap-2 max-h-[360px] overflow-y-auto pr-1 scrollbar-thin">
-                        {caseStudiesByIndustry.map((sec) => (
-                          <Link
-                            key={sec.id}
-                            to={`/solutions?tab=cases#${sec.id}`}
-                            onClick={() => setActiveDropdown(null)}
-                            className="p-2.5 rounded-xl border border-slate-200/80 hover:border-blue-400 hover:bg-blue-50/40 transition-all group block shadow-2xs"
-                          >
-                            <div className="text-xs font-black text-slate-900 group-hover:text-blue-600 transition-colors leading-tight truncate">
-                              {sec.name.replace(" Case Studies", "")}
-                            </div>
-                            <div className="text-[10px] text-emerald-600 font-bold mt-1">
-                              ✓ {sec.studies.length} Documented Wins
-                            </div>
-                          </Link>
-                        ))}
-                      </div>
+                {/* 3-Column Grid */}
+                <div className="grid grid-cols-3 divide-x divide-slate-100">
+                  {/* Col A: By Industry */}
+                  <div className="p-3 space-y-1">
+                    <div className="flex items-center justify-between mb-2">
+                      <span className="text-[9px] font-black text-blue-700 uppercase tracking-widest">By Industry</span>
+                      <span className="text-[7.5px] font-bold px-1.5 py-0.5 rounded-full bg-blue-50 text-blue-600">Cases</span>
                     </div>
-
-                    {/* Column B: By Compliance Domain (4 cols) */}
-                    <div className="col-span-4 border-r border-slate-150 pr-6 space-y-3">
-                      <div className="flex items-center justify-between border-b border-slate-100 pb-2">
-                        <span className="text-[11px] font-black text-indigo-700 uppercase tracking-widest">
-                          B. By Compliance Domain
-                        </span>
-                        <span className="text-[9px] font-bold px-2 py-0.5 rounded-full bg-indigo-50 text-indigo-600">Audit Triumphs</span>
-                      </div>
-                      <div className="flex flex-col gap-1.5 max-h-[360px] overflow-y-auto pr-1 scrollbar-thin">
-                        {caseStudiesByComplianceDomain.map((dom) => (
-                          <Link
-                            key={dom.id}
-                            to={`/solutions?tab=cases#${dom.id}`}
-                            onClick={() => setActiveDropdown(null)}
-                            className="p-2 px-2.5 rounded-xl border border-slate-200/70 hover:border-indigo-400 hover:bg-indigo-50/40 transition-all group flex items-center justify-between shadow-2xs"
-                          >
-                            <span className="text-xs font-bold text-slate-800 group-hover:text-indigo-600 transition-colors truncate">
-                              {dom.name}
-                            </span>
-                            <span className="text-[10px] text-emerald-600 font-bold shrink-0 ml-2">
-                              {dom.studies.length} wins
-                            </span>
-                          </Link>
-                        ))}
-                      </div>
+                    <div className="space-y-1">
+                      {caseStudiesByIndustry.slice(0, 6).map((sec) => (
+                        <Link
+                          key={sec.id}
+                          to={`/solutions?tab=cases#${sec.id}`}
+                          onClick={() => setActiveDropdown(null)}
+                          className="flex items-center justify-between px-2 py-1.5 rounded-lg hover:bg-blue-50/50 hover:text-blue-700 text-slate-700 group transition-all"
+                        >
+                          <span className="text-[10px] font-semibold truncate">{sec.name.replace(" Case Studies", "")}</span>
+                          <span className="text-[8px] text-emerald-600 font-bold shrink-0 ml-1">✓{sec.studies.length}</span>
+                        </Link>
+                      ))}
                     </div>
+                  </div>
 
-                    {/* Column C: By Outcome Metrics (KPIs) (3 cols) */}
-                    <div className="col-span-3 space-y-3">
-                      <div className="flex items-center justify-between border-b border-slate-100 pb-2">
-                        <span className="text-[11px] font-black text-emerald-700 uppercase tracking-widest">
-                          C. Outcome Metrics (KPIs)
-                        </span>
-                        <span className="text-[9px] font-bold px-2 py-0.5 rounded-full bg-emerald-50 text-emerald-600">ROI Impact</span>
-                      </div>
-                      <div className="flex flex-col gap-2">
-                        {caseStudiesByOutcomeMetrics.map((kpi) => (
-                          <Link
-                            key={kpi.id}
-                            to="/solutions?tab=kpis"
-                            onClick={() => setActiveDropdown(null)}
-                            className="p-2.5 rounded-xl bg-gradient-to-r from-emerald-50/60 to-teal-50/60 border border-emerald-200/60 hover:border-emerald-400 transition-all group block shadow-2xs"
-                          >
-                            <div className="text-xs font-black text-slate-900 group-hover:text-emerald-700 transition-colors leading-tight">
-                              {kpi.categoryTitle}
-                            </div>
-                            <div className="text-[10px] text-slate-500 font-medium leading-relaxed mt-1">
-                              {kpi.metrics.map(m => m.title).slice(0, 2).join(", ")}...
-                            </div>
-                          </Link>
-                        ))}
-                      </div>
+                  {/* Col B: By Domain */}
+                  <div className="p-3 space-y-1">
+                    <div className="flex items-center justify-between mb-2">
+                      <span className="text-[9px] font-black text-indigo-700 uppercase tracking-widest">By Domain</span>
+                      <span className="text-[7.5px] font-bold px-1.5 py-0.5 rounded-full bg-indigo-50 text-indigo-600">Wins</span>
+                    </div>
+                    <div className="space-y-1">
+                      {caseStudiesByComplianceDomain.slice(0, 6).map((dom) => (
+                        <Link
+                          key={dom.id}
+                          to={`/solutions?tab=cases#${dom.id}`}
+                          onClick={() => setActiveDropdown(null)}
+                          className="flex items-center justify-between px-2 py-1.5 rounded-lg hover:bg-indigo-50/50 hover:text-indigo-700 text-slate-700 group transition-all"
+                        >
+                          <span className="text-[10px] font-semibold truncate">{dom.name}</span>
+                          <span className="text-[8.5px] text-emerald-600 font-bold shrink-0 ml-1">{dom.studies.length}</span>
+                        </Link>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* Col C: KPI Metrics */}
+                  <div className="p-3 space-y-1">
+                    <div className="flex items-center justify-between mb-2">
+                      <span className="text-[9px] font-black text-emerald-700 uppercase tracking-widest">Outcome KPIs</span>
+                      <span className="text-[7.5px] font-bold px-1.5 py-0.5 rounded-full bg-emerald-50 text-emerald-600">ROI</span>
+                    </div>
+                    <div className="space-y-1.5">
+                      {caseStudiesByOutcomeMetrics.map((kpi) => (
+                        <Link
+                          key={kpi.id}
+                          to="/solutions?tab=kpis"
+                          onClick={() => setActiveDropdown(null)}
+                          className="block px-2 py-1.5 rounded-lg bg-gradient-to-r from-emerald-50/50 to-teal-50/50 border border-emerald-100 hover:border-emerald-300 text-slate-800 hover:text-emerald-700 transition-all group"
+                        >
+                          <span className="text-[10px] font-bold leading-tight block truncate">{kpi.categoryTitle}</span>
+                          <span className="text-[8.5px] text-slate-500 leading-tight line-clamp-1">{kpi.metrics.map(m => m.title).slice(0, 2).join(", ")}</span>
+                        </Link>
+                      ))}
                     </div>
                   </div>
                 </div>
 
-                {/* Bottom Callout Bar */}
-                <div className="bg-slate-50 border-t border-slate-200/80 p-4 px-6 flex items-center justify-between">
-                  <div className="flex items-center gap-3">
-                    <div className="w-8 h-8 rounded-lg bg-emerald-100 text-emerald-700 flex items-center justify-center font-black text-xs">
-                      ROI
-                    </div>
-                    <div>
-                      <span className="text-xs font-bold text-slate-900 block leading-tight">
-                        99.4% average statutory penalty avoidance & 68% faster compliance audit clearance
-                      </span>
-                      <span className="text-[10.5px] text-slate-500 font-medium">
-                        Documented outcomes across multi-jurisdictional enterprises and Fortune 500 GCCs
-                      </span>
-                    </div>
-                  </div>
-
-                  <div className="flex items-center gap-2">
-                    <Link
-                      to="/solutions?tab=cases"
-                      onClick={() => setActiveDropdown(null)}
-                      className="px-4 py-2 bg-slate-900 hover:bg-slate-800 text-white rounded-xl text-xs font-bold transition-all shadow-sm"
-                    >
-                      Browse All Case Studies
-                    </Link>
-                    <Link
-                      to="/solutions?tab=kpis"
-                      onClick={() => setActiveDropdown(null)}
-                      className="px-4 py-2 bg-emerald-600 hover:bg-emerald-500 text-white rounded-xl text-xs font-bold transition-all shadow-md shadow-emerald-500/20"
-                    >
-                      View KPIs Dashboard
-                    </Link>
+                {/* Compact Footer */}
+                <div className="border-t border-slate-100 bg-slate-50/60 px-4 py-2 flex items-center justify-between">
+                  <span className="text-[9.5px] text-slate-500 font-medium">99.4% penalty avoidance · 68% faster audit clearance</span>
+                  <div className="flex items-center gap-1.5">
+                    <Link to="/solutions?tab=cases" onClick={() => setActiveDropdown(null)}
+                      className="px-2.5 py-1 bg-slate-900 hover:bg-slate-700 text-white rounded-lg text-[9px] font-bold transition-all">Cases</Link>
+                    <Link to="/solutions?tab=kpis" onClick={() => setActiveDropdown(null)}
+                      className="px-2.5 py-1 bg-emerald-600 hover:bg-emerald-500 text-white rounded-lg text-[9px] font-bold transition-all">KPI Dashboard</Link>
                   </div>
                 </div>
               </div>
