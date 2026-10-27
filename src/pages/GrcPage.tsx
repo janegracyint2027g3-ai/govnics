@@ -10,21 +10,12 @@ import { Link } from "react-router-dom";
 import { 
   Shield, ArrowRight, CheckCircle2, Briefcase, FileText, Scale, Settings, 
   ShieldCheck, Clock, Users, AlertTriangle, Eye, Layers, RefreshCw, BookOpen, BarChart3, 
-  Lock, HelpCircle, ChevronDown, Send, Check, Mail, Phone, Building2, User, Cpu, Target
+  Lock, HelpCircle, ChevronDown, Mail, Phone, Building2, Cpu, Target
 } from "lucide-react";
 
 export default function GrcPage() {
   const [activeTab, setActiveTab] = useState<string>("compliance");
   const [openFaq, setOpenFaq] = useState<number | null>(0);
-  const [formSubmitted, setFormSubmitted] = useState(false);
-  const [formData, setFormData] = useState({
-    name: "",
-    company: "",
-    email: "",
-    phone: "",
-    serviceInterest: "Comprehensive GRC Advisory",
-    message: ""
-  });
 
   useEffect(() => {
     document.title = "GRC Services | Governance, Risk & Compliance Solutions — GOVENICS";
@@ -410,39 +401,7 @@ export default function GrcPage() {
     }
   ];
 
-  const handleFormSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!formData.name || !formData.email || !formData.phone) return;
 
-    const webhookUrl = import.meta.env.VITE_TELEMETRY_WEBHOOK_URL;
-    if (webhookUrl) {
-      try {
-        await fetch(webhookUrl, {
-          method: "POST",
-          mode: "no-cors",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            sheetName: "Consultation_Requests",
-            table: "Consultation_Requests",
-            "Full Name": formData.name,
-            "Email": formData.email,
-            "Phone": formData.phone,
-            "Company": formData.company,
-            "Service Interest": formData.serviceInterest,
-            "Message": formData.message,
-            "Source Page": "/grc",
-            "Lead Source": "GRC Services Page — Executive Consultation Form",
-            "Booking Status": "New Inquiry",
-            "Timestamp": new Date().toISOString(),
-          }),
-        });
-      } catch (err) {
-        console.warn("GRC form submission error:", err);
-      }
-    }
-
-    setFormSubmitted(true);
-  };
 
   return (
     <Layout>

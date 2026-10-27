@@ -7,8 +7,8 @@ import { GrcSliderHero } from "@/components/hero/GrcSliderHero";
 import {
   CheckCircle2, ShieldCheck, Shield, Layers, Cpu, ClipboardCheck,
   Settings, BookOpen, BarChart3, Clock, ArrowRight, Target,
-  FileText, AlertTriangle, Eye, Scale, RefreshCw, Send, Check, ChevronDown,
-  Building2, Phone, Mail, User, HelpCircle, Lock
+  FileText, AlertTriangle, Eye, Scale, RefreshCw, ChevronDown, Check,
+  Phone, Mail, HelpCircle, Lock
 } from "lucide-react";
 
 import heroAiDriven from "@/assets/hero-ai-driven.jpg";
@@ -21,15 +21,6 @@ import heroDrone from "@/assets/hero-drone.jpg";
 export default function ServiceDetailPage() {
   const { serviceId } = useParams<{ serviceId: string }>();
   const [openFaq, setOpenFaq] = useState<number | null>(0);
-  const [formSubmitted, setFormSubmitted] = useState(false);
-  const [formData, setFormData] = useState({
-    name: "",
-    company: "",
-    email: "",
-    phone: "",
-    serviceInterest: "",
-    message: ""
-  });
 
   const service = servicesData.find((serv) => serv.id === serviceId);
 
@@ -46,7 +37,6 @@ export default function ServiceDetailPage() {
         meta.content = descContent;
         document.head.appendChild(meta);
       }
-      setFormData(prev => ({ ...prev, serviceInterest: service.title }));
     }
   }, [serviceId, service]);
 
@@ -336,39 +326,6 @@ export default function ServiceDetailPage() {
       a: "Our regulatory tracking desk continuously monitors official gazettes and statutory circulars. When amendments occur, we issue immediate advisory alerts and update your compliance calendars and registers without administrative lag."
     }
   ];
-
-  const handleFormSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!formData.name || !formData.email || !formData.phone) return;
-
-    const webhookUrl = import.meta.env.VITE_TELEMETRY_WEBHOOK_URL;
-    if (webhookUrl) {
-      try {
-        await fetch(webhookUrl, {
-          method: "POST",
-          mode: "no-cors",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            sheetName: "Consultation_Requests",
-            table: "Consultation_Requests",
-            "Full Name": formData.name,
-            "Email": formData.email,
-            "Phone": formData.phone,
-            "Company": formData.company,
-            "Service Interest": formData.serviceInterest || service?.title || "Service Detail Inquiry",
-            "Source Page": window.location.pathname,
-            "Lead Source": "Service Detail Page — Executive Briefing Form",
-            "Booking Status": "New Inquiry",
-            "Timestamp": new Date().toISOString(),
-          }),
-        });
-      } catch (err) {
-        console.warn("Service detail form submission error:", err);
-      }
-    }
-
-    setFormSubmitted(true);
-  };
 
   return (
     <Layout>
