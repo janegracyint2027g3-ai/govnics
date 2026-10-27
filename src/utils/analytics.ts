@@ -365,12 +365,18 @@ const dispatchWebhook = async (evt: GrcAnalyticsEvent) => {
       timestamp: evt.timestamp
     };
   } else {
+    const isUserBehaviour = evt.type === "click" || evt.category === "User_Behaviour" || evt.details.action === "scroll";
+    const isEngagement = evt.details.engagementScore !== undefined || evt.category === "Engagement_Metrics" || evt.details.action === "dwell";
+    const targetSheet = isEngagement ? "Engagement_Metrics" : isUserBehaviour ? "User_Behaviour" : "Behavior_Metrics";
+
     payload = {
-      sheetName: "Behavior_Metrics",
-      table: "Behavior_Metrics",
+      sheetName: targetSheet,
+      table: targetSheet,
       "Session ID": evt.sessionToken,
       "Visitor ID": "visitor_grc",
       "Page URL": evt.path,
+      "Page Path": evt.path,
+      "Action": evt.details.action || evt.type,
       "Category": evt.category,
       "Metric Name": evt.details.action || evt.details.elementText || evt.type,
       "Value": evt.details.value || "1",

@@ -27,10 +27,14 @@
 // ═════════════════════════════════════════════════════════════════════════════
 
 var CONFIG = {
-  // Sheet 1: Raw Data Collection Spreadsheet ID
+  // ── IMPORTANT: HOW TO CONNECT YOUR SPREADSHEET ──
+  // Option A (Recommended): If you opened Apps Script from your Google Sheet (Extensions > Apps Script),
+  // this script AUTO-BINDS to your sheet! Leave this ID or paste your Sheet ID below.
+  // Option B: If this is a standalone script, paste YOUR Google Spreadsheet ID from your browser URL:
+  // (e.g. from https://docs.google.com/spreadsheets/d/YOUR_SPREADSHEET_ID_HERE/edit)
   DATA_SPREADSHEET_ID: "1TxCoTbCSnPo6dCZyHoIb399x4P--ov677WgYDFUeErs",
 
-  // Sheet 2: Executive Analytics Spreadsheet ID
+  // Sheet 2: Executive Analytics Spreadsheet ID (Optional)
   ANALYTICS_SPREADSHEET_ID: "1rx7MDWlPo8uex0wf3dEYyhmVJ2E8bJV9O4947qPj4b4",
 
   // Google Drive folder used to archive candidate resumes
@@ -84,12 +88,11 @@ var EMAIL_CONFIG = {
 // ═════════════════════════════════════════════════════════════════════════════
 
 var TAB_CONFIGS = {
-  "Strategy_Session_Bookings": [
-    "Lead Number", "Booking Reference", "Full Name", "Business Email", "Company", "Job Title",
-    "Phone", "Industry", "Area of Interest", "Business Objective", "Preferred Date",
-    "Time Slot", "Time Zone", "Duration (min)", "Meeting Format", "Video Call Link", "Booking Status",
-    "Source", "Lead Source", "UTM Source", "UTM Medium", "UTM Campaign",
-    "Jira Issue Key", "Jira Status", "Status", "IP Location", "IP Address", "Timestamp"
+  // 1. Contact Form / Inbound Leads / Consultation Requests
+  "Contact_Form": [
+    "Lead Number", "Full Name", "Email", "Phone", "Company", "Industry", "Company Size",
+    "Offerings", "Functional Areas", "Audit Scope", "Timeline", "Message", "Lead Source",
+    "Source Page", "UTM Source", "UTM Medium", "UTM Campaign", "Status", "IP Location", "Timestamp"
   ],
   "Inbound_Leads": [
     "Lead Number", "Full Name", "Email", "Phone", "Company", "Designation", "Industry", "Company Size",
@@ -104,23 +107,59 @@ var TAB_CONFIGS = {
     "UTM Source", "UTM Medium", "UTM Campaign",
     "Jira Issue Key", "Jira Status", "Status", "IP Location", "IP Address", "Timestamp"
   ],
-  "Career_Applications": [
-    "Timestamp", "Role", "Name", "Email", "Phone", "Experience",
-    "Portfolio_URL", "Resume_Filename", "Resume_File_Link", "Drive_File_ID",
-    "Cover_Note", "UTM Source", "UTM Medium", "UTM Campaign", "Status"
-  ],
+
+  // 2. Education & Course Enquiries
   "Course_Enquiries": [
     "Lead Number", "Full Name", "Email", "Phone", "Organization", "Role",
     "Program / Course", "Experience Level", "Learning Goal", "Message",
     "Source Page", "Lead Source", "UTM Source", "UTM Medium", "UTM Campaign",
     "Jira Issue Key", "Jira Status", "Status", "IP Location", "IP Address", "Timestamp"
   ],
+
+  // 3. User Behavior, Engagement & Traffic Telemetry
+  "Behavior_Metrics": [
+    "Session ID", "Visitor ID", "Page URL", "Category", "Metric Name", "Value",
+    "Element Info", "Metadata", "IP Location", "IP Address", "Variant", "Timestamp"
+  ],
+  "User_Behaviour": [
+    "Session ID", "Visitor ID", "Action", "Page Path", "Category", "Scroll Depth",
+    "Time On Page (s)", "Interactions", "Device", "IP Location", "IP Address", "Timestamp"
+  ],
+  "Engagement_Metrics": [
+    "Session ID", "Visitor ID", "Page Path", "Engagement Score", "Active Seconds",
+    "Clicks Count", "Forms Touched", "Interest Areas", "IP Location", "IP Address", "Timestamp"
+  ],
+  "Traffic_Analytics": [
+    "Session ID", "Visitor ID", "Page Path", "Page Title", "Referrer", "Traffic Source",
+    "UTM Source", "UTM Medium", "UTM Campaign", "UTM Term", "UTM Content",
+    "Organization", "IP Location", "IP Address", "Variant", "Timestamp"
+  ],
+
+  // 4. Strategy Sessions & Advisory
+  "Strategy_Session_Bookings": [
+    "Lead Number", "Booking Reference", "Full Name", "Business Email", "Company", "Job Title",
+    "Phone", "Industry", "Area of Interest", "Business Objective", "Preferred Date",
+    "Time Slot", "Time Zone", "Duration (min)", "Meeting Format", "Video Call Link", "Booking Status",
+    "Source", "Lead Source", "UTM Source", "UTM Medium", "UTM Campaign",
+    "Jira Issue Key", "Jira Status", "Status", "IP Location", "IP Address", "Timestamp"
+  ],
+
+  // 5. Careers & HR
+  "Career_Applications": [
+    "Timestamp", "Role", "Name", "Email", "Phone", "Experience",
+    "Portfolio_URL", "Resume_Filename", "Resume_File_Link", "Drive_File_ID",
+    "Cover_Note", "UTM Source", "UTM Medium", "UTM Campaign", "Status"
+  ],
+
+  // 6. Partners & Alliances
   "Partner_Applications": [
     "Lead Number", "Full Name", "Email", "Company", "Partnership Type", "Phone",
     "Location", "Coverage Scope", "Message", "Lead Source",
     "UTM Source", "UTM Medium", "UTM Campaign",
     "Jira Issue Key", "Jira Status", "Status", "IP Location", "IP Address", "Timestamp"
   ],
+
+  // 7. Interactive Tools & Chatbot
   "Chatbot_Leads": [
     "Timestamp", "Name", "Email", "Phone", "Topic", "Discussion_Summary",
     "Lead Source", "UTM Source", "UTM Campaign", "IP Location", "Status"
@@ -139,6 +178,8 @@ var TAB_CONFIGS = {
   "Exit_Intent_Feedback": [
     "Timestamp", "Feedback", "Page URL", "Time On Page (s)", "IP Location", "IP Address"
   ],
+
+  // 8. Campaigns
   "Google_Ad_Leads": [
     "Lead Number", "Full Name", "Email", "Phone", "Company", "Ad Scope",
     "UTM Source", "UTM Medium", "UTM Campaign", "UTM Term", "UTM Content",
@@ -158,15 +199,6 @@ var TAB_CONFIGS = {
     "Lead Source", "UTM Source", "UTM Medium", "UTM Campaign", "UTM Term",
     "UTM Content", "Page", "Timestamp", "Lead Status", "Jira Issue Key",
     "Jira Status", "Jira URL"
-  ],
-  "Traffic_Analytics": [
-    "Session ID", "Visitor ID", "Page Path", "Page Title", "Referrer", "Traffic Source",
-    "UTM Source", "UTM Medium", "UTM Campaign", "UTM Term", "UTM Content",
-    "Organization", "IP Location", "IP Address", "Variant", "Timestamp"
-  ],
-  "Behavior_Metrics": [
-    "Session ID", "Visitor ID", "Page URL", "Category", "Metric Name", "Value",
-    "Element Info", "Metadata", "IP Location", "IP Address", "Variant", "Timestamp"
   ]
 };
 
@@ -176,113 +208,123 @@ var LEAD_SHEETS = {
   linkedin: "linkedin_lead"
 };
 
-// Aliases mapping varied client submissions to canonical tab names
+// Aliases mapping varied client submissions and tab names to canonical schemas
 var SHEET_NAME_ALIASES = {
-  // Strategy Session Bookings
+  // ── Contact Form & Consultations ──
+  "contact_form": "Contact_Form",
+  "contactform": "Contact_Form",
+  "contact": "Contact_Form",
+  "contactus": "Contact_Form",
+  "contact_us": "Contact_Form",
+  "consultation_requests": "Contact_Form",
+  "consultationrequests": "Contact_Form",
+  "consultation": "Contact_Form",
+  "consultations": "Contact_Form",
+  "schedule_audit": "Contact_Form",
+  "grc_audit": "Contact_Form",
+  "inbound_leads": "Contact_Form",
+  "inboundleads": "Contact_Form",
+  "leads": "Contact_Form",
+  "lead_capture": "Contact_Form",
+  "leadcapture": "Contact_Form",
+  "quick_inquiry": "Contact_Form",
+  "quickinquiry": "Contact_Form",
+  "assessment": "Contact_Form",
+
+  // ── Course Enquiries ──
+  "course_enquiries": "Course_Enquiries",
+  "courseenquiries": "Course_Enquiries",
+  "course_enquires": "Course_Enquiries",
+  "courseenquires": "Course_Enquiries",
+  "course_enquiry": "Course_Enquiries",
+  "courseenquiry": "Course_Enquiries",
+  "course": "Course_Enquiries",
+  "courses": "Course_Enquiries",
+  "cdac": "Course_Enquiries",
+  "academy": "Course_Enquiries",
+  "training": "Course_Enquiries",
+
+  // ── Behavior Metrics ──
+  "behavior_metrics": "Behavior_Metrics",
+  "behaviormetrics": "Behavior_Metrics",
+  "behavior_matrics": "Behavior_Metrics",
+  "behaviormatrics": "Behavior_Metrics",
+  "behavioral_metrics": "Behavior_Metrics",
+  "behavioralmetrics": "Behavior_Metrics",
+  "behavior": "Behavior_Metrics",
+  "metrics": "Behavior_Metrics",
+
+  // ── User Behaviour ──
+  "user_behaviour": "User_Behaviour",
+  "userbehaviour": "User_Behaviour",
+  "user_behavior": "User_Behaviour",
+  "userbehavior": "User_Behaviour",
+
+  // ── Engagement Metrics ──
+  "engagement_metrics": "Engagement_Metrics",
+  "engagementmetrics": "Engagement_Metrics",
+  "engagement": "Engagement_Metrics",
+  "user_engagement": "Engagement_Metrics",
+  "userengagement": "Engagement_Metrics",
+
+  // ── Traffic Analytics ──
+  "traffic_analytics": "Traffic_Analytics",
+  "trafficanalytics": "Traffic_Analytics",
+  "traffic": "Traffic_Analytics",
+  "page_views": "Traffic_Analytics",
+  "pageviews": "Traffic_Analytics",
+
+  // ── Strategy Sessions ──
   "strategy_session_bookings": "Strategy_Session_Bookings",
   "strategysessionbookings": "Strategy_Session_Bookings",
   "strategy_session": "Strategy_Session_Bookings",
   "strategysession": "Strategy_Session_Bookings",
-  "strategysessions": "Strategy_Session_Bookings",
   "strategy": "Strategy_Session_Bookings",
   "book_strategy_session": "Strategy_Session_Bookings",
-  "bookstrategysession": "Strategy_Session_Bookings",
-  "book_strategy": "Strategy_Session_Bookings",
-  "bookstrategy": "Strategy_Session_Bookings",
 
-  // Inbound Leads / Free Compliance Assessment
-  "inbound_leads": "Inbound_Leads",
-  "inboundleads": "Inbound_Leads",
-  "contactform": "Inbound_Leads",
-  "contact_form": "Inbound_Leads",
-  "contact": "Inbound_Leads",
-  "leads": "Inbound_Leads",
-  "lead_capture": "Inbound_Leads",
-  "leadcapture": "Inbound_Leads",
-  "assessment": "Inbound_Leads",
-  "compliance_assessment": "Inbound_Leads",
-
-  // Consultation Requests / Schedule GRC Audit
-  "consultation_requests": "Consultation_Requests",
-  "consultationrequests": "Consultation_Requests",
-  "consultation": "Consultation_Requests",
-  "consultations": "Consultation_Requests",
-  "audit": "Consultation_Requests",
-  "grc_audit": "Consultation_Requests",
-  "schedule_audit": "Consultation_Requests",
-
-  // Career Applications
+  // ── Careers ──
   "career_applications": "Career_Applications",
   "careerapplications": "Career_Applications",
   "careers": "Career_Applications",
   "career": "Career_Applications",
   "jobs": "Career_Applications",
 
-  // CDAC-MEPZ Course Enquiries
-  "course_enquiries": "Course_Enquiries",
-  "courseenquiries": "Course_Enquiries",
-  "course": "Course_Enquiries",
-  "courses": "Course_Enquiries",
-  "academy": "Course_Enquiries",
-  "training": "Course_Enquiries",
-
-  // Partner Alliances
+  // ── Partners ──
   "partner_applications": "Partner_Applications",
   "partnerapplications": "Partner_Applications",
   "partners": "Partner_Applications",
   "partner": "Partner_Applications",
 
-  // Social & Paid Ad Campaigns
-  "youtube_lead": "youtube_lead",
-  "youtubelead": "youtube_lead",
-  "youtube_leads": "youtube_lead",
-  "youtubeleads": "youtube_lead",
-  "youtube": "youtube_lead",
-  "yt_lead": "youtube_lead",
-  "yt": "youtube_lead",
-
-  "linkedin_lead": "linkedin_lead",
-  "linkedinlead": "linkedin_lead",
-  "linkedin_leads": "linkedin_lead",
-  "linkedinleads": "linkedin_lead",
-  "linkedin": "linkedin_lead",
-  "li_lead": "linkedin_lead",
-  "li": "linkedin_lead",
-
-  "google_ad_leads": "Google_Ad_Leads",
-  "googleadleads": "Google_Ad_Leads",
-  "adcampaign": "Google_Ad_Leads",
-  "ad_leads": "Google_Ad_Leads",
-
-  // Portal & Estimators
-  "registered_users": "Registered_Users",
-  "registeredusers": "Registered_Users",
-  "register": "Registered_Users",
-  "users": "Registered_Users",
-
-  "user_logins": "User_Logins",
-  "userlogins": "User_Logins",
-  "logins": "User_Logins",
-
-  "estimator_calculations": "Estimator_Calculations",
-  "estimatorcalculations": "Estimator_Calculations",
-  "estimator": "Estimator_Calculations",
-  "calculator": "Estimator_Calculations",
-
+  // ── Chatbot ──
   "chatbot_leads": "Chatbot_Leads",
   "chatbotleads": "Chatbot_Leads",
   "chatbot": "Chatbot_Leads",
   "chat": "Chatbot_Leads",
 
+  // ── Exit Feedback ──
   "exit_intent_feedback": "Exit_Intent_Feedback",
   "exitintentfeedback": "Exit_Intent_Feedback",
   "exit_feedback": "Exit_Intent_Feedback",
 
-  "trafficanalytics": "Traffic_Analytics",
-  "traffic_analytics": "Traffic_Analytics",
-  "traffic": "Traffic_Analytics",
-  "behaviormetrics": "Behavior_Metrics",
-  "behavior_metrics": "Behavior_Metrics"
+  // ── Estimator ──
+  "estimator_calculations": "Estimator_Calculations",
+  "estimatorcalculations": "Estimator_Calculations",
+  "estimator": "Estimator_Calculations",
+
+  // ── Users & Logins ──
+  "registered_users": "Registered_Users",
+  "registeredusers": "Registered_Users",
+  "register": "Registered_Users",
+  "user_logins": "User_Logins",
+  "userlogins": "User_Logins",
+
+  // ── Campaigns ──
+  "google_ad_leads": "Google_Ad_Leads",
+  "googleadleads": "Google_Ad_Leads",
+  "youtube_lead": "youtube_lead",
+  "youtubelead": "youtube_lead",
+  "linkedin_lead": "linkedin_lead",
+  "linkedinlead": "linkedin_lead"
 };
 
 // ═════════════════════════════════════════════════════════════════════════════
@@ -290,12 +332,26 @@ var SHEET_NAME_ALIASES = {
 // ═════════════════════════════════════════════════════════════════════════════
 
 function doGet(e) {
+  var ssInfo = { id: "Not connected", name: "Unknown", sheets: [] };
+  try {
+    var ss = getSpreadsheet();
+    if (ss) {
+      ssInfo.id = ss.getId();
+      ssInfo.name = ss.getName();
+      ssInfo.sheets = ss.getSheets().map(function(s) { return s.getName(); });
+    }
+  } catch(err) {
+    ssInfo.error = err.toString();
+  }
+
   return ContentService.createTextOutput(JSON.stringify({
     status: "online",
-    service: "Govenics GRC Data Collection Engine (V7.2 Ultra Pro)",
+    service: "Govenics GRC Data Collection Engine (V8.0 Universal)",
     time: new Date().toISOString(),
-    spreadsheetId: CONFIG.DATA_SPREADSHEET_ID
-  })).setMimeType(ContentService.MimeType.JSON);
+    spreadsheet: ssInfo,
+    supportedTables: Object.keys(TAB_CONFIGS),
+    message: "Govenics webhook endpoint is live and accepting POST data."
+  }, null, 2)).setMimeType(ContentService.MimeType.JSON);
 }
 
 function doPost(e) {
@@ -304,7 +360,7 @@ function doPost(e) {
     e = {
       postData: {
         contents: JSON.stringify({
-          sheetName: "Inbound_Leads",
+          sheetName: "Contact_Form",
           fields: {
             name: "Enterprise Test",
             email: "test@govenics.com",
@@ -324,13 +380,16 @@ function doPost(e) {
     try {
       body = JSON.parse(e.postData.contents);
     } catch(err) {
-      return ContentService.createTextOutput("Error: Invalid JSON payload").setMimeType(ContentService.MimeType.TEXT);
+      return ContentService.createTextOutput(JSON.stringify({
+        success: false,
+        error: "Invalid JSON payload: " + err.toString()
+      })).setMimeType(ContentService.MimeType.JSON);
     }
 
     var fields = body.fields || body;
     var rawSheetName = body.sheetName || body.table || body.type || "";
-    var normName = rawSheetName.toLowerCase().replace(/[\s\-_]/g, '');
-    var canonicalName = SHEET_NAME_ALIASES[normName] || rawSheetName || "Inbound_Leads";
+    var normName = normalizeTabName(rawSheetName);
+    var canonicalName = SHEET_NAME_ALIASES[normName] || rawSheetName || "Contact_Form";
 
     // Strictly preserve Career Applications (File archive & Drive integration)
     if (canonicalName === "Career_Applications") {
@@ -342,12 +401,7 @@ function doPost(e) {
       })).setMimeType(ContentService.MimeType.JSON);
     }
 
-    // Lead Source Detection Priority:
-    // 1. Explicit lead source supplied
-    // 2. UTM Source
-    // 3. Referrer
-    // 4. Campaign metadata
-    // 5. Page/source information
+    // Lead Source Detection Priority
     var explicitSource = (fields.lead_source || fields.leadSource || fields["Lead Source"] || body.leadSource || body.lead_source || "").toLowerCase().trim();
     var utmSource = (fields.utm_source || fields.utmSource || fields["UTM Source"] || body.utmSource || "").toLowerCase().trim();
     var referrer = (fields.referrer || body.referrer || "").toLowerCase().trim();
@@ -368,22 +422,34 @@ function doPost(e) {
     var leadPrefix = "GOV-";
     var detectedSource = fields["Lead Source"] || fields.leadSource || "Website Form";
 
+    // Protected tables that must NEVER be overwritten by ad/social lead routing
     var isSpecificTable = (
+      canonicalName === "Contact_Form" ||
+      canonicalName === "Inbound_Leads" ||
+      canonicalName === "Consultation_Requests" ||
+      canonicalName === "Course_Enquiries" ||
+      canonicalName === "Behavior_Metrics" ||
+      canonicalName === "User_Behaviour" ||
+      canonicalName === "Engagement_Metrics" ||
+      canonicalName === "Traffic_Analytics" ||
       canonicalName === "Strategy_Session_Bookings" ||
       canonicalName === "Chatbot_Leads" ||
       canonicalName === "Registered_Users" ||
       canonicalName === "User_Logins" ||
       canonicalName === "Estimator_Calculations" ||
-      canonicalName === "Traffic_Analytics" ||
-      canonicalName === "Behavior_Metrics" ||
       canonicalName === "Exit_Intent_Feedback" ||
-      canonicalName === "Partner_Applications" ||
-      canonicalName === "Course_Enquiries"
+      canonicalName === "Partner_Applications"
     );
 
     if (canonicalName === "Strategy_Session_Bookings") {
       leadPrefix = "GOV-SS-";
       detectedSource = "Book a Strategy Session";
+    } else if (canonicalName === "Contact_Form") {
+      leadPrefix = "GOV-CF-";
+      detectedSource = fields["Lead Source"] || "Contact Form";
+    } else if (canonicalName === "Course_Enquiries") {
+      leadPrefix = "GOV-CE-";
+      detectedSource = fields["Lead Source"] || "Course Enquiry";
     } else if (isYouTube && !isSpecificTable) {
       canonicalName = LEAD_SHEETS.youtube;
       detectedSource = "YouTube";
@@ -398,9 +464,10 @@ function doPost(e) {
       leadPrefix = "GOV-LI-";
     }
 
+    // Get existing sheet or create new sheet with fallback headers
     var sheet = getOrCreateSheet(ss, canonicalName, TAB_CONFIGS[canonicalName]);
 
-    // Ensure unique server-side Lead Number & Video Call Link for Strategy Sessions
+    // Ensure unique server-side Lead Number
     var leadNo = fields["Lead Number"] || fields.leadNumber || fields.lead_number || body.leadNumber || body.lead_number;
     if (!leadNo) {
       if (fields["Booking Reference"]) {
@@ -414,7 +481,7 @@ function doPost(e) {
       fields.leadNumber = leadNo;
     }
 
-    // Auto-generate dedicated video call conference link if not provided
+    // Auto-generate video meeting link if not provided
     if (canonicalName === "Strategy_Session_Bookings") {
       var existingLink = fields["Video Call Link"] || fields.videoCallLink || fields.meetingLink;
       if (!existingLink) {
@@ -442,34 +509,40 @@ function doPost(e) {
       }
     }
 
-    // Dynamic header sync: Ensure any extra fields submitted have a column header
-    syncHeadersWithFields(sheet, fields);
-
-    var row = buildRowFromHeaders(sheet, fields);
+    // Append row with automatic column and header synchronization
+    var row = syncHeadersAndBuildRow(sheet, fields, TAB_CONFIGS[canonicalName]);
     sheet.appendRow(row);
 
-    // Send real-time email notification for actionable leads and bookings
+    // Send real-time email notification (Safe try/catch)
     var isTelemetryOnly = (
       canonicalName === "Traffic_Analytics" ||
       canonicalName === "Behavior_Metrics" ||
+      canonicalName === "User_Behaviour" ||
+      canonicalName === "Engagement_Metrics" ||
       canonicalName === "Exit_Intent_Feedback"
     );
 
     if (!isTelemetryOnly) {
       try {
-        sendLeadNotification(fields, canonicalName);
-        sendUserConfirmationEmail(fields, canonicalName);
+        sendLeadNotification(fields, sheet.getName());
       } catch(mailErr) {
-        console.error("Email notification error: " + mailErr.toString());
+        console.warn("Lead notification email warning: " + mailErr.toString());
+      }
+      try {
+        sendUserConfirmationEmail(fields, sheet.getName());
+      } catch(confErr) {
+        console.warn("User confirmation email warning: " + confErr.toString());
       }
     }
 
     return ContentService.createTextOutput(JSON.stringify({
       success: true,
       leadNumber: leadNo,
-      sheet: canonicalName,
+      sheet: sheet.getName(),
+      canonical: canonicalName,
       leadSource: detectedSource,
-      message: "Record successfully appended to " + canonicalName
+      rowNumber: sheet.getLastRow(),
+      message: "Record successfully appended to tab '" + sheet.getName() + "'"
     })).setMimeType(ContentService.MimeType.JSON);
 
   } catch(globalErr) {
@@ -1441,121 +1514,241 @@ function onOpen() {
 
 function INITIALIZE_ALL_SHEETS() {
   var ss = getSpreadsheet();
-  Object.keys(TAB_CONFIGS).forEach(function(tabName) {
-    getOrCreateSheet(ss, tabName, TAB_CONFIGS[tabName]);
+  
+  // Master priority tabs to guarantee in user's workbook
+  var priorityTabs = [
+    "Contact Form",
+    "Course Enquiries",
+    "Behavior Metrics",
+    "User Behaviour",
+    "Engagement Metrics",
+    "Traffic Analytics",
+    "Strategy Session Bookings",
+    "Career Applications",
+    "Partner Applications",
+    "Chatbot Leads",
+    "Estimator Calculations",
+    "Exit Intent Feedback"
+  ];
+
+  priorityTabs.forEach(function(tabTitle) {
+    var canonical = SHEET_NAME_ALIASES[normalizeTabName(tabTitle)] || tabTitle.replace(/\s+/g, '_');
+    getOrCreateSheet(ss, tabTitle, TAB_CONFIGS[canonical]);
   });
-  GENERATE_ALL_SHEET1_REPORTS();
+
+  try {
+    GENERATE_ALL_SHEET1_REPORTS();
+  } catch(e) {}
+
   var ui = null;
   try { ui = SpreadsheetApp.getUi(); } catch(e) {}
-  if (ui) ui.alert("✅ SUCCESS! All master database tabs & in-sheet reporting schemas initialized.");
+  if (ui) {
+    ui.alert("✅ SUCCESS! All master database tabs initialized:\n\n• Contact Form\n• Course Enquiries\n• Behavior Metrics\n• User Behaviour\n• Engagement Metrics\n• Traffic Analytics\n• Strategy Session Bookings\n• Career Applications\n• Partner Applications\n• Chatbot Leads\n• Estimator Calculations");
+  }
 }
 
 // ═════════════════════════════════════════════════════════════════════════════
-// 11. HELPER FUNCTIONS
+// 11. HELPER FUNCTIONS & UNIVERSAL SHEET RESOLVER
 // ═════════════════════════════════════════════════════════════════════════════
 
 function getSpreadsheet() {
+  // 1. First priority: Container-bound active spreadsheet (Extensions > Apps Script)
   try {
     var active = SpreadsheetApp.getActiveSpreadsheet();
-    if (active) return active;
+    if (active && active.getId()) return active;
   } catch(e) {}
-  return SpreadsheetApp.openById(CONFIG.DATA_SPREADSHEET_ID);
+
+  // 2. Second priority: Open by configured DATA_SPREADSHEET_ID
+  if (CONFIG.DATA_SPREADSHEET_ID && CONFIG.DATA_SPREADSHEET_ID !== "YOUR_SPREADSHEET_ID_HERE") {
+    try {
+      return SpreadsheetApp.openById(CONFIG.DATA_SPREADSHEET_ID);
+    } catch(err) {
+      console.warn("Could not open spreadsheet by CONFIG.DATA_SPREADSHEET_ID: " + err.toString());
+    }
+  }
+
+  // 3. Fallback: try active again
+  var activeFallback = SpreadsheetApp.getActiveSpreadsheet();
+  if (activeFallback) return activeFallback;
+
+  throw new Error("Unable to locate Google Spreadsheet. Please paste your Google Sheet ID into line 31 of Apps Script (CONFIG.DATA_SPREADSHEET_ID).");
 }
 
-function getOrCreateSheet(ss, name, headers) {
-  var sheet = ss.getSheetByName(name);
-  if (!sheet) {
-    sheet = ss.insertSheet(name);
-  }
-  if (headers && headers.length > 0) {
-    var maxCols = sheet.getMaxColumns();
-    if (maxCols < headers.length) {
-      sheet.insertColumnsAfter(maxCols, headers.length - maxCols + 5);
+function normalizeTabName(str) {
+  if (!str) return "";
+  return String(str).toLowerCase()
+    .replace(/[\s\-_/]/g, '')
+    .replace(/matrics/g, 'metrics')
+    .replace(/enquires/g, 'enquiries')
+    .replace(/behaviour/g, 'behavior');
+}
+
+function findExistingSheetFlexibly(ss, targetName) {
+  if (!ss || !targetName) return null;
+  var sheets = ss.getSheets();
+  var targetNorm = normalizeTabName(targetName);
+
+  // 1. Direct exact or normalized match
+  for (var i = 0; i < sheets.length; i++) {
+    var s = sheets[i];
+    if (normalizeTabName(s.getName()) === targetNorm) {
+      return s;
     }
+  }
+
+  // 2. Alias match (e.g. user tab named "Contact Form" vs canonical "Contact_Form")
+  var canonical = SHEET_NAME_ALIASES[targetNorm] || targetName;
+  var canonicalNorm = normalizeTabName(canonical);
+  for (var j = 0; j < sheets.length; j++) {
+    var s2 = sheets[j];
+    var sNorm = normalizeTabName(s2.getName());
+    if (sNorm === canonicalNorm || SHEET_NAME_ALIASES[sNorm] === canonical) {
+      return s2;
+    }
+  }
+
+  return null;
+}
+
+function getOrCreateSheet(ss, name, fallbackHeaders) {
+  // 1. Check if user already has this sheet in their workbook (case-insensitive / flexible)
+  var sheet = findExistingSheetFlexibly(ss, name);
+
+  // 2. If not found, create new sheet with clean readable title
+  if (!sheet) {
+    var cleanSheetTitle = name.replace(/_/g, ' '); // e.g. "Contact Form" or "Course Enquiries"
+    try {
+      sheet = ss.insertSheet(cleanSheetTitle);
+    } catch(e) {
+      // If title taken or invalid, try raw name
+      sheet = ss.insertSheet(name);
+    }
+  }
+
+  // 3. Ensure Row 1 headers exist
+  var headers = fallbackHeaders || TAB_CONFIGS[name] || TAB_CONFIGS[SHEET_NAME_ALIASES[normalizeTabName(name)]];
+  if (headers && headers.length > 0) {
+    ensureSheetCapacity(sheet, 1, headers.length);
     if (sheet.getLastRow() === 0) {
       sheet.getRange(1, 1, 1, headers.length)
            .setValues([headers])
            .setFontWeight("bold")
-           .setBackground("#1e293b")
+           .setBackground("#0f172a")
            .setFontColor("#ffffff");
       try { sheet.setFrozenRows(1); } catch(e) {}
     }
   }
+
   return sheet;
 }
 
-function syncHeadersWithFields(sheet, fields) {
-  try {
-    if (sheet.getLastRow() === 0) return;
-    var lastCol = Math.max(sheet.getLastColumn(), 1);
-    var existingHeaders = sheet.getRange(1, 1, 1, lastCol).getValues()[0];
-    var existingHeaderMap = {};
-    existingHeaders.forEach(function(h) {
-      if (h) existingHeaderMap[h.toLowerCase().replace(/[\s\-_/]/g, '')] = true;
-    });
+function syncHeadersAndBuildRow(sheet, fields, fallbackHeaders) {
+  var headers = [];
+  var lastCol = sheet.getLastColumn();
 
-    var newHeaders = [];
-    Object.keys(fields).forEach(function(k) {
-      if (k === "table" || k === "sheetName" || k === "resumeData" || k === "resumeBlob" || typeof fields[k] === "object") return;
-      var clean = k.toLowerCase().replace(/[\s\-_/]/g, '');
-      if (!existingHeaderMap[clean]) {
-        newHeaders.push(k);
-        existingHeaderMap[clean] = true;
-      }
-    });
-
-    if (newHeaders.length > 0) {
-      var startCol = lastCol + 1;
-      var range = sheet.getRange(1, startCol, 1, newHeaders.length);
-      range.setValues([newHeaders])
-           .setFontWeight("bold")
-           .setBackground("#1e293b")
-           .setFontColor("#ffffff");
+  // If sheet is completely empty, initialize headers immediately
+  if (sheet.getLastRow() === 0 || lastCol === 0) {
+    headers = fallbackHeaders || [];
+    if (!headers || headers.length === 0) {
+      // Derive headers dynamically from submitted fields
+      headers = Object.keys(fields).filter(function(k) {
+        return k !== "table" && k !== "sheetName" && k !== "resumeData" && k !== "resumeBlob" && typeof fields[k] !== "object";
+      });
+      if (headers.indexOf("Timestamp") === -1) headers.push("Timestamp");
     }
-  } catch(e) {
-    console.warn("Could not sync headers: " + e.toString());
+
+    if (headers.length > 0) {
+      ensureSheetCapacity(sheet, 1, headers.length);
+      sheet.getRange(1, 1, 1, headers.length)
+           .setValues([headers])
+           .setFontWeight("bold")
+           .setBackground("#0f172a")
+           .setFontColor("#ffffff");
+      try { sheet.setFrozenRows(1); } catch(e) {}
+      lastCol = headers.length;
+    }
+  } else {
+    headers = sheet.getRange(1, 1, 1, lastCol).getValues()[0];
   }
-}
 
-function buildRowFromHeaders(sheet, fields) {
-  var lastCol = Math.max(sheet.getLastColumn(), 1);
-  var headers = sheet.getRange(1, 1, 1, lastCol).getValues()[0];
+  // Check if fields has new attributes not in existing headers, and dynamically append to Row 1
+  var existingHeaderMap = {};
+  headers.forEach(function(h) {
+    if (h) existingHeaderMap[normalizeTabName(h)] = true;
+  });
+
+  var newHeadersToAdd = [];
+  Object.keys(fields).forEach(function(k) {
+    if (k === "table" || k === "sheetName" || k === "resumeData" || k === "resumeBlob" || typeof fields[k] === "object") return;
+    var normK = normalizeTabName(k);
+    if (!existingHeaderMap[normK]) {
+      newHeadersToAdd.push(k);
+      existingHeaderMap[normK] = true;
+    }
+  });
+
+  if (newHeadersToAdd.length > 0) {
+    var startCol = lastCol + 1;
+    ensureSheetCapacity(sheet, 1, startCol + newHeadersToAdd.length);
+    sheet.getRange(1, startCol, 1, newHeadersToAdd.length)
+         .setValues([newHeadersToAdd])
+         .setFontWeight("bold")
+         .setBackground("#0f172a")
+         .setFontColor("#ffffff");
+    lastCol = startCol + newHeadersToAdd.length - 1;
+    headers = sheet.getRange(1, 1, 1, lastCol).getValues()[0];
+  }
+
+  // Build row values strictly mapped to column headers
   var nowStr = new Date().toLocaleString("en-IN", { timeZone: "Asia/Kolkata" });
-
   return headers.map(function(h) {
     if (!h) return "";
+    var normH = normalizeTabName(h);
+
+    // Direct key match
     if (fields[h] !== undefined && fields[h] !== null && fields[h] !== "") {
       return (typeof fields[h] === "object") ? JSON.stringify(fields[h]) : fields[h];
     }
 
-    var cleanHeader = h.toLowerCase().replace(/[\s\-_/]/g, '');
-
-    if (cleanHeader === "timestamp") {
+    // Default system values
+    if (normH === "timestamp") {
       return fields.timestamp || fields.Timestamp || fields.submitted_at || nowStr;
     }
-    if (cleanHeader === "leadstatus" || cleanHeader === "status") {
+    if (normH === "leadstatus" || normH === "status") {
       return fields.lead_status || fields.leadStatus || fields.status || fields["Booking Status"] || "New";
     }
-    if (cleanHeader === "page" || cleanHeader === "sourcepage") {
-      return fields.page || fields.page_url || fields.pageUrl || fields.source_page || fields.sourcePage || fields.source || fields["Source"] || "https://govenics.com";
+    if (normH === "page" || normH === "sourcepage" || normH === "pageurl") {
+      return fields.page || fields.page_url || fields.pageUrl || fields.source_page || fields.sourcePage || fields.source || fields["Source"] || "";
     }
-    if (cleanHeader === "jiraissuekey") {
-      return fields.jira_issue_key || fields.jiraIssueKey || fields.jiraKey || "N/A";
-    }
-    if (cleanHeader === "jirastatus") {
-      return fields.jira_status || fields.jiraStatus || "Pending";
-    }
-    if (cleanHeader === "jiraurl") {
-      return fields.jira_url || fields.jiraUrl || "N/A";
+    if (normH === "leadsource") {
+      return fields["Lead Source"] || fields.leadSource || fields.lead_source || "Website Inbound";
     }
 
-    for (var key in fields) {
-      var cleanKey = key.toLowerCase().replace(/[\s\-_/]/g, '');
-      if (cleanKey === cleanHeader) {
-        var v = fields[key];
-        return (typeof v === "object" && v !== null) ? JSON.stringify(v) : (v !== undefined ? v : "");
+    // Fuzzy matching against fields
+    for (var k in fields) {
+      if (normalizeTabName(k) === normH) {
+        var val = fields[k];
+        return (typeof val === "object" && val !== null) ? JSON.stringify(val) : (val !== undefined ? val : "");
       }
     }
+
+    // Common synonyms
+    if (normH === "fullname" || normH === "name") {
+      return fields.name || fields.Name || fields.fullName || fields["Full Name"] || "";
+    }
+    if (normH === "email" || normH === "businessemail" || normH === "workemail") {
+      return fields.email || fields.Email || fields.workEmail || fields.businessEmail || fields["Business Email"] || "";
+    }
+    if (normH === "phone" || normH === "mobilenumber" || normH === "contactnumber") {
+      return fields.phone || fields.Phone || fields.mobile || fields.Mobile || fields["Mobile Number"] || fields["Phone"] || "";
+    }
+    if (normH === "company" || normH === "organization") {
+      return fields.company || fields.Company || fields.organization || fields.org || fields["Company"] || "";
+    }
+    if (normH === "requirement" || normH === "message") {
+      return fields.requirement || fields.Requirement || fields.message || fields.Message || "";
+    }
+
     return "";
   });
 }
