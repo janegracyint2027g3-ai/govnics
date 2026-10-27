@@ -1,5 +1,5 @@
 import { useEffect, useState, useCallback, useRef } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { 
   Shield, ArrowRight, ShieldCheck, ChevronLeft, ChevronRight, 
   CalendarClock 
@@ -10,6 +10,7 @@ import { homeSpicedSlides } from "@/data/spiced-slider-content";
 const grcSlides = homeSpicedSlides;
 
 export const GrcHero = () => {
+  const navigate = useNavigate();
   const [activeIndex, setActiveIndex] = useState(0);
   const [isHovered, setIsHovered] = useState(false);
   const autoplayRef = useRef<ReturnType<typeof setInterval> | null>(null);
@@ -192,15 +193,21 @@ export const GrcHero = () => {
                 variants={elementVariants}
                 className="flex flex-col sm:flex-row flex-wrap items-start sm:items-center justify-start gap-3 pt-2 w-full"
               >
-                {/* Primary CTA */}
-                <Link to="#lead-capture" className="shrink-0">
-                  <button
-                    id="hero-cta-primary"
-                    className="flex items-center justify-center gap-2 px-8 py-4 bg-blue-600 hover:bg-blue-700 text-white rounded-2xl text-sm font-bold tracking-wide transition-all shadow-lg shadow-blue-500/20 hover:scale-[1.02]"
-                  >
-                    Get Free Compliance Assessment <ArrowRight className="w-4 h-4" />
-                  </button>
-                </Link>
+                {/* Primary CTA — scrolls to assessment form on the same page */}
+                <button
+                  id="hero-cta-primary"
+                  onClick={() => {
+                    const el = document.getElementById("lead-capture");
+                    if (el) {
+                      el.scrollIntoView({ behavior: "smooth" });
+                    } else {
+                      navigate("/#lead-capture");
+                    }
+                  }}
+                  className="flex items-center justify-center gap-2 px-8 py-4 bg-blue-600 hover:bg-blue-700 text-white rounded-2xl text-sm font-bold tracking-wide transition-all shadow-lg shadow-blue-500/20 hover:scale-[1.02] shrink-0"
+                >
+                  Get Free Compliance Assessment <ArrowRight className="w-4 h-4" />
+                </button>
                 {/* Secondary CTA */}
                 <Link to="/contact" className="shrink-0">
                   <button

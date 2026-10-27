@@ -1,8 +1,8 @@
 import { useEffect, useState, useCallback, useRef } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import { 
   Shield, ChevronLeft, ChevronRight, ArrowLeft, ShieldCheck, 
-  CalendarClock 
+  CalendarClock, ArrowRight, PlayCircle
 } from "lucide-react";
 import { motion, AnimatePresence, type Variants } from "framer-motion";
 import type { SpicedBreakdown } from "@/data/spiced-slider-content";
@@ -18,6 +18,9 @@ export interface Slide {
   outcome?: string;
   criticalEvent?: string;
   cta?: string;
+  ctaLink?: string;
+  secondaryCta?: string;
+  secondaryCtaLink?: string;
   spiced?: SpicedBreakdown;
 }
 
@@ -27,7 +30,136 @@ interface GrcSliderHeroProps {
   categoryLabel?: string;
 }
 
+export const resolveCtaLink = (ctaText?: string, slide?: Slide, currentCategory?: string): string => {
+  if (slide?.ctaLink) return slide.ctaLink;
+  if (!ctaText) return "/solutions";
+
+  const lower = ctaText.toLowerCase().trim();
+
+  // 1. Partner Ecosystem & Advisory Network
+  if (
+    lower.includes("partner") ||
+    lower.includes("advisory network") ||
+    lower.includes("tech alliance") ||
+    lower.includes("portfolio") ||
+    lower.includes("co-author") ||
+    lower.includes("alliance")
+  ) {
+    return "/partners#partner-form";
+  }
+
+  // 2. Cyber Security & Threat Telemetry
+  if (
+    lower.includes("cyber") ||
+    lower.includes("cert-in") ||
+    lower.includes("soc 2") ||
+    lower.includes("iso") ||
+    lower.includes("vapt") ||
+    lower.includes("ransomware") ||
+    lower.includes("devsecops") ||
+    lower.includes("privacy posture") ||
+    lower.includes("dpdp") ||
+    lower.includes("defense")
+  ) {
+    return "/cybersecurity";
+  }
+
+  // 3. ESG & BRSR Sustainability
+  if (
+    lower.includes("esg") ||
+    lower.includes("brsr") ||
+    lower.includes("carbon") ||
+    lower.includes("climate") ||
+    lower.includes("ehs") ||
+    lower.includes("supply chain esg")
+  ) {
+    return "/esg";
+  }
+
+  // 4. Managed Staffing & Payroll
+  if (
+    lower.includes("payroll") ||
+    lower.includes("staffing") ||
+    lower.includes("fractional") ||
+    lower.includes("hiring") ||
+    lower.includes("talent") ||
+    lower.includes("rpo") ||
+    lower.includes("screening model")
+  ) {
+    return "/staffing";
+  }
+
+  // 5. Industry-Specific GRC
+  if (lower.includes("manufacturing")) return "/industries/manufacturing";
+  if (lower.includes("bfsi")) return "/industries/bfsi";
+  if (lower.includes("healthcare")) return "/industries/healthcare";
+  if (lower.includes("saas") || lower.includes("gcc")) return "/industries/technology";
+  if (lower.includes("infrastructure")) return "/industries/infrastructure";
+  if (lower.includes("retail")) return "/industries/retail";
+  if (lower.includes("industry")) return "/industries";
+
+  // 6. SGRC / Multi-State / Estimator
+  if (lower.includes("multi-state") || lower.includes("statutory grc")) return "/sgrc/services";
+  if (lower.includes("checklist") || lower.includes("estimator")) return "/sgrc/estimator";
+
+  // 7. General GRC Division
+  if (
+    lower.includes("erm") ||
+    lower.includes("controls") ||
+    lower.includes("vigil") ||
+    lower.includes("tprm") ||
+    lower.includes("certification")
+  ) {
+    return "/grc";
+  }
+
+  // 8. Contact & Advisory Inquiries
+  if (
+    lower.includes("diagnostic") ||
+    lower.includes("contact") ||
+    lower.includes("briefing") ||
+    lower.includes("hotline") ||
+    lower.includes("advisory call") ||
+    lower.includes("consultation")
+  ) {
+    return "/contact";
+  }
+
+  // 9. About / Legacy
+  if (
+    lower.includes("legacy") ||
+    lower.includes("leadership") ||
+    lower.includes("office network") ||
+    lower.includes("approach")
+  ) {
+    return "/about";
+  }
+
+  // 10. Resources Hub
+  if (lower.includes("playbook") || lower.includes("whitepaper") || lower.includes("resource")) {
+    return "/resources";
+  }
+
+  // 11. Command Center / Solutions
+  if (lower.includes("command platform") || lower.includes("solution") || lower.includes("overview")) {
+    return "/solutions";
+  }
+
+  // Fallback based on category
+  if (currentCategory?.toLowerCase().includes("partner")) return "/partners#partner-form";
+  if (currentCategory?.toLowerCase().includes("cyber")) return "/cybersecurity";
+  if (currentCategory?.toLowerCase().includes("esg")) return "/esg";
+  if (currentCategory?.toLowerCase().includes("staffing")) return "/staffing";
+  if (currentCategory?.toLowerCase().includes("industry")) return "/industries";
+  if (currentCategory?.toLowerCase().includes("contact")) return "/contact";
+  if (currentCategory?.toLowerCase().includes("about")) return "/about";
+
+  return "/solutions";
+};
+
 export const GrcSliderHero = ({ slides, backLink, categoryLabel = "Solution" }: GrcSliderHeroProps) => {
+  const navigate = useNavigate();
+  const location = useLocation();
   const [activeIndex, setActiveIndex] = useState(0);
   const [isHovered, setIsHovered] = useState(false);
   const autoplayRef = useRef<ReturnType<typeof setInterval> | null>(null);
@@ -218,33 +350,57 @@ export const GrcSliderHero = ({ slides, backLink, categoryLabel = "Solution" }: 
                 variants={elementVariants}
                 className="flex flex-row flex-wrap items-center justify-start gap-4 pt-2 w-full"
               >
-                {slides[activeIndex].cta && (
-                  <a
-                    href="#partner-form"
-                    onClick={(e) => {
-                      const formEl = document.getElementById("partner-form") || document.getElementById("contact-form") || document.getElementById("compliance");
-                      if (formEl) {
-                        e.preventDefault();
-                        formEl.scrollIntoView({ behavior: "smooth" });
-                      }
-                    }}
-                    className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-blue-600 hover:bg-blue-700 text-white rounded-2xl shadow-lg shadow-blue-500/20 text-sm font-bold transition-all hover:scale-[1.02] shrink-0"
-                  >
-                    {slides[activeIndex].cta}
-                  </a>
-                )}
-                <button
-                  onClick={(e) => {
+                {slides[activeIndex].cta && (() => {
+                  const ctaDestination = resolveCtaLink(slides[activeIndex].cta, slides[activeIndex], categoryLabel);
+                  const isHash = ctaDestination.includes("#");
+                  const [ctaPath, ctaHash] = isHash ? ctaDestination.split("#") : [ctaDestination, ""];
+
+                  const handleCtaClick = (e: React.MouseEvent) => {
                     e.preventDefault();
-                    const formEl = document.getElementById("partner-form") || document.getElementById("contact-form") || document.getElementById("compliance");
-                    if (formEl) {
-                      formEl.scrollIntoView({ behavior: "smooth" });
+                    // If we're already on the target page and there's a hash, scroll to it
+                    if (isHash && location.pathname === ctaPath) {
+                      const el = document.getElementById(ctaHash);
+                      if (el) {
+                        el.scrollIntoView({ behavior: "smooth" });
+                        return;
+                      }
                     }
-                  }}
-                  className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-slate-100 hover:bg-slate-200 text-slate-700 border border-slate-200 rounded-2xl text-sm font-bold transition-all hover:scale-[1.02] shrink-0"
-                >
-                  Watch Overview
-                </button>
+                    // Otherwise navigate (React Router handles hash scrolling on next render)
+                    navigate(ctaDestination);
+                  };
+
+                  return (
+                    <button
+                      onClick={handleCtaClick}
+                      className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-blue-600 hover:bg-blue-700 text-white rounded-2xl shadow-lg shadow-blue-500/20 text-sm font-bold transition-all hover:scale-[1.02] shrink-0"
+                    >
+                      {slides[activeIndex].cta}
+                      <ArrowRight className="w-4 h-4" />
+                    </button>
+                  );
+                })()}
+
+                {/* Secondary "Watch Overview" button — navigates to Solutions platform overview */}
+                {(() => {
+                  const secondaryLabel = slides[activeIndex].secondaryCta || "Watch Overview";
+                  const secondaryDest = slides[activeIndex].secondaryCtaLink ||
+                    resolveCtaLink(secondaryLabel, slides[activeIndex], categoryLabel);
+
+                  const handleSecondaryClick = (e: React.MouseEvent) => {
+                    e.preventDefault();
+                    navigate(secondaryDest);
+                  };
+
+                  return (
+                    <button
+                      onClick={handleSecondaryClick}
+                      className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-slate-100 hover:bg-slate-200 text-slate-700 border border-slate-200 rounded-2xl text-sm font-bold transition-all hover:scale-[1.02] shrink-0"
+                    >
+                      <PlayCircle className="w-4 h-4 text-blue-600" />
+                      {secondaryLabel}
+                    </button>
+                  );
+                })()}
               </motion.div>
 
               {/* Trust Indicators matching homepage style */}
