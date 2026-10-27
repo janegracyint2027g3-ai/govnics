@@ -1117,5 +1117,4 @@ export const offeringsList = [
   { id: "enterprise-governance", label: "Enterprise Governance" },
   { id: "cybersecurity-data", label: "Cybersecurity & Data Privacy" },
   { id: "esg-sustainability", label: "ESG & Sustainability" },
-  { id: "staffing-managed", label: "Staffing & Managed Services" },
 ];

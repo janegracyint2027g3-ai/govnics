@@ -27,7 +27,6 @@ export const Header = () => {
   const [activeOfferTab, setActiveOfferTab] = useState<string>("regulatory-compliance");
   const [activeServiceTab, setActiveServiceTab] = useState<string>("statutory-tracking");
   const [industrySearchQuery, setIndustrySearchQuery] = useState<string>("");
-  const [solutionsNavTab, setSolutionsNavTab] = useState<"solutions" | "cases">("solutions");
   const [hoveredDetailCard, setHoveredDetailCard] = useState<number>(0);
   const { pathname } = useLocation();
   const { user, isAuthenticated, logout } = useAuth();
@@ -158,7 +157,7 @@ export const Header = () => {
                           What We Offer
                         </h3>
                         <span className="text-[9px] font-bold px-1.5 py-0.5 rounded bg-blue-500/20 text-blue-300 uppercase tracking-wider">
-                          13 Practices
+                          12 Practices
                         </span>
                       </div>
                       <p className="text-[10.5px] text-slate-400 mt-1 font-medium leading-relaxed">
@@ -280,7 +279,7 @@ export const Header = () => {
                               </div>
                             </div>
 
-                            {/* 3 Overview Cards — Clean, only high-level summary */}
+                            {/* 3 Overview Cards — Clean, neat, and uncrowded */}
                             <div className="grid grid-cols-3 gap-3">
                               {parsedDetails.map((detail, idx) => {
                                 const theme = cardThemes[idx] || cardThemes[0];
@@ -289,13 +288,13 @@ export const Header = () => {
                                   <div
                                     key={idx}
                                     onMouseEnter={() => setHoveredDetailCard(idx)}
-                                    className={`rounded-2xl p-3.5 border transition-all cursor-pointer flex flex-col justify-between ${
+                                    className={`rounded-xl p-3 border transition-all cursor-pointer flex flex-col justify-between ${
                                       isSelected
                                         ? "bg-white border-blue-500 shadow-md ring-2 ring-blue-500/20"
                                         : "bg-slate-50/70 border-slate-200/80 hover:bg-white hover:border-slate-300 shadow-2xs"
                                     }`}
                                   >
-                                    <div className="space-y-1.5">
+                                    <div className="space-y-1">
                                       <div className="flex items-center justify-between">
                                         <span className={`text-[9px] font-black uppercase tracking-wider px-2 py-0.5 rounded-md ${theme.accent} border inline-flex items-center gap-1`}>
                                           <span className={`w-1.5 h-1.5 rounded-full ${theme.dot}`} />
@@ -305,7 +304,7 @@ export const Header = () => {
                                           {isSelected ? "Active" : "Hover to view"}
                                         </span>
                                       </div>
-                                      <h4 className="text-xs font-black text-slate-900 uppercase tracking-wide leading-snug">
+                                      <h4 className="text-xs font-black text-slate-900 uppercase tracking-wide leading-snug pt-0.5">
                                         {detail.label}
                                       </h4>
                                       <p className="text-[10px] font-medium text-slate-500 leading-relaxed line-clamp-2">
@@ -313,8 +312,8 @@ export const Header = () => {
                                       </p>
                                     </div>
 
-                                    <div className="pt-2 border-t border-slate-100 mt-2 flex items-center justify-between text-[9px] font-bold text-slate-400">
-                                      <span>{detail.bullets.length} Deliverables</span>
+                                    <div className="pt-2 border-t border-slate-100 mt-2 flex items-center justify-between text-[9px] font-bold">
+                                      <span className="text-slate-400">{detail.bullets.length} Deliverables</span>
                                       <span className={isSelected ? "text-blue-600" : "text-slate-400"}>Inspect &rarr;</span>
                                     </div>
                                   </div>
@@ -322,16 +321,16 @@ export const Header = () => {
                               })}
                             </div>
 
-                            {/* Dynamic Hover-Revealed Detailed Deliverables Container */}
+                            {/* Dynamic Hover-Revealed Detailed Deliverables Container — Clean & Concise */}
                             {currentDetail && currentDetail.bullets.length > 0 && (
-                              <div className="bg-gradient-to-br from-slate-50 to-blue-50/30 border border-slate-200/90 rounded-2xl p-4 shadow-2xs space-y-3 transition-all">
+                              <div className="bg-gradient-to-br from-slate-50 to-blue-50/30 border border-slate-200/90 rounded-xl p-3.5 space-y-2.5 transition-all">
                                 <div className="flex items-center justify-between border-b border-slate-200/70 pb-2">
                                   <div className="flex items-center gap-2">
                                     <span className={`text-[9.5px] font-black uppercase tracking-wider px-2 py-0.5 rounded-md ${currentTheme.accent} border`}>
                                       {badgeLabels[hoveredDetailCard]}
                                     </span>
                                     <span className="text-xs font-black text-slate-800">
-                                      {currentDetail.label} — Key Deliverables Checklist
+                                      {currentDetail.label} — Key Deliverables
                                     </span>
                                   </div>
                                   <span className="text-[10px] text-slate-400 font-medium">
@@ -340,10 +339,10 @@ export const Header = () => {
                                 </div>
 
                                 <div className="grid grid-cols-2 gap-x-6 gap-y-2">
-                                  {currentDetail.bullets.map((bullet, bi) => (
+                                  {currentDetail.bullets.slice(0, 4).map((bullet, bi) => (
                                     <div key={bi} className="flex items-start gap-2">
                                       <CheckCircle2 className="w-3.5 h-3.5 text-blue-600 shrink-0 mt-0.5" />
-                                      <span className="text-xs text-slate-700 font-medium leading-snug break-words">{bullet}</span>
+                                      <span className="text-xs text-slate-700 font-medium leading-snug truncate">{bullet}</span>
                                     </div>
                                   ))}
                                 </div>
@@ -362,12 +361,11 @@ export const Header = () => {
                                   <ArrowRight className="w-3 h-3" />
                                 </Link>
                                 <Link
-                                  to="/contact#book-strategy-session"
+                                  to="/contact"
                                   onClick={() => setActiveDropdown(null)}
                                   className="inline-flex items-center gap-1.5 px-3.5 py-2 bg-blue-50 hover:bg-blue-100 text-blue-700 rounded-xl text-[10.5px] font-bold transition-all border border-blue-200/60"
                                 >
-                                  <CalendarCheck className="w-3 h-3 text-blue-600" />
-                                  <span>Book Strategy Session</span>
+                                  <span>Speak to Practice Leader</span>
                                 </Link>
                               </div>
                               <span className="text-[10px] text-slate-400 font-semibold">
@@ -379,301 +377,12 @@ export const Header = () => {
                       })()}
                     </div>
                   </div>
-
-
-                  {/* Offerings Strategy Session Banner */}
-                  <div className="mt-5 bg-gradient-to-r from-slate-900 via-blue-950 to-indigo-950 border border-blue-900/60 rounded-xl p-3.5 px-6 flex items-center justify-between shadow-sm">
-                    <div className="flex items-center gap-3">
-                      <div className="w-8 h-8 rounded-lg bg-blue-500/20 border border-blue-400/30 flex items-center justify-center text-blue-400 shrink-0">
-                        <CalendarCheck className="w-4 h-4" />
-                      </div>
-                      <div>
-                        <span className="text-xs font-bold text-white block">
-                          Need customized governance advisory for your industry?
-                        </span>
-                        <span className="text-[10px] text-slate-400 font-medium block">
-                          Book a 30-min structured briefing with our senior GRC partners
-                        </span>
-                      </div>
-                    </div>
-                    <Link
-                      to="/contact#book-strategy-session"
-                      onClick={() => setActiveDropdown(null)}
-                      className="inline-flex items-center gap-2 px-5 py-2 bg-blue-600 hover:bg-blue-500 text-white rounded-xl text-xs font-bold tracking-wide transition-all shadow-md shadow-blue-500/20 hover:scale-[1.02] shrink-0 ml-4"
-                    >
-                      <CalendarCheck className="w-3.5 h-3.5" />
-                      <span>Book Strategy Session</span>
-                    </Link>
-                  </div>
                 </div>
               </div>
             )}
           </div>
 
-          {/* Solutions Dropdown */}
-          <div
-            className="h-full flex items-center"
-            onMouseEnter={() => setActiveDropdown("solutions")}
-            onMouseLeave={() => setActiveDropdown(null)}
-          >
-            <div className={getNavItemClass() + " cursor-pointer flex items-center gap-1.5"}>
-              <span>Solutions</span>
-              <ChevronDown className="w-4 h-4 text-current" />
-            </div>
-            {activeDropdown === "solutions" && (
-              <div className="absolute top-full left-1/2 -translate-x-1/2 w-[98vw] max-w-6xl xl:max-w-7xl 2xl:max-w-[1380px] bg-white border border-slate-200/90 shadow-2xl rounded-2xl flex flex-col overflow-hidden animate-slide-up-dropdown mt-1 text-left z-50">
-                {/* Bridge to prevent hover loss */}
-                <div className="absolute -top-8 left-0 right-0 h-8 bg-transparent" />
 
-                {/* Top Section Selector Bar */}
-                <div className="bg-slate-900 border-b border-slate-800 px-6 py-3 flex items-center justify-between">
-                  <div className="flex items-center gap-2">
-                    <button
-                      onClick={() => setSolutionsNavTab("solutions")}
-                      onMouseEnter={() => setSolutionsNavTab("solutions")}
-                      className={`flex items-center gap-2 px-4 py-1.5 rounded-xl text-xs font-black tracking-wide transition-all ${
-                        solutionsNavTab === "solutions"
-                          ? "bg-blue-600 text-white shadow-md shadow-blue-500/25"
-                          : "text-slate-300 hover:text-white hover:bg-slate-800"
-                      }`}
-                    >
-                      <ShieldCheck className="w-3.5 h-3.5" />
-                      <span>1. SOLUTIONS (Pre-defined Assets)</span>
-                    </button>
-
-                    <button
-                      onClick={() => setSolutionsNavTab("cases")}
-                      onMouseEnter={() => setSolutionsNavTab("cases")}
-                      className={`flex items-center gap-2 px-4 py-1.5 rounded-xl text-xs font-black tracking-wide transition-all ${
-                        solutionsNavTab === "cases"
-                          ? "bg-blue-600 text-white shadow-md shadow-blue-500/25"
-                          : "text-slate-300 hover:text-white hover:bg-slate-800"
-                      }`}
-                    >
-                      <Award className="w-3.5 h-3.5" />
-                      <span>2. CASE STUDIES (Client Success)</span>
-                    </button>
-                  </div>
-
-                  <Link
-                    to="/solutions"
-                    onClick={() => setActiveDropdown(null)}
-                    className="text-xs font-bold text-blue-400 hover:text-blue-300 flex items-center gap-1"
-                  >
-                    <span>View All 65+ Assets & Studies</span>
-                    <ArrowRight className="w-3.5 h-3.5" />
-                  </Link>
-                </div>
-
-                {/* Main Multi-Column Content */}
-                <div className="p-6 bg-white min-h-[440px] max-h-[520px] overflow-y-auto">
-                  {solutionsNavTab === "solutions" ? (
-                    /* Solutions: 3 Sub-Pillars */
-                    <div className="grid grid-cols-12 gap-6">
-                      {/* Column A: By Industry Sector (5 cols) */}
-                      <div className="col-span-5 border-r border-slate-150 pr-6 space-y-3">
-                        <div className="flex items-center justify-between border-b border-slate-100 pb-2">
-                          <span className="text-[11px] font-black text-blue-700 uppercase tracking-widest">
-                            A. By Industry Sector
-                          </span>
-                          <span className="text-[9px] font-bold px-2 py-0.5 rounded-full bg-blue-50 text-blue-600">8 Sectors</span>
-                        </div>
-                        <div className="grid grid-cols-2 gap-2 max-h-[360px] overflow-y-auto pr-1 scrollbar-thin">
-                          {solutionsByIndustrySector.map((sec) => (
-                            <Link
-                              key={sec.id}
-                              to={`/solutions?tab=solutions#${sec.id}`}
-                              onClick={() => setActiveDropdown(null)}
-                              className="p-2.5 rounded-xl border border-slate-200/80 hover:border-blue-400 hover:bg-blue-50/40 transition-all group block shadow-2xs"
-                            >
-                              <div className="text-xs font-black text-slate-900 group-hover:text-blue-600 transition-colors leading-tight truncate">
-                                {sec.name}
-                              </div>
-                              <div className="text-[10px] text-slate-500 font-medium truncate mt-0.5">
-                                {sec.items.map(i => i.title).slice(0, 2).join(", ")}...
-                              </div>
-                            </Link>
-                          ))}
-                        </div>
-                      </div>
-
-                      {/* Column B: By Compliance Domain (4 cols) */}
-                      <div className="col-span-4 border-r border-slate-150 pr-6 space-y-3">
-                        <div className="flex items-center justify-between border-b border-slate-100 pb-2">
-                          <span className="text-[11px] font-black text-indigo-700 uppercase tracking-widest">
-                            B. By Compliance Domain
-                          </span>
-                          <span className="text-[9px] font-bold px-2 py-0.5 rounded-full bg-indigo-50 text-indigo-600">8 Domains</span>
-                        </div>
-                        <div className="flex flex-col gap-1.5 max-h-[360px] overflow-y-auto pr-1 scrollbar-thin">
-                          {solutionsByComplianceDomain.map((dom) => (
-                            <Link
-                              key={dom.id}
-                              to={`/solutions?tab=solutions#${dom.id}`}
-                              onClick={() => setActiveDropdown(null)}
-                              className="p-2 px-2.5 rounded-xl border border-slate-200/70 hover:border-indigo-400 hover:bg-indigo-50/40 transition-all group flex items-center justify-between shadow-2xs"
-                            >
-                              <span className="text-xs font-bold text-slate-800 group-hover:text-indigo-600 transition-colors truncate">
-                                {dom.name}
-                              </span>
-                              <span className="text-[10px] text-slate-400 font-bold shrink-0 ml-2">
-                                {dom.items.length} assets
-                              </span>
-                            </Link>
-                          ))}
-                        </div>
-                      </div>
-
-                      {/* Column C: By Solution Type (AI-Driven) (3 cols) */}
-                      <div className="col-span-3 space-y-3">
-                        <div className="flex items-center justify-between border-b border-slate-100 pb-2">
-                          <span className="text-[11px] font-black text-purple-700 uppercase tracking-widest">
-                            C. AI-Driven Solutions
-                          </span>
-                          <span className="text-[9px] font-bold px-2 py-0.5 rounded-full bg-purple-50 text-purple-600">AI Stack</span>
-                        </div>
-                        <div className="flex flex-col gap-2">
-                          {solutionsBySolutionType.map((aiType) => (
-                            <Link
-                              key={aiType.id}
-                              to={`/solutions?tab=solutions#${aiType.id}`}
-                              onClick={() => setActiveDropdown(null)}
-                              className="p-2.5 rounded-xl bg-gradient-to-r from-purple-50/60 to-indigo-50/60 border border-purple-200/60 hover:border-purple-400 transition-all group block shadow-2xs"
-                            >
-                              <div className="text-xs font-black text-slate-900 group-hover:text-purple-700 transition-colors leading-tight">
-                                {aiType.name}
-                              </div>
-                              <div className="text-[10px] text-slate-500 font-medium leading-relaxed mt-1">
-                                {aiType.description}
-                              </div>
-                            </Link>
-                          ))}
-                        </div>
-                      </div>
-                    </div>
-                  ) : (
-                    /* Case Studies: 3 Sub-Pillars */
-                    <div className="grid grid-cols-12 gap-6">
-                      {/* Column A: By Industry Sector (5 cols) */}
-                      <div className="col-span-5 border-r border-slate-150 pr-6 space-y-3">
-                        <div className="flex items-center justify-between border-b border-slate-100 pb-2">
-                          <span className="text-[11px] font-black text-blue-700 uppercase tracking-widest">
-                            A. By Industry Sector
-                          </span>
-                          <span className="text-[9px] font-bold px-2 py-0.5 rounded-full bg-blue-50 text-blue-600">Verified Cases</span>
-                        </div>
-                        <div className="grid grid-cols-2 gap-2 max-h-[360px] overflow-y-auto pr-1 scrollbar-thin">
-                          {caseStudiesByIndustry.map((sec) => (
-                            <Link
-                              key={sec.id}
-                              to={`/solutions?tab=cases#${sec.id}`}
-                              onClick={() => setActiveDropdown(null)}
-                              className="p-2.5 rounded-xl border border-slate-200/80 hover:border-blue-400 hover:bg-blue-50/40 transition-all group block shadow-2xs"
-                            >
-                              <div className="text-xs font-black text-slate-900 group-hover:text-blue-600 transition-colors leading-tight truncate">
-                                {sec.name.replace(" Case Studies", "")}
-                              </div>
-                              <div className="text-[10px] text-emerald-600 font-bold mt-1">
-                                ✓ {sec.studies.length} Documented Wins
-                              </div>
-                            </Link>
-                          ))}
-                        </div>
-                      </div>
-
-                      {/* Column B: By Compliance Domain (4 cols) */}
-                      <div className="col-span-4 border-r border-slate-150 pr-6 space-y-3">
-                        <div className="flex items-center justify-between border-b border-slate-100 pb-2">
-                          <span className="text-[11px] font-black text-indigo-700 uppercase tracking-widest">
-                            B. By Compliance Domain
-                          </span>
-                          <span className="text-[9px] font-bold px-2 py-0.5 rounded-full bg-indigo-50 text-indigo-600">Audit Triumphs</span>
-                        </div>
-                        <div className="flex flex-col gap-1.5 max-h-[360px] overflow-y-auto pr-1 scrollbar-thin">
-                          {caseStudiesByComplianceDomain.map((dom) => (
-                            <Link
-                              key={dom.id}
-                              to={`/solutions?tab=cases#${dom.id}`}
-                              onClick={() => setActiveDropdown(null)}
-                              className="p-2 px-2.5 rounded-xl border border-slate-200/70 hover:border-indigo-400 hover:bg-indigo-50/40 transition-all group flex items-center justify-between shadow-2xs"
-                            >
-                              <span className="text-xs font-bold text-slate-800 group-hover:text-indigo-600 transition-colors truncate">
-                                {dom.name}
-                              </span>
-                              <span className="text-[10px] text-emerald-600 font-bold shrink-0 ml-2">
-                                {dom.studies.length} wins
-                              </span>
-                            </Link>
-                          ))}
-                        </div>
-                      </div>
-
-                      {/* Column C: By Outcome Metrics (KPIs) (3 cols) */}
-                      <div className="col-span-3 space-y-3">
-                        <div className="flex items-center justify-between border-b border-slate-100 pb-2">
-                          <span className="text-[11px] font-black text-emerald-700 uppercase tracking-widest">
-                            C. Outcome Metrics (KPIs)
-                          </span>
-                          <span className="text-[9px] font-bold px-2 py-0.5 rounded-full bg-emerald-50 text-emerald-600">ROI Impact</span>
-                        </div>
-                        <div className="flex flex-col gap-2">
-                          {caseStudiesByOutcomeMetrics.map((kpi) => (
-                            <Link
-                              key={kpi.id}
-                              to="/solutions?tab=kpis"
-                              onClick={() => setActiveDropdown(null)}
-                              className="p-2.5 rounded-xl bg-gradient-to-r from-emerald-50/60 to-teal-50/60 border border-emerald-200/60 hover:border-emerald-400 transition-all group block shadow-2xs"
-                            >
-                              <div className="text-xs font-black text-slate-900 group-hover:text-emerald-700 transition-colors leading-tight">
-                                {kpi.categoryTitle}
-                              </div>
-                              <div className="text-[10px] text-slate-500 font-medium leading-relaxed mt-1">
-                                {kpi.metrics.map(m => m.title).slice(0, 2).join(", ")}...
-                              </div>
-                            </Link>
-                          ))}
-                        </div>
-                      </div>
-                    </div>
-                  )}
-                </div>
-
-                {/* Bottom Mega Menu Callout Bar */}
-                <div className="bg-slate-50 border-t border-slate-200/80 p-4 px-6 flex items-center justify-between">
-                  <div className="flex items-center gap-3">
-                    <div className="w-8 h-8 rounded-lg bg-blue-100 text-blue-600 flex items-center justify-center font-black text-xs">
-                      GRC
-                    </div>
-                    <div>
-                      <span className="text-xs font-bold text-slate-900 block leading-tight">
-                        Pre-defined regulatory blueprints, automated runbooks & audited client proof
-                      </span>
-                      <span className="text-[10.5px] text-slate-500 font-medium">
-                        Explore 65+ turnkey assets tailored for Indian & global statutory compliance
-                      </span>
-                    </div>
-                  </div>
-
-                  <div className="flex items-center gap-2">
-                    <Link
-                      to="/solutions"
-                      onClick={() => setActiveDropdown(null)}
-                      className="px-4 py-2 bg-slate-900 hover:bg-slate-800 text-white rounded-xl text-xs font-bold transition-all"
-                    >
-                      Explore All Solutions
-                    </Link>
-                    <Link
-                      to="/contact#book-strategy-session"
-                      onClick={() => setActiveDropdown(null)}
-                      className="px-4 py-2 bg-blue-600 hover:bg-blue-500 text-white rounded-xl text-xs font-bold transition-all shadow-md shadow-blue-500/20"
-                    >
-                      Book Strategy Session
-                    </Link>
-                  </div>
-                </div>
-              </div>
-            )}
-          </div>
 
           {/* Industries & Scale Dropdown */}
           <div
@@ -958,9 +667,333 @@ export const Header = () => {
             )}
           </div>
 
+          {/* Solutions Dropdown */}
+          <div
+            className="h-full flex items-center"
+            onMouseEnter={() => setActiveDropdown("solutions")}
+            onMouseLeave={() => setActiveDropdown(null)}
+          >
+            <div className={getNavItemClass() + " cursor-pointer flex items-center gap-1.5"}>
+              <span>Solutions</span>
+              <ChevronDown className="w-4 h-4 text-current" />
+            </div>
+            {activeDropdown === "solutions" && (
+              <div className="absolute top-full left-1/2 -translate-x-1/2 w-[98vw] max-w-6xl xl:max-w-7xl 2xl:max-w-[1380px] bg-white border border-slate-200/90 shadow-2xl rounded-2xl flex flex-col overflow-hidden animate-slide-up-dropdown mt-1 text-left z-50">
+                {/* Bridge to prevent hover loss */}
+                <div className="absolute -top-8 left-0 right-0 h-8 bg-transparent" />
 
+                {/* Top Section Header Bar */}
+                <div className="bg-slate-900 border-b border-slate-800 px-6 py-3 flex items-center justify-between">
+                  <div className="flex items-center gap-2.5">
+                    <div className="w-7 h-7 rounded-lg bg-blue-600/30 border border-blue-500/40 flex items-center justify-center text-blue-400">
+                      <ShieldCheck className="w-4 h-4" />
+                    </div>
+                    <div>
+                      <span className="text-xs font-black text-white uppercase tracking-wider block">
+                        SOLUTIONS (Pre-defined Consulting Assets)
+                      </span>
+                      <span className="text-[10px] text-slate-400 font-medium">
+                        Turnkey regulatory blueprints, automated runbooks & compliance frameworks
+                      </span>
+                    </div>
+                  </div>
 
-          {/* Partners Link */}
+                  <Link
+                    to="/solutions?tab=solutions"
+                    onClick={() => setActiveDropdown(null)}
+                    className="text-xs font-bold text-blue-400 hover:text-blue-300 flex items-center gap-1 transition-colors"
+                  >
+                    <span>View All Pre-defined Assets</span>
+                    <ArrowRight className="w-3.5 h-3.5" />
+                  </Link>
+                </div>
+
+                {/* Main 3-Column Content */}
+                <div className="p-6 bg-white min-h-[440px] max-h-[520px] overflow-y-auto">
+                  <div className="grid grid-cols-12 gap-6">
+                    {/* Column A: By Industry Sector (5 cols) */}
+                    <div className="col-span-5 border-r border-slate-150 pr-6 space-y-3">
+                      <div className="flex items-center justify-between border-b border-slate-100 pb-2">
+                        <span className="text-[11px] font-black text-blue-700 uppercase tracking-widest">
+                          A. By Industry Sector
+                        </span>
+                        <span className="text-[9px] font-bold px-2 py-0.5 rounded-full bg-blue-50 text-blue-600">8 Sectors</span>
+                      </div>
+                      <div className="grid grid-cols-2 gap-2 max-h-[360px] overflow-y-auto pr-1 scrollbar-thin">
+                        {solutionsByIndustrySector.map((sec) => (
+                          <Link
+                            key={sec.id}
+                            to={`/solutions?tab=solutions#${sec.id}`}
+                            onClick={() => setActiveDropdown(null)}
+                            className="p-2.5 rounded-xl border border-slate-200/80 hover:border-blue-400 hover:bg-blue-50/40 transition-all group block shadow-2xs"
+                          >
+                            <div className="text-xs font-black text-slate-900 group-hover:text-blue-600 transition-colors leading-tight truncate">
+                              {sec.name}
+                            </div>
+                            <div className="text-[10px] text-slate-500 font-medium truncate mt-0.5">
+                              {sec.items.map(i => i.title).slice(0, 2).join(", ")}...
+                            </div>
+                          </Link>
+                        ))}
+                      </div>
+                    </div>
+
+                    {/* Column B: By Compliance Domain (4 cols) */}
+                    <div className="col-span-4 border-r border-slate-150 pr-6 space-y-3">
+                      <div className="flex items-center justify-between border-b border-slate-100 pb-2">
+                        <span className="text-[11px] font-black text-indigo-700 uppercase tracking-widest">
+                          B. By Compliance Domain
+                        </span>
+                        <span className="text-[9px] font-bold px-2 py-0.5 rounded-full bg-indigo-50 text-indigo-600">8 Domains</span>
+                      </div>
+                      <div className="flex flex-col gap-1.5 max-h-[360px] overflow-y-auto pr-1 scrollbar-thin">
+                        {solutionsByComplianceDomain.map((dom) => (
+                          <Link
+                            key={dom.id}
+                            to={`/solutions?tab=solutions#${dom.id}`}
+                            onClick={() => setActiveDropdown(null)}
+                            className="p-2 px-2.5 rounded-xl border border-slate-200/70 hover:border-indigo-400 hover:bg-indigo-50/40 transition-all group flex items-center justify-between shadow-2xs"
+                          >
+                            <span className="text-xs font-bold text-slate-800 group-hover:text-indigo-600 transition-colors truncate">
+                              {dom.name}
+                            </span>
+                            <span className="text-[10px] text-slate-400 font-bold shrink-0 ml-2">
+                              {dom.items.length} assets
+                            </span>
+                          </Link>
+                        ))}
+                      </div>
+                    </div>
+
+                    {/* Column C: By Solution Type (AI-Driven) (3 cols) */}
+                    <div className="col-span-3 space-y-3">
+                      <div className="flex items-center justify-between border-b border-slate-100 pb-2">
+                        <span className="text-[11px] font-black text-purple-700 uppercase tracking-widest">
+                          C. AI-Driven Solutions
+                        </span>
+                        <span className="text-[9px] font-bold px-2 py-0.5 rounded-full bg-purple-50 text-purple-600">AI Stack</span>
+                      </div>
+                      <div className="flex flex-col gap-2">
+                        {solutionsBySolutionType.map((aiType) => (
+                          <Link
+                            key={aiType.id}
+                            to={`/solutions?tab=solutions#${aiType.id}`}
+                            onClick={() => setActiveDropdown(null)}
+                            className="p-2.5 rounded-xl bg-gradient-to-r from-purple-50/60 to-indigo-50/60 border border-purple-200/60 hover:border-purple-400 transition-all group block shadow-2xs"
+                          >
+                            <div className="text-xs font-black text-slate-900 group-hover:text-purple-700 transition-colors leading-tight">
+                              {aiType.name}
+                            </div>
+                            <div className="text-[10px] text-slate-500 font-medium leading-relaxed mt-1">
+                              {aiType.description}
+                            </div>
+                          </Link>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Bottom Callout Bar */}
+                <div className="bg-slate-50 border-t border-slate-200/80 p-4 px-6 flex items-center justify-between">
+                  <div className="flex items-center gap-3">
+                    <div className="w-8 h-8 rounded-lg bg-blue-100 text-blue-600 flex items-center justify-center font-black text-xs">
+                      GRC
+                    </div>
+                    <div>
+                      <span className="text-xs font-bold text-slate-900 block leading-tight">
+                        Pre-defined regulatory blueprints, automated runbooks & compliance frameworks
+                      </span>
+                      <span className="text-[10.5px] text-slate-500 font-medium">
+                        Explore 35+ turnkey assets tailored for Indian & global statutory compliance
+                      </span>
+                    </div>
+                  </div>
+
+                  <div className="flex items-center gap-2">
+                    <Link
+                      to="/solutions?tab=solutions"
+                      onClick={() => setActiveDropdown(null)}
+                      className="px-4 py-2 bg-slate-900 hover:bg-slate-800 text-white rounded-xl text-xs font-bold transition-all shadow-sm"
+                    >
+                      Explore Solutions Catalog
+                    </Link>
+                    <Link
+                      to="/contact"
+                      onClick={() => setActiveDropdown(null)}
+                      className="px-4 py-2 bg-blue-600 hover:bg-blue-500 text-white rounded-xl text-xs font-bold transition-all shadow-md shadow-blue-500/20"
+                    >
+                      Contact Advisory Team
+                    </Link>
+                  </div>
+                </div>
+              </div>
+            )}
+          </div>
+
+          {/* Case Studies Dropdown */}
+          <div
+            className="h-full flex items-center"
+            onMouseEnter={() => setActiveDropdown("case-studies")}
+            onMouseLeave={() => setActiveDropdown(null)}
+          >
+            <div className={getNavItemClass() + " cursor-pointer flex items-center gap-1.5"}>
+              <span>Case Studies</span>
+              <ChevronDown className="w-4 h-4 text-current" />
+            </div>
+            {activeDropdown === "case-studies" && (
+              <div className="absolute top-full left-1/2 -translate-x-1/2 w-[98vw] max-w-6xl xl:max-w-7xl 2xl:max-w-[1380px] bg-white border border-slate-200/90 shadow-2xl rounded-2xl flex flex-col overflow-hidden animate-slide-up-dropdown mt-1 text-left z-50">
+                {/* Bridge to prevent hover loss */}
+                <div className="absolute -top-8 left-0 right-0 h-8 bg-transparent" />
+
+                {/* Top Section Header Bar */}
+                <div className="bg-slate-900 border-b border-slate-800 px-6 py-3 flex items-center justify-between">
+                  <div className="flex items-center gap-2.5">
+                    <div className="w-7 h-7 rounded-lg bg-emerald-600/30 border border-emerald-500/40 flex items-center justify-center text-emerald-400">
+                      <Award className="w-4 h-4" />
+                    </div>
+                    <div>
+                      <span className="text-xs font-black text-white uppercase tracking-wider block">
+                        CASE STUDIES (Client Success & Verified Impact)
+                      </span>
+                      <span className="text-[10px] text-slate-400 font-medium">
+                        Audited enterprise outcomes, penalty avoidance metrics & zero-lag execution records
+                      </span>
+                    </div>
+                  </div>
+
+                  <Link
+                    to="/solutions?tab=cases"
+                    onClick={() => setActiveDropdown(null)}
+                    className="text-xs font-bold text-emerald-400 hover:text-emerald-300 flex items-center gap-1 transition-colors"
+                  >
+                    <span>Browse All Documented Cases</span>
+                    <ArrowRight className="w-3.5 h-3.5" />
+                  </Link>
+                </div>
+
+                {/* Main 3-Column Content */}
+                <div className="p-6 bg-white min-h-[440px] max-h-[520px] overflow-y-auto">
+                  <div className="grid grid-cols-12 gap-6">
+                    {/* Column A: By Industry Sector (5 cols) */}
+                    <div className="col-span-5 border-r border-slate-150 pr-6 space-y-3">
+                      <div className="flex items-center justify-between border-b border-slate-100 pb-2">
+                        <span className="text-[11px] font-black text-blue-700 uppercase tracking-widest">
+                          A. By Industry Sector
+                        </span>
+                        <span className="text-[9px] font-bold px-2 py-0.5 rounded-full bg-blue-50 text-blue-600">Verified Cases</span>
+                      </div>
+                      <div className="grid grid-cols-2 gap-2 max-h-[360px] overflow-y-auto pr-1 scrollbar-thin">
+                        {caseStudiesByIndustry.map((sec) => (
+                          <Link
+                            key={sec.id}
+                            to={`/solutions?tab=cases#${sec.id}`}
+                            onClick={() => setActiveDropdown(null)}
+                            className="p-2.5 rounded-xl border border-slate-200/80 hover:border-blue-400 hover:bg-blue-50/40 transition-all group block shadow-2xs"
+                          >
+                            <div className="text-xs font-black text-slate-900 group-hover:text-blue-600 transition-colors leading-tight truncate">
+                              {sec.name.replace(" Case Studies", "")}
+                            </div>
+                            <div className="text-[10px] text-emerald-600 font-bold mt-1">
+                              ✓ {sec.studies.length} Documented Wins
+                            </div>
+                          </Link>
+                        ))}
+                      </div>
+                    </div>
+
+                    {/* Column B: By Compliance Domain (4 cols) */}
+                    <div className="col-span-4 border-r border-slate-150 pr-6 space-y-3">
+                      <div className="flex items-center justify-between border-b border-slate-100 pb-2">
+                        <span className="text-[11px] font-black text-indigo-700 uppercase tracking-widest">
+                          B. By Compliance Domain
+                        </span>
+                        <span className="text-[9px] font-bold px-2 py-0.5 rounded-full bg-indigo-50 text-indigo-600">Audit Triumphs</span>
+                      </div>
+                      <div className="flex flex-col gap-1.5 max-h-[360px] overflow-y-auto pr-1 scrollbar-thin">
+                        {caseStudiesByComplianceDomain.map((dom) => (
+                          <Link
+                            key={dom.id}
+                            to={`/solutions?tab=cases#${dom.id}`}
+                            onClick={() => setActiveDropdown(null)}
+                            className="p-2 px-2.5 rounded-xl border border-slate-200/70 hover:border-indigo-400 hover:bg-indigo-50/40 transition-all group flex items-center justify-between shadow-2xs"
+                          >
+                            <span className="text-xs font-bold text-slate-800 group-hover:text-indigo-600 transition-colors truncate">
+                              {dom.name}
+                            </span>
+                            <span className="text-[10px] text-emerald-600 font-bold shrink-0 ml-2">
+                              {dom.studies.length} wins
+                            </span>
+                          </Link>
+                        ))}
+                      </div>
+                    </div>
+
+                    {/* Column C: By Outcome Metrics (KPIs) (3 cols) */}
+                    <div className="col-span-3 space-y-3">
+                      <div className="flex items-center justify-between border-b border-slate-100 pb-2">
+                        <span className="text-[11px] font-black text-emerald-700 uppercase tracking-widest">
+                          C. Outcome Metrics (KPIs)
+                        </span>
+                        <span className="text-[9px] font-bold px-2 py-0.5 rounded-full bg-emerald-50 text-emerald-600">ROI Impact</span>
+                      </div>
+                      <div className="flex flex-col gap-2">
+                        {caseStudiesByOutcomeMetrics.map((kpi) => (
+                          <Link
+                            key={kpi.id}
+                            to="/solutions?tab=kpis"
+                            onClick={() => setActiveDropdown(null)}
+                            className="p-2.5 rounded-xl bg-gradient-to-r from-emerald-50/60 to-teal-50/60 border border-emerald-200/60 hover:border-emerald-400 transition-all group block shadow-2xs"
+                          >
+                            <div className="text-xs font-black text-slate-900 group-hover:text-emerald-700 transition-colors leading-tight">
+                              {kpi.categoryTitle}
+                            </div>
+                            <div className="text-[10px] text-slate-500 font-medium leading-relaxed mt-1">
+                              {kpi.metrics.map(m => m.title).slice(0, 2).join(", ")}...
+                            </div>
+                          </Link>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Bottom Callout Bar */}
+                <div className="bg-slate-50 border-t border-slate-200/80 p-4 px-6 flex items-center justify-between">
+                  <div className="flex items-center gap-3">
+                    <div className="w-8 h-8 rounded-lg bg-emerald-100 text-emerald-700 flex items-center justify-center font-black text-xs">
+                      ROI
+                    </div>
+                    <div>
+                      <span className="text-xs font-bold text-slate-900 block leading-tight">
+                        99.4% average statutory penalty avoidance & 68% faster compliance audit clearance
+                      </span>
+                      <span className="text-[10.5px] text-slate-500 font-medium">
+                        Documented outcomes across multi-jurisdictional enterprises and Fortune 500 GCCs
+                      </span>
+                    </div>
+                  </div>
+
+                  <div className="flex items-center gap-2">
+                    <Link
+                      to="/solutions?tab=cases"
+                      onClick={() => setActiveDropdown(null)}
+                      className="px-4 py-2 bg-slate-900 hover:bg-slate-800 text-white rounded-xl text-xs font-bold transition-all shadow-sm"
+                    >
+                      Browse All Case Studies
+                    </Link>
+                    <Link
+                      to="/solutions?tab=kpis"
+                      onClick={() => setActiveDropdown(null)}
+                      className="px-4 py-2 bg-emerald-600 hover:bg-emerald-500 text-white rounded-xl text-xs font-bold transition-all shadow-md shadow-emerald-500/20"
+                    >
+                      View KPIs Dashboard
+                    </Link>
+                  </div>
+                </div>
+              </div>
+            )}
+          </div>
           <Link to="/partners" className={getLinkClass("/partners")}>
             Partners
           </Link>
@@ -1159,62 +1192,6 @@ export const Header = () => {
               )}
             </div>
 
-            {/* Mobile Accordion for Solutions */}
-            <div>
-              <button
-                onClick={() => toggleDropdown("solutions")}
-                className="w-full flex justify-between items-center p-2 text-sm font-bold text-slate-800 hover:bg-slate-50 rounded-lg text-left"
-              >
-                <span>Solutions</span>
-                <ChevronDown className={`w-4 h-4 transition-transform ${activeDropdown === "solutions" ? "rotate-180" : ""}`} />
-              </button>
-              {activeDropdown === "solutions" && (
-                <div className="pl-3 my-1 flex flex-col gap-3 bg-slate-50 rounded-lg p-3 border border-slate-150 max-h-[450px] overflow-y-auto text-left">
-                  <div className="space-y-1 pb-2 border-b border-slate-200">
-                    <span className="text-[10px] font-black text-blue-600 uppercase tracking-wider">
-                      1. Pre-Defined Consulting Assets
-                    </span>
-                    <div className="pl-2 flex flex-col gap-1">
-                      <Link to="/solutions?tab=solutions" onClick={() => setMobileOpen(false)} className="text-xs text-slate-700 hover:text-blue-600 font-medium py-0.5">
-                        By Industry Sector (8 Sectors)
-                      </Link>
-                      <Link to="/solutions?tab=solutions" onClick={() => setMobileOpen(false)} className="text-xs text-slate-700 hover:text-blue-600 font-medium py-0.5">
-                        By Compliance Domain (8 Domains)
-                      </Link>
-                      <Link to="/solutions?tab=solutions" onClick={() => setMobileOpen(false)} className="text-xs text-slate-700 hover:text-blue-600 font-medium py-0.5">
-                        By Solution Type (AI-Driven)
-                      </Link>
-                    </div>
-                  </div>
-
-                  <div className="space-y-1 pb-2 border-b border-slate-200">
-                    <span className="text-[10px] font-black text-indigo-600 uppercase tracking-wider">
-                      2. Case Studies (Client Success)
-                    </span>
-                    <div className="pl-2 flex flex-col gap-1">
-                      <Link to="/solutions?tab=cases" onClick={() => setMobileOpen(false)} className="text-xs text-slate-700 hover:text-indigo-600 font-medium py-0.5">
-                        By Industry Sector Cases
-                      </Link>
-                      <Link to="/solutions?tab=cases" onClick={() => setMobileOpen(false)} className="text-xs text-slate-700 hover:text-indigo-600 font-medium py-0.5">
-                        By Compliance Domain Wins
-                      </Link>
-                      <Link to="/solutions?tab=kpis" onClick={() => setMobileOpen(false)} className="text-xs text-slate-700 hover:text-indigo-600 font-medium py-0.5">
-                        Outcome Metrics (KPIs Dashboard)
-                      </Link>
-                    </div>
-                  </div>
-
-                  <Link
-                    to="/solutions"
-                    onClick={() => setMobileOpen(false)}
-                    className="w-full py-2 bg-blue-600 text-white rounded-lg text-xs font-bold text-center block"
-                  >
-                    View Full Solutions Platform &rarr;
-                  </Link>
-                </div>
-              )}
-            </div>
-
             {/* Mobile Accordion for Industries & Scale */}
             <div>
               <button
@@ -1258,9 +1235,92 @@ export const Header = () => {
               )}
             </div>
 
+            {/* Mobile Accordion for Solutions */}
+            <div>
+              <button
+                onClick={() => toggleDropdown("solutions")}
+                className="w-full flex justify-between items-center p-2 text-sm font-bold text-slate-800 hover:bg-slate-50 rounded-lg text-left"
+              >
+                <span>Solutions</span>
+                <ChevronDown className={`w-4 h-4 transition-transform ${activeDropdown === "solutions" ? "rotate-180" : ""}`} />
+              </button>
+              {activeDropdown === "solutions" && (
+                <div className="pl-3 my-1 flex flex-col gap-3 bg-slate-50 rounded-lg p-3 border border-slate-150 max-h-[450px] overflow-y-auto text-left">
+                  <div className="space-y-1 pb-2 border-b border-slate-200">
+                    <span className="text-[10px] font-black text-blue-600 uppercase tracking-wider">
+                      Pre-Defined Consulting Assets
+                    </span>
+                    <div className="pl-2 flex flex-col gap-1">
+                      <Link to="/solutions?tab=solutions" onClick={() => setMobileOpen(false)} className="text-xs text-slate-700 hover:text-blue-600 font-medium py-0.5">
+                        By Industry Sector (8 Sectors)
+                      </Link>
+                      <Link to="/solutions?tab=solutions" onClick={() => setMobileOpen(false)} className="text-xs text-slate-700 hover:text-blue-600 font-medium py-0.5">
+                        By Compliance Domain (8 Domains)
+                      </Link>
+                      <Link to="/solutions?tab=solutions" onClick={() => setMobileOpen(false)} className="text-xs text-slate-700 hover:text-blue-600 font-medium py-0.5">
+                        By Solution Type (AI-Driven)
+                      </Link>
+                    </div>
+                  </div>
+
+                  <Link
+                    to="/solutions?tab=solutions"
+                    onClick={() => setMobileOpen(false)}
+                    className="w-full py-2 bg-blue-600 text-white rounded-lg text-xs font-bold text-center block shadow-sm"
+                  >
+                    Explore Solutions Catalog &rarr;
+                  </Link>
+                </div>
+              )}
+            </div>
+
+            {/* Mobile Accordion for Case Studies */}
+            <div>
+              <button
+                onClick={() => toggleDropdown("case-studies")}
+                className="w-full flex justify-between items-center p-2 text-sm font-bold text-slate-800 hover:bg-slate-50 rounded-lg text-left"
+              >
+                <span>Case Studies</span>
+                <ChevronDown className={`w-4 h-4 transition-transform ${activeDropdown === "case-studies" ? "rotate-180" : ""}`} />
+              </button>
+              {activeDropdown === "case-studies" && (
+                <div className="pl-3 my-1 flex flex-col gap-3 bg-slate-50 rounded-lg p-3 border border-slate-150 max-h-[450px] overflow-y-auto text-left">
+                  <div className="space-y-1 pb-2 border-b border-slate-200">
+                    <span className="text-[10px] font-black text-emerald-600 uppercase tracking-wider">
+                      Verified Client Success
+                    </span>
+                    <div className="pl-2 flex flex-col gap-1">
+                      <Link to="/solutions?tab=cases" onClick={() => setMobileOpen(false)} className="text-xs text-slate-700 hover:text-emerald-600 font-medium py-0.5">
+                        By Industry Sector Cases
+                      </Link>
+                      <Link to="/solutions?tab=cases" onClick={() => setMobileOpen(false)} className="text-xs text-slate-700 hover:text-emerald-600 font-medium py-0.5">
+                        By Compliance Domain Wins
+                      </Link>
+                      <Link to="/solutions?tab=kpis" onClick={() => setMobileOpen(false)} className="text-xs text-slate-700 hover:text-emerald-600 font-medium py-0.5">
+                        Outcome Metrics (KPIs Dashboard)
+                      </Link>
+                    </div>
+                  </div>
+
+                  <Link
+                    to="/solutions?tab=cases"
+                    onClick={() => setMobileOpen(false)}
+                    className="w-full py-2 bg-emerald-600 text-white rounded-lg text-xs font-bold text-center block shadow-sm"
+                  >
+                    Browse All Case Studies &rarr;
+                  </Link>
+                </div>
+              )}
+            </div>
+
             {/* Mobile Link for Partners */}
             <Link to="/partners" onClick={() => setMobileOpen(false)} className="p-2 text-sm font-bold text-slate-800 hover:bg-slate-50 rounded-lg block text-left">
               Partners
+            </Link>
+
+            {/* Mobile Link for Careers */}
+            <Link to="/careers" onClick={() => setMobileOpen(false)} className="p-2 text-sm font-bold text-slate-800 hover:bg-slate-50 rounded-lg block text-left">
+              Careers
             </Link>
 
             {/* Mobile Link for About Us */}
