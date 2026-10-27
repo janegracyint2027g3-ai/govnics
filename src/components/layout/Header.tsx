@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { 
   Menu, X, ArrowRight, ShieldCheck, ChevronDown, Search,
-  User, LogOut, Shield, FileCheck, CalendarCheck, Award
+  User, LogOut, CalendarCheck, Award, CheckCircle2
 } from "lucide-react";
 import { whomWeServeClusters } from "@/data/whom-we-serve-data";
 import { useAuth } from "@/context/AuthContext";
@@ -28,6 +28,7 @@ export const Header = () => {
   const [activeServiceTab, setActiveServiceTab] = useState<string>("statutory-tracking");
   const [industrySearchQuery, setIndustrySearchQuery] = useState<string>("");
   const [solutionsNavTab, setSolutionsNavTab] = useState<"solutions" | "cases">("solutions");
+  const [hoveredDetailCard, setHoveredDetailCard] = useState<number>(0);
   const { pathname } = useLocation();
   const { user, isAuthenticated, logout } = useAuth();
 
@@ -193,31 +194,16 @@ export const Header = () => {
                   {/* Content Area */}
                   <div className="flex overflow-hidden flex-1">
                     {/* Middle Column: Vertical Submenu Topics */}
-                    <div className="w-[34%] border-r border-slate-100 pr-4 flex flex-col justify-between overflow-y-auto shrink-0 max-h-[500px]">
+                    <div className="w-[32%] border-r border-slate-100 pr-4 flex flex-col justify-between overflow-y-auto shrink-0 max-h-[500px]">
                       <div>
                         {/* Category Header */}
-                        <div className="mb-2.5 space-y-1.5">
-                          <span className="text-[10.5px] font-black text-blue-600 uppercase tracking-[0.2em] block">
+                        <div className="mb-3 space-y-1">
+                          <span className="text-[11px] font-black text-blue-600 uppercase tracking-[0.2em] block">
                             {offeringsVerticalTabsData[activeOfferTab]?.title || "PRACTICE TOPICS"}
                           </span>
-                          <p className="text-[10px] text-slate-500 leading-relaxed font-medium">
+                          <p className="text-[11px] text-slate-500 leading-relaxed font-medium">
                             {offeringsVerticalTabsData[activeOfferTab]?.shortDesc}
                           </p>
-                          {/* Standards Pills */}
-                          <div className="flex flex-wrap gap-1 pt-1">
-                            {(offeringsVerticalTabsData[activeOfferTab]?.standards || []).map((std, si) => (
-                              <span key={si} className="text-[8.5px] font-bold px-1.5 py-0.5 bg-slate-100 text-slate-600 rounded-md border border-slate-200/80 leading-none">
-                                {std}
-                              </span>
-                            ))}
-                          </div>
-                          {/* SLA Badge */}
-                          {offeringsVerticalTabsData[activeOfferTab]?.slaBadge && (
-                            <div className="inline-flex items-center gap-1 mt-1 px-2 py-1 bg-emerald-50 border border-emerald-200 rounded-lg">
-                              <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 shrink-0" />
-                              <span className="text-[8.5px] font-bold text-emerald-700 leading-none">{offeringsVerticalTabsData[activeOfferTab]?.slaBadge}</span>
-                            </div>
-                          )}
                         </div>
                         <div className="flex flex-col gap-1.5">
                           {offeringsVerticalTabsData[activeOfferTab]?.items.map((item) => {
@@ -226,35 +212,30 @@ export const Header = () => {
                             return (
                               <button
                                 key={item.id}
-                                onMouseEnter={() => setActiveServiceTab(item.id)}
-                                className={`w-full text-left px-3 py-2.5 rounded-xl border transition-all flex items-start gap-2.5 ${
+                                onMouseEnter={() => {
+                                  setActiveServiceTab(item.id);
+                                  setHoveredDetailCard(0);
+                                }}
+                                className={`w-full text-left px-3.5 py-2.5 rounded-xl border transition-all flex items-center justify-between group ${
                                   isActive 
                                     ? "bg-blue-600 border-blue-600 text-white shadow-sm shadow-blue-500/20" 
                                     : "bg-white border-slate-200/90 text-slate-700 hover:border-slate-300 hover:bg-slate-50"
                                 }`}
                               >
-                                <IconComp className={`w-3.5 h-3.5 shrink-0 mt-0.5 ${isActive ? "text-white" : "text-blue-500"}`} />
-                                <span className="text-[10.5px] font-bold uppercase tracking-wide flex-1 text-left leading-snug whitespace-normal break-words">{item.title}</span>
+                                <div className="flex items-center gap-2.5 min-w-0">
+                                  <IconComp className={`w-4 h-4 shrink-0 ${isActive ? "text-white" : "text-blue-500"}`} />
+                                  <span className="text-[11px] font-bold uppercase tracking-wide truncate">{item.title}</span>
+                                </div>
+                                <ArrowRight className={`w-3.5 h-3.5 shrink-0 transition-transform ${isActive ? "text-white translate-x-0.5" : "text-slate-300 group-hover:text-slate-600"}`} />
                               </button>
                             );
                           })}
                         </div>
                       </div>
-
-                      {/* Bottom Quick-Reassurance Card */}
-                      <div className="mt-3 p-2.5 bg-slate-50 border border-slate-200/70 rounded-xl">
-                        <div className="flex items-center gap-1.5 mb-1">
-                          <ShieldCheck className="w-3.5 h-3.5 text-blue-600" />
-                          <span className="text-[9.5px] font-black text-slate-900 uppercase tracking-wide">Enterprise GRC Advisory</span>
-                        </div>
-                        <p className="text-[9px] text-slate-500 font-medium leading-snug">
-                          Dedicated compliance officers, multi-agency audit defense & 24/7 regulatory change overwatch.
-                        </p>
-                      </div>
                     </div>
 
-                    {/* Right Column: Rich 3-Card Detail Panel */}
-                    <div className="w-[66%] pl-5 flex flex-col justify-between overflow-y-auto max-h-[500px]">
+                    {/* Right Column: Clean Detail Panel with Interactive Hover-Reveal */}
+                    <div className="w-[68%] pl-6 flex flex-col justify-between overflow-y-auto max-h-[500px]">
                       {(() => {
                         const activeItem = offeringsVerticalTabsData[activeOfferTab]?.items.find(i => i.id === activeServiceTab) 
                           || offeringsVerticalTabsData[activeOfferTab]?.items[0];
@@ -277,103 +258,97 @@ export const Header = () => {
                         });
 
                         const cardThemes = [
-                          { accent: "bg-blue-500", header: "text-blue-700", border: "border-blue-100", bg: "bg-blue-50/40", dot: "bg-blue-400", iconBg: "bg-blue-600" },
-                          { accent: "bg-emerald-500", header: "text-emerald-700", border: "border-emerald-100", bg: "bg-emerald-50/40", dot: "bg-emerald-400", iconBg: "bg-emerald-600" },
-                          { accent: "bg-violet-500", header: "text-violet-700", border: "border-violet-100", bg: "bg-violet-50/40", dot: "bg-violet-400", iconBg: "bg-violet-600" },
+                          { accent: "border-blue-500 bg-blue-50/60 text-blue-700", header: "text-blue-700", border: "border-blue-200", dot: "bg-blue-500" },
+                          { accent: "border-emerald-500 bg-emerald-50/60 text-emerald-700", header: "text-emerald-700", border: "border-emerald-200", dot: "bg-emerald-500" },
+                          { accent: "border-purple-500 bg-purple-50/60 text-purple-700", header: "text-purple-700", border: "border-purple-200", dot: "bg-purple-500" },
                         ];
 
                         const badgeLabels = ["Core Deliverables", "Process Execution", "Audit Assurance"];
+                        const currentDetail = parsedDetails[hoveredDetailCard] || parsedDetails[0];
+                        const currentTheme = cardThemes[hoveredDetailCard] || cardThemes[0];
 
                         return (
-                          <div className="animate-fade-in flex flex-col h-full gap-2.5">
+                          <div className="animate-fade-in flex flex-col h-full justify-between gap-4">
                             {/* Service Header */}
-                            <div className="pb-2.5 border-b border-slate-100">
-                              <div className="flex items-start gap-3">
-                                <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-blue-600 to-indigo-700 flex items-center justify-center shrink-0 mt-0.5 shadow-md shadow-blue-500/20">
-                                  {(() => { const Icon = activeItem.icon; return <Icon className="w-4.5 h-4.5 text-white" />; })()}
-                                </div>
-                                <div className="flex-1">
-                                  <h3 className="text-base font-black text-slate-900 leading-tight tracking-tight">{activeItem.title}</h3>
-                                  <p className="text-[10.5px] text-slate-500 font-medium leading-relaxed mt-0.5">{activeItem.description}</p>
-                                </div>
+                            <div className="pb-3 border-b border-slate-100 flex items-start gap-3.5">
+                              <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-blue-600 to-indigo-700 flex items-center justify-center shrink-0 mt-0.5 shadow-md shadow-blue-500/20 text-white">
+                                {(() => { const Icon = activeItem.icon; return <Icon className="w-5 h-5" />; })()}
+                              </div>
+                              <div className="flex-1 min-w-0">
+                                <h3 className="text-base font-black text-slate-900 leading-tight tracking-tight">{activeItem.title}</h3>
+                                <p className="text-xs text-slate-500 font-medium leading-relaxed mt-0.5">{activeItem.description}</p>
                               </div>
                             </div>
 
-                            {/* 3-Card Grid — structured and evenly filled */}
-                            <div className="grid grid-cols-3 gap-2.5">
+                            {/* 3 Overview Cards — Clean, only high-level summary */}
+                            <div className="grid grid-cols-3 gap-3">
                               {parsedDetails.map((detail, idx) => {
                                 const theme = cardThemes[idx] || cardThemes[0];
+                                const isSelected = hoveredDetailCard === idx;
                                 return (
-                                  <div key={idx} className={`${theme.bg} border ${theme.border} rounded-xl flex flex-col overflow-hidden shadow-xs hover:shadow-sm transition-all`}>
-                                    <div className={`h-1 w-full ${theme.accent}`} />
-                                    <div className="p-3 flex flex-col gap-2">
-                                      {/* Header with separate deliverable badge so text never shrinks */}
-                                      <div className="flex flex-col gap-1">
-                                        <div className="flex items-center">
-                                          <span className={`text-[8px] font-black uppercase tracking-wider px-1.5 py-0.5 rounded bg-white/90 ${theme.header} border ${theme.border} inline-flex items-center gap-1 shadow-2xs`}>
-                                            <span className={`w-1.5 h-1.5 rounded-full ${theme.dot}`} />
-                                            {badgeLabels[idx] || "Deliverable"}
-                                          </span>
-                                        </div>
-                                        <h4 className={`text-[11px] font-black ${theme.header} uppercase tracking-wide leading-snug break-words mt-0.5`}>
-                                          {detail.label}
-                                        </h4>
+                                  <div
+                                    key={idx}
+                                    onMouseEnter={() => setHoveredDetailCard(idx)}
+                                    className={`rounded-2xl p-3.5 border transition-all cursor-pointer flex flex-col justify-between ${
+                                      isSelected
+                                        ? "bg-white border-blue-500 shadow-md ring-2 ring-blue-500/20"
+                                        : "bg-slate-50/70 border-slate-200/80 hover:bg-white hover:border-slate-300 shadow-2xs"
+                                    }`}
+                                  >
+                                    <div className="space-y-1.5">
+                                      <div className="flex items-center justify-between">
+                                        <span className={`text-[9px] font-black uppercase tracking-wider px-2 py-0.5 rounded-md ${theme.accent} border inline-flex items-center gap-1`}>
+                                          <span className={`w-1.5 h-1.5 rounded-full ${theme.dot}`} />
+                                          {badgeLabels[idx]}
+                                        </span>
+                                        <span className={`text-[9px] font-bold ${isSelected ? "text-blue-600" : "text-slate-400"}`}>
+                                          {isSelected ? "Active" : "Hover to view"}
+                                        </span>
                                       </div>
+                                      <h4 className="text-xs font-black text-slate-900 uppercase tracking-wide leading-snug">
+                                        {detail.label}
+                                      </h4>
+                                      <p className="text-[10px] font-medium text-slate-500 leading-relaxed line-clamp-2">
+                                        {detail.overview}
+                                      </p>
+                                    </div>
 
-                                      <p className="text-[9.5px] font-medium text-slate-600 leading-relaxed min-h-[26px]">{detail.overview}</p>
-                                      
-                                      {/* Key deliverables checklist - flows immediately with no giant hole */}
-                                      {detail.bullets.length > 0 && (
-                                        <div className="pt-2 border-t border-slate-200/70 mt-0.5">
-                                          <div className="text-[8px] font-black uppercase tracking-wider text-slate-400 mb-1 flex items-center gap-1">
-                                            <span>Key Deliverables</span>
-                                          </div>
-                                          <ul className="space-y-1.5">
-                                            {detail.bullets.map((bullet, bi) => (
-                                              <li key={bi} className="flex items-start gap-1.5">
-                                                <span className={`w-1.5 h-1.5 rounded-full ${theme.dot} shrink-0 mt-1`} />
-                                                <span className="text-[9.5px] font-medium text-slate-700 leading-snug break-words">{bullet}</span>
-                                              </li>
-                                            ))}
-                                          </ul>
-                                        </div>
-                                      )}
+                                    <div className="pt-2 border-t border-slate-100 mt-2 flex items-center justify-between text-[9px] font-bold text-slate-400">
+                                      <span>{detail.bullets.length} Deliverables</span>
+                                      <span className={isSelected ? "text-blue-600" : "text-slate-400"}>Inspect &rarr;</span>
                                     </div>
                                   </div>
                                 );
                               })}
                             </div>
 
-                            {/* Practice Assurance Bar - fills space with high-value proof points */}
-                            <div className="grid grid-cols-3 gap-2 py-0.5">
-                              <div className="flex items-center gap-2 p-2 bg-slate-50/90 border border-slate-200/60 rounded-xl">
-                                <div className="w-6 h-6 rounded-lg bg-emerald-100 text-emerald-600 flex items-center justify-center shrink-0">
-                                  <ShieldCheck className="w-3.5 h-3.5" />
+                            {/* Dynamic Hover-Revealed Detailed Deliverables Container */}
+                            {currentDetail && currentDetail.bullets.length > 0 && (
+                              <div className="bg-gradient-to-br from-slate-50 to-blue-50/30 border border-slate-200/90 rounded-2xl p-4 shadow-2xs space-y-3 transition-all">
+                                <div className="flex items-center justify-between border-b border-slate-200/70 pb-2">
+                                  <div className="flex items-center gap-2">
+                                    <span className={`text-[9.5px] font-black uppercase tracking-wider px-2 py-0.5 rounded-md ${currentTheme.accent} border`}>
+                                      {badgeLabels[hoveredDetailCard]}
+                                    </span>
+                                    <span className="text-xs font-black text-slate-800">
+                                      {currentDetail.label} — Key Deliverables Checklist
+                                    </span>
+                                  </div>
+                                  <span className="text-[10px] text-slate-400 font-medium">
+                                    Hover any card above to explore its deliverables
+                                  </span>
                                 </div>
-                                <div className="min-w-0">
-                                  <span className="text-[9.5px] font-bold text-slate-900 block leading-tight">100% Audit Shield</span>
-                                  <span className="text-[8px] text-slate-500 font-medium leading-tight block">Zero penalty & closure defense</span>
-                                </div>
-                              </div>
-                              <div className="flex items-center gap-2 p-2 bg-slate-50/90 border border-slate-200/60 rounded-xl">
-                                <div className="w-6 h-6 rounded-lg bg-blue-100 text-blue-600 flex items-center justify-center shrink-0">
-                                  <Shield className="w-3.5 h-3.5" />
-                                </div>
-                                <div className="min-w-0">
-                                  <span className="text-[9.5px] font-bold text-slate-900 block leading-tight">Turnkey SLA Dispatch</span>
-                                  <span className="text-[8px] text-slate-500 font-medium leading-tight block">24-48h expedited turnaround</span>
-                                </div>
-                              </div>
-                              <div className="flex items-center gap-2 p-2 bg-slate-50/90 border border-slate-200/60 rounded-xl">
-                                <div className="w-6 h-6 rounded-lg bg-indigo-100 text-indigo-600 flex items-center justify-center shrink-0">
-                                  <FileCheck className="w-3.5 h-3.5" />
-                                </div>
-                                <div className="min-w-0">
-                                  <span className="text-[9.5px] font-bold text-slate-900 block leading-tight">Digital Vault Archive</span>
-                                  <span className="text-[8px] text-slate-500 font-medium leading-tight block">Tamper-evident timestamped logs</span>
+
+                                <div className="grid grid-cols-2 gap-x-6 gap-y-2">
+                                  {currentDetail.bullets.map((bullet, bi) => (
+                                    <div key={bi} className="flex items-start gap-2">
+                                      <CheckCircle2 className="w-3.5 h-3.5 text-blue-600 shrink-0 mt-0.5" />
+                                      <span className="text-xs text-slate-700 font-medium leading-snug break-words">{bullet}</span>
+                                    </div>
+                                  ))}
                                 </div>
                               </div>
-                            </div>
+                            )}
 
                             {/* Bottom action row */}
                             <div className="pt-2 border-t border-slate-100 flex items-center justify-between">
@@ -395,7 +370,7 @@ export const Header = () => {
                                   <span>Book Strategy Session</span>
                                 </Link>
                               </div>
-                              <span className="text-[9.5px] text-slate-400 font-medium">
+                              <span className="text-[10px] text-slate-400 font-semibold">
                                 {offeringsVerticalTabsData[activeOfferTab]?.items.length} specialized modules in this practice
                               </span>
                             </div>
