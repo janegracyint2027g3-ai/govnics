@@ -865,10 +865,10 @@ function forwardMonthlyCareerApplications() {
 
 function GENERATE_ALL_SHEET1_REPORTS() {
   var ss = getSpreadsheet();
-  try { generateDailyReportInSheet1(ss); } catch(e) { console.error("Daily report error: " + e); }
-  try { generateWeeklyReportInSheet1(ss); } catch(e) { console.error("Weekly report error: " + e); }
-  try { generateMonthlyReportInSheet1(ss); } catch(e) { console.error("Monthly report error: " + e); }
-  try { generateDatabaseSummaryInSheet1(ss); } catch(e) { console.error("DB summary error: " + e); }
+  try { generateDailyReportInSheet1(ss); } catch(e) { console.error("Daily report error: " + e.toString()); }
+  try { generateWeeklyReportInSheet1(ss); } catch(e) { console.error("Weekly report error: " + e.toString()); }
+  try { generateMonthlyReportInSheet1(ss); } catch(e) { console.error("Monthly report error: " + e.toString()); }
+  try { generateDatabaseSummaryInSheet1(ss); } catch(e) { console.error("DB summary error: " + e.toString()); }
 
   var ui = null;
   try { ui = SpreadsheetApp.getUi(); } catch(e) {}
@@ -876,28 +876,29 @@ function GENERATE_ALL_SHEET1_REPORTS() {
 }
 
 function generateDailyReportInSheet1(ss) {
+  ss = ss || getSpreadsheet();
   var headers = ["Date", "Strategy Sessions", "Inbound Leads", "Course Enquiries", "Audit Consultations", "Partner Apps", "Career Apps", "Estimators", "Registrations", "Total Actions"];
   var sh = getOrCreateSheet(ss, "Daily_Reports", headers);
   sh.clearContents();
 
   var dailyMap = {};
-  var getDayKey = function(ts) {
-    if (!ts) return Utilities.formatDate(new Date(), "Asia/Kolkata", "yyyy-MM-dd");
-    try { return Utilities.formatDate(new Date(ts), "Asia/Kolkata", "yyyy-MM-dd"); } catch(e) { return "Recent"; }
-  };
 
   var aggregate = function(sheetName, prop) {
     try {
       var s = ss.getSheetByName(sheetName);
       if (s && s.getLastRow() > 1) {
         var d = s.getDataRange().getValues();
+        var tsCol = findTimestampColumnIndex(d[0]);
         for (var r = 1; r < d.length; r++) {
-          var k = getDayKey(d[r][0] || d[r][1]);
+          var rawDate = d[r][tsCol];
+          var k = getSafeDayKey(rawDate);
           if (!dailyMap[k]) dailyMap[k] = { strategy: 0, leads: 0, courses: 0, audits: 0, partners: 0, careers: 0, estimators: 0, members: 0 };
           dailyMap[k][prop]++;
         }
       }
-    } catch(e) {}
+    } catch(err) {
+      console.warn("Daily aggregate warning for " + sheetName + ": " + err.toString());
+    }
   };
 
   aggregate("Strategy_Session_Bookings", "strategy");
@@ -918,43 +919,39 @@ function generateDailyReportInSheet1(ss) {
   });
 
   if (rows.length === 0) {
-    rows = [[Utilities.formatDate(new Date(), "Asia/Kolkata", "yyyy-MM-dd"), 0, 0, 0, 0, 0, 0, 0, 0, 0]];
+    rows = [[getSafeDayKey(new Date()), 0, 0, 0, 0, 0, 0, 0, 0, 0]];
   }
 
+  ensureSheetCapacity(sh, rows.length + 1, headers.length);
   sh.getRange(1, 1, 1, headers.length).setValues([headers]).setFontWeight("bold").setBackground("#1e293b").setFontColor("#ffffff");
   sh.getRange(2, 1, rows.length, headers.length).setValues(rows);
   sh.setFrozenRows(1);
 }
 
 function generateWeeklyReportInSheet1(ss) {
-  var headers = ["Week Period", "Strategy Sessions", "Inbound Leads", "Course Enquiries", "Audit Consultations", "Partner Apps", "Career Apps", "Estimators", "Total Form Submissions"];
+  ss = ss || getSpreadsheet();
+  var headers = ["Week Period", "Strategy Sessions", "Inbound Leads", "Course Enquiries", "Audit Consultations", "Partner Apps", "Career Apps", "Estimators", "Registrations", "Total Form Submissions"];
   var sh = getOrCreateSheet(ss, "Weekly_Reports", headers);
   sh.clearContents();
 
   var weekMap = {};
-  var getWeekKey = function(ts) {
-    if (!ts) return "Current Week";
-    try {
-      var d = new Date(ts);
-      var onejan = new Date(d.getFullYear(), 0, 1);
-      var millisecsInDay = 86400000;
-      var weekNum = Math.ceil((((d - onejan) / millisecsInDay) + onejan.getDay() + 1) / 7);
-      return d.getFullYear() + "-W" + (weekNum < 10 ? "0" + weekNum : weekNum);
-    } catch(e) { return "Current Week"; }
-  };
 
   var aggregateWeek = function(sheetName, prop) {
     try {
       var s = ss.getSheetByName(sheetName);
       if (s && s.getLastRow() > 1) {
         var d = s.getDataRange().getValues();
+        var tsCol = findTimestampColumnIndex(d[0]);
         for (var r = 1; r < d.length; r++) {
-          var k = getWeekKey(d[r][0] || d[r][1]);
-          if (!weekMap[k]) weekMap[k] = { strategy: 0, leads: 0, courses: 0, audits: 0, partners: 0, careers: 0, estimators: 0 };
+          var rawDate = d[r][tsCol];
+          var k = getSafeWeekKey(rawDate);
+          if (!weekMap[k]) weekMap[k] = { strategy: 0, leads: 0, courses: 0, audits: 0, partners: 0, careers: 0, estimators: 0, members: 0 };
           weekMap[k][prop]++;
         }
       }
-    } catch(e) {}
+    } catch(err) {
+      console.warn("Weekly aggregate warning for " + sheetName + ": " + err.toString());
+    }
   };
 
   aggregateWeek("Strategy_Session_Bookings", "strategy");
@@ -964,47 +961,50 @@ function generateWeeklyReportInSheet1(ss) {
   aggregateWeek("Partner_Applications", "partners");
   aggregateWeek("Career_Applications", "careers");
   aggregateWeek("Estimator_Calculations", "estimators");
+  aggregateWeek("Registered_Users", "members");
 
   var weeks = Object.keys(weekMap).sort().reverse();
   var rows = [];
   weeks.forEach(function(w) {
     var it = weekMap[w];
-    var tot = it.strategy + it.leads + it.courses + it.audits + it.partners + it.careers + it.estimators;
-    rows.push([w, it.strategy, it.leads, it.courses, it.audits, it.partners, it.careers, it.estimators, tot]);
+    var tot = it.strategy + it.leads + it.courses + it.audits + it.partners + it.careers + it.estimators + it.members;
+    rows.push([w, it.strategy, it.leads, it.courses, it.audits, it.partners, it.careers, it.estimators, it.members, tot]);
   });
 
   if (rows.length === 0) {
-    rows = [["Current Week", 0, 0, 0, 0, 0, 0, 0, 0]];
+    rows = [["Current Week (" + getSafeWeekKey(new Date()) + ")", 0, 0, 0, 0, 0, 0, 0, 0, 0]];
   }
 
+  ensureSheetCapacity(sh, rows.length + 1, headers.length);
   sh.getRange(1, 1, 1, headers.length).setValues([headers]).setFontWeight("bold").setBackground("#1e293b").setFontColor("#ffffff");
   sh.getRange(2, 1, rows.length, headers.length).setValues(rows);
   sh.setFrozenRows(1);
 }
 
 function generateMonthlyReportInSheet1(ss) {
-  var headers = ["Month", "Strategy Sessions", "Inbound Leads", "Course Enquiries", "Audit Consultations", "Partner Apps", "Career Apps", "Estimators", "Total Form Submissions"];
+  ss = ss || getSpreadsheet();
+  var headers = ["Month", "Strategy Sessions", "Inbound Leads", "Course Enquiries", "Audit Consultations", "Partner Apps", "Career Apps", "Estimators", "Registrations", "Total Form Submissions"];
   var sh = getOrCreateSheet(ss, "Monthly_Reports", headers);
   sh.clearContents();
 
   var monthMap = {};
-  var getMonthKey = function(ts) {
-    if (!ts) return Utilities.formatDate(new Date(), "Asia/Kolkata", "yyyy-MM");
-    try { return Utilities.formatDate(new Date(ts), "Asia/Kolkata", "yyyy-MM"); } catch(e) { return "Recent"; }
-  };
 
   var aggregateMonth = function(sheetName, prop) {
     try {
       var s = ss.getSheetByName(sheetName);
       if (s && s.getLastRow() > 1) {
         var d = s.getDataRange().getValues();
+        var tsCol = findTimestampColumnIndex(d[0]);
         for (var r = 1; r < d.length; r++) {
-          var k = getMonthKey(d[r][0] || d[r][1]);
-          if (!monthMap[k]) monthMap[k] = { strategy: 0, leads: 0, courses: 0, audits: 0, partners: 0, careers: 0, estimators: 0 };
+          var rawDate = d[r][tsCol];
+          var k = getSafeMonthKey(rawDate);
+          if (!monthMap[k]) monthMap[k] = { strategy: 0, leads: 0, courses: 0, audits: 0, partners: 0, careers: 0, estimators: 0, members: 0 };
           monthMap[k][prop]++;
         }
       }
-    } catch(e) {}
+    } catch(err) {
+      console.warn("Monthly aggregate warning for " + sheetName + ": " + err.toString());
+    }
   };
 
   aggregateMonth("Strategy_Session_Bookings", "strategy");
@@ -1014,26 +1014,30 @@ function generateMonthlyReportInSheet1(ss) {
   aggregateMonth("Partner_Applications", "partners");
   aggregateMonth("Career_Applications", "careers");
   aggregateMonth("Estimator_Calculations", "estimators");
+  aggregateMonth("Registered_Users", "members");
 
   var months = Object.keys(monthMap).sort().reverse();
   var rows = [];
   months.forEach(function(m) {
     var it = monthMap[m];
-    var tot = it.strategy + it.leads + it.courses + it.audits + it.partners + it.careers + it.estimators;
-    rows.push([m, it.strategy, it.leads, it.courses, it.audits, it.partners, it.careers, it.estimators, tot]);
+    var tot = it.strategy + it.leads + it.courses + it.audits + it.partners + it.careers + it.estimators + it.members;
+    rows.push([m, it.strategy, it.leads, it.courses, it.audits, it.partners, it.careers, it.estimators, it.members, tot]);
   });
 
   if (rows.length === 0) {
-    rows = [[Utilities.formatDate(new Date(), "Asia/Kolkata", "yyyy-MM"), 0, 0, 0, 0, 0, 0, 0, 0]];
+    rows = [[getSafeMonthKey(new Date()), 0, 0, 0, 0, 0, 0, 0, 0, 0]];
   }
 
+  ensureSheetCapacity(sh, rows.length + 1, headers.length);
   sh.getRange(1, 1, 1, headers.length).setValues([headers]).setFontWeight("bold").setBackground("#1e293b").setFontColor("#ffffff");
   sh.getRange(2, 1, rows.length, headers.length).setValues(rows);
   sh.setFrozenRows(1);
 }
 
 function generateDatabaseSummaryInSheet1(ss) {
-  var sh = getOrCreateSheet(ss, "Database_Summary", ["Table Name", "Total Records", "Status", "Table Type", "Last Updated"]);
+  ss = ss || getSpreadsheet();
+  var headers = ["Table Name", "Total Records", "Status", "Table Type", "Last Updated"];
+  var sh = getOrCreateSheet(ss, "Database_Summary", headers);
   sh.clearContents();
 
   var tables = [
@@ -1061,7 +1065,7 @@ function generateDatabaseSummaryInSheet1(ss) {
     return [t.name, count, count > 0 ? "🟢 Live Data" : "⚪ Ready for Data", t.type, new Date().toLocaleString("en-IN", { timeZone: "Asia/Kolkata" })];
   });
 
-  var headers = ["Table Name", "Total Records", "Status", "Table Type", "Last Updated"];
+  ensureSheetCapacity(sh, rows.length + 1, headers.length);
   sh.getRange(1, 1, 1, headers.length).setValues([headers]).setFontWeight("bold").setBackground("#1e293b").setFontColor("#ffffff");
   sh.getRange(2, 1, rows.length, headers.length).setValues(rows);
   sh.setFrozenRows(1);
@@ -1416,21 +1420,20 @@ function getOrCreateSheet(ss, name, headers) {
   var sheet = ss.getSheetByName(name);
   if (!sheet) {
     sheet = ss.insertSheet(name);
-    if (headers && headers.length > 0) {
+  }
+  if (headers && headers.length > 0) {
+    var maxCols = sheet.getMaxColumns();
+    if (maxCols < headers.length) {
+      sheet.insertColumnsAfter(maxCols, headers.length - maxCols + 5);
+    }
+    if (sheet.getLastRow() === 0) {
       sheet.getRange(1, 1, 1, headers.length)
            .setValues([headers])
            .setFontWeight("bold")
            .setBackground("#1e293b")
            .setFontColor("#ffffff");
-      sheet.setFrozenRows(1);
+      try { sheet.setFrozenRows(1); } catch(e) {}
     }
-  } else if (sheet.getLastRow() === 0 && headers && headers.length > 0) {
-    sheet.getRange(1, 1, 1, headers.length)
-         .setValues([headers])
-         .setFontWeight("bold")
-         .setBackground("#1e293b")
-         .setFontColor("#ffffff");
-    sheet.setFrozenRows(1);
   }
   return sheet;
 }
@@ -1522,4 +1525,110 @@ function uniqueEmails(list) {
     out.push(addr.trim());
   });
   return out;
+}
+
+// ═════════════════════════════════════════════════════════════════════════════
+// 12. DATE PARSING & REPORT GENERATION HELPERS
+// ═════════════════════════════════════════════════════════════════════════════
+
+function findTimestampColumnIndex(headerRow) {
+  if (!headerRow || !headerRow.length) return 0;
+  for (var c = 0; c < headerRow.length; c++) {
+    var h = String(headerRow[c] || "").toLowerCase().replace(/[\s\-_]/g, "");
+    if (h === "timestamp" || h === "date" || h === "datesubmitted" || h === "submittedat") {
+      return c;
+    }
+  }
+  return 0;
+}
+
+function parseSafeDate(val) {
+  if (!val) return null;
+  if (val instanceof Date) {
+    return isNaN(val.getTime()) ? null : val;
+  }
+  if (typeof val === "number") {
+    var dNum = new Date(val);
+    return isNaN(dNum.getTime()) ? null : dNum;
+  }
+  if (typeof val === "string") {
+    val = val.trim();
+    if (!val) return null;
+
+    // Try direct ISO or standard date constructor
+    var direct = new Date(val);
+    if (!isNaN(direct.getTime()) && direct.getFullYear() > 1990) {
+      return direct;
+    }
+
+    // Try DD/MM/YYYY or DD-MM-YYYY format
+    var dmy = val.match(/^(\d{1,2})[\/\-](\d{1,2})[\/\-](\d{4})/);
+    if (dmy) {
+      var day = parseInt(dmy[1], 10);
+      var month = parseInt(dmy[2], 10) - 1;
+      var year = parseInt(dmy[3], 10);
+      var parsedDmy = new Date(year, month, day);
+      if (!isNaN(parsedDmy.getTime())) return parsedDmy;
+    }
+
+    // Try YYYY-MM-DD or YYYY/MM/DD format
+    var ymd = val.match(/^(\d{4})[\/\-](\d{1,2})[\/\-](\d{1,2})/);
+    if (ymd) {
+      var y = parseInt(ymd[1], 10);
+      var m = parseInt(ymd[2], 10) - 1;
+      var d = parseInt(ymd[3], 10);
+      var parsedYmd = new Date(y, m, d);
+      if (!isNaN(parsedYmd.getTime())) return parsedYmd;
+    }
+  }
+  return null;
+}
+
+function getSafeDayKey(val) {
+  var d = parseSafeDate(val);
+  if (!d) return "Recent";
+  try {
+    return Utilities.formatDate(d, "Asia/Kolkata", "yyyy-MM-dd");
+  } catch(e) {
+    return "Recent";
+  }
+}
+
+function getSafeWeekKey(val) {
+  var d = parseSafeDate(val);
+  if (!d) return "Recent";
+  try {
+    var onejan = new Date(d.getFullYear(), 0, 1);
+    var millisecsInDay = 86400000;
+    var weekNum = Math.ceil((((d.getTime() - onejan.getTime()) / millisecsInDay) + onejan.getDay() + 1) / 7);
+    return d.getFullYear() + "-W" + (weekNum < 10 ? "0" + weekNum : weekNum);
+  } catch(e) {
+    return "Recent";
+  }
+}
+
+function getSafeMonthKey(val) {
+  var d = parseSafeDate(val);
+  if (!d) return "Recent";
+  try {
+    return Utilities.formatDate(d, "Asia/Kolkata", "yyyy-MM");
+  } catch(e) {
+    return "Recent";
+  }
+}
+
+function ensureSheetCapacity(sh, requiredRows, requiredCols) {
+  try {
+    if (!sh) return;
+    var maxRows = sh.getMaxRows();
+    if (maxRows < requiredRows) {
+      sh.insertRowsAfter(maxRows, requiredRows - maxRows + 5);
+    }
+    var maxCols = sh.getMaxColumns();
+    if (maxCols < requiredCols) {
+      sh.insertColumnsAfter(maxCols, requiredCols - maxCols + 5);
+    }
+  } catch(e) {
+    console.warn("ensureSheetCapacity warning: " + e.toString());
+  }
 }
