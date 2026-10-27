@@ -4,6 +4,7 @@ import { Footer } from "./Footer";
 import { useLocation } from "react-router-dom";
 import { GrcExitIntentPopup } from "../ui/GrcExitIntentPopup";
 import { GrcChatBot } from "../ai/GrcChatBot";
+import { QuickInquiry } from "../ui/QuickInquiry";
 
 interface LayoutProps {
   children: React.ReactNode;
@@ -61,6 +62,7 @@ export const Layout = ({ children, noPadding = false, hideHeaderFooter = false }
       </main>
       {!hideHeaderFooter && <Footer />}
       {!hideHeaderFooter && <GrcChatBot />}
+      {!hideHeaderFooter && <QuickInquiry />}
       <GrcExitIntentPopup />
     </div>
   );
