@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GOVENICS GRC — LinkedIn Enterprise Content Studio & Lead Engine</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600;700&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background-color: #030712;
+      color: #F8FAFC;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    
+    /* Top Navigation Header */
+    header {
+      background: #050B14;
+      border-bottom: 1px solid #1E293B;
+      padding: 18px 35px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+    }
+    .brand-group {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+    .brand-logo-pill {
+      background: #1E40AF;
+      color: #FFFFFF;
+      font-size: 13px;
+      font-weight: 800;
+      letter-spacing: 0.1em;
+      padding: 7px 18px;
+      border-radius: 999px;
+      border: 1px solid #3B82F6;
+    }
+    .brand-title {
+      font-size: 17px;
+      font-weight: 800;
+      color: #FFFFFF;
+      letter-spacing: -0.01em;
+    }
+    .brand-sub {
+      font-size: 12px;
+      color: #64748B;
+    }
+    .stats-badge {
+      background: rgba(59, 130, 246, 0.1);
+      border: 1px solid #1D4ED8;
+      color: #93C5FD;
+      padding: 6px 16px;
+      border-radius: 999px;
+      font-size: 13px;
+      font-weight: 700;
+    }
+    
+    /* Main Studio Layout: Sidebar + Workspace */
+    .studio-container {
+      display: grid;
+      grid-template-columns: 360px 1fr;
+      flex: 1;
+      height: calc(100vh - 75px);
+      overflow: hidden;
+    }
+    
+    /* Sidebar */
+    .sidebar {
+      background: #050B14;
+      border-right: 1px solid #1E293B;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+    .filter-section {
+      padding: 20px;
+      border-bottom: 1px solid #1E293B;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .search-input {
+      width: 100%;
+      background: #0B132B;
+      border: 1px solid #1E293B;
+      border-radius: 8px;
+      padding: 10px 14px;
+      color: #F8FAFC;
+      font-size: 13px;
+      outline: none;
+    }
+    .search-input:focus {
+      border-color: #3B82F6;
+    }
+    .filter-row {
+      display: flex;
+      gap: 8px;
+    }
+    .filter-btn {
+      flex: 1;
+      background: #0B132B;
+      color: #94A3B8;
+      border: 1px solid #1E293B;
+      padding: 8px;
+      border-radius: 6px;
+      font-size: 12px;
+      font-weight: 700;
+      cursor: pointer;
+      text-align: center;
+      transition: all 0.2s;
+    }
+    .filter-btn.active {
+      background: #1E40AF;
+      color: #FFFFFF;
+      border-color: #3B82F6;
+    }
+    .post-list {
+      flex: 1;
+      overflow-y: auto;
+      padding: 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .post-item {
+      background: #090F1D;
+      border: 1px solid #1E293B;
+      border-radius: 10px;
+      padding: 14px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .post-item:hover {
+      background: #0E182F;
+      border-color: #3B82F6;
+    }
+    .post-item.active {
+      background: #111D38;
+      border-color: #3B82F6;
+      box-shadow: 0 0 15px rgba(59,130,246,0.3);
+    }
+    .item-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .item-tag {
+      font-size: 10px;
+      font-weight: 800;
+      text-transform: uppercase;
+      padding: 3px 8px;
+      border-radius: 4px;
+      letter-spacing: 0.05em;
+    }
+    .item-score {
+      font-size: 11px;
+      font-weight: 800;
+      color: #10B981;
+    }
+    .item-title {
+      font-size: 13px;
+      font-weight: 700;
+      color: #F8FAFC;
+      line-height: 1.3;
+    }
+    .item-sub {
+      font-size: 11px;
+      color: #64748B;
+    }
+    
+    /* Workspace Area */
+    .workspace {
+      display: flex;
+      flex-direction: column;
+      overflow-y: auto;
+      background: #030712;
+    }
+    .workspace-tabs {
+      background: #050B14;
+      border-bottom: 1px solid #1E293B;
+      padding: 0 35px;
+      display: flex;
+      gap: 30px;
+      position: sticky;
+      top: 0;
+      z-index: 20;
+    }
+    .ws-tab {
+      padding: 18px 0;
+      font-size: 14px;
+      font-weight: 700;
+      color: #64748B;
+      cursor: pointer;
+      border-bottom: 2px solid transparent;
+      transition: all 0.2s;
+    }
+    .ws-tab:hover {
+      color: #94A3B8;
+    }
+    .ws-tab.active {
+      color: #60A5FA;
+      border-bottom-color: #3B82F6;
+    }
+    .workspace-content {
+      padding: 35px;
+      flex: 1;
+    }
+    
+    /* Tab Panes */
+    .tab-pane {
+      display: none;
+      flex-direction: column;
+      gap: 30px;
+    }
+    .tab-pane.active {
+      display: flex;
+    }
+    
+    /* Text Post View */
+    .text-card-panel {
+      background: #090F1D;
+      border: 1px solid #1E293B;
+      border-radius: 14px;
+      padding: 30px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+    .copy-banner {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid #1E293B;
+      padding-bottom: 15px;
+    }
+    .post-body-text {
+      font-family: 'Inter', sans-serif;
+      font-size: 15px;
+      line-height: 1.7;
+      color: #E2E8F0;
+      white-space: pre-wrap;
+      background: #050B14;
+      border: 1px solid #1E293B;
+      border-radius: 10px;
+      padding: 25px;
+    }
+    .action-btn {
+      background: #1E40AF;
+      color: #FFFFFF;
+      border: 1px solid #3B82F6;
+      padding: 10px 22px;
+      border-radius: 8px;
+      font-weight: 700;
+      font-size: 13px;
+      cursor: pointer;
+      transition: all 0.2s;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .action-btn:hover {
+      background: #2563EB;
+      box-shadow: 0 0 15px rgba(59,130,246,0.5);
+    }
+    
+    /* Card Iframe Preview */
+    .card-iframe-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+    }
+    .card-frame {
+      width: 800px;
+      height: 800px;
+      border: 1px solid #1E293B;
+      border-radius: 16px;
+      box-shadow: 0 25px 60px rgba(0,0,0,0.8);
+      background: #000;
+    }
+    
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="brand-group">
+      <div class="brand-logo-pill">GOVENICS GRC</div>
+      <div>
+        <div class="brand-title">Enterprise LinkedIn Content & Lead Generation Studio</div>
+        <div class="brand-sub">Multi-Industry • 132 Bespoke Posts • Text & Image Card Formats</div>
+      </div>
+    </div>
+    <div class="stats-badge" id="statsCount">132 Posts Ready</div>
+  </header>
+
+  <div class="studio-container">
+    <!-- Sidebar -->
+    <div class="sidebar">
+      <div class="filter-section">
+        <input type="text" class="search-input" id="searchBox" placeholder="Search by topic, industry, or law..." oninput="filterPosts()">
+        <div class="filter-row">
+          <button class="filter-btn active" id="btnFilterAll" onclick="setTypeFilter('all')">All (132)</button>
+          <button class="filter-btn" id="btnFilterOff" onclick="setTypeFilter('offering')">Offerings (78)</button>
+          <button class="filter-btn" id="btnFilterInd" onclick="setTypeFilter('industry')">Industries (54)</button>
+        </div>
+      </div>
+      <div class="post-list" id="postListContainer"></div>
+    </div>
+
+    <!-- Workspace -->
+    <div class="workspace">
+      <div class="workspace-tabs">
+        <div class="ws-tab active" onclick="setWsTab('tabText')">📝 Text Post</div>
+        <div class="ws-tab" onclick="setWsTab('tabCard')">🖼️ Image Post (1080×1080)</div>
+      </div>
+
+      <div class="workspace-content">
+        <!-- TAB 1: TEXT POST -->
+        <div class="tab-pane active" id="tabText">
+          <div class="text-card-panel">
+            <div class="copy-banner">
+              <div>
+                <h2 id="activePostTitle" style="font-size: 20px; font-weight: 800; color: #FFFFFF;">Select a Post</h2>
+                <div id="activePostSub" style="font-size: 13px; color: #94A3B8; margin-top: 4px;">Primary Audience: CFOs • Framework: PAS</div>
+              </div>
+              <button class="action-btn" onclick="copyPostText()">
+                <span>📋</span>
+                <span id="copyBtnText">Copy Post Text</span>
+              </button>
+            </div>
+            <div class="post-body-text" id="activePostText">Please select a post from the left sidebar to view its full text.</div>
+          </div>
+        </div>
+
+        <!-- TAB 2: VISUAL CARD -->
+        <div class="tab-pane" id="tabCard">
+          <div class="card-iframe-container">
+            <div style="display: flex; justify-content: space-between; width: 800px; align-items: center;">
+              <div>
+                <span style="font-size: 14px; font-weight: 700; color: #CBD5E1;">1080×1080 LinkedIn Square Image Card</span>
+                <span style="font-size: 12px; color: #64748B; margin-left: 10px;">(Photorealistic B2B Visual • Ready to Publish)</span>
+              </div>
+              <a id="cardDirectLink" href="#" target="_blank" class="action-btn" style="text-decoration: none; padding: 7px 16px; font-size: 12px;">Open Full 1080px ↗</a>
+            </div>
+            <iframe id="cardFrame" class="card-frame" src=""></iframe>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <script>
+    let allPosts = [];
+    let currentFiltered = [];
+    let activePostIndex = 0;
+    let currentTypeFilter = 'all';
+
+    async function loadManifest() {
+      try {
+        const resp = await fetch('../posts_manifest.json');
+        allPosts = await resp.json();
+        currentFiltered = [...allPosts];
+        renderSidebar();
+        if (allPosts.length > 0) selectPost(0);
+      } catch (err) {
+        console.error("Error loading manifest:", err);
+      }
+    }
+
+    function setTypeFilter(type) {
+      currentTypeFilter = type;
+      document.getElementById('btnFilterAll').className = 'filter-btn' + (type === 'all' ? ' active' : '');
+      document.getElementById('btnFilterOff').className = 'filter-btn' + (type === 'offering' ? ' active' : '');
+      document.getElementById('btnFilterInd').className = 'filter-btn' + (type === 'industry' ? ' active' : '');
+      filterPosts();
+    }
+
+    function filterPosts() {
+      const query = document.getElementById('searchBox').value.toLowerCase();
+      currentFiltered = allPosts.filter(p => {
+        const matchesType = currentTypeFilter === 'all' || p.category_type === currentTypeFilter;
+        const matchesSearch = !query || 
+          p.post_title.toLowerCase().includes(query) || 
+          p.subindustry.toLowerCase().includes(query) ||
+          p.verification_status.toLowerCase().includes(query);
+        return matchesType && matchesSearch;
+      });
+      renderSidebar();
+      if (currentFiltered.length > 0) selectPost(0);
+    }
+
+    function renderSidebar() {
+      const container = document.getElementById('postListContainer');
+      container.innerHTML = '';
+      document.getElementById('statsCount').innerText = `${currentFiltered.length} Posts`;
+
+      currentFiltered.forEach((p, idx) => {
+        const item = document.createElement('div');
+        item.className = 'post-item' + (idx === activePostIndex ? ' active' : '');
+        item.onclick = () => selectPost(idx);
+
+        const badgeColor = p.category_type === 'offering' ? '#3B82F6' : '#10B981';
+        item.innerHTML = `
+          <div class="item-header">
+            <span class="item-tag" style="background: ${badgeColor}22; color: ${badgeColor};">${p.category_title}</span>
+            <span class="item-tag" style="background: rgba(255,255,255,0.06); color: #94A3B8;">${p.funnel_stage}</span>
+          </div>
+          <div class="item-title">${p.editorial_framework}: ${p.subindustry}</div>
+          <div class="item-sub">${p.primary_audience} • Post #${p.post_num}</div>
+        `;
+        container.appendChild(item);
+      });
+    }
+
+    function selectPost(index) {
+      activePostIndex = index;
+      const p = currentFiltered[index];
+      if (!p) return;
+
+      // Update sidebar active classes
+      const items = document.querySelectorAll('.post-item');
+      items.forEach((it, i) => it.className = 'post-item' + (i === index ? ' active' : ''));
+
+      // Update Tab 1 (Text Post)
+      document.getElementById('activePostTitle').innerText = p.post_title;
+      document.getElementById('activePostSub').innerText = `Audience: ${p.primary_audience} • Framework: ${p.editorial_framework} • Stage: ${p.funnel_stage}`;
+      document.getElementById('activePostText').innerText = p.text_content.full_post;
+
+      // Update Tab 2 (Card iframe)
+      const cardPath = p.category_type === 'offering'
+        ? `../offerings/${p.category_id}/images/card_${p.post_num}.html`
+        : `../industries/${p.category_id}/images/card_${p.post_num}.html`;
+      document.getElementById('cardFrame').src = cardPath;
+      document.getElementById('cardDirectLink').href = cardPath;
+    }
+
+    function setWsTab(tabId) {
+      const tabs = document.querySelectorAll('.ws-tab');
+      const panes = document.querySelectorAll('.tab-pane');
+      tabs.forEach(t => t.classList.remove('active'));
+      panes.forEach(p => p.classList.remove('active'));
+
+      event.target.classList.add('active');
+      document.getElementById(tabId).classList.add('active');
+    }
+
+    function copyPostText() {
+      const text = document.getElementById('activePostText').innerText;
+      navigator.clipboard.writeText(text).then(() => {
+        const btn = document.getElementById('copyBtnText');
+        btn.innerText = 'Copied to Clipboard! ✓';
+        setTimeout(() => btn.innerText = 'Copy Post Text', 2500);
+      });
+    }
+
+    loadManifest();
+  </script>
+</body>
+</html>

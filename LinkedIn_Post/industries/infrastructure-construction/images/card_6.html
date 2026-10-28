@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Infrastructure &amp; Construction: The Direct Diagnostic Invitation (Urban Utility Networks) — LinkedIn Card</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@600;700&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background-color: #030712;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      padding: 30px;
+    }
+    
+    /* 1080x1080 Square Post Card */
+    .linkedin-card-1080 {
+      width: 1080px;
+      height: 1080px;
+      background: #050B14;
+      border: 1px solid #1E293B;
+      box-shadow: 0 40px 100px rgba(0,0,0,0.8);
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      border-radius: 20px;
+    }
+    
+    /* Photorealistic Image Top Hero */
+    .hero-image-container {
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 480px;
+      overflow: hidden;
+    }
+    .hero-image {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center 25%;
+      filter: brightness(0.9) contrast(1.05);
+    }
+    .hero-scrim {
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: linear-gradient(180deg, rgba(5,11,20,0.4) 0%, rgba(5,11,20,0.7) 60%, #050B14 100%);
+    }
+    
+    /* Top Header Bar */
+    .top-header {
+      position: relative;
+      z-index: 10;
+      padding: 45px 55px 0 55px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .brand-pill {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      background: rgba(5, 11, 20, 0.75);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(59, 130, 246, 0.4);
+      padding: 8px 18px;
+      border-radius: 9999px;
+    }
+    .badge-live {
+      background: rgba(16, 185, 129, 0.2);
+      border: 1px solid #10B981;
+      color: #34D399;
+      padding: 6px 14px;
+      border-radius: 9999px;
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .pulse-dot {
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background-color: #10B981;
+      box-shadow: 0 0 10px #10B981;
+    }
+    
+    /* Middle Glassmorphic Content Card */
+    .content-body {
+      position: relative;
+      z-index: 10;
+      padding: 0 55px;
+      display: flex;
+      flex-direction: column;
+      gap: 22px;
+    }
+    .badge-tag {
+      display: inline-block;
+      align-self: flex-start;
+      background: rgba(184, 148, 42, 0.15);
+      border: 1px solid #B8942A;
+      color: #FBBF24;
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 0.12em;
+      padding: 6px 16px;
+      border-radius: 6px;
+      text-transform: uppercase;
+    }
+    .main-title {
+      font-size: 44px;
+      line-height: 1.15;
+      font-weight: 800;
+      color: #FFFFFF;
+      letter-spacing: -0.02em;
+      text-shadow: 0 4px 20px rgba(0,0,0,0.6);
+    }
+    .main-sub {
+      font-size: 20px;
+      line-height: 1.4;
+      font-weight: 500;
+      color: #94A3B8;
+      max-width: 900px;
+    }
+    
+    /* Three Key Pillars */
+    .pillars-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      margin-top: 10px;
+    }
+    .pillar-card {
+      background: rgba(15, 23, 42, 0.7);
+      backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 14px;
+      padding: 22px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .pillar-label {
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+    .pillar-desc {
+      font-size: 13px;
+      line-height: 1.5;
+      color: #CBD5E1;
+      font-family: 'Inter', sans-serif;
+    }
+    
+    /* Bottom Credential Bar */
+    .bottom-bar {
+      position: relative;
+      z-index: 10;
+      padding: 25px 55px 40px 55px;
+      background: #020617;
+      border-top: 1px solid rgba(255, 255, 255, 0.06);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .inst-title {
+      font-size: 14px;
+      font-weight: 800;
+      color: #F8FAFC;
+      letter-spacing: 0.03em;
+    }
+    .inst-sub {
+      font-size: 12px;
+      color: #64748B;
+      margin-top: 3px;
+    }
+    .cta-badge {
+      background: #1E40AF;
+      border: 1px solid #3B82F6;
+      color: #FFFFFF;
+      font-size: 13px;
+      font-weight: 700;
+      padding: 8px 20px;
+      border-radius: 8px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    
+  </style>
+</head>
+<body>
+
+  <!-- SINGLE 1080x1080 LINKEDIN IMAGE CARD -->
+  <div class="linkedin-card-1080" id="cardContainer">
+    <!-- Photorealistic Header Hero Image -->
+    <div class="hero-image-container">
+      <img src="../../../assets/trade_supplychain.jpg" alt="GOVENICS executive GRC briefing graphic for Infrastructure &amp; Construction in Urban Utility Networks with photorealistic background and verified metrics." class="hero-image" />
+      <div class="hero-scrim"></div>
+    </div>
+
+    <!-- Top Header -->
+    <div class="top-header">
+      <div class="brand-pill">
+        <span style="color: #60A5FA; font-weight: 800; font-size: 13px; letter-spacing: 0.05em;">GOVENICS GRC</span>
+        <span style="color: #475569;">•</span>
+        <span style="color: #CBD5E1; font-weight: 700; font-size: 12px; text-transform: uppercase;">Infrastructure &amp; Construction</span>
+      </div>
+      <div class="badge-live">
+        <span class="pulse-dot"></span>
+        <span>VERIFIED ADVISORY</span>
+      </div>
+    </div>
+
+    <!-- Middle Content Body -->
+    <div class="content-body">
+      <div class="badge-tag">EXECUTIVE DIAGNOSTIC INVITATION</div>
+      <h1 class="main-title">Infrastructure &amp; Construction: The Direct Diagnostic Invitation</h1>
+      <p class="main-sub">Executive Governance Briefing for CFOs and Finance Leaders in Urban Utility Networks</p>
+
+      <!-- Three Strategic Pillars -->
+      <div class="pillars-grid">
+        <div class="pillar-card">
+          <div class="pillar-label" style="color: #F87171;">1. Statutory Risk</div>
+          <p class="pillar-desc">RERA quarterly compliance filings, escrow account withdrawal certifications, and completion timelines</p>
+        </div>
+        <div class="pillar-card" style="border-color: rgba(59,130,246,0.3);">
+          <div class="pillar-label" style="color: #60A5FA;">2. Governance Engine</div>
+          <p class="pillar-desc">Continuous centralized evidentiary audit vault aligning with RERA Authorities, Ministry of Environment (MoEFCC), NHAI, State Labour Welfare Boards.</p>
+        </div>
+        <div class="pillar-card" style="border-color: rgba(16,185,129,0.3);">
+          <div class="pillar-label" style="color: #34D399;">3. Verified SLA</div>
+          <p class="pillar-desc">100% BOCW Cess Reconciliation • Zero Project Injunction Orders</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bottom Credential Bar -->
+    <div class="bottom-bar">
+      <div>
+        <div class="inst-title">GOVENICS GRC • A Division of ISI Group (Est. 1985)</div>
+        <div class="inst-sub">CERT-In Empanelled Advisory Partner • Enterprise Risk & Statutory Assurance</div>
+      </div>
+      <div class="cta-badge">Executive Diagnostic Available</div>
+    </div>
+  </div>
+
+</body>
+</html>

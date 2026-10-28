@@ -480,7 +480,7 @@ export default function IndustryDetailPage() {
   ];
 
   return (
-    <Layout>
+    <Layout noPadding={true}>
       <div className="bg-white pb-24 text-slate-600">
         
         {/* Panel 1: Title & Hero Description Carousel */}

@@ -64,7 +64,7 @@ export default function SgrcServicesListPage() {
   };
 
   return (
-    <Layout>
+    <Layout noPadding={true}>
       <div className="bg-slate-50/50 min-h-screen pb-24 text-slate-700 select-none">
         
         {/* Panel 1: Hero Carousel Slider */}

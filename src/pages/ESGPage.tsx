@@ -336,7 +336,7 @@ export default function ESGPage() {
   ));
 
   return (
-    <Layout>
+    <Layout noPadding={true}>
       <div className="bg-slate-50/50 pb-24 text-slate-600 relative overflow-hidden">
         
         {/* Slider 1: Hero Carousel Section */}

@@ -328,7 +328,7 @@ export default function ServiceDetailPage() {
   ];
 
   return (
-    <Layout>
+    <Layout noPadding={true}>
       <div className="bg-slate-50 min-h-screen text-slate-700 selection:bg-blue-600 selection:text-white">
 
         {/* ── SECTION 1: HERO ────────────────────────────────────────── */}

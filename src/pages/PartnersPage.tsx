@@ -335,7 +335,7 @@ export default function PartnersPage() {
   };
 
   return (
-    <Layout>
+    <Layout noPadding={true}>
       <div className="bg-white pb-24 text-slate-600 relative overflow-x-hidden">
 
         {/* ── Hero Slider ──────────────────────────────────────────── */}

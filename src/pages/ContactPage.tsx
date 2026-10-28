@@ -41,7 +41,7 @@ export default function ContactPage() {
   const slides = contactSpicedSlides;
 
   return (
-    <Layout>
+    <Layout noPadding={true}>
       <div className="bg-white">
         <GrcSliderHero slides={slides} categoryLabel="Contact Us" />
         <div className="bg-background min-h-[70vh]">

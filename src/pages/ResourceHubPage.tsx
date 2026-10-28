@@ -24,7 +24,7 @@ export default function ResourceHubPage() {
   const slides = resourcesSpicedSlides;
 
   return (
-    <Layout>
+    <Layout noPadding={true}>
       <div className="bg-white">
         <GrcSliderHero slides={slides} categoryLabel="Resources Hub" />
         

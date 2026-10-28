@@ -100,7 +100,7 @@ export default function ManpowerServiceDetailPage() {
   ));
 
   return (
-    <Layout>
+    <Layout noPadding={true}>
       <div className="bg-slate-50 min-h-screen pb-24 text-slate-600">
         
         {/* Panel 1: Hero Carousel Slider */}
