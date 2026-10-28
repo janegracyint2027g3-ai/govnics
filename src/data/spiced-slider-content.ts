@@ -26,6 +26,9 @@ export interface SpicedSlide {
   criticalEvent: string;    // Critical Event (Catalyst / Deadline)
   decisionCriteria?: string;// Decision Criteria summary
   cta: string;              // Action trigger
+  ctaLink?: string;         // Direct URL override for primary CTA
+  secondaryCta?: string;    // Optional secondary CTA text
+  secondaryCtaLink?: string;// Direct URL override for secondary CTA
   spiced: SpicedBreakdown;  // Full SPICED diagnostic model
 }
 
