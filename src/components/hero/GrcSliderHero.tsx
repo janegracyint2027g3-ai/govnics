@@ -28,6 +28,7 @@ interface GrcSliderHeroProps {
   slides: Slide[];
   backLink?: { to: string; label: string };
   categoryLabel?: string;
+  showPrimaryCta?: boolean;
 }
 
 export const resolveCtaLink = (ctaText?: string, slide?: Slide, currentCategory?: string): string => {
@@ -157,7 +158,7 @@ export const resolveCtaLink = (ctaText?: string, slide?: Slide, currentCategory?
   return "/solutions";
 };
 
-export const GrcSliderHero = ({ slides, backLink, categoryLabel = "Solution" }: GrcSliderHeroProps) => {
+export const GrcSliderHero = ({ slides, backLink, categoryLabel = "Solution", showPrimaryCta = true }: GrcSliderHeroProps) => {
   const navigate = useNavigate();
   const location = useLocation();
   const [activeIndex, setActiveIndex] = useState(0);
@@ -350,7 +351,7 @@ export const GrcSliderHero = ({ slides, backLink, categoryLabel = "Solution" }: 
                 variants={elementVariants}
                 className="flex flex-row flex-wrap items-center justify-start gap-4 pt-2 w-full"
               >
-                {slides[activeIndex].cta && (() => {
+                {showPrimaryCta && slides[activeIndex].cta && (() => {
                   const ctaDestination = resolveCtaLink(slides[activeIndex].cta, slides[activeIndex], categoryLabel);
                   const isHash = ctaDestination.includes("#");
                   const [ctaPath, ctaHash] = isHash ? ctaDestination.split("#") : [ctaDestination, ""];

@@ -339,7 +339,7 @@ export default function PartnersPage() {
       <div className="bg-white pb-24 text-slate-600 relative overflow-x-hidden">
 
         {/* ── Hero Slider ──────────────────────────────────────────── */}
-        <GrcSliderHero slides={slides} backLink={{ to: "/", label: "Back to Home" }} categoryLabel="Partnership Portal" />
+        <GrcSliderHero slides={slides} backLink={{ to: "/", label: "Back to Home" }} categoryLabel="Partnership Portal" showPrimaryCta={false} />
 
         {/* ── Animated Stats Bar ──────────────────────────────────── */}
         <section className="relative z-20 -mt-10">
