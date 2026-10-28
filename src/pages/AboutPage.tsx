@@ -12,12 +12,107 @@ import {
 } from "@/data/about-page-data";
 import { 
   MapPin, Phone, Mail, Search, 
-  Building2, Sparkles 
+  Building2, Sparkles,
+  Briefcase, ArrowRight, UploadCloud, CheckCircle2, User, Clock
 } from "lucide-react";
+import { motion } from "framer-motion";
+
+const openRoles = [
+  {
+    id: "compliance-analyst",
+    title: "Statutory Compliance Analyst",
+    type: "Full-Time",
+    location: "Chennai, India",
+    department: "GRC Operations",
+  },
+  {
+    id: "risk-consultant",
+    title: "Enterprise Risk Consultant",
+    type: "Full-Time",
+    location: "Remote / Hybrid",
+    department: "Risk Management",
+  },
+  {
+    id: "cybersecurity-expert",
+    title: "Cybersecurity & DPDP Expert",
+    type: "Full-Time",
+    location: "Chennai, India",
+    department: "Cybersecurity",
+  },
+  {
+    id: "esg-specialist",
+    title: "ESG & Sustainability Specialist",
+    type: "Full-Time",
+    location: "Remote",
+    department: "ESG Hub",
+  }
+];
 
 export default function AboutPage() {
   const [selectedRegion, setSelectedRegion] = useState<string>("All");
   const [searchCity, setSearchCity] = useState<string>("");
+
+  // Careers form state
+  const [careerFormData, setCareerFormData] = useState({
+    name: "", email: "", phone: "", position: "", experience: "", linkedinUrl: "", message: "",
+  });
+  const [resumeFile, setResumeFile] = useState<{name: string, data: string, mime: string} | null>(null);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSubmitted, setIsSubmitted] = useState(false);
+  const [formErrors, setFormErrors] = useState<Record<string, string>>({});
+
+  const validateCareerForm = () => {
+    const errs: Record<string, string> = {};
+    if (!careerFormData.name.trim()) errs.name = "Name is required";
+    if (!careerFormData.email.trim() || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(careerFormData.email)) errs.email = "Valid email required";
+    if (!careerFormData.phone.trim()) errs.phone = "Phone number is required";
+    if (!careerFormData.position) errs.position = "Please select a position";
+    if (!careerFormData.experience) errs.experience = "Please select experience level";
+    if (!resumeFile) errs.resume = "Please attach your resume (PDF/DOCX)";
+    return errs;
+  };
+
+  const handleResumeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      if (file.size > 5 * 1024 * 1024) { setFormErrors(prev => ({...prev, resume: "File size must be under 5MB"})); return; }
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setResumeFile({ name: file.name, data: (reader.result as string).split(',')[1], mime: file.type });
+        setFormErrors(prev => ({...prev, resume: ""}));
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
+  const handleCareerChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
+    const { name, value } = e.target;
+    setCareerFormData(prev => ({ ...prev, [name]: value }));
+    if (formErrors[name]) setFormErrors(prev => ({ ...prev, [name]: "" }));
+  };
+
+  const handleCareerSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    const errs = validateCareerForm();
+    if (Object.keys(errs).length > 0) { setFormErrors(errs); return; }
+    setIsSubmitting(true);
+    const payload = { sheetName: "Career_Applications", timestamp: new Date().toISOString(), ...careerFormData, resumeFilename: resumeFile?.name, resumeData: resumeFile?.data, resumeMimeType: resumeFile?.mime };
+    try {
+      const webhookUrl = import.meta.env.VITE_TELEMETRY_WEBHOOK_URL;
+      if (!webhookUrl) throw new Error("Webhook URL not found");
+      await fetch(webhookUrl, { method: "POST", mode: "no-cors", headers: { "Content-Type": "application/json" }, body: JSON.stringify(payload) });
+      setIsSubmitted(true);
+    } catch (err) {
+      console.error("Submission failed", err);
+      alert("Failed to submit application. Please try again later.");
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
+  const inputBase = "w-full px-4 py-3 rounded-xl border text-sm font-medium text-slate-800 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500/30 focus:border-blue-500 transition-all bg-white";
+  const labelBase = "block text-[10px] font-black uppercase tracking-widest text-slate-500 mb-1.5";
+  const errClass = "mt-1 text-[10px] font-bold text-red-500";
 
   const allLeaders = [...directorsData, ...executiveManagementData];
 
@@ -426,6 +521,155 @@ export default function AboutPage() {
               )}
             </div>
 
+          </div>
+        </section>
+
+        {/* Panel 8: Careers */}
+        <section id="careers" className="py-20 bg-slate-950 relative overflow-hidden">
+          <div className="absolute inset-0 bg-blue-900/10" />
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-blue-600/20 rounded-full blur-[120px] pointer-events-none" />
+
+          <div className="container mx-auto px-6 max-w-6xl relative z-10">
+            {/* Careers Header */}
+            <div className="text-center mb-16">
+              <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/10 border border-white/20 text-white text-[10px] font-black uppercase tracking-widest mb-6">
+                <Briefcase className="w-3.5 h-3.5 text-blue-400" />
+                Join Our Team
+              </div>
+              <h2 className="text-3xl md:text-5xl font-black text-white mb-6 leading-tight">
+                Build the Future of <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-indigo-400">Compliance & Risk</span>
+              </h2>
+              <p className="text-slate-400 text-lg max-w-2xl mx-auto font-medium">
+                At Govenics, we're on a mission to transform how enterprises navigate complex regulatory landscapes. We're looking for passionate experts to drive this evolution.
+              </p>
+            </div>
+
+            <div className="grid lg:grid-cols-2 gap-16">
+              {/* Open Roles */}
+              <div>
+                <h3 className="text-2xl font-black text-white mb-8 flex items-center gap-3">
+                  <span className="w-8 h-8 rounded-full bg-blue-900 text-blue-400 border border-blue-700 flex items-center justify-center text-sm">1</span>
+                  Current Openings
+                </h3>
+                <div className="space-y-4">
+                  {openRoles.map((role) => (
+                    <div key={role.id} className="bg-white/5 border border-white/10 rounded-2xl p-6 hover:bg-white/10 transition-all group">
+                      <div className="flex justify-between items-start mb-4">
+                        <div>
+                          <h4 className="text-lg font-bold text-white group-hover:text-blue-400 transition-colors">{role.title}</h4>
+                          <p className="text-xs text-slate-400 font-semibold mt-1">{role.department}</p>
+                        </div>
+                        <span className="px-3 py-1 bg-white/10 text-slate-300 rounded-full text-[10px] font-black uppercase tracking-wider">{role.type}</span>
+                      </div>
+                      <div className="flex items-center gap-4 text-xs font-semibold text-slate-400">
+                        <span className="flex items-center gap-1.5"><Building2 className="w-4 h-4 text-slate-500" /> {role.location}</span>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Application Form */}
+              <div>
+                <h3 className="text-2xl font-black text-white mb-8 flex items-center gap-3">
+                  <span className="w-8 h-8 rounded-full bg-blue-900 text-blue-400 border border-blue-700 flex items-center justify-center text-sm">2</span>
+                  Apply Now
+                </h3>
+
+                {isSubmitted ? (
+                  <motion.div initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} className="bg-white/5 border border-white/10 rounded-3xl p-10 text-center space-y-5">
+                    <div className="w-16 h-16 rounded-full bg-emerald-900/50 border-4 border-emerald-700 flex items-center justify-center mx-auto">
+                      <CheckCircle2 className="w-8 h-8 text-emerald-400" />
+                    </div>
+                    <h4 className="text-2xl font-black text-white">Application Received!</h4>
+                    <p className="text-slate-400 font-medium">Thank you for applying to Govenics. Our talent acquisition team will review your profile and reach out to you shortly.</p>
+                  </motion.div>
+                ) : (
+                  <form onSubmit={handleCareerSubmit} className="bg-white/5 border border-white/10 rounded-3xl p-8 space-y-6">
+                    <div className="grid sm:grid-cols-2 gap-5">
+                      <div>
+                        <label className={labelBase + " text-slate-400"}>Full Name *</label>
+                        <div className="relative">
+                          <User className="absolute left-3 top-3.5 w-4 h-4 text-slate-500" />
+                          <input name="name" value={careerFormData.name} onChange={handleCareerChange} type="text" className={`${inputBase} pl-10 bg-white/10 text-white border-white/20 placeholder:text-slate-500 ${formErrors.name ? 'border-red-400' : ''}`} placeholder="Jane Doe" />
+                        </div>
+                        {formErrors.name && <p className={errClass}>{formErrors.name}</p>}
+                      </div>
+                      <div>
+                        <label className={labelBase + " text-slate-400"}>Email *</label>
+                        <div className="relative">
+                          <Mail className="absolute left-3 top-3.5 w-4 h-4 text-slate-500" />
+                          <input name="email" value={careerFormData.email} onChange={handleCareerChange} type="email" className={`${inputBase} pl-10 bg-white/10 text-white border-white/20 placeholder:text-slate-500 ${formErrors.email ? 'border-red-400' : ''}`} placeholder="jane@example.com" />
+                        </div>
+                        {formErrors.email && <p className={errClass}>{formErrors.email}</p>}
+                      </div>
+                    </div>
+
+                    <div className="grid sm:grid-cols-2 gap-5">
+                      <div>
+                        <label className={labelBase + " text-slate-400"}>Phone *</label>
+                        <div className="relative">
+                          <Phone className="absolute left-3 top-3.5 w-4 h-4 text-slate-500" />
+                          <input name="phone" value={careerFormData.phone} onChange={handleCareerChange} type="tel" className={`${inputBase} pl-10 bg-white/10 text-white border-white/20 placeholder:text-slate-500 ${formErrors.phone ? 'border-red-400' : ''}`} placeholder="+91 98765 43210" />
+                        </div>
+                        {formErrors.phone && <p className={errClass}>{formErrors.phone}</p>}
+                      </div>
+                      <div>
+                        <label className={labelBase + " text-slate-400"}>Experience *</label>
+                        <div className="relative">
+                          <Clock className="absolute left-3 top-3.5 w-4 h-4 text-slate-500" />
+                          <select name="experience" value={careerFormData.experience} onChange={handleCareerChange} className={`${inputBase} pl-10 appearance-none bg-white/10 text-white border-white/20 ${formErrors.experience ? 'border-red-400' : ''}`}>
+                            <option value="" className="bg-slate-900">Select Experience</option>
+                            <option value="Fresher (0-1 yrs)" className="bg-slate-900">Fresher (0-1 yrs)</option>
+                            <option value="Associate (1-3 yrs)" className="bg-slate-900">Associate (1-3 yrs)</option>
+                            <option value="Mid-Level (3-7 yrs)" className="bg-slate-900">Mid-Level (3-7 yrs)</option>
+                            <option value="Senior (7-12 yrs)" className="bg-slate-900">Senior (7-12 yrs)</option>
+                            <option value="Lead/Director (12+ yrs)" className="bg-slate-900">Lead/Director (12+ yrs)</option>
+                          </select>
+                        </div>
+                        {formErrors.experience && <p className={errClass}>{formErrors.experience}</p>}
+                      </div>
+                    </div>
+
+                    <div>
+                      <label className={labelBase + " text-slate-400"}>Position Applying For *</label>
+                      <select name="position" value={careerFormData.position} onChange={handleCareerChange} className={`${inputBase} bg-white/10 text-white border-white/20 ${formErrors.position ? 'border-red-400' : ''}`}>
+                        <option value="" className="bg-slate-900">Select a role...</option>
+                        {openRoles.map(r => <option key={r.id} value={r.title} className="bg-slate-900">{r.title}</option>)}
+                        <option value="General Application" className="bg-slate-900">General Application (Other)</option>
+                      </select>
+                      {formErrors.position && <p className={errClass}>{formErrors.position}</p>}
+                    </div>
+
+                    <div>
+                      <label className={labelBase + " text-slate-400"}>LinkedIn Profile URL</label>
+                      <input name="linkedinUrl" value={careerFormData.linkedinUrl} onChange={handleCareerChange} type="url" className={`${inputBase} bg-white/10 text-white border-white/20 placeholder:text-slate-500`} placeholder="https://linkedin.com/in/yourprofile" />
+                    </div>
+
+                    <div>
+                      <label className={labelBase + " text-slate-400"}>Upload Resume (PDF/DOCX) *</label>
+                      <div className={`relative border-2 border-dashed ${formErrors.resume ? 'border-red-400 bg-red-900/10' : 'border-white/20 bg-white/5 hover:bg-white/10'} rounded-2xl p-6 text-center transition-colors`}>
+                        <input type="file" accept=".pdf,.doc,.docx" onChange={handleResumeChange} className="absolute inset-0 w-full h-full opacity-0 cursor-pointer" />
+                        <UploadCloud className={`w-8 h-8 mx-auto mb-2 ${resumeFile ? 'text-blue-400' : 'text-slate-500'}`} />
+                        <p className="text-sm font-semibold text-slate-300">{resumeFile ? resumeFile.name : "Click or drag file to upload"}</p>
+                        <p className="text-[10px] text-slate-500 mt-1">Max 5MB</p>
+                      </div>
+                      {formErrors.resume && <p className={errClass}>{formErrors.resume}</p>}
+                    </div>
+
+                    <div>
+                      <label className={labelBase + " text-slate-400"}>Cover Message (Optional)</label>
+                      <textarea name="message" value={careerFormData.message} onChange={handleCareerChange} rows={3} className={`${inputBase} bg-white/10 text-white border-white/20 placeholder:text-slate-500 resize-none`} placeholder="Why do you want to join Govenics?" />
+                    </div>
+
+                    <button type="submit" disabled={isSubmitting} className="w-full flex items-center justify-center gap-2 py-4 bg-blue-600 hover:bg-blue-700 disabled:bg-blue-800 text-white rounded-xl font-bold text-sm tracking-wide transition-all shadow-lg shadow-blue-500/20">
+                      {isSubmitting ? "Submitting Application..." : "Submit Application"}
+                      {!isSubmitting && <ArrowRight className="w-4 h-4" />}
+                    </button>
+                  </form>
+                )}
+              </div>
+            </div>
           </div>
         </section>
 

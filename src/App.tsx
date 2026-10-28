@@ -23,7 +23,6 @@ import SgrcResourcesListPage from "@/pages/SgrcResourcesListPage";
 import AnalyticsPage from "@/pages/AnalyticsPage";
 import LoginPage from "@/pages/LoginPage";
 import RegisterPage from "@/pages/RegisterPage";
-import CareersPage from "@/pages/CareersPage";
 import SolutionsPage from "@/pages/SolutionsPage";
 import CaseStudiesPage from "@/pages/CaseStudiesPage";
 import { AuthProvider } from "@/context/AuthContext";
@@ -60,7 +59,7 @@ function App() {
           <Route path="/staffing" element={<ManageStaffingPage />} />
           <Route path="/staffing/:serviceId" element={<ManpowerServiceDetailPage />} />
           <Route path="/partners" element={<PartnersPage />} />
-          <Route path="/careers" element={<CareersPage />} />
+          <Route path="/careers" element={<Navigate to="/about" replace />} />
           <Route path="/analytics" element={<AnalyticsPage />} />
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>

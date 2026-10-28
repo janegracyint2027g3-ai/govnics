@@ -730,9 +730,6 @@ export const Header = () => {
             Partners
           </Link>
 
-          <Link to="/careers" className={getLinkClass("/careers")}>
-            Careers
-          </Link>
 
           {/* About Us Link */}
           <Link to="/about" className={getLinkClass("/about")}>
@@ -1060,10 +1057,6 @@ export const Header = () => {
               Partners
             </Link>
 
-            {/* Mobile Link for Careers */}
-            <Link to="/careers" onClick={() => setMobileOpen(false)} className="p-2 text-sm font-bold text-slate-800 hover:bg-slate-50 rounded-lg block text-left">
-              Careers
-            </Link>
 
             {/* Mobile Link for About Us */}
             <Link to="/about" onClick={() => setMobileOpen(false)} className="p-2 text-sm font-bold text-slate-800 hover:bg-slate-50 rounded-lg block text-left">
