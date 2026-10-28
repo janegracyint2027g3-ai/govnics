@@ -108,19 +108,6 @@ export const Header = () => {
         : "bg-transparent"
         }`}
     >
-      {/* Top Info Bar */}
-      <div
-        className={`border-b transition-all duration-300 ${scrolled
-          ? "h-0 opacity-0 overflow-hidden"
-          : "h-10 opacity-100 border-slate-200 bg-slate-50 text-slate-600"
-          }`}
-      >
-        <div className="container mx-auto px-6 h-full flex items-center justify-center text-[11px] font-bold tracking-wider uppercase text-center">
-          <span className="text-slate-500">
-            Governance, Risk & Compliance Excellence
-          </span>
-        </div>
-      </div>
 
       {/* Main Navigation Bar */}
       <nav className="container mx-auto px-6 h-20 flex items-center justify-between relative">

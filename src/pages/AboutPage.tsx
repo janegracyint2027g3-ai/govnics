@@ -532,15 +532,17 @@ export default function AboutPage() {
           <div className="container mx-auto px-6 max-w-6xl relative z-10">
             {/* Careers Header */}
             <div className="text-center mb-16">
-              <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/10 border border-white/20 text-white text-[10px] font-black uppercase tracking-widest mb-6">
-                <Briefcase className="w-3.5 h-3.5 text-blue-400" />
-                Join Our Team
+              {/* Bold Careers Label */}
+              <div className="inline-flex items-center gap-2.5 px-5 py-2.5 rounded-full bg-blue-600/20 border border-blue-500/40 text-blue-300 text-sm font-black uppercase tracking-[0.25em] mb-6 shadow-lg shadow-blue-900/30">
+                <Briefcase className="w-4 h-4 text-blue-400" />
+                Careers at Govenics
               </div>
-              <h2 className="text-3xl md:text-5xl font-black text-white mb-6 leading-tight">
-                Build the Future of <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-indigo-400">Compliance & Risk</span>
+              <h2 className="text-4xl md:text-6xl font-black text-white mb-4 leading-tight">
+                We're <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-indigo-400">Hiring</span>
               </h2>
-              <p className="text-slate-400 text-lg max-w-2xl mx-auto font-medium">
-                At Govenics, we're on a mission to transform how enterprises navigate complex regulatory landscapes. We're looking for passionate experts to drive this evolution.
+              <p className="text-[11px] font-black uppercase tracking-[0.2em] text-blue-400 mb-4">Open Positions · GRC · Cybersecurity · ESG · Risk</p>
+              <p className="text-slate-400 text-base max-w-2xl mx-auto font-medium leading-relaxed">
+                Shape the future of enterprise governance with a team of seasoned compliance leaders, ex-defence strategists, and technology innovators. Explore open roles and grow your GRC career at Govenics.
               </p>
             </div>
 
