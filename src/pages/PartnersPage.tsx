@@ -253,6 +253,14 @@ export default function PartnersPage() {
     return () => document.body.classList.remove("overflow-hidden");
   }, [isDialogOpen]);
 
+  // Auto-open partner form if navigated via #partner-form hash
+  useEffect(() => {
+    if (window.location.hash === "#partner-form") {
+      setSuccess(false);
+      setIsDialogOpen(true);
+    }
+  }, []);
+
   useEffect(() => {
     const t = setInterval(() => setTestimonialIdx(i => (i + 1) % testimonials.length), 5000);
     return () => clearInterval(t);

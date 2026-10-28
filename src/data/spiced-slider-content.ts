@@ -725,7 +725,10 @@ export const aboutSpicedSlides: SpicedSlide[] = [
     icp: "Enterprise Boards & Corporate Executives Seeking Trusted Advisors",
     outcome: "1,000+ Enterprise Clients & Zero Unresolved Statutory Violations",
     criticalEvent: "Strategic enterprise restructuring and corporate governance fortification",
-    cta: "Explore Our Legacy",
+    cta: "Apply for Careers",
+    ctaLink: "/about#careers",
+    secondaryCta: "Explore Our Legacy",
+    secondaryCtaLink: "/about",
     spiced: {
       situation: "Modern enterprises navigating unprecedented regulatory velocity and corporate governance expectations.",
       pain: "Consulting advisory firms offer theoretical slide decks but abandon clients when regulatory enforcement knocks at the door.",
@@ -889,7 +892,8 @@ export const partnersSpicedSlides: SpicedSlide[] = [
     icp: "Alliances Heads at ServiceNow, MetricStream, SAP & Global SaaS Leaders",
     outcome: "Accelerate enterprise India software rollouts by 3x with guaranteed legal localization",
     criticalEvent: "Multi-million dollar enterprise software deal closing contingent on Indian statutory compliance",
-    cta: "Explore Tech Alliance",
+    cta: "Become a Partner",
+    ctaLink: "/partners#partner-form",
     spiced: {
       situation: "Global GRC and ERP software vendors pitching enterprise accounts in India.",
       pain: "Global platforms lack deep, dynamic out-of-the-box knowledge of 28 Indian state labour, pollution, and municipal laws.",
