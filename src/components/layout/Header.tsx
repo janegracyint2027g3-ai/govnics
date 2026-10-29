@@ -26,6 +26,20 @@ const megaIconMap: Record<string, any> = {
   ShieldCheck
 };
 
+// Distinct color palette for offerings topic cards (cycles per topic index)
+const OFFERING_TOPIC_COLORS = [
+  { bg: "bg-blue-50",    icon: "text-blue-600",    hoverBg: "group-hover:bg-blue-600",    hoverBorder: "hover:border-blue-500",    titleHover: "group-hover:text-blue-600"    },
+  { bg: "bg-violet-50",  icon: "text-violet-600",  hoverBg: "group-hover:bg-violet-600",  hoverBorder: "hover:border-violet-500",  titleHover: "group-hover:text-violet-600"  },
+  { bg: "bg-emerald-50", icon: "text-emerald-600", hoverBg: "group-hover:bg-emerald-600", hoverBorder: "hover:border-emerald-500", titleHover: "group-hover:text-emerald-600" },
+  { bg: "bg-amber-50",   icon: "text-amber-600",   hoverBg: "group-hover:bg-amber-600",   hoverBorder: "hover:border-amber-500",   titleHover: "group-hover:text-amber-600"   },
+  { bg: "bg-rose-50",    icon: "text-rose-600",    hoverBg: "group-hover:bg-rose-600",    hoverBorder: "hover:border-rose-500",    titleHover: "group-hover:text-rose-600"    },
+  { bg: "bg-teal-50",    icon: "text-teal-600",    hoverBg: "group-hover:bg-teal-600",    hoverBorder: "hover:border-teal-500",    titleHover: "group-hover:text-teal-600"    },
+  { bg: "bg-sky-50",     icon: "text-sky-600",     hoverBg: "group-hover:bg-sky-600",     hoverBorder: "hover:border-sky-500",     titleHover: "group-hover:text-sky-600"     },
+  { bg: "bg-indigo-50",  icon: "text-indigo-600",  hoverBg: "group-hover:bg-indigo-600",  hoverBorder: "hover:border-indigo-500",  titleHover: "group-hover:text-indigo-600"  },
+  { bg: "bg-orange-50",  icon: "text-orange-600",  hoverBg: "group-hover:bg-orange-600",  hoverBorder: "hover:border-orange-500",  titleHover: "group-hover:text-orange-600"  },
+  { bg: "bg-cyan-50",    icon: "text-cyan-600",    hoverBg: "group-hover:bg-cyan-600",    hoverBorder: "hover:border-cyan-500",    titleHover: "group-hover:text-cyan-600"    },
+];
+
 const offeringsVerticalTabsData = offeringsData;
 export const Header = () => {
   const [scrolled, setScrolled] = useState(false);
@@ -319,27 +333,28 @@ export const Header = () => {
                           </Link>
                         </div>
 
-                        {/* 2. Topics List (Clean Grid - Only Topics Displayed) */}
+                        {/* 2. Topics List (Clean Grid - Only Topics Displayed, with distinct colors) */}
                         <div className="flex-1 overflow-y-auto max-h-[350px] pr-1 scrollbar-thin">
                           <div className="grid grid-cols-2 gap-3">
-                            {practiceItems.map((topic) => {
+                            {practiceItems.map((topic, topicIdx) => {
                               const TopicIcon = topic.icon || ShieldCheck;
+                              const palette = OFFERING_TOPIC_COLORS[topicIdx % OFFERING_TOPIC_COLORS.length];
                               return (
                                 <Link
                                   key={topic.id}
                                   to={topic.link}
                                   onClick={() => setActiveDropdown(null)}
-                                  className="group p-3.5 rounded-xl border border-slate-200/80 bg-slate-50/50 hover:bg-white hover:border-blue-500 hover:shadow-md transition-all flex items-start gap-3"
+                                  className={`group p-3.5 rounded-xl border border-slate-200/80 bg-slate-50/50 hover:bg-white ${palette.hoverBorder} hover:shadow-md transition-all flex items-start gap-3`}
                                 >
-                                  <div className="w-9 h-9 rounded-xl bg-blue-50 text-blue-600 group-hover:bg-blue-600 group-hover:text-white flex items-center justify-center shrink-0 transition-colors mt-0.5">
-                                    <TopicIcon className="w-4.5 h-4.5" />
+                                  <div className={`w-9 h-9 rounded-xl ${palette.bg} ${palette.icon} ${palette.hoverBg} group-hover:text-white flex items-center justify-center shrink-0 transition-all duration-200 mt-0.5 shadow-sm`}>
+                                    <TopicIcon className="w-4 h-4" />
                                   </div>
                                   <div className="flex-1 min-w-0">
                                     <div className="flex items-center justify-between gap-1">
-                                      <h4 className="text-xs font-bold text-slate-900 group-hover:text-blue-600 transition-colors leading-snug">
+                                      <h4 className={`text-xs font-bold text-slate-900 ${palette.titleHover} transition-colors leading-snug`}>
                                         {topic.title}
                                       </h4>
-                                      <ArrowRight className="w-3.5 h-3.5 text-slate-300 group-hover:text-blue-600 group-hover:translate-x-0.5 transition-all shrink-0 ml-1" />
+                                      <ArrowRight className={`w-3.5 h-3.5 text-slate-300 ${palette.titleHover} group-hover:translate-x-0.5 transition-all shrink-0 ml-1`} />
                                     </div>
                                     <p className="text-[11px] text-slate-500 line-clamp-2 mt-1 leading-relaxed">
                                       {topic.description}
