@@ -9,9 +9,8 @@
 - **Secondary Audience:** Investor Relations Heads
 - **Editorial Framework:** Problem, Agitate, Solution (PAS)
 - **Funnel Stage:** Awareness
-- **Content Pillar:** Enterprise Statutory Governance & Risk Mitigation
-- **Regulatory Citations:** Verified (SEBI BRSR Core Mandate, EU CBAM Regulations)
-- **Statutory Source:** SEBI BRSR Core Mandate, EU CBAM Regulations • GRI Standards, ISSB (IFRS S1 & S2) (Regulatory Gazette)
+- **Character Count:** 930 chars (✅ Optimal (700-950 chars))
+- **Statutory Source:** SEBI Circular SEBI/HO/CFD/2023/122 | sebi.gov.in
 - **Live Offering Link:** [https://govnics-murex.vercel.app/services/esg-sustainability](https://govnics-murex.vercel.app/services/esg-sustainability)
 - **Formats Included:** Text Post & 1080×1080 Visual Image Post
 
@@ -19,31 +18,24 @@
 
 ## 2. LINKEDIN POST TEXT (1-CLICK COPY)
 
-Most corporate enforcement penalties under SEBI BRSR Core Mandate, EU CBAM Regulations don't stem from deliberate evasion.
+1,000 listed firms — the operational compliance exposure facing ESG and Sustainability Leaders across Heavy Industry & Steel.
 
-They happen because operating units rely on fragmented spreadsheets, delayed vendor challans, and siloed departmental handoffs.
+SEBI mandates top 1,000 listed enterprises file BRSR Core with mandatory third-party reasonable assurance from FY25.
 
-When statutory compliance is managed in operational silos, accountability vanishes right before supervisory inspections.
+Unsubstantiated green marketing claims and unverified Scope 3 supplier emissions invite regulatory greenwashing investigations.
 
-Here is the operational scenario we repeatedly see across Heavy Industry & Steel:
-• Regulators issue an unexpected inspection notice requiring multi-year evidentiary records.
-• Teams scramble through personal hard drives and archived email threads to locate stamped filings.
-• Missing muster rolls, contractor tax challans, or lapsed consent approvals convert routine audits into formal show-cause proceedings.
+GOVENICS GRC centralizes digital evidentiary audit trails with 45-day pre-expiry escalation alerts, ensuring 100% verified regulatory defensibility.
 
-At GOVENICS GRC (A Division of ISI Group, Est. 1985), our advisory desk enforces an institutional operating principle: statutory compliance is not an annual scramble—it is a continuous, verifiable operational defense.
+Directorial peace of mind is won through daily operational hygiene, not pre-audit panic.
 
-Our ESG & SUSTAINABILITY ADVISORY architecture guarantees:
-✅ Complete digital register centralization with tamper-evident audit trails.
-✅ Automated multi-tier escalation warnings 45 days before statutory renewal windows.
-✅ Continuous reconciliation across all central and state regulatory portals.
+What creates the greatest vulnerability in your units: ownership or evidence retrieval?
 
-Which creates the greatest compliance challenge across your facilities: ownership, evidence retrieval, or regulatory circular changes?
+💬 Comment 'BRSR READY' or DM us.
+🔗 Solutions: https://govnics-murex.vercel.app/services/esg-sustainability
 
-💬 Comment 'DIAGNOSTIC' below or send a direct message to connect with our senior advisory desk.
+Source: SEBI Circular SEBI/HO/CFD/2023/122 | sebi.gov.in
 
-🔗 Explore ESG & Sustainability Advisory resources: https://govnics-murex.vercel.app/services/esg-sustainability
-
-#GRC #ESGSustainabilityAdvisory #HeavyIndustrySteel #CorporateGovernance #RiskManagement #GOVENICS
+#GRC #ESGSustainabilityAdvisory #HeavyIndustrySteel #GOVENICS
 
 ---
 
@@ -55,3 +47,11 @@ Which creates the greatest compliance challenge across your facilities: ownershi
 - **Verified SLA Callout:** `100% BRSR Core Assurance Readiness • Zero Greenwashing Scrutiny Exposure`
 - **Accessibility Alt Text:** GOVENICS executive GRC briefing graphic for ESG & Sustainability Advisory in Heavy Industry & Steel with photorealistic background and verified metrics.
 - **HTML Card File:** `../images/card_1.html`
+
+---
+
+## 4. REGULATORY VERIFICATION AUDIT TRAIL
+- **Empirical Metric:** 1,000 listed firms
+- **Regulatory Framework:** SEBI mandates top 1,000 listed enterprises file BRSR Core with mandatory third-party reasonable assurance from FY25.
+- **Attribution Authority:** SEBI Circular SEBI/HO/CFD/2023/122 | sebi.gov.in
+- **Verification Rule:** Data-led, ICP-specific, verified source cited.

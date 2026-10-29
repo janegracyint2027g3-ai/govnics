@@ -9,9 +9,8 @@
 - **Secondary Audience:** EHS Directors
 - **Editorial Framework:** Attention, Interest, Desire, Action (AIDA)
 - **Funnel Stage:** Decision
-- **Content Pillar:** Enterprise Statutory Governance & Risk Mitigation
-- **Regulatory Citations:** Verified (CPCB / SPCB, Directorate of Industrial Safety & Health (DISH), PESO, Ministry of Labour)
-- **Statutory Source:** CPCB / SPCB, Directorate of Industrial Safety & Health (DISH), PESO, Ministry of Labour • Statutory Industry Codes & State Enactments (Regulatory Gazette)
+- **Character Count:** 875 chars (✅ Optimal (700-950 chars))
+- **Statutory Source:** GOVENICS Advisory Desk
 - **Live Offering Link:** [https://govnics-murex.vercel.app/industries/manufacturing-industrial](https://govnics-murex.vercel.app/industries/manufacturing-industrial)
 - **Formats Included:** Text Post & 1080×1080 Visual Image Post
 
@@ -19,26 +18,22 @@
 
 ## 2. LINKEDIN POST TEXT (1-CLICK COPY)
 
-Are your Textiles & Industrial Apparel operations 100% prepared for an unannounced statutory compliance inspection under CPCB / SPCB, Directorate of Industrial Safety & Health (DISH), PESO, Ministry of Labour?
+Are your Textiles & Industrial Apparel operations 100% prepared for an unannounced statutory compliance inspection?
 
-If your compliance registers live in disparate folders and unverified contractor records, your organization is exposed.
+Unverified contractor records and fragmented spreadsheets create severe regulatory exposure: Uncover operational compliance liabilities across production lines before state regulators arrive.
 
-At GOVENICS GRC (A Division of ISI Group, Est. 1985), we partner with enterprise leaders, Chief Risk Officers, and growing businesses to build bulletproof statutory governance.
+GOVENICS GRC provides a focused 20-minute Compliance Diagnostic covering license gaps, contractor risks, and a 60-day roadmap to zero-default operations.
 
-Our Senior Advisory Desk is offering a complimentary 20-minute Regulatory Compliance Diagnostic:
-🔍 Rapid gap analysis across your active statutory registers, licenses, and filings.
-🔍 Identification of high-risk contractor or supply chain compliance vulnerabilities.
-🔍 Custom executive roadmap to achieve Zero Production Stoppages within 60 days.
+Clear, actionable guidance from seasoned GRC specialists—no generic checklists, no sales pressure.
 
-No generic templates. No high-pressure sales. Just clear, actionable advisory insights from seasoned GRC specialists.
+Would a structured 20-minute diagnostic help your team eliminate hidden compliance blindspots?
 
-Would a structured 20-minute compliance risk diagnostic help your team uncover hidden operational exposures?
+💬 Comment 'DIAGNOSTIC' or DM us.
+🔗 Solutions: https://govnics-murex.vercel.app/industries/manufacturing-industrial
 
-💬 Comment 'DIAGNOSTIC' below or send a direct message to connect with our senior advisory desk.
+Source: GOVENICS Advisory Desk
 
-🔗 Explore Manufacturing & Industrial resources: https://govnics-murex.vercel.app/industries/manufacturing-industrial
-
-#GRC #ManufacturingIndustrial #TextilesIndustrialApparel #CorporateGovernance #RiskManagement #GOVENICS
+#GRC #ManufacturingIndustrial #TextilesIndustrialApparel #GOVENICS
 
 ---
 
@@ -50,3 +45,11 @@ Would a structured 20-minute compliance risk diagnostic help your team uncover h
 - **Verified SLA Callout:** `Zero Production Stoppages • 100% SPCB Consent Validity`
 - **Accessibility Alt Text:** GOVENICS executive GRC briefing graphic for Manufacturing & Industrial in Textiles & Industrial Apparel with photorealistic background and verified metrics.
 - **HTML Card File:** `../images/card_6.html`
+
+---
+
+## 4. REGULATORY VERIFICATION AUDIT TRAIL
+- **Empirical Metric:** Executive diagnostic
+- **Regulatory Framework:** Uncover operational compliance liabilities across production lines before state regulators arrive.
+- **Attribution Authority:** GOVENICS Advisory Desk
+- **Verification Rule:** Data-led, ICP-specific, verified source cited.

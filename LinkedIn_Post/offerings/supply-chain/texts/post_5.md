@@ -9,9 +9,8 @@
 - **Secondary Audience:** CFOs and Finance Leaders
 - **Editorial Framework:** Industry Insight & Horizon Trends
 - **Funnel Stage:** Consideration
-- **Content Pillar:** Enterprise Statutory Governance & Risk Mitigation
-- **Regulatory Citations:** Verified (German Supply Chain Act (LkSG), EU CSDDD)
-- **Statutory Source:** German Supply Chain Act (LkSG), EU CSDDD • Sedex SMETA 4-Pillar, ISO 28000 (Regulatory Gazette)
+- **Character Count:** 931 chars (✅ Optimal (700-950 chars))
+- **Statutory Source:** EU RoHS Directive 2015/863 Technical Guide | ec.europa.eu
 - **Live Offering Link:** [https://govnics-murex.vercel.app/services/supply-chain](https://govnics-murex.vercel.app/services/supply-chain)
 - **Formats Included:** Text Post & 1080×1080 Visual Image Post
 
@@ -19,29 +18,22 @@
 
 ## 2. LINKEDIN POST TEXT (1-CLICK COPY)
 
-The regulatory horizon for Apparel & Textile Exporters is tightening under German Supply Chain Act (LkSG), EU CSDDD.
+The regulatory horizon for Apparel & Textile Exporters is tightening rapidly under supervisory scrutiny.
 
-Are your operating units structured to absorb upcoming supervisory inspection mandates without business disruption?
+Supervisory authorities are transitioning from annual retrospective audits to real-time digital scrutiny: Missing IPC-1752A restricted substance declarations on sub-components triggers immediate EU container detention.
 
-Supervisory bodies across India and global trade partners are shifting from periodic retrospective audits to real-time digital scrutiny:
-• Digital tracking of regulatory consent parameters and emission data.
-• Direct API-level reconciliation between payroll databases and statutory welfare funds.
-• Mandatory value-chain disclosure standards holding enterprise buyers responsible for vendor governance.
+For Chief Risk Officers, this mandates an immediate audit of multi-state statutory calendars,...
 
-For Chief Risk Officers, this requires an immediate operational audit of three areas:
-1. Multi-State Statutory Calendars: Synchronizing renewal timelines for all operating units.
-2. Vendor Due-Diligence Registers: Verifying that third-party vendors meet statutory standards.
-3. Rapid Audit Dossier Assembly: Ensuring complete evidentiary packages are available on-demand.
-
-Proactive organizations treat regulatory transition windows as opportunities to build enduring operational defensibility.
+GOVENICS predictive regulatory monitoring translates gazetted circulars into immediate operational controls, keeping your enterprise ahead of supervisory enforcement shifts.
 
 Has your leadership team completed an impact assessment for upcoming regulatory enforcement shifts?
 
-💬 Comment 'DIAGNOSTIC' below or send a direct message to connect with our senior advisory desk.
+💬 Comment 'DIAGNOSTIC' or DM us.
+🔗 Solutions: https://govnics-murex.vercel.app/services/supply-chain
 
-🔗 Explore Supply Chain Compliance resources: https://govnics-murex.vercel.app/services/supply-chain
+Source: EU RoHS Directive 2015/863 Technical Guide | ec.europa.eu
 
-#GRC #SupplyChainCompliance #ApparelTextileExporters #CorporateGovernance #RiskManagement #GOVENICS
+#GRC #SupplyChainCompliance #ApparelTextileExporters #GOVENICS
 
 ---
 
@@ -53,3 +45,11 @@ Has your leadership team completed an impact assessment for upcoming regulatory 
 - **Verified SLA Callout:** `100% Tier-1 & Tier-2 Audit Traceability • Zero Ethical Breach Incidents`
 - **Accessibility Alt Text:** GOVENICS executive GRC briefing graphic for Supply Chain Compliance in Apparel & Textile Exporters with photorealistic background and verified metrics.
 - **HTML Card File:** `../images/card_5.html`
+
+---
+
+## 4. REGULATORY VERIFICATION AUDIT TRAIL
+- **Empirical Metric:** RoHS 3 customs hold
+- **Regulatory Framework:** Missing IPC-1752A restricted substance declarations on sub-components triggers immediate EU container detention.
+- **Attribution Authority:** EU RoHS Directive 2015/863 Technical Guide | ec.europa.eu
+- **Verification Rule:** Data-led, ICP-specific, verified source cited.

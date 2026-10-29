@@ -9,6 +9,7 @@ import {
   TrendingUp, Users, Star, Clock, Target, Sparkles,
   ChevronLeft, ChevronRight, Quote
 } from "lucide-react";
+import { PartnerDomainsExplorer } from "@/components/partners/PartnerDomainsExplorer";
 
 
 // ── Data ──────────────────────────────────────────────────────────────────────
@@ -255,11 +256,22 @@ export default function PartnersPage() {
 
   // Auto-open partner form if navigated via #partner-form hash
   useEffect(() => {
-    if (window.location.hash === "#partner-form") {
+    if (window.location.hash.includes("#partner-form")) {
       setSuccess(false);
       setIsDialogOpen(true);
     }
   }, []);
+
+  const openPartnerFormWithCategory = (categoryTitle?: string) => {
+    setSuccess(false);
+    if (categoryTitle) {
+      setFormData(prev => ({
+        ...prev,
+        partnershipType: categoryTitle.includes("Partner") ? categoryTitle : `${categoryTitle} Partner`
+      }));
+    }
+    setIsDialogOpen(true);
+  };
 
   useEffect(() => {
     const t = setInterval(() => setTestimonialIdx(i => (i + 1) % testimonials.length), 5000);
@@ -377,6 +389,9 @@ export default function PartnersPage() {
             ))}
           </div>
         </section>
+
+        {/* ── 10 Strategic Partner Domains Explorer ────────────────── */}
+        <PartnerDomainsExplorer onOpenPartnerForm={openPartnerFormWithCategory} />
 
         {/* ── Partner Types + Dark Benefits Panel ─────────────────── */}
         <section className="py-20 bg-white">
@@ -698,12 +713,18 @@ export default function PartnersPage() {
                         <select id="partnershipType" value={formData.partnershipType} onChange={handleInputChange} disabled={isSubmitting}
                           className={`w-full h-9 sm:h-10 px-3.5 bg-slate-50 border rounded-xl focus:border-blue-500 focus:ring-1 focus:ring-blue-500 text-xs font-semibold text-slate-600 outline-none transition-all ${errors.partnershipType ? "border-red-500" : "border-slate-200"}`}
                         >
-                          <option value="">Select Type</option>
-                          <option value="Technology Partner">Technology Partner</option>
-                          <option value="Certified Audit Partner">Certified Audit Partner</option>
-                          <option value="Advisory Partner">Advisory Partner</option>
-                          <option value="Innovation Partner">Innovation Partner</option>
-                          <option value="Other">Other</option>
+                          <option value="">Select Domain / Partnership Type</option>
+                          <option value="Regulatory Compliance Partner">Regulatory Compliance Partner</option>
+                          <option value="Financial Governance Partner">Financial Governance Partner</option>
+                          <option value="Labour & EHS Partner">Labour & EHS Partner</option>
+                          <option value="Environmental Compliance Partner">Environmental Compliance Partner</option>
+                          <option value="Cybersecurity & Privacy Partner">Cybersecurity & Privacy Partner</option>
+                          <option value="Enterprise Risk & GRC Partner">Enterprise Risk & GRC Partner</option>
+                          <option value="ESG & Sustainability Partner">ESG & Sustainability Partner</option>
+                          <option value="Technology Platforms Partner">Technology Platforms Partner</option>
+                          <option value="Networking & Security Partner">Networking & Security Partner</option>
+                          <option value="Audit & Certification Body Partner">Audit & Certification Body Partner</option>
+                          <option value="Other Strategic Alliance">Other Strategic Alliance</option>
                         </select>
                         {errors.partnershipType && <p className="text-[9px] text-red-500 font-bold">{errors.partnershipType}</p>}
                       </div>

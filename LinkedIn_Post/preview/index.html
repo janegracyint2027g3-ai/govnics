@@ -439,7 +439,16 @@
 
       // Update Tab 1 (Text Post)
       document.getElementById('activePostTitle').innerText = p.post_title;
-      document.getElementById('activePostSub').innerText = `Audience: ${p.primary_audience} • Framework: ${p.editorial_framework} • Stage: ${p.funnel_stage}`;
+      const charCount = p.char_count || p.text_content.full_post.length;
+      const statusColor = (charCount >= 700 && charCount <= 950) ? '#10B981' : (charCount <= 1000 ? '#F59E0B' : '#EF4444');
+      const statusText = (charCount >= 700 && charCount <= 950) ? '✅ Optimal (700-950 chars)' : `${charCount} chars`;
+      
+      document.getElementById('activePostSub').innerHTML = `
+        <span>Audience: <strong>${p.primary_audience}</strong></span> • 
+        <span>Framework: <strong>${p.editorial_framework}</strong></span> • 
+        <span style="display:inline-block; padding: 2px 8px; border-radius: 999px; background: ${statusColor}22; color: ${statusColor}; font-weight:700; border: 1px solid ${statusColor}; font-size:11px;">${statusText}</span> •
+        <span style="color:#94A3B8; font-size:11px;">Source: ${p.source_citation || 'Verified Regulatory Gazette'}</span>
+      `;
       document.getElementById('activePostText').innerText = p.text_content.full_post;
 
       // Update Tab 2 (Card iframe)
