@@ -17,9 +17,9 @@ import {
   Award,
   Users
 } from "lucide-react";
-import heroVerify from "@/assets/hero-verify.jpg";
-import heroIntegration from "@/assets/hero-integration.jpg";
-import heroCommand from "@/assets/command_center_1.jpg";
+import heroVerify from "@/assets/hero-boardroom.jpg";
+import heroIntegration from "@/assets/hero-esg.jpg";
+import heroCommand from "@/assets/hero-command-center.jpg";
 
 export default function ManpowerServiceDetailPage() {
   const { serviceId } = useParams<{ serviceId: string }>();

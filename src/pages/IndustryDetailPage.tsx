@@ -13,13 +13,13 @@ import {
   ArrowRight
 } from "lucide-react";
 
-import heroSoc from "@/assets/hero-soc.jpg";
-import heroDrone from "@/assets/hero-drone.jpg";
-import heroFacility from "@/assets/verticals-facility.jpg";
-import heroCommand from "@/assets/command_center_1.jpg";
-import heroVerify from "@/assets/hero-verify.jpg";
-import heroAiDriven from "@/assets/hero-ai-driven.jpg";
-import heroIntegration from "@/assets/hero-integration.jpg";
+import heroSoc from "@/assets/hero-soc-cyber.jpg";
+import heroDrone from "@/assets/hero-soc-cyber.jpg";
+import heroFacility from "@/assets/hero-industrial.jpg";
+import heroCommand from "@/assets/hero-command-center.jpg";
+import heroVerify from "@/assets/hero-boardroom.jpg";
+import heroAiDriven from "@/assets/hero-ai-analytics.jpg";
+import heroIntegration from "@/assets/hero-esg.jpg";
 
 // ── Animated Industry Visual Panel ────────────────────────────────────────────
 function AnimatedIndustryPanel({ sectorTitle, clusterName }: { sectorId: string; sectorTitle: string; clusterName: string }) {

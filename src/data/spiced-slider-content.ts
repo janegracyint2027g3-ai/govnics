@@ -1,10 +1,10 @@
-import heroAiDriven from "@/assets/hero-ai-driven.jpg";
-import heroSoc from "@/assets/hero-soc.jpg";
-import heroVerify from "@/assets/hero-verify.jpg";
-import heroIntegration from "@/assets/hero-integration.jpg";
-import heroDrone from "@/assets/hero-drone.jpg";
-import verticalsFacility from "@/assets/verticals-facility.jpg";
-import heroCommand from "@/assets/command_center_1.jpg";
+import heroAiDriven from "@/assets/hero-ai-analytics.jpg";
+import heroSoc from "@/assets/hero-soc-cyber.jpg";
+import heroVerify from "@/assets/hero-boardroom.jpg";
+import heroIntegration from "@/assets/hero-esg.jpg";
+import heroDrone from "@/assets/hero-soc-cyber.jpg";
+import verticalsFacility from "@/assets/hero-industrial.jpg";
+import heroCommand from "@/assets/hero-command-center.jpg";
 
 export interface SpicedBreakdown {
   situation: string;       // S: Current state, scale, operating environment
