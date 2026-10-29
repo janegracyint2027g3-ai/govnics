@@ -166,6 +166,38 @@ export const TwoColumnMegaMenu: React.FC<TwoColumnMegaMenuProps> = ({
         </Link>
       </div>
 
+      {/* Featured Certifications Banner */}
+      {isSolutions && (
+        <Link
+          to="/certifications"
+          onClick={onClose}
+          className="mb-3.5 p-2.5 px-3.5 rounded-xl bg-gradient-to-r from-blue-50/90 via-indigo-50/60 to-amber-50/60 border border-blue-200/80 hover:border-blue-400 flex items-center justify-between group transition-all shadow-sm"
+        >
+          <div className="flex items-center gap-2.5">
+            <div className="w-7 h-7 rounded-lg bg-blue-600 text-white flex items-center justify-center font-black text-xs shadow-sm group-hover:scale-105 transition-transform">
+              <Award className="w-4 h-4" />
+            </div>
+            <div>
+              <div className="flex items-center gap-2">
+                <span className="text-xs font-black text-slate-900 group-hover:text-blue-700 transition-colors">
+                  Certifications &amp; Standards Directory
+                </span>
+                <span className="text-[9px] font-extrabold uppercase px-1.5 py-0.5 rounded bg-blue-600 text-white tracking-wide">
+                  31 Bodies
+                </span>
+              </div>
+              <p className="text-[10.5px] text-slate-500 font-medium">
+                ISO, BSI, TÜV SÜD, DNV, SGS, NIST, GRI, EcoVadis, RBI, SEBI &amp; MCA
+              </p>
+            </div>
+          </div>
+          <span className="text-xs font-bold text-blue-600 group-hover:text-blue-800 flex items-center gap-1 shrink-0 ml-2">
+            <span>Explore</span>
+            <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" />
+          </span>
+        </Link>
+      )}
+
       {/* Topics Grid: 2 clean columns */}
       <div className="grid grid-cols-2 gap-5">
         {/* Left Column */}

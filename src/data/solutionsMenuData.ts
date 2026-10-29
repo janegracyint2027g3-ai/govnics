@@ -285,6 +285,21 @@ export const solutionsMenuData: MegaMenuData = {
             { id: "iso-standards", title: "ISO Standards (9001, 14001, 45001)", href: "/solutions?domain=international#iso" },
             { id: "cross-border-trade", title: "Cross-Border Trade & Customs Compliance", href: "/solutions?domain=international#trade" }
           ]
+        },
+        {
+          id: "certifications-accreditations",
+          title: "Certifications & Standards Directory",
+          icon: "Award",
+          href: "/certifications",
+          description: "31 global & Indian standards: ISO, BSI, TÜV SÜD, DNV, SGS, Bureau Veritas, NIST, GRI, RBI, SEBI, MCA",
+          subItems: [
+            { id: "iso-bsi-tuv", title: "ISO, BSI, TÜV SÜD, DNV & Bureau Veritas", href: "/certifications?category=standards" },
+            { id: "coso-isaca-cobit", title: "COSO, ISACA, COBIT, IIA & ISO 31000", href: "/certifications?category=governance" },
+            { id: "iso27001-nist-cis", title: "ISO 27001, NIST, CIS, (ISC)² & EC-Council", href: "/certifications?category=cybersecurity" },
+            { id: "gri-cdp-ecovadis", title: "GRI, CDP, EcoVadis, MSCI ESG & SBTi", href: "/certifications?category=esg" },
+            { id: "iso9001-iatf-gmp", title: "ISO 9001, IATF 16949, GMP & Lean Six Sigma", href: "/certifications?category=quality" },
+            { id: "rbi-sebi-mca", title: "RBI, SEBI, MCA, BIS, CPCB & FSSAI", href: "/certifications?category=regulatory" }
+          ]
         }
       ]
     },

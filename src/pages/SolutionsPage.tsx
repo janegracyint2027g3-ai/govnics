@@ -283,6 +283,13 @@ export default function SolutionsPage() {
                 <Award className="w-4 h-4 text-blue-600" />
                 <span>View Case Studies &rarr;</span>
               </Link>
+              <Link
+                to="/certifications"
+                className="bg-gradient-to-r from-amber-50 to-orange-50 hover:from-amber-100 hover:to-orange-100 text-amber-900 font-bold px-5 py-3 rounded-xl border border-amber-300/80 transition-all text-sm inline-flex items-center gap-2 shadow-xs"
+              >
+                <span className="text-base">🏆</span>
+                <span>Certifications &amp; Standards (31) &rarr;</span>
+              </Link>
             </motion.div>
           </div>
 

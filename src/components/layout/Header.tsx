@@ -782,9 +782,16 @@ export const Header = () => {
                   </div>
                   <div className="pt-2 border-t border-slate-200 flex flex-col gap-1.5 mt-1">
                     <Link
+                      to="/certifications"
+                      onClick={() => setMobileOpen(false)}
+                      className="w-full py-2 bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-lg text-xs font-bold text-center block shadow-sm"
+                    >
+                      🏆 Certifications &amp; Standards Directory &rarr;
+                    </Link>
+                    <Link
                       to="/solutions"
                       onClick={() => setMobileOpen(false)}
-                      className="w-full py-2 bg-blue-600 text-white rounded-lg text-xs font-bold text-center block shadow-sm"
+                      className="w-full py-2 bg-slate-100 hover:bg-slate-200 text-slate-800 rounded-lg text-xs font-bold text-center block"
                     >
                       Explore All Solutions &rarr;
                     </Link>
