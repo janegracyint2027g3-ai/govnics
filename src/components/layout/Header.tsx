@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { 
-  Menu, X, ArrowRight, ShieldCheck, ChevronDown, Search,
+  Menu, X, ArrowRight, ShieldCheck, ChevronDown,
   User, LogOut, CalendarCheck,
   Scale, Coins, Building, Lock, Layers, Globe
 } from "lucide-react";
@@ -14,6 +14,7 @@ import { solutionsMenuData } from "@/data/solutionsMenuData";
 import { caseStudiesMenuData } from "@/data/caseStudiesMenuData";
 import { PartnersMegaMenu } from "./PartnersMegaMenu";
 import { partnerCategoriesData } from "@/data/partners-data";
+import { IndustriesDropdown } from "./IndustriesDropdown";
 
 const megaIconMap: Record<string, any> = {
   Scale,
@@ -31,11 +32,9 @@ export const Header = () => {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
   const [profileDropdownOpen, setProfileDropdownOpen] = useState(false);
-  const [activeSubTab, setActiveSubTab] = useState<string>("");
   const [openMegaOfferCat, setOpenMegaOfferCat] = useState<string>("statutory-operational");
   const [activeOfferTab, setActiveOfferTab] = useState<string>("regulatory-compliance");
   const [activeServiceTab, setActiveServiceTab] = useState<string>("statutory-tracking");
-  const [industrySearchQuery, setIndustrySearchQuery] = useState<string>("");
   const { pathname } = useLocation();
   const { user, isAuthenticated, logout } = useAuth();
 
@@ -62,18 +61,12 @@ export const Header = () => {
     setMobileOpen(false);
     setActiveDropdown(null);
     setProfileDropdownOpen(false);
-    setIndustrySearchQuery("");
   }, [pathname]);
 
   useEffect(() => {
     if (activeDropdown === "what-we-offer") {
       setActiveOfferTab("regulatory-compliance");
       setActiveServiceTab(offeringsVerticalTabsData["regulatory-compliance"]?.items[0]?.id || "statutory-tracking");
-    } else if (activeDropdown === "whom-we-serve") {
-      setActiveSubTab("manufacturing-industrial");
-      setIndustrySearchQuery("");
-    } else {
-      setActiveSubTab("");
     }
   }, [activeDropdown]);
 
@@ -382,287 +375,28 @@ export const Header = () => {
 
 
 
-          {/* Industries & Scale Dropdown */}
+          {/* Industries Dropdown */}
           <div
-            className="h-full flex items-center"
+            className="h-full flex items-center relative"
             onMouseEnter={() => setActiveDropdown("whom-we-serve")}
             onMouseLeave={() => setActiveDropdown(null)}
           >
-            <div className={getNavItemClass() + " cursor-pointer"}>
-              Industries <ChevronDown className="w-4 h-4 text-current" />
-            </div>
-            {activeDropdown === "whom-we-serve" && (
-              <div className="absolute top-full left-1/2 -translate-x-1/2 w-[98vw] max-w-6xl xl:max-w-7xl bg-white border border-slate-200/90 shadow-2xl rounded-2xl flex overflow-hidden animate-slide-up-dropdown mt-1 text-left z-50">
-                {/* Bridge to prevent hover loss */}
-                <div className="absolute -top-8 left-0 right-0 h-8 bg-transparent" />
-
-                {/* Left Sidebar */}
-                <div className="w-[28%] bg-slate-900 text-white border-r border-slate-800 p-6 flex flex-col justify-between">
-                  <div className="space-y-4">
-                    <div>
-                      <h3 className="text-[11px] font-black text-blue-400 uppercase tracking-[0.25em] leading-tight">
-                        Industries
-                      </h3>
-                      <p className="text-[10px] text-slate-400 mt-1 font-medium leading-relaxed">
-                        Explore industries and the governance, risk and compliance requirements relevant to their operations.
-                      </p>
-                    </div>
-
-                    {/* Search Field */}
-                    <div className="relative">
-                      <Search className="w-3.5 h-3.5 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
-                      <input
-                        type="text"
-                        placeholder="Search industries or topics..."
-                        value={industrySearchQuery}
-                        onChange={(e) => setIndustrySearchQuery(e.target.value)}
-                        className="w-full pl-8 pr-3 py-1.5 bg-slate-800/80 border border-slate-700 rounded-lg text-xs text-white placeholder-slate-400 focus:outline-none focus:border-blue-500 transition-colors"
-                      />
-                    </div>
-                    
-                    {/* Sidebar Clusters List */}
-                    <div className="flex flex-col gap-1 max-h-[340px] overflow-y-auto pr-1 scrollbar-thin">
-                      {whomWeServeClusters.map((cluster) => {
-                        const ClusterIcon = cluster.icon;
-                        const isSelected = activeSubTab === cluster.id;
-                        return (
-                          <button
-                            key={cluster.id}
-                            onMouseEnter={() => {
-                              setActiveSubTab(cluster.id);
-                              if (industrySearchQuery) setIndustrySearchQuery("");
-                            }}
-                            className={`w-full text-left px-3 py-2 rounded-xl text-xs font-semibold transition-all flex items-center justify-between group ${
-                              isSelected && !industrySearchQuery
-                                ? "bg-blue-600 text-white shadow-sm shadow-blue-500/20"
-                                : "text-slate-350 hover:text-white hover:bg-slate-800/60"
-                            }`}
-                          >
-                            <div className="flex items-center gap-2.5 min-w-0">
-                              <ClusterIcon className={`w-4 h-4 shrink-0 ${isSelected && !industrySearchQuery ? "text-white" : "text-blue-400"}`} />
-                              <span className="truncate">{cluster.name}</span>
-                            </div>
-                            <ArrowRight className={`w-3.5 h-3.5 shrink-0 transition-all ${isSelected && !industrySearchQuery ? "opacity-100" : "opacity-0 group-hover:opacity-100"}`} />
-                          </button>
-                        );
-                      })}
-                    </div>
-                  </div>
-
-                  <div className="pt-3 border-t border-slate-800/80">
-                    <Link
-                      to="/industries"
-                      onClick={() => setActiveDropdown(null)}
-                      className="text-xs font-bold text-blue-400 hover:text-blue-300 inline-flex items-center gap-1.5 transition-colors"
-                    >
-                      <span>View All Industries Directory</span>
-                      <ArrowRight className="w-3 h-3" />
-                    </Link>
-                  </div>
-                </div>
-
-                {/* Right Pane */}
-                <div className="w-[72%] p-6 flex flex-col justify-between bg-white min-h-[470px]">
-                  {industrySearchQuery.trim() ? (
-                    /* ── Search Results View ── */
-                    (() => {
-                      const query = industrySearchQuery.trim().toLowerCase();
-                      const matched = whomWeServeClusters.flatMap(c => 
-                        c.subIndustries.filter(s => 
-                          s.title.toLowerCase().includes(query) ||
-                          s.subtitle.toLowerCase().includes(query) ||
-                          s.regulations.some(r => r.toLowerCase().includes(query)) ||
-                          s.searchKeywords.some(k => k.toLowerCase().includes(query)) ||
-                          c.name.toLowerCase().includes(query)
-                        ).map(s => ({ ...s, clusterName: c.name, clusterId: c.id }))
-                      );
-
-                      if (matched.length === 0) {
-                        return (
-                          <div className="flex-1 flex flex-col items-center justify-center p-8 text-center space-y-3">
-                            <div className="w-12 h-12 rounded-full bg-slate-100 flex items-center justify-center text-slate-400">
-                              <Search className="w-6 h-6" />
-                            </div>
-                            <h4 className="text-sm font-bold text-slate-700">No industry matched "{industrySearchQuery}"</h4>
-                            <p className="text-xs text-slate-400 max-w-sm leading-relaxed">
-                              Try searching for automotive, healthcare, banking, tech, construction, or EHS regulations.
-                            </p>
-                            <button
-                              onClick={() => setIndustrySearchQuery("")}
-                              className="px-3.5 py-1.5 bg-blue-50 text-blue-600 rounded-lg text-xs font-bold hover:bg-blue-100 transition-colors"
-                            >
-                              Clear Search
-                            </button>
-                          </div>
-                        );
-                      }
-
-                      return (
-                        <div className="flex-1 flex flex-col gap-3 overflow-hidden">
-                          <div className="flex items-center justify-between border-b border-slate-100 pb-2">
-                            <span className="text-xs font-bold text-slate-600">
-                              Found <span className="text-blue-600 font-extrabold">{matched.length}</span> matching industries
-                            </span>
-                            <button
-                              onClick={() => setIndustrySearchQuery("")}
-                              className="text-xs text-blue-600 hover:underline font-semibold"
-                            >
-                              Clear
-                            </button>
-                          </div>
-                          <div className="grid grid-cols-2 gap-3 overflow-y-auto max-h-[350px] pr-1 scrollbar-thin">
-                            {matched.map((sub) => {
-                              const SubIcon = sub.icon;
-                              return (
-                                <Link
-                                  key={sub.id}
-                                  to={sub.existingRoute}
-                                  onClick={() => {
-                                    setActiveDropdown(null);
-                                    setIndustrySearchQuery("");
-                                  }}
-                                  className="flex items-center justify-between p-3 rounded-xl bg-white border border-slate-150 hover:border-blue-300 hover:bg-blue-50/20 transition-all group shadow-2xs"
-                                >
-                                  <div className="flex items-center gap-3 min-w-0">
-                                    <div className="p-2 bg-slate-100 group-hover:bg-blue-100 text-slate-600 group-hover:text-blue-600 rounded-lg shrink-0 transition-colors">
-                                      <SubIcon className="w-4 h-4" />
-                                    </div>
-                                    <div className="flex flex-col min-w-0">
-                                      <span className="text-xs font-bold text-slate-900 group-hover:text-blue-600 transition-colors truncate">
-                                        {sub.title}
-                                      </span>
-                                      <span className="text-[10px] text-blue-600 font-semibold">{sub.clusterName}</span>
-                                    </div>
-                                  </div>
-                                  <ArrowRight className="w-3.5 h-3.5 text-slate-300 group-hover:text-blue-600 group-hover:translate-x-0.5 transition-all shrink-0 ml-2" />
-                                </Link>
-                              );
-                            })}
-                          </div>
-                        </div>
-                      );
-                    })()
-                  ) : (
-                    /* ── Active Cluster View ── */
-                    (() => {
-                      const activeCluster = whomWeServeClusters.find(c => c.id === activeSubTab) || whomWeServeClusters[0];
-                      return (
-                        <div className="flex-1 flex flex-col justify-between">
-                          <div>
-                            {/* Cluster Header */}
-                            <div className="border-b border-slate-100 pb-3 flex items-start justify-between gap-4">
-                              <div>
-                                <div className="flex items-center gap-2">
-                                  <h4 className="text-base font-black text-slate-900 tracking-tight">
-                                    {activeCluster.name}
-                                  </h4>
-                                  <span className="px-2 py-0.5 rounded-full bg-emerald-50 border border-emerald-200 text-[9.5px] font-black text-emerald-700 tracking-wide uppercase">
-                                    Verified Scope
-                                  </span>
-                                </div>
-                                <p className="text-xs text-slate-500 font-medium leading-relaxed mt-1">
-                                  {activeCluster.shortDescription}
-                                </p>
-                              </div>
-                              <Link
-                                to={`/industries/${activeCluster.id}`}
-                                onClick={() => setActiveDropdown(null)}
-                                className="text-xs text-blue-600 hover:text-blue-700 font-bold whitespace-nowrap inline-flex items-center gap-1 shrink-0"
-                              >
-                                Explore Sector Page <ArrowRight className="w-3 h-3" />
-                              </Link>
-                            </div>
-
-                            {/* Two-Column Industry Cards Grid (6 submenu items horizontally in 3 rows of 2) */}
-                            <div className="grid grid-cols-2 gap-3 my-4">
-                              {activeCluster.subIndustries.slice(0, 6).map((sub) => {
-                                const SubIcon = sub.icon;
-                                return (
-                                  <Link
-                                    key={sub.id}
-                                    to={sub.existingRoute}
-                                    onClick={() => setActiveDropdown(null)}
-                                    className="flex items-center justify-between p-3 rounded-xl bg-white border border-slate-150 hover:border-blue-300 hover:bg-blue-50/20 transition-all group shadow-2xs"
-                                  >
-                                    <div className="flex items-center gap-3 text-left min-w-0">
-                                      <div className="p-2 bg-slate-100 group-hover:bg-blue-100 text-slate-600 group-hover:text-blue-600 rounded-lg shrink-0 transition-colors">
-                                        <SubIcon className="w-4 h-4" />
-                                      </div>
-                                      <div className="flex flex-col min-w-0">
-                                        <span className="text-xs font-bold text-slate-900 group-hover:text-blue-600 transition-colors truncate">
-                                          {sub.title}
-                                        </span>
-                                        <span className="text-[10.5px] text-slate-400 font-medium line-clamp-1 mt-0.5">
-                                          {sub.subtitle}
-                                        </span>
-                                      </div>
-                                    </div>
-                                    <ArrowRight className="w-3.5 h-3.5 text-slate-300 group-hover:text-blue-600 group-hover:translate-x-0.5 transition-all shrink-0 ml-2" />
-                                  </Link>
-                                );
-                              })}
-                            </div>
-                          </div>
-
-                          <div className="space-y-3 mt-1">
-                            {/* Key GRC Topics & Documented Offerings */}
-                            <div className="pt-3 border-t border-slate-100 grid grid-cols-2 gap-4 items-center">
-                              <div>
-                                <span className="text-[9.5px] font-black text-slate-400 uppercase tracking-widest block mb-1">
-                                  Applicable GRC Focus Topics
-                                </span>
-                                <div className="flex flex-wrap gap-1.5">
-                                  {activeCluster.keyGrcTopics.slice(0, 3).map((topic, i) => (
-                                    <span
-                                      key={i}
-                                      className="px-2 py-0.5 bg-slate-100 text-slate-700 rounded-md text-[10px] font-medium border border-slate-200/70 truncate max-w-[220px]"
-                                    >
-                                      {topic}
-                                    </span>
-                                  ))}
-                                </div>
-                              </div>
-                              <div>
-                                <span className="text-[9.5px] font-black text-slate-400 uppercase tracking-widest block mb-1">
-                                  Documented GOVENICS Offerings
-                                </span>
-                                <div className="flex flex-wrap gap-1.5">
-                                  {activeCluster.documentedOfferings.slice(0, 3).map((off) => (
-                                    <Link
-                                      key={off.serviceId}
-                                      to={off.route}
-                                      onClick={() => setActiveDropdown(null)}
-                                      className="inline-flex items-center gap-1 px-2 py-0.5 bg-blue-50 hover:bg-blue-100 text-blue-700 rounded-md text-[10px] font-bold border border-blue-200/60 transition-colors"
-                                    >
-                                      <ShieldCheck className="w-3 h-3 text-blue-600 shrink-0" />
-                                      <span className="truncate max-w-[140px]">{off.serviceName}</span>
-                                    </Link>
-                                  ))}
-                                </div>
-                              </div>
-                            </div>
-
-                            {/* Contextual Contact CTA Banner */}
-                            <div className="bg-slate-50 border border-slate-200/80 rounded-xl p-3 flex items-center justify-between">
-                              <span className="text-xs text-slate-600 font-medium">
-                                Discuss your governance, risk and compliance requirements with GOVENICS.
-                              </span>
-                              <Link
-                                to="/contact"
-                                onClick={() => setActiveDropdown(null)}
-                                className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg text-xs font-bold tracking-wide transition-all shadow-md shadow-blue-500/10 shrink-0 ml-3"
-                              >
-                                Contact Us
-                              </Link>
-                            </div>
-                          </div>
-                        </div>
-                      );
-                    })()
-                  )}
-                </div>
-              </div>
-            )}
+            <button
+              onClick={() => toggleDropdown("whom-we-serve")}
+              className={`${getNavItemClass()} cursor-pointer flex items-center gap-1.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 rounded`}
+              aria-expanded={activeDropdown === "whom-we-serve"}
+            >
+              <span>Industries</span>
+              <ChevronDown
+                className={`w-4 h-4 text-current transition-transform duration-200 ${
+                  activeDropdown === "whom-we-serve" ? "rotate-180 text-blue-600" : ""
+                }`}
+              />
+            </button>
+            <IndustriesDropdown
+              isOpen={activeDropdown === "whom-we-serve"}
+              onClose={() => setActiveDropdown(null)}
+            />
           </div>
 
           {/* Solutions Dropdown */}
@@ -940,7 +674,7 @@ export const Header = () => {
               )}
             </div>
 
-            {/* Mobile Accordion for Industries & Scale */}
+            {/* Mobile Accordion for Industries */}
             <div>
               <button
                 onClick={() => toggleDropdown("whom-we-serve")}
@@ -950,35 +684,37 @@ export const Header = () => {
                 <ChevronDown className={`w-4 h-4 transition-transform ${activeDropdown === "whom-we-serve" ? "rotate-180" : ""}`} />
               </button>
               {activeDropdown === "whom-we-serve" && (
-                <div className="pl-4 my-1 flex flex-col gap-3 bg-slate-50 rounded-lg p-3 border border-slate-100 max-h-[350px] overflow-y-auto text-left">
-                  {whomWeServeClusters.map((cluster) => (
-                    <div key={cluster.id} className="space-y-1 pb-2 border-b border-slate-200/60 last:border-b-0">
-                      <div className="flex items-center justify-between border-l-2 border-blue-500 pl-1.5">
-                        <span className="text-[10px] font-black text-blue-600 uppercase tracking-widest">
-                          {cluster.name}
-                        </span>
+                <div className="pl-3 my-1 flex flex-col gap-1 bg-slate-50 rounded-lg p-3 border border-slate-150 max-h-[460px] overflow-y-auto text-left">
+                  <div className="pb-2 border-b border-slate-200">
+                    <span className="text-[10px] font-black text-blue-600 uppercase tracking-wider">
+                      Industries & Sectors
+                    </span>
+                  </div>
+                  <div className="flex flex-col gap-0.5">
+                    {whomWeServeClusters.map((cluster) => {
+                      const ClusterIcon = cluster.icon;
+                      return (
                         <Link
+                          key={cluster.id}
                           to={`/industries/${cluster.id}`}
                           onClick={() => setMobileOpen(false)}
-                          className="text-[9.5px] text-blue-600 font-bold hover:underline"
+                          className="flex items-center gap-2.5 p-2 rounded-lg hover:bg-white text-xs font-semibold text-slate-800 transition-colors"
                         >
-                          Sector Page &rarr;
+                          <ClusterIcon className="w-3.5 h-3.5 text-blue-600 shrink-0" />
+                          <span>{cluster.name}</span>
                         </Link>
-                      </div>
-                      <div className="pl-2 flex flex-col gap-0.5">
-                        {cluster.subIndustries.slice(0, 6).map((sub) => (
-                          <Link
-                            key={sub.id}
-                            to={sub.existingRoute}
-                            onClick={() => setMobileOpen(false)}
-                            className="text-xs text-slate-700 hover:text-blue-600 font-medium py-0.5 block truncate"
-                          >
-                            {sub.title}
-                          </Link>
-                        ))}
-                      </div>
-                    </div>
-                  ))}
+                      );
+                    })}
+                  </div>
+                  <div className="pt-2 border-t border-slate-200 flex flex-col gap-1.5 mt-1">
+                    <Link
+                      to="/industries"
+                      onClick={() => setMobileOpen(false)}
+                      className="w-full py-2 bg-blue-600 text-white rounded-lg text-xs font-bold text-center block shadow-sm"
+                    >
+                      View All Industries &rarr;
+                    </Link>
+                  </div>
                 </div>
               )}
             </div>
@@ -993,31 +729,51 @@ export const Header = () => {
                 <ChevronDown className={`w-4 h-4 transition-transform ${activeDropdown === "solutions" ? "rotate-180" : ""}`} />
               </button>
               {activeDropdown === "solutions" && (
-                <div className="pl-3 my-1 flex flex-col gap-3 bg-slate-50 rounded-lg p-3 border border-slate-150 max-h-[450px] overflow-y-auto text-left">
-                  <div className="space-y-1 pb-2 border-b border-slate-200">
+                <div className="pl-3 my-1 flex flex-col gap-1 bg-slate-50 rounded-lg p-3 border border-slate-150 max-h-[460px] overflow-y-auto text-left">
+                  <div className="pb-2 border-b border-slate-200">
                     <span className="text-[10px] font-black text-blue-600 uppercase tracking-wider">
-                      Pre-Defined Consulting Assets
+                      Solutions Catalog
                     </span>
-                    <div className="pl-2 flex flex-col gap-1">
-                      <Link to="/solutions" onClick={() => setMobileOpen(false)} className="text-xs text-slate-700 hover:text-blue-600 font-medium py-0.5">
-                        By Industry Sector (8 Sectors)
-                      </Link>
-                      <Link to="/solutions" onClick={() => setMobileOpen(false)} className="text-xs text-slate-700 hover:text-blue-600 font-medium py-0.5">
-                        By Compliance Domain (8 Domains)
-                      </Link>
-                      <Link to="/solutions" onClick={() => setMobileOpen(false)} className="text-xs text-slate-700 hover:text-blue-600 font-medium py-0.5">
-                        By Solution Type (AI-Driven)
-                      </Link>
-                    </div>
                   </div>
-
-                  <Link
-                    to="/solutions"
-                    onClick={() => setMobileOpen(false)}
-                    className="w-full py-2 bg-blue-600 text-white rounded-lg text-xs font-bold text-center block shadow-sm"
-                  >
-                    Explore Solutions Catalog &rarr;
-                  </Link>
+                  <div className="flex flex-col gap-0.5">
+                    <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider px-2 pt-1">
+                      By Industry Sector
+                    </span>
+                    {solutionsMenuData.leftColumn.industries.map((ind) => (
+                      <Link
+                        key={ind.id}
+                        to={ind.href}
+                        onClick={() => setMobileOpen(false)}
+                        className="flex items-center gap-2.5 p-1.5 px-2 rounded-lg hover:bg-white text-xs font-semibold text-slate-800 transition-colors"
+                      >
+                        <span className="w-1.5 h-1.5 rounded-full bg-blue-600 shrink-0" />
+                        <span>{ind.name}</span>
+                      </Link>
+                    ))}
+                    <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider px-2 pt-2 border-t border-slate-200/60 mt-1">
+                      By Compliance Domain
+                    </span>
+                    {solutionsMenuData.rightColumn.complianceDomains.items.map((item) => (
+                      <Link
+                        key={item.id}
+                        to={item.href}
+                        onClick={() => setMobileOpen(false)}
+                        className="flex items-center gap-2.5 p-1.5 px-2 rounded-lg hover:bg-white text-xs font-semibold text-slate-800 transition-colors"
+                      >
+                        <span className="w-1.5 h-1.5 rounded-full bg-blue-600 shrink-0" />
+                        <span>{item.title}</span>
+                      </Link>
+                    ))}
+                  </div>
+                  <div className="pt-2 border-t border-slate-200 flex flex-col gap-1.5 mt-1">
+                    <Link
+                      to="/solutions"
+                      onClick={() => setMobileOpen(false)}
+                      className="w-full py-2 bg-blue-600 text-white rounded-lg text-xs font-bold text-center block shadow-sm"
+                    >
+                      Explore All Solutions &rarr;
+                    </Link>
+                  </div>
                 </div>
               )}
             </div>
@@ -1032,31 +788,51 @@ export const Header = () => {
                 <ChevronDown className={`w-4 h-4 transition-transform ${activeDropdown === "case-studies" ? "rotate-180" : ""}`} />
               </button>
               {activeDropdown === "case-studies" && (
-                <div className="pl-3 my-1 flex flex-col gap-3 bg-slate-50 rounded-lg p-3 border border-slate-150 max-h-[450px] overflow-y-auto text-left">
-                  <div className="space-y-1 pb-2 border-b border-slate-200">
+                <div className="pl-3 my-1 flex flex-col gap-1 bg-slate-50 rounded-lg p-3 border border-slate-150 max-h-[460px] overflow-y-auto text-left">
+                  <div className="pb-2 border-b border-slate-200">
                     <span className="text-[10px] font-black text-emerald-600 uppercase tracking-wider">
                       Verified Client Success
                     </span>
-                    <div className="pl-2 flex flex-col gap-1">
-                      <Link to="/case-studies" onClick={() => setMobileOpen(false)} className="text-xs text-slate-700 hover:text-emerald-600 font-medium py-0.5">
-                        By Industry Sector Cases
-                      </Link>
-                      <Link to="/case-studies" onClick={() => setMobileOpen(false)} className="text-xs text-slate-700 hover:text-emerald-600 font-medium py-0.5">
-                        By Compliance Domain Wins
-                      </Link>
-                      <Link to="/case-studies#outcome-metrics" onClick={() => setMobileOpen(false)} className="text-xs text-slate-700 hover:text-emerald-600 font-medium py-0.5">
-                        Outcome Metrics (KPIs Dashboard)
-                      </Link>
-                    </div>
                   </div>
-
-                  <Link
-                    to="/case-studies"
-                    onClick={() => setMobileOpen(false)}
-                    className="w-full py-2 bg-emerald-600 text-white rounded-lg text-xs font-bold text-center block shadow-sm"
-                  >
-                    Browse All Case Studies &rarr;
-                  </Link>
+                  <div className="flex flex-col gap-0.5">
+                    <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider px-2 pt-1">
+                      By Industry Cases
+                    </span>
+                    {caseStudiesMenuData.leftColumn.industries.map((ind) => (
+                      <Link
+                        key={ind.id}
+                        to={ind.href}
+                        onClick={() => setMobileOpen(false)}
+                        className="flex items-center gap-2.5 p-1.5 px-2 rounded-lg hover:bg-white text-xs font-semibold text-slate-800 transition-colors"
+                      >
+                        <span className="w-1.5 h-1.5 rounded-full bg-emerald-600 shrink-0" />
+                        <span>{ind.name}</span>
+                      </Link>
+                    ))}
+                    <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider px-2 pt-2 border-t border-slate-200/60 mt-1">
+                      By Compliance Wins
+                    </span>
+                    {caseStudiesMenuData.rightColumn.complianceDomains.items.map((item) => (
+                      <Link
+                        key={item.id}
+                        to={item.href}
+                        onClick={() => setMobileOpen(false)}
+                        className="flex items-center gap-2.5 p-1.5 px-2 rounded-lg hover:bg-white text-xs font-semibold text-slate-800 transition-colors"
+                      >
+                        <span className="w-1.5 h-1.5 rounded-full bg-emerald-600 shrink-0" />
+                        <span>{item.title}</span>
+                      </Link>
+                    ))}
+                  </div>
+                  <div className="pt-2 border-t border-slate-200 flex flex-col gap-1.5 mt-1">
+                    <Link
+                      to="/case-studies"
+                      onClick={() => setMobileOpen(false)}
+                      className="w-full py-2 bg-emerald-600 text-white rounded-lg text-xs font-bold text-center block shadow-sm"
+                    >
+                      Browse All Case Studies &rarr;
+                    </Link>
+                  </div>
                 </div>
               )}
             </div>
