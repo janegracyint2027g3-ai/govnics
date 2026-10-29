@@ -9,12 +9,14 @@ import { whomWeServeClusters } from "@/data/whom-we-serve-data";
 import { useAuth } from "@/context/AuthContext";
 
 import { offeringsData, megaOfferingsCategories } from "@/data/offerings-data";
-import { TwoColumnMegaMenu } from "./TwoColumnMegaMenu";
 import { solutionsMenuData } from "@/data/solutionsMenuData";
 import { caseStudiesMenuData } from "@/data/caseStudiesMenuData";
-import { PartnersMegaMenu } from "./PartnersMegaMenu";
 import { partnerCategoriesData } from "@/data/partners-data";
-import { IndustriesDropdown } from "./IndustriesDropdown";
+import { SharedMegaMenu } from "./megamenu/SharedMegaMenu";
+import { industriesMegaData } from "@/data/mega-menu/industriesMegaData";
+import { solutionsMegaData } from "@/data/mega-menu/solutionsMegaData";
+import { caseStudiesMegaData } from "@/data/mega-menu/caseStudiesMegaData";
+import { partnersMegaData } from "@/data/mega-menu/partnersMegaData";
 
 const megaIconMap: Record<string, any> = {
   Scale,
@@ -408,7 +410,8 @@ export const Header = () => {
                 }`}
               />
             </button>
-            <IndustriesDropdown
+            <SharedMegaMenu
+              data={industriesMegaData}
               isOpen={activeDropdown === "whom-we-serve"}
               onClose={() => setActiveDropdown(null)}
             />
@@ -432,8 +435,8 @@ export const Header = () => {
                 }`}
               />
             </button>
-            <TwoColumnMegaMenu
-              data={solutionsMenuData}
+            <SharedMegaMenu
+              data={solutionsMegaData}
               isOpen={activeDropdown === "solutions"}
               onClose={() => setActiveDropdown(null)}
             />
@@ -457,8 +460,8 @@ export const Header = () => {
                 }`}
               />
             </button>
-            <TwoColumnMegaMenu
-              data={caseStudiesMenuData}
+            <SharedMegaMenu
+              data={caseStudiesMegaData}
               isOpen={activeDropdown === "case-studies"}
               onClose={() => setActiveDropdown(null)}
             />
@@ -482,7 +485,8 @@ export const Header = () => {
                 }`}
               />
             </button>
-            <PartnersMegaMenu
+            <SharedMegaMenu
+              data={partnersMegaData}
               isOpen={activeDropdown === "partners"}
               onClose={() => setActiveDropdown(null)}
             />
