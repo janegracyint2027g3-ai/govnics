@@ -52,32 +52,24 @@ var EMAIL_CONFIG = {
 
   // Inbound Business Leads, Consultations & Strategy Sessions
   salesEmails: [
-    "v.varshith@isisecurity.in",
-    "v.vishal@isisecurity.in",
     "bv@trustflow.in",
     "poojasri.aram@gmail.com"
   ],
 
   // Career Applications & Monthly Resume Digests
   careerEmails: [
-    "v.varshith@isisecurity.in",
-    "v.vishal@isisecurity.in",
     "bv@trustflow.in",
     "poojasri.aram@gmail.com"
   ],
 
   // Paid Ad & Campaign Lead Generation
   adCampaignEmails: [
-    "v.varshith@isisecurity.in",
-    "v.vishal@isisecurity.in",
     "bv@trustflow.in",
     "poojasri.aram@gmail.com"
   ],
 
   // Executive Analytics Reports
   reportEmails: [
-    "v.varshith@isisecurity.in",
-    "v.vishal@isisecurity.in",
     "bv@trustflow.in",
     "poojasri.aram@gmail.com"
   ]
@@ -165,8 +157,11 @@ var TAB_CONFIGS = {
     "Lead Source", "UTM Source", "UTM Campaign", "IP Location", "Status"
   ],
   "Registered_Users": [
-    "Timestamp", "Full Name", "Work Email", "Phone", "Company", "Designation",
-    "Interest Area", "Account Status", "IP Location", "IP Address"
+    "Timestamp", "Full Name", "Business Email", "Mobile Number", "User ID",
+    "Company Name", "Official Website", "Country", "State / Region", "City",
+    "Industry Sector", "Sub-Industry", "Company Size", "Registration Type",
+    "Business Operations", "Terms Accepted", "Registration Status",
+    "IP Address", "User Agent"
   ],
   "User_Logins": [
     "Timestamp", "Email", "Auth Provider", "Login Status", "IP Location", "IP Address", "User Agent"
@@ -709,15 +704,18 @@ function sendCareerEmailWithResume(data, attachments, driveLink) {
 
 function sendLeadNotification(data, tableName) {
   var isStrategy = (tableName === "Strategy_Session_Bookings");
+  var isRegistered = (tableName === "Registered_Users");
   var formattedName = tableName.replace(/_/g, ' ');
 
   var userEmail = data.email || data.Email || data.workEmail || data["Business Email"] || data.businessEmail || "";
   var userName = data.name || data.Name || data.fullName || data["Full Name"] || "Prospective Client";
-  var phone = data.phone || data.Phone || "";
-  var company = data.company || data.Company || data.organization || "";
+  var phone = data.phone || data.Phone || data.mobile || data["Mobile Number"] || "";
+  var company = data.company || data.Company || data.organization || data["Company Name"] || "";
 
   var subject = isStrategy
     ? ("📅 [Strategy Session Booked] " + userName + (company ? (" (" + company + ")") : "") + " — " + (data["Preferred Date"] || data.preferredDate || "") + " @ " + (data["Time Slot"] || data.timeSlot || ""))
+    : isRegistered
+    ? ("🏢 [Enterprise Registration] " + userName + (company ? (" (" + company + ")") : "") + " — ID: " + (data["User ID"] || data.userId || "New Account"))
     : ("🚀 New Govenics Submission: [" + formattedName + "] — " + userName + (company ? (" (" + company + ")") : ""));
 
   var recipients = (tableName === "Google_Ad_Leads") 
@@ -786,34 +784,46 @@ function sendUserConfirmationEmail(data, tableName) {
   if (!userEmail || userEmail.indexOf("@") === -1) return;
 
   var isStrategy = (tableName === "Strategy_Session_Bookings");
+  var isRegistered = (tableName === "Registered_Users");
   var userName = data.name || data.Name || data.fullName || data["Full Name"] || "Valued Professional";
   var formattedName = tableName.replace(/_/g, ' ');
 
   var subject = isStrategy
     ? ("Your GOVENICS Strategy Session Request — Confirmed [" + (data["Booking Reference"] || "Pending") + "]")
+    : isRegistered
+    ? ("Welcome to GOVENICS — Enterprise Account & Compliance Portal Registered")
     : ("Thank you for connecting with Govenics GRC");
 
   var videoLink = data["Video Call Link"] || data.videoCallLink || data.meetingLink || "";
 
   var detailSection = isStrategy ? [
-    '    <div style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:12px;padding:20px;margin:18px 0;font-size:13px;color:#334155;">',
-    '      <p style="margin:0 0 12px 0;font-weight:700;color:#1e293b;text-transform:uppercase;font-size:11px;letter-spacing:1px;">🗓 Session & Video Call Details</p>',
+    '    <div style="background:#f8fafc;border-left:4px solid #2563eb;padding:16px;margin:18px 0;border-radius:8px;font-size:13px;color:#334155;">',
+    '      <p style="margin:0 0 10px 0;font-weight:700;color:#1e293b;text-transform:uppercase;font-size:11px;letter-spacing:1px;">🗓 Session & Video Call Details</p>',
     '      <table style="width:100%;font-size:13px;border-collapse:collapse;">',
-    '        <tr><td style="color:#64748b;padding:6px 0;width:35%;">Booking Ref:</td><td><strong style="color:#2563eb;">' + (data["Booking Reference"] || "Assigned on schedule") + '</strong></td></tr>',
-    '        <tr><td style="color:#64748b;padding:6px 0;">Date:</td><td><strong>' + (data["Preferred Date"] || data.preferredDate || "Confirmed on dispatch") + '</strong></td></tr>',
-    '        <tr><td style="color:#64748b;padding:6px 0;">Time Slot:</td><td><strong>' + (data["Time Slot"] || data.timeSlot || "TBD") + ' (IST)</strong></td></tr>',
-    '        <tr><td style="color:#64748b;padding:6px 0;">Duration:</td><td><strong>' + (data["Duration (min)"] || data.duration || "30") + ' Minutes</strong></td></tr>',
-    '        <tr><td style="color:#64748b;padding:6px 0;">Format:</td><td><strong>' + (data["Meeting Format"] || data.meetingFormat || "Video Meeting") + '</strong></td></tr>',
-    videoLink ? ('        <tr><td style="color:#64748b;padding:6px 0;">Video Call Link:</td><td><a href="' + videoLink + '" target="_blank" style="color:#2563eb;font-weight:700;text-decoration:underline;">' + videoLink + '</a></td></tr>') : '',
+    '        <tr><td style="color:#64748b;padding:4px 0;width:35%;">Booking Ref:</td><td><strong style="color:#2563eb;">' + (data["Booking Reference"] || "Assigned on schedule") + '</strong></td></tr>',
+    '        <tr><td style="color:#64748b;padding:4px 0;">Date:</td><td><strong>' + (data["Preferred Date"] || data.preferredDate || "Confirmed on dispatch") + '</strong></td></tr>',
+    '        <tr><td style="color:#64748b;padding:4px 0;">Time Slot:</td><td><strong>' + (data["Time Slot"] || data.timeSlot || "TBD") + ' (IST)</strong></td></tr>',
+    '        <tr><td style="color:#64748b;padding:4px 0;">Duration:</td><td><strong>' + (data["Duration (min)"] || data.duration || "30") + ' Minutes</strong></td></tr>',
+    '        <tr><td style="color:#64748b;padding:4px 0;">Format:</td><td><strong>' + (data["Meeting Format"] || data.meetingFormat || "Video Meeting") + '</strong></td></tr>',
+    videoLink ? ('        <tr><td style="color:#64748b;padding:4px 0;">Video Call Link:</td><td><a href="' + videoLink + '" target="_blank" style="color:#2563eb;font-weight:700;text-decoration:underline;">' + videoLink + '</a></td></tr>') : '',
     '      </table>',
     videoLink ? [
-      '      <div style="margin-top:16px;padding-top:16px;border-top:1px dashed #cbd5e1;text-align:center;">',
-      '        <a href="' + videoLink + '" target="_blank" style="background:#2563eb;color:#ffffff;padding:12px 28px;text-decoration:none;border-radius:8px;font-weight:700;font-size:14px;display:inline-block;box-shadow:0 4px 12px rgba(37,99,235,0.25);">📹 Join Video Meeting</a>',
-      '        <p style="margin:8px 0 0 0;font-size:11px;color:#64748b;">Click above to enter your designated private conference room at the scheduled time.</p>',
+      '      <div style="margin-top:14px;padding-top:14px;border-top:1px dashed #cbd5e1;text-align:center;">',
+      '        <a href="' + videoLink + '" target="_blank" style="background:#2563eb;color:#ffffff;padding:10px 24px;text-decoration:none;border-radius:6px;font-weight:700;font-size:13px;display:inline-block;">📹 Join Video Meeting</a>',
       '      </div>'
     ].join("\n") : '',
     '    </div>'
-  ].join("\n") : '';
+  ].join("\n") : (isRegistered ? [
+    '    <div style="background:#f0fdf4;border:1px solid #bbf7d0;border-radius:10px;padding:16px;margin:18px 0;font-size:13px;color:#166534;">',
+    '      <div style="font-weight:700;font-size:12px;text-transform:uppercase;letter-spacing:1px;margin-bottom:8px;color:#15803d;">🛡 Account & Organization Profile</div>',
+    '      <table style="width:100%;font-size:13px;border-collapse:collapse;">',
+    '        <tr><td style="color:#166534;padding:4px 0;width:35%;">User ID:</td><td><strong>' + (data["User ID"] || data.userId || "Active") + '</strong></td></tr>',
+    '        <tr><td style="color:#166534;padding:4px 0;">Company:</td><td><strong>' + (data["Company Name"] || data.company || "Your Enterprise") + '</strong></td></tr>',
+    '        <tr><td style="color:#166534;padding:4px 0;">Industry:</td><td><strong>' + (data["Industry Sector"] || data.industry || "General Industry") + '</strong></td></tr>',
+    '        <tr><td style="color:#166534;padding:4px 0;">Account Status:</td><td><span style="background:#dcfce7;color:#15803d;padding:2px 8px;border-radius:4px;font-weight:700;">' + (data["Registration Status"] || "Active") + '</span></td></tr>',
+    '      </table>',
+    '    </div>'
+  ].join("\n") : '');
 
   var html = [
     '<!DOCTYPE html><html><body style="font-family:\'Segoe UI\',Roboto,Helvetica,Arial,sans-serif;background:#f8fafc;padding:24px;margin:0;">',
@@ -826,10 +836,14 @@ function sendUserConfirmationEmail(data, tableName) {
     '    <p>Dear <strong>' + userName + '</strong>,</p>',
     isStrategy
       ? '<p>Thank you for booking an Advisory Strategy Session with <strong>GOVENICS</strong>. Our senior compliance & risk partners have received your booking and your dedicated video meeting session has been reserved.</p>'
+      : isRegistered
+      ? ('<p>Welcome to <strong>GOVENICS</strong>! Your enterprise compliance registration has been successfully verified and saved. You now have access to intelligent statutory compliance roadmaps, compliance checklists, and ISO/DPDP/SOC 2 governance engines.</p>')
       : ('<p>Thank you for submitting your details regarding <strong>' + formattedName + '</strong>. Our compliance & advisory team has received your information and is reviewing your requirements.</p>'),
     detailSection,
     isStrategy
       ? '<p>Please add this meeting to your calendar. If you require rescheduling or have any advance briefing materials, simply reply directly to this email.</p>'
+      : isRegistered
+      ? '<p>You can sign in to your GOVENICS dashboard anytime to update your company profile, track regulatory deadlines, and export your compliance checklists.</p>'
       : '<p>A Senior GRC Specialist will connect with you with calendar credentials within 1 business day.</p>',
     '    <div style="background:#f8fafc;border-left:4px solid #2563eb;padding:14px;margin:20px 0;border-radius:6px;font-size:13px;color:#475569;">',
     '      <strong>Explore more:</strong> Visit <a href="' + CONFIG.WEBSITE_URL + '" style="color:#2563eb;font-weight:600;">govenics.com</a> to explore certified CDAC-MEPZ programs, statutory compliance registers, and instant security calculators.',
@@ -1528,7 +1542,8 @@ function INITIALIZE_ALL_SHEETS() {
     "Partner Applications",
     "Chatbot Leads",
     "Estimator Calculations",
-    "Exit Intent Feedback"
+    "Exit Intent Feedback",
+    "Registered Users"
   ];
 
   priorityTabs.forEach(function(tabTitle) {
