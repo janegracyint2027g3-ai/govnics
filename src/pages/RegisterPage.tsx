@@ -3,9 +3,9 @@ import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "@/context/AuthContext";
 import { Layout } from "@/components/layout/Layout";
 import { 
-  ShieldCheck, Lock, Mail, User as UserIcon, Building, 
+  ShieldCheck, Lock, Mail, User as UserIcon, 
   ArrowRight, ArrowLeft, AlertCircle, CheckCircle2,
-  Phone, Globe, MapPin, Eye, EyeOff, Sparkles, Check,
+  Phone, Eye, EyeOff, Sparkles, Check,
   X
 } from "lucide-react";
 
@@ -31,12 +31,12 @@ const INDUSTRY_SECTORS = [
 ];
 
 const COMPANY_SIZES = [
-  { value: "Individual / Freelancer", label: "Individual / Freelancer (1 person)" },
-  { value: "Startup (1–10)", label: "Startup (1–10 employees)" },
-  { value: "Small Enterprise (11–50)", label: "Small Enterprise (11–50 employees)" },
-  { value: "Medium Enterprise (51–250)", label: "Medium Enterprise (51–250 employees)" },
-  { value: "Large Enterprise (251–1000)", label: "Large Enterprise (251–1,000 employees)" },
-  { value: "Enterprise (1000+)", label: "Enterprise (1,000+ employees)" },
+  { value: "Individual / Freelancer", label: "Individual (1)" },
+  { value: "Startup (1–10)", label: "Startup (1–10)" },
+  { value: "Small Enterprise (11–50)", label: "Small (11–50)" },
+  { value: "Medium Enterprise (51–250)", label: "Medium (51–250)" },
+  { value: "Large Enterprise (251–1000)", label: "Large (251–1k)" },
+  { value: "Enterprise (1000+)", label: "Enterprise (1k+)" },
 ];
 
 const DEFAULT_OPERATIONS = [
@@ -90,13 +90,13 @@ export default function RegisterPage() {
   const { register, isAuthenticated } = useAuth();
   const navigate = useNavigate();
 
-  // Multi-step: 1 = Personal, 2 = Organisation, 3 = Review, 4 = Created
-  const [step, setStep] = useState(1);
+  // Active Tab: 1 = "basic" (Basic Information), 2 = "company" (Company Information), 3 = "success"
+  const [activeTab, setActiveTab] = useState<"basic" | "company" | "success">("basic");
   const [error, setError] = useState<string | null>(null);
   const [fieldErrors, setFieldErrors] = useState<Record<string, string>>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  // Step 1: Personal Info
+  // ─── Tab 1: Basic Information ───
   const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");
   const [countryCode, setCountryCode] = useState("+91");
@@ -113,7 +113,7 @@ export default function RegisterPage() {
   const [userIdChecking, setUserIdChecking] = useState(false);
   const [userIdAvailable, setUserIdAvailable] = useState<boolean | null>(null);
 
-  // Step 2: Organisation Info
+  // ─── Tab 2: Company Information ───
   const [companyName, setCompanyName] = useState("");
   const [officialWebsite, setOfficialWebsite] = useState("");
   const [country, setCountry] = useState("India");
@@ -128,23 +128,22 @@ export default function RegisterPage() {
   const [customOperationInput, setCustomOperationInput] = useState("");
   const [businessRegistrationType, setBusinessRegistrationType] = useState(REGISTRATION_TYPES[0]);
 
-  // Step 3: Terms
-  const [agreeTerms, setAgreeTerms] = useState(false);
-  const [agreePrivacy, setAgreePrivacy] = useState(false);
+  // Consents
+  const [agreeTerms, setAgreeTerms] = useState(true);
 
   // Redirect if already authenticated
   useEffect(() => {
     document.title = "Register Enterprise Account | GOVENICS GRC";
     const metaDesc = document.querySelector('meta[name="description"]');
-    const descContent = "Register your organization on GOVENICS. Secure profile management, Redis-backed data isolation, and automated statutory compliance checklists.";
+    const descContent = "Register your organization on GOVENICS. Multi-tabbed setup for basic credentials and company profiling.";
     if (metaDesc) {
       metaDesc.setAttribute("content", descContent);
     }
 
-    if (isAuthenticated && step < 4) {
+    if (isAuthenticated && activeTab !== "success") {
       navigate("/dashboard");
     }
-  }, [isAuthenticated, navigate, step]);
+  }, [isAuthenticated, navigate, activeTab]);
 
   // Debounced email availability check
   useEffect(() => {
@@ -195,7 +194,7 @@ export default function RegisterPage() {
     if (/[A-Z]/.test(pwd)) score++;
     if (/[0-9]/.test(pwd)) score++;
     if (/[^A-Za-z0-9]/.test(pwd)) score++;
-    return score; // 0 to 4
+    return score;
   };
   const pwdScore = getPasswordStrength(password);
   const pwdStrengthLabels = ["Very Weak", "Weak", "Fair", "Strong", "Enterprise Secure"];
@@ -220,8 +219,8 @@ export default function RegisterPage() {
     }
   };
 
-  // Step 1 Validation
-  const validateStep1 = () => {
+  // Validate Tab 1: Basic Information
+  const validateBasicInfo = () => {
     const errs: Record<string, string> = {};
     if (!fullName.trim()) errs.fullName = "Full name is required.";
     if (!email.trim() || !/\S+@\S+\.\S+/.test(email)) errs.email = "Valid business email is required.";
@@ -236,7 +235,7 @@ export default function RegisterPage() {
     }
     if (userIdAvailable === false) errs.userId = "This User ID is already taken.";
     if (password.length < 8 || !/[A-Z]/.test(password) || !/[0-9]/.test(password)) {
-      errs.password = "Min 8 characters, at least 1 uppercase and 1 number.";
+      errs.password = "Min 8 chars, 1 uppercase, 1 number.";
     }
     if (password !== confirmPassword) {
       errs.confirmPassword = "Passwords do not match.";
@@ -245,46 +244,85 @@ export default function RegisterPage() {
     return Object.keys(errs).length === 0;
   };
 
-  // Step 2 Validation
-  const validateStep2 = () => {
+  // Validate Tab 2: Company Information
+  const validateCompanyInfo = () => {
     const errs: Record<string, string> = {};
-    if (!companyName.trim()) errs.companyName = "Company / Organisation name is required.";
+    if (!companyName.trim()) errs.companyName = "Company name is required.";
     if (!country.trim()) errs.country = "Country is required.";
     if (!industrySector.trim()) errs.industrySector = "Industry sector is required.";
     if (!companySize.trim()) errs.companySize = "Company size is required.";
     if (businessOperations.length === 0) {
-      errs.businessOperations = "Select at least one primary business operation.";
+      errs.businessOperations = "Select at least one business operation.";
     }
     setFieldErrors(errs);
     return Object.keys(errs).length === 0;
   };
 
-  // Next Step Handlers
-  const handleProceedToStep2 = (e: React.FormEvent) => {
+  // Check if Tab 1 is currently valid (for tab indicator)
+  const isBasicValid = Boolean(
+    fullName.trim() &&
+    email.trim() &&
+    /\S+@\S+\.\S+/.test(email) &&
+    emailAvailable !== false &&
+    userId.trim().length >= 3 &&
+    userIdAvailable !== false &&
+    password.length >= 8 &&
+    confirmPassword === password
+  );
+
+  const isCompanyValid = Boolean(
+    companyName.trim() &&
+    country.trim() &&
+    industrySector.trim() &&
+    businessOperations.length > 0
+  );
+
+  // Tab switch handler
+  const handleTabClick = (tab: "basic" | "company") => {
+    setError(null);
+    if (tab === "company") {
+      // Validate basic info first
+      if (!validateBasicInfo()) {
+        setError("Please complete the required basic information before moving to company details.");
+        return;
+      }
+    }
+    setActiveTab(tab);
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
+  // Move from Tab 1 to Tab 2
+  const handleProceedToCompany = (e: React.FormEvent) => {
     e.preventDefault();
     setError(null);
-    if (validateStep1()) {
-      setStep(2);
+    if (validateBasicInfo()) {
+      setActiveTab("company");
       window.scrollTo({ top: 0, behavior: "smooth" });
     }
   };
 
-  const handleProceedToStep3 = (e: React.FormEvent) => {
-    e.preventDefault();
-    setError(null);
-    if (validateStep2()) {
-      setStep(3);
-      window.scrollTo({ top: 0, behavior: "smooth" });
-    }
-  };
-
-  // Final Registration Submission
+  // Final Submit from Tab 2
   const handleFinalSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError(null);
 
-    if (!agreeTerms || !agreePrivacy) {
-      setError("Please accept the Terms of Service and Privacy Policy to create your account.");
+    // Validate both tabs
+    const basicOk = validateBasicInfo();
+    const companyOk = validateCompanyInfo();
+
+    if (!basicOk) {
+      setActiveTab("basic");
+      setError("Please check the basic information fields for errors.");
+      return;
+    }
+
+    if (!companyOk) {
+      setError("Please fill in the required company details.");
+      return;
+    }
+
+    if (!agreeTerms) {
+      setError("Please accept the Terms of Service and Privacy Policy.");
       return;
     }
 
@@ -312,7 +350,7 @@ export default function RegisterPage() {
 
       const result = await register(payload);
 
-      // Google Sheets Telemetry Webhook (Preserved)
+      // Webhook telemetry
       const webhookUrl = import.meta.env.VITE_TELEMETRY_WEBHOOK_URL;
       if (webhookUrl) {
         fetch(webhookUrl, {
@@ -329,20 +367,16 @@ export default function RegisterPage() {
             "User ID": userId,
             "Company": companyName,
             "Industry": industrySector,
-            "Company Size": companySize,
-            "Country": country,
             "Registration Status": result.success ? "Success" : "Failed",
-            "IP Address": "Web Client"
           }),
-        }).catch(() => {/* silent telemetry */});
+        }).catch(() => {/* silent */});
       }
 
       if (!result.success) {
-        setError(result.error || "Registration failed. Please check the inputs.");
+        setError(result.error || "Registration failed. Please check inputs.");
         if (result.errors) setFieldErrors(result.errors);
       } else {
-        // Move to Success step
-        setStep(4);
+        setActiveTab("success");
         window.scrollTo({ top: 0, behavior: "smooth" });
       }
     } catch (err: unknown) {
@@ -357,21 +391,19 @@ export default function RegisterPage() {
     <Layout hideHeaderFooter>
       <div className="min-h-screen flex flex-col lg:flex-row relative z-10 bg-slate-900">
         
-        {/* ─── Left Panel: Enterprise Branding & Progress ─── */}
-        <div className="w-full lg:w-5/12 bg-slate-900 text-white p-8 sm:p-12 lg:p-16 flex flex-col justify-between relative overflow-hidden border-b lg:border-b-0 lg:border-r border-slate-800">
-          {/* Subtle grid background */}
+        {/* ─── Left Branding Panel ─── */}
+        <div className="w-full lg:w-4/12 bg-slate-900 text-white p-6 sm:p-10 flex flex-col justify-between relative overflow-hidden border-b lg:border-b-0 lg:border-r border-slate-800">
           <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:32px_32px] pointer-events-none" />
-          <div className="absolute top-10 left-10 w-80 h-80 bg-blue-600/10 rounded-full blur-3xl pointer-events-none" />
-          <div className="absolute bottom-10 right-10 w-80 h-80 bg-indigo-650/15 rounded-full blur-3xl pointer-events-none" />
+          <div className="absolute top-10 left-10 w-72 h-72 bg-blue-600/10 rounded-full blur-3xl pointer-events-none" />
 
-          {/* Logo & Header */}
+          {/* Header */}
           <div className="relative z-10 space-y-3">
             <Link to="/" className="inline-flex items-center gap-2.5 group">
-              <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-blue-500 to-indigo-650 flex items-center justify-center shadow-lg group-hover:scale-105 transition-transform">
+              <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-blue-500 to-indigo-650 flex items-center justify-center shadow-lg group-hover:scale-105 transition-transform">
                 <ShieldCheck className="w-5 h-5 text-white" />
               </div>
               <div className="flex flex-col text-left">
-                <span className="text-xl font-black tracking-tight font-heading text-white leading-none">
+                <span className="text-lg font-black tracking-tight font-heading text-white leading-none">
                   GOVENICS
                 </span>
                 <span className="text-[9px] font-bold text-blue-400 tracking-widest uppercase mt-0.5">
@@ -380,111 +412,172 @@ export default function RegisterPage() {
               </div>
             </Link>
             <p className="text-[11px] text-slate-400 font-semibold uppercase tracking-widest pl-0.5">
-              Enterprise Governance, Risk & Statutory Compliance
+              Enterprise Governance &amp; Compliance OS
             </p>
           </div>
 
-          {/* Stepper Guide */}
-          <div className="relative z-10 my-8 sm:my-12 space-y-6">
-            <div className="space-y-2">
-              <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-400 text-[10px] font-bold uppercase tracking-wider">
-                <Sparkles className="w-3 h-3" />
-                <span>Onboarding Stage {step} of 4</span>
+          {/* Quick value cards */}
+          <div className="relative z-10 my-8 space-y-4 text-left hidden sm:block">
+            <div className="space-y-1">
+              <span className="px-2.5 py-0.5 bg-blue-500/10 border border-blue-500/20 text-blue-400 rounded-full text-[10px] font-bold uppercase tracking-wider">
+                Fast Onboarding
               </span>
-              <h2 className="text-2xl sm:text-3xl font-black font-heading text-white leading-tight">
-                {step === 1 && "Personal & Account Credentials"}
-                {step === 2 && "Company Profiling & Operations"}
-                {step === 3 && "Review & Legal Governance"}
-                {step === 4 && "Account Provisioned Successfully!"}
-              </h2>
-              <p className="text-xs sm:text-sm text-slate-400 leading-relaxed">
-                {step === 1 && "Provide your official business identity. All enterprise accounts utilize isolated Upstash Redis key spaces."}
-                {step === 2 && "Calibrate your company footprint, industry sector, and operational activities to auto-generate statutory compliance checklists."}
-                {step === 3 && "Verify your profile details before your corporate compliance workspace is provisioned."}
-                {step === 4 && "Your isolated security space is ready. You can now generate an intelligent compliance checklist aligned to Indian and international regulations."}
+              <h3 className="text-xl font-black font-heading text-white">
+                2-Step Quick Registration
+              </h3>
+              <p className="text-xs text-slate-400 leading-relaxed">
+                Fill in your basic credentials, set your company profile, and get an automated compliance checklist in seconds.
               </p>
             </div>
 
-            {/* Stepper Dots / Bars */}
-            <div className="space-y-3 pt-4 border-t border-slate-800">
-              {[
-                { s: 1, title: "Personal Information", desc: "Identity & Security Key" },
-                { s: 2, title: "Organisation Profile", desc: "Industry, Jurisdiction & Scope" },
-                { s: 3, title: "Review & Confirmation", desc: "Verify & Legal Consent" },
-                { s: 4, title: "Ready for Compliance", desc: "Checklist Generation" },
-              ].map((item) => (
-                <div key={item.s} className="flex items-center gap-3">
-                  <div className={`w-7 h-7 rounded-lg flex items-center justify-center text-xs font-black transition-all ${
-                    step === item.s
-                      ? "bg-blue-600 text-white shadow-lg shadow-blue-500/30 scale-105"
-                      : step > item.s
-                      ? "bg-emerald-500 text-white"
-                      : "bg-slate-800 text-slate-500 border border-slate-700"
-                  }`}>
-                    {step > item.s ? <Check className="w-3.5 h-3.5" /> : item.s}
-                  </div>
-                  <div className="flex flex-col text-left">
-                    <span className={`text-xs font-bold ${step === item.s ? "text-white" : "text-slate-400"}`}>
-                      {item.title}
-                    </span>
-                    <span className="text-[10px] text-slate-500 font-medium">
-                      {item.desc}
-                    </span>
-                  </div>
-                </div>
-              ))}
+            <div className="p-3.5 bg-slate-800/60 border border-slate-700/60 rounded-xl space-y-1 text-xs">
+              <div className="font-bold text-white flex items-center gap-1.5">
+                <Sparkles className="w-3.5 h-3.5 text-blue-400" />
+                <span>Automated Regulatory Calibration</span>
+              </div>
+              <p className="text-[11px] text-slate-400">
+                Matches your industry and operations against 20+ verified Indian Acts (Companies Act, DPDP 2023, GST, EPF).
+              </p>
             </div>
           </div>
 
-          {/* Security & Guarantee Trust Card */}
-          <div className="relative z-10 pt-4 border-t border-slate-800/80 text-left text-xs text-slate-400 space-y-1">
-            <div className="flex items-center gap-1.5 text-slate-300 font-bold text-[11px]">
-              <Lock className="w-3.5 h-3.5 text-blue-400" />
-              <span>Zero-Knowledge Credential Storage</span>
+          {/* Footer security */}
+          <div className="relative z-10 text-left text-[11px] text-slate-400 space-y-1 pt-3 border-t border-slate-800/80">
+            <div className="flex items-center gap-1.5 font-bold text-slate-300">
+              <Lock className="w-3.5 h-3.5 text-emerald-400" />
+              <span>Isolated Redis Cloud Storage</span>
             </div>
             <p className="text-[10px] text-slate-500">
-              All passwords salted and hashed via bcrypt (12 rounds). Data strictly isolated in isolated Upstash Redis key namespaces.
+              12-round bcrypt security. Data segregated per enterprise tenant.
             </p>
           </div>
         </div>
 
-        {/* ─── Right Panel: Form Interface ─── */}
-        <div className="w-full lg:w-7/12 bg-slate-50 flex flex-col justify-center p-6 sm:p-10 lg:p-14 overflow-y-auto">
-          <div className="max-w-2xl w-full mx-auto">
+        {/* ─── Right Panel: Multi-Tabbed Form ─── */}
+        <div className="w-full lg:w-8/12 bg-slate-50 flex flex-col justify-center p-4 sm:p-8 lg:p-12 overflow-y-auto">
+          <div className="max-w-2xl w-full mx-auto space-y-5">
             
             {/* Top Error Alert */}
             {error && (
-              <div className="mb-6 p-4 bg-rose-50 border border-rose-200 text-rose-800 rounded-2xl flex items-start gap-3 text-xs font-medium animate-fade-in text-left">
-                <AlertCircle className="w-5 h-5 text-rose-600 shrink-0 mt-0.5" />
+              <div className="p-3.5 bg-rose-50 border border-rose-200 text-rose-800 rounded-2xl flex items-start gap-2.5 text-xs font-medium text-left animate-fade-in shadow-xs">
+                <AlertCircle className="w-4 h-4 text-rose-600 shrink-0 mt-0.5" />
                 <div className="space-y-0.5">
-                  <span className="font-bold">Registration Alert</span>
+                  <span className="font-bold">Please check your inputs:</span>
                   <p>{error}</p>
                 </div>
               </div>
             )}
 
             {/* ═══════════════════════════════════════════════════════════════
-                STEP 1: PERSONAL INFORMATION
+                INTERACTIVE TAB HEADER (TAB 1 vs TAB 2)
             ═══════════════════════════════════════════════════════════════ */}
-            {step === 1 && (
-              <form onSubmit={handleProceedToStep2} className="space-y-5 text-left">
-                <div className="pb-3 border-b border-slate-200">
-                  <span className="text-[10px] font-black text-blue-600 uppercase tracking-wider">Step 1 of 4</span>
-                  <h3 className="text-xl font-black text-slate-900 font-heading">Personal Information &amp; Credentials</h3>
-                  <p className="text-xs text-slate-500 font-medium mt-0.5">
-                    Your personal identity as the primary enterprise administrator.
-                  </p>
+            {activeTab !== "success" && (
+              <div className="bg-white border border-slate-250 p-1.5 rounded-2xl shadow-xs grid grid-cols-2 gap-2 text-left">
+                
+                {/* Tab 1 Button */}
+                <button
+                  type="button"
+                  onClick={() => handleTabClick("basic")}
+                  className={`p-3 rounded-xl transition-all flex items-center justify-between cursor-pointer ${
+                    activeTab === "basic"
+                      ? "bg-blue-600 text-white shadow-md shadow-blue-500/20 ring-1 ring-blue-600"
+                      : "hover:bg-slate-100 text-slate-700"
+                  }`}
+                >
+                  <div className="flex items-center gap-2.5">
+                    <div className={`w-7 h-7 rounded-lg flex items-center justify-center text-xs font-black ${
+                      activeTab === "basic" ? "bg-white/20 text-white" : "bg-slate-200 text-slate-600"
+                    }`}>
+                      {isBasicValid ? <Check className="w-4 h-4 text-emerald-400" /> : "1"}
+                    </div>
+                    <div>
+                      <div className="text-xs font-black tracking-tight leading-tight">
+                        Basic Information
+                      </div>
+                      <div className={`text-[10px] font-medium leading-none mt-0.5 ${
+                        activeTab === "basic" ? "text-blue-100" : "text-slate-400"
+                      }`}>
+                        Identity &amp; Credentials
+                      </div>
+                    </div>
+                  </div>
+                  {isBasicValid && (
+                    <span className={`text-[10px] font-bold px-1.5 py-0.5 rounded ${
+                      activeTab === "basic" ? "bg-white/20 text-white" : "bg-emerald-50 text-emerald-700"
+                    }`}>
+                      Done
+                    </span>
+                  )}
+                </button>
+
+                {/* Tab 2 Button */}
+                <button
+                  type="button"
+                  onClick={() => handleTabClick("company")}
+                  className={`p-3 rounded-xl transition-all flex items-center justify-between cursor-pointer ${
+                    activeTab === "company"
+                      ? "bg-blue-600 text-white shadow-md shadow-blue-500/20 ring-1 ring-blue-600"
+                      : "hover:bg-slate-100 text-slate-700"
+                  }`}
+                >
+                  <div className="flex items-center gap-2.5">
+                    <div className={`w-7 h-7 rounded-lg flex items-center justify-center text-xs font-black ${
+                      activeTab === "company" ? "bg-white/20 text-white" : "bg-slate-200 text-slate-600"
+                    }`}>
+                      {isCompanyValid ? <Check className="w-4 h-4 text-emerald-400" /> : "2"}
+                    </div>
+                    <div>
+                      <div className="text-xs font-black tracking-tight leading-tight">
+                        Company Information
+                      </div>
+                      <div className={`text-[10px] font-medium leading-none mt-0.5 ${
+                        activeTab === "company" ? "text-blue-100" : "text-slate-400"
+                      }`}>
+                        Profile &amp; Operations
+                      </div>
+                    </div>
+                  </div>
+                  {isCompanyValid && (
+                    <span className={`text-[10px] font-bold px-1.5 py-0.5 rounded ${
+                      activeTab === "company" ? "bg-white/20 text-white" : "bg-emerald-50 text-emerald-700"
+                    }`}>
+                      Done
+                    </span>
+                  )}
+                </button>
+
+              </div>
+            )}
+
+            {/* ═══════════════════════════════════════════════════════════════
+                TAB 1 CONTENT: BASIC INFORMATION
+            ═══════════════════════════════════════════════════════════════ */}
+            {activeTab === "basic" && (
+              <form onSubmit={handleProceedToCompany} className="bg-white border border-slate-200/90 rounded-2xl p-5 sm:p-7 shadow-xs space-y-4 text-left animate-fade-in">
+                
+                <div className="border-b border-slate-100 pb-3 flex justify-between items-center">
+                  <div>
+                    <h3 className="text-base font-black text-slate-900 font-heading">
+                      Tab 1: Basic Information
+                    </h3>
+                    <p className="text-xs text-slate-500 mt-0.5">
+                      Your identity as the primary account administrator.
+                    </p>
+                  </div>
+                  <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">
+                    Step 1 of 2
+                  </span>
                 </div>
 
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
                   
                   {/* Full Name */}
                   <div className="space-y-1 sm:col-span-2">
-                    <label className="text-[11px] font-bold uppercase tracking-wider text-slate-700 block">
+                    <label className="text-[10px] font-bold uppercase tracking-wider text-slate-600 block">
                       Full Name <span className="text-rose-500">*</span>
                     </label>
                     <div className="relative">
-                      <UserIcon className="w-4 h-4 text-slate-400 absolute left-3.5 top-3.5" />
+                      <UserIcon className="w-4 h-4 text-slate-400 absolute left-3 top-2.5" />
                       <input
                         type="text"
                         required
@@ -494,19 +587,19 @@ export default function RegisterPage() {
                           if (fieldErrors.fullName) setFieldErrors({ ...fieldErrors, fullName: "" });
                         }}
                         placeholder="e.g., Rajesh Sharma"
-                        className="w-full pl-10 pr-4 py-2.5 bg-white border border-slate-250 focus:border-blue-600 focus:ring-2 focus:ring-blue-500/10 rounded-xl text-slate-800 text-sm font-semibold outline-none transition-all"
+                        className="w-full pl-9 pr-3 py-2 bg-slate-50/50 border border-slate-200 focus:bg-white focus:border-blue-600 rounded-xl text-slate-800 text-xs font-semibold outline-none transition-all"
                       />
                     </div>
-                    {fieldErrors.fullName && <p className="text-xs text-rose-600 font-medium">{fieldErrors.fullName}</p>}
+                    {fieldErrors.fullName && <p className="text-xs text-rose-600">{fieldErrors.fullName}</p>}
                   </div>
 
                   {/* Business Email */}
                   <div className="space-y-1">
                     <div className="flex items-center justify-between">
-                      <label className="text-[11px] font-bold uppercase tracking-wider text-slate-700 block">
+                      <label className="text-[10px] font-bold uppercase tracking-wider text-slate-600 block">
                         Business Email <span className="text-rose-500">*</span>
                       </label>
-                      {emailChecking && <span className="text-[10px] text-slate-400 font-medium">Checking...</span>}
+                      {emailChecking && <span className="text-[10px] text-slate-400">Checking...</span>}
                       {emailAvailable === true && (
                         <span className="text-[10px] text-emerald-600 font-bold flex items-center gap-0.5">
                           <Check className="w-3 h-3" /> Available
@@ -514,12 +607,12 @@ export default function RegisterPage() {
                       )}
                       {emailAvailable === false && (
                         <span className="text-[10px] text-rose-600 font-bold flex items-center gap-0.5">
-                          <X className="w-3 h-3" /> Already taken
+                          <X className="w-3 h-3" /> Taken
                         </span>
                       )}
                     </div>
                     <div className="relative">
-                      <Mail className="w-4 h-4 text-slate-400 absolute left-3.5 top-3.5" />
+                      <Mail className="w-4 h-4 text-slate-400 absolute left-3 top-2.5" />
                       <input
                         type="email"
                         required
@@ -528,34 +621,32 @@ export default function RegisterPage() {
                           setEmail(e.target.value);
                           if (fieldErrors.email) setFieldErrors({ ...fieldErrors, email: "" });
                         }}
-                        placeholder="name@company.com"
-                        className="w-full pl-10 pr-4 py-2.5 bg-white border border-slate-250 focus:border-blue-600 focus:ring-2 focus:ring-blue-500/10 rounded-xl text-slate-800 text-sm font-semibold outline-none transition-all"
+                        placeholder="rajesh@company.com"
+                        className="w-full pl-9 pr-3 py-2 bg-slate-50/50 border border-slate-200 focus:bg-white focus:border-blue-600 rounded-xl text-slate-800 text-xs font-semibold outline-none transition-all"
                       />
                     </div>
-                    {fieldErrors.email && <p className="text-xs text-rose-600 font-medium">{fieldErrors.email}</p>}
+                    {fieldErrors.email && <p className="text-xs text-rose-600">{fieldErrors.email}</p>}
                   </div>
 
-                  {/* Mobile Number */}
+                  {/* Mobile Number with Country Code */}
                   <div className="space-y-1">
-                    <label className="text-[11px] font-bold uppercase tracking-wider text-slate-700 block">
+                    <label className="text-[10px] font-bold uppercase tracking-wider text-slate-600 block">
                       Mobile Number <span className="text-rose-500">*</span>
                     </label>
-                    <div className="flex gap-2">
+                    <div className="flex gap-1.5">
                       <select
                         value={countryCode}
                         onChange={(e) => setCountryCode(e.target.value)}
-                        className="w-24 px-2 py-2.5 bg-white border border-slate-250 rounded-xl text-slate-800 text-sm font-semibold outline-none focus:border-blue-600"
+                        className="w-20 px-1.5 py-2 bg-slate-50 border border-slate-200 rounded-xl text-slate-800 text-xs font-bold outline-none"
                       >
-                        <option value="+91">IN (+91)</option>
-                        <option value="+1">US (+1)</option>
-                        <option value="+44">UK (+44)</option>
-                        <option value="+65">SG (+65)</option>
-                        <option value="+971">AE (+971)</option>
-                        <option value="+49">DE (+49)</option>
-                        <option value="+61">AU (+61)</option>
+                        <option value="+91">+91 (IN)</option>
+                        <option value="+1">+1 (US)</option>
+                        <option value="+44">+44 (UK)</option>
+                        <option value="+65">+65 (SG)</option>
+                        <option value="+971">+971 (UAE)</option>
                       </select>
                       <div className="relative flex-1">
-                        <Phone className="w-4 h-4 text-slate-400 absolute left-3.5 top-3.5" />
+                        <Phone className="w-4 h-4 text-slate-400 absolute left-3 top-2.5" />
                         <input
                           type="tel"
                           required
@@ -565,33 +656,33 @@ export default function RegisterPage() {
                             if (fieldErrors.mobileNumber) setFieldErrors({ ...fieldErrors, mobileNumber: "" });
                           }}
                           placeholder="98765 43210"
-                          className="w-full pl-10 pr-4 py-2.5 bg-white border border-slate-250 focus:border-blue-600 focus:ring-2 focus:ring-blue-500/10 rounded-xl text-slate-800 text-sm font-semibold outline-none transition-all"
+                          className="w-full pl-9 pr-3 py-2 bg-slate-50/50 border border-slate-200 focus:bg-white focus:border-blue-600 rounded-xl text-slate-800 text-xs font-semibold outline-none transition-all"
                         />
                       </div>
                     </div>
-                    {fieldErrors.mobileNumber && <p className="text-xs text-rose-600 font-medium">{fieldErrors.mobileNumber}</p>}
+                    {fieldErrors.mobileNumber && <p className="text-xs text-rose-600">{fieldErrors.mobileNumber}</p>}
                   </div>
 
                   {/* Preferred User ID */}
                   <div className="space-y-1 sm:col-span-2">
                     <div className="flex items-center justify-between">
-                      <label className="text-[11px] font-bold uppercase tracking-wider text-slate-700 block">
+                      <label className="text-[10px] font-bold uppercase tracking-wider text-slate-600 block">
                         Preferred User ID <span className="text-rose-500">*</span>
                       </label>
-                      {userIdChecking && <span className="text-[10px] text-slate-400 font-medium">Checking...</span>}
+                      {userIdChecking && <span className="text-[10px] text-slate-400">Checking...</span>}
                       {userIdAvailable === true && (
                         <span className="text-[10px] text-emerald-600 font-bold flex items-center gap-0.5">
-                          <Check className="w-3 h-3" /> User ID Available
+                          <Check className="w-3 h-3" /> Available
                         </span>
                       )}
                       {userIdAvailable === false && (
                         <span className="text-[10px] text-rose-600 font-bold flex items-center gap-0.5">
-                          <X className="w-3 h-3" /> User ID Taken
+                          <X className="w-3 h-3" /> Taken
                         </span>
                       )}
                     </div>
                     <div className="relative">
-                      <span className="absolute left-3.5 top-3 text-slate-400 font-bold text-sm">@</span>
+                      <span className="absolute left-3 top-2 text-slate-400 font-bold text-xs">@</span>
                       <input
                         type="text"
                         required
@@ -601,22 +692,19 @@ export default function RegisterPage() {
                           if (fieldErrors.userId) setFieldErrors({ ...fieldErrors, userId: "" });
                         }}
                         placeholder="rajesh_grc"
-                        className="w-full pl-8 pr-4 py-2.5 bg-white border border-slate-250 focus:border-blue-600 focus:ring-2 focus:ring-blue-500/10 rounded-xl text-slate-800 text-sm font-semibold outline-none transition-all"
+                        className="w-full pl-7 pr-3 py-2 bg-slate-50/50 border border-slate-200 focus:bg-white focus:border-blue-600 rounded-xl text-slate-800 text-xs font-semibold outline-none transition-all"
                       />
                     </div>
-                    <span className="text-[10px] text-slate-400 font-medium">
-                      Unique handle for your portal sign in. Letters, numbers, and underscores only.
-                    </span>
-                    {fieldErrors.userId && <p className="text-xs text-rose-600 font-medium">{fieldErrors.userId}</p>}
+                    {fieldErrors.userId && <p className="text-xs text-rose-600">{fieldErrors.userId}</p>}
                   </div>
 
                   {/* Password */}
                   <div className="space-y-1">
-                    <label className="text-[11px] font-bold uppercase tracking-wider text-slate-700 block">
+                    <label className="text-[10px] font-bold uppercase tracking-wider text-slate-600 block">
                       Password <span className="text-rose-500">*</span>
                     </label>
                     <div className="relative">
-                      <Lock className="w-4 h-4 text-slate-400 absolute left-3.5 top-3.5" />
+                      <Lock className="w-4 h-4 text-slate-400 absolute left-3 top-2.5" />
                       <input
                         type={showPassword ? "text" : "password"}
                         required
@@ -625,22 +713,21 @@ export default function RegisterPage() {
                           setPassword(e.target.value);
                           if (fieldErrors.password) setFieldErrors({ ...fieldErrors, password: "" });
                         }}
-                        placeholder="••••••••••••"
-                        className="w-full pl-10 pr-10 py-2.5 bg-white border border-slate-250 focus:border-blue-600 focus:ring-2 focus:ring-blue-500/10 rounded-xl text-slate-800 text-sm font-semibold outline-none transition-all"
+                        placeholder="Min 8 chars, 1 uppercase, 1 number"
+                        className="w-full pl-9 pr-9 py-2 bg-slate-50/50 border border-slate-200 focus:bg-white focus:border-blue-600 rounded-xl text-slate-800 text-xs font-semibold outline-none transition-all"
                       />
                       <button
                         type="button"
                         onClick={() => setShowPassword(!showPassword)}
-                        className="absolute right-3 top-3 text-slate-400 hover:text-slate-600"
+                        className="absolute right-2.5 top-2.5 text-slate-400 hover:text-slate-600"
                       >
                         {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
                       </button>
                     </div>
 
-                    {/* Password Strength Meter */}
                     {password && (
-                      <div className="space-y-1 pt-1">
-                        <div className="flex gap-1 h-1.5">
+                      <div className="space-y-0.5 pt-0.5">
+                        <div className="flex gap-1 h-1">
                           {[1, 2, 3, 4].map((bar) => (
                             <div
                               key={bar}
@@ -650,22 +737,22 @@ export default function RegisterPage() {
                             />
                           ))}
                         </div>
-                        <div className="flex justify-between items-center text-[10px]">
-                          <span className="text-slate-500 font-medium">Strength:</span>
-                          <span className="font-bold text-slate-700">{pwdStrengthLabels[pwdScore]}</span>
+                        <div className="flex justify-between items-center text-[9px] text-slate-500">
+                          <span>Password Strength</span>
+                          <span className="font-bold">{pwdStrengthLabels[pwdScore]}</span>
                         </div>
                       </div>
                     )}
-                    {fieldErrors.password && <p className="text-xs text-rose-600 font-medium">{fieldErrors.password}</p>}
+                    {fieldErrors.password && <p className="text-xs text-rose-600">{fieldErrors.password}</p>}
                   </div>
 
                   {/* Confirm Password */}
                   <div className="space-y-1">
-                    <label className="text-[11px] font-bold uppercase tracking-wider text-slate-700 block">
+                    <label className="text-[10px] font-bold uppercase tracking-wider text-slate-600 block">
                       Confirm Password <span className="text-rose-500">*</span>
                     </label>
                     <div className="relative">
-                      <Lock className="w-4 h-4 text-slate-400 absolute left-3.5 top-3.5" />
+                      <Lock className="w-4 h-4 text-slate-400 absolute left-3 top-2.5" />
                       <input
                         type={showConfirmPassword ? "text" : "password"}
                         required
@@ -674,446 +761,320 @@ export default function RegisterPage() {
                           setConfirmPassword(e.target.value);
                           if (fieldErrors.confirmPassword) setFieldErrors({ ...fieldErrors, confirmPassword: "" });
                         }}
-                        placeholder="••••••••••••"
-                        className="w-full pl-10 pr-10 py-2.5 bg-white border border-slate-250 focus:border-blue-600 focus:ring-2 focus:ring-blue-500/10 rounded-xl text-slate-800 text-sm font-semibold outline-none transition-all"
+                        placeholder="Re-enter security password"
+                        className="w-full pl-9 pr-9 py-2 bg-slate-50/50 border border-slate-200 focus:bg-white focus:border-blue-600 rounded-xl text-slate-800 text-xs font-semibold outline-none transition-all"
                       />
                       <button
                         type="button"
                         onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-                        className="absolute right-3 top-3 text-slate-400 hover:text-slate-600"
+                        className="absolute right-2.5 top-2.5 text-slate-400 hover:text-slate-600"
                       >
                         {showConfirmPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
                       </button>
                     </div>
-                    {confirmPassword && confirmPassword !== password && (
-                      <p className="text-xs text-rose-600 font-medium">Passwords do not match</p>
-                    )}
                     {confirmPassword && confirmPassword === password && (
-                      <p className="text-xs text-emerald-600 font-bold flex items-center gap-1">
+                      <p className="text-[10px] text-emerald-600 font-bold flex items-center gap-1">
                         <Check className="w-3 h-3" /> Passwords match
                       </p>
                     )}
-                    {fieldErrors.confirmPassword && (
-                      <p className="text-xs text-rose-600 font-medium">{fieldErrors.confirmPassword}</p>
-                    )}
+                    {fieldErrors.confirmPassword && <p className="text-xs text-rose-600">{fieldErrors.confirmPassword}</p>}
                   </div>
 
                 </div>
 
-                <div className="pt-4 flex items-center justify-between">
+                {/* Tab 1 Actions */}
+                <div className="pt-3 border-t border-slate-100 flex items-center justify-between">
                   <div className="text-xs text-slate-500">
                     Already registered?{" "}
                     <Link to="/login" className="font-bold text-blue-600 hover:underline">
-                      Sign in here
+                      Sign In
                     </Link>
                   </div>
+
                   <button
                     type="submit"
-                    className="inline-flex items-center gap-2 px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-xl text-xs font-bold shadow-lg shadow-blue-500/20 transition-all hover:scale-[1.02] active:scale-[0.98]"
+                    className="px-5 py-2.5 bg-blue-600 hover:bg-blue-700 text-white rounded-xl text-xs font-bold shadow-md shadow-blue-500/20 transition-all flex items-center gap-1.5"
                   >
-                    <span>Proceed to Organisation Info</span>
+                    <span>Next: Company Details</span>
                     <ArrowRight className="w-4 h-4" />
                   </button>
                 </div>
+
               </form>
             )}
 
             {/* ═══════════════════════════════════════════════════════════════
-                STEP 2: ORGANISATION INFORMATION
+                TAB 2 CONTENT: COMPANY INFORMATION (COMPACT & BITE-SIZED)
             ═══════════════════════════════════════════════════════════════ */}
-            {step === 2 && (
-              <form onSubmit={handleProceedToStep3} className="space-y-5 text-left">
-                <div className="pb-3 border-b border-slate-200 flex justify-between items-start">
+            {activeTab === "company" && (
+              <form onSubmit={handleFinalSubmit} className="bg-white border border-slate-200/90 rounded-2xl p-5 sm:p-7 shadow-xs space-y-5 text-left animate-fade-in">
+                
+                <div className="border-b border-slate-100 pb-3 flex justify-between items-center">
                   <div>
-                    <span className="text-[10px] font-black text-blue-600 uppercase tracking-wider">Step 2 of 4</span>
-                    <h3 className="text-xl font-black text-slate-900 font-heading">Company Profiling &amp; Scope</h3>
-                    <p className="text-xs text-slate-500 font-medium mt-0.5">
-                      Powers the intelligent statutory checklist generator.
+                    <h3 className="text-base font-black text-slate-900 font-heading">
+                      Tab 2: Company Information
+                    </h3>
+                    <p className="text-xs text-slate-500 mt-0.5">
+                      Tailors your statutory obligations and audit registers.
                     </p>
                   </div>
-                  <button
-                    type="button"
-                    onClick={() => setStep(1)}
-                    className="inline-flex items-center gap-1 text-xs font-bold text-slate-500 hover:text-slate-800"
-                  >
-                    <ArrowLeft className="w-3.5 h-3.5" /> Back
-                  </button>
+                  <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">
+                    Step 2 of 2
+                  </span>
                 </div>
 
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  
-                  {/* Company Name */}
-                  <div className="space-y-1 sm:col-span-2">
-                    <label className="text-[11px] font-bold uppercase tracking-wider text-slate-700 block">
-                      Registered Company Name <span className="text-rose-500">*</span>
-                    </label>
-                    <div className="relative">
-                      <Building className="w-4 h-4 text-slate-400 absolute left-3.5 top-3.5" />
+                {/* Sub-Card 1: Organisation & Location */}
+                <div className="p-3.5 bg-slate-50/70 border border-slate-200/80 rounded-xl space-y-3">
+                  <span className="text-[10px] font-black uppercase tracking-wider text-blue-600 block">
+                    1. Corporate Entity &amp; Jurisdiction
+                  </span>
+
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    <div className="space-y-1">
+                      <label className="text-[10px] font-bold uppercase tracking-wider text-slate-600 block">
+                        Company Name <span className="text-rose-500">*</span>
+                      </label>
                       <input
                         type="text"
                         required
                         value={companyName}
-                        onChange={(e) => {
-                          setCompanyName(e.target.value);
-                          if (fieldErrors.companyName) setFieldErrors({ ...fieldErrors, companyName: "" });
-                        }}
+                        onChange={(e) => setCompanyName(e.target.value)}
                         placeholder="e.g., Acme Technologies India Pvt Ltd"
-                        className="w-full pl-10 pr-4 py-2.5 bg-white border border-slate-250 focus:border-blue-600 focus:ring-2 focus:ring-blue-500/10 rounded-xl text-slate-800 text-sm font-semibold outline-none transition-all"
+                        className="w-full px-3 py-2 bg-white border border-slate-250 rounded-xl text-xs font-semibold outline-none focus:border-blue-600"
                       />
+                      {fieldErrors.companyName && <p className="text-xs text-rose-600">{fieldErrors.companyName}</p>}
                     </div>
-                    {fieldErrors.companyName && <p className="text-xs text-rose-600 font-medium">{fieldErrors.companyName}</p>}
-                  </div>
 
-                  {/* Official Website */}
-                  <div className="space-y-1">
-                    <label className="text-[11px] font-bold uppercase tracking-wider text-slate-700 block">
-                      Official Website <span className="text-slate-400 font-normal">(Optional)</span>
-                    </label>
-                    <div className="relative">
-                      <Globe className="w-4 h-4 text-slate-400 absolute left-3.5 top-3.5" />
+                    <div className="space-y-1">
+                      <label className="text-[10px] font-bold uppercase tracking-wider text-slate-600 block">
+                        Official Website <span className="text-slate-400 font-normal">(Optional)</span>
+                      </label>
                       <input
                         type="url"
                         value={officialWebsite}
                         onChange={(e) => setOfficialWebsite(e.target.value)}
                         placeholder="https://acmecorp.com"
-                        className="w-full pl-10 pr-4 py-2.5 bg-white border border-slate-250 focus:border-blue-600 focus:ring-2 focus:ring-blue-500/10 rounded-xl text-slate-800 text-sm font-semibold outline-none transition-all"
+                        className="w-full px-3 py-2 bg-white border border-slate-250 rounded-xl text-xs font-semibold outline-none focus:border-blue-600"
                       />
                     </div>
-                  </div>
 
-                  {/* Country */}
-                  <div className="space-y-1">
-                    <label className="text-[11px] font-bold uppercase tracking-wider text-slate-700 block">
-                      Country <span className="text-rose-500">*</span>
-                    </label>
-                    <select
-                      value={country}
-                      onChange={(e) => setCountry(e.target.value)}
-                      className="w-full px-3 py-2.5 bg-white border border-slate-250 focus:border-blue-600 focus:ring-2 focus:ring-blue-500/10 rounded-xl text-slate-800 text-sm font-semibold outline-none"
-                    >
-                      {COUNTRIES.map((c) => (
-                        <option key={c} value={c}>{c}</option>
-                      ))}
-                    </select>
-                  </div>
+                    <div className="grid grid-cols-3 gap-2 sm:col-span-2">
+                      <div>
+                        <label className="text-[10px] font-bold uppercase tracking-wider text-slate-600 block mb-0.5">
+                          Country <span className="text-rose-500">*</span>
+                        </label>
+                        <select
+                          value={country}
+                          onChange={(e) => setCountry(e.target.value)}
+                          className="w-full px-2 py-1.5 bg-white border border-slate-250 rounded-xl text-xs font-semibold outline-none focus:border-blue-600"
+                        >
+                          {COUNTRIES.map((c) => (
+                            <option key={c} value={c}>{c}</option>
+                          ))}
+                        </select>
+                      </div>
 
-                  {/* State / Province */}
-                  <div className="space-y-1">
-                    <label className="text-[11px] font-bold uppercase tracking-wider text-slate-700 block">
-                      State / Province
-                    </label>
-                    {country === "India" ? (
+                      <div>
+                        <label className="text-[10px] font-bold uppercase tracking-wider text-slate-600 block mb-0.5">
+                          State / Region
+                        </label>
+                        {country === "India" ? (
+                          <select
+                            value={state}
+                            onChange={(e) => setState(e.target.value)}
+                            className="w-full px-2 py-1.5 bg-white border border-slate-250 rounded-xl text-xs font-semibold outline-none focus:border-blue-600"
+                          >
+                            {INDIAN_STATES.map((s) => (
+                              <option key={s} value={s}>{s}</option>
+                            ))}
+                          </select>
+                        ) : (
+                          <input
+                            type="text"
+                            value={state}
+                            onChange={(e) => setState(e.target.value)}
+                            placeholder="State"
+                            className="w-full px-2 py-1.5 bg-white border border-slate-250 rounded-xl text-xs font-semibold outline-none focus:border-blue-600"
+                          />
+                        )}
+                      </div>
+
+                      <div>
+                        <label className="text-[10px] font-bold uppercase tracking-wider text-slate-600 block mb-0.5">
+                          City
+                        </label>
+                        <input
+                          type="text"
+                          value={city}
+                          onChange={(e) => setCity(e.target.value)}
+                          placeholder="City"
+                          className="w-full px-2 py-1.5 bg-white border border-slate-250 rounded-xl text-xs font-semibold outline-none focus:border-blue-600"
+                        />
+                      </div>
+                    </div>
+
+                    <div className="sm:col-span-2">
+                      <label className="text-[10px] font-bold uppercase tracking-wider text-slate-600 block mb-0.5">
+                        Registration Type
+                      </label>
                       <select
-                        value={state}
-                        onChange={(e) => setState(e.target.value)}
-                        className="w-full px-3 py-2.5 bg-white border border-slate-250 focus:border-blue-600 focus:ring-2 focus:ring-blue-500/10 rounded-xl text-slate-800 text-sm font-semibold outline-none"
+                        value={businessRegistrationType}
+                        onChange={(e) => setBusinessRegistrationType(e.target.value)}
+                        className="w-full px-2.5 py-1.5 bg-white border border-slate-250 rounded-xl text-xs font-semibold outline-none focus:border-blue-600"
                       >
-                        {INDIAN_STATES.map((s) => (
-                          <option key={s} value={s}>{s}</option>
+                        {REGISTRATION_TYPES.map((t) => (
+                          <option key={t} value={t}>{t}</option>
                         ))}
                       </select>
-                    ) : (
-                      <input
-                        type="text"
-                        value={state}
-                        onChange={(e) => setState(e.target.value)}
-                        placeholder="State or Region"
-                        className="w-full px-3 py-2.5 bg-white border border-slate-250 rounded-xl text-slate-800 text-sm font-semibold outline-none focus:border-blue-600"
-                      />
-                    )}
-                  </div>
-
-                  {/* City */}
-                  <div className="space-y-1">
-                    <label className="text-[11px] font-bold uppercase tracking-wider text-slate-700 block">
-                      City / Headquarters
-                    </label>
-                    <div className="relative">
-                      <MapPin className="w-4 h-4 text-slate-400 absolute left-3.5 top-3.5" />
-                      <input
-                        type="text"
-                        value={city}
-                        onChange={(e) => setCity(e.target.value)}
-                        placeholder="e.g., Mumbai, Bengaluru, Hyderabad"
-                        className="w-full pl-10 pr-4 py-2.5 bg-white border border-slate-250 focus:border-blue-600 focus:ring-2 focus:ring-blue-500/10 rounded-xl text-slate-800 text-sm font-semibold outline-none transition-all"
-                      />
                     </div>
-                  </div>
 
-                  {/* Industry Sector (All 17 from spec) */}
-                  <div className="space-y-1 sm:col-span-2">
-                    <label className="text-[11px] font-bold uppercase tracking-wider text-slate-700 block">
-                      Industry Sector <span className="text-rose-500">*</span>
-                    </label>
-                    <select
-                      value={industrySector}
-                      onChange={(e) => setIndustrySector(e.target.value)}
-                      className="w-full px-3 py-2.5 bg-white border border-slate-250 focus:border-blue-600 focus:ring-2 focus:ring-blue-500/10 rounded-xl text-slate-800 text-sm font-semibold outline-none"
-                    >
-                      {INDUSTRY_SECTORS.map((ind) => (
-                        <option key={ind} value={ind}>{ind}</option>
-                      ))}
-                    </select>
                   </div>
+                </div>
 
-                  {/* Sub-Industry & Registration Type */}
-                  <div className="space-y-1">
-                    <label className="text-[11px] font-bold uppercase tracking-wider text-slate-700 block">
-                      Sub-Industry / Focus Area
-                    </label>
-                    <input
-                      type="text"
-                      value={subIndustry}
-                      onChange={(e) => setSubIndustry(e.target.value)}
-                      placeholder="e.g., FinTech SaaS, MedTech, Precision Auto"
-                      className="w-full px-3 py-2.5 bg-white border border-slate-250 focus:border-blue-600 rounded-xl text-slate-800 text-sm font-semibold outline-none"
-                    />
-                  </div>
+                {/* Sub-Card 2: Industry & Scale */}
+                <div className="p-3.5 bg-slate-50/70 border border-slate-200/80 rounded-xl space-y-3">
+                  <span className="text-[10px] font-black uppercase tracking-wider text-blue-600 block">
+                    2. Industry Sector &amp; Headcount
+                  </span>
 
-                  <div className="space-y-1">
-                    <label className="text-[11px] font-bold uppercase tracking-wider text-slate-700 block">
-                      Business Registration Type
-                    </label>
-                    <select
-                      value={businessRegistrationType}
-                      onChange={(e) => setBusinessRegistrationType(e.target.value)}
-                      className="w-full px-3 py-2.5 bg-white border border-slate-250 focus:border-blue-600 rounded-xl text-slate-800 text-sm font-semibold outline-none"
-                    >
-                      {REGISTRATION_TYPES.map((type) => (
-                        <option key={type} value={type}>{type}</option>
-                      ))}
-                    </select>
-                  </div>
-
-                  {/* Company Size */}
-                  <div className="space-y-1 sm:col-span-2">
-                    <label className="text-[11px] font-bold uppercase tracking-wider text-slate-700 block">
-                      Organisation Size (Headcount) <span className="text-rose-500">*</span>
-                    </label>
-                    <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
-                      {COMPANY_SIZES.map((size) => (
-                        <button
-                          key={size.value}
-                          type="button"
-                          onClick={() => setCompanySize(size.value)}
-                          className={`p-2.5 rounded-xl border text-xs font-bold text-left transition-all ${
-                            companySize === size.value
-                              ? "bg-blue-50 border-blue-600 text-blue-700 shadow-sm ring-1 ring-blue-600"
-                              : "bg-white border-slate-200 text-slate-700 hover:border-slate-350"
-                          }`}
-                        >
-                          <span className="block">{size.value}</span>
-                        </button>
-                      ))}
-                    </div>
-                  </div>
-
-                  {/* Business Operations (Multi-select pills + custom add) */}
-                  <div className="space-y-1.5 sm:col-span-2 pt-2">
-                    <div className="flex justify-between items-center">
-                      <label className="text-[11px] font-bold uppercase tracking-wider text-slate-700 block">
-                        Primary Business Operations <span className="text-rose-500">*</span>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    <div className="space-y-1">
+                      <label className="text-[10px] font-bold uppercase tracking-wider text-slate-600 block">
+                        Industry Sector <span className="text-rose-500">*</span>
                       </label>
-                      <span className="text-[10px] text-slate-400">
-                        {businessOperations.length} selected
-                      </span>
+                      <select
+                        value={industrySector}
+                        onChange={(e) => setIndustrySector(e.target.value)}
+                        className="w-full px-2.5 py-1.5 bg-white border border-slate-250 rounded-xl text-xs font-semibold outline-none focus:border-blue-600"
+                      >
+                        {INDUSTRY_SECTORS.map((ind) => (
+                          <option key={ind} value={ind}>{ind}</option>
+                        ))}
+                      </select>
                     </div>
-                    <p className="text-[11px] text-slate-500">
-                      Select all operations your enterprise conducts. Regulatory rules match against these operations.
-                    </p>
 
-                    <div className="flex flex-wrap gap-1.5 pt-1">
-                      {DEFAULT_OPERATIONS.map((op) => {
-                        const isSelected = businessOperations.includes(op);
-                        return (
+                    <div className="space-y-1">
+                      <label className="text-[10px] font-bold uppercase tracking-wider text-slate-600 block">
+                        Sub-Industry Focus
+                      </label>
+                      <input
+                        type="text"
+                        value={subIndustry}
+                        onChange={(e) => setSubIndustry(e.target.value)}
+                        placeholder="e.g., FinTech SaaS, MedTech"
+                        className="w-full px-2.5 py-1.5 bg-white border border-slate-250 rounded-xl text-xs font-semibold outline-none focus:border-blue-600"
+                      />
+                    </div>
+
+                    {/* Compact Size Pills */}
+                    <div className="sm:col-span-2 space-y-1">
+                      <label className="text-[10px] font-bold uppercase tracking-wider text-slate-600 block">
+                        Company Headcount <span className="text-rose-500">*</span>
+                      </label>
+                      <div className="grid grid-cols-3 sm:grid-cols-6 gap-1.5">
+                        {COMPANY_SIZES.map((size) => (
                           <button
-                            key={op}
+                            key={size.value}
                             type="button"
-                            onClick={() => toggleOperation(op)}
-                            className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all flex items-center gap-1.5 ${
-                              isSelected
-                                ? "bg-slate-900 text-white shadow-xs"
-                                : "bg-white border border-slate-200 text-slate-700 hover:bg-slate-100"
+                            onClick={() => setCompanySize(size.value)}
+                            className={`py-1.5 px-1 rounded-lg border text-[11px] font-bold text-center transition-all ${
+                              companySize === size.value
+                                ? "bg-blue-600 border-blue-600 text-white shadow-xs"
+                                : "bg-white border-slate-200 text-slate-700 hover:border-slate-350"
                             }`}
                           >
-                            <span>{op}</span>
-                            {isSelected ? <Check className="w-3 h-3 text-emerald-400" /> : null}
+                            <span>{size.label}</span>
                           </button>
-                        );
-                      })}
-                    </div>
-
-                    {/* Custom Operation Add */}
-                    <div className="flex gap-2 pt-2">
-                      <input
-                        type="text"
-                        value={customOperationInput}
-                        onChange={(e) => setCustomOperationInput(e.target.value)}
-                        onKeyDown={handleAddCustomOperation}
-                        placeholder="Add other custom operation..."
-                        className="flex-1 px-3 py-2 bg-white border border-slate-200 rounded-xl text-xs font-medium text-slate-800 outline-none focus:border-blue-600"
-                      />
-                      <button
-                        type="button"
-                        onClick={handleAddCustomOperation}
-                        className="px-3.5 py-2 bg-slate-200 hover:bg-slate-300 text-slate-700 rounded-xl text-xs font-bold transition-colors"
-                      >
-                        Add Tag
-                      </button>
-                    </div>
-
-                    {fieldErrors.businessOperations && (
-                      <p className="text-xs text-rose-600 font-medium">{fieldErrors.businessOperations}</p>
-                    )}
-                  </div>
-
-                </div>
-
-                <div className="pt-4 flex items-center justify-between border-t border-slate-200">
-                  <button
-                    type="button"
-                    onClick={() => setStep(1)}
-                    className="inline-flex items-center gap-1 text-xs font-bold text-slate-600 hover:text-slate-900"
-                  >
-                    <ArrowLeft className="w-3.5 h-3.5" /> Back
-                  </button>
-                  <button
-                    type="submit"
-                    className="inline-flex items-center gap-2 px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-xl text-xs font-bold shadow-lg shadow-blue-500/20 transition-all hover:scale-[1.02] active:scale-[0.98]"
-                  >
-                    <span>Proceed to Review</span>
-                    <ArrowRight className="w-4 h-4" />
-                  </button>
-                </div>
-              </form>
-            )}
-
-            {/* ═══════════════════════════════════════════════════════════════
-                STEP 3: REVIEW & CONFIRMATION
-            ═══════════════════════════════════════════════════════════════ */}
-            {step === 3 && (
-              <form onSubmit={handleFinalSubmit} className="space-y-5 text-left">
-                <div className="pb-3 border-b border-slate-200 flex justify-between items-start">
-                  <div>
-                    <span className="text-[10px] font-black text-blue-600 uppercase tracking-wider">Step 3 of 4</span>
-                    <h3 className="text-xl font-black text-slate-900 font-heading">Review &amp; Final Confirmation</h3>
-                    <p className="text-xs text-slate-500 font-medium mt-0.5">
-                      Verify your account and organisation setup before provisioning.
-                    </p>
-                  </div>
-                  <button
-                    type="button"
-                    onClick={() => setStep(2)}
-                    className="inline-flex items-center gap-1 text-xs font-bold text-slate-500 hover:text-slate-800"
-                  >
-                    <ArrowLeft className="w-3.5 h-3.5" /> Edit Info
-                  </button>
-                </div>
-
-                {/* Review Cards */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  
-                  {/* Account Summary */}
-                  <div className="p-4 bg-white border border-slate-200 rounded-2xl space-y-2 shadow-2xs">
-                    <div className="flex items-center justify-between border-b border-slate-100 pb-2">
-                      <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Personal Identity</span>
-                      <button type="button" onClick={() => setStep(1)} className="text-[10px] font-bold text-blue-600 hover:underline">
-                        Edit
-                      </button>
-                    </div>
-                    <div className="space-y-1">
-                      <div className="text-sm font-black text-slate-900">{fullName}</div>
-                      <div className="text-xs text-slate-600 font-medium">{email}</div>
-                      <div className="text-xs text-slate-500">{countryCode} {mobileNumber}</div>
-                      <div className="text-xs text-blue-600 font-bold">User ID: @{userId}</div>
-                    </div>
-                  </div>
-
-                  {/* Organisation Summary */}
-                  <div className="p-4 bg-white border border-slate-200 rounded-2xl space-y-2 shadow-2xs">
-                    <div className="flex items-center justify-between border-b border-slate-100 pb-2">
-                      <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Organisation</span>
-                      <button type="button" onClick={() => setStep(2)} className="text-[10px] font-bold text-blue-600 hover:underline">
-                        Edit
-                      </button>
-                    </div>
-                    <div className="space-y-1">
-                      <div className="text-sm font-black text-slate-900">{companyName}</div>
-                      <div className="text-xs text-slate-600 font-semibold">{industrySector}</div>
-                      <div className="text-xs text-slate-500">
-                        {city ? `${city}, ` : ""}{state}, {country}
+                        ))}
                       </div>
-                      <div className="text-xs text-slate-500 font-medium">Headcount: {companySize}</div>
                     </div>
                   </div>
-
-                  {/* Operations Scope */}
-                  <div className="sm:col-span-2 p-4 bg-white border border-slate-200 rounded-2xl space-y-2 shadow-2xs">
-                    <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider block">
-                      Active Business Operations ({businessOperations.length})
-                    </span>
-                    <div className="flex flex-wrap gap-1.5">
-                      {businessOperations.map((op) => (
-                        <span key={op} className="px-2.5 py-1 bg-slate-100 text-slate-700 rounded-md text-[11px] font-bold">
-                          {op}
-                        </span>
-                      ))}
-                    </div>
-                  </div>
-
                 </div>
 
-                {/* Legal Consents */}
-                <div className="space-y-3 pt-2">
-                  <label className="flex items-start gap-3 p-3 bg-white border border-slate-200 rounded-xl cursor-pointer hover:bg-slate-50 transition-colors">
+                {/* Sub-Card 3: Operations & Trigger Tags */}
+                <div className="p-3.5 bg-slate-50/70 border border-slate-200/80 rounded-xl space-y-2.5">
+                  <div className="flex justify-between items-center">
+                    <span className="text-[10px] font-black uppercase tracking-wider text-blue-600 block">
+                      3. Active Business Operations ({businessOperations.length})
+                    </span>
+                    <span className="text-[10px] text-slate-400">Pills trigger statutory acts</span>
+                  </div>
+
+                  <div className="flex flex-wrap gap-1.5">
+                    {DEFAULT_OPERATIONS.map((op) => {
+                      const isSelected = businessOperations.includes(op);
+                      return (
+                        <button
+                          key={op}
+                          type="button"
+                          onClick={() => toggleOperation(op)}
+                          className={`px-2.5 py-1 rounded-lg text-xs font-bold transition-all flex items-center gap-1 ${
+                            isSelected
+                              ? "bg-slate-900 text-white shadow-2xs"
+                              : "bg-white border border-slate-200 text-slate-600 hover:bg-slate-100"
+                          }`}
+                        >
+                          <span>{op}</span>
+                          {isSelected && <Check className="w-3 h-3 text-emerald-400" />}
+                        </button>
+                      );
+                    })}
+                  </div>
+
+                  {/* Quick Custom Tag */}
+                  <div className="flex gap-1.5 pt-1">
+                    <input
+                      type="text"
+                      value={customOperationInput}
+                      onChange={(e) => setCustomOperationInput(e.target.value)}
+                      onKeyDown={handleAddCustomOperation}
+                      placeholder="Add other operation..."
+                      className="flex-1 px-2.5 py-1.5 bg-white border border-slate-200 rounded-xl text-xs outline-none focus:border-blue-600"
+                    />
+                    <button
+                      type="button"
+                      onClick={handleAddCustomOperation}
+                      className="px-3 py-1.5 bg-slate-200 hover:bg-slate-300 text-slate-700 rounded-xl text-xs font-bold"
+                    >
+                      Add Tag
+                    </button>
+                  </div>
+                </div>
+
+                {/* Consents */}
+                <div className="space-y-2 pt-1 text-xs text-slate-600">
+                  <label className="flex items-start gap-2 cursor-pointer">
                     <input
                       type="checkbox"
                       checked={agreeTerms}
                       onChange={(e) => setAgreeTerms(e.target.checked)}
-                      className="mt-0.5 rounded text-blue-600 focus:ring-blue-500"
+                      className="mt-0.5 rounded text-blue-600"
                     />
-                    <div className="text-xs text-slate-700">
-                      <span className="font-bold">Master Services &amp; Terms of Use Agreement</span>
-                      <p className="text-[11px] text-slate-500 mt-0.5">
-                        I confirm that I am an authorized representative of {companyName || "this organisation"} and agree to the GOVENICS Enterprise Terms of Service.
-                      </p>
-                    </div>
-                  </label>
-
-                  <label className="flex items-start gap-3 p-3 bg-white border border-slate-200 rounded-xl cursor-pointer hover:bg-slate-50 transition-colors">
-                    <input
-                      type="checkbox"
-                      checked={agreePrivacy}
-                      onChange={(e) => setAgreePrivacy(e.target.checked)}
-                      className="mt-0.5 rounded text-blue-600 focus:ring-blue-500"
-                    />
-                    <div className="text-xs text-slate-700">
-                      <span className="font-bold">Privacy Policy &amp; Redis Data Sovereignty</span>
-                      <p className="text-[11px] text-slate-500 mt-0.5">
-                        I consent to the processing and encrypted cloud storage of regulatory compliance metadata in compliance with the Digital Personal Data Protection (DPDP) Act 2023.
-                      </p>
-                    </div>
+                    <span className="text-[11px]">
+                      I agree to the <span className="font-bold text-slate-800">GOVENICS Terms of Service</span> &amp; <span className="font-bold text-slate-800">DPDP Act 2023</span> Data Processing Consent.
+                    </span>
                   </label>
                 </div>
 
-                {/* Final Action Buttons */}
-                <div className="pt-4 flex items-center justify-between border-t border-slate-200">
+                {/* Tab 2 Actions */}
+                <div className="pt-3 border-t border-slate-100 flex items-center justify-between">
                   <button
                     type="button"
-                    onClick={() => setStep(2)}
+                    onClick={() => setActiveTab("basic")}
                     className="inline-flex items-center gap-1 text-xs font-bold text-slate-600 hover:text-slate-900"
                   >
-                    <ArrowLeft className="w-3.5 h-3.5" /> Back
+                    <ArrowLeft className="w-3.5 h-3.5" /> Back to Basic Info
                   </button>
+
                   <button
                     type="submit"
-                    disabled={isSubmitting || !agreeTerms || !agreePrivacy}
-                    className="inline-flex items-center gap-2 px-8 py-3.5 bg-blue-600 hover:bg-blue-700 disabled:bg-slate-300 text-white rounded-xl text-xs font-black shadow-lg shadow-blue-500/20 transition-all hover:scale-[1.02] active:scale-[0.98]"
+                    disabled={isSubmitting || !agreeTerms}
+                    className="px-6 py-2.5 bg-blue-600 hover:bg-blue-700 disabled:bg-slate-300 text-white rounded-xl text-xs font-black shadow-md shadow-blue-500/20 transition-all flex items-center gap-1.5"
                   >
                     {isSubmitting ? (
                       <>
-                        <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
-                        <span>Provisioning Redis Keyspace...</span>
+                        <div className="w-3.5 h-3.5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                        <span>Provisioning Account...</span>
                       </>
                     ) : (
                       <>
@@ -1123,65 +1084,48 @@ export default function RegisterPage() {
                     )}
                   </button>
                 </div>
+
               </form>
             )}
 
             {/* ═══════════════════════════════════════════════════════════════
-                STEP 4: ACCOUNT PROVISIONED SUCCESS
+                SUCCESS STATE: ACCOUNT PROVISIONED
             ═══════════════════════════════════════════════════════════════ */}
-            {step === 4 && (
-              <div className="space-y-6 text-center py-6 animate-fade-in">
-                <div className="w-20 h-20 rounded-3xl bg-emerald-50 text-emerald-600 border-2 border-emerald-200 flex items-center justify-center mx-auto shadow-xl shadow-emerald-500/10">
-                  <CheckCircle2 className="w-10 h-10" />
+            {activeTab === "success" && (
+              <div className="bg-white border border-slate-200/90 rounded-2xl p-8 shadow-xs text-center space-y-5 animate-fade-in">
+                <div className="w-16 h-16 rounded-2xl bg-emerald-50 text-emerald-600 border border-emerald-200 flex items-center justify-center mx-auto">
+                  <CheckCircle2 className="w-8 h-8" />
                 </div>
 
-                <div className="space-y-2">
-                  <span className="px-3 py-1 bg-emerald-100 text-emerald-800 rounded-full text-[10px] font-black uppercase tracking-wider">
+                <div className="space-y-1.5">
+                  <span className="px-2.5 py-0.5 bg-emerald-100 text-emerald-800 rounded-full text-[10px] font-black uppercase tracking-wider">
                     Registration Complete
                   </span>
-                  <h3 className="text-2xl sm:text-3xl font-black text-slate-900 font-heading">
+                  <h3 className="text-2xl font-black text-slate-900 font-heading">
                     Welcome to GOVENICS, {fullName}!
                   </h3>
-                  <p className="text-xs sm:text-sm text-slate-600 max-w-md mx-auto leading-relaxed">
-                    Your organisation <span className="font-bold text-slate-800">{companyName}</span> has been provisioned with dedicated key-value storage in Upstash Redis.
+                  <p className="text-xs text-slate-500 max-w-sm mx-auto">
+                    Your organisation <span className="font-bold text-slate-800">{companyName}</span> has been provisioned with isolated Upstash Redis storage.
                   </p>
                 </div>
 
-                {/* Action Card */}
-                <div className="p-6 bg-white border border-slate-200 rounded-2xl max-w-lg mx-auto text-left space-y-4 shadow-sm">
-                  <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center shrink-0">
-                      <Sparkles className="w-5 h-5" />
-                    </div>
-                    <div>
-                      <h4 className="text-sm font-bold text-slate-800">
-                        Intelligent Regulatory Checklist Ready
-                      </h4>
-                      <p className="text-xs text-slate-500 mt-0.5">
-                        Based on {industrySector} and {country} jurisdiction rules.
-                      </p>
-                    </div>
-                  </div>
-
-                  <div className="flex flex-col sm:flex-row gap-3 pt-2">
-                    <button
-                      type="button"
-                      onClick={() => navigate("/compliance-assessment")}
-                      className="flex-1 py-3 px-4 bg-blue-600 hover:bg-blue-700 text-white rounded-xl text-xs font-bold text-center shadow-md shadow-blue-500/20 transition-all flex items-center justify-center gap-1.5"
-                    >
-                      <span>Generate Compliance Checklist</span>
-                      <ArrowRight className="w-4 h-4" />
-                    </button>
-                    <button
-                      type="button"
-                      onClick={() => navigate("/dashboard")}
-                      className="py-3 px-4 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-xl text-xs font-bold text-center transition-colors"
-                    >
-                      Go to Dashboard
-                    </button>
-                  </div>
+                <div className="flex flex-col sm:flex-row gap-2.5 max-w-md mx-auto pt-2">
+                  <button
+                    type="button"
+                    onClick={() => navigate("/compliance-assessment")}
+                    className="flex-1 py-3 px-4 bg-blue-600 hover:bg-blue-700 text-white rounded-xl text-xs font-bold shadow-md shadow-blue-500/20 transition-all flex items-center justify-center gap-1.5"
+                  >
+                    <Sparkles className="w-4 h-4" />
+                    <span>Generate Compliance Checklist</span>
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => navigate("/dashboard")}
+                    className="py-3 px-4 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-xl text-xs font-bold transition-colors"
+                  >
+                    Go to Dashboard
+                  </button>
                 </div>
-
               </div>
             )}
 
