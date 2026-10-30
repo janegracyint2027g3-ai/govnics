@@ -23,10 +23,13 @@ import SgrcResourcesListPage from "@/pages/SgrcResourcesListPage";
 import AnalyticsPage from "@/pages/AnalyticsPage";
 import LoginPage from "@/pages/LoginPage";
 import RegisterPage from "@/pages/RegisterPage";
+import DashboardPage from "@/pages/DashboardPage";
+import ComplianceAssessmentPage from "@/pages/ComplianceAssessmentPage";
 import SolutionsPage from "@/pages/SolutionsPage";
 import CertificationsPage from "@/pages/CertificationsPage";
 import CaseStudiesPage from "@/pages/CaseStudiesPage";
 import { AuthProvider } from "@/context/AuthContext";
+import { ProtectedRoute } from "@/components/auth/ProtectedRoute";
 import { TelemetryTracker } from "@/components/analytics/TelemetryTracker";
 
 function App() {
@@ -38,6 +41,22 @@ function App() {
           <Route path="/" element={<Index />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/register" element={<RegisterPage />} />
+          <Route
+            path="/dashboard"
+            element={
+              <ProtectedRoute>
+                <DashboardPage />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/compliance-assessment"
+            element={
+              <ProtectedRoute>
+                <ComplianceAssessmentPage />
+              </ProtectedRoute>
+            }
+          />
           <Route path="/about" element={<AboutPage />} />
           <Route path="/solutions" element={<SolutionsPage />} />
           <Route path="/certifications" element={<CertificationsPage />} />

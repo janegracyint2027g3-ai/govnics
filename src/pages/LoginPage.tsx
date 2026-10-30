@@ -11,7 +11,7 @@ export default function LoginPage() {
   const { login, isAuthenticated } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
-  const [email, setEmail] = useState("");
+  const [identifier, setIdentifier] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -32,7 +32,7 @@ export default function LoginPage() {
     }
 
     if (isAuthenticated) {
-      const from = (location.state as any)?.from?.pathname || "/";
+      const from = (location.state as any)?.from?.pathname || "/dashboard";
       navigate(from, { replace: true });
     }
   }, [isAuthenticated, navigate, location]);
@@ -42,19 +42,14 @@ export default function LoginPage() {
     setError(null);
 
     // Basic validation
-    if (!email.trim() || !password.trim()) {
-      setError("Please fill in both email and password.");
-      return;
-    }
-
-    if (!/\S+@\S+\.\S+/.test(email)) {
-      setError("Please enter a valid email address.");
+    if (!identifier.trim() || !password.trim()) {
+      setError("Please fill in both your email/user ID and password.");
       return;
     }
 
     setIsSubmitting(true);
     try {
-      const success = await login(email, password);
+      const result = await login(identifier.trim(), password);
 
       // Log login event to Google Sheets User_Logins tab
       const webhookUrl = import.meta.env.VITE_TELEMETRY_WEBHOOK_URL;
@@ -67,9 +62,9 @@ export default function LoginPage() {
             sheetName: "User_Logins",
             table: "User_Logins",
             "Timestamp": new Date().toISOString(),
-            "Email": email,
+            "Identifier": identifier,
             "Auth Provider": "Direct Password Auth",
-            "Login Status": success ? "Success" : "Failed Credentials",
+            "Login Status": result.success ? "Success" : "Failed Credentials",
             "IP Location": "Direct Web Client",
             "IP Address": "Web Client",
             "User Agent": navigator.userAgent
@@ -77,11 +72,15 @@ export default function LoginPage() {
         }).catch(() => {/* silent */});
       }
 
-      if (!success) {
-        setError("Invalid email address or password. Try registering if you haven't yet.");
+      if (!result.success) {
+        setError(result.error || "Invalid credentials. Please check your user ID/email and password.");
+      } else {
+        const from = (location.state as any)?.from?.pathname || "/dashboard";
+        navigate(from, { replace: true });
       }
-    } catch (err: any) {
-      setError(err?.message || "An unexpected error occurred during login.");
+    } catch (err: unknown) {
+      const msg = err instanceof Error ? err.message : "An unexpected error occurred during login.";
+      setError(msg);
     } finally {
       setIsSubmitting(false);
     }
@@ -210,24 +209,24 @@ export default function LoginPage() {
             {/* Login Form */}
             <form onSubmit={handleSubmit} className="space-y-4">
               
-              {/* Email Input */}
+              {/* Identifier Input (Email or Preferred User ID) */}
               <div className="space-y-1 text-left">
                 <label className="text-[10px] font-black uppercase tracking-wider text-slate-500 pl-1 block">
-                  Email Address
+                  Email Address or User ID
                 </label>
                 <div className="relative">
                   <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
                     <Mail className="w-4 h-4" />
                   </div>
                   <input
-                    type="email"
+                    type="text"
                     required
-                    value={email}
+                    value={identifier}
                     onChange={(e) => {
-                      setEmail(e.target.value);
+                      setIdentifier(e.target.value);
                       setError(null);
                     }}
-                    placeholder="name@company.com"
+                    placeholder="name@company.com or your_userid"
                     className="w-full pl-10 pr-4 py-3 bg-white border border-slate-200 hover:border-slate-350 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/10 rounded-xl text-slate-800 text-sm font-semibold outline-none transition-all"
                   />
                 </div>

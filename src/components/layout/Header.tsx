@@ -3,7 +3,8 @@ import { Link, useLocation } from "react-router-dom";
 import { 
   Menu, X, ArrowRight, ShieldCheck, ChevronDown,
   User, LogOut, CalendarCheck,
-  Scale, Coins, Building, Lock, Layers, Globe
+  Scale, Coins, Building, Lock, Layers, Globe,
+  LayoutDashboard, CheckSquare
 } from "lucide-react";
 import { whomWeServeClusters } from "@/data/whom-we-serve-data";
 import { useAuth } from "@/context/AuthContext";
@@ -591,6 +592,22 @@ export const Header = () => {
 
                 <div className="pt-2 border-t border-slate-100 flex flex-col gap-1">
                   <Link 
+                    to="/dashboard" 
+                    onClick={() => setProfileDropdownOpen(false)}
+                    className="flex items-center gap-2 p-1.5 rounded-lg hover:bg-slate-50 text-xs font-bold text-slate-700 transition-colors"
+                  >
+                    <LayoutDashboard className="w-3.5 h-3.5 text-blue-600" />
+                    <span>Company Dashboard</span>
+                  </Link>
+                  <Link 
+                    to="/compliance-assessment" 
+                    onClick={() => setProfileDropdownOpen(false)}
+                    className="flex items-center gap-2 p-1.5 rounded-lg hover:bg-slate-50 text-xs font-bold text-slate-700 transition-colors"
+                  >
+                    <CheckSquare className="w-3.5 h-3.5 text-emerald-600" />
+                    <span>Compliance Checklist</span>
+                  </Link>
+                  <Link 
                     to="/sgrc/e-library" 
                     onClick={() => setProfileDropdownOpen(false)}
                     className="flex items-center gap-2 p-1.5 rounded-lg hover:bg-slate-50 text-xs font-bold text-slate-700 transition-colors"
@@ -949,9 +966,21 @@ export const Header = () => {
                   <div className="text-[9px] text-slate-550 font-semibold">Sector: {user?.industry}</div>
                   <div className="text-[9px] text-slate-550 font-semibold">Scope: {user?.geoFootprint}</div>
                 </div>
+                <Link to="/dashboard" onClick={() => setMobileOpen(false)} className="w-full block">
+                  <button className="w-full py-2.5 bg-blue-600 text-white rounded-xl text-xs font-bold flex items-center justify-center gap-1.5 shadow-sm">
+                    <LayoutDashboard className="w-3.5 h-3.5" />
+                    <span>Company Dashboard</span>
+                  </button>
+                </Link>
+                <Link to="/compliance-assessment" onClick={() => setMobileOpen(false)} className="w-full block">
+                  <button className="w-full py-2.5 bg-emerald-50 border border-emerald-200 text-emerald-800 rounded-xl text-xs font-bold flex items-center justify-center gap-1.5">
+                    <CheckSquare className="w-3.5 h-3.5 text-emerald-600" />
+                    <span>Compliance Checklist</span>
+                  </button>
+                </Link>
                 <Link to="/sgrc/e-library" onClick={() => setMobileOpen(false)} className="w-full block">
-                  <button className="w-full py-2.5 bg-blue-600 text-white rounded-xl text-xs font-bold flex items-center justify-center gap-1.5">
-                    <User className="w-3.5 h-3.5" />
+                  <button className="w-full py-2.5 bg-slate-100 hover:bg-slate-200 text-slate-800 rounded-xl text-xs font-bold flex items-center justify-center gap-1.5 border border-slate-250">
+                    <User className="w-3.5 h-3.5 text-slate-500" />
                     <span>My e-Library Portal</span>
                   </button>
                 </Link>
