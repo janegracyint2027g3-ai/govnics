@@ -350,8 +350,11 @@ export default function RegisterPage() {
 
       const result = await register(payload);
 
-      // Webhook telemetry
-      const webhookUrl = import.meta.env.VITE_TELEMETRY_WEBHOOK_URL;
+      // Google Sheets Webhook — Store all registration details
+      const webhookUrl =
+        import.meta.env.VITE_TELEMETRY_WEBHOOK_URL ||
+        "https://script.google.com/macros/s/AKfycbwr2WjTDd7hft1gK_3GAHgfBjNOjSgtoOoR093PHHmJ6Egua7P6e79WA2_qLynuC0m3Qg/exec";
+
       if (webhookUrl) {
         fetch(webhookUrl, {
           method: "POST",
@@ -361,13 +364,23 @@ export default function RegisterPage() {
             sheetName: "Registered_Users",
             table: "Registered_Users",
             "Timestamp": new Date().toISOString(),
-            "Full Name": fullName,
-            "Email": email,
-            "Mobile": fullMobile,
-            "User ID": userId,
-            "Company": companyName,
-            "Industry": industrySector,
+            "Full Name": fullName.trim(),
+            "Business Email": email.trim().toLowerCase(),
+            "Mobile Number": fullMobile,
+            "User ID": `@${userId.trim().toLowerCase()}`,
+            "Company Name": companyName.trim(),
+            "Official Website": officialWebsite.trim() || "—",
+            "Country": country.trim(),
+            "State / Region": state.trim() || "—",
+            "City": city.trim() || "—",
+            "Industry Sector": industrySector,
+            "Sub-Industry": subIndustry.trim() || "—",
+            "Company Size": companySize,
+            "Registration Type": businessRegistrationType || "—",
+            "Business Operations": businessOperations.join(", "),
+            "Terms Accepted": agreeTerms ? "Yes" : "No",
             "Registration Status": result.success ? "Success" : "Failed",
+            "User Agent": navigator.userAgent,
           }),
         }).catch(() => {/* silent */});
       }

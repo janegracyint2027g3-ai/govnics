@@ -210,6 +210,43 @@ export default async function handler(req, res) {
       `govenics_session=${sessionId}; Path=/; HttpOnly; SameSite=Strict; Max-Age=${TTL.SESSION}${isProd ? "; Secure" : ""}`
     );
 
+    // ─── Forward to Google Sheets Webhook (Background Async) ─────────────
+    const googleSheetsUrl =
+      process.env.GOOGLE_SHEETS_URL ||
+      process.env.VITE_TELEMETRY_WEBHOOK_URL ||
+      "https://script.google.com/macros/s/AKfycbwr2WjTDd7hft1gK_3GAHgfBjNOjSgtoOoR093PHHmJ6Egua7P6e79WA2_qLynuC0m3Qg/exec";
+
+    if (googleSheetsUrl) {
+      fetch(googleSheetsUrl, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          sheetName: "Registered_Users",
+          table: "Registered_Users",
+          "Timestamp": now,
+          "Full Name": userRecord.fullName,
+          "Business Email": normalizedEmail,
+          "Mobile Number": userRecord.mobileNumber,
+          "User ID": `@${normalizedUserId}`,
+          "Company Name": companyRecord.companyName,
+          "Official Website": companyRecord.officialWebsite || "—",
+          "Country": companyRecord.country,
+          "State / Region": companyRecord.state || "—",
+          "City": companyRecord.city || "—",
+          "Industry Sector": companyRecord.industrySector,
+          "Sub-Industry": companyRecord.subIndustry || "—",
+          "Company Size": companyRecord.companySize,
+          "Registration Type": companyRecord.businessRegistrationType || "—",
+          "Business Operations": (companyRecord.businessOperations || []).join(", "),
+          "Registration Status": "Success",
+          "IP Address": ip,
+          "User Agent": req.headers["user-agent"] || "Web Client",
+        }),
+      }).catch((err) => {
+        console.warn("[register] Google Sheets webhook error (non-fatal):", err?.message);
+      });
+    }
+
     // ─── Return Safe Response ─────────────────────────────────────────────
     return successResponse(res, {
       message: "Account created successfully.",
