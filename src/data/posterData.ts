@@ -1037,12 +1037,12 @@ export const masterPosterData: Record<string, PosterData> = {
     }
   },
 
-  "enterprise-governance": {
+    "enterprise-governance": {
     id: "enterprise-governance",
     title: "Enterprise Corporate Governance (CFO Suite)",
     categoryType: "offering",
     categoryName: "Corporate Governance & Board Advisory",
-    targetPersona: "Chief Financial Officers & Managing Directors",
+    targetPersona: "FOR CFOs • GROUP CFOs • FINANCE CONTROLLERS",
     eyebrow: "ONE MISSING RECORD. MULTIPLE ENTITY EXPOSURE. CFO ACCOUNTABILITY.",
     headline: {
       prefix: "REGULATORS AUDIT ENTITIES.",
@@ -1051,76 +1051,64 @@ export const masterPosterData: Record<string, PosterData> = {
     },
     subheadline: "Can Your Multi-Entity Holding Group Defend Every Statutory Record During Inspection?",
     stat: {
-      figure: "₹847 Crore",
-      label: "Corporate Governance Penalties",
-      context: "Imposed across holding groups and listed entities for secretarial defaults and related-party disclosure gaps.",
-      source: "SEBI & MCA Enforcement Compendium",
-      year: "2023",
+      figure: "₹1,00,000+",
+      label: "Per Day Exposure",
+      context: "Non-compliance penalties, filing defaults, missing statutory records and entity-level documentation gaps can create significant financial and governance exposure during inspections.",
+      source: "Companies Act 2013 & Statutory Compounding Benchmarks",
+      year: "2025",
       impactType: "financial",
-      impactLabel: "Holding Group Statutory Penalty Exposure"
+      impactLabel: "Statutory Financial Impact"
     },
     visualTheme: "governance",
     risks: [
-      "Entity Documentation Gaps: Inconsistent statutory record-keeping across subsidiaries exposing the parent group.",
-      "Missed Compliance Filings: Unmonitored statutory deadlines leading to compounding financial penalties.",
-      "Contractor & Vendor Risks: Joint-employer liabilities under contract labour and PF regulations.",
-      "Director & KMP Accountability: Personal legal exposure for corporate officers under Companies Act Section 134(5)."
+      "Entity Documentation Gaps: Different entities maintaining inconsistent statutory records.",
+      "Missed Compliance Filings: ROC, Labour, Secretarial and regulatory deadlines.",
+      "Contractor & Vendor Compliance Risks: Third-party workforce and engagement exposure.",
+      "Director & KMP Liability: Personal accountability during regulatory scrutiny."
     ],
     structuredRisks: [
-      {
-        title: "Entity Documentation Gaps",
-        desc: "Inconsistent statutory record-keeping across subsidiaries exposing the parent holding group."
-      },
-      {
-        title: "Missed Compliance Filings",
-        desc: "Unmonitored statutory deadlines leading to compounding financial penalties and debarment."
-      },
-      {
-        title: "Contractor & Vendor Risks",
-        desc: "Joint-employer liabilities under contract labour, PF/ESI, and GST non-reconciliation."
-      },
-      {
-        title: "Director & KMP Accountability",
-        desc: "Personal civil and criminal exposure for CFOs and Board members under Companies Act provisions."
-      }
+      { title: "Entity Documentation Gaps", desc: "Different entities maintaining inconsistent statutory records." },
+      { title: "Missed Compliance Filings", desc: "ROC, Labour, Secretarial and regulatory deadlines." },
+      { title: "Contractor & Vendor Compliance Risks", desc: "Third-party workforce and engagement exposure." },
+      { title: "Director & KMP Liability", desc: "Personal accountability during regulatory scrutiny." }
     ],
     solutions: [
       {
-        title: "Multi-Entity Compliance Visibility",
-        desc: "Unified governance architecture monitoring holding company and subsidiary statutory obligations.",
-        iconName: "ShieldCheck"
+        title: "Multi-Entity Compliance Command Center",
+        desc: "Unified single-pane-of-glass tracking all subsidiary filings, registers, and statutory obligations in real time.",
+        iconName: "Layers"
       },
       {
-        title: "Statutory Obligation Tracking",
-        desc: "Automated alerts for tax, labor, environmental, and corporate filing deadlines across jurisdictions.",
+        title: "72-Hour Inspection Readiness",
+        desc: "Instant statutory register generation and automated audit packet assembly for sudden regulatory scrutiny.",
         iconName: "Clock"
       },
       {
-        title: "Digital Statutory Record Vault",
-        desc: "Secure, audit-ready evidentiary repository for instant supervisory inspection retrieval.",
-        iconName: "FileSearch"
+        title: "Digital Statutory Record Repository",
+        desc: "Immutable, timestamped repository housing ROC, secretarial, labor, and tax filings with verifiable trail.",
+        iconName: "ShieldCheck"
       },
       {
-        title: "Entity-Level Risk Monitoring",
-        desc: "Real-time risk scoring across corporate subsidiaries, production units, and supply chain partners.",
+        title: "Real-Time Entity Risk Heatmaps",
+        desc: "Automated risk scoring across subsidiaries to detect compliance vulnerabilities before regulators do.",
         iconName: "BarChart3"
       },
       {
-        title: "Board & Audit Committee Reports",
-        desc: "Defensible executive reporting packs substantiating internal financial controls and director defense.",
+        title: "Board & Audit Committee Reporting",
+        desc: "Executive-grade governance dashboards and unvarnished statutory health packs prepared for quarterly board review.",
         iconName: "ClipboardCheck"
       },
       {
-        title: "Continuous Compliance Advisory",
-        desc: "40 years of institutional expertise providing dedicated legal and regulatory advisory support.",
-        iconName: "Layers"
+        title: "Continuous Compliance Monitoring",
+        desc: "Automated regulatory change radar and statutory due date alerts ensuring zero deadline defaults.",
+        iconName: "CheckCircle2"
       }
     ],
     cta: {
       text: "Schedule a CFO Compliance Exposure Assessment",
       buttonText: "REQUEST CFO REVIEW →",
       link: "/services/enterprise-governance#consultation-form",
-      subtitle: "Tailored specifically for CFOs, Group Finance Directors, and Audit Committees."
+      subtitle: "Identify statutory vulnerabilities across all entities before regulators do."
     }
   },
 
