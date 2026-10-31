@@ -6,7 +6,6 @@ import { servicesData } from "@/data/services-data";
 import { industryServicesData } from "@/data/industry-services-data";
 import { GrcSliderHero } from "@/components/hero/GrcSliderHero";
 import { GrcStatCards, type GrcStatCardItem } from "@/components/ui/GrcStatCards";
-import { PosterSection } from "@/components/poster/PosterSection";
 import { 
   CheckCircle2, ShieldCheck, 
   Shield, Layers, Cpu, Users, ClipboardCheck, 
@@ -494,13 +493,6 @@ export default function IndustryDetailPage() {
         {/* Panel 2: Cluster Overview Statistics */}
         <GrcStatCards stats={clusterOverviewStats} />
 
-        {/* Panel 3: Executive Infographic Poster (LinkedIn 4:5 Edition) */}
-        <PosterSection
-          initialKey={clusterId || "manufacturing-industrial"}
-          relatedKeys={clusterSectors.map(s => s.id)}
-          title={`${clusterName} Infographic Poster`}
-          subtitle={`High-impact statutory briefing & regulatory risk breakdown (LinkedIn 4:5 Edition) for ${clusterName}`}
-        />
 
         {/* Sub-Sector Sticky Anchor Menu */}
         <section className="bg-slate-50 border-b border-slate-200/80 py-4 sticky top-20 z-30 shadow-sm">

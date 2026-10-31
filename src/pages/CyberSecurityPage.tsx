@@ -4,7 +4,6 @@ import { GrcCarousel } from "@/components/ui/GrcCarousel";
 import { GrcStatCards, type GrcStatCardItem } from "@/components/ui/GrcStatCards";
 import { GrcSliderHero } from "@/components/hero/GrcSliderHero";
 import { cyberSpicedSlides } from "@/data/spiced-slider-content";
-import { PosterSection } from "@/components/poster/PosterSection";
 import { 
   ArrowRight, Shield, Check, ShieldCheck, Lock, Clock
 } from "lucide-react";
@@ -366,15 +365,6 @@ export default function CyberSecurityPage() {
         {/* Panel 2: Statistics Grid Cards */}
         <GrcStatCards stats={stats} />
 
-        {/* Poster Section: Cybersecurity & Data Governance Briefing */}
-        <div className="container mx-auto px-6 max-w-7xl pt-10">
-          <PosterSection
-            initialKey="cybersecurity-data"
-            relatedKeys={["cybersecurity-data", "risk-management", "regulatory-compliance"]}
-            title="Cybersecurity & Data Privacy Infographic"
-            subtitle="Executive briefing on DPDP Act statutory mandates, CERT-In reporting thresholds, and cyber resilience (LinkedIn 4:5 Edition)"
-          />
-        </div>
 
         {/* Content Sliders */}
         <div className="container mx-auto px-6 max-w-7xl pt-16 space-y-20">
