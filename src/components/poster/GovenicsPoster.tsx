@@ -1,4 +1,4 @@
-﻿// src/components/poster/GovenicsPoster.tsx
+// src/components/poster/GovenicsPoster.tsx
 // Core 4:5 Portrait Infographic Poster Component for GOVENICS
 // Strictly follows Enterprise Brand Identity: White / Light Blue theme with Navy & Royal Blue Typography
 
@@ -27,22 +27,22 @@ export const GovenicsPoster = forwardRef<HTMLDivElement, GovenicsPosterProps>(
     const [copied, setCopied] = useState(false);
 
     const handleCopyCaption = () => {
-      const caption = `🚨 ${data.headline.prefix || ""} ${data.headline.highlight} ${data.headline.suffix || ""}
-
-📊 Verified Intelligence (${data.stat.source}, ${data.stat.year}):
+      const caption = `🛡️ ${data.eyebrow ? data.eyebrow + "\n\n" : ""}${data.headline.prefix || ""} ${data.headline.highlight} ${data.headline.suffix || ""}
+${data.subheadline ? "\n" + data.subheadline + "\n" : ""}
+📊 Verified Statutory Intelligence (${data.stat.source}, FY ${data.stat.year}):
 ${data.stat.figure} ${data.stat.label} — ${data.stat.context}
 
-Key Operational Vulnerabilities:
-${data.risks.map(r => `• ${r}`).join("\n")}
+⚠️ Critical Operational Exposures:
+${(data.structuredRisks || []).map(r => "• " + r.title + ": " + r.desc).join("\n") || data.risks.map(r => "• " + r).join("\n")}
 
-HOW GOVENICS HELPS:
-${data.solutions.map(s => `✓ ${s.title}: ${s.desc}`).join("\n")}
+🏛️ HOW GOVENICS BUILDS ACCOUNTABILITY:
+${data.solutions.map(s => "✓ " + s.title + ": " + s.desc).join("\n")}
 
 GOVENICS GRC — A Division of ISI Group (Est. 1985)
 🌐 https://govenics.com
-💬 Request a consultation: https://govenics.com${data.cta.link}
+📞 Request Diagnostic: https://govenics.com${data.cta.link}
 
-#GOVENICS #GRC #Compliance #${data.categoryName.replace(/[^a-zA-Z0-9]/g, "")} #RiskManagement`;
+#GOVENICS #GRC #Compliance #${data.categoryName.replace(/[^a-zA-Z0-9]/g, "")} #EnterpriseGovernance #RiskManagement`;
 
       navigator.clipboard.writeText(caption);
       setCopied(true);
@@ -87,7 +87,7 @@ GOVENICS GRC — A Division of ISI Group (Est. 1985)
         <div
           ref={ref}
           id={`poster-${data.id}`}
-          className="w-full bg-white rounded-3xl border-2 border-blue-200/80 shadow-xl overflow-hidden p-6 sm:p-8 flex flex-col justify-between relative transition-all duration-300"
+          className="w-full bg-white rounded-3xl border-2 border-blue-200/80 shadow-xl overflow-hidden p-6 sm:p-7.5 flex flex-col justify-between relative transition-all duration-300"
           style={{
             background: "linear-gradient(170deg, #FFFFFF 0%, #F8FAFC 50%, #EFF6FF 100%)",
             color: "#0B1B3D"
@@ -100,10 +100,16 @@ GOVENICS GRC — A Division of ISI Group (Est. 1985)
           {/* Section A: Brand Header */}
           <PosterHeader categoryBadge={data.categoryName} isCompact={isCompact} />
 
-          {/* Section B: Strong Headline */}
-          <PosterHeadline headline={data.headline} targetPersona={data.targetPersona} isCompact={isCompact} />
+          {/* Section B: Strong Executive Headline with Eyebrow and Subheadline */}
+          <PosterHeadline 
+            headline={data.headline} 
+            eyebrow={data.eyebrow}
+            subheadline={data.subheadline}
+            targetPersona={data.targetPersona} 
+            isCompact={isCompact} 
+          />
 
-          {/* Middle Content Split / Grid */}
+          {/* Middle Content Flow */}
           <div className="w-full">
             {/* Section C: Intelligence Stat */}
             <IntelligenceStat stat={data.stat} isCompact={isCompact} />
@@ -111,14 +117,18 @@ GOVENICS GRC — A Division of ISI Group (Est. 1985)
             {/* Section D: Industry Visual Graphic */}
             <IndustryVisual theme={data.visualTheme} categoryName={data.categoryName} isCompact={isCompact} />
 
-            {/* Section E: Business Risk / Pain Points Panel */}
-            <RiskPanel risks={data.risks} isCompact={isCompact} />
+            {/* Section E: Business Risk / Pain Points Panel (2x2 Matrix) */}
+            <RiskPanel 
+              risks={data.risks} 
+              structuredRisks={data.structuredRisks} 
+              isCompact={isCompact} 
+            />
 
-            {/* Section F: GOVENICS Solution Capabilities */}
+            {/* Section F: GOVENICS Solution Capabilities (Up to 6) */}
             <SolutionCapabilities solutions={data.solutions} isCompact={isCompact} />
           </div>
 
-          {/* Section G: CTA */}
+          {/* Section G: Buyer-Specific CTA */}
           <PosterCTA cta={data.cta} isCompact={isCompact} />
 
           {/* Section H: Footer */}
@@ -130,4 +140,3 @@ GOVENICS GRC — A Division of ISI Group (Est. 1985)
 );
 
 GovenicsPoster.displayName = "GovenicsPoster";
-
