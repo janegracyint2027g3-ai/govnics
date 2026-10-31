@@ -1107,7 +1107,7 @@ export const masterPosterData: Record<string, PosterData> = {
     cta: {
       text: "Schedule a CFO Compliance Exposure Assessment",
       buttonText: "REQUEST CFO REVIEW →",
-      link: "/services/enterprise-governance#consultation-form",
+      link: "https://govnics-murex.vercel.app/services/enterprise-governance",
       subtitle: "Identify statutory vulnerabilities across all entities before regulators do."
     }
   },
