@@ -1,9 +1,10 @@
-import { useState, useEffect } from "react";
+﻿import { useState, useEffect } from "react";
 import { Layout } from "@/components/layout/Layout";
 import { GrcCarousel } from "@/components/ui/GrcCarousel";
 import { GrcStatCards, type GrcStatCardItem } from "@/components/ui/GrcStatCards";
 import { GrcSliderHero } from "@/components/hero/GrcSliderHero";
 import { esgSpicedSlides } from "@/data/spiced-slider-content";
+import { PosterSection } from "@/components/poster/PosterSection";
 import { 
   CheckCircle2, ShieldCheck, ClipboardCheck, Clock, BarChart3,
   ArrowRight, Leaf
@@ -344,6 +345,16 @@ export default function ESGPage() {
 
         {/* Panel 2: Statistics Grid Cards */}
         <GrcStatCards stats={stats} />
+
+        {/* Poster Section: ESG & Sustainability Briefing */}
+        <div className="container mx-auto px-6 max-w-7xl pt-10">
+          <PosterSection
+            initialKey="esg-sustainability"
+            relatedKeys={["esg-sustainability", "environmental-ehs", "supply-chain"]}
+            title="ESG & Sustainability Statutory Infographic"
+            subtitle="Executive compliance briefing on BRSR core disclosures, CPCB consents, and ESG mandate readiness (LinkedIn 4:5 Edition)"
+          />
+        </div>
 
         {/* Content Sliders */}
         <div className="container mx-auto px-6 max-w-7xl pt-16 space-y-20">

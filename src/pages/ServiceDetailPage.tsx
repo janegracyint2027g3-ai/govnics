@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+﻿import { useState, useEffect } from "react";
 import { useParams, Link, Navigate } from "react-router-dom";
 import { Layout } from "@/components/layout/Layout";
 import { servicesData } from "@/data/services-data";
@@ -17,6 +17,7 @@ import heroVerify from "@/assets/hero-verify.jpg";
 import heroIntegration from "@/assets/hero-integration.jpg";
 import heroCommand from "@/assets/command_center_1.jpg";
 import heroDrone from "@/assets/hero-drone.jpg";
+import { PosterSection } from "@/components/poster/PosterSection";
 
 export default function ServiceDetailPage() {
   const { serviceId } = useParams<{ serviceId: string }>();
@@ -360,6 +361,13 @@ export default function ServiceDetailPage() {
             </a>
           </div>
         </div>
+
+        {/* ── POSTER: Executive Infographic (LinkedIn 4:5 Edition) ──── */}
+        <PosterSection
+          initialKey={serviceId || "regulatory-compliance"}
+          title={`${service.title} Infographic Poster`}
+          subtitle={`ICP-specific statutory briefing & compliance risk breakdown (LinkedIn 4:5 Edition) for ${service.title}`}
+        />
 
         {/* ── SECTION 2: BUSINESS CHALLENGES ──────────────────────────── */}
         <section id="challenges" className="py-20 bg-white border-b border-slate-200/80">

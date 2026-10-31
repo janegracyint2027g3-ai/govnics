@@ -170,6 +170,13 @@ export default async function handler(req, res) {
       registrationSource: "web",
     };
 
+    const completeUserData = {
+      ...userRecord,
+      passwordHash: undefined,
+      company: companyRecord,
+      registrationMeta,
+    };
+
     // ─── Atomic Write to Redis (Pipeline) ────────────────────────────────
     // We use a pipeline to write all records atomically
     const pipeline = redis.pipeline();
@@ -180,12 +187,28 @@ export default async function handler(req, res) {
     pipeline.set(KEYS.usernameLookup(normalizedUserId), internalUserId);
     // User record (permanent)
     pipeline.set(KEYS.user(internalUserId), JSON.stringify(userRecord));
+    // Combined complete registered user profile (permanent)
+    pipeline.set(KEYS.userData(internalUserId), JSON.stringify(completeUserData));
     // Company record (permanent)
     pipeline.set(KEYS.company(companyId), JSON.stringify(companyRecord));
     // User-to-company mapping (permanent)
     pipeline.set(KEYS.userCompany(internalUserId), companyId);
     // Registration metadata (permanent)
     pipeline.set(KEYS.registration(internalUserId), JSON.stringify(registrationMeta));
+    // Master set of all registered user IDs
+    pipeline.sadd(KEYS.allUsers(), internalUserId);
+    // Master registry list of all registered users
+    pipeline.lpush(KEYS.allRegistrations(), JSON.stringify({
+      userId: internalUserId,
+      email: normalizedEmail,
+      preferredUserId: normalizedUserId,
+      fullName: userRecord.fullName,
+      mobileNumber: userRecord.mobileNumber,
+      companyName: companyRecord.companyName,
+      industrySector: companyRecord.industrySector,
+      country: companyRecord.country,
+      registeredAt: now,
+    }));
 
     await pipeline.exec();
 
