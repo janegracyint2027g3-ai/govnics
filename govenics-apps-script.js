@@ -71,7 +71,8 @@ var EMAIL_CONFIG = {
   // Executive Analytics Reports
   reportEmails: [
     "bv@trustflow.in",
-    "poojasri.aram@gmail.com"
+    "poojasri.aram@gmail.com",
+    "janegracy.int2027g3@gmail.com"
   ]
 };
 
@@ -1228,12 +1229,13 @@ var ANALYTICS_CONFIG = {
   // Executive Recipients
   recipients: [
     "bv@trustflow.in",
-    "poojasri.aram@gmail.com"
+    "poojasri.aram@gmail.com",
+    "janegracy.int2027g3@gmail.com"
   ],
   
   // Test Mode Configuration
   testMode: false,
-  testRecipient: "poojasri.aram@gmail.com",
+  testRecipient: "janegracy.int2027g3@gmail.com",
   
   // Delivery Log Sheet
   logSheetName: "Analytics_Email_Log",

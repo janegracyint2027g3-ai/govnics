@@ -109,4 +109,5 @@ To test dispatch without waiting for schedule:
 - Run `testDailyReport()` in the Apps Script debugger.
 - Run `testWeeklyReport()`.
 - Run `testMonthlyReport()`.
-- Or run `testAllAnalyticsReports()` to dispatch all three previews in TEST_MODE to `poojasri.aram@gmail.com`.
+- Or run `testAllAnalyticsReports()` to dispatch all three previews in TEST_MODE to `janegracy.int2027g3@gmail.com, bv@trustflow.in, poojasri.aram@gmail.com`.
+
