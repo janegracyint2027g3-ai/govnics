@@ -30,6 +30,7 @@ export interface GrcChatMessage {
   id: string;
   type: "bot" | "user";
   content: string;
+  imageUrl?: string;
   timestamp: Date;
   actions?: GrcChatAction[];
   searchResults?: GrcSearchResult[];
@@ -827,14 +828,15 @@ export const useGrcChat = () => {
     }, 15);
   };
 
-  const handleSendMessage = (text: string) => {
-    if (!text.trim()) return;
+  const handleSendMessage = (text: string, imageUrl?: string) => {
+    if (!text.trim() && !imageUrl) return;
 
     // Add user message
     const userMsg: GrcChatMessage = {
       id: "user-" + Date.now(),
       type: "user",
-      content: text,
+      content: text || (imageUrl ? "📎 [Shared an image]" : ""),
+      imageUrl,
       timestamp: new Date()
     };
 
@@ -843,6 +845,22 @@ export const useGrcChat = () => {
 
     // Persist interaction directly to Google Sheets Chatbot_Leads tab
     trackChatInteraction(text);
+
+    // Handle image-only messages: auto-respond and offer advisor contact
+    if (imageUrl && !text.trim()) {
+      setTimeout(() => {
+        streamResponse(
+          "I can see you've shared an image or document screenshot. To help you effectively, could you describe what you need — for example, a compliance review, a document identification, or a regulatory query?\n\nOur GRC specialists can review this with you in a 1:1 advisory call.",
+          undefined,
+          [
+            { label: "Request compliance review", value: "callback", type: "quickReply" },
+            { label: "Identify this document", value: "identify document", type: "quickReply" },
+            { label: "Ask a question", value: "ask question about document", type: "quickReply" },
+          ]
+        );
+      }, 400);
+      return;
+    }
 
     const valStr = text.trim();
     const valNum = parseFloat(valStr);
@@ -1267,7 +1285,7 @@ export const useGrcChat = () => {
       return;
     }
 
-    // Simulate natural delays (600ms) for general database search
+    // Simulate natural delays (400ms) for general database search
     setTimeout(() => {
       const response = performSearch(text);
       
@@ -1284,7 +1302,7 @@ export const useGrcChat = () => {
       if (action.value === "callback") {
         startLeadCapture(leadData.topic || "Callback Action Request");
       } else {
-        handleSendMessage(action.value);
+        handleSendMessage(action.value, undefined);
       }
     } else if (action.type === "link") {
       if (action.value.startsWith("/")) {

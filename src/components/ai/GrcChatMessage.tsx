@@ -73,13 +73,23 @@ export const GrcChatMessage = ({ message, onActionClick }: GrcChatMessageProps) 
         {/* Bubble & Cards */}
         <div className="flex flex-col gap-2.5 max-w-full">
           {/* Main Bubble */}
-          {message.content && (
+          {(message.content || message.imageUrl) && (
             <div className={`p-4 rounded-2xl border transition-all shadow-sm flex flex-col gap-2 ${
               isBot
                 ? "bg-white border-slate-150 text-slate-700 rounded-tl-none text-xs leading-relaxed font-medium"
                 : "bg-blue-600 border-blue-550 text-white rounded-tr-none text-xs leading-relaxed font-semibold"
             }`}>
-              <p className="whitespace-pre-wrap">{message.content}</p>
+              {/* Pasted image (user messages) */}
+              {!isBot && message.imageUrl && (
+                <div className="rounded-xl overflow-hidden border border-white/20 max-w-[220px]">
+                  <img
+                    src={message.imageUrl}
+                    alt="Shared document screenshot"
+                    className="w-full h-auto object-cover"
+                  />
+                </div>
+              )}
+              {message.content && <p className="whitespace-pre-wrap">{message.content}</p>}
               
               {/* Copy & Feedback Controls for Bot Messages */}
               {isBot && (
