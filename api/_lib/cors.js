@@ -29,6 +29,14 @@ export function handleOptions(req, res) {
   return false;
 }
 
+export function allowCors(fn) {
+  return async (req, res) => {
+    setCorsHeaders(res, req.headers?.origin);
+    if (handleOptions(req, res)) return;
+    return await fn(req, res);
+  };
+}
+
 export function jsonResponse(res, status, data) {
   res.status(status).json(data);
 }

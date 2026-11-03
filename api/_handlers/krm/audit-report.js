@@ -2,7 +2,7 @@
 // Phase 2 — Statutory Data Audit Report endpoint
 // Returns classification statistics for the 1,787 statutory records
 
-import { allowCors } from "../../_lib/cors.js";
+
 
 // ─── Pre-computed audit constants from Phase 1 inspection ─────────────────────
 // These are factual counts derived from direct inspection of sgrc-scraped-data.ts

@@ -4,7 +4,7 @@
 // Replaces the ephemeral React useState-only KRM implementation
 
 import { redis, KEYS } from "../../_lib/redis.js";
-import { allowCors } from "../../_lib/cors.js";
+
 import { v4 as uuidv4 } from "uuid";
 
 // ─── Redis Key Helpers ────────────────────────────────────────────────────────

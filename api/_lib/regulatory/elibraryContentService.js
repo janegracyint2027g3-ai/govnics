@@ -349,3 +349,5 @@ export function getEbookById(contentId) {
   return ELIBRARY_OFFERING_EBOOKS.find(e => e.contentId === contentId) || null;
 }
 
+export const OFFERING_EBOOKS = ELIBRARY_OFFERING_EBOOKS;
+
