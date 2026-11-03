@@ -6,8 +6,14 @@ import {
   BookOpen, Calendar, HelpCircle, FileText, Download, CheckCircle2,
   Percent, Coins, Clock, Globe, ShieldAlert, Award, FileCheck, 
   Calculator, UserCheck, Play, Scale, Leaf, Building, CalendarCheck, Copy, Check, Search,
-  Database, PlusCircle, Trash2, History, ChevronLeft, ChevronRight, ShieldCheck
+  Database, PlusCircle, Trash2, History, ChevronLeft, ChevronRight, ShieldCheck,
+  BarChart3, Sparkles
 } from "lucide-react";
+import { useKrmDocuments } from "@/hooks/useKrmDocuments";
+import { Phase2Dashboard } from "@/components/admin/Phase2Dashboard";
+import { KnowledgeManagementDashboard } from "@/components/admin/KnowledgeManagementDashboard";
+import { RegulatoryCoverageDashboard } from "@/components/admin/RegulatoryCoverageDashboard";
+import { ExecutiveGrcDashboard } from "@/components/admin/ExecutiveGrcDashboard";
 
 
 // Helpers for Advanced Search Filtering
@@ -137,94 +143,6 @@ const librarySlides: LibrarySlide[] = [
   }
 ];
 
-interface KrmDocument {
-  id: string;
-  title: string;
-  domain: "lei" | "ehs" | "fcc";
-  category: string;
-  version: string;
-  classification: "Public" | "Internal" | "Confidential" | "Restricted";
-  owner: string;
-  lastReviewed: string;
-  applicability: string;
-  status: "Active" | "Pending Review" | "Archived";
-}
-
-const initialKrmDocs: KrmDocument[] = [
-  {
-    id: "DOC-2026-001",
-    title: "The Code on Social Security, 2020",
-    domain: "lei",
-    category: "Labour Code",
-    version: "v2.1",
-    classification: "Public",
-    owner: "Legal & Compliance",
-    lastReviewed: "2026-04-12",
-    applicability: "Establishments with 10+ employees",
-    status: "Active"
-  },
-  {
-    id: "DOC-2026-002",
-    title: "Digital Personal Data Protection (DPDP) Act, 2023",
-    domain: "fcc",
-    category: "Act",
-    version: "v1.4",
-    classification: "Restricted",
-    owner: "Data Protection Office",
-    lastReviewed: "2026-05-30",
-    applicability: "All digital entities processing Indian citizen data",
-    status: "Active"
-  },
-  {
-    id: "DOC-2026-003",
-    title: "ISO 14001:2015 Environmental Standard Policy",
-    domain: "ehs",
-    category: "ISO Standard",
-    version: "v3.0",
-    classification: "Internal",
-    owner: "EHS Operations",
-    lastReviewed: "2026-06-15",
-    applicability: "Manufacturing facilities and plant sites",
-    status: "Active"
-  },
-  {
-    id: "DOC-2026-004",
-    title: "Companies (Filing of AOC-4) Rules",
-    domain: "fcc",
-    category: "Rule",
-    version: "v2.0",
-    classification: "Public",
-    owner: "Finance & Taxation",
-    lastReviewed: "2026-03-01",
-    applicability: "All registered corporate entities in India",
-    status: "Active"
-  },
-  {
-    id: "DOC-2026-005",
-    title: "Contract Labour (Regulation & Abolition) Central Rules",
-    domain: "lei",
-    category: "Rule",
-    version: "v1.2",
-    classification: "Public",
-    owner: "HR Operations",
-    lastReviewed: "2026-01-20",
-    applicability: "Firms employing 20+ contract labourers",
-    status: "Active"
-  },
-  {
-    id: "DOC-2026-006",
-    title: "Hazardous Wastes (Management & Transboundary) Rules",
-    domain: "ehs",
-    category: "Rule",
-    version: "v2.2",
-    classification: "Restricted",
-    owner: "EHS Operations",
-    lastReviewed: "2026-05-10",
-    applicability: "Factories generating chemical or electronic waste",
-    status: "Active"
-  }
-];
-
 export default function SgrceLibraryPage() {
   const [searchParams, setSearchParams] = useSearchParams();
   const activeDomain = (searchParams.get("domain") || "lei") as "lei" | "ehs" | "fcc";
@@ -271,8 +189,17 @@ export default function SgrceLibraryPage() {
   const [activeSlideIndex, setActiveSlideIndex] = useState(0);
   const [isHovered, setIsHovered] = useState(false);
 
-  // KRM Registered Documents State
-  const [krmDocs, setKrmDocs] = useState<KrmDocument[]>(initialKrmDocs);
+  // KRM Registered Documents — Phase 2: Persistent storage via useKrmDocuments hook
+  // Data now persists across browser refreshes using Upstash Redis (production)
+  // or localStorage (local dev fallback). The ephemeral useState-only approach
+  // has been replaced. Original initialKrmDocs are seeded as defaults.
+  const {
+    documents: krmDocs,
+    persistenceMode: krmPersistenceMode,
+    auditLog: krmAuditLog,
+    createDocument: krmCreate,
+    deleteDocument: krmDelete,
+  } = useKrmDocuments();
   const [krmSearch, setKrmSearch] = useState("");
   const [krmFilterDomain, setKrmFilterDomain] = useState<string>("All");
   
@@ -287,11 +214,21 @@ export default function SgrceLibraryPage() {
   
   // Toast & Activity Log state
   const [toastMessage, setToastMessage] = useState<string | null>(null);
-  const [revisionLogs, setRevisionLogs] = useState([
-    { timestamp: "2026-06-24 10:45", user: "Admin", action: "Accessed Ledger Dashboard" },
-    { timestamp: "2026-06-24 09:12", user: "system", action: "Auto-synced MCA statutory database" },
-    { timestamp: "2026-06-23 15:30", user: "Legal Compliance", action: "Updated DPDP Act guidelines (v1.4)" }
-  ]);
+  const [clearedAuditSession, setClearedAuditSession] = useState(false);
+  // revisionLogs now sourced from persistent KRM hook audit log
+  const revisionLogs = clearedAuditSession
+    ? [{ timestamp: new Date().toISOString().replace("T", " ").substring(0, 16), user: "Admin", action: "Purged local audit session logs cache" }]
+    : krmAuditLog.length > 0
+    ? krmAuditLog.map(l => ({
+        timestamp: l.timestamp ? l.timestamp.replace("T", " ").substring(0, 16) : "",
+        user: l.user,
+        action: l.action,
+      }))
+    : [
+        { timestamp: "2026-06-24 10:45", user: "Admin", action: "Accessed Ledger Dashboard" },
+        { timestamp: "2026-06-24 09:12", user: "system", action: "Auto-synced MCA statutory database" },
+        { timestamp: "2026-06-23 15:30", user: "Legal Compliance", action: "Updated DPDP Act guidelines (v1.4)" }
+      ];
 
   const triggerToast = (msg: string) => {
     setToastMessage(msg);
@@ -372,7 +309,11 @@ export default function SgrceLibraryPage() {
             { id: "professional-tax", label: "Professional Tax", icon: Percent }
           ],
           resources: [
+            { id: "regulatory-coverage", label: "Phase 5 Regulatory Matrix", icon: ShieldCheck },
+            { id: "executive-grc", label: "Phase 4 AI Advisory", icon: Sparkles },
+            { id: "ai-knowledge-hub", label: "AI Knowledge Hub", icon: Sparkles },
             { id: "knowledge-management", label: "Knowledge Management", icon: Database },
+            { id: "migration-dashboard", label: "Phase 2 Migration", icon: BarChart3 },
             { id: "minimum-wages", label: "Minimum Wages", icon: Coins },
             { id: "webinar", label: "Webinar", icon: Play },
             { id: "legal-opinion", label: "Legal Opinion", icon: HelpCircle },
@@ -389,7 +330,11 @@ export default function SgrceLibraryPage() {
             { id: "ehs-standards", label: "EHS Standards & ISO", icon: Award }
           ],
           resources: [
+            { id: "regulatory-coverage", label: "Phase 5 Regulatory Matrix", icon: ShieldCheck },
+            { id: "executive-grc", label: "Phase 4 AI Advisory", icon: Sparkles },
+            { id: "ai-knowledge-hub", label: "AI Knowledge Hub", icon: Sparkles },
             { id: "knowledge-management", label: "Knowledge Management", icon: Database },
+            { id: "migration-dashboard", label: "Phase 2 Migration", icon: BarChart3 },
             { id: "webinar", label: "Webinar", icon: Play },
             { id: "legal-opinion", label: "Legal Opinion", icon: HelpCircle }
           ]
@@ -403,7 +348,11 @@ export default function SgrceLibraryPage() {
             { id: "gazette", label: "Gazette Notifications", icon: FileText }
           ],
           resources: [
+            { id: "regulatory-coverage", label: "Phase 5 Regulatory Matrix", icon: ShieldCheck },
+            { id: "executive-grc", label: "Phase 4 AI Advisory", icon: Sparkles },
+            { id: "ai-knowledge-hub", label: "AI Knowledge Hub", icon: Sparkles },
             { id: "knowledge-management", label: "Knowledge Management", icon: Database },
+            { id: "migration-dashboard", label: "Phase 2 Migration", icon: BarChart3 },
             { id: "fcc-calendar", label: "Compliance Calendar", icon: CalendarCheck },
             { id: "webinar", label: "Webinar", icon: Play },
             { id: "legal-opinion", label: "Legal Opinion", icon: HelpCircle },
@@ -570,7 +519,7 @@ export default function SgrceLibraryPage() {
       return matchesSearch && matchesDomain;
     });
 
-    const handleRegisterDoc = (e: any) => {
+    const handleRegisterDoc = async (e: any) => {
       e.preventDefault();
       if (!newDocTitle.trim()) {
         triggerToast("Please enter a document title.");
@@ -581,47 +530,34 @@ export default function SgrceLibraryPage() {
         return;
       }
 
-      const nextNum = krmDocs.length + 1;
-      const formattedNum = nextNum < 10 ? `00${nextNum}` : nextNum < 100 ? `0${nextNum}` : `${nextNum}`;
-      const newDoc: KrmDocument = {
-        id: `DOC-2026-${formattedNum}`,
+      const created = await krmCreate({
         title: newDocTitle.trim(),
         domain: newDocDomain,
         category: newDocCategory,
         version: newDocVersion.trim() || "v1.0",
         classification: newDocClassification,
         owner: newDocOwner,
-        lastReviewed: new Date().toISOString().split("T")[0],
         applicability: newDocApplicability.trim(),
-        status: "Active"
-      };
+        contentQualityStatus: "Needs Legal Review",
+        verificationStatus: "Unverified",
+      });
 
-      setKrmDocs([newDoc, ...krmDocs]);
-      setRevisionLogs([
-        {
-          timestamp: new Date().toISOString().replace("T", " ").substring(0, 16),
-          user: "Admin Portal",
-          action: `Registered statutory asset "${newDocTitle.trim()}" (${newDocVersion})`
-        },
-        ...revisionLogs
-      ]);
-
-      setNewDocTitle("");
-      setNewDocApplicability("");
-      triggerToast(`Successfully registered ${newDoc.id}!`);
+      if (created) {
+        setNewDocTitle("");
+        setNewDocApplicability("");
+        triggerToast(`Successfully registered ${created.id}! (Saved to ${krmPersistenceMode === "api" ? "Redis — persists permanently" : "localStorage — persists locally"})`);
+      } else {
+        triggerToast("Failed to save document. Please try again.");
+      }
     };
 
-    const handleDeleteDoc = (id: string, title: string) => {
-      setKrmDocs(krmDocs.filter(d => d.id !== id));
-      setRevisionLogs([
-        {
-          timestamp: new Date().toISOString().replace("T", " ").substring(0, 16),
-          user: "Admin Portal",
-          action: `Deregistered statutory asset "${title}" (${id})`
-        },
-        ...revisionLogs
-      ]);
-      triggerToast(`Removed document ${id} from registry.`);
+    const handleDeleteDoc = async (id: string, title: string) => {
+      const success = await krmDelete(id);
+      if (success) {
+        triggerToast(`Removed document "${title}" (${id}) from registry. (Deletion saved to ${krmPersistenceMode === "api" ? "Redis" : "localStorage"})`);
+      } else {
+        triggerToast(`Failed to remove ${id}. Please try again.`);
+      }
     };
 
     return (
@@ -635,10 +571,23 @@ export default function SgrceLibraryPage() {
               Knowledge Resource Management (KRM)
             </h2>
           </div>
-          <div className="flex items-center gap-1.5 bg-emerald-50 border border-emerald-200 px-3 py-1 rounded-xl shrink-0">
-            <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-            <span className="text-[10px] font-black text-emerald-700 uppercase tracking-wider">
-              Registry Synced
+          <div className={`flex items-center gap-1.5 border px-3 py-1 rounded-xl shrink-0 ${
+            krmPersistenceMode === "api"
+              ? "bg-emerald-50 border-emerald-200"
+              : krmPersistenceMode === "localStorage"
+              ? "bg-amber-50 border-amber-200"
+              : "bg-slate-50 border-slate-200"
+          }`}>
+            <span className={`w-2 h-2 rounded-full animate-pulse ${
+              krmPersistenceMode === "api" ? "bg-emerald-500" :
+              krmPersistenceMode === "localStorage" ? "bg-amber-400" : "bg-slate-400"
+            }`} />
+            <span className={`text-[10px] font-black uppercase tracking-wider ${
+              krmPersistenceMode === "api" ? "text-emerald-700" :
+              krmPersistenceMode === "localStorage" ? "text-amber-700" : "text-slate-500"
+            }`}>
+              {krmPersistenceMode === "api" ? "Redis — Persistent" :
+               krmPersistenceMode === "localStorage" ? "localStorage — Local Only" : "Checking..."}
             </span>
           </div>
         </div>
@@ -831,14 +780,8 @@ export default function SgrceLibraryPage() {
               <button 
                 type="button"
                 onClick={() => {
-                  setRevisionLogs([
-                    {
-                      timestamp: new Date().toISOString().replace("T", " ").substring(0, 16),
-                      user: "Admin",
-                      action: "Purged local audit session logs cache"
-                    }
-                  ]);
-                  triggerToast("Session activity logs cleared.");
+                  setClearedAuditSession(true);
+                  triggerToast("Session activity logs display cleared.");
                 }}
                 className="text-[9px] font-black text-rose-600 hover:text-rose-700 uppercase tracking-wider transition-colors"
               >
@@ -977,9 +920,29 @@ export default function SgrceLibraryPage() {
 
   // Render e-Library Content Card based on activeTab
   const renderLibraryContent = () => {
+    // Phase 5: Regulatory Knowledge Coverage Dashboard (36 Jurisdictions)
+    if (activeTab === "regulatory-coverage") {
+      return <RegulatoryCoverageDashboard />;
+    }
+
+    // Phase 4: Executive Multi-Agent GRC Dashboard & Advisory Engine
+    if (activeTab === "executive-grc") {
+      return <ExecutiveGrcDashboard />;
+    }
+
+    // Phase 3: AI Knowledge Hub & Governance Centre
+    if (activeTab === "ai-knowledge-hub") {
+      return <KnowledgeManagementDashboard />;
+    }
+
     // 0. Knowledge Resource Management Dashboard
     if (activeTab === "knowledge-management") {
       return renderKrmDashboard();
+    }
+
+    // Phase 2: Migration Control Dashboard
+    if (activeTab === "migration-dashboard") {
+      return <Phase2Dashboard />;
     }
 
     // 1. Calculators Tab

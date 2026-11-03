@@ -13,6 +13,7 @@ import { industriesData } from "@/data/industries-data";
 import { casesData } from "@/data/cases-data";
 import { offeringsData } from "@/data/offerings-data";
 import { findKnowledgeCard, findTopKnowledgeCards } from "@/data/govenics-knowledge";
+import { CLIENT_SEED_DOCUMENTS } from "@/utils/aiKnowledgeRetrieval";
 import {
   getPageContext,
   getContextualActionResponse
@@ -367,6 +368,52 @@ export const useGrcChat = () => {
           { label: "Browse e-Library", value: "/sgrc/e-library", type: "link" }
         ]
       };
+    }
+
+    // Phase 3 — Source-Grounded AI Knowledge Hub Retrieval
+    const tokens = q.match(/\b[a-z0-9_-]+\b/g) || [];
+    if (tokens.length >= 2) {
+      let bestDoc: any = null;
+      let bestChunk: any = null;
+      let bestScore = 0;
+
+      for (const doc of CLIENT_SEED_DOCUMENTS) {
+        if (!doc.isEligibleForAiRetrieval) continue;
+        for (const chunk of doc.chunks || []) {
+          const lowerChunk = chunk.content.toLowerCase();
+          const matches = tokens.filter(t => lowerChunk.includes(t) || chunk.keywords.some(k => k.toLowerCase().includes(t))).length;
+          const ratio = matches / tokens.length;
+          if (ratio > bestScore && matches >= 2) {
+            bestScore = ratio;
+            bestDoc = doc;
+            bestChunk = chunk;
+          }
+        }
+      }
+
+      if (bestDoc && bestChunk && bestScore >= 0.50) {
+        const cleanContent = bestChunk.content.replace(/^\[Document:[^\]]+\]\s*/i, "").trim();
+        const responseText = `Based on verified records in the **GOVENICS Knowledge Library** (${bestDoc.trustState}):\n\n• **${bestChunk.sectionHeader}**: ${cleanContent}\n\n**Regulatory Classification:** Statutory Obligation under ${bestDoc.jurisdiction.applicableRegulator} (${bestDoc.jurisdiction.country}${bestDoc.jurisdiction.state ? ` - ${bestDoc.jurisdiction.state}` : ""})\n**Statutory Reference:** ${bestDoc.statutoryReference || bestDoc.enrichedTitle}`;
+        
+        return {
+          text: responseText,
+          results: [
+            {
+              id: bestDoc.id,
+              type: "statutory",
+              title: bestDoc.title,
+              category: bestDoc.offering.toUpperCase(),
+              description: cleanContent.slice(0, 160) + "...",
+              link: "/sgrc/e-library?domain=lei&tab=ai-knowledge-hub"
+            }
+          ],
+          actions: [
+            { label: "View in Knowledge Hub", value: "/sgrc/e-library?domain=lei&tab=ai-knowledge-hub", type: "link" },
+            { label: "Request Advisor Callback", value: "callback", type: "quickReply" },
+            { label: "Browse e-Library", value: "/sgrc/e-library", type: "link" }
+          ]
+        };
+      }
     }
 
     // High-accuracy Knowledge Card lookup across the entire website

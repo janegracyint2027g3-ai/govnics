@@ -5,8 +5,10 @@ import { Layout } from "@/components/layout/Layout";
 import { 
   ShieldCheck, Building, CheckCircle2,
   ArrowRight, Sparkles, ExternalLink, RefreshCw, Edit3,
-  Layers, FileText, CheckSquare, BarChart3, ShieldAlert
+  Layers, FileText, CheckSquare, BarChart3, ShieldAlert, Briefcase
 } from "lucide-react";
+import { CustomerPortalWorkspace } from "@/components/portals/CustomerPortalWorkspace";
+import { ConsultantPortalWorkspace } from "@/components/portals/ConsultantPortalWorkspace";
 
 interface ChecklistSummary {
   totalItems: number;
@@ -28,7 +30,7 @@ export default function DashboardPage() {
   const [hasChecklist, setHasChecklist] = useState<boolean>(false);
   const [isLoadingChecklist, setIsLoadingChecklist] = useState<boolean>(true);
   const [isGenerating, setIsGenerating] = useState<boolean>(false);
-  const [activeTab, setActiveTab] = useState<"overview" | "company" | "obligations">("overview");
+  const [activeTab, setActiveTab] = useState<"overview" | "workspace" | "consultant" | "company" | "obligations">("workspace");
 
   // Company Edit Modal State
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
@@ -299,10 +301,21 @@ export default function DashboardPage() {
           )}
 
           {/* ─── Navigation Tabs ─── */}
-          <div className="flex border-b border-slate-200">
+          <div className="flex border-b border-slate-200 overflow-x-auto">
+            <button
+              onClick={() => setActiveTab("workspace")}
+              className={`pb-3 px-4 text-xs font-bold border-b-2 transition-all flex items-center gap-2 whitespace-nowrap ${
+                activeTab === "workspace"
+                  ? "border-blue-600 text-blue-600"
+                  : "border-transparent text-slate-500 hover:text-slate-800"
+              }`}
+            >
+              <ShieldCheck className="w-4 h-4" />
+              <span>Enterprise Operations Hub (Phase 6–8)</span>
+            </button>
             <button
               onClick={() => setActiveTab("overview")}
-              className={`pb-3 px-4 text-xs font-bold border-b-2 transition-all flex items-center gap-2 ${
+              className={`pb-3 px-4 text-xs font-bold border-b-2 transition-all flex items-center gap-2 whitespace-nowrap ${
                 activeTab === "overview"
                   ? "border-blue-600 text-blue-600"
                   : "border-transparent text-slate-500 hover:text-slate-800"
@@ -312,8 +325,19 @@ export default function DashboardPage() {
               <span>Compliance Overview</span>
             </button>
             <button
+              onClick={() => setActiveTab("consultant")}
+              className={`pb-3 px-4 text-xs font-bold border-b-2 transition-all flex items-center gap-2 whitespace-nowrap ${
+                activeTab === "consultant"
+                  ? "border-blue-600 text-blue-600"
+                  : "border-transparent text-slate-500 hover:text-slate-800"
+              }`}
+            >
+              <Briefcase className="w-4 h-4" />
+              <span>Consultant Portal</span>
+            </button>
+            <button
               onClick={() => setActiveTab("company")}
-              className={`pb-3 px-4 text-xs font-bold border-b-2 transition-all flex items-center gap-2 ${
+              className={`pb-3 px-4 text-xs font-bold border-b-2 transition-all flex items-center gap-2 whitespace-nowrap ${
                 activeTab === "company"
                   ? "border-blue-600 text-blue-600"
                   : "border-transparent text-slate-500 hover:text-slate-800"
@@ -324,7 +348,7 @@ export default function DashboardPage() {
             </button>
             <button
               onClick={() => setActiveTab("obligations")}
-              className={`pb-3 px-4 text-xs font-bold border-b-2 transition-all flex items-center gap-2 ${
+              className={`pb-3 px-4 text-xs font-bold border-b-2 transition-all flex items-center gap-2 whitespace-nowrap ${
                 activeTab === "obligations"
                   ? "border-blue-600 text-blue-600"
                   : "border-transparent text-slate-500 hover:text-slate-800"
@@ -336,6 +360,20 @@ export default function DashboardPage() {
           </div>
 
           {/* ─── TAB CONTENT ─── */}
+
+          {/* 0. Enterprise Operations Hub Tab */}
+          {activeTab === "workspace" && (
+            <div className="space-y-6">
+              <CustomerPortalWorkspace />
+            </div>
+          )}
+
+          {/* 0.1 Consultant Portal Tab */}
+          {activeTab === "consultant" && (
+            <div className="space-y-6">
+              <ConsultantPortalWorkspace />
+            </div>
+          )}
 
           {/* 1. Overview Tab */}
           {activeTab === "overview" && (
