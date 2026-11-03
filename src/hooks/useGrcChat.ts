@@ -7,6 +7,12 @@ import {
 } from "@/data/sgrc-data";
 import type { StatutoryDocument } from "@/data/sgrc-data";
 import { resourcesData } from "@/data/resources-data";
+import { servicesData } from "@/data/services-data";
+import { solutionsByIndustrySector } from "@/data/solutions-data";
+import { industriesData } from "@/data/industries-data";
+import { casesData } from "@/data/cases-data";
+import { offeringsData } from "@/data/offerings-data";
+import { findKnowledgeCard, findTopKnowledgeCards } from "@/data/govenics-knowledge";
 import {
   getPageContext,
   getContextualActionResponse
@@ -17,7 +23,7 @@ export type { GrcChatAction, GrcPageContext };
 
 export interface GrcSearchResult {
   id: string;
-  type: "statutory" | "service" | "resource" | "library" | "calculator";
+  type: "statutory" | "service" | "resource" | "library" | "calculator" | "solution" | "industry" | "case_study" | "general";
   title: string;
   category: string;
   description: string;
@@ -323,6 +329,87 @@ export const useGrcChat = () => {
       return {
         text: contextualAns,
         actions: currentContext.actions
+      };
+    }
+
+    // Natural conversational intents (Greetings, Bot identity, Gratitude)
+    const greetingWords = ["hi", "hello", "hey", "hola", "greetings", "good morning", "good afternoon", "good evening", "namaste"];
+    if (greetingWords.includes(q) || q === "hi govey" || q === "hello govey") {
+      return {
+        text: `Hello! I am **Govey**, your Enterprise GRC & Compliance AI Advisor at GOVENICS.\n\nI know every nook and corner of our website and services — from **Regulatory Compliance (RBI, SEBI, MCA)** to **Cybersecurity (ISO 27001, DPDP Act)**, **ESG & BRSR**, **Labour Laws**, **Statutory Calculators**, **Case Studies**, and **Leadership Credentials**.\n\nWhat compliance area, statutory standard, or advisory service can I assist you with today?`,
+        actions: [
+          { label: "Core Services", value: "services overview", type: "quickReply" },
+          { label: "Checklist Scoping Wizard", value: "checklist scoping", type: "quickReply" },
+          { label: "DPDP Act Readiness", value: "dpdp", type: "quickReply" },
+          { label: "Statutory Calculators", value: "calculators", type: "quickReply" },
+          { label: "Request Advisor Callback", value: "callback", type: "quickReply" }
+        ]
+      };
+    }
+
+    if (q === "who are you" || q === "what is govey" || q === "what can you do" || q === "help" || q === "what do you do") {
+      return {
+        text: `I am **Govey**, GOVENICS' intelligent GRC Copilot. I have comprehensive knowledge of the entire GOVENICS ecosystem:\n\n• **Advisory Offerings:** Regulatory Compliance, ERM, Corporate Governance, Internal Audit, Cybersecurity, DPDP, ESG, Labour Law, EHS, Staffing\n• **Industry Blueprints:** BFSI, Manufacturing, Healthcare, IT/SaaS, Infrastructure, Energy & Utilities\n• **Statutory Database:** 100+ Acts & Rules across LEI, EHS, and FCC domains\n• **Interactive Tools:** EPF, Gratuity, Professional Tax, and Income Tax calculators, plus our Checklist Scoping Wizard\n• **Corporate Profile:** Our 40+ year heritage, 11 pan-India offices, leadership biographies, and client case studies\n\nAsk me anything about compliance requirements, standard frameworks, or our advisory services!`,
+        actions: [
+          { label: "About GOVENICS", value: "about govenics", type: "quickReply" },
+          { label: "All Services", value: "services overview", type: "quickReply" },
+          { label: "Case Studies", value: "case studies", type: "quickReply" },
+          { label: "Speak with a Partner", value: "callback", type: "quickReply" }
+        ]
+      };
+    }
+
+    if (q === "thanks" || q === "thank you" || q === "thx" || q === "appreciate it") {
+      return {
+        text: "You're very welcome! Feel free to ask any other questions about compliance, regulations, or our services. If you'd like to discuss a custom requirement with our Senior GRC Partners, just click below.",
+        actions: [
+          { label: "Request Advisor Callback", value: "callback", type: "quickReply" },
+          { label: "Browse e-Library", value: "/sgrc/e-library", type: "link" }
+        ]
+      };
+    }
+
+    // High-accuracy Knowledge Card lookup across the entire website
+    const card = findKnowledgeCard(query);
+    if (card) {
+      const cardResults: GrcSearchResult[] = [];
+      if (card.link) {
+        cardResults.push({
+          id: card.id,
+          type: "service",
+          title: card.topic,
+          category: "GOVENICS Knowledge Hub",
+          description: card.answer.slice(0, 150) + "...",
+          link: card.link
+        });
+      }
+      return {
+        text: card.answer,
+        results: cardResults.length > 0 ? cardResults : undefined,
+        actions: card.followUpActions || currentContext.actions
+      };
+    }
+
+    // Services overview intent
+    if (q === "services" || q === "services overview" || q === "all services" || q === "offerings" || q.includes("what services") || q === "what do you offer") {
+      const serviceResults: GrcSearchResult[] = servicesData.slice(0, 6).map(s => ({
+        id: s.id,
+        type: "service",
+        title: s.title,
+        category: s.category,
+        description: s.solution.slice(0, 140) + "...",
+        link: `/services/${s.id}`
+      }));
+      return {
+        text: `GOVENICS delivers enterprise-grade GRC advisory across several strategic disciplines:\n\n1. **Regulatory Compliance Management** – Central & state regulatory tracking, automated digital registers, 100% audit readiness\n2. **Enterprise Risk Management (ERM)** – ISO 31000, COSO, RCSA, KRI dashboards\n3. **Cybersecurity & Threat Defense** – ISO 27001:2022 ISMS, SOC 2 Type II, VAPT, CERT-In\n4. **Data Privacy & DPDP Compliance** – DPDP Act 2023 readiness, CMP, HIPAA\n5. **ESG & Sustainability Advisory** – SEBI BRSR Core, Scope 1-3 carbon accounting\n6. **Labour & Employment Law Compliance** – 4 Labour Codes, CLRA, Factories Act, POSH\n7. **Internal Audit & Assurance** – Continuous control testing, SOX\n8. **GRC Staffing & Manpower** – Deploying pre-vetted compliance officers, DPOs, and auditors`,
+        results: serviceResults,
+        actions: [
+          { label: "Regulatory Compliance", value: "regulatory compliance", type: "quickReply" },
+          { label: "Cybersecurity & DPDP", value: "cybersecurity", type: "quickReply" },
+          { label: "ESG Advisory", value: "esg", type: "quickReply" },
+          { label: "Labour Law Compliance", value: "labour law", type: "quickReply" },
+          { label: "Request Proposal", value: "callback", type: "quickReply" }
+        ]
       };
     }
 
@@ -684,30 +771,109 @@ export const useGrcChat = () => {
       };
     }
 
-    // 8. General Keyword Matching across all datasets
+    // 8. General Keyword Matching across ALL website datasets
     const results: GrcSearchResult[] = [];
 
-    // Search inside sgrcServices
-    sgrcServices.forEach(s => {
-      const contentStr = `${s.title} ${s.tagline} ${s.description} ${s.whoNeeds.join(" ")}`.toLowerCase();
+    // A. Search inside servicesData (all 45+ enterprise GRC services)
+    servicesData.forEach(s => {
+      const contentStr = `${s.title} ${s.category} ${s.problem} ${s.solution} ${(s.benefits || []).join(" ")} ${(s.standards || []).join(" ")}`.toLowerCase();
       if (contentStr.includes(q)) {
         results.push({
-          id: s.id,
+          id: `srv-${s.id}`,
           type: "service",
           title: s.title,
-          category: "Compliance Service",
+          category: s.category,
+          description: s.solution.slice(0, 150) + "...",
+          link: `/services/${s.id}`
+        });
+      }
+    });
+
+    // B. Search inside solutionsByIndustrySector
+    solutionsByIndustrySector.forEach(cat => {
+      cat.items.forEach(item => {
+        const itemStr = `${item.title} ${item.description} ${(item.deliverables || []).join(" ")} ${item.badge || ""}`.toLowerCase();
+        if (itemStr.includes(q)) {
+          results.push({
+            id: `sol-${item.id}`,
+            type: "solution",
+            title: `${item.title} (${cat.name})`,
+            category: "Industry Solution",
+            description: item.description,
+            link: `/solutions`
+          });
+        }
+      });
+    });
+
+    // C. Search inside industriesData
+    industriesData.forEach(ind => {
+      const indStr = `${ind.title} ${ind.subtitle} ${(ind.focusAreas || []).join(" ")} ${(ind.regulations || []).join(" ")} ${ind.cluster}`.toLowerCase();
+      if (indStr.includes(q)) {
+        results.push({
+          id: `ind-${ind.id}`,
+          type: "industry",
+          title: ind.title,
+          category: ind.cluster,
+          description: ind.subtitle,
+          link: `/industries`
+        });
+      }
+    });
+
+    // D. Search inside casesData (case studies)
+    casesData.forEach(c => {
+      const caseStr = `${c.title} ${c.industry} ${c.challenge} ${c.solution} ${(c.results || []).join(" ")}`.toLowerCase();
+      if (caseStr.includes(q)) {
+        results.push({
+          id: `case-${c.id}`,
+          type: "case_study",
+          title: c.title,
+          category: `Case Study: ${c.industry}`,
+          description: c.solution.slice(0, 150) + "...",
+          link: `/case-studies`
+        });
+      }
+    });
+
+    // E. Search inside offeringsData
+    Object.values(offeringsData).forEach(cat => {
+      cat.items.forEach(item => {
+        const offStr = `${item.title} ${item.description}`.toLowerCase();
+        if (offStr.includes(q)) {
+          results.push({
+            id: `off-${item.id}`,
+            type: "service",
+            title: item.title,
+            category: cat.label,
+            description: item.description,
+            link: item.link
+          });
+        }
+      });
+    });
+
+    // F. Search inside sgrcServices
+    sgrcServices.forEach(s => {
+      const contentStr = `${s.title} ${s.tagline} ${s.description} ${(s.whoNeeds || []).join(" ")}`.toLowerCase();
+      if (contentStr.includes(q)) {
+        results.push({
+          id: `sgrc-${s.id}`,
+          type: "service",
+          title: s.title,
+          category: "Statutory Practice",
           description: s.tagline || s.description.slice(0, 150) + "...",
           link: `/sgrc/services/${s.id}`
         });
       }
     });
 
-    // Search inside resourcesData
+    // G. Search inside resourcesData
     resourcesData.forEach(r => {
       const contentStr = `${r.title} ${r.category} ${r.summary} ${r.author}`.toLowerCase();
       if (contentStr.includes(q)) {
         results.push({
-          id: r.id,
+          id: `res-${r.id}`,
           type: "resource",
           title: r.title,
           category: `Resource: ${r.type.toUpperCase()}`,
@@ -718,7 +884,7 @@ export const useGrcChat = () => {
       }
     });
 
-    // Search inside sgrceLibraryData (top keys)
+    // H. Search inside sgrceLibraryData (top keys)
     Object.keys(sgrceLibraryData).forEach(key => {
       const item = sgrceLibraryData[key];
       const contentStr = `${item.title} ${item.introduction} ${item.whatIsIt} ${item.scope} ${item.applicability}`.toLowerCase();
@@ -734,7 +900,7 @@ export const useGrcChat = () => {
       }
     });
 
-    // Search inside sgrcStatutoryDatabase (Acts, Rules, Regulations, etc.)
+    // I. Search inside sgrcStatutoryDatabase (Acts, Rules, Regulations, etc.)
     let statutoryCount = 0;
     const domains = ["lei", "ehs", "fcc"] as const;
     
@@ -749,11 +915,11 @@ export const useGrcChat = () => {
 
         for (const doc of docList) {
           if (statutoryCount >= 4) break;
-          const docStr = `${doc.title} ${doc.objective} ${doc.applicability} ${doc.enactedBy} ${doc.keyProvisions.join(" ")}`.toLowerCase();
+          const docStr = `${doc.title} ${doc.objective} ${doc.applicability} ${doc.enactedBy} ${(doc.keyProvisions || []).join(" ")}`.toLowerCase();
           
           if (docStr.includes(q)) {
             results.push({
-              id: doc.id,
+              id: `doc-${doc.id}`,
               type: "statutory",
               title: doc.title,
               category: `Statutory: ${dom.toUpperCase()} ${catKey.toUpperCase()}`,
@@ -767,20 +933,45 @@ export const useGrcChat = () => {
       }
     }
 
-    if (results.length > 0) {
+    // J. Fallback multi-match from master knowledge base
+    const topCards = findTopKnowledgeCards(query, 3);
+    topCards.forEach(c => {
+      if (!results.some(r => r.id.includes(c.id))) {
+        results.push({
+          id: `kn-${c.id}`,
+          type: "service",
+          title: c.topic,
+          category: "GOVENICS Knowledge Hub",
+          description: c.answer.slice(0, 140) + "...",
+          link: c.link || "/about"
+        });
+      }
+    });
+
+    // Deduplicate results
+    const uniqueResults = results.filter((v, i, a) => a.findIndex(t => t.id === v.id) === i);
+
+    if (uniqueResults.length > 0) {
       return {
-        text: `Based on your search query "${query}", I have identified the following GRC resources, tools, and statutory filings:`,
-        results: results.slice(0, 6)
+        text: `Here is what I found on the GOVENICS portal matching "${query}":`,
+        results: uniqueResults.slice(0, 6),
+        actions: [
+          { label: "Request Advisor Callback", value: "callback", type: "quickReply" },
+          { label: "All Core Services", value: "services overview", type: "quickReply" },
+          { label: "Browse e-Library", value: "/sgrc/e-library", type: "link" }
+        ]
       };
     }
 
-    // Fallback if no matching records found
+    // Intelligent Fallback with deep navigation
     return {
-      text: `I couldn't find any direct database hits matching "${query}" in our local GRC Acts index. Would you like to request a callback from a Senior Partner, or search a different standard?`,
+      text: `I searched across all advisory services, statutory databases, case studies, and industry blueprints on govenics.com, but couldn't find an exact match for "${query}".\n\nHere are some of the primary sections you can explore:`,
       actions: [
-        { label: "Request Callback", value: "callback", type: "quickReply" },
-        { label: "Browse e-Library Portal", value: "/sgrc/e-library", type: "link" },
-        { label: "View Compliance Services", value: "/sgrc/services", type: "link" }
+        { label: "All Core Services", value: "services overview", type: "quickReply" },
+        { label: "Industry Blueprints", value: "industries", type: "quickReply" },
+        { label: "DPDP & Cybersecurity", value: "cybersecurity", type: "quickReply" },
+        { label: "Statutory e-Library", value: "/sgrc/e-library", type: "link" },
+        { label: "Request Advisor Callback", value: "callback", type: "quickReply" }
       ]
     };
   };

@@ -3,7 +3,7 @@ import type { GrcChatMessage as ChatMessageType, GrcChatAction, GrcSearchResult 
 import { 
   Shield, User, ExternalLink, ArrowRight, Download, 
   FileText, Scale, Settings, BookOpen, AlertCircle, Calculator,
-  Copy, Check, ThumbsUp, ThumbsDown
+  Copy, Check, ThumbsUp, ThumbsDown, Briefcase, Factory, Trophy
 } from "lucide-react";
 
 interface GrcChatMessageProps {
@@ -36,6 +36,12 @@ export const GrcChatMessage = ({ message, onActionClick }: GrcChatMessageProps) 
         return <BookOpen className="w-4 h-4 text-indigo-650" />;
       case "calculator":
         return <Calculator className="w-4 h-4 text-violet-600" />;
+      case "solution":
+        return <Briefcase className="w-4 h-4 text-cyan-600" />;
+      case "industry":
+        return <Factory className="w-4 h-4 text-teal-600" />;
+      case "case_study":
+        return <Trophy className="w-4 h-4 text-amber-600" />;
       default:
         return <AlertCircle className="w-4 h-4 text-slate-500" />;
     }
@@ -53,6 +59,12 @@ export const GrcChatMessage = ({ message, onActionClick }: GrcChatMessageProps) 
         return "bg-indigo-50 text-indigo-700 border-indigo-200";
       case "calculator":
         return "bg-violet-50 text-violet-700 border-violet-200";
+      case "solution":
+        return "bg-cyan-50 text-cyan-700 border-cyan-200";
+      case "industry":
+        return "bg-teal-50 text-teal-700 border-teal-200";
+      case "case_study":
+        return "bg-amber-50 text-amber-800 border-amber-200";
       default:
         return "bg-slate-550/10 text-slate-500 border-slate-200";
     }
