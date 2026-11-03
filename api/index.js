@@ -41,6 +41,8 @@ import regulatoryVerification from './_handlers/regulatory/verification.js';
 import regulatoryElibrary from './_handlers/regulatory/elibrary.js';
 import regulatoryIndustry from './_handlers/regulatory/industry.js';
 import regulatoryMonitoring from './_handlers/regulatory/monitoring.js';
+import regulatoryLegalReview from './_handlers/regulatory/legal-review.js';
+import regulatoryJobs from './_handlers/regulatory/jobs.js';
 
 import integrationsRegistry from './_handlers/integrations/registry.js';
 import integrationsWebhooks from './_handlers/integrations/webhooks.js';
@@ -102,6 +104,8 @@ const exactRoutes = {
   '/api/regulatory/elibrary': regulatoryElibrary,
   '/api/regulatory/industry': regulatoryIndustry,
   '/api/regulatory/monitoring': regulatoryMonitoring,
+  '/api/regulatory/legal-review': regulatoryLegalReview,
+  '/api/regulatory/jobs': regulatoryJobs,
 
   '/api/integrations/registry': integrationsRegistry,
   '/api/integrations/webhooks': integrationsWebhooks,
@@ -146,6 +150,10 @@ export default async function handler(req, res) {
         selectedHandler = regulatoryElibrary;
       } else if (pathname.startsWith('/api/regulatory/industry')) {
         selectedHandler = regulatoryIndustry;
+      } else if (pathname.startsWith('/api/regulatory/legal-review')) {
+        selectedHandler = regulatoryLegalReview;
+      } else if (pathname.startsWith('/api/regulatory/jobs')) {
+        selectedHandler = regulatoryJobs;
       } else if (pathname.startsWith('/api/compliance/register')) {
         selectedHandler = complianceRegister;
       } else if (pathname.startsWith('/api/compliance/tasks')) {
@@ -188,3 +196,4 @@ export default async function handler(req, res) {
     }
   }
 }
+

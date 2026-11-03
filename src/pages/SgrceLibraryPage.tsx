@@ -7,13 +7,15 @@ import {
   Percent, Coins, Clock, Globe, ShieldAlert, Award, FileCheck, 
   Calculator, UserCheck, Play, Scale, Leaf, Building, CalendarCheck, Copy, Check, Search,
   Database, PlusCircle, Trash2, History, ChevronLeft, ChevronRight, ShieldCheck,
-  BarChart3, Sparkles
+  BarChart3, Sparkles, Bot
 } from "lucide-react";
 import { useKrmDocuments } from "@/hooks/useKrmDocuments";
 import { Phase2Dashboard } from "@/components/admin/Phase2Dashboard";
 import { KnowledgeManagementDashboard } from "@/components/admin/KnowledgeManagementDashboard";
 import { RegulatoryCoverageDashboard } from "@/components/admin/RegulatoryCoverageDashboard";
 import { ExecutiveGrcDashboard } from "@/components/admin/ExecutiveGrcDashboard";
+import { LegalReviewConsole } from "@/components/admin/LegalReviewConsole";
+import { ExtractionJobCenter } from "@/components/admin/ExtractionJobCenter";
 
 
 // Helpers for Advanced Search Filtering
@@ -309,6 +311,8 @@ export default function SgrceLibraryPage() {
             { id: "professional-tax", label: "Professional Tax", icon: Percent }
           ],
           resources: [
+            { id: "legal-review", label: "Legal Review Console", icon: ShieldCheck },
+            { id: "extraction-jobs", label: "Agent Extraction Control", icon: Bot },
             { id: "regulatory-coverage", label: "Phase 5 Regulatory Matrix", icon: ShieldCheck },
             { id: "executive-grc", label: "Phase 4 AI Advisory", icon: Sparkles },
             { id: "ai-knowledge-hub", label: "AI Knowledge Hub", icon: Sparkles },
@@ -330,6 +334,8 @@ export default function SgrceLibraryPage() {
             { id: "ehs-standards", label: "EHS Standards & ISO", icon: Award }
           ],
           resources: [
+            { id: "legal-review", label: "Legal Review Console", icon: ShieldCheck },
+            { id: "extraction-jobs", label: "Agent Extraction Control", icon: Bot },
             { id: "regulatory-coverage", label: "Phase 5 Regulatory Matrix", icon: ShieldCheck },
             { id: "executive-grc", label: "Phase 4 AI Advisory", icon: Sparkles },
             { id: "ai-knowledge-hub", label: "AI Knowledge Hub", icon: Sparkles },
@@ -348,6 +354,8 @@ export default function SgrceLibraryPage() {
             { id: "gazette", label: "Gazette Notifications", icon: FileText }
           ],
           resources: [
+            { id: "legal-review", label: "Legal Review Console", icon: ShieldCheck },
+            { id: "extraction-jobs", label: "Agent Extraction Control", icon: Bot },
             { id: "regulatory-coverage", label: "Phase 5 Regulatory Matrix", icon: ShieldCheck },
             { id: "executive-grc", label: "Phase 4 AI Advisory", icon: Sparkles },
             { id: "ai-knowledge-hub", label: "AI Knowledge Hub", icon: Sparkles },
@@ -920,6 +928,16 @@ export default function SgrceLibraryPage() {
 
   // Render e-Library Content Card based on activeTab
   const renderLibraryContent = () => {
+    // Phase F: Human Legal Review Console with 10 Queues
+    if (activeTab === "legal-review") {
+      return <LegalReviewConsole />;
+    }
+
+    // Phase J: Autonomous Extraction Agent Control Centre
+    if (activeTab === "extraction-jobs") {
+      return <ExtractionJobCenter />;
+    }
+
     // Phase 5: Regulatory Knowledge Coverage Dashboard (36 Jurisdictions)
     if (activeTab === "regulatory-coverage") {
       return <RegulatoryCoverageDashboard />;

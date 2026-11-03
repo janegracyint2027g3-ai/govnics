@@ -1,7 +1,7 @@
 // src/types/regulatory.ts
-// Phase 5 — Universal Regulatory Knowledge Types across Central, 28 States & 8 Union Territories
+// Production Regulatory Knowledge Types across Central, 28 States & 8 Union Territories
 
-import type { GovenicsOffering, IndustrySector, TrustState } from "./knowledgeHub";
+import type { GovenicsOffering } from "./knowledgeHub";
 
 export type JurisdictionLevel = "Central" | "State" | "Union Territory";
 
@@ -13,72 +13,95 @@ export interface RegulatorySource {
   jurisdictionLevel: JurisdictionLevel;
   stateOrUtName?: string;
   ministryOrDepartment: string;
-  trustRating: "Verified Official Government Portal" | "Verified Official Regulator" | "Official State Department";
-  monitoredOfferings: GovenicsOffering[];
+  trustRating: "Verified Official Government Portal" | "Verified Official Regulator" | "Official State Department" | string;
+  monitoredOfferings: (GovenicsOffering | string)[];
+  departments?: string[];
+  subEndpoints?: Record<string, string>;
   rateLimitMs: number;
   lastCrawledAt?: string;
   isActive: boolean;
+  verificationStatus?: string;
 }
 
-export interface LegalProvision {
-  provisionId: string;
-  actId: string;
-  actTitle: string;
-  jurisdictionLevel: JurisdictionLevel;
-  stateOrUtName?: string;
-  sectionNumber: string;
-  ruleNumber?: string;
-  subsection?: string;
-  clause?: string;
-  scheduleReference?: string;
+export interface RegulatoryKnowledgeRecord {
+  recordId: string;
+  jurisdictionType: JurisdictionLevel;
+  country: "India";
+  stateOrUt?: string | null;
+  issuingAuthority: string;
+  ministryOrDepartment: string;
+
+  actName: string;
+  actNumberAndYear?: string | null;
+  ruleOrRegulationName?: string | null;
+  chapter?: string | null;
+  section: string;
+  subsection?: string | null;
+  clause?: string | null;
+  schedule?: string | null;
+
   originalLegalText: string;
-  simplifiedExplanation: string;
-  complianceRequirement: string;
-  applicabilityCondition: string;
-  responsibleEntity: string;
+  plainLanguageExplanation: string;
+  complianceObligation: string;
+  applicabilityConditions: string[];
+
+  industry: string[];
+  subIndustry?: string[];
+  businessActivity?: string[];
   responsibleDepartment: string;
-  requiredEvidence: string;
-  requiredFilingOrAction: string;
-  frequency: "Annual" | "Half-Yearly" | "Quarterly" | "Monthly" | "Continuous / Event-Based" | "One-Time";
-  deadline: string | null;
-  penaltyOrConsequence: string | null;
-  offering: GovenicsOffering;
-  industry: IndustrySector;
-  regulatoryAuthority: string;
-  sourceUrl: string;
-  pageNumber?: number;
-  verificationStatus: TrustState;
-  amendmentReference?: string;
-  isRepealedOrSuperseded?: boolean;
+  responsibleRole: string;
+  requiredEvidence: string[];
+  complianceFrequency: "One-Time" | "Monthly" | "Quarterly" | "Half-Yearly" | "Annual" | "Event-Driven" | "Continuous" | string;
+  dueDateLogic: string;
+  penaltyOrConsequence: string;
+
+  commencementDate?: string | null;
+  effectiveFrom: string;
+  effectiveTo?: string | null;
+  amendmentStatus: "Original" | "Amended" | "Superseded" | "Pending_Notification" | string;
+  repealStatus: "In_Force" | "Repealed" | "Partially_Repealed" | "Subsumed_By_Code" | string;
+
+  officialSourceUrl: string;
+  sourceDocumentTitle: string;
+  gazetteOrNotificationNumber?: string | null;
+  publicationDate?: string | null;
+  pageNumber?: string | null;
+  extractionDate: string;
+  lastVerifiedDate: string;
+  verificationStatus: "Verified" | "Pending_Verification" | "Conflicting" | "Source_Unavailable" | string;
+  legalReviewStatus: "Draft" | "Under_Review" | "Approved" | "Rejected" | "Needs_Reprocessing" | string;
+  versionNumber: number;
+  previousVersionId?: string | null;
+  aiConfidenceScore: number;
+  humanReviewer?: string | null;
+  approvalTimestamp?: string | null;
 }
 
-export interface CentralStateMapping {
-  mappingId: string;
-  centralActTitle: string;
-  centralSection: string;
-  stateOrUtName: string;
-  stateRuleTitle: string;
-  stateRuleSection: string;
-  isOverridingOrAdditive: "Additive State Rules" | "State-Specific Exemption" | "Conflicting Provision (Needs Legal Review)";
-  operationalImpact: string;
-  applicableAuthority: string;
+export interface LegalReviewQueueItem {
+  queueId: string;
+  queueName: string;
+  title: string;
+  count: number;
+  description: string;
+  color: string;
 }
 
-export interface RegulatoryAmendment {
-  amendmentId: string;
-  parentLegislationId: string;
-  legislationTitle: string;
-  amendingActOrNotification: string;
-  publicationDate: string;
-  effectiveDate: string;
-  affectedSections: string[];
-  summaryOfChanges: string;
-  affectedOfferings: GovenicsOffering[];
-  affectedIndustries: IndustrySector[];
-  affectedStates: string[];
-  sourceUrl: string;
-  reviewStatus: "Detected" | "Under Legal Review" | "Approved & Verified" | "Rejected";
-  reviewer?: string;
+export interface ExtractionJob {
+  jobId: string;
+  agentId: string;
+  jurisdiction: JurisdictionLevel | string;
+  sourceId?: string | null;
+  extractionCategory: string;
+  status: "PENDING" | "RUNNING" | "COMPLETED" | "FAILED" | "CANCELLED";
+  startTime?: string | null;
+  completionTime?: string | null;
+  documentsDiscovered: number;
+  documentsProcessed: number;
+  recordsExtracted: number;
+  errors: string[];
+  retryCount: number;
+  reviewStatus: string;
+  logs: string[];
 }
 
 export interface StateCoverageMetric {
@@ -92,4 +115,3 @@ export interface StateCoverageMetric {
   coveragePercentage: number;
   lastExtractionDate: string;
 }
-
