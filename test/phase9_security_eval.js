@@ -8,23 +8,23 @@ import {
   getSecurityEvents,
   ENTERPRISE_ROLES,
   ROLE_PERMISSIONS
-} from "../api/lib/security/rbacService.js";
+} from "../api/_lib/security/rbacService.js";
 
 import {
   getAiGovernanceRegistry,
   getAiQualityMetrics,
   sanitizeUserInput
-} from "../api/lib/security/aiGovernanceService.js";
+} from "../api/_lib/security/aiGovernanceService.js";
 
 import {
   getContinuousMonitoringFeed,
   triggerRegulatoryScan
-} from "../api/lib/security/continuousIntelligenceService.js";
+} from "../api/_lib/security/continuousIntelligenceService.js";
 
 import {
   getBackupHistory,
   executeRestoreSimulation
-} from "../api/lib/security/disasterRecoveryService.js";
+} from "../api/_lib/security/disasterRecoveryService.js";
 
 let passed = 0;
 let failed = 0;

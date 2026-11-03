@@ -6,26 +6,26 @@ import {
   getCustomerOrganization,
   registerCustomerOrganization,
   inviteOrganizationMember
-} from "../api/lib/portals/customerService.js";
+} from "../api/_lib/portals/customerService.js";
 
 import {
   getAllConsultants,
   getConsultantById,
   logConsultantTimesheet
-} from "../api/lib/portals/consultantService.js";
+} from "../api/_lib/portals/consultantService.js";
 
 import {
   getSubscriptionPlans,
   getCustomerInvoices,
   createSandboxCheckout,
   SUBSCRIPTION_PLANS
-} from "../api/lib/portals/billingService.js";
+} from "../api/_lib/portals/billingService.js";
 
 import {
   getLeadsList,
   createLeadEnquiry,
   getPartnersList
-} from "../api/lib/portals/leadLifecycleService.js";
+} from "../api/_lib/portals/leadLifecycleService.js";
 
 let passed = 0;
 let failed = 0;

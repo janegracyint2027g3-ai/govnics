@@ -1,17 +1,17 @@
 // test/phase4_multiagent_eval.js
 // Phase 4 — 50-Case Comprehensive Automated Evaluation Suite for Multi-Agent AI Intelligence, GRC Advisory & Automation
 
-import { classifyUserIntent, extractJurisdiction, orchestrateAgentRequest } from "../api/lib/knowledge/orchestrator.js";
-import { getAgentProfile, getAllAgentProfiles } from "../api/lib/knowledge/agentProfiles.js";
-import { generateIntelligentChecklist } from "../api/lib/compliance/intelligentChecklistService.js";
-import { executeGapAssessment } from "../api/lib/compliance/gapAssessmentService.js";
-import { calculateRiskMetrics } from "../api/lib/compliance/riskEngineService.js";
-import { analyzeDocumentContent } from "../api/lib/compliance/documentIntelligenceService.js";
-import { generateStructuredPolicy } from "../api/lib/compliance/policyGeneratorService.js";
-import { getRegulatorySources, getRegulatoryUpdates, approveRegulatoryUpdate } from "../api/lib/regulatory/monitoringService.js";
-import { validateUserOrgAccess } from "../api/lib/organizations/workspaceService.js";
-import { generateStructuredReport } from "../api/lib/reports/reportGeneratorService.js";
-import { sanitizeRetrievedEvidence } from "../api/lib/knowledge/retrievalEngine.js";
+import { classifyUserIntent, extractJurisdiction, orchestrateAgentRequest } from "../api/_lib/knowledge/orchestrator.js";
+import { getAgentProfile, getAllAgentProfiles } from "../api/_lib/knowledge/agentProfiles.js";
+import { generateIntelligentChecklist } from "../api/_lib/compliance/intelligentChecklistService.js";
+import { executeGapAssessment } from "../api/_lib/compliance/gapAssessmentService.js";
+import { calculateRiskMetrics } from "../api/_lib/compliance/riskEngineService.js";
+import { analyzeDocumentContent } from "../api/_lib/compliance/documentIntelligenceService.js";
+import { generateStructuredPolicy } from "../api/_lib/compliance/policyGeneratorService.js";
+import { getRegulatorySources, getRegulatoryUpdates, approveRegulatoryUpdate } from "../api/_lib/regulatory/monitoringService.js";
+import { validateUserOrgAccess } from "../api/_lib/organizations/workspaceService.js";
+import { generateStructuredReport } from "../api/_lib/reports/reportGeneratorService.js";
+import { sanitizeRetrievedEvidence } from "../api/_lib/knowledge/retrievalEngine.js";
 
 console.log("=====================================================================");
 console.log("   GOVENICS PHASE 4: 50-CASE MULTI-AGENT GRC INTELLIGENCE EVALUATION   ");

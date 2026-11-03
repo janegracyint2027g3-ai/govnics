@@ -8,7 +8,7 @@ import {
   triggerIntegrationSync,
   INTEGRATION_CATEGORIES,
   INTEGRATION_STATUSES
-} from "../api/lib/integrations/integrationRegistryService.js";
+} from "../api/_lib/integrations/integrationRegistryService.js";
 
 import {
   getWebhooksByOrg,
@@ -18,19 +18,19 @@ import {
   verifyWebhookSignature,
   getDeliveryLogs,
   SUPPORTED_WEBHOOK_EVENTS
-} from "../api/lib/integrations/webhookService.js";
+} from "../api/_lib/integrations/webhookService.js";
 
 import {
   generateApiKey,
   getApiKeysByOrg,
   revokeApiKey,
   getApiUsageAnalytics
-} from "../api/lib/integrations/apiManagementService.js";
+} from "../api/_lib/integrations/apiManagementService.js";
 
 import {
   getExecutiveAnalyticsSnapshot,
   generateScheduledExecutiveReport
-} from "../api/lib/integrations/analyticsService.js";
+} from "../api/_lib/integrations/analyticsService.js";
 
 let passed = 0;
 let failed = 0;

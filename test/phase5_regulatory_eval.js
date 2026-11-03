@@ -10,31 +10,31 @@ import {
   getAllSources,
   getSourcesByJurisdiction,
   getSourceById
-} from "../api/lib/regulatory/sourceRegistry.js";
+} from "../api/_lib/regulatory/sourceRegistry.js";
 import {
   STRUCTURED_PROVISIONS,
   getAllProvisions,
   getProvisionsByJurisdiction,
   getProvisionsByOffering,
   getProvisionById
-} from "../api/lib/regulatory/sectionExtractionService.js";
+} from "../api/_lib/regulatory/sectionExtractionService.js";
 import {
   CENTRAL_STATE_MAPPINGS,
   REGULATORY_AMENDMENTS,
   mapCentralStateApplicability,
   getRegulatoryAmendments
-} from "../api/lib/regulatory/applicabilityAndAmendmentService.js";
+} from "../api/_lib/regulatory/applicabilityAndAmendmentService.js";
 import {
   getPendingProvisions,
   verifyAndApproveProvision,
   getVerificationAuditTrail
-} from "../api/lib/regulatory/verificationService.js";
+} from "../api/_lib/regulatory/verificationService.js";
 import {
   ELIBRARY_OFFERING_EBOOKS,
   getOfferingEbooks,
   getEbookById
-} from "../api/lib/regulatory/elibraryContentService.js";
-import { orchestrateAgentRequest } from "../api/lib/knowledge/orchestrator.js";
+} from "../api/_lib/regulatory/elibraryContentService.js";
+import { orchestrateAgentRequest } from "../api/_lib/knowledge/orchestrator.js";
 
 console.log("=====================================================================");
 console.log("   GOVENICS PHASE 5: 100-CASE REGULATORY INTELLIGENCE EVALUATION   ");

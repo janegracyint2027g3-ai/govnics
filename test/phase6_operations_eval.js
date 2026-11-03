@@ -9,14 +9,14 @@ import {
   calculateOrganizationComplianceMetrics,
   COMPLIANCE_STATUSES,
   RISK_RATINGS
-} from "../api/lib/compliance/complianceRegisterService.js";
+} from "../api/_lib/compliance/complianceRegisterService.js";
 
-import { getComplianceCalendarEvents } from "../api/lib/compliance/complianceCalendarService.js";
-import { getTasksByOrg, createTask, updateTaskStatus, TASK_TYPES, TASK_STATUSES } from "../api/lib/compliance/enterpriseTaskService.js";
-import { getAuditsByOrg, createAudit, generateAuditReport, AUDIT_TYPES, AUDIT_LIFECYCLE_STEPS } from "../api/lib/compliance/enterpriseAuditService.js";
-import { getEvidenceByOrg, submitEvidence, reviewEvidence, EVIDENCE_CATEGORIES } from "../api/lib/compliance/evidenceManagementService.js";
-import { getCapaRecordsByOrg, createCapaRecord, closeCapaRecord } from "../api/lib/compliance/capaManagementService.js";
-import { evaluateOrganizationEscalations, ESCALATION_LEVELS } from "../api/lib/compliance/slaEscalationService.js";
+import { getComplianceCalendarEvents } from "../api/_lib/compliance/complianceCalendarService.js";
+import { getTasksByOrg, createTask, updateTaskStatus, TASK_TYPES, TASK_STATUSES } from "../api/_lib/compliance/enterpriseTaskService.js";
+import { getAuditsByOrg, createAudit, generateAuditReport, AUDIT_TYPES, AUDIT_LIFECYCLE_STEPS } from "../api/_lib/compliance/enterpriseAuditService.js";
+import { getEvidenceByOrg, submitEvidence, reviewEvidence, EVIDENCE_CATEGORIES } from "../api/_lib/compliance/evidenceManagementService.js";
+import { getCapaRecordsByOrg, createCapaRecord, closeCapaRecord } from "../api/_lib/compliance/capaManagementService.js";
+import { evaluateOrganizationEscalations, ESCALATION_LEVELS } from "../api/_lib/compliance/slaEscalationService.js";
 
 let passed = 0;
 let failed = 0;

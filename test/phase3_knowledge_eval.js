@@ -1,15 +1,15 @@
 // test/phase3_knowledge_eval.js
 // Phase 3 — 30-Case Comprehensive Automated Evaluation Suite for AI Knowledge Hub & Agents
 
-import { executeHybridRetrieval, sanitizeRetrievedEvidence } from "../api/lib/knowledge/retrievalEngine.js";
-import { getSeedDocuments, getAllSeedChunks } from "../api/lib/knowledge/seedDocuments.js";
-import { getAgentProfile, AGENT_PROFILES } from "../api/lib/knowledge/agentProfiles.js";
+import { executeHybridRetrieval, sanitizeRetrievedEvidence } from "../api/_lib/knowledge/retrievalEngine.js";
+import { getSeedDocuments, getAllSeedChunks } from "../api/_lib/knowledge/seedDocuments.js";
+import { getAgentProfile, AGENT_PROFILES } from "../api/_lib/knowledge/agentProfiles.js";
 import {
   validateFileHeader,
   computeFileHash,
   analyzeContentQuality,
   createDocumentChunks
-} from "../api/lib/knowledge/ingestionService.js";
+} from "../api/_lib/knowledge/ingestionService.js";
 
 const MANDATED_REFUSAL = "I could not locate sufficient verified information in the approved GOVENICS Knowledge Library to provide a reliable answer. This question requires additional source verification.";
 

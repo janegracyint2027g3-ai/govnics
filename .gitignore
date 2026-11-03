@@ -38,3 +38,6 @@ _phase2_backup_*
 *.njsproj
 *.sln
 *.sw?
+
+.vercel
+.env*
