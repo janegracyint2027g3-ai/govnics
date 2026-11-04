@@ -1,4 +1,4 @@
-# GOVENICS ICP Mapping: Technology & Electronics
+﻿# GOVENICS ICP Mapping: Technology & Electronics
 
 ## 1. COMPANY-LEVEL ICP PROFILE
 - **Industry Sector:** Technology & Electronics
@@ -27,4 +27,4 @@
 ## 5. GOVENICS SERVICE POSITIONING
 - **Brand Identity:** GOVENICS GRC – A Division of ISI Group (Est. 1985)
 - **Value Proposition:** Transforming compliance from a reactive defensive burden into a predictable, automated governance asset.
-- **Direct Solution URL:** https://govnics-murex.vercel.app/industries/technology-electronics
+- **Direct Solution URL:** https://govenics.com/industries/technology-electronics

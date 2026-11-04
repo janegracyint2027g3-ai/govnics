@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+﻿#!/usr/bin/env python3
 """
 GOVENICS MASTER ICP-SPECIFIC LINKEDIN CONTENT GENERATION ENGINE
 Builds 100% compliant enterprise GRC content across all 13 Offerings and 9 Industry Clusters (132 Posts).
@@ -32,7 +32,7 @@ STAT_REGISTER = {
         ("14 Disparate Registers", "Multi-entity conglomerates average 14 disconnected statutory spreadsheets prior to supervisory audits.", "ICSI Corporate Governance Review 2023 | icsi.edu"),
         ("Section 149(12) Exposure", "Independent directors face personal civil liability for unflagged board-level compliance oversights.", "MCA Notifications Compendium 2024 | mca.gov.in"),
         ("72-Hour Mandate", "SEBI LODR regulations enforce tight 72-hour turnaround timelines for scheduled statutory inspection data.", "SEBI Circular SEBI/HO/CFD/CFD-PoD-1/P/CIR/2023/123 | sebi.gov.in"),
-        ("45-Day Early Alert", "Automated pre-filing reconciliation eliminates 92% of statutory show-cause notices across group entities.", "GOVENICS Regulatory Benchmark Report 2024 | govnics-murex.vercel.app")
+        ("45-Day Early Alert", "Automated pre-filing reconciliation eliminates 92% of statutory show-cause notices across group entities.", "GOVENICS Regulatory Benchmark Report 2024 | govenics.com")
     ],
     "labour-employment": [
         ("2,300+ Show-Cause Notices", "Ministry of Labour issued over 2,300 statutory notices under Factories Act in one quarter for flawed registers.", "Ministry of Labour & Employment Annual Bulletin 2023 | labour.gov.in"),
@@ -40,7 +40,7 @@ STAT_REGISTER = {
         ("₹12,000 Cr Wage Gap", "EPFO detected over ₹12,000 Crore in contractor wage misclassifications during pan-India inspections in FY23.", "EPFO Annual Inspection Report 2022-23 | epfindia.gov.in"),
         ("Joint-Employer Risk", "Industrial occupiers cannot evade provident fund liability through rolling 89-day contract rotations.", "Supreme Court Labour Jurisprudence Compendium | sci.gov.in"),
         ("4 Unified Labour Codes", "Notification of 4 Labour Codes consolidates 44 central acts, redefining basic wage & gratuity ceilings.", "Ministry of Labour Gazette Review | labour.gov.in"),
-        ("100% Contractor Audit", "Centralized monthly contractor muster audit shields manufacturing plants from costly stoppage orders.", "GOVENICS Industrial Advisory SLA Metric 2024 | govnics-murex.vercel.app")
+        ("100% Contractor Audit", "Centralized monthly contractor muster audit shields manufacturing plants from costly stoppage orders.", "GOVENICS Industrial Advisory SLA Metric 2024 | govenics.com")
     ],
     "taxation-trade": [
         ("1.14 Lakh GST Notices", "CBIC issued 1.14 lakh demand notices worth ₹1.45 lakh crore in FY23, largely from GSTR-2B mismatches.", "CBIC Indirect Tax Enforcement Gazette FY 2022-23 | cbic.gov.in"),
@@ -48,7 +48,7 @@ STAT_REGISTER = {
         ("₹42,000 Cr Blocked", "Customs valuation disputes under Special Valuation Branch (SVB) lock over ₹42,000 Cr in working capital.", "CBIC Trade Facilitation Bulletin 2023 | cbic.gov.in"),
         ("Rule 86B Restriction", "Failure to reconcile GSTR-1 against e-way bills triggers automatic lock on electronic credit ledgers.", "GST Council Circular No. 170/02/2022-GST | cbic.gov.in"),
         ("Section 148 Scrutiny", "Faceless tax assessment algorithms cross-examine foreign remittance Form 15CA/CB against customs manifests.", "CBDT National Faceless Assessment Digest | incometax.gov.in"),
-        ("99.9% ITC Reconciliation", "Automated pre-filing GSTR-2B matching unlocks working capital and defends legitimate input tax credits.", "GOVENICS Tax & Trade Advisory Benchmarks 2024 | govnics-murex.vercel.app")
+        ("99.9% ITC Reconciliation", "Automated pre-filing GSTR-2B matching unlocks working capital and defends legitimate input tax credits.", "GOVENICS Tax & Trade Advisory Benchmarks 2024 | govenics.com")
     ],
     "environmental-ehs": [
         ("18.2% Closure Surge", "CPCB recorded an 18.2% annual increase in plant closure directives under Air and Water Acts for industrial units.", "CPCB Annual Pollution Report FY 2022-23 | cpcb.nic.in"),
@@ -56,7 +56,7 @@ STAT_REGISTER = {
         ("₹3 Cr/Day Stoppage", "State Pollution Control Board shutdowns for lapsed Consent to Operate (CTO) cost plants ₹1.5–3 Cr daily.", "CII Manufacturing & Environmental Survey 2023 | cii.in"),
         ("CGWA Water Audits", "Central Ground Water Authority mandates digital flow telemetry and recurring bi-annual water impact audits.", "CGWA Industrial Water Guidelines 2023 | cgwa.gov.in"),
         ("Section 15 EPA Penalties", "Jan Vishwas Act 2023 replaces jail terms with compounding environmental fiscal penalties up to ₹15 Lakh.", "Ministry of Environment Gazette Notification | moef.gov.in"),
-        ("100% Consent Currency", "Proactive digital consent renewal workflows eliminate unauthorized discharge penalties before inspections.", "GOVENICS EHS Compliance Standard 2024 | govnics-murex.vercel.app")
+        ("100% Consent Currency", "Proactive digital consent renewal workflows eliminate unauthorized discharge penalties before inspections.", "GOVENICS EHS Compliance Standard 2024 | govenics.com")
     ],
     "supply-chain": [
         ("62% Tier-2 Breach Rate", "62% of corporate compliance violations originate from unmonitored Tier-2 & Tier-3 vendor networks.", "Gartner Supply Chain Risk Study 2023 | gartner.com"),
@@ -64,7 +64,7 @@ STAT_REGISTER = {
         ("48-Hour Vendor Onboarding", "Manual vendor document verification delays critical plant procurement cycles by 21 business days.", "Supply Chain Management Institute Review 2023 | scmr.com"),
         ("BRSR Core Value Chain", "SEBI mandates mandatory ESG and human rights assurance across top 250 suppliers for listed leaders.", "SEBI Circular on BRSR Core Assurance 2023 | sebi.gov.in"),
         ("ABAC Anti-Bribery Rules", "Multinationals face severe liability under Prevention of Corruption Act for third-party distributor misconduct.", "Ministry of Law & Justice ABAC Guidelines | lawmin.gov.in"),
-        ("Zero Vendor Defaults", "Continuous automated contractor statutory tracking eliminates vendor operational disruption risks.", "GOVENICS Vendor Risk Framework 2024 | govnics-murex.vercel.app")
+        ("Zero Vendor Defaults", "Continuous automated contractor statutory tracking eliminates vendor operational disruption risks.", "GOVENICS Vendor Risk Framework 2024 | govenics.com")
     ],
     "export-trade": [
         ("₹28,000 Cr Scrutiny", "DGFT and Customs issued compliance notices on export obligation defaults under Advance Authorisation & EPCG.", "DGFT Trade Enforcement Bulletin 2023 | dgft.gov.in"),
@@ -72,7 +72,7 @@ STAT_REGISTER = {
         ("FEMA EDPMS Notices", "RBI EDPMS algorithms trigger automatic export caution-listing for unrealized foreign invoices past 9 months.", "RBI Master Direction on Export of Goods 2023 | rbi.org.in"),
         ("Section 111 Confiscation", "Inaccurate export shipping declarations risk container confiscation and 100% value redemption fines.", "Customs Act 1962 Judicial Review | cbic.gov.in"),
         ("MOOWR Bonded Deferral", "Section 65 MOOWR bonded manufacturing defers 100% customs duty on capital goods and raw materials.", "CBIC Invest India MOOWR Scheme Guidelines | cbic.gov.in"),
-        ("100% Port Audit Readiness", "Digitized customs documentation and automated EDPMS reconciliation ensure zero shipping demurrage.", "GOVENICS Global Trade Advisory SLA 2024 | govnics-murex.vercel.app")
+        ("100% Port Audit Readiness", "Digitized customs documentation and automated EDPMS reconciliation ensure zero shipping demurrage.", "GOVENICS Global Trade Advisory SLA 2024 | govenics.com")
     ],
     "licensing-permits": [
         ("38 Statutory Approvals", "A mid-sized manufacturing facility must maintain up to 38 concurrent central, state, and civic licenses.", "DPIIT Industrial Regulatory Burden Assessment | dpiit.gov.in"),
@@ -80,7 +80,7 @@ STAT_REGISTER = {
         ("60-Day Renewal Lag", "Manual spreadsheet tracking of operating licenses results in a 60-day average lapse before discovery.", "Confederation of Indian Industry (CII) Report | cii.in"),
         ("PESO Explosives Norms", "Petroleum & Explosives Safety Organisation requires strict periodic inspection logs for solvent storage.", "PESO Annual Operational Circular | peso.gov.in"),
         ("Boiler Inspection Seals", "Operating industrial boilers past annual certification date triggers immediate factory shutdown orders.", "Indian Boilers Act 1923 Enforcement Compendium | dpiit.gov.in"),
-        ("100% License Currency", "Automated 60-day advance renewal triggers protect multi-site industrial plants from unexpected halts.", "GOVENICS Licensing Governance SLA 2024 | govnics-murex.vercel.app")
+        ("100% License Currency", "Automated 60-day advance renewal triggers protect multi-site industrial plants from unexpected halts.", "GOVENICS Licensing Governance SLA 2024 | govenics.com")
     ],
     "escrow-services": [
         ("₹18,500 Cr Disputed", "Commercial M&A and capex procurement disputes lock over ₹18,500 Crore in contested advances annually.", "NCLT Commercial Dispute Review 2023 | nclt.gov.in"),
@@ -88,7 +88,7 @@ STAT_REGISTER = {
         ("48-Hour Escrow Setup", "Traditional tripartite escrow agreements average 4 to 6 weeks of delay, stalling critical tech & M&A closings.", "Indian Private Equity & Venture Capital Report | ivca.in"),
         ("Source Code Vault IP", "Software escrow protects mission-critical core systems against developer insolvency or catastrophic breach.", "NASSCOM Enterprise Technology Governance Guide | nasscom.in"),
         ("Cross-Border Escrow Rules", "RBI Authorized Dealer Category-1 guidelines govern non-resident inward escrow arrangements for acquisitions.", "RBI Master Direction on Foreign Investment | rbi.org.in"),
-        ("Zero Default Disbursals", "Milestone-verified digital escrow release protects enterprise capex investments with full legal certainty.", "GOVENICS Commercial Escrow Advisory 2024 | govnics-murex.vercel.app")
+        ("Zero Default Disbursals", "Milestone-verified digital escrow release protects enterprise capex investments with full legal certainty.", "GOVENICS Commercial Escrow Advisory 2024 | govenics.com")
     ],
     "risk-management": [
         ("₹12.4 Cr Breach Cost", "The average cost of an enterprise operational failure or severe compliance incident reached ₹12.4 Crore in 2023.", "IBM Cost of Data Breach & Operational Risk Study | ibm.com"),
@@ -96,7 +96,7 @@ STAT_REGISTER = {
         ("ISO 31000 Alignment", "Institutional boards with structured Enterprise Risk Management (ERM) frameworks exhibit 3x faster crisis recovery.", "Institute of Risk Management Global Study | themirm.org"),
         ("Section 134(5) IFC Norms", "Directors must attest annually that internal financial controls are adequate and operating effectively.", "Companies Act 2013 Governance Guidance | mca.gov.in"),
         ("BCP Resilience Gaps", "Over 58% of mid-market manufacturing companies fail unannounced disaster recovery simulation audits.", "Disaster Recovery Institute International Review | drii.org"),
-        ("Unified ERM Architecture", "Enterprise-wide real-time risk heat-maps provide executive boards with predictive defensibility.", "GOVENICS Enterprise Risk Governance 2024 | govnics-murex.vercel.app")
+        ("Unified ERM Architecture", "Enterprise-wide real-time risk heat-maps provide executive boards with predictive defensibility.", "GOVENICS Enterprise Risk Governance 2024 | govenics.com")
     ],
     "enterprise-governance": [
         ("₹5 Cr Secretarial Fines", "MCA ROC adjudicating officers levied over ₹5 Crore in direct penalties on directors for secretarial filing flaws.", "MCA Adjudication Orders Annual Register 2023 | mca.gov.in"),
@@ -104,7 +104,7 @@ STAT_REGISTER = {
         ("120-Day Board Interval", "Section 173 of Companies Act strictly enforces maximum 120-day gaps between consecutive board meetings.", "Secretarial Standards (SS-1) ICSI Guidance | icsi.edu"),
         ("Section 135 CSR Mandate", "Unspent corporate CSR funds must be transferred to dedicated statutory funds within 30 days of fiscal close.", "MCA Corporate Social Responsibility Gazette | mca.gov.in"),
         ("Independent Director Risk", "Over 1,200 independent directors resigned prematurely in FY23 citing corporate governance ambiguity.", "Prime Database Governance Study 2023 | primedatabase.com"),
-        ("Flawless Board Governance", "Digitized secretarial charters and automated statutory tracking provide total board-level immunity.", "GOVENICS Board Governance Advisory 2024 | govnics-murex.vercel.app")
+        ("Flawless Board Governance", "Digitized secretarial charters and automated statutory tracking provide total board-level immunity.", "GOVENICS Board Governance Advisory 2024 | govenics.com")
     ],
     "cybersecurity-data": [
         ("₹250 Cr DPDP Penalty", "The Digital Personal Data Protection Act 2023 prescribes statutory penalties up to ₹250 Crore for security lapses.", "DPDP Act 2023 Gazette of India | meity.gov.in"),
@@ -112,7 +112,7 @@ STAT_REGISTER = {
         ("1.39M Cyber Incidents", "CERT-In tracked over 1.39 million cybersecurity events across Indian enterprise infrastructures in 2023.", "Ministry of Electronics & IT Annual Report | meity.gov.in"),
         ("Third-Party API Risks", "54% of enterprise cloud breaches stem from unmonitored vendor integrations and unsecured API endpoints.", "Cloud Security Alliance Enterprise Report | cloudsecurityalliance.org"),
         ("ISO 27001:2022 Mandate", "Global enterprise procurement teams now disqualify vendors lacking certified ISO 27001 & SOC 2 Type II reports.", "ISO Global Security Standards Review | iso.org"),
-        ("Zero DPDP Non-Compliance", "End-to-end data mapping, consent architecture, and 6-hour incident workflows establish verifiable cyber hygiene.", "GOVENICS Cyber & Privacy Practice 2024 | govnics-murex.vercel.app")
+        ("Zero DPDP Non-Compliance", "End-to-end data mapping, consent architecture, and 6-hour incident workflows establish verifiable cyber hygiene.", "GOVENICS Cyber & Privacy Practice 2024 | govenics.com")
     ],
     "esg-sustainability": [
         ("Top 1,000 Listed BRSR", "SEBI mandates comprehensive Business Responsibility & Sustainability Reporting for top 1,000 entities.", "SEBI Master Circular on BRSR Disclosures | sebi.gov.in"),
@@ -120,7 +120,7 @@ STAT_REGISTER = {
         ("CBAM Export Tariff", "EU Carbon Border Adjustment Mechanism (CBAM) imposes reporting rules and upcoming carbon tariffs on steel & aluminium.", "European Commission CBAM Regulations & DGFT Advisory | dgft.gov.in"),
         ("EPR Plastic Targets", "MoEFCC Plastic Waste Rules mandate 100% recycling certificates and barcoded EPR portal compliance.", "CPCB EPR Portal Guidance for PIBOs | cpcb.nic.in"),
         ("Greenwashing Scrutiny", "Regulatory authorities across global markets are actively auditing unsubstantiated corporate net-zero marketing claims.", "International Organization of Securities Commissions (IOSCO) | iosco.org"),
-        ("Audit-Grade ESG Reporting", "Automated carbon accounting and verified supply-chain data provide institutional investor defensibility.", "GOVENICS ESG & Sustainability Advisory 2024 | govnics-murex.vercel.app")
+        ("Audit-Grade ESG Reporting", "Automated carbon accounting and verified supply-chain data provide institutional investor defensibility.", "GOVENICS ESG & Sustainability Advisory 2024 | govenics.com")
     ],
     "staffing-managed": [
         ("78-Day Staffing Gap", "Enterprises take an average of 78 days to replace departing Chief Compliance Officers and Senior EHS Leads.", "TeamLease Compliance Staffing Outlook 2023 | teamlease.com"),
@@ -128,7 +128,7 @@ STAT_REGISTER = {
         ("100% Audit Continuity", "Contract compliance officers provide immediate operational oversight without full-time payroll overheads.", "Society of Corporate Compliance & Ethics Report | corporatecompliance.org"),
         ("Statutory Liaison Need", "Navigating district labour, factory, and pollution boards requires local on-ground regulatory relationships.", "Indian Chamber of Commerce Advisory Digest | indianchamber.org"),
         ("Fractional GC Efficiency", "Mid-market enterprises save 65% in overhead by engaging fractional General Counsel for contract and governance tasks.", "Legal Executive Institute Benchmarks | thomsonreuters.com"),
-        ("Zero Compliance Vacancy", "Pre-vetted regulatory specialists deploy within 48 hours to manage high-stakes regulatory audits.", "GOVENICS Managed Retainership Practice 2024 | govnics-murex.vercel.app")
+        ("Zero Compliance Vacancy", "Pre-vetted regulatory specialists deploy within 48 hours to manage high-stakes regulatory audits.", "GOVENICS Managed Retainership Practice 2024 | govenics.com")
     ],
 
     # 9 Industry Clusters
@@ -138,7 +138,7 @@ STAT_REGISTER = {
         ("38 Overlapping Approvals", "Manufacturing plants must maintain 38 active licenses across factory, boiler, pollution, and electrical boards.", "DPIIT Ease of Doing Business Industrial Report | dpiit.gov.in"),
         ("CLRA Contract Labor Risk", "Principal employers bear complete statutory liability for uncredited contractor PF/ESI muster rolls.", "Ministry of Labour Industrial Relations Review | labour.gov.in"),
         ("Hazardous Waste Manifests", "CPCB rules mandate barcoded vehicle tracking for industrial effluents and hazardous factory residue.", "Central Pollution Control Board Industrial Digest | cpcb.nic.in"),
-        ("Zero Factory Shutdowns", "Continuous digital statutory registers and automated consent renewals protect manufacturing uptime.", "GOVENICS Industrial Manufacturing Advisory 2024 | govnics-murex.vercel.app")
+        ("Zero Factory Shutdowns", "Continuous digital statutory registers and automated consent renewals protect manufacturing uptime.", "GOVENICS Industrial Manufacturing Advisory 2024 | govenics.com")
     ],
     "technology-electronics": [
         ("₹250 Cr DPDP Penalty", "The DPDP Act 2023 enforces penalties up to ₹250 Crore for failure to implement reasonable security safeguards.", "DPDP Act 2023 Official Gazette | meity.gov.in"),
@@ -146,7 +146,7 @@ STAT_REGISTER = {
         ("E-Waste EPR Mandate", "Electronics manufacturers face severe penalties and import license revocations for missing e-waste collection quotas.", "CPCB E-Waste Management Rules Gazette | cpcb.nic.in"),
         ("SEZ STPI Audit Scrutiny", "Tax authorities intensify audits on software export billing and cross-border transfer pricing documentation.", "CBDT & STPI Regulatory Compliance Compendium | cbdt.gov.in"),
         ("ISO 27001 Vendor Audit", "Over 75% of Fortune 500 tech contracts require audited SOC 2 Type II reports and Zero Trust cloud posture.", "Gartner IT Governance & Risk Report 2023 | gartner.com"),
-        ("100% Cyber Defensibility", "Unified DPDP compliance, CERT-In logging, and SOC 2 frameworks ensure frictionless enterprise enterprise sales.", "GOVENICS Technology & Cyber Practice 2024 | govnics-murex.vercel.app")
+        ("100% Cyber Defensibility", "Unified DPDP compliance, CERT-In logging, and SOC 2 frameworks ensure frictionless enterprise enterprise sales.", "GOVENICS Technology & Cyber Practice 2024 | govenics.com")
     ],
     "infrastructure-construction": [
         ("₹18,500 Cr RERA Escrow", "Real estate regulators enforce 70% project revenue escrow under Section 4(2)(l)(D) of RERA Act.", "Ministry of Housing & Urban Affairs RERA Reports | mohua.gov.in"),
@@ -154,7 +154,7 @@ STAT_REGISTER = {
         ("EIA Environmental Clearance", "Infrastructure projects without valid Environmental Impact Assessment (EIA) clearances face NGT demolition stays.", "National Green Tribunal (NGT) Digest | ngt.gov.in"),
         ("Workplace Accident Liability", "Section 304A criminal charges apply to site leadership for fatal falls and missing fall-protection netting.", "DGFASLI Construction Safety Regulations | dgfasli.gov.in"),
         ("Structural Stability NOC", "Civic corporations mandate periodic structural audits and certified civil engineer endorsements for large sites.", "National Building Code 2016 Review | bis.gov.in"),
-        ("Flawless Project Compliance", "Integrated RERA escrow tracking, BOCW muster audits, and EIA monitoring prevent project stop-work notices.", "GOVENICS Infrastructure & Real Estate Advisory 2024 | govnics-murex.vercel.app")
+        ("Flawless Project Compliance", "Integrated RERA escrow tracking, BOCW muster audits, and EIA monitoring prevent project stop-work notices.", "GOVENICS Infrastructure & Real Estate Advisory 2024 | govenics.com")
     ],
     "energy-utilities": [
         ("Renewable RPO Mandates", "State electricity regulatory commissions penalize open-access industrial users for missing green power RPO quotas.", "Ministry of Power RPO Compliance Gazette | powermin.gov.in"),
@@ -162,7 +162,7 @@ STAT_REGISTER = {
         ("Fly Ash 100% Utilization", "Thermal power stations must maintain 100% fly ash recycling under strict CPCB environmental notifications.", "CPCB Fly Ash Utilization Compendium | cpcb.nic.in"),
         ("Mining Safety DGMS Audits", "Directorate General of Mines Safety enforces strict statutory audits on blasting and explosive magazine licenses.", "DGMS Circulars & Enforcement Register | dgms.gov.in"),
         ("Carbon Credit Trading", "The Energy Conservation (Amendment) Act creates domestic carbon credit mechanisms requiring audited emission data.", "Bureau of Energy Efficiency (BEE) Notifications | beeindia.gov.in"),
-        ("100% Utility Compliance", "Automated RPO tracking, environmental telemetry, and safety register audits maintain operational continuity.", "GOVENICS Energy & Utilities Advisory 2024 | govnics-murex.vercel.app")
+        ("100% Utility Compliance", "Automated RPO tracking, environmental telemetry, and safety register audits maintain operational continuity.", "GOVENICS Energy & Utilities Advisory 2024 | govenics.com")
     ],
     "financial-services": [
         ("₹100 Cr+ RBI Penalties", "Reserve Bank of India imposed over ₹100 Crore in cumulative fines on banks & NBFCs for KYC and IT governance lapses in FY23.", "RBI Enforcement Actions Annual Review FY 2022-23 | rbi.org.in"),
@@ -170,7 +170,7 @@ STAT_REGISTER = {
         ("PMLA Beneficial Ownership", "Financial institutions face severe enforcement for incomplete Ultimate Beneficial Ownership (UBO) records.", "Financial Intelligence Unit - India (FIU-IND) Guidelines | fiuindia.gov.in"),
         ("SEBI LODR Disclosures", "Listed capital market intermediaries face immediate stock exchange trading curbs for delayed material events.", "SEBI Listing Obligations & Disclosure Regulations | sebi.gov.in"),
         ("Master IT Direction 2023", "RBI requires regulated entities to maintain digital operational resilience and 24/7 cybersecurity operations.", "RBI Master Direction on Information Technology Governance | rbi.org.in"),
-        ("Institutional Audit Readiness", "Continuous regulatory mapping and automated audit trail generation ensure seamless RBI & SEBI supervisory reviews.", "GOVENICS BFSI & Regulatory Advisory 2024 | govnics-murex.vercel.app")
+        ("Institutional Audit Readiness", "Continuous regulatory mapping and automated audit trail generation ensure seamless RBI & SEBI supervisory reviews.", "GOVENICS BFSI & Regulatory Advisory 2024 | govenics.com")
     ],
     "healthcare-life-sciences": [
         ("Revised Schedule M Mandate", "CDSCO enforces Revised Schedule M (GMP) standards, mandating automated HVAC qualification and data integrity.", "CDSCO Gazette Notification G.S.R. 922(E) | cdsco.gov.in"),
@@ -178,7 +178,7 @@ STAT_REGISTER = {
         ("₹5 Lakh DPCO Penalties", "Pharmaceutical manufacturers face statutory overcharging recovery and heavy penalties under DPCO price caps.", "National Pharmaceutical Pricing Authority (NPPA) | nppa.gov.in"),
         ("Clinical Establishments Act", "Healthcare facilities must maintain accredited nursing ratios and publish diagnostic tariff schedules under state laws.", "Ministry of Health & Family Welfare Guidelines | mohfw.gov.in"),
         ("21 CFR Part 11 Audit Trail", "Diagnostic labs and clinical research organizations must maintain tamper-proof audit trails for all patient testing.", "Indian Council of Medical Research (ICMR) Standards | icmr.gov.in"),
-        ("Zero Regulatory Sanctions", "End-to-end Schedule M gap audits, medical waste tracking, and clinical governance ensure flawless accreditation.", "GOVENICS Healthcare & Pharma Practice 2024 | govnics-murex.vercel.app")
+        ("Zero Regulatory Sanctions", "End-to-end Schedule M gap audits, medical waste tracking, and clinical governance ensure flawless accreditation.", "GOVENICS Healthcare & Pharma Practice 2024 | govenics.com")
     ],
     "food-processing": [
         ("26,267 FoSCoS Inspections", "FSSAI conducted 26,267 risk-based regulatory inspections in FY 2023-24, issuing 3,800+ license suspension notices.", "FSSAI Annual Performance & Enforcement Bulletin 2023-24 | fssai.gov.in"),
@@ -186,7 +186,7 @@ STAT_REGISTER = {
         ("Cold-Chain Traceability", "Exporting food processors must maintain unbroken temperature telemetry logs under APEDA export directives.", "APEDA Export Traceability Regulations | apeda.gov.in"),
         ("Nutraceutical FSSAI Norms", "Health supplement manufacturers face product recall orders for unapproved novel ingredients or RDA breaches.", "FSSAI Nutraceutical Regulations Gazette | fssai.gov.in"),
         ("Water Quality Testing Logs", "Food production plants must document bi-annual accredited NABL water testing records under IS 10500 standards.", "FSSAI Food Safety Hygiene Protocols | fssai.gov.in"),
-        ("100% Batch Traceability", "Automated FoSCoS license tracking, batch traceability, and pre-audit inspection workflows ensure zero product recalls.", "GOVENICS Food Processing Advisory 2024 | govnics-murex.vercel.app")
+        ("100% Batch Traceability", "Automated FoSCoS license tracking, batch traceability, and pre-audit inspection workflows ensure zero product recalls.", "GOVENICS Food Processing Advisory 2024 | govenics.com")
     ],
     "consumer-retail": [
         ("₹50 Lakh CCPA Penalties", "Central Consumer Protection Authority (CCPA) penalizes e-commerce brands up to ₹50 Lakh for deceptive dark patterns.", "Ministry of Consumer Affairs CCPA Guidelines 2023 | consumeraffairs.nic.in"),
@@ -194,7 +194,7 @@ STAT_REGISTER = {
         ("Store EHS & Shop Act", "Retail chains operating across multiple states risk store closures for unrenewed local Shops and Establishments licenses.", "State Labour Department Retail Directives | labour.gov.in"),
         ("FMCG Plastic EPR Mandate", "Consumer goods brands must purchase audited EPR certificates to match 100% of packaging plastic placed on market.", "CPCB Extended Producer Responsibility Register | cpcb.nic.in"),
         ("Customer Data Privacy", "Retail loyalty programmes and mobile apps must establish verified consent frameworks under DPDP Act 2023.", "Digital Personal Data Protection Guidelines | meity.gov.in"),
-        ("Multi-Store Compliance SLA", "Centralized multi-state store compliance dashboards and automated packaging verification eliminate retail penalties.", "GOVENICS Consumer & Retail Practice 2024 | govnics-murex.vercel.app")
+        ("Multi-Store Compliance SLA", "Centralized multi-state store compliance dashboards and automated packaging verification eliminate retail penalties.", "GOVENICS Consumer & Retail Practice 2024 | govenics.com")
     ],
     "media-services": [
         ("IT Intermediary Rule 3(1)", "Digital media platforms and publishers must establish grievance redressal mechanisms with 15-day resolution mandates.", "Information Technology Rules 2021 | meity.gov.in"),
@@ -202,7 +202,7 @@ STAT_REGISTER = {
         ("Hospitality Fire NOC Scrutiny", "Hotels and convention venues face unannounced municipal inspections and license suspensions for fire safety lapses.", "State Fire Prevention & Life Safety Measures Acts | mha.gov.in"),
         ("Broadcast Cable TV Act", "Television channels and distribution networks must comply with the Programme and Advertising Code under MIB directives.", "Ministry of Information & Broadcasting Advisory | mib.gov.in"),
         ("Aviation Safety DGCA Audits", "Airport concessionaires and commercial airlines undergo rigorous DGCA ramp safety and regulatory audit checks.", "Directorate General of Civil Aviation Operations Bulletin | dgca.gov.in"),
-        ("Complete Service Defensibility", "Unified statutory licensing, intellectual property safeguards, and grievance compliance protect enterprise reputations.", "GOVENICS Media & Professional Services Advisory 2024 | govnics-murex.vercel.app")
+        ("Complete Service Defensibility", "Unified statutory licensing, intellectual property safeguards, and grievance compliance protect enterprise reputations.", "GOVENICS Media & Professional Services Advisory 2024 | govenics.com")
     ]
 }
 
@@ -484,7 +484,7 @@ def generate_post_content(category_id, category_title, is_industry, angle_idx):
     
     # Official website URL
     url_slug = f"industries/{category_id}" if is_industry else f"services/{category_id}"
-    web_url = f"https://govnics-murex.vercel.app/{url_slug}"
+    web_url = f"https://govenics.com/{url_slug}"
 
     # Target decision maker
     persona = icp["decision_maker"].split("/")[0].strip()
@@ -633,7 +633,7 @@ def generate_domain_artifacts(category_id, category_title, is_industry):
 ## 5. GOVENICS SERVICE POSITIONING
 - **Brand Identity:** GOVENICS GRC – A Division of ISI Group (Est. 1985)
 - **Value Proposition:** Transforming compliance from a reactive defensive burden into a predictable, automated governance asset.
-- **Direct Solution URL:** https://govnics-murex.vercel.app/{'industries' if is_industry else 'services'}/{category_id}
+- **Direct Solution URL:** https://govenics.com/{'industries' if is_industry else 'services'}/{category_id}
 """)
 
     # 2. Write REGULATORY_RESEARCH.md
@@ -839,7 +839,7 @@ def generate_master_inventory_and_sources():
     with open(inventory_path, "w", encoding="utf-8") as f:
         f.write("""# GOVENICS GRC — Master Content & Offering Inventory
 
-Official Website: https://govnics-murex.vercel.app/
+Official Website: https://govenics.com/
 Brand Context: GOVENICS GRC – A Division of ISI Group (Est. 1985)
 Positioning: "Helping organisations strengthen governance, manage regulatory complexity, reduce compliance gaps, and build operational accountability."
 

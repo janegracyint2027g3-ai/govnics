@@ -1,4 +1,4 @@
-# Regulatory Intelligence & Statutory Compendium: Licensing & Permits
+﻿# Regulatory Intelligence & Statutory Compendium: Licensing & Permits
 
 ## 1. APPLICABLE STATUTORY FRAMEWORKS
 The following mandatory legal and regulatory provisions apply directly to organizations operating in this domain:
@@ -37,5 +37,5 @@ The following mandatory legal and regulatory provisions apply directly to organi
   *Source Attribution:* `Indian Boilers Act 1923 Enforcement Compendium | dpiit.gov.in`
 
 - **100% License Currency:** Automated 60-day advance renewal triggers protect multi-site industrial plants from unexpected halts.
-  *Source Attribution:* `GOVENICS Licensing Governance SLA 2024 | govnics-murex.vercel.app`
+  *Source Attribution:* `GOVENICS Licensing Governance SLA 2024 | govenics.com`
 

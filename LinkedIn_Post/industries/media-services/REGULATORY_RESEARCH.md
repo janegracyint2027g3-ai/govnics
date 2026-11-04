@@ -1,4 +1,4 @@
-# Regulatory Intelligence & Statutory Compendium: Media & Enterprise Services
+﻿# Regulatory Intelligence & Statutory Compendium: Media & Enterprise Services
 
 ## 1. APPLICABLE STATUTORY FRAMEWORKS
 The following mandatory legal and regulatory provisions apply directly to organizations operating in this domain:
@@ -37,5 +37,5 @@ The following mandatory legal and regulatory provisions apply directly to organi
   *Source Attribution:* `Directorate General of Civil Aviation Operations Bulletin | dgca.gov.in`
 
 - **Complete Service Defensibility:** Unified statutory licensing, intellectual property safeguards, and grievance compliance protect enterprise reputations.
-  *Source Attribution:* `GOVENICS Media & Professional Services Advisory 2024 | govnics-murex.vercel.app`
+  *Source Attribution:* `GOVENICS Media & Professional Services Advisory 2024 | govenics.com`
 

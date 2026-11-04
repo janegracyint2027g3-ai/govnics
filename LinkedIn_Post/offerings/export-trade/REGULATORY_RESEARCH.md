@@ -1,4 +1,4 @@
-# Regulatory Intelligence & Statutory Compendium: Export & Global Trade
+﻿# Regulatory Intelligence & Statutory Compendium: Export & Global Trade
 
 ## 1. APPLICABLE STATUTORY FRAMEWORKS
 The following mandatory legal and regulatory provisions apply directly to organizations operating in this domain:
@@ -37,5 +37,5 @@ The following mandatory legal and regulatory provisions apply directly to organi
   *Source Attribution:* `CBIC Invest India MOOWR Scheme Guidelines | cbic.gov.in`
 
 - **100% Port Audit Readiness:** Digitized customs documentation and automated EDPMS reconciliation ensure zero shipping demurrage.
-  *Source Attribution:* `GOVENICS Global Trade Advisory SLA 2024 | govnics-murex.vercel.app`
+  *Source Attribution:* `GOVENICS Global Trade Advisory SLA 2024 | govenics.com`
 

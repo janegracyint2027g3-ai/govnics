@@ -1,4 +1,4 @@
-INDUSTRY: Media & Enterprise Services
+﻿INDUSTRY: Media & Enterprise Services
 SUB-INDUSTRY: Digital Media Networks
 GOVENICS OFFERING: Integrated GRC & Operational Risk Advisory
 
@@ -22,7 +22,14 @@ GOVENICS GRC delivers automated statutory tracking and audit-ready governance wo
 How is your leadership team tracking regulatory exposure across your operating units?
 
 💬 Comment 'BENCHMARK' for the full advisory data.
-🔗 Advisory: https://govnics-murex.vercel.app/industries/media-services
+🔗 Advisory: https://govenics.com/industries/media-services
+
+
+--- CONNECT WITH GOVENICS ---
+[?] Fill a Query: https://govenics.com/contact#query-form
+[?] Contact Us: https://govenics.com/contact
+[?] Careers at GOVENICS: https://govenics.com/careers
+[?] Book a Strategy Session: https://govenics.com/book-consultation
 
 #RegulatoryData #ExecutiveIntelligence #Media&EnterpriseServices #RiskManagement #GOVENICS
 

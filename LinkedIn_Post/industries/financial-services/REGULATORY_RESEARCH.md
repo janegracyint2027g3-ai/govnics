@@ -1,4 +1,4 @@
-# Regulatory Intelligence & Statutory Compendium: Financial Services & Banking
+﻿# Regulatory Intelligence & Statutory Compendium: Financial Services & Banking
 
 ## 1. APPLICABLE STATUTORY FRAMEWORKS
 The following mandatory legal and regulatory provisions apply directly to organizations operating in this domain:
@@ -37,5 +37,5 @@ The following mandatory legal and regulatory provisions apply directly to organi
   *Source Attribution:* `RBI Master Direction on Information Technology Governance | rbi.org.in`
 
 - **Institutional Audit Readiness:** Continuous regulatory mapping and automated audit trail generation ensure seamless RBI & SEBI supervisory reviews.
-  *Source Attribution:* `GOVENICS BFSI & Regulatory Advisory 2024 | govnics-murex.vercel.app`
+  *Source Attribution:* `GOVENICS BFSI & Regulatory Advisory 2024 | govenics.com`
 

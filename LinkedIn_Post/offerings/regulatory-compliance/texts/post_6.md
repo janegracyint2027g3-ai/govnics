@@ -1,4 +1,4 @@
-INDUSTRY: Cross-Sector Enterprise
+﻿INDUSTRY: Cross-Sector Enterprise
 SUB-INDUSTRY: Multi-Entity Holding Groups
 GOVENICS OFFERING: Regulatory Compliance
 
@@ -21,14 +21,21 @@ GOVENICS GRC (A Division of ISI Group, Est. 1985) establishes unified digital re
 Schedule an executive compliance diagnostic with our senior advisory partners today.
 
 📩 DM 'COMPLIANCE' or schedule an executive consultation.
-🔗 Book Consultation: https://govnics-murex.vercel.app/services/regulatory-compliance
+🔗 Book Consultation: https://govenics.com/services/regulatory-compliance
+
+
+--- CONNECT WITH GOVENICS ---
+[?] Fill a Query: https://govenics.com/contact#query-form
+[?] Contact Us: https://govenics.com/contact
+[?] Careers at GOVENICS: https://govenics.com/careers
+[?] Book a Strategy Session: https://govenics.com/book-consultation
 
 #ExecutiveAdvisory #LeadershipGovernance #RegulatoryCompliance #B2BGrowth #GOVENICS
 
 METRICS & VERIFICATION:
 - Verified character count: 799 / 900 characters (Strictly compliant)
 - Numerical statistics & reporting years: 45-Day Early Alert (Automated pre-filing reconciliation eliminates 92% of statutory show-cause notices across group entities.)
-- Official source URLs: GOVENICS Regulatory Benchmark Report 2024 | govnics-murex.vercel.app
+- Official source URLs: GOVENICS Regulatory Benchmark Report 2024 | govenics.com
 - CTA keyword: COMPLIANCE
 - Hashtags: #ExecutiveAdvisory #LeadershipGovernance #RegulatoryCompliance #B2BGrowth #GOVENICS
 

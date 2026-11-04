@@ -1,4 +1,4 @@
-# GOVENICS ICP Mapping: Enterprise Risk Management
+﻿# GOVENICS ICP Mapping: Enterprise Risk Management
 
 ## 1. COMPANY-LEVEL ICP PROFILE
 - **Industry Sector:** Enterprise Risk Management
@@ -27,4 +27,4 @@
 ## 5. GOVENICS SERVICE POSITIONING
 - **Brand Identity:** GOVENICS GRC – A Division of ISI Group (Est. 1985)
 - **Value Proposition:** Transforming compliance from a reactive defensive burden into a predictable, automated governance asset.
-- **Direct Solution URL:** https://govnics-murex.vercel.app/services/risk-management
+- **Direct Solution URL:** https://govenics.com/services/risk-management

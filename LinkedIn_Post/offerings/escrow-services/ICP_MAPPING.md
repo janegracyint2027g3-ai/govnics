@@ -1,4 +1,4 @@
-# GOVENICS ICP Mapping: Commercial Escrow Services
+﻿# GOVENICS ICP Mapping: Commercial Escrow Services
 
 ## 1. COMPANY-LEVEL ICP PROFILE
 - **Industry Sector:** Commercial Escrow Services
@@ -27,4 +27,4 @@
 ## 5. GOVENICS SERVICE POSITIONING
 - **Brand Identity:** GOVENICS GRC – A Division of ISI Group (Est. 1985)
 - **Value Proposition:** Transforming compliance from a reactive defensive burden into a predictable, automated governance asset.
-- **Direct Solution URL:** https://govnics-murex.vercel.app/services/escrow-services
+- **Direct Solution URL:** https://govenics.com/services/escrow-services

@@ -1,4 +1,4 @@
-# Regulatory Intelligence & Statutory Compendium: Environmental & EHS
+﻿# Regulatory Intelligence & Statutory Compendium: Environmental & EHS
 
 ## 1. APPLICABLE STATUTORY FRAMEWORKS
 The following mandatory legal and regulatory provisions apply directly to organizations operating in this domain:
@@ -37,5 +37,5 @@ The following mandatory legal and regulatory provisions apply directly to organi
   *Source Attribution:* `Ministry of Environment Gazette Notification | moef.gov.in`
 
 - **100% Consent Currency:** Proactive digital consent renewal workflows eliminate unauthorized discharge penalties before inspections.
-  *Source Attribution:* `GOVENICS EHS Compliance Standard 2024 | govnics-murex.vercel.app`
+  *Source Attribution:* `GOVENICS EHS Compliance Standard 2024 | govenics.com`
 

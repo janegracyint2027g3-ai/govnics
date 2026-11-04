@@ -1,4 +1,4 @@
-# Regulatory Intelligence & Statutory Compendium: Taxation & Trade
+﻿# Regulatory Intelligence & Statutory Compendium: Taxation & Trade
 
 ## 1. APPLICABLE STATUTORY FRAMEWORKS
 The following mandatory legal and regulatory provisions apply directly to organizations operating in this domain:
@@ -37,5 +37,5 @@ The following mandatory legal and regulatory provisions apply directly to organi
   *Source Attribution:* `CBDT National Faceless Assessment Digest | incometax.gov.in`
 
 - **99.9% ITC Reconciliation:** Automated pre-filing GSTR-2B matching unlocks working capital and defends legitimate input tax credits.
-  *Source Attribution:* `GOVENICS Tax & Trade Advisory Benchmarks 2024 | govnics-murex.vercel.app`
+  *Source Attribution:* `GOVENICS Tax & Trade Advisory Benchmarks 2024 | govenics.com`
 

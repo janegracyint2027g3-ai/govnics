@@ -1,4 +1,4 @@
-# Regulatory Intelligence & Statutory Compendium: Consumer Goods & Retail
+﻿# Regulatory Intelligence & Statutory Compendium: Consumer Goods & Retail
 
 ## 1. APPLICABLE STATUTORY FRAMEWORKS
 The following mandatory legal and regulatory provisions apply directly to organizations operating in this domain:
@@ -37,5 +37,5 @@ The following mandatory legal and regulatory provisions apply directly to organi
   *Source Attribution:* `Digital Personal Data Protection Guidelines | meity.gov.in`
 
 - **Multi-Store Compliance SLA:** Centralized multi-state store compliance dashboards and automated packaging verification eliminate retail penalties.
-  *Source Attribution:* `GOVENICS Consumer & Retail Practice 2024 | govnics-murex.vercel.app`
+  *Source Attribution:* `GOVENICS Consumer & Retail Practice 2024 | govenics.com`
 

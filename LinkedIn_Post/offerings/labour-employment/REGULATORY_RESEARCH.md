@@ -1,4 +1,4 @@
-# Regulatory Intelligence & Statutory Compendium: Labour & Employment
+﻿# Regulatory Intelligence & Statutory Compendium: Labour & Employment
 
 ## 1. APPLICABLE STATUTORY FRAMEWORKS
 The following mandatory legal and regulatory provisions apply directly to organizations operating in this domain:
@@ -37,5 +37,5 @@ The following mandatory legal and regulatory provisions apply directly to organi
   *Source Attribution:* `Ministry of Labour Gazette Review | labour.gov.in`
 
 - **100% Contractor Audit:** Centralized monthly contractor muster audit shields manufacturing plants from costly stoppage orders.
-  *Source Attribution:* `GOVENICS Industrial Advisory SLA Metric 2024 | govnics-murex.vercel.app`
+  *Source Attribution:* `GOVENICS Industrial Advisory SLA Metric 2024 | govenics.com`
 

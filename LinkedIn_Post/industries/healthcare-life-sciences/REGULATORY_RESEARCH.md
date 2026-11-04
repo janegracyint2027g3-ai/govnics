@@ -1,4 +1,4 @@
-# Regulatory Intelligence & Statutory Compendium: Healthcare & Life Sciences
+﻿# Regulatory Intelligence & Statutory Compendium: Healthcare & Life Sciences
 
 ## 1. APPLICABLE STATUTORY FRAMEWORKS
 The following mandatory legal and regulatory provisions apply directly to organizations operating in this domain:
@@ -37,5 +37,5 @@ The following mandatory legal and regulatory provisions apply directly to organi
   *Source Attribution:* `Indian Council of Medical Research (ICMR) Standards | icmr.gov.in`
 
 - **Zero Regulatory Sanctions:** End-to-end Schedule M gap audits, medical waste tracking, and clinical governance ensure flawless accreditation.
-  *Source Attribution:* `GOVENICS Healthcare & Pharma Practice 2024 | govnics-murex.vercel.app`
+  *Source Attribution:* `GOVENICS Healthcare & Pharma Practice 2024 | govenics.com`
 

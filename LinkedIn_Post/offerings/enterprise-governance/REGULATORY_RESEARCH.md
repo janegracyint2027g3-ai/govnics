@@ -1,4 +1,4 @@
-# Regulatory Intelligence & Statutory Compendium: Enterprise Corporate Governance
+﻿# Regulatory Intelligence & Statutory Compendium: Enterprise Corporate Governance
 
 ## 1. APPLICABLE STATUTORY FRAMEWORKS
 The following mandatory legal and regulatory provisions apply directly to organizations operating in this domain:
@@ -37,5 +37,5 @@ The following mandatory legal and regulatory provisions apply directly to organi
   *Source Attribution:* `Prime Database Governance Study 2023 | primedatabase.com`
 
 - **Flawless Board Governance:** Digitized secretarial charters and automated statutory tracking provide total board-level immunity.
-  *Source Attribution:* `GOVENICS Board Governance Advisory 2024 | govnics-murex.vercel.app`
+  *Source Attribution:* `GOVENICS Board Governance Advisory 2024 | govenics.com`
 

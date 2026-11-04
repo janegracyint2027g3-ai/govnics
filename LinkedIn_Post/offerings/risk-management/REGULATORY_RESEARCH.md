@@ -1,4 +1,4 @@
-# Regulatory Intelligence & Statutory Compendium: Enterprise Risk Management
+﻿# Regulatory Intelligence & Statutory Compendium: Enterprise Risk Management
 
 ## 1. APPLICABLE STATUTORY FRAMEWORKS
 The following mandatory legal and regulatory provisions apply directly to organizations operating in this domain:
@@ -37,5 +37,5 @@ The following mandatory legal and regulatory provisions apply directly to organi
   *Source Attribution:* `Disaster Recovery Institute International Review | drii.org`
 
 - **Unified ERM Architecture:** Enterprise-wide real-time risk heat-maps provide executive boards with predictive defensibility.
-  *Source Attribution:* `GOVENICS Enterprise Risk Governance 2024 | govnics-murex.vercel.app`
+  *Source Attribution:* `GOVENICS Enterprise Risk Governance 2024 | govenics.com`
 

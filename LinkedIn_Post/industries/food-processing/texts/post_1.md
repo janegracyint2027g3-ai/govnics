@@ -1,4 +1,4 @@
-INDUSTRY: Food Processing & Agriculture
+﻿INDUSTRY: Food Processing & Agriculture
 SUB-INDUSTRY: Packaged Food Brands
 GOVENICS OFFERING: Integrated GRC & Operational Risk Advisory
 
@@ -21,7 +21,14 @@ GOVENICS GRC – A Division of ISI Group (Est. 1985) establishes unified digital
 Is your compliance defensibility automated, or dependent on pre-audit scramble?
 
 💬 Comment 'DIAGNOSTIC' to review your exposure.
-🔗 Solutions: https://govnics-murex.vercel.app/industries/food-processing
+🔗 Solutions: https://govenics.com/industries/food-processing
+
+
+--- CONNECT WITH GOVENICS ---
+[?] Fill a Query: https://govenics.com/contact#query-form
+[?] Contact Us: https://govenics.com/contact
+[?] Careers at GOVENICS: https://govenics.com/careers
+[?] Book a Strategy Session: https://govenics.com/book-consultation
 
 #GRC #FoodProcessing&Agriculture #HeadofFoodSafety&Quality #ComplianceExcellence #GOVENICS
 

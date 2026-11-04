@@ -1,4 +1,4 @@
-# GOVENICS ICP Mapping: Enterprise Corporate Governance
+﻿# GOVENICS ICP Mapping: Enterprise Corporate Governance
 
 ## 1. COMPANY-LEVEL ICP PROFILE
 - **Industry Sector:** Enterprise Corporate Governance
@@ -27,4 +27,4 @@
 ## 5. GOVENICS SERVICE POSITIONING
 - **Brand Identity:** GOVENICS GRC – A Division of ISI Group (Est. 1985)
 - **Value Proposition:** Transforming compliance from a reactive defensive burden into a predictable, automated governance asset.
-- **Direct Solution URL:** https://govnics-murex.vercel.app/services/enterprise-governance
+- **Direct Solution URL:** https://govenics.com/services/enterprise-governance

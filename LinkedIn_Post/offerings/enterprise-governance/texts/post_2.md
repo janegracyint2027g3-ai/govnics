@@ -1,8 +1,8 @@
-INDUSTRY: Conglomerates, Holding Groups & Multi-State Operations
+﻿INDUSTRY: Conglomerates, Holding Groups & Multi-State Operations
 TARGET PERSONA: Group CFO, VP Finance, Company Secretary, Audit Committee Chair
 GOVENICS OFFERING: Enterprise Corporate Governance & Regulatory Compliance
-OFFICIAL WEBSITE LINK: https://govnics-murex.vercel.app/services/enterprise-governance
-DIRECT ASSESSMENT LINK: https://govnics-murex.vercel.app/contact
+OFFICIAL WEBSITE LINK: https://govenics.com/services/enterprise-governance
+DIRECT ASSESSMENT LINK: https://govenics.com/contact
 
 ---
 
@@ -28,9 +28,16 @@ GOVENICS GRC Consulting establishes institutional-grade governance defensibility
 Governance is not about passing an audit. It is about protecting the balance sheet and executive leadership from systemic compliance friction.
 
 🔗 Benchmark Your Multi-Entity Governance:
-👉 https://govnics-murex.vercel.app/services/enterprise-governance
-👉 Direct CFO Consultation: https://govnics-murex.vercel.app/contact
+👉 https://govenics.com/services/enterprise-governance
+👉 Direct CFO Consultation: https://govenics.com/contact
 
 💬 Drop 'DIAGNOSTIC' to evaluate your multi-entity statutory posture.
+
+
+--- CONNECT WITH GOVENICS ---
+[?] Fill a Query: https://govenics.com/contact#query-form
+[?] Contact Us: https://govenics.com/contact
+[?] Careers at GOVENICS: https://govenics.com/careers
+[?] Book a Strategy Session: https://govenics.com/book-consultation
 
 #GroupCFO #EnterpriseGovernance #MultiEntity #BoardReporting #CorporateSecretarial #ComplianceRisk #GOVENICS

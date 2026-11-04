@@ -1,4 +1,4 @@
-# GOVENICS ICP Mapping: Manufacturing & Industrial
+﻿# GOVENICS ICP Mapping: Manufacturing & Industrial
 
 ## 1. COMPANY-LEVEL ICP PROFILE
 - **Industry Sector:** Manufacturing & Industrial
@@ -27,4 +27,4 @@
 ## 5. GOVENICS SERVICE POSITIONING
 - **Brand Identity:** GOVENICS GRC – A Division of ISI Group (Est. 1985)
 - **Value Proposition:** Transforming compliance from a reactive defensive burden into a predictable, automated governance asset.
-- **Direct Solution URL:** https://govnics-murex.vercel.app/industries/manufacturing-industrial
+- **Direct Solution URL:** https://govenics.com/industries/manufacturing-industrial

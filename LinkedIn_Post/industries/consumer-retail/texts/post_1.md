@@ -1,4 +1,4 @@
-INDUSTRY: Consumer Goods & Retail
+﻿INDUSTRY: Consumer Goods & Retail
 SUB-INDUSTRY: Omnichannel Retail Chains
 GOVENICS OFFERING: Integrated GRC & Operational Risk Advisory
 
@@ -21,7 +21,14 @@ GOVENICS GRC – A Division of ISI Group (Est. 1985) establishes unified digital
 Is your compliance defensibility automated, or dependent on pre-audit scramble?
 
 💬 Comment 'DIAGNOSTIC' to review your exposure.
-🔗 Solutions: https://govnics-murex.vercel.app/industries/consumer-retail
+🔗 Solutions: https://govenics.com/industries/consumer-retail
+
+
+--- CONNECT WITH GOVENICS ---
+[?] Fill a Query: https://govenics.com/contact#query-form
+[?] Contact Us: https://govenics.com/contact
+[?] Careers at GOVENICS: https://govenics.com/careers
+[?] Book a Strategy Session: https://govenics.com/book-consultation
 
 #GRC #ConsumerGoods&Retail #VPofRetailOperations #ComplianceExcellence #GOVENICS
 

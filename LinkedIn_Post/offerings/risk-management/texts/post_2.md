@@ -1,4 +1,4 @@
-INDUSTRY: Cross-Sector Enterprise
+﻿INDUSTRY: Cross-Sector Enterprise
 SUB-INDUSTRY: Diversified Conglomerates
 GOVENICS OFFERING: Enterprise Risk Management
 
@@ -22,7 +22,14 @@ GOVENICS GRC delivers automated statutory tracking and audit-ready governance wo
 How is your leadership team tracking regulatory exposure across your operating units?
 
 💬 Comment 'BENCHMARK' for the full advisory data.
-🔗 Advisory: https://govnics-murex.vercel.app/services/risk-management
+🔗 Advisory: https://govenics.com/services/risk-management
+
+
+--- CONNECT WITH GOVENICS ---
+[?] Fill a Query: https://govenics.com/contact#query-form
+[?] Contact Us: https://govenics.com/contact
+[?] Careers at GOVENICS: https://govenics.com/careers
+[?] Book a Strategy Session: https://govenics.com/book-consultation
 
 #RegulatoryData #ExecutiveIntelligence #EnterpriseRiskManagement #RiskManagement #GOVENICS
 

@@ -1,4 +1,4 @@
-INDUSTRY: Cross-Sector Enterprise
+﻿INDUSTRY: Cross-Sector Enterprise
 SUB-INDUSTRY: Automotive OEMs
 GOVENICS OFFERING: Supply Chain Governance
 
@@ -22,14 +22,21 @@ GOVENICS GRC (A Division of ISI Group, Est. 1985) establishes unified digital re
 Schedule an executive compliance diagnostic with our senior advisory partners today.
 
 📩 DM 'COMPLIANCE' or schedule an executive consultation.
-🔗 Book Consultation: https://govnics-murex.vercel.app/services/supply-chain
+🔗 Book Consultation: https://govenics.com/services/supply-chain
+
+
+--- CONNECT WITH GOVENICS ---
+[?] Fill a Query: https://govenics.com/contact#query-form
+[?] Contact Us: https://govenics.com/contact
+[?] Careers at GOVENICS: https://govenics.com/careers
+[?] Book a Strategy Session: https://govenics.com/book-consultation
 
 #ExecutiveAdvisory #LeadershipGovernance #SupplyChainGovernance #B2BGrowth #GOVENICS
 
 METRICS & VERIFICATION:
 - Verified character count: 896 / 900 characters (Strictly compliant)
 - Numerical statistics & reporting years: Zero Vendor Defaults (Continuous automated contractor statutory tracking eliminates vendor operational disruption risks.)
-- Official source URLs: GOVENICS Vendor Risk Framework 2024 | govnics-murex.vercel.app
+- Official source URLs: GOVENICS Vendor Risk Framework 2024 | govenics.com
 - CTA keyword: COMPLIANCE
 - Hashtags: #ExecutiveAdvisory #LeadershipGovernance #SupplyChainGovernance #B2BGrowth #GOVENICS
 

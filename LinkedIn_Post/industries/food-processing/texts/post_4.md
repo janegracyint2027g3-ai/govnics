@@ -1,4 +1,4 @@
-INDUSTRY: Food Processing & Agriculture
+﻿INDUSTRY: Food Processing & Agriculture
 SUB-INDUSTRY: Packaged Food Brands
 GOVENICS OFFERING: Integrated GRC & Operational Risk Advisory
 
@@ -21,7 +21,14 @@ GOVENICS GRC provides end-to-end statutory mapping, automated digital registers,
 Are your board committees receiving verified, real-time compliance health telemetry?
 
 💬 Comment 'ADVISORY' to connect with our senior partners.
-🔗 Explore Framework: https://govnics-murex.vercel.app/industries/food-processing
+🔗 Explore Framework: https://govenics.com/industries/food-processing
+
+
+--- CONNECT WITH GOVENICS ---
+[?] Fill a Query: https://govenics.com/contact#query-form
+[?] Contact Us: https://govenics.com/contact
+[?] Careers at GOVENICS: https://govenics.com/careers
+[?] Book a Strategy Session: https://govenics.com/book-consultation
 
 #CorporateGovernance #EnterpriseRisk #FoodProcessing&Agriculture #BoardAccountability #GOVENICS
 

@@ -1,4 +1,4 @@
-INDUSTRY: Cross-Sector Enterprise
+﻿INDUSTRY: Cross-Sector Enterprise
 SUB-INDUSTRY: Global Exporters
 GOVENICS OFFERING: Export & Global Trade
 
@@ -22,14 +22,21 @@ GOVENICS GRC (A Division of ISI Group, Est. 1985) establishes unified digital re
 Schedule an executive compliance diagnostic with our senior advisory partners today.
 
 📩 DM 'COMPLIANCE' or schedule an executive consultation.
-🔗 Book Consultation: https://govnics-murex.vercel.app/services/export-trade
+🔗 Book Consultation: https://govenics.com/services/export-trade
+
+
+--- CONNECT WITH GOVENICS ---
+[?] Fill a Query: https://govenics.com/contact#query-form
+[?] Contact Us: https://govenics.com/contact
+[?] Careers at GOVENICS: https://govenics.com/careers
+[?] Book a Strategy Session: https://govenics.com/book-consultation
 
 #ExecutiveAdvisory #LeadershipGovernance #Export&GlobalTrade #B2BGrowth #GOVENICS
 
 METRICS & VERIFICATION:
 - Verified character count: 899 / 900 characters (Strictly compliant)
 - Numerical statistics & reporting years: 100% Port Audit Readiness (Digitized customs documentation and automated EDPMS reconciliation ensure zero shipping demurrage.)
-- Official source URLs: GOVENICS Global Trade Advisory SLA 2024 | govnics-murex.vercel.app
+- Official source URLs: GOVENICS Global Trade Advisory SLA 2024 | govenics.com
 - CTA keyword: COMPLIANCE
 - Hashtags: #ExecutiveAdvisory #LeadershipGovernance #Export&GlobalTrade #B2BGrowth #GOVENICS
 

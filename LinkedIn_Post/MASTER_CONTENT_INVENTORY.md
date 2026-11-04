@@ -1,6 +1,6 @@
-# GOVENICS GRC — Master Content & Offering Inventory
+﻿# GOVENICS GRC — Master Content & Offering Inventory
 
-Official Website: https://govnics-murex.vercel.app/
+Official Website: https://govenics.com/
 Brand Context: GOVENICS GRC – A Division of ISI Group (Est. 1985)
 Positioning: "Helping organisations strengthen governance, manage regulatory complexity, reduce compliance gaps, and build operational accountability."
 

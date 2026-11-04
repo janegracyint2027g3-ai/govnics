@@ -1,4 +1,4 @@
-# Regulatory Intelligence & Statutory Compendium: Supply Chain Governance
+﻿# Regulatory Intelligence & Statutory Compendium: Supply Chain Governance
 
 ## 1. APPLICABLE STATUTORY FRAMEWORKS
 The following mandatory legal and regulatory provisions apply directly to organizations operating in this domain:
@@ -37,5 +37,5 @@ The following mandatory legal and regulatory provisions apply directly to organi
   *Source Attribution:* `Ministry of Law & Justice ABAC Guidelines | lawmin.gov.in`
 
 - **Zero Vendor Defaults:** Continuous automated contractor statutory tracking eliminates vendor operational disruption risks.
-  *Source Attribution:* `GOVENICS Vendor Risk Framework 2024 | govnics-murex.vercel.app`
+  *Source Attribution:* `GOVENICS Vendor Risk Framework 2024 | govenics.com`
 

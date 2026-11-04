@@ -1,4 +1,4 @@
-# Regulatory Intelligence & Statutory Compendium: Technology & Electronics
+﻿# Regulatory Intelligence & Statutory Compendium: Technology & Electronics
 
 ## 1. APPLICABLE STATUTORY FRAMEWORKS
 The following mandatory legal and regulatory provisions apply directly to organizations operating in this domain:
@@ -37,5 +37,5 @@ The following mandatory legal and regulatory provisions apply directly to organi
   *Source Attribution:* `Gartner IT Governance & Risk Report 2023 | gartner.com`
 
 - **100% Cyber Defensibility:** Unified DPDP compliance, CERT-In logging, and SOC 2 frameworks ensure frictionless enterprise enterprise sales.
-  *Source Attribution:* `GOVENICS Technology & Cyber Practice 2024 | govnics-murex.vercel.app`
+  *Source Attribution:* `GOVENICS Technology & Cyber Practice 2024 | govenics.com`
 

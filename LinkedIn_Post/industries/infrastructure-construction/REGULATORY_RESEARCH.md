@@ -1,4 +1,4 @@
-# Regulatory Intelligence & Statutory Compendium: Infrastructure & Construction
+﻿# Regulatory Intelligence & Statutory Compendium: Infrastructure & Construction
 
 ## 1. APPLICABLE STATUTORY FRAMEWORKS
 The following mandatory legal and regulatory provisions apply directly to organizations operating in this domain:
@@ -37,5 +37,5 @@ The following mandatory legal and regulatory provisions apply directly to organi
   *Source Attribution:* `National Building Code 2016 Review | bis.gov.in`
 
 - **Flawless Project Compliance:** Integrated RERA escrow tracking, BOCW muster audits, and EIA monitoring prevent project stop-work notices.
-  *Source Attribution:* `GOVENICS Infrastructure & Real Estate Advisory 2024 | govnics-murex.vercel.app`
+  *Source Attribution:* `GOVENICS Infrastructure & Real Estate Advisory 2024 | govenics.com`
 

@@ -1,8 +1,8 @@
-INDUSTRY: Public Listed & Private Holding Enterprises
+﻿INDUSTRY: Public Listed & Private Holding Enterprises
 TARGET PERSONA: Chief Financial Officer, Whole-Time Director, Legal Head, Compliance Officer
 GOVENICS OFFERING: Enterprise Corporate Governance & Board Advisory
-OFFICIAL WEBSITE LINK: https://govnics-murex.vercel.app/services/enterprise-governance
-DIRECT ASSESSMENT LINK: https://govnics-murex.vercel.app/contact
+OFFICIAL WEBSITE LINK: https://govenics.com/services/enterprise-governance
+DIRECT ASSESSMENT LINK: https://govenics.com/contact
 
 ---
 
@@ -27,9 +27,16 @@ GOVENICS GRC Consulting (Division of ISI Group | Est. 1985) replaces fragmented 
 Protect your balance sheet. Protect your leadership.
 
 🔗 Schedule a CFO Compliance Exposure Assessment:
-👉 https://govnics-murex.vercel.app/services/enterprise-governance
-👉 Book Direct Review: https://govnics-murex.vercel.app/contact
+👉 https://govenics.com/services/enterprise-governance
+👉 Book Direct Review: https://govenics.com/contact
 
 💬 Comment 'ASSURANCE' to receive the 2025 KMP Statutory Protection Brief.
+
+
+--- CONNECT WITH GOVENICS ---
+[?] Fill a Query: https://govenics.com/contact#query-form
+[?] Contact Us: https://govenics.com/contact
+[?] Careers at GOVENICS: https://govenics.com/careers
+[?] Book a Strategy Session: https://govenics.com/book-consultation
 
 #CorporateGovernance #CFO #KMPLiability #CompaniesAct #SEBI #RegulatoryInspection #EnterpriseGRC #GOVENICS

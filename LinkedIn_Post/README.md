@@ -1,6 +1,6 @@
-# GOVENICS GRC — LinkedIn Enterprise Content & Lead Generation Engine
+﻿# GOVENICS GRC — LinkedIn Enterprise Content & Lead Generation Engine
 
-Comprehensive B2B social content engine covering **all 13 Offerings** and **all 9 Industry Clusters** represented on the live website ([https://govnics-murex.vercel.app](https://govnics-murex.vercel.app)).
+Comprehensive B2B social content engine covering **all 13 Offerings** and **all 9 Industry Clusters** represented on the live website ([https://govenics.com](https://govenics.com)).
 
 ---
 

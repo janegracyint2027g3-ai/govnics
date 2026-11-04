@@ -1,8 +1,8 @@
-INDUSTRY: Multi-Entity Enterprise & Conglomerates
+﻿INDUSTRY: Multi-Entity Enterprise & Conglomerates
 TARGET PERSONA: Group CFO, Chief Financial Officer, Finance Controller, Head of Legal & Governance
 GOVENICS OFFERING: Enterprise Corporate Governance & Board Advisory
-OFFICIAL WEBSITE LINK: https://govnics-murex.vercel.app/services/enterprise-governance
-DIRECT ASSESSMENT LINK: https://govnics-murex.vercel.app/contact
+OFFICIAL WEBSITE LINK: https://govenics.com/services/enterprise-governance
+DIRECT ASSESSMENT LINK: https://govenics.com/contact
 
 ---
 
@@ -45,9 +45,16 @@ Can your holding group retrieve every statutory register across all operating en
 If not, identify statutory vulnerabilities before regulators do.
 
 🔗 Request a Confidential CFO Compliance Exposure Assessment:
-👉 Explore Solutions: https://govnics-murex.vercel.app/services/enterprise-governance
-👉 Direct Audit Review: https://govnics-murex.vercel.app/contact
+👉 Explore Solutions: https://govenics.com/services/enterprise-governance
+👉 Direct Audit Review: https://govenics.com/contact
 
 💬 Comment 'CFO REVIEW' below or DM to receive our 2025 Multi-Entity Statutory Defensibility Checklist.
+
+
+--- CONNECT WITH GOVENICS ---
+[?] Fill a Query: https://govenics.com/contact#query-form
+[?] Contact Us: https://govenics.com/contact
+[?] Careers at GOVENICS: https://govenics.com/careers
+[?] Book a Strategy Session: https://govenics.com/book-consultation
 
 #CFO #GroupCFO #FinanceController #CorporateGovernance #GRC #EnterpriseRisk #CompaniesAct #BoardAccountability #RegulatoryCompliance #GOVENICS

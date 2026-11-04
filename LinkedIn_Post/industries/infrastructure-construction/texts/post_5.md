@@ -1,4 +1,4 @@
-INDUSTRY: Infrastructure & Construction
+﻿INDUSTRY: Infrastructure & Construction
 SUB-INDUSTRY: Commercial Real Estate Developers
 GOVENICS OFFERING: Integrated GRC & Operational Risk Advisory
 
@@ -21,7 +21,14 @@ GOVENICS GRC prepares multi-site enterprises with pre-audit mock inspections and
 Could your operating facilities pass an unannounced statutory audit tomorrow?
 
 📩 DM 'AUDIT-DEFENSE' to review your readiness.
-🔗 Audit Defense: https://govnics-murex.vercel.app/industries/infrastructure-construction
+🔗 Audit Defense: https://govenics.com/industries/infrastructure-construction
+
+
+--- CONNECT WITH GOVENICS ---
+[?] Fill a Query: https://govenics.com/contact#query-form
+[?] Contact Us: https://govenics.com/contact
+[?] Careers at GOVENICS: https://govenics.com/careers
+[?] Book a Strategy Session: https://govenics.com/book-consultation
 
 #AuditReadiness #RegulatoryInspection #Infrastructure&Construction #StatutoryCompliance #GOVENICS
 

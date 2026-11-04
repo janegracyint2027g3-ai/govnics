@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+﻿#!/usr/bin/env python3
 """
 GOVENICS MASTER LINKEDIN CONTENT REFINEMENT ENGINE
 Standardizes all 132 posts across 13 Offerings and 9 Industry Clusters.
@@ -36,7 +36,7 @@ STAT_REGISTRY = {
         ("14 disparate registers", "Multi-entity holding groups run an average of 14 separate spreadsheets before facing regulatory show-cause proceedings.", "ICSI Corporate Secretarial Governance Review 2023 | icsi.edu"),
         ("40% director exposure", "Independent directors carry statutory personal liability under Section 149(12) for unflagged board-level secretarial omissions.", "Ministry of Corporate Affairs Gazetted Notifications | mca.gov.in"),
         ("72-hour window", "SEBI amended LODR disclosure timelines from 24h to strictly under 72h for scheduled supervisory audits.", "SEBI Circular SEBI/HO/CFD/CFD-PoD-1/P/CIR/2023/123 | sebi.gov.in"),
-        ("20-minute gap audit", "82% of statutory supervisory audit penalties are preventable through automated 45-day pre-filing reconciliation.", "GOVENICS Senior Advisory Benchmark Report 2024 | govnics-murex.vercel.app")
+        ("20-minute gap audit", "82% of statutory supervisory audit penalties are preventable through automated 45-day pre-filing reconciliation.", "GOVENICS Senior Advisory Benchmark Report 2024 | govenics.com")
     ],
     "labour-employment": [
         ("2,300+ show-cause notices", "Ministry of Labour issued over 2,300 statutory show-cause notices under Factories Act in a single quarter for unverified registers.", "Ministry of Labour & Employment Annual Bulletin 2023 | labour.gov.in"),
@@ -44,7 +44,7 @@ STAT_REGISTRY = {
         ("₹12,000 Cr PF evasion", "EPFO detected over ₹12,000 Crore in contractor wage misclassifications and uncredited welfare challans during FY23 inspections.", "EPFO Annual Inspection Report 2022-23 | epfindia.gov.in"),
         ("89-day rolling loophole", "Using 89-day contractor rotations no longer insulates industrial occupiers from joint-employer provident fund recovery.", "Supreme Court of India Labour Jurisprudence Compendium | sci.gov.in"),
         ("4 Labour Codes ready", "Notification of 4 Unified Labour Codes replaces 44 central acts, redefining basic wage computation and gratuity liabilities.", "Ministry of Labour Wage Code Notifications | labour.gov.in"),
-        ("Zero joint liability", "Centralized monthly contractor wage muster roll audit eliminates 100% of factory stoppage risks before state visits.", "GOVENICS Industrial Advisory SLA Metric 2024 | govnics-murex.vercel.app")
+        ("Zero joint liability", "Centralized monthly contractor wage muster roll audit eliminates 100% of factory stoppage risks before state visits.", "GOVENICS Industrial Advisory SLA Metric 2024 | govenics.com")
     ],
     "taxation-trade": [
         ("1.14 lakh notices", "CBIC issued 1.14 lakh GST demand notices worth ₹1.45 lakh crore in FY23, 73% originating from GSTR-2B input credit mismatches.", "CBIC Indirect Tax Enforcement Gazette FY 2022-23 | cbic.gov.in"),
@@ -52,7 +52,7 @@ STAT_REGISTRY = {
         ("₹42,000 Cr pending", "Customs valuation disputes under Special Valuation Branch (SVB) scrutiny hold over ₹42,000 Crore in blocked working capital.", "CBIC Trade Facilitation & Valuation Bulletin 2023 | cbic.gov.in"),
         ("Rule 86B 99% cap", "Failure to reconcile GSTR-1 against e-way bills triggers automatic restriction on electronic credit ledger utilization.", "GST Council Circular No. 170/02/2022-GST | cbic.gov.in"),
         ("Section 148 reopenings", "Tax authorities automated scrutiny algorithms now cross-reference foreign remittance 15CA/CB data directly against customs records.", "CBDT National Faceless Assessment Digest | incometax.gov.in"),
-        ("99.9% ITC match SLA", "Continuous pre-filing automated GSTR-2B reconciliation safeguards working capital and recovers locked input credits.", "GOVENICS Tax & Trade Advisory Benchmarks 2024 | govnics-murex.vercel.app")
+        ("99.9% ITC match SLA", "Continuous pre-filing automated GSTR-2B reconciliation safeguards working capital and recovers locked input credits.", "GOVENICS Tax & Trade Advisory Benchmarks 2024 | govenics.com")
     ],
     "environmental-ehs": [
         ("18.2% annual rise", "CPCB recorded an 18.2% surge in environmental closure directives under Air and Water Acts for industrial manufacturing facilities.", "Central Pollution Control Board Annual Report FY 2022-23 | cpcb.nic.in"),
@@ -60,7 +60,7 @@ STAT_REGISTRY = {
         ("₹3 Cr/day stoppage", "Unannounced State Pollution Board plant closures for lapsed Consent to Operate (CTO) cost processing plants ₹1.5–3 Cr daily.", "CII Manufacturing Safety & Environmental Survey | cii.in"),
         ("ZLD myth exposed", "Running an ETP does not protect chemical facilities without verified digital discharge telemetry linked to SPCB servers.", "GIZ Industrial Water & ZLD Compliance Study | giz.de"),
         ("MoEFCC EC revisions", "Stricter 2023 Environmental Clearance conditions mandate quarterly online portal verification of stack emission parameters.", "MoEFCC Gazette Notification S.O. 1533(E) | moef.gov.in"),
-        ("100% CTO currency", "Centralized automated consent calendars provide 60-day advance renewal alerts and tamper-evident manifest logs.", "GOVENICS EHS Advisory Benchmarks 2024 | govnics-murex.vercel.app")
+        ("100% CTO currency", "Centralized automated consent calendars provide 60-day advance renewal alerts and tamper-evident manifest logs.", "GOVENICS EHS Advisory Benchmarks 2024 | govenics.com")
     ],
     "supply-chain": [
         ("€8 Million fine", "Germany's Supply Chain Act (LkSG) imposes up to €8M fines on Tier-1 suppliers failing human rights and environmental audits.", "German Federal Office BAFA LkSG Guidelines 2023 | bafa.de"),
@@ -68,7 +68,7 @@ STAT_REGISTRY = {
         ("SEBI BRSR Core", "India's top 1,000 listed companies must mandatorily assure value-chain ESG metrics covering top Tier-1 vendor footprints.", "SEBI Circular SEBI/HO/CFD/CFD-SEC-2/P/CIR/2023/122 | sebi.gov.in"),
         ("EUDR zero tolerance", "EU Deforestation Regulation mandates GPS polygon mapping of farm origins—non-compliant goods face export bans.", "European Commission Regulation (EU) 2023/1115 | ec.europa.eu"),
         ("RoHS 3 customs hold", "Missing IPC-1752A restricted substance declarations on sub-components triggers immediate EU container detention.", "EU RoHS Directive 2015/863 Technical Guide | ec.europa.eu"),
-        ("100% Tier-1/2 visibility", "Institutional vendor due diligence architecture guarantees supplier certification validity and continuous audit readiness.", "GOVENICS Supply Chain Assurance SLA | govnics-murex.vercel.app")
+        ("100% Tier-1/2 visibility", "Institutional vendor due diligence architecture guarantees supplier certification validity and continuous audit readiness.", "GOVENICS Supply Chain Assurance SLA | govenics.com")
     ],
     "export-trade": [
         ("₹4,200 Cr unclaimed", "Indian engineering exporters left ₹4,200 Crore in RoDTEP benefits unclaimed in FY23 due to shipping bill code mismatches.", "DGFT RoDTEP Scheme Performance Analysis | dgft.gov.in"),
@@ -76,7 +76,7 @@ STAT_REGISTRY = {
         ("SCOMET 2023 update", "DGFT revised dual-use chemical and technology export classifications, mandating end-user verification declarations.", "DGFT Public Notice No. 27/2023 on SCOMET | dgft.gov.in"),
         ("FEMA EDPMS alerts", "Unreconciled export invoices beyond 9 months trigger automatic RBI caution-listing, blocking fresh export financing.", "RBI Master Direction on Export of Goods and Services | rbi.org.in"),
         ("AEO-T2 fast-track", "Authorised Economic Operator certified exporters achieve 48-hour green channel customs clearance across major global ports.", "CBIC Directorate of International Customs | cbic.gov.in"),
-        ("48-Hour clearance SLA", "Automated export documentation synchronization prevents port demurrage and maximizes statutory incentive capture.", "GOVENICS Export Advisory Benchmark | govnics-murex.vercel.app")
+        ("48-Hour clearance SLA", "Automated export documentation synchronization prevents port demurrage and maximizes statutory incentive capture.", "GOVENICS Export Advisory Benchmark | govenics.com")
     ],
     "licensing-permits": [
         ("47 days delay", "Average industrial plant expansion suffers 47 days in avoidable delays waiting for municipal and environmental clearances.", "DPIIT Business Reform Action Plan (BRAP) Assessment | dpiit.gov.in"),
@@ -84,7 +84,7 @@ STAT_REGISTRY = {
         ("PESO 2023 guidelines", "Revised Petroleum and Explosives Safety rules mandate live CCTV surveillance and re-certified storage permits for hazmat.", "PESO Revised Hazardous Storage Mandate 2023 | peso.gov.in"),
         ("Schedule M deadline", "CDSCO mandated revised Good Manufacturing Practices (Schedule M) implementation for all pharmaceutical formulation units.", "CDSCO Gazette Notification G.S.R. 922(E) | cdsco.gov.in"),
         ("BOCW cess inspection", "Infrastructure developers face stop-work notices for unremitted 1% Building and Other Construction Workers welfare cess.", "BOCW Act Central Advisory Committee Compendium | labour.gov.in"),
-        ("Zero downtime SLA", "Automated multi-departmental license tracking guarantees 100% pre-commissioning statutory compliance.", "GOVENICS Industrial Licensing SLA 2024 | govnics-murex.vercel.app")
+        ("Zero downtime SLA", "Automated multi-departmental license tracking guarantees 100% pre-commissioning statutory compliance.", "GOVENICS Industrial Licensing SLA 2024 | govenics.com")
     ],
     "escrow-services": [
         ("70% RERA ring-fence", "RERA mandates strictly 70% of customer collections remain locked in project-dedicated escrow for construction expenses.", "MahaRERA Banking & Escrow Audit Compendium | maharera.mahaonline.gov.in"),
@@ -92,7 +92,7 @@ STAT_REGISTRY = {
         ("Software IP escrow", "Enterprise SaaS contracts without verified source code escrow leave clients exposed to operational collapse upon vendor distress.", "NASSCOM Enterprise SaaS Contract Standards | nasscom.in"),
         ("Project finance DSRA", "Lenders mandate 6-month Debt Service Reserve Accounts in escrow—unmonitored balances trigger immediate technical loan defaults.", "RBI Master Directions on Project Loan Consortiums | rbi.org.in"),
         ("EPC retention disputes", "Undefined 'substantial completion' clauses in construction retention escrows cause 60% of commercial arbitrations.", "NITI Aayog Model EPC Contract Governance | niti.gov.in"),
-        ("T+0 conditional release", "Legally ring-fenced three-party escrow architecture ensures milestone-verified disbursements with zero dispute risk.", "GOVENICS Custody & Escrow Advisory SLA | govnics-murex.vercel.app")
+        ("T+0 conditional release", "Legally ring-fenced three-party escrow architecture ensures milestone-verified disbursements with zero dispute risk.", "GOVENICS Custody & Escrow Advisory SLA | govenics.com")
     ],
     "risk-management": [
         ("₹3.2 Lakh Cr losses", "ICAI estimates Indian enterprises suffer ₹3.2 Lakh Crore annually in preventable losses from disconnected operational risk registers.", "ICAI Enterprise Risk Management & Internal Audit Digest | icai.org"),
@@ -100,7 +100,7 @@ STAT_REGISTRY = {
         ("IRDAI RBS scoring", "Insurance regulator transitioned to Risk-Based Supervision—high operational risk scores trigger mandatory capital add-ons.", "IRDAI Risk-Based Supervisory Framework 2023 | irdai.gov.in"),
         ("RERA 12% delay penalty", "Delayed possession penalties of SBI MCLR + 2% across 200 units create exponential unquantified financial exposure.", "National Real Estate Development Council Review | naredco.in"),
         ("NABH sentinel audits", "Accredited hospitals face immediate license review if clinical sentinel events lack systemic root-cause evidence trails.", "NABH Patient Safety & Clinical Risk Standards | nabh.co"),
-        ("Real-time risk radar", "Financially quantified operational risk frameworks convert abstract traffic-light spreadsheets into actionable board clarity.", "GOVENICS Enterprise Risk Practice 2024 | govnics-murex.vercel.app")
+        ("Real-time risk radar", "Financially quantified operational risk frameworks convert abstract traffic-light spreadsheets into actionable board clarity.", "GOVENICS Enterprise Risk Practice 2024 | govenics.com")
     ],
     "enterprise-governance": [
         ("47 directors fined", "SEBI penalised 47 independent directors in FY23 for failing to challenge unverified management compliance confirmations.", "SEBI Corporate Governance Enforcement Review | sebi.gov.in"),
@@ -108,7 +108,7 @@ STAT_REGISTRY = {
         ("Section 90 SBO scrutiny", "MCA automated data-mining detects undeclared Significant Beneficial Owners across cross-holding corporate structures.", "MCA SBO Enforcement Special Drive Bulletin | mca.gov.in"),
         ("Section 11 trust risk", "Trust-run hospital properties risk tax exemption revocation if 85% charitable income utilization is not filed in Form 10B.", "Income Tax Department Charitable Trusts Circular | incometax.gov.in"),
         ("FCRA cancel drive", "Ministry of Home Affairs cancelled FCRA registrations for non-submission of activity-wise foreign contribution returns.", "MHA FCRA Oversight Division Gazette | mha.gov.in/fcra"),
-        ("100% board insulation", "Independent statutory audit vaults convert directorial certification liability into defensible governance assets.", "GOVENICS Corporate Secretarial Advisory | govnics-murex.vercel.app")
+        ("100% board insulation", "Independent statutory audit vaults convert directorial certification liability into defensible governance assets.", "GOVENICS Corporate Secretarial Advisory | govenics.com")
     ],
     "cybersecurity-data": [
         ("₹250 Crore penalty", "India's DPDP Act 2023 establishes penalties up to ₹250 Crore per occurrence for failing to prevent personal data breaches.", "Digital Personal Data Protection Act 2023 Gazette | meity.gov.in"),
@@ -116,7 +116,7 @@ STAT_REGISTRY = {
         ("64% BFSI breaches", "64% of Indian financial institutions reported cyber intrusions targeting third-party vendor APIs and SaaS connectors.", "RBI Currency & Finance Report on Digital Risk | rbi.org.in"),
         ("1.59M annual attacks", "CERT-In tracked 1.59 million cybersecurity events in 2023, with healthcare patient records commanding premium dark web bounties.", "CERT-In Annual Security Assessment 2023 | cert-in.org.in"),
         ("SOC 2 + ISO 27001", "Global enterprise clients require concurrent SOC 2 Type II and ISO 27001:2022 controls before signing SaaS contracts.", "NASSCOM Cyber Security Taskforce Review | nasscom.in"),
-        ("6-Hour triage SLA", "Integrated DPDP consent registries and CERT-In response architecture protect enterprise boards from catastrophic fines.", "GOVENICS Cyber & Privacy Practice | govnics-murex.vercel.app")
+        ("6-Hour triage SLA", "Integrated DPDP consent registries and CERT-In response architecture protect enterprise boards from catastrophic fines.", "GOVENICS Cyber & Privacy Practice | govenics.com")
     ],
     "esg-sustainability": [
         ("1,000 listed firms", "SEBI mandates top 1,000 listed enterprises file BRSR Core with mandatory third-party reasonable assurance from FY25.", "SEBI Circular SEBI/HO/CFD/2023/122 | sebi.gov.in"),
@@ -124,7 +124,7 @@ STAT_REGISTRY = {
         ("RBI Climate Guidance", "RBI mandates commercial banks integrate physical and transition climate risks into internal capital adequacy assessments.", "RBI Guidance Note on Climate Risk & Sustainable Finance | rbi.org.in"),
         ("ASCI greenwash rules", "Consumer protection authorities penalize unsubstantiated 'eco-friendly' claims lacking third-party life-cycle certification.", "ASCI Guidelines on Environmental Claims 2024 | ascionline.org"),
         ("Scope 3 supply chain", "Global enterprise procurement departments require Tier-1 vendors to submit verified Scope 3 GHG emissions data.", "GRI & ISSB S2 Harmonization Standards | ifrs.org"),
-        ("100% assurance readiness", "Assurance-grade ESG data collection architectures turn mandatory compliance disclosures into competitive export advantages.", "GOVENICS Sustainability Practice | govnics-murex.vercel.app")
+        ("100% assurance readiness", "Assurance-grade ESG data collection architectures turn mandatory compliance disclosures into competitive export advantages.", "GOVENICS Sustainability Practice | govenics.com")
     ],
     "staffing-managed": [
         ("₹12,000 Cr PF evasion", "EPFO joint inspection drives detect systematic wage splitting and uncredited provident fund dues across outsourced teams.", "EPFO Annual Enforcement Bulletin 2023 | epfindia.gov.in"),
@@ -132,7 +132,7 @@ STAT_REGISTRY = {
         ("Joint employer doctrine", "Industrial occupiers cannot contract away statutory gratuity and minimum wage liabilities to outsourced agencies.", "Supreme Court of India Landmark Rulings on CLRA | sci.gov.in"),
         ("NMC locum scrutiny", "Hospital groups face medical council sanctions when deploying locum doctors without institutional credential audits.", "National Medical Commission Licensing Regulations | nmc.org.in"),
         ("GCC shadow payroll", "MNC global capability centers face heavy TDS mismatch notices for unreconciled secondment and expat compensation taxes.", "CBDT Circular on Expat Remuneration & TDS | incometax.gov.in"),
-        ("Zero joint liability SLA", "Source-verified contractor wage challans and biometric muster reconciliation insulate principal employers completely.", "GOVENICS Managed Staffing Practice | govnics-murex.vercel.app")
+        ("Zero joint liability SLA", "Source-verified contractor wage challans and biometric muster reconciliation insulate principal employers completely.", "GOVENICS Managed Staffing Practice | govenics.com")
     ]
 }
 
@@ -400,7 +400,7 @@ def main():
         sec_aud = item.get("secondary_audience", "CFOs")
         post_num = item.get("post_num", 1)
         framework = item.get("editorial_framework", "Problem, Agitate, Solution (PAS)")
-        website_link = item.get("website_link", f"https://govnics-murex.vercel.app/services/{cat_id}")
+        website_link = item.get("website_link", f"https://govenics.com/services/{cat_id}")
 
         # Generate refined data-led post
         refined = generate_data_led_post(

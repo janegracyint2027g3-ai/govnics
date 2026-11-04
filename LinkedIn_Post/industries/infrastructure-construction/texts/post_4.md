@@ -1,4 +1,4 @@
-INDUSTRY: Infrastructure & Construction
+﻿INDUSTRY: Infrastructure & Construction
 SUB-INDUSTRY: Commercial Real Estate Developers
 GOVENICS OFFERING: Integrated GRC & Operational Risk Advisory
 
@@ -21,7 +21,14 @@ GOVENICS GRC provides end-to-end statutory mapping, automated digital registers,
 Are your board committees receiving verified, real-time compliance health telemetry?
 
 💬 Comment 'ADVISORY' to connect with our senior partners.
-🔗 Explore Framework: https://govnics-murex.vercel.app/industries/infrastructure-construction
+🔗 Explore Framework: https://govenics.com/industries/infrastructure-construction
+
+
+--- CONNECT WITH GOVENICS ---
+[?] Fill a Query: https://govenics.com/contact#query-form
+[?] Contact Us: https://govenics.com/contact
+[?] Careers at GOVENICS: https://govenics.com/careers
+[?] Book a Strategy Session: https://govenics.com/book-consultation
 
 #CorporateGovernance #EnterpriseRisk #Infrastructure&Construction #BoardAccountability #GOVENICS
 

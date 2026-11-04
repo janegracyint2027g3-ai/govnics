@@ -1,4 +1,4 @@
-# Regulatory Intelligence & Statutory Compendium: Energy & Utilities
+﻿# Regulatory Intelligence & Statutory Compendium: Energy & Utilities
 
 ## 1. APPLICABLE STATUTORY FRAMEWORKS
 The following mandatory legal and regulatory provisions apply directly to organizations operating in this domain:
@@ -37,5 +37,5 @@ The following mandatory legal and regulatory provisions apply directly to organi
   *Source Attribution:* `Bureau of Energy Efficiency (BEE) Notifications | beeindia.gov.in`
 
 - **100% Utility Compliance:** Automated RPO tracking, environmental telemetry, and safety register audits maintain operational continuity.
-  *Source Attribution:* `GOVENICS Energy & Utilities Advisory 2024 | govnics-murex.vercel.app`
+  *Source Attribution:* `GOVENICS Energy & Utilities Advisory 2024 | govenics.com`
 

@@ -1,4 +1,4 @@
-INDUSTRY: Infrastructure & Construction
+﻿INDUSTRY: Infrastructure & Construction
 SUB-INDUSTRY: Commercial Real Estate Developers
 GOVENICS OFFERING: Integrated GRC & Operational Risk Advisory
 
@@ -21,14 +21,21 @@ GOVENICS GRC (A Division of ISI Group, Est. 1985) establishes unified digital re
 Schedule an executive compliance diagnostic with our senior advisory partners today.
 
 📩 DM 'COMPLIANCE' or schedule an executive consultation.
-🔗 Book Consultation: https://govnics-murex.vercel.app/industries/infrastructure-construction
+🔗 Book Consultation: https://govenics.com/industries/infrastructure-construction
+
+
+--- CONNECT WITH GOVENICS ---
+[?] Fill a Query: https://govenics.com/contact#query-form
+[?] Contact Us: https://govenics.com/contact
+[?] Careers at GOVENICS: https://govenics.com/careers
+[?] Book a Strategy Session: https://govenics.com/book-consultation
 
 #ExecutiveAdvisory #LeadershipGovernance #Infrastructure&Construction #B2BGrowth #GOVENICS
 
 METRICS & VERIFICATION:
 - Verified character count: 807 / 900 characters (Strictly compliant)
 - Numerical statistics & reporting years: Flawless Project Compliance (Integrated RERA escrow tracking, BOCW muster audits, and EIA monitoring prevent project stop-work notices.)
-- Official source URLs: GOVENICS Infrastructure & Real Estate Advisory 2024 | govnics-murex.vercel.app
+- Official source URLs: GOVENICS Infrastructure & Real Estate Advisory 2024 | govenics.com
 - CTA keyword: COMPLIANCE
 - Hashtags: #ExecutiveAdvisory #LeadershipGovernance #Infrastructure&Construction #B2BGrowth #GOVENICS
 

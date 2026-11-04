@@ -1,4 +1,4 @@
-# Regulatory Intelligence & Statutory Compendium: ESG & Sustainability Advisory
+﻿# Regulatory Intelligence & Statutory Compendium: ESG & Sustainability Advisory
 
 ## 1. APPLICABLE STATUTORY FRAMEWORKS
 The following mandatory legal and regulatory provisions apply directly to organizations operating in this domain:
@@ -37,5 +37,5 @@ The following mandatory legal and regulatory provisions apply directly to organi
   *Source Attribution:* `International Organization of Securities Commissions (IOSCO) | iosco.org`
 
 - **Audit-Grade ESG Reporting:** Automated carbon accounting and verified supply-chain data provide institutional investor defensibility.
-  *Source Attribution:* `GOVENICS ESG & Sustainability Advisory 2024 | govnics-murex.vercel.app`
+  *Source Attribution:* `GOVENICS ESG & Sustainability Advisory 2024 | govenics.com`
 

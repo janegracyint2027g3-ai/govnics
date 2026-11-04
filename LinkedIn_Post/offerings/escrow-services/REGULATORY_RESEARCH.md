@@ -1,4 +1,4 @@
-# Regulatory Intelligence & Statutory Compendium: Commercial Escrow Services
+﻿# Regulatory Intelligence & Statutory Compendium: Commercial Escrow Services
 
 ## 1. APPLICABLE STATUTORY FRAMEWORKS
 The following mandatory legal and regulatory provisions apply directly to organizations operating in this domain:
@@ -37,5 +37,5 @@ The following mandatory legal and regulatory provisions apply directly to organi
   *Source Attribution:* `RBI Master Direction on Foreign Investment | rbi.org.in`
 
 - **Zero Default Disbursals:** Milestone-verified digital escrow release protects enterprise capex investments with full legal certainty.
-  *Source Attribution:* `GOVENICS Commercial Escrow Advisory 2024 | govnics-murex.vercel.app`
+  *Source Attribution:* `GOVENICS Commercial Escrow Advisory 2024 | govenics.com`
 

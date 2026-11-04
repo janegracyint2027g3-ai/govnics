@@ -1,4 +1,4 @@
-INDUSTRY: Cross-Sector Enterprise
+﻿INDUSTRY: Cross-Sector Enterprise
 SUB-INDUSTRY: Top 1
 GOVENICS OFFERING: ESG & Sustainability Advisory
 
@@ -21,14 +21,21 @@ GOVENICS GRC (A Division of ISI Group, Est. 1985) establishes unified digital re
 Schedule an executive compliance diagnostic with our senior advisory partners today.
 
 📩 DM 'COMPLIANCE' or schedule an executive consultation.
-🔗 Book Consultation: https://govnics-murex.vercel.app/services/esg-sustainability
+🔗 Book Consultation: https://govenics.com/services/esg-sustainability
+
+
+--- CONNECT WITH GOVENICS ---
+[?] Fill a Query: https://govenics.com/contact#query-form
+[?] Contact Us: https://govenics.com/contact
+[?] Careers at GOVENICS: https://govenics.com/careers
+[?] Book a Strategy Session: https://govenics.com/book-consultation
 
 #ExecutiveAdvisory #LeadershipGovernance #ESG&SustainabilityAdvisory #B2BGrowth #GOVENICS
 
 METRICS & VERIFICATION:
 - Verified character count: 811 / 900 characters (Strictly compliant)
 - Numerical statistics & reporting years: Audit-Grade ESG Reporting (Automated carbon accounting and verified supply-chain data provide institutional investor defensibility.)
-- Official source URLs: GOVENICS ESG & Sustainability Advisory 2024 | govnics-murex.vercel.app
+- Official source URLs: GOVENICS ESG & Sustainability Advisory 2024 | govenics.com
 - CTA keyword: COMPLIANCE
 - Hashtags: #ExecutiveAdvisory #LeadershipGovernance #ESG&SustainabilityAdvisory #B2BGrowth #GOVENICS
 

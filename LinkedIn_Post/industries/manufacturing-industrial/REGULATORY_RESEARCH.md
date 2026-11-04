@@ -1,4 +1,4 @@
-# Regulatory Intelligence & Statutory Compendium: Manufacturing & Industrial
+﻿# Regulatory Intelligence & Statutory Compendium: Manufacturing & Industrial
 
 ## 1. APPLICABLE STATUTORY FRAMEWORKS
 The following mandatory legal and regulatory provisions apply directly to organizations operating in this domain:
@@ -37,5 +37,5 @@ The following mandatory legal and regulatory provisions apply directly to organi
   *Source Attribution:* `Central Pollution Control Board Industrial Digest | cpcb.nic.in`
 
 - **Zero Factory Shutdowns:** Continuous digital statutory registers and automated consent renewals protect manufacturing uptime.
-  *Source Attribution:* `GOVENICS Industrial Manufacturing Advisory 2024 | govnics-murex.vercel.app`
+  *Source Attribution:* `GOVENICS Industrial Manufacturing Advisory 2024 | govenics.com`
 

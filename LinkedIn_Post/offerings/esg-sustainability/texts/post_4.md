@@ -1,4 +1,4 @@
-INDUSTRY: Cross-Sector Enterprise
+﻿INDUSTRY: Cross-Sector Enterprise
 SUB-INDUSTRY: Top 1
 GOVENICS OFFERING: ESG & Sustainability Advisory
 
@@ -21,7 +21,14 @@ GOVENICS GRC provides end-to-end statutory mapping, automated digital registers,
 Are your board committees receiving verified, real-time compliance health telemetry?
 
 💬 Comment 'ADVISORY' to connect with our senior partners.
-🔗 Explore Framework: https://govnics-murex.vercel.app/services/esg-sustainability
+🔗 Explore Framework: https://govenics.com/services/esg-sustainability
+
+
+--- CONNECT WITH GOVENICS ---
+[?] Fill a Query: https://govenics.com/contact#query-form
+[?] Contact Us: https://govenics.com/contact
+[?] Careers at GOVENICS: https://govenics.com/careers
+[?] Book a Strategy Session: https://govenics.com/book-consultation
 
 #CorporateGovernance #EnterpriseRisk #ESG&SustainabilityAdvisory #BoardAccountability #GOVENICS
 

@@ -1,4 +1,4 @@
-INDUSTRY: Cross-Sector Enterprise
+﻿INDUSTRY: Cross-Sector Enterprise
 SUB-INDUSTRY: Global Exporters
 GOVENICS OFFERING: Export & Global Trade
 
@@ -21,7 +21,14 @@ GOVENICS GRC – A Division of ISI Group (Est. 1985) establishes unified digital
 Is your compliance defensibility automated, or dependent on pre-audit scramble?
 
 💬 Comment 'DIAGNOSTIC' to review your exposure.
-🔗 Solutions: https://govnics-murex.vercel.app/services/export-trade
+🔗 Solutions: https://govenics.com/services/export-trade
+
+
+--- CONNECT WITH GOVENICS ---
+[?] Fill a Query: https://govenics.com/contact#query-form
+[?] Contact Us: https://govenics.com/contact
+[?] Careers at GOVENICS: https://govenics.com/careers
+[?] Book a Strategy Session: https://govenics.com/book-consultation
 
 #GRC #Export&GlobalTrade #HeadofGlobalTrade #ComplianceExcellence #GOVENICS
 

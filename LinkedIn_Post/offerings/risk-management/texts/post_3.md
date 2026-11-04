@@ -1,4 +1,4 @@
-INDUSTRY: Cross-Sector Enterprise
+﻿INDUSTRY: Cross-Sector Enterprise
 SUB-INDUSTRY: Diversified Conglomerates
 GOVENICS OFFERING: Enterprise Risk Management
 
@@ -21,7 +21,14 @@ GOVENICS GRC – A Division of ISI Group (Est. 1985) centralizes compliance work
 Where is your organisation's greatest compliance vulnerability: tracking or retrieval?
 
 📩 DM 'GAP-ANALYSIS' for our internal audit checklist.
-🔗 Diagnostics: https://govnics-murex.vercel.app/services/risk-management
+🔗 Diagnostics: https://govenics.com/services/risk-management
+
+
+--- CONNECT WITH GOVENICS ---
+[?] Fill a Query: https://govenics.com/contact#query-form
+[?] Contact Us: https://govenics.com/contact
+[?] Careers at GOVENICS: https://govenics.com/careers
+[?] Book a Strategy Session: https://govenics.com/book-consultation
 
 #OperationalRisk #ComplianceGaps #EnterpriseRiskManagement #InternalAudit #GOVENICS
 

@@ -1,4 +1,4 @@
-INDUSTRY: Cross-Sector Enterprise
+﻿INDUSTRY: Cross-Sector Enterprise
 SUB-INDUSTRY: Diversified Conglomerates
 GOVENICS OFFERING: Enterprise Risk Management
 
@@ -22,14 +22,21 @@ GOVENICS GRC (A Division of ISI Group, Est. 1985) establishes unified digital re
 Schedule an executive compliance diagnostic with our senior advisory partners today.
 
 📩 DM 'COMPLIANCE' or schedule an executive consultation.
-🔗 Book Consultation: https://govnics-murex.vercel.app/services/risk-management
+🔗 Book Consultation: https://govenics.com/services/risk-management
+
+
+--- CONNECT WITH GOVENICS ---
+[?] Fill a Query: https://govenics.com/contact#query-form
+[?] Contact Us: https://govenics.com/contact
+[?] Careers at GOVENICS: https://govenics.com/careers
+[?] Book a Strategy Session: https://govenics.com/book-consultation
 
 #ExecutiveAdvisory #LeadershipGovernance #EnterpriseRiskManagement #B2BGrowth #GOVENICS
 
 METRICS & VERIFICATION:
 - Verified character count: 896 / 900 characters (Strictly compliant)
 - Numerical statistics & reporting years: Unified ERM Architecture (Enterprise-wide real-time risk heat-maps provide executive boards with predictive defensibility.)
-- Official source URLs: GOVENICS Enterprise Risk Governance 2024 | govnics-murex.vercel.app
+- Official source URLs: GOVENICS Enterprise Risk Governance 2024 | govenics.com
 - CTA keyword: COMPLIANCE
 - Hashtags: #ExecutiveAdvisory #LeadershipGovernance #EnterpriseRiskManagement #B2BGrowth #GOVENICS
 
