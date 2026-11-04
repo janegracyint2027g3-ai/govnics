@@ -484,7 +484,7 @@ def generate_post_content(category_id, category_title, is_industry, angle_idx):
     
     # Official website URL
     url_slug = f"industries/{category_id}" if is_industry else f"services/{category_id}"
-    web_url = f"https://govenics.com/{url_slug}"
+    web_url = f"https://govnics-murex.vercel.app/{url_slug}"
 
     # Target decision maker
     persona = icp["decision_maker"].split("/")[0].strip()
@@ -633,7 +633,7 @@ def generate_domain_artifacts(category_id, category_title, is_industry):
 ## 5. GOVENICS SERVICE POSITIONING
 - **Brand Identity:** GOVENICS GRC – A Division of ISI Group (Est. 1985)
 - **Value Proposition:** Transforming compliance from a reactive defensive burden into a predictable, automated governance asset.
-- **Direct Solution URL:** https://govenics.com/{'industries' if is_industry else 'services'}/{category_id}
+- **Direct Solution URL:** https://govnics-murex.vercel.app/{'industries' if is_industry else 'services'}/{category_id}
 """)
 
     # 2. Write REGULATORY_RESEARCH.md
@@ -839,7 +839,7 @@ def generate_master_inventory_and_sources():
     with open(inventory_path, "w", encoding="utf-8") as f:
         f.write("""# GOVENICS GRC — Master Content & Offering Inventory
 
-Official Website: https://govenics.com/
+Official Website: https://govnics-murex.vercel.app/
 Brand Context: GOVENICS GRC – A Division of ISI Group (Est. 1985)
 Positioning: "Helping organisations strengthen governance, manage regulatory complexity, reduce compliance gaps, and build operational accountability."
 

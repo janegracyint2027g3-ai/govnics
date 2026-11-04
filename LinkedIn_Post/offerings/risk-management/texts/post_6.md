@@ -22,15 +22,15 @@ GOVENICS GRC (A Division of ISI Group, Est. 1985) establishes unified digital re
 Schedule an executive compliance diagnostic with our senior advisory partners today.
 
 📩 DM 'COMPLIANCE' or schedule an executive consultation.
-🔗 Book Consultation: https://govenics.com/services/risk-management
+🔗 Book Consultation: https://govnics-murex.vercel.app/services/risk-management
 
 
 --- CONNECT WITH GOVENICS ---
-📋 Fill Query Form: https://govenics.com/contact#query-form
-📅 Book Strategy Session: https://govenics.com/contact#book-strategy-session
-⚡ Quick Enquiries: https://govenics.com/contact#quick-enquiries
-💼 Careers at GOVENICS: https://govenics.com/careers
-📞 Contact Us: https://govenics.com/contact
+📋 Fill Query Form: https://govnics-murex.vercel.app/contact#query-form
+📅 Book Strategy Session: https://govnics-murex.vercel.app/contact#book-strategy-session
+⚡ Quick Enquiries: https://govnics-murex.vercel.app/contact#quick-enquiries
+💼 Careers at GOVENICS: https://govnics-murex.vercel.app/careers
+📞 Contact Us: https://govnics-murex.vercel.app/contact
 
 #ExecutiveAdvisory #LeadershipGovernance #EnterpriseRiskManagement #B2BGrowth #GOVENICS
 

@@ -21,15 +21,15 @@ GOVENICS GRC prepares multi-site enterprises with pre-audit mock inspections and
 Could your operating facilities pass an unannounced statutory audit tomorrow?
 
 📩 DM 'AUDIT-DEFENSE' to review your readiness.
-🔗 Audit Defense: https://govenics.com/services/enterprise-governance
+🔗 Audit Defense: https://govnics-murex.vercel.app/services/enterprise-governance
 
 
 --- CONNECT WITH GOVENICS ---
-📋 Fill Query Form: https://govenics.com/contact#query-form
-📅 Book Strategy Session: https://govenics.com/contact#book-strategy-session
-⚡ Quick Enquiries: https://govenics.com/contact#quick-enquiries
-💼 Careers at GOVENICS: https://govenics.com/careers
-📞 Contact Us: https://govenics.com/contact
+📋 Fill Query Form: https://govnics-murex.vercel.app/contact#query-form
+📅 Book Strategy Session: https://govnics-murex.vercel.app/contact#book-strategy-session
+⚡ Quick Enquiries: https://govnics-murex.vercel.app/contact#quick-enquiries
+💼 Careers at GOVENICS: https://govnics-murex.vercel.app/careers
+📞 Contact Us: https://govnics-murex.vercel.app/contact
 
 #AuditReadiness #RegulatoryInspection #EnterpriseCorporateGovernance #StatutoryCompliance #GOVENICS
 
