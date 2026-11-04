@@ -505,7 +505,7 @@ def build_post_package(category_type, item, archetype):
         standards = ", ".join(item["standards"][:2])
         pain = item["pain_points"][(arch_num - 1) % len(item["pain_points"])]
         outcome_sla = item["outcomes"]
-        website_link = f"https://govnics-murex.vercel.app/services/{cat_id}"
+        website_link = f"https://govenics.com/services/{cat_id}"
     else:
         subind = item["subindustries"][(arch_num - 1) % len(item["subindustries"])]
         pri_aud = item["primary_audiences"][(arch_num - 1) % len(item["primary_audiences"])]
@@ -514,7 +514,7 @@ def build_post_package(category_type, item, archetype):
         standards = "Statutory Industry Codes & State Enactments"
         pain = item["core_challenges"][(arch_num - 1) % len(item["core_challenges"])]
         outcome_sla = item["metrics"]
-        website_link = f"https://govnics-murex.vercel.app/industries/{cat_id}"
+        website_link = f"https://govenics.com/industries/{cat_id}"
 
     # Generate bespoke text based on archetype
     if arch_num == 1:
@@ -1607,7 +1607,7 @@ print(f"Interactive Studio generated at: {os.path.join(preview_dir, 'index.html'
 # Generate Master README
 readme_content = f"""# GOVENICS GRC — LinkedIn Enterprise Content & Lead Generation Engine
 
-Comprehensive B2B social content engine covering **all 13 Offerings** and **all 9 Industry Clusters** represented on the live website ([https://govnics-murex.vercel.app](https://govnics-murex.vercel.app)).
+Comprehensive B2B social content engine covering **all 13 Offerings** and **all 9 Industry Clusters** represented on the live website ([https://govenics.com](https://govenics.com)).
 
 ---
 

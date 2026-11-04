@@ -132,7 +132,7 @@ Our {title} framework guarantees:
 ✅ {sla}
 ✅ Unified tracking across all central and state enforcement bodies.
 ✅ Real-time escalation alerts before deadlines approach."""
-    p1_cta = f"Are your statutory registers 100% audit-ready for upcoming regulatory inspections?\n\n💬 Comment 'AUDIT' or send a DM for a complimentary 20-minute compliance risk diagnostic with our senior advisory desk.\n\n🔗 Learn more: https://govnics-murex.vercel.app/services/{cat_id}"
+    p1_cta = f"Are your statutory registers 100% audit-ready for upcoming regulatory inspections?\n\n💬 Comment 'AUDIT' or send a DM for a complimentary 20-minute compliance risk diagnostic with our senior advisory desk.\n\n🔗 Learn more: https://govenics.com/services/{cat_id}"
     p1_tags = f"#GRC #{cat_id.replace('-', '').title()} #CorporateGovernance #StatutoryCompliance #RiskManagement #GOVENICS"
     
     posts.append({
@@ -169,7 +169,7 @@ Here is the 3-tier framework deployed by GOVENICS GRC across regulated enterpris
 → Conducts proactive mock inspection drills simulating statutory examiner queries.
 
 The outcome? Zero last-minute scrambles, defensible board reporting, and complete penalty immunity."""
-    p2_cta = f"Benchmark your current {label.lower()} framework against national standards.\n\n📥 Download our executive advisory scope or book a 20-minute framework review: https://govnics-murex.vercel.app/services/{cat_id}\n\nPrefer a direct discussion? Drop a message in our inbox."
+    p2_cta = f"Benchmark your current {label.lower()} framework against national standards.\n\n📥 Download our executive advisory scope or book a 20-minute framework review: https://govenics.com/services/{cat_id}\n\nPrefer a direct discussion? Drop a message in our inbox."
     p2_tags = f"#ComplianceFramework #GRC #{label.replace(' ', '')} #ExecutiveLeadership #AuditReadiness #GOVENICS"
     
     posts.append({
@@ -205,7 +205,7 @@ The results:
 🎯 {sla}
 🎯 100% on-time statutory filing record across all operating entities.
 🎯 Immediate personal liability protection for Directors under corporate statutes."""
-    p3_cta = f"Ready to bring predictable, audited certainty to your organization's compliance operations?\n\nLet's discuss how GOVENICS can tailor this for your enterprise: https://govnics-murex.vercel.app/contact\n\nOr reply below with your industry vertical."
+    p3_cta = f"Ready to bring predictable, audited certainty to your organization's compliance operations?\n\nLet's discuss how GOVENICS can tailor this for your enterprise: https://govenics.com/contact\n\nOr reply below with your industry vertical."
     p3_tags = f"#CaseStudy #OperationalExcellence #{label.replace(' ', '')} #BusinessROI #RiskGovernance #GOVENICS"
 
     posts.append({
@@ -240,7 +240,7 @@ A truly defensible compliance posture requires:
 3. Transparent board reporting heat maps.
 
 That is why leading Indian enterprises trust GOVENICS GRC (Established 1985)."""
-    p4_cta = f"Don't wait for a statutory notice to find out where your gaps are.\n\nSchedule a confidential 20-minute gap assessment with our advisory partners: https://govnics-murex.vercel.app/contact\n\nWhat is your biggest compliance question right now? Drop it in the comments."
+    p4_cta = f"Don't wait for a statutory notice to find out where your gaps are.\n\nSchedule a confidential 20-minute gap assessment with our advisory partners: https://govenics.com/contact\n\nWhat is your biggest compliance question right now? Drop it in the comments."
     p4_tags = f"#ComplianceMyths #RiskLeadership #CorporateGovernance #{label.replace(' ', '')} #BoardAccountability #GOVENICS"
 
     posts.append({
@@ -275,7 +275,7 @@ GOVENICS GRC provides an expedited 7-Day Pre-Filing Review:
 • Preparation of formal Board and Audit Committee compliance certificates.
 
 Ensure your submissions are completely audit-proof before hitting 'Submit'."""
-    p5_cta = f"Protect your organization against late fees and supervisory scrutiny.\n\nBook an urgent pre-filing compliance check: https://govnics-murex.vercel.app/contact\n\nOr DM us directly with 'FILING REVIEW' for priority scheduling."
+    p5_cta = f"Protect your organization against late fees and supervisory scrutiny.\n\nBook an urgent pre-filing compliance check: https://govenics.com/contact\n\nOr DM us directly with 'FILING REVIEW' for priority scheduling."
     p5_tags = f"#RegulatoryDeadline #StatutoryCompliance #CorporateFiling #{label.replace(' ', '')} #RiskMitigation #GOVENICS"
 
     posts.append({
@@ -310,7 +310,7 @@ Who this is for:
 • Chief Executive Officers & Managing Directors
 • Chief Financial Officers & Legal Counsel
 • Compliance Directors & Corporate Secretaries"""
-    p6_cta = f"To claim one of the 5 confidential diagnostic slots for your enterprise:\n\n👉 Request here: https://govnics-murex.vercel.app/contact\n\nOr send a direct message on LinkedIn with 'DIAGNOSTIC' and your industry vertical."
+    p6_cta = f"To claim one of the 5 confidential diagnostic slots for your enterprise:\n\n👉 Request here: https://govenics.com/contact\n\nOr send a direct message on LinkedIn with 'DIAGNOSTIC' and your industry vertical."
     p6_tags = f"#ExecutiveAdvisory #RiskAssessment #ComplianceAudit #{label.replace(' ', '')} #CorporateLeadership #GOVENICS"
 
     posts.append({
@@ -358,7 +358,7 @@ At GOVENICS GRC (ISI Group, Est. 1985), our sector-dedicated advisory team provi
 🎯 Proven outcome: {outcomes[0]}
 🎯 Real-world benchmark: {stat_val}
 🎯 Complete protection of operating continuity across every operating shift."""
-    p1_cta = f"Is your {cluster_name.lower()} enterprise audit-ready for upcoming regulatory inspections?\n\n💬 Comment 'SECTOR' or message us for a confidential 20-minute sector diagnostic.\n\n🔗 View industry solutions: https://govnics-murex.vercel.app/industries/{cluster_slug}"
+    p1_cta = f"Is your {cluster_name.lower()} enterprise audit-ready for upcoming regulatory inspections?\n\n💬 Comment 'SECTOR' or message us for a confidential 20-minute sector diagnostic.\n\n🔗 View industry solutions: https://govenics.com/industries/{cluster_slug}"
     p1_tags = f"#{cluster_name.replace('&', 'And').replace(' ', '')} #IndustryGRC #RegulatoryCompliance #RiskManagement #GOVENICS"
 
     posts.append({
@@ -389,7 +389,7 @@ GOVENICS GRC builds an impenetrable Board Governance Shield:
 1. Quarterly verified compliance certificates based on factual multi-point audits.
 2. Independent risk heat maps identifying non-conformities before regulatory inspections.
 3. Complete legal and operational insulation for executive directors."""
-    p2_cta = f"Safeguard your board governance and insulate executive leadership.\n\nRequest an executive board compliance briefing: https://govnics-murex.vercel.app/services/enterprise-governance\n\nOr DM us directly for private counsel."
+    p2_cta = f"Safeguard your board governance and insulate executive leadership.\n\nRequest an executive board compliance briefing: https://govenics.com/services/enterprise-governance\n\nOr DM us directly for private counsel."
     p2_tags = f"#BoardGovernance #DirectorLiability #{cluster_name.replace('&', 'And').replace(' ', '')} #CorporateLaw #KMPProtection #GOVENICS"
 
     posts.append({
@@ -420,7 +420,7 @@ GOVENICS GRC provides rigorous Supply Chain Compliance & Due Diligence:
 • 100% audit verification of contractor wage rolls, challans, and statutory returns.
 • On-site physical safety inspections of key vendor manufacturing facilities.
 • Automated contractor compliance scoring before monthly invoice releases."""
-    p3_cta = f"Don't let third-party vendors compromise your operational continuity.\n\nLearn how we audit and protect enterprise supply chains: https://govnics-murex.vercel.app/services/supply-chain\n\nComment 'VENDOR' to receive our 10-point contractor compliance checklist."
+    p3_cta = f"Don't let third-party vendors compromise your operational continuity.\n\nLearn how we audit and protect enterprise supply chains: https://govenics.com/services/supply-chain\n\nComment 'VENDOR' to receive our 10-point contractor compliance checklist."
     p3_tags = f"#SupplyChainRisk #VendorAudit #{cluster_name.replace('&', 'And').replace(' ', '')} #ContractLabour #RiskGovernance #GOVENICS"
 
     posts.append({
@@ -456,7 +456,7 @@ Based on recent audit cases managed by GOVENICS GRC, here are the most frequent 
 Finding any of these during an official inspection invites compounding fines, court notices, and operational disruption.
 
 The solution: Digital evidence vaults that retrieve verified, time-stamped compliance records in under 30 seconds."""
-    p4_cta = f"Ensure your facilities are completely protected against upcoming inspection drives.\n\nSchedule a 20-minute inspection readiness briefing: https://govnics-murex.vercel.app/contact\n\nWhat is your most demanding audit hurdle this year? Let's discuss below."
+    p4_cta = f"Ensure your facilities are completely protected against upcoming inspection drives.\n\nSchedule a 20-minute inspection readiness briefing: https://govenics.com/contact\n\nWhat is your most demanding audit hurdle this year? Let's discuss below."
     p4_tags = f"#SupervisoryAudit #InspectionReadiness #{cluster_name.replace('&', 'And').replace(' ', '')} #StatutoryAudit #GOVENICS"
 
     posts.append({
@@ -493,7 +493,7 @@ Here is the exact 30-day transformation blueprint deployed by GOVENICS GRC acros
 → Execute mock inspection drills to stress-test retrieval speed and evidence defensibility.
 
 Result: Zero penalties, zero operational disruptions, and total peace of mind for leadership."""
-    p5_cta = f"Ready to institutionalize audit-proof compliance across your operations?\n\nConnect with our sector specialists: https://govnics-murex.vercel.app/industries/{cluster_slug}\n\nOr DM us directly to receive our 30-Day Implementation Guide."
+    p5_cta = f"Ready to institutionalize audit-proof compliance across your operations?\n\nConnect with our sector specialists: https://govenics.com/industries/{cluster_slug}\n\nOr DM us directly to receive our 30-Day Implementation Guide."
     p5_tags = f"#OperationalReadiness #ComplianceRoadmap #{cluster_name.replace('&', 'And').replace(' ', '')} #RiskExcellence #GOVENICS"
 
     posts.append({
@@ -528,7 +528,7 @@ Designed specifically for:
 • Managing Directors & CEOs
 • Chief Operating Officers & Plant Directors
 • General Counsel & Heads of Compliance"""
-    p6_cta = f"To claim one of the 5 confidential diagnostic sessions for your enterprise:\n\n👉 Reserve here: https://govnics-murex.vercel.app/contact\n\nOr send a direct message on LinkedIn with '{cluster_slug.upper()}' to initiate a private briefing."
+    p6_cta = f"To claim one of the 5 confidential diagnostic sessions for your enterprise:\n\n👉 Reserve here: https://govenics.com/contact\n\nOr send a direct message on LinkedIn with '{cluster_slug.upper()}' to initiate a private briefing."
     p6_tags = f"#SectorDiagnostic #ExecutiveBriefing #{cluster_name.replace('&', 'And').replace(' ', '')} #ComplianceLeadership #GOVENICS"
 
     posts.append({
@@ -1322,7 +1322,7 @@ def build_preview_studio_html(manifest_data):
 def build_readme_markdown(manifest_data):
     md = f"""# GOVENICS GRC — LinkedIn Enterprise Content Library
 
-Welcome to the **GOVENICS GRC LinkedIn Content Engine**, a comprehensive B2B social content system covering **all 13 Offerings** and **all 9 Industry Clusters** represented on the live website ([https://govnics-murex.vercel.app](https://govnics-murex.vercel.app)).
+Welcome to the **GOVENICS GRC LinkedIn Content Engine**, a comprehensive B2B social content system covering **all 13 Offerings** and **all 9 Industry Clusters** represented on the live website ([https://govenics.com](https://govenics.com)).
 
 ---
 
@@ -1404,7 +1404,7 @@ Every offering and industry features 6 strategically sequenced post models:
 - **Legal Entity**: A Division of Industrial Security Investigators (P) Ltd. (ISI Group)
 - **Heritage**: Established 1985 (Nearly 4 decades of institutional governance)
 - **Accreditation**: CERT-In Empanelled Advisory
-- **Live Platform**: [https://govnics-murex.vercel.app](https://govnics-murex.vercel.app)
+- **Live Platform**: [https://govenics.com](https://govenics.com)
 """
     return md
 

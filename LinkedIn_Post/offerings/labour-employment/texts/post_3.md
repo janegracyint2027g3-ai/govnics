@@ -21,15 +21,15 @@ GOVENICS GRC – A Division of ISI Group (Est. 1985) centralizes compliance work
 Where is your organisation's greatest compliance vulnerability: tracking or retrieval?
 
 📩 DM 'GAP-ANALYSIS' for our internal audit checklist.
-🔗 Diagnostics: https://govnics-murex.vercel.app/services/labour-employment
+🔗 Diagnostics: https://govenics.com/services/labour-employment
 
 
 --- CONNECT WITH GOVENICS ---
-📋 Fill Query Form: https://govnics-murex.vercel.app/contact#query-form
-📅 Book Strategy Session: https://govnics-murex.vercel.app/contact#book-strategy-session
-⚡ Quick Enquiries: https://govnics-murex.vercel.app/contact#quick-enquiries
-💼 Careers at GOVENICS: https://govnics-murex.vercel.app/careers
-📞 Contact Us: https://govnics-murex.vercel.app/contact
+📋 Fill Query Form: https://govenics.com/contact#query-form
+📅 Book Strategy Session: https://govenics.com/contact#book-strategy-session
+⚡ Quick Enquiries: https://govenics.com/contact#quick-enquiries
+💼 Careers at GOVENICS: https://govenics.com/about-careers
+📞 Contact Us: https://govenics.com/contact
 
 #OperationalRisk #ComplianceGaps #Labour&Employment #InternalAudit #GOVENICS
 

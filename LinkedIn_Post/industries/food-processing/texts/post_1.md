@@ -21,15 +21,15 @@ GOVENICS GRC – A Division of ISI Group (Est. 1985) establishes unified digital
 Is your compliance defensibility automated, or dependent on pre-audit scramble?
 
 💬 Comment 'DIAGNOSTIC' to review your exposure.
-🔗 Solutions: https://govnics-murex.vercel.app/industries/food-processing
+🔗 Solutions: https://govenics.com/industries/food-processing
 
 
 --- CONNECT WITH GOVENICS ---
-📋 Fill Query Form: https://govnics-murex.vercel.app/contact#query-form
-📅 Book Strategy Session: https://govnics-murex.vercel.app/contact#book-strategy-session
-⚡ Quick Enquiries: https://govnics-murex.vercel.app/contact#quick-enquiries
-💼 Careers at GOVENICS: https://govnics-murex.vercel.app/careers
-📞 Contact Us: https://govnics-murex.vercel.app/contact
+📋 Fill Query Form: https://govenics.com/contact#query-form
+📅 Book Strategy Session: https://govenics.com/contact#book-strategy-session
+⚡ Quick Enquiries: https://govenics.com/contact#quick-enquiries
+💼 Careers at GOVENICS: https://govenics.com/about-careers
+📞 Contact Us: https://govenics.com/contact
 
 #GRC #FoodProcessing&Agriculture #HeadofFoodSafety&Quality #ComplianceExcellence #GOVENICS
 

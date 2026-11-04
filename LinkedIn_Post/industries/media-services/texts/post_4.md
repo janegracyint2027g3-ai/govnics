@@ -21,15 +21,15 @@ GOVENICS GRC provides end-to-end statutory mapping, automated digital registers,
 Are your board committees receiving verified, real-time compliance health telemetry?
 
 💬 Comment 'ADVISORY' to connect with our senior partners.
-🔗 Explore Framework: https://govnics-murex.vercel.app/industries/media-services
+🔗 Explore Framework: https://govenics.com/industries/media-services
 
 
 --- CONNECT WITH GOVENICS ---
-📋 Fill Query Form: https://govnics-murex.vercel.app/contact#query-form
-📅 Book Strategy Session: https://govnics-murex.vercel.app/contact#book-strategy-session
-⚡ Quick Enquiries: https://govnics-murex.vercel.app/contact#quick-enquiries
-💼 Careers at GOVENICS: https://govnics-murex.vercel.app/careers
-📞 Contact Us: https://govnics-murex.vercel.app/contact
+📋 Fill Query Form: https://govenics.com/contact#query-form
+📅 Book Strategy Session: https://govenics.com/contact#book-strategy-session
+⚡ Quick Enquiries: https://govenics.com/contact#quick-enquiries
+💼 Careers at GOVENICS: https://govenics.com/about-careers
+📞 Contact Us: https://govenics.com/contact
 
 #CorporateGovernance #EnterpriseRisk #Media&EnterpriseServices #BoardAccountability #GOVENICS
 

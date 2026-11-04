@@ -22,15 +22,15 @@ GOVENICS GRC delivers automated statutory tracking and audit-ready governance wo
 How is your leadership team tracking regulatory exposure across your operating units?
 
 💬 Comment 'BENCHMARK' for the full advisory data.
-🔗 Advisory: https://govnics-murex.vercel.app/industries/financial-services
+🔗 Advisory: https://govenics.com/industries/financial-services
 
 
 --- CONNECT WITH GOVENICS ---
-📋 Fill Query Form: https://govnics-murex.vercel.app/contact#query-form
-📅 Book Strategy Session: https://govnics-murex.vercel.app/contact#book-strategy-session
-⚡ Quick Enquiries: https://govnics-murex.vercel.app/contact#quick-enquiries
-💼 Careers at GOVENICS: https://govnics-murex.vercel.app/careers
-📞 Contact Us: https://govnics-murex.vercel.app/contact
+📋 Fill Query Form: https://govenics.com/contact#query-form
+📅 Book Strategy Session: https://govenics.com/contact#book-strategy-session
+⚡ Quick Enquiries: https://govenics.com/contact#quick-enquiries
+💼 Careers at GOVENICS: https://govenics.com/about-careers
+📞 Contact Us: https://govenics.com/contact
 
 #RegulatoryData #ExecutiveIntelligence #FinancialServices&Banking #RiskManagement #GOVENICS
 

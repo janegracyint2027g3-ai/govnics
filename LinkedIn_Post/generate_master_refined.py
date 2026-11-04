@@ -400,7 +400,7 @@ def main():
         sec_aud = item.get("secondary_audience", "CFOs")
         post_num = item.get("post_num", 1)
         framework = item.get("editorial_framework", "Problem, Agitate, Solution (PAS)")
-        website_link = item.get("website_link", f"https://govnics-murex.vercel.app/services/{cat_id}")
+        website_link = item.get("website_link", f"https://govenics.com/services/{cat_id}")
 
         # Generate refined data-led post
         refined = generate_data_led_post(
