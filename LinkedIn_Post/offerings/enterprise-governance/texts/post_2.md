@@ -37,7 +37,7 @@ Governance is not about passing an audit. It is about protecting the balance she
 --- CONNECT WITH GOVENICS ---
 📋 Inquiry / Fill Form: https://govenics.com/contact
 📅 Book Strategy Session: https://govenics.com/contact
-💼 Careers: https://govenics.com/about-careers
+💼 Careers: https://govenics.com/about
 📞 Contact Us: https://govenics.com/contact
 
 #GroupCFO #EnterpriseGovernance #MultiEntity #BoardReporting #CorporateSecretarial #ComplianceRisk #GOVENICS

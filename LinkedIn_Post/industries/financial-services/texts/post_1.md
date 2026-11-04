@@ -27,7 +27,7 @@ Is your compliance defensibility automated, or dependent on pre-audit scramble?
 --- CONNECT WITH GOVENICS ---
 📋 Inquiry / Fill Form: https://govenics.com/contact
 📅 Book Strategy Session: https://govenics.com/contact
-💼 Careers: https://govenics.com/about-careers
+💼 Careers: https://govenics.com/about
 📞 Contact Us: https://govenics.com/contact
 
 #GRC #FinancialServices&Banking #ChiefComplianceOfficer #ComplianceExcellence #GOVENICS

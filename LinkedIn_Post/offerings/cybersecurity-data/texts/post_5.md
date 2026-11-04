@@ -27,7 +27,7 @@ Could your operating facilities pass an unannounced statutory audit tomorrow?
 --- CONNECT WITH GOVENICS ---
 📋 Inquiry / Fill Form: https://govenics.com/contact
 📅 Book Strategy Session: https://govenics.com/contact
-💼 Careers: https://govenics.com/about-careers
+💼 Careers: https://govenics.com/about
 📞 Contact Us: https://govenics.com/contact
 
 #AuditReadiness #RegulatoryInspection #Cybersecurity&DataProtection #StatutoryCompliance #GOVENICS

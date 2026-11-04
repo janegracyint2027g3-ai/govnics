@@ -54,7 +54,7 @@ If not, identify statutory vulnerabilities before regulators do.
 --- CONNECT WITH GOVENICS ---
 📋 Inquiry / Fill Form: https://govenics.com/contact
 📅 Book Strategy Session: https://govenics.com/contact
-💼 Careers: https://govenics.com/about-careers
+💼 Careers: https://govenics.com/about
 📞 Contact Us: https://govenics.com/contact
 
 #CFO #GroupCFO #FinanceController #CorporateGovernance #GRC #EnterpriseRisk #CompaniesAct #BoardAccountability #RegulatoryCompliance #GOVENICS
