@@ -1107,16 +1107,13 @@ export const offeringsData: Record<string, OfferingCategory> = {
 export const offeringsList = [
   { id: "regulatory-compliance", label: "Regulatory Compliance" },
   { id: "labour-employment", label: "Labour & Employment" },
-  { id: "taxation-trade", label: "Taxation & Trade" },
   { id: "environmental-ehs", label: "Environmental & EHS" },
-  { id: "supply-chain", label: "Supply Chain Compliance" },
-  { id: "export-trade", label: "Export & Trade Services" },
   { id: "licensing-permits", label: "Licensing & Permits" },
-  { id: "escrow-services", label: "Escrow Services" },
-  { id: "risk-management", label: "Risk Management" },
+  { id: "supply-chain", label: "Supply Chain Compliance" },
   { id: "enterprise-governance", label: "Enterprise Governance" },
-  { id: "cybersecurity-data", label: "Cybersecurity & Data Privacy" },
+  { id: "risk-management", label: "Risk Management" },
   { id: "esg-sustainability", label: "ESG & Sustainability" },
+  { id: "cybersecurity-data", label: "Cybersecurity & Data Privacy" },
 ];
 
 export interface MegaOfferingGroup {
@@ -1145,25 +1142,14 @@ export const megaOfferingsCategories: MegaOfferingGroup[] = [
     ]
   },
   {
-    id: "tax-trade-supply",
-    name: "Tax, Trade & Escrow",
-    tagline: "Direct & indirect tax, export customs, and transaction escrow",
-    iconName: "Coins",
-    practices: [
-      { id: "taxation-trade", label: "Taxation & Trade", tag: "GST / IT" },
-      { id: "export-trade", label: "Export & Trade Services", tag: "DGFT" },
-      { id: "supply-chain", label: "Supply Chain Compliance", tag: "Vendors" },
-      { id: "escrow-services", label: "Escrow Services", tag: "Tripartite" },
-    ]
-  },
-  {
     id: "governance-risk-esg",
     name: "Governance, Risk & ESG",
-    tagline: "Secretarial compliance, enterprise risk, and ESG disclosures",
+    tagline: "Secretarial compliance, enterprise risk, vendor audits & ESG disclosures",
     iconName: "Building",
     practices: [
       { id: "enterprise-governance", label: "Enterprise Governance", tag: "MCA / ROC" },
       { id: "risk-management", label: "Risk Management", tag: "ERM" },
+      { id: "supply-chain", label: "Supply Chain Compliance", tag: "Vendors" },
       { id: "esg-sustainability", label: "ESG & Sustainability", tag: "BRSR" },
     ]
   },

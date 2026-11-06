@@ -162,11 +162,11 @@ export const Header = () => {
                           Offerings
                         </h3>
                         <span className="text-[9.5px] font-bold px-2.5 py-1 rounded-full bg-blue-500/20 text-sky-300 uppercase tracking-wider border border-blue-400/20">
-                          4 Domains • 12 Practices
+                          {megaOfferingsCategories.length} Domains • {megaOfferingsCategories.reduce((acc, cat) => acc + cat.practices.length, 0)} Practices
                         </span>
                       </div>
                       <p className="text-[11.5px] text-slate-400 mt-2 font-medium leading-relaxed">
-                        Grouped statutory, tax, risk & technical governance.
+                        Grouped statutory, risk, ESG & technical governance.
                       </p>
                     </div>
 
@@ -288,7 +288,7 @@ export const Header = () => {
                       onClick={() => setActiveDropdown(null)}
                       className="text-xs font-semibold text-sky-400 hover:text-sky-300 inline-flex items-center justify-between w-full transition-colors group"
                     >
-                      <span>Explore All 12 Offerings</span>
+                      <span>Explore All Offerings</span>
                       <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
                     </Link>
                   </div>
