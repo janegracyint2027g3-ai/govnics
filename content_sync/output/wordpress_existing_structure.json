@@ -1,0 +1,2531 @@
+{
+  "api_url": "https://cms.govenics.com/wp-json/wp/v2",
+  "namespaces": [],
+  "current_user": {
+    "id": 2,
+    "name": "Jane Grace",
+    "url": "https://cms.govenics.com",
+    "description": "",
+    "link": "https://cms.govenics.com/author/gracejane/",
+    "slug": "gracejane",
+    "avatar_urls": {
+      "24": "https://secure.gravatar.com/avatar/db7ea8f6b99aa546ecdebd0779b5a8294664148a4609107e78f75a9052095d2a?s=24&d=mm&r=g",
+      "48": "https://secure.gravatar.com/avatar/db7ea8f6b99aa546ecdebd0779b5a8294664148a4609107e78f75a9052095d2a?s=48&d=mm&r=g",
+      "96": "https://secure.gravatar.com/avatar/db7ea8f6b99aa546ecdebd0779b5a8294664148a4609107e78f75a9052095d2a?s=96&d=mm&r=g"
+    },
+    "meta": [],
+    "_links": {
+      "self": [
+        {
+          "href": "https://cms.govenics.com/wp-json/wp/v2/users/2",
+          "targetHints": {
+            "allow": [
+              "GET",
+              "POST",
+              "PUT",
+              "PATCH",
+              "DELETE"
+            ]
+          }
+        }
+      ],
+      "collection": [
+        {
+          "href": "https://cms.govenics.com/wp-json/wp/v2/users"
+        }
+      ]
+    }
+  },
+  "post_types": {
+    "post": {
+      "description": "",
+      "hierarchical": false,
+      "has_archive": false,
+      "name": "Posts",
+      "slug": "post",
+      "icon": "dashicons-admin-post",
+      "taxonomies": [
+        "category",
+        "post_tag"
+      ],
+      "rest_base": "posts",
+      "rest_namespace": "wp/v2",
+      "template": [],
+      "template_lock": false,
+      "_links": {
+        "collection": [
+          {
+            "href": "https://cms.govenics.com/wp-json/wp/v2/types"
+          }
+        ],
+        "wp:items": [
+          {
+            "href": "https://cms.govenics.com/wp-json/wp/v2/posts"
+          }
+        ],
+        "curies": [
+          {
+            "name": "wp",
+            "href": "https://api.w.org/{rel}",
+            "templated": true
+          }
+        ]
+      }
+    },
+    "page": {
+      "description": "",
+      "hierarchical": true,
+      "has_archive": false,
+      "name": "Pages",
+      "slug": "page",
+      "icon": "dashicons-admin-page",
+      "taxonomies": [],
+      "rest_base": "pages",
+      "rest_namespace": "wp/v2",
+      "template": [],
+      "template_lock": false,
+      "_links": {
+        "collection": [
+          {
+            "href": "https://cms.govenics.com/wp-json/wp/v2/types"
+          }
+        ],
+        "wp:items": [
+          {
+            "href": "https://cms.govenics.com/wp-json/wp/v2/pages"
+          }
+        ],
+        "curies": [
+          {
+            "name": "wp",
+            "href": "https://api.w.org/{rel}",
+            "templated": true
+          }
+        ]
+      }
+    },
+    "attachment": {
+      "description": "",
+      "hierarchical": false,
+      "has_archive": false,
+      "name": "Media",
+      "slug": "attachment",
+      "icon": "dashicons-admin-media",
+      "taxonomies": [],
+      "rest_base": "media",
+      "rest_namespace": "wp/v2",
+      "template": [],
+      "template_lock": false,
+      "_links": {
+        "collection": [
+          {
+            "href": "https://cms.govenics.com/wp-json/wp/v2/types"
+          }
+        ],
+        "wp:items": [
+          {
+            "href": "https://cms.govenics.com/wp-json/wp/v2/media"
+          }
+        ],
+        "curies": [
+          {
+            "name": "wp",
+            "href": "https://api.w.org/{rel}",
+            "templated": true
+          }
+        ]
+      }
+    },
+    "nav_menu_item": {
+      "description": "",
+      "hierarchical": false,
+      "has_archive": false,
+      "name": "Navigation Menu Items",
+      "slug": "nav_menu_item",
+      "icon": null,
+      "taxonomies": [
+        "nav_menu"
+      ],
+      "rest_base": "menu-items",
+      "rest_namespace": "wp/v2",
+      "template": [],
+      "template_lock": false,
+      "_links": {
+        "collection": [
+          {
+            "href": "https://cms.govenics.com/wp-json/wp/v2/types"
+          }
+        ],
+        "wp:items": [
+          {
+            "href": "https://cms.govenics.com/wp-json/wp/v2/menu-items"
+          }
+        ],
+        "curies": [
+          {
+            "name": "wp",
+            "href": "https://api.w.org/{rel}",
+            "templated": true
+          }
+        ]
+      }
+    },
+    "wp_block": {
+      "description": "",
+      "hierarchical": false,
+      "has_archive": false,
+      "name": "Patterns",
+      "slug": "wp_block",
+      "icon": null,
+      "taxonomies": [
+        "wp_pattern_category"
+      ],
+      "rest_base": "blocks",
+      "rest_namespace": "wp/v2",
+      "template": [],
+      "template_lock": false,
+      "_links": {
+        "collection": [
+          {
+            "href": "https://cms.govenics.com/wp-json/wp/v2/types"
+          }
+        ],
+        "wp:items": [
+          {
+            "href": "https://cms.govenics.com/wp-json/wp/v2/blocks"
+          }
+        ],
+        "curies": [
+          {
+            "name": "wp",
+            "href": "https://api.w.org/{rel}",
+            "templated": true
+          }
+        ]
+      }
+    },
+    "wp_template": {
+      "description": "Templates to include in your theme.",
+      "hierarchical": false,
+      "has_archive": false,
+      "name": "Templates",
+      "slug": "wp_template",
+      "icon": null,
+      "taxonomies": [],
+      "rest_base": "templates",
+      "rest_namespace": "wp/v2",
+      "template": [],
+      "template_lock": false,
+      "_links": {
+        "collection": [
+          {
+            "href": "https://cms.govenics.com/wp-json/wp/v2/types"
+          }
+        ],
+        "wp:items": [
+          {
+            "href": "https://cms.govenics.com/wp-json/wp/v2/templates"
+          }
+        ],
+        "curies": [
+          {
+            "name": "wp",
+            "href": "https://api.w.org/{rel}",
+            "templated": true
+          }
+        ]
+      }
+    },
+    "wp_template_part": {
+      "description": "Template parts to include in your templates.",
+      "hierarchical": false,
+      "has_archive": false,
+      "name": "Template Parts",
+      "slug": "wp_template_part",
+      "icon": null,
+      "taxonomies": [],
+      "rest_base": "template-parts",
+      "rest_namespace": "wp/v2",
+      "template": [],
+      "template_lock": false,
+      "_links": {
+        "collection": [
+          {
+            "href": "https://cms.govenics.com/wp-json/wp/v2/types"
+          }
+        ],
+        "wp:items": [
+          {
+            "href": "https://cms.govenics.com/wp-json/wp/v2/template-parts"
+          }
+        ],
+        "curies": [
+          {
+            "name": "wp",
+            "href": "https://api.w.org/{rel}",
+            "templated": true
+          }
+        ]
+      }
+    },
+    "wp_global_styles": {
+      "description": "Global styles to include in themes.",
+      "hierarchical": false,
+      "has_archive": false,
+      "name": "Global Styles",
+      "slug": "wp_global_styles",
+      "icon": null,
+      "taxonomies": [],
+      "rest_base": "global-styles",
+      "rest_namespace": "wp/v2",
+      "template": [],
+      "template_lock": false,
+      "_links": {
+        "collection": [
+          {
+            "href": "https://cms.govenics.com/wp-json/wp/v2/types"
+          }
+        ],
+        "wp:items": [
+          {
+            "href": "https://cms.govenics.com/wp-json/wp/v2/global-styles"
+          }
+        ],
+        "curies": [
+          {
+            "name": "wp",
+            "href": "https://api.w.org/{rel}",
+            "templated": true
+          }
+        ]
+      }
+    },
+    "wp_navigation": {
+      "description": "Navigation menus that can be inserted into your site.",
+      "hierarchical": false,
+      "has_archive": false,
+      "name": "Navigation Menus",
+      "slug": "wp_navigation",
+      "icon": null,
+      "taxonomies": [],
+      "rest_base": "navigation",
+      "rest_namespace": "wp/v2",
+      "template": [],
+      "template_lock": false,
+      "_links": {
+        "collection": [
+          {
+            "href": "https://cms.govenics.com/wp-json/wp/v2/types"
+          }
+        ],
+        "wp:items": [
+          {
+            "href": "https://cms.govenics.com/wp-json/wp/v2/navigation"
+          }
+        ],
+        "curies": [
+          {
+            "name": "wp",
+            "href": "https://api.w.org/{rel}",
+            "templated": true
+          }
+        ]
+      }
+    },
+    "wp_font_family": {
+      "description": "",
+      "hierarchical": false,
+      "has_archive": false,
+      "name": "Font Families",
+      "slug": "wp_font_family",
+      "icon": null,
+      "taxonomies": [],
+      "rest_base": "font-families",
+      "rest_namespace": "wp/v2",
+      "template": [],
+      "template_lock": false,
+      "_links": {
+        "collection": [
+          {
+            "href": "https://cms.govenics.com/wp-json/wp/v2/types"
+          }
+        ],
+        "wp:items": [
+          {
+            "href": "https://cms.govenics.com/wp-json/wp/v2/font-families"
+          }
+        ],
+        "curies": [
+          {
+            "name": "wp",
+            "href": "https://api.w.org/{rel}",
+            "templated": true
+          }
+        ]
+      }
+    },
+    "wp_font_face": {
+      "description": "",
+      "hierarchical": false,
+      "has_archive": false,
+      "name": "Font Faces",
+      "slug": "wp_font_face",
+      "icon": null,
+      "taxonomies": [],
+      "rest_base": "font-families/(?P<font_family_id>[\\d]+)/font-faces",
+      "rest_namespace": "wp/v2",
+      "template": [],
+      "template_lock": false,
+      "_links": {
+        "collection": [
+          {
+            "href": "https://cms.govenics.com/wp-json/wp/v2/types"
+          }
+        ],
+        "wp:items": [
+          {
+            "href": "https://cms.govenics.com/wp-json/wp/v2/font-families/(?P<font_family_id>[\\d]+)/font-faces"
+          }
+        ],
+        "curies": [
+          {
+            "name": "wp",
+            "href": "https://api.w.org/{rel}",
+            "templated": true
+          }
+        ]
+      }
+    }
+  },
+  "taxonomies": {
+    "category": {
+      "name": "Categories",
+      "slug": "category",
+      "description": "",
+      "types": [
+        "post"
+      ],
+      "hierarchical": true,
+      "rest_base": "categories",
+      "rest_namespace": "wp/v2",
+      "_links": {
+        "collection": [
+          {
+            "href": "https://cms.govenics.com/wp-json/wp/v2/taxonomies"
+          }
+        ],
+        "wp:items": [
+          {
+            "href": "https://cms.govenics.com/wp-json/wp/v2/categories"
+          }
+        ],
+        "curies": [
+          {
+            "name": "wp",
+            "href": "https://api.w.org/{rel}",
+            "templated": true
+          }
+        ]
+      }
+    },
+    "post_tag": {
+      "name": "Tags",
+      "slug": "post_tag",
+      "description": "",
+      "types": [
+        "post"
+      ],
+      "hierarchical": false,
+      "rest_base": "tags",
+      "rest_namespace": "wp/v2",
+      "_links": {
+        "collection": [
+          {
+            "href": "https://cms.govenics.com/wp-json/wp/v2/taxonomies"
+          }
+        ],
+        "wp:items": [
+          {
+            "href": "https://cms.govenics.com/wp-json/wp/v2/tags"
+          }
+        ],
+        "curies": [
+          {
+            "name": "wp",
+            "href": "https://api.w.org/{rel}",
+            "templated": true
+          }
+        ]
+      }
+    },
+    "nav_menu": {
+      "name": "Navigation Menus",
+      "slug": "nav_menu",
+      "description": "",
+      "types": [
+        "nav_menu_item"
+      ],
+      "hierarchical": false,
+      "rest_base": "menus",
+      "rest_namespace": "wp/v2",
+      "_links": {
+        "collection": [
+          {
+            "href": "https://cms.govenics.com/wp-json/wp/v2/taxonomies"
+          }
+        ],
+        "wp:items": [
+          {
+            "href": "https://cms.govenics.com/wp-json/wp/v2/menus"
+          }
+        ],
+        "curies": [
+          {
+            "name": "wp",
+            "href": "https://api.w.org/{rel}",
+            "templated": true
+          }
+        ]
+      }
+    },
+    "wp_pattern_category": {
+      "name": "Pattern Categories",
+      "slug": "wp_pattern_category",
+      "description": "",
+      "types": [
+        "wp_block"
+      ],
+      "hierarchical": false,
+      "rest_base": "wp_pattern_category",
+      "rest_namespace": "wp/v2",
+      "_links": {
+        "collection": [
+          {
+            "href": "https://cms.govenics.com/wp-json/wp/v2/taxonomies"
+          }
+        ],
+        "wp:items": [
+          {
+            "href": "https://cms.govenics.com/wp-json/wp/v2/wp_pattern_category"
+          }
+        ],
+        "curies": [
+          {
+            "name": "wp",
+            "href": "https://api.w.org/{rel}",
+            "templated": true
+          }
+        ]
+      }
+    }
+  },
+  "categories": [
+    {
+      "id": 4,
+      "count": 0,
+      "description": "Central and State Government statutory acts",
+      "link": "https://cms.govenics.com/category/acts/",
+      "name": "Acts and Legislation",
+      "slug": "acts",
+      "taxonomy": "category",
+      "parent": 0,
+      "meta": [],
+      "_links": {
+        "self": [
+          {
+            "href": "https://cms.govenics.com/wp-json/wp/v2/categories/4",
+            "targetHints": {
+              "allow": [
+                "GET",
+                "POST",
+                "PUT",
+                "PATCH",
+                "DELETE"
+              ]
+            }
+          }
+        ],
+        "collection": [
+          {
+            "href": "https://cms.govenics.com/wp-json/wp/v2/categories"
+          }
+        ],
+        "about": [
+          {
+            "href": "https://cms.govenics.com/wp-json/wp/v2/taxonomies/category"
+          }
+        ],
+        "wp:post_type": [
+          {
+            "href": "https://cms.govenics.com/wp-json/wp/v2/posts?categories=4"
+          }
+        ],
+        "curies": [
+          {
+            "name": "wp",
+            "href": "https://api.w.org/{rel}",
+            "templated": true
+          }
+        ]
+      }
+    },
+    {
+      "id": 3,
+      "count": 0,
+      "description": "Expert insights, articles, and thought leadership",
+      "link": "https://cms.govenics.com/category/blogs/",
+      "name": "Blogs and Articles",
+      "slug": "blogs",
+      "taxonomy": "category",
+      "parent": 0,
+      "meta": [],
+      "_links": {
+        "self": [
+          {
+            "href": "https://cms.govenics.com/wp-json/wp/v2/categories/3",
+            "targetHints": {
+              "allow": [
+                "GET",
+                "POST",
+                "PUT",
+                "PATCH",
+                "DELETE"
+              ]
+            }
+          }
+        ],
+        "collection": [
+          {
+            "href": "https://cms.govenics.com/wp-json/wp/v2/categories"
+          }
+        ],
+        "about": [
+          {
+            "href": "https://cms.govenics.com/wp-json/wp/v2/taxonomies/category"
+          }
+        ],
+        "wp:post_type": [
+          {
+            "href": "https://cms.govenics.com/wp-json/wp/v2/posts?categories=3"
+          }
+        ],
+        "curies": [
+          {
+            "name": "wp",
+            "href": "https://api.w.org/{rel}",
+            "templated": true
+          }
+        ]
+      }
+    },
+    {
+      "id": 9,
+      "count": 1,
+      "description": "Auditable compliance checklists and readiness matrices",
+      "link": "https://cms.govenics.com/category/checklists/",
+      "name": "Compliance Checklists",
+      "slug": "checklists",
+      "taxonomy": "category",
+      "parent": 0,
+      "meta": [],
+      "_links": {
+        "self": [
+          {
+            "href": "https://cms.govenics.com/wp-json/wp/v2/categories/9",
+            "targetHints": {
+              "allow": [
+                "GET",
+                "POST",
+                "PUT",
+                "PATCH",
+                "DELETE"
+              ]
+            }
+          }
+        ],
+        "collection": [
+          {
+            "href": "https://cms.govenics.com/wp-json/wp/v2/categories"
+          }
+        ],
+        "about": [
+          {
+            "href": "https://cms.govenics.com/wp-json/wp/v2/taxonomies/category"
+          }
+        ],
+        "wp:post_type": [
+          {
+            "href": "https://cms.govenics.com/wp-json/wp/v2/posts?categories=9"
+          }
+        ],
+        "curies": [
+          {
+            "name": "wp",
+            "href": "https://api.w.org/{rel}",
+            "templated": true
+          }
+        ]
+      }
+    },
+    {
+      "id": 7,
+      "count": 1,
+      "description": "Step-by-step regulatory implementation blueprints",
+      "link": "https://cms.govenics.com/category/guides/",
+      "name": "Compliance Guides",
+      "slug": "guides",
+      "taxonomy": "category",
+      "parent": 0,
+      "meta": [],
+      "_links": {
+        "self": [
+          {
+            "href": "https://cms.govenics.com/wp-json/wp/v2/categories/7",
+            "targetHints": {
+              "allow": [
+                "GET",
+                "POST",
+                "PUT",
+                "PATCH",
+                "DELETE"
+              ]
+            }
+          }
+        ],
+        "collection": [
+          {
+            "href": "https://cms.govenics.com/wp-json/wp/v2/categories"
+          }
+        ],
+        "about": [
+          {
+            "href": "https://cms.govenics.com/wp-json/wp/v2/taxonomies/category"
+          }
+        ],
+        "wp:post_type": [
+          {
+            "href": "https://cms.govenics.com/wp-json/wp/v2/posts?categories=7"
+          }
+        ],
+        "curies": [
+          {
+            "name": "wp",
+            "href": "https://api.w.org/{rel}",
+            "templated": true
+          }
+        ]
+      }
+    },
+    {
+      "id": 2,
+      "count": 1,
+      "description": "Comprehensive GRC and regulatory compliance e-books",
+      "link": "https://cms.govenics.com/category/ebooks/",
+      "name": "E-books",
+      "slug": "ebooks",
+      "taxonomy": "category",
+      "parent": 0,
+      "meta": [],
+      "_links": {
+        "self": [
+          {
+            "href": "https://cms.govenics.com/wp-json/wp/v2/categories/2",
+            "targetHints": {
+              "allow": [
+                "GET",
+                "POST",
+                "PUT",
+                "PATCH",
+                "DELETE"
+              ]
+            }
+          }
+        ],
+        "collection": [
+          {
+            "href": "https://cms.govenics.com/wp-json/wp/v2/categories"
+          }
+        ],
+        "about": [
+          {
+            "href": "https://cms.govenics.com/wp-json/wp/v2/taxonomies/category"
+          }
+        ],
+        "wp:post_type": [
+          {
+            "href": "https://cms.govenics.com/wp-json/wp/v2/posts?categories=2"
+          }
+        ],
+        "curies": [
+          {
+            "name": "wp",
+            "href": "https://api.w.org/{rel}",
+            "templated": true
+          }
+        ]
+      }
+    },
+    {
+      "id": 6,
+      "count": 0,
+      "description": "Official gazette notifications and circulars",
+      "link": "https://cms.govenics.com/category/notifications/",
+      "name": "Government Notifications",
+      "slug": "notifications",
+      "taxonomy": "category",
+      "parent": 0,
+      "meta": [],
+      "_links": {
+        "self": [
+          {
+            "href": "https://cms.govenics.com/wp-json/wp/v2/categories/6",
+            "targetHints": {
+              "allow": [
+                "GET",
+                "POST",
+                "PUT",
+                "PATCH",
+                "DELETE"
+              ]
+            }
+          }
+        ],
+        "collection": [
+          {
+            "href": "https://cms.govenics.com/wp-json/wp/v2/categories"
+          }
+        ],
+        "about": [
+          {
+            "href": "https://cms.govenics.com/wp-json/wp/v2/taxonomies/category"
+          }
+        ],
+        "wp:post_type": [
+          {
+            "href": "https://cms.govenics.com/wp-json/wp/v2/posts?categories=6"
+          }
+        ],
+        "curies": [
+          {
+            "name": "wp",
+            "href": "https://api.w.org/{rel}",
+            "templated": true
+          }
+        ]
+      }
+    },
+    {
+      "id": 8,
+      "count": 1,
+      "description": "Sector-specific risk assessments and industry intelligence",
+      "link": "https://cms.govenics.com/category/industry-reports/",
+      "name": "Industry Reports",
+      "slug": "industry-reports",
+      "taxonomy": "category",
+      "parent": 0,
+      "meta": [],
+      "_links": {
+        "self": [
+          {
+            "href": "https://cms.govenics.com/wp-json/wp/v2/categories/8",
+            "targetHints": {
+              "allow": [
+                "GET",
+                "POST",
+                "PUT",
+                "PATCH",
+                "DELETE"
+              ]
+            }
+          }
+        ],
+        "collection": [
+          {
+            "href": "https://cms.govenics.com/wp-json/wp/v2/categories"
+          }
+        ],
+        "about": [
+          {
+            "href": "https://cms.govenics.com/wp-json/wp/v2/taxonomies/category"
+          }
+        ],
+        "wp:post_type": [
+          {
+            "href": "https://cms.govenics.com/wp-json/wp/v2/posts?categories=8"
+          }
+        ],
+        "curies": [
+          {
+            "name": "wp",
+            "href": "https://api.w.org/{rel}",
+            "templated": true
+          }
+        ]
+      }
+    },
+    {
+      "id": 12,
+      "count": 0,
+      "description": "Real-time amendments, deadline extensions, and legal alerts",
+      "link": "https://cms.govenics.com/category/regulatory-updates/",
+      "name": "Regulatory Updates",
+      "slug": "regulatory-updates",
+      "taxonomy": "category",
+      "parent": 0,
+      "meta": [],
+      "_links": {
+        "self": [
+          {
+            "href": "https://cms.govenics.com/wp-json/wp/v2/categories/12",
+            "targetHints": {
+              "allow": [
+                "GET",
+                "POST",
+                "PUT",
+                "PATCH",
+                "DELETE"
+              ]
+            }
+          }
+        ],
+        "collection": [
+          {
+            "href": "https://cms.govenics.com/wp-json/wp/v2/categories"
+          }
+        ],
+        "about": [
+          {
+            "href": "https://cms.govenics.com/wp-json/wp/v2/taxonomies/category"
+          }
+        ],
+        "wp:post_type": [
+          {
+            "href": "https://cms.govenics.com/wp-json/wp/v2/posts?categories=12"
+          }
+        ],
+        "curies": [
+          {
+            "name": "wp",
+            "href": "https://api.w.org/{rel}",
+            "templated": true
+          }
+        ]
+      }
+    },
+    {
+      "id": 11,
+      "count": 0,
+      "description": "Academic, empirical, and legal research papers",
+      "link": "https://cms.govenics.com/category/research/",
+      "name": "Research Publications",
+      "slug": "research",
+      "taxonomy": "category",
+      "parent": 0,
+      "meta": [],
+      "_links": {
+        "self": [
+          {
+            "href": "https://cms.govenics.com/wp-json/wp/v2/categories/11",
+            "targetHints": {
+              "allow": [
+                "GET",
+                "POST",
+                "PUT",
+                "PATCH",
+                "DELETE"
+              ]
+            }
+          }
+        ],
+        "collection": [
+          {
+            "href": "https://cms.govenics.com/wp-json/wp/v2/categories"
+          }
+        ],
+        "about": [
+          {
+            "href": "https://cms.govenics.com/wp-json/wp/v2/taxonomies/category"
+          }
+        ],
+        "wp:post_type": [
+          {
+            "href": "https://cms.govenics.com/wp-json/wp/v2/posts?categories=11"
+          }
+        ],
+        "curies": [
+          {
+            "name": "wp",
+            "href": "https://api.w.org/{rel}",
+            "templated": true
+          }
+        ]
+      }
+    },
+    {
+      "id": 5,
+      "count": 0,
+      "description": "Statutory rules, regulations, and ministerial orders",
+      "link": "https://cms.govenics.com/category/regulations/",
+      "name": "Rules and Regulations",
+      "slug": "regulations",
+      "taxonomy": "category",
+      "parent": 0,
+      "meta": [],
+      "_links": {
+        "self": [
+          {
+            "href": "https://cms.govenics.com/wp-json/wp/v2/categories/5",
+            "targetHints": {
+              "allow": [
+                "GET",
+                "POST",
+                "PUT",
+                "PATCH",
+                "DELETE"
+              ]
+            }
+          }
+        ],
+        "collection": [
+          {
+            "href": "https://cms.govenics.com/wp-json/wp/v2/categories"
+          }
+        ],
+        "about": [
+          {
+            "href": "https://cms.govenics.com/wp-json/wp/v2/taxonomies/category"
+          }
+        ],
+        "wp:post_type": [
+          {
+            "href": "https://cms.govenics.com/wp-json/wp/v2/posts?categories=5"
+          }
+        ],
+        "curies": [
+          {
+            "name": "wp",
+            "href": "https://api.w.org/{rel}",
+            "templated": true
+          }
+        ]
+      }
+    },
+    {
+      "id": 10,
+      "count": 0,
+      "description": "Standard operating procedures, registers, and statutory forms",
+      "link": "https://cms.govenics.com/category/templates/",
+      "name": "Templates and Documents",
+      "slug": "templates",
+      "taxonomy": "category",
+      "parent": 0,
+      "meta": [],
+      "_links": {
+        "self": [
+          {
+            "href": "https://cms.govenics.com/wp-json/wp/v2/categories/10",
+            "targetHints": {
+              "allow": [
+                "GET",
+                "POST",
+                "PUT",
+                "PATCH",
+                "DELETE"
+              ]
+            }
+          }
+        ],
+        "collection": [
+          {
+            "href": "https://cms.govenics.com/wp-json/wp/v2/categories"
+          }
+        ],
+        "about": [
+          {
+            "href": "https://cms.govenics.com/wp-json/wp/v2/taxonomies/category"
+          }
+        ],
+        "wp:post_type": [
+          {
+            "href": "https://cms.govenics.com/wp-json/wp/v2/posts?categories=10"
+          }
+        ],
+        "curies": [
+          {
+            "name": "wp",
+            "href": "https://api.w.org/{rel}",
+            "templated": true
+          }
+        ]
+      }
+    },
+    {
+      "id": 1,
+      "count": 1,
+      "description": "",
+      "link": "https://cms.govenics.com/category/uncategorized/",
+      "name": "Uncategorized",
+      "slug": "uncategorized",
+      "taxonomy": "category",
+      "parent": 0,
+      "meta": [],
+      "_links": {
+        "self": [
+          {
+            "href": "https://cms.govenics.com/wp-json/wp/v2/categories/1",
+            "targetHints": {
+              "allow": [
+                "GET",
+                "POST",
+                "PUT",
+                "PATCH"
+              ]
+            }
+          }
+        ],
+        "collection": [
+          {
+            "href": "https://cms.govenics.com/wp-json/wp/v2/categories"
+          }
+        ],
+        "about": [
+          {
+            "href": "https://cms.govenics.com/wp-json/wp/v2/taxonomies/category"
+          }
+        ],
+        "wp:post_type": [
+          {
+            "href": "https://cms.govenics.com/wp-json/wp/v2/posts?categories=1"
+          }
+        ],
+        "curies": [
+          {
+            "name": "wp",
+            "href": "https://api.w.org/{rel}",
+            "templated": true
+          }
+        ]
+      }
+    }
+  ],
+  "tags": [
+    {
+      "id": 39,
+      "count": 0,
+      "description": "",
+      "link": "https://cms.govenics.com/tag/agriculture/",
+      "name": "Agriculture",
+      "slug": "agriculture",
+      "taxonomy": "post_tag",
+      "meta": [],
+      "_links": {
+        "self": [
+          {
+            "href": "https://cms.govenics.com/wp-json/wp/v2/tags/39",
+            "targetHints": {
+              "allow": [
+                "GET",
+                "POST",
+                "PUT",
+                "PATCH",
+                "DELETE"
+              ]
+            }
+          }
+        ],
+        "collection": [
+          {
+            "href": "https://cms.govenics.com/wp-json/wp/v2/tags"
+          }
+        ],
+        "about": [
+          {
+            "href": "https://cms.govenics.com/wp-json/wp/v2/taxonomies/post_tag"
+          }
+        ],
+        "wp:post_type": [
+          {
+            "href": "https://cms.govenics.com/wp-json/wp/v2/posts?tags=39"
+          }
+        ],
+        "curies": [
+          {
+            "name": "wp",
+            "href": "https://api.w.org/{rel}",
+            "templated": true
+          }
+        ]
+      }
+    },
+    {
+      "id": 26,
+      "count": 0,
+      "description": "",
+      "link": "https://cms.govenics.com/tag/automotive-auto-components/",
+      "name": "Automotive &amp; Auto Components",
+      "slug": "automotive-auto-components",
+      "taxonomy": "post_tag",
+      "meta": [],
+      "_links": {
+        "self": [
+          {
+            "href": "https://cms.govenics.com/wp-json/wp/v2/tags/26",
+            "targetHints": {
+              "allow": [
+                "GET",
+                "POST",
+                "PUT",
+                "PATCH",
+                "DELETE"
+              ]
+            }
+          }
+        ],
+        "collection": [
+          {
+            "href": "https://cms.govenics.com/wp-json/wp/v2/tags"
+          }
+        ],
+        "about": [
+          {
+            "href": "https://cms.govenics.com/wp-json/wp/v2/taxonomies/post_tag"
+          }
+        ],
+        "wp:post_type": [
+          {
+            "href": "https://cms.govenics.com/wp-json/wp/v2/posts?tags=26"
+          }
+        ],
+        "curies": [
+          {
+            "name": "wp",
+            "href": "https://api.w.org/{rel}",
+            "templated": true
+          }
+        ]
+      }
+    },
+    {
+      "id": 32,
+      "count": 1,
+      "description": "",
+      "link": "https://cms.govenics.com/tag/bfsi-fintech/",
+      "name": "BFSI &amp; Fintech",
+      "slug": "bfsi-fintech",
+      "taxonomy": "post_tag",
+      "meta": [],
+      "_links": {
+        "self": [
+          {
+            "href": "https://cms.govenics.com/wp-json/wp/v2/tags/32",
+            "targetHints": {
+              "allow": [
+                "GET",
+                "POST",
+                "PUT",
+                "PATCH",
+                "DELETE"
+              ]
+            }
+          }
+        ],
+        "collection": [
+          {
+            "href": "https://cms.govenics.com/wp-json/wp/v2/tags"
+          }
+        ],
+        "about": [
+          {
+            "href": "https://cms.govenics.com/wp-json/wp/v2/taxonomies/post_tag"
+          }
+        ],
+        "wp:post_type": [
+          {
+            "href": "https://cms.govenics.com/wp-json/wp/v2/posts?tags=32"
+          }
+        ],
+        "curies": [
+          {
+            "name": "wp",
+            "href": "https://api.w.org/{rel}",
+            "templated": true
+          }
+        ]
+      }
+    },
+    {
+      "id": 29,
+      "count": 1,
+      "description": "",
+      "link": "https://cms.govenics.com/tag/chemicals-petrochemicals/",
+      "name": "Chemicals &amp; Petrochemicals",
+      "slug": "chemicals-petrochemicals",
+      "taxonomy": "post_tag",
+      "meta": [],
+      "_links": {
+        "self": [
+          {
+            "href": "https://cms.govenics.com/wp-json/wp/v2/tags/29",
+            "targetHints": {
+              "allow": [
+                "GET",
+                "POST",
+                "PUT",
+                "PATCH",
+                "DELETE"
+              ]
+            }
+          }
+        ],
+        "collection": [
+          {
+            "href": "https://cms.govenics.com/wp-json/wp/v2/tags"
+          }
+        ],
+        "about": [
+          {
+            "href": "https://cms.govenics.com/wp-json/wp/v2/taxonomies/post_tag"
+          }
+        ],
+        "wp:post_type": [
+          {
+            "href": "https://cms.govenics.com/wp-json/wp/v2/posts?tags=29"
+          }
+        ],
+        "curies": [
+          {
+            "name": "wp",
+            "href": "https://api.w.org/{rel}",
+            "templated": true
+          }
+        ]
+      }
+    },
+    {
+      "id": 24,
+      "count": 1,
+      "description": "",
+      "link": "https://cms.govenics.com/tag/cybersecurity-privacy/",
+      "name": "Cybersecurity &amp; Privacy",
+      "slug": "cybersecurity-privacy",
+      "taxonomy": "post_tag",
+      "meta": [],
+      "_links": {
+        "self": [
+          {
+            "href": "https://cms.govenics.com/wp-json/wp/v2/tags/24",
+            "targetHints": {
+              "allow": [
+                "GET",
+                "POST",
+                "PUT",
+                "PATCH",
+                "DELETE"
+              ]
+            }
+          }
+        ],
+        "collection": [
+          {
+            "href": "https://cms.govenics.com/wp-json/wp/v2/tags"
+          }
+        ],
+        "about": [
+          {
+            "href": "https://cms.govenics.com/wp-json/wp/v2/taxonomies/post_tag"
+          }
+        ],
+        "wp:post_type": [
+          {
+            "href": "https://cms.govenics.com/wp-json/wp/v2/posts?tags=24"
+          }
+        ],
+        "curies": [
+          {
+            "name": "wp",
+            "href": "https://api.w.org/{rel}",
+            "templated": true
+          }
+        ]
+      }
+    },
+    {
+      "id": 28,
+      "count": 0,
+      "description": "",
+      "link": "https://cms.govenics.com/tag/electronics-semiconductors/",
+      "name": "Electronics &amp; Semiconductors",
+      "slug": "electronics-semiconductors",
+      "taxonomy": "post_tag",
+      "meta": [],
+      "_links": {
+        "self": [
+          {
+            "href": "https://cms.govenics.com/wp-json/wp/v2/tags/28",
+            "targetHints": {
+              "allow": [
+                "GET",
+                "POST",
+                "PUT",
+                "PATCH",
+                "DELETE"
+              ]
+            }
+          }
+        ],
+        "collection": [
+          {
+            "href": "https://cms.govenics.com/wp-json/wp/v2/tags"
+          }
+        ],
+        "about": [
+          {
+            "href": "https://cms.govenics.com/wp-json/wp/v2/taxonomies/post_tag"
+          }
+        ],
+        "wp:post_type": [
+          {
+            "href": "https://cms.govenics.com/wp-json/wp/v2/posts?tags=28"
+          }
+        ],
+        "curies": [
+          {
+            "name": "wp",
+            "href": "https://api.w.org/{rel}",
+            "templated": true
+          }
+        ]
+      }
+    },
+    {
+      "id": 37,
+      "count": 0,
+      "description": "",
+      "link": "https://cms.govenics.com/tag/energy-utilities/",
+      "name": "Energy &amp; Utilities",
+      "slug": "energy-utilities",
+      "taxonomy": "post_tag",
+      "meta": [],
+      "_links": {
+        "self": [
+          {
+            "href": "https://cms.govenics.com/wp-json/wp/v2/tags/37",
+            "targetHints": {
+              "allow": [
+                "GET",
+                "POST",
+                "PUT",
+                "PATCH",
+                "DELETE"
+              ]
+            }
+          }
+        ],
+        "collection": [
+          {
+            "href": "https://cms.govenics.com/wp-json/wp/v2/tags"
+          }
+        ],
+        "about": [
+          {
+            "href": "https://cms.govenics.com/wp-json/wp/v2/taxonomies/post_tag"
+          }
+        ],
+        "wp:post_type": [
+          {
+            "href": "https://cms.govenics.com/wp-json/wp/v2/posts?tags=37"
+          }
+        ],
+        "curies": [
+          {
+            "name": "wp",
+            "href": "https://api.w.org/{rel}",
+            "templated": true
+          }
+        ]
+      }
+    },
+    {
+      "id": 21,
+      "count": 0,
+      "description": "",
+      "link": "https://cms.govenics.com/tag/enterprise-governance/",
+      "name": "Enterprise Governance",
+      "slug": "enterprise-governance",
+      "taxonomy": "post_tag",
+      "meta": [],
+      "_links": {
+        "self": [
+          {
+            "href": "https://cms.govenics.com/wp-json/wp/v2/tags/21",
+            "targetHints": {
+              "allow": [
+                "GET",
+                "POST",
+                "PUT",
+                "PATCH",
+                "DELETE"
+              ]
+            }
+          }
+        ],
+        "collection": [
+          {
+            "href": "https://cms.govenics.com/wp-json/wp/v2/tags"
+          }
+        ],
+        "about": [
+          {
+            "href": "https://cms.govenics.com/wp-json/wp/v2/taxonomies/post_tag"
+          }
+        ],
+        "wp:post_type": [
+          {
+            "href": "https://cms.govenics.com/wp-json/wp/v2/posts?tags=21"
+          }
+        ],
+        "curies": [
+          {
+            "name": "wp",
+            "href": "https://api.w.org/{rel}",
+            "templated": true
+          }
+        ]
+      }
+    },
+    {
+      "id": 15,
+      "count": 0,
+      "description": "",
+      "link": "https://cms.govenics.com/tag/environmental-ehs/",
+      "name": "Environmental &amp; EHS",
+      "slug": "environmental-ehs",
+      "taxonomy": "post_tag",
+      "meta": [],
+      "_links": {
+        "self": [
+          {
+            "href": "https://cms.govenics.com/wp-json/wp/v2/tags/15",
+            "targetHints": {
+              "allow": [
+                "GET",
+                "POST",
+                "PUT",
+                "PATCH",
+                "DELETE"
+              ]
+            }
+          }
+        ],
+        "collection": [
+          {
+            "href": "https://cms.govenics.com/wp-json/wp/v2/tags"
+          }
+        ],
+        "about": [
+          {
+            "href": "https://cms.govenics.com/wp-json/wp/v2/taxonomies/post_tag"
+          }
+        ],
+        "wp:post_type": [
+          {
+            "href": "https://cms.govenics.com/wp-json/wp/v2/posts?tags=15"
+          }
+        ],
+        "curies": [
+          {
+            "name": "wp",
+            "href": "https://api.w.org/{rel}",
+            "templated": true
+          }
+        ]
+      }
+    },
+    {
+      "id": 20,
+      "count": 0,
+      "description": "",
+      "link": "https://cms.govenics.com/tag/escrow-services/",
+      "name": "Escrow Services",
+      "slug": "escrow-services",
+      "taxonomy": "post_tag",
+      "meta": [],
+      "_links": {
+        "self": [
+          {
+            "href": "https://cms.govenics.com/wp-json/wp/v2/tags/20",
+            "targetHints": {
+              "allow": [
+                "GET",
+                "POST",
+                "PUT",
+                "PATCH",
+                "DELETE"
+              ]
+            }
+          }
+        ],
+        "collection": [
+          {
+            "href": "https://cms.govenics.com/wp-json/wp/v2/tags"
+          }
+        ],
+        "about": [
+          {
+            "href": "https://cms.govenics.com/wp-json/wp/v2/taxonomies/post_tag"
+          }
+        ],
+        "wp:post_type": [
+          {
+            "href": "https://cms.govenics.com/wp-json/wp/v2/posts?tags=20"
+          }
+        ],
+        "curies": [
+          {
+            "name": "wp",
+            "href": "https://api.w.org/{rel}",
+            "templated": true
+          }
+        ]
+      }
+    },
+    {
+      "id": 23,
+      "count": 1,
+      "description": "",
+      "link": "https://cms.govenics.com/tag/esg-sustainability/",
+      "name": "ESG &amp; Sustainability",
+      "slug": "esg-sustainability",
+      "taxonomy": "post_tag",
+      "meta": [],
+      "_links": {
+        "self": [
+          {
+            "href": "https://cms.govenics.com/wp-json/wp/v2/tags/23",
+            "targetHints": {
+              "allow": [
+                "GET",
+                "POST",
+                "PUT",
+                "PATCH",
+                "DELETE"
+              ]
+            }
+          }
+        ],
+        "collection": [
+          {
+            "href": "https://cms.govenics.com/wp-json/wp/v2/tags"
+          }
+        ],
+        "about": [
+          {
+            "href": "https://cms.govenics.com/wp-json/wp/v2/taxonomies/post_tag"
+          }
+        ],
+        "wp:post_type": [
+          {
+            "href": "https://cms.govenics.com/wp-json/wp/v2/posts?tags=23"
+          }
+        ],
+        "curies": [
+          {
+            "name": "wp",
+            "href": "https://api.w.org/{rel}",
+            "templated": true
+          }
+        ]
+      }
+    },
+    {
+      "id": 18,
+      "count": 0,
+      "description": "",
+      "link": "https://cms.govenics.com/tag/export-trade-services/",
+      "name": "Export &amp; Trade Services",
+      "slug": "export-trade-services",
+      "taxonomy": "post_tag",
+      "meta": [],
+      "_links": {
+        "self": [
+          {
+            "href": "https://cms.govenics.com/wp-json/wp/v2/tags/18",
+            "targetHints": {
+              "allow": [
+                "GET",
+                "POST",
+                "PUT",
+                "PATCH",
+                "DELETE"
+              ]
+            }
+          }
+        ],
+        "collection": [
+          {
+            "href": "https://cms.govenics.com/wp-json/wp/v2/tags"
+          }
+        ],
+        "about": [
+          {
+            "href": "https://cms.govenics.com/wp-json/wp/v2/taxonomies/post_tag"
+          }
+        ],
+        "wp:post_type": [
+          {
+            "href": "https://cms.govenics.com/wp-json/wp/v2/posts?tags=18"
+          }
+        ],
+        "curies": [
+          {
+            "name": "wp",
+            "href": "https://api.w.org/{rel}",
+            "templated": true
+          }
+        ]
+      }
+    },
+    {
+      "id": 31,
+      "count": 0,
+      "description": "",
+      "link": "https://cms.govenics.com/tag/food-processing/",
+      "name": "Food Processing",
+      "slug": "food-processing",
+      "taxonomy": "post_tag",
+      "meta": [],
+      "_links": {
+        "self": [
+          {
+            "href": "https://cms.govenics.com/wp-json/wp/v2/tags/31",
+            "targetHints": {
+              "allow": [
+                "GET",
+                "POST",
+                "PUT",
+                "PATCH",
+                "DELETE"
+              ]
+            }
+          }
+        ],
+        "collection": [
+          {
+            "href": "https://cms.govenics.com/wp-json/wp/v2/tags"
+          }
+        ],
+        "about": [
+          {
+            "href": "https://cms.govenics.com/wp-json/wp/v2/taxonomies/post_tag"
+          }
+        ],
+        "wp:post_type": [
+          {
+            "href": "https://cms.govenics.com/wp-json/wp/v2/posts?tags=31"
+          }
+        ],
+        "curies": [
+          {
+            "name": "wp",
+            "href": "https://api.w.org/{rel}",
+            "templated": true
+          }
+        ]
+      }
+    },
+    {
+      "id": 33,
+      "count": 0,
+      "description": "",
+      "link": "https://cms.govenics.com/tag/healthcare/",
+      "name": "Healthcare",
+      "slug": "healthcare",
+      "taxonomy": "post_tag",
+      "meta": [],
+      "_links": {
+        "self": [
+          {
+            "href": "https://cms.govenics.com/wp-json/wp/v2/tags/33",
+            "targetHints": {
+              "allow": [
+                "GET",
+                "POST",
+                "PUT",
+                "PATCH",
+                "DELETE"
+              ]
+            }
+          }
+        ],
+        "collection": [
+          {
+            "href": "https://cms.govenics.com/wp-json/wp/v2/tags"
+          }
+        ],
+        "about": [
+          {
+            "href": "https://cms.govenics.com/wp-json/wp/v2/taxonomies/post_tag"
+          }
+        ],
+        "wp:post_type": [
+          {
+            "href": "https://cms.govenics.com/wp-json/wp/v2/posts?tags=33"
+          }
+        ],
+        "curies": [
+          {
+            "name": "wp",
+            "href": "https://api.w.org/{rel}",
+            "templated": true
+          }
+        ]
+      }
+    },
+    {
+      "id": 36,
+      "count": 0,
+      "description": "",
+      "link": "https://cms.govenics.com/tag/infrastructure-construction/",
+      "name": "Infrastructure &amp; Construction",
+      "slug": "infrastructure-construction",
+      "taxonomy": "post_tag",
+      "meta": [],
+      "_links": {
+        "self": [
+          {
+            "href": "https://cms.govenics.com/wp-json/wp/v2/tags/36",
+            "targetHints": {
+              "allow": [
+                "GET",
+                "POST",
+                "PUT",
+                "PATCH",
+                "DELETE"
+              ]
+            }
+          }
+        ],
+        "collection": [
+          {
+            "href": "https://cms.govenics.com/wp-json/wp/v2/tags"
+          }
+        ],
+        "about": [
+          {
+            "href": "https://cms.govenics.com/wp-json/wp/v2/taxonomies/post_tag"
+          }
+        ],
+        "wp:post_type": [
+          {
+            "href": "https://cms.govenics.com/wp-json/wp/v2/posts?tags=36"
+          }
+        ],
+        "curies": [
+          {
+            "name": "wp",
+            "href": "https://api.w.org/{rel}",
+            "templated": true
+          }
+        ]
+      }
+    },
+    {
+      "id": 34,
+      "count": 1,
+      "description": "",
+      "link": "https://cms.govenics.com/tag/it-technology/",
+      "name": "IT &amp; Technology",
+      "slug": "it-technology",
+      "taxonomy": "post_tag",
+      "meta": [],
+      "_links": {
+        "self": [
+          {
+            "href": "https://cms.govenics.com/wp-json/wp/v2/tags/34",
+            "targetHints": {
+              "allow": [
+                "GET",
+                "POST",
+                "PUT",
+                "PATCH",
+                "DELETE"
+              ]
+            }
+          }
+        ],
+        "collection": [
+          {
+            "href": "https://cms.govenics.com/wp-json/wp/v2/tags"
+          }
+        ],
+        "about": [
+          {
+            "href": "https://cms.govenics.com/wp-json/wp/v2/taxonomies/post_tag"
+          }
+        ],
+        "wp:post_type": [
+          {
+            "href": "https://cms.govenics.com/wp-json/wp/v2/posts?tags=34"
+          }
+        ],
+        "curies": [
+          {
+            "name": "wp",
+            "href": "https://api.w.org/{rel}",
+            "templated": true
+          }
+        ]
+      }
+    },
+    {
+      "id": 14,
+      "count": 1,
+      "description": "",
+      "link": "https://cms.govenics.com/tag/labour-employment/",
+      "name": "Labour &amp; Employment",
+      "slug": "labour-employment",
+      "taxonomy": "post_tag",
+      "meta": [],
+      "_links": {
+        "self": [
+          {
+            "href": "https://cms.govenics.com/wp-json/wp/v2/tags/14",
+            "targetHints": {
+              "allow": [
+                "GET",
+                "POST",
+                "PUT",
+                "PATCH",
+                "DELETE"
+              ]
+            }
+          }
+        ],
+        "collection": [
+          {
+            "href": "https://cms.govenics.com/wp-json/wp/v2/tags"
+          }
+        ],
+        "about": [
+          {
+            "href": "https://cms.govenics.com/wp-json/wp/v2/taxonomies/post_tag"
+          }
+        ],
+        "wp:post_type": [
+          {
+            "href": "https://cms.govenics.com/wp-json/wp/v2/posts?tags=14"
+          }
+        ],
+        "curies": [
+          {
+            "name": "wp",
+            "href": "https://api.w.org/{rel}",
+            "templated": true
+          }
+        ]
+      }
+    },
+    {
+      "id": 16,
+      "count": 0,
+      "description": "",
+      "link": "https://cms.govenics.com/tag/licensing-permits/",
+      "name": "Licensing &amp; Permits",
+      "slug": "licensing-permits",
+      "taxonomy": "post_tag",
+      "meta": [],
+      "_links": {
+        "self": [
+          {
+            "href": "https://cms.govenics.com/wp-json/wp/v2/tags/16",
+            "targetHints": {
+              "allow": [
+                "GET",
+                "POST",
+                "PUT",
+                "PATCH",
+                "DELETE"
+              ]
+            }
+          }
+        ],
+        "collection": [
+          {
+            "href": "https://cms.govenics.com/wp-json/wp/v2/tags"
+          }
+        ],
+        "about": [
+          {
+            "href": "https://cms.govenics.com/wp-json/wp/v2/taxonomies/post_tag"
+          }
+        ],
+        "wp:post_type": [
+          {
+            "href": "https://cms.govenics.com/wp-json/wp/v2/posts?tags=16"
+          }
+        ],
+        "curies": [
+          {
+            "name": "wp",
+            "href": "https://api.w.org/{rel}",
+            "templated": true
+          }
+        ]
+      }
+    },
+    {
+      "id": 35,
+      "count": 0,
+      "description": "",
+      "link": "https://cms.govenics.com/tag/logistics-supply-chain/",
+      "name": "Logistics &amp; Supply Chain",
+      "slug": "logistics-supply-chain",
+      "taxonomy": "post_tag",
+      "meta": [],
+      "_links": {
+        "self": [
+          {
+            "href": "https://cms.govenics.com/wp-json/wp/v2/tags/35",
+            "targetHints": {
+              "allow": [
+                "GET",
+                "POST",
+                "PUT",
+                "PATCH",
+                "DELETE"
+              ]
+            }
+          }
+        ],
+        "collection": [
+          {
+            "href": "https://cms.govenics.com/wp-json/wp/v2/tags"
+          }
+        ],
+        "about": [
+          {
+            "href": "https://cms.govenics.com/wp-json/wp/v2/taxonomies/post_tag"
+          }
+        ],
+        "wp:post_type": [
+          {
+            "href": "https://cms.govenics.com/wp-json/wp/v2/posts?tags=35"
+          }
+        ],
+        "curies": [
+          {
+            "name": "wp",
+            "href": "https://api.w.org/{rel}",
+            "templated": true
+          }
+        ]
+      }
+    },
+    {
+      "id": 25,
+      "count": 1,
+      "description": "",
+      "link": "https://cms.govenics.com/tag/manufacturing-industrial/",
+      "name": "Manufacturing &amp; Industrial",
+      "slug": "manufacturing-industrial",
+      "taxonomy": "post_tag",
+      "meta": [],
+      "_links": {
+        "self": [
+          {
+            "href": "https://cms.govenics.com/wp-json/wp/v2/tags/25",
+            "targetHints": {
+              "allow": [
+                "GET",
+                "POST",
+                "PUT",
+                "PATCH",
+                "DELETE"
+              ]
+            }
+          }
+        ],
+        "collection": [
+          {
+            "href": "https://cms.govenics.com/wp-json/wp/v2/tags"
+          }
+        ],
+        "about": [
+          {
+            "href": "https://cms.govenics.com/wp-json/wp/v2/taxonomies/post_tag"
+          }
+        ],
+        "wp:post_type": [
+          {
+            "href": "https://cms.govenics.com/wp-json/wp/v2/posts?tags=25"
+          }
+        ],
+        "curies": [
+          {
+            "name": "wp",
+            "href": "https://api.w.org/{rel}",
+            "templated": true
+          }
+        ]
+      }
+    },
+    {
+      "id": 27,
+      "count": 0,
+      "description": "",
+      "link": "https://cms.govenics.com/tag/pharmaceuticals-medical-devices/",
+      "name": "Pharmaceuticals &amp; Medical Devices",
+      "slug": "pharmaceuticals-medical-devices",
+      "taxonomy": "post_tag",
+      "meta": [],
+      "_links": {
+        "self": [
+          {
+            "href": "https://cms.govenics.com/wp-json/wp/v2/tags/27",
+            "targetHints": {
+              "allow": [
+                "GET",
+                "POST",
+                "PUT",
+                "PATCH",
+                "DELETE"
+              ]
+            }
+          }
+        ],
+        "collection": [
+          {
+            "href": "https://cms.govenics.com/wp-json/wp/v2/tags"
+          }
+        ],
+        "about": [
+          {
+            "href": "https://cms.govenics.com/wp-json/wp/v2/taxonomies/post_tag"
+          }
+        ],
+        "wp:post_type": [
+          {
+            "href": "https://cms.govenics.com/wp-json/wp/v2/posts?tags=27"
+          }
+        ],
+        "curies": [
+          {
+            "name": "wp",
+            "href": "https://api.w.org/{rel}",
+            "templated": true
+          }
+        ]
+      }
+    },
+    {
+      "id": 13,
+      "count": 1,
+      "description": "",
+      "link": "https://cms.govenics.com/tag/regulatory-compliance/",
+      "name": "Regulatory Compliance",
+      "slug": "regulatory-compliance",
+      "taxonomy": "post_tag",
+      "meta": [],
+      "_links": {
+        "self": [
+          {
+            "href": "https://cms.govenics.com/wp-json/wp/v2/tags/13",
+            "targetHints": {
+              "allow": [
+                "GET",
+                "POST",
+                "PUT",
+                "PATCH",
+                "DELETE"
+              ]
+            }
+          }
+        ],
+        "collection": [
+          {
+            "href": "https://cms.govenics.com/wp-json/wp/v2/tags"
+          }
+        ],
+        "about": [
+          {
+            "href": "https://cms.govenics.com/wp-json/wp/v2/taxonomies/post_tag"
+          }
+        ],
+        "wp:post_type": [
+          {
+            "href": "https://cms.govenics.com/wp-json/wp/v2/posts?tags=13"
+          }
+        ],
+        "curies": [
+          {
+            "name": "wp",
+            "href": "https://api.w.org/{rel}",
+            "templated": true
+          }
+        ]
+      }
+    },
+    {
+      "id": 38,
+      "count": 0,
+      "description": "",
+      "link": "https://cms.govenics.com/tag/retail-consumer-goods/",
+      "name": "Retail &amp; Consumer Goods",
+      "slug": "retail-consumer-goods",
+      "taxonomy": "post_tag",
+      "meta": [],
+      "_links": {
+        "self": [
+          {
+            "href": "https://cms.govenics.com/wp-json/wp/v2/tags/38",
+            "targetHints": {
+              "allow": [
+                "GET",
+                "POST",
+                "PUT",
+                "PATCH",
+                "DELETE"
+              ]
+            }
+          }
+        ],
+        "collection": [
+          {
+            "href": "https://cms.govenics.com/wp-json/wp/v2/tags"
+          }
+        ],
+        "about": [
+          {
+            "href": "https://cms.govenics.com/wp-json/wp/v2/taxonomies/post_tag"
+          }
+        ],
+        "wp:post_type": [
+          {
+            "href": "https://cms.govenics.com/wp-json/wp/v2/posts?tags=38"
+          }
+        ],
+        "curies": [
+          {
+            "name": "wp",
+            "href": "https://api.w.org/{rel}",
+            "templated": true
+          }
+        ]
+      }
+    },
+    {
+      "id": 22,
+      "count": 0,
+      "description": "",
+      "link": "https://cms.govenics.com/tag/risk-management/",
+      "name": "Risk Management",
+      "slug": "risk-management",
+      "taxonomy": "post_tag",
+      "meta": [],
+      "_links": {
+        "self": [
+          {
+            "href": "https://cms.govenics.com/wp-json/wp/v2/tags/22",
+            "targetHints": {
+              "allow": [
+                "GET",
+                "POST",
+                "PUT",
+                "PATCH",
+                "DELETE"
+              ]
+            }
+          }
+        ],
+        "collection": [
+          {
+            "href": "https://cms.govenics.com/wp-json/wp/v2/tags"
+          }
+        ],
+        "about": [
+          {
+            "href": "https://cms.govenics.com/wp-json/wp/v2/taxonomies/post_tag"
+          }
+        ],
+        "wp:post_type": [
+          {
+            "href": "https://cms.govenics.com/wp-json/wp/v2/posts?tags=22"
+          }
+        ],
+        "curies": [
+          {
+            "name": "wp",
+            "href": "https://api.w.org/{rel}",
+            "templated": true
+          }
+        ]
+      }
+    },
+    {
+      "id": 19,
+      "count": 0,
+      "description": "",
+      "link": "https://cms.govenics.com/tag/supply-chain-compliance/",
+      "name": "Supply Chain Compliance",
+      "slug": "supply-chain-compliance",
+      "taxonomy": "post_tag",
+      "meta": [],
+      "_links": {
+        "self": [
+          {
+            "href": "https://cms.govenics.com/wp-json/wp/v2/tags/19",
+            "targetHints": {
+              "allow": [
+                "GET",
+                "POST",
+                "PUT",
+                "PATCH",
+                "DELETE"
+              ]
+            }
+          }
+        ],
+        "collection": [
+          {
+            "href": "https://cms.govenics.com/wp-json/wp/v2/tags"
+          }
+        ],
+        "about": [
+          {
+            "href": "https://cms.govenics.com/wp-json/wp/v2/taxonomies/post_tag"
+          }
+        ],
+        "wp:post_type": [
+          {
+            "href": "https://cms.govenics.com/wp-json/wp/v2/posts?tags=19"
+          }
+        ],
+        "curies": [
+          {
+            "name": "wp",
+            "href": "https://api.w.org/{rel}",
+            "templated": true
+          }
+        ]
+      }
+    },
+    {
+      "id": 17,
+      "count": 0,
+      "description": "",
+      "link": "https://cms.govenics.com/tag/taxation-trade/",
+      "name": "Taxation &amp; Trade",
+      "slug": "taxation-trade",
+      "taxonomy": "post_tag",
+      "meta": [],
+      "_links": {
+        "self": [
+          {
+            "href": "https://cms.govenics.com/wp-json/wp/v2/tags/17",
+            "targetHints": {
+              "allow": [
+                "GET",
+                "POST",
+                "PUT",
+                "PATCH",
+                "DELETE"
+              ]
+            }
+          }
+        ],
+        "collection": [
+          {
+            "href": "https://cms.govenics.com/wp-json/wp/v2/tags"
+          }
+        ],
+        "about": [
+          {
+            "href": "https://cms.govenics.com/wp-json/wp/v2/taxonomies/post_tag"
+          }
+        ],
+        "wp:post_type": [
+          {
+            "href": "https://cms.govenics.com/wp-json/wp/v2/posts?tags=17"
+          }
+        ],
+        "curies": [
+          {
+            "name": "wp",
+            "href": "https://api.w.org/{rel}",
+            "templated": true
+          }
+        ]
+      }
+    },
+    {
+      "id": 30,
+      "count": 0,
+      "description": "",
+      "link": "https://cms.govenics.com/tag/textiles/",
+      "name": "Textiles",
+      "slug": "textiles",
+      "taxonomy": "post_tag",
+      "meta": [],
+      "_links": {
+        "self": [
+          {
+            "href": "https://cms.govenics.com/wp-json/wp/v2/tags/30",
+            "targetHints": {
+              "allow": [
+                "GET",
+                "POST",
+                "PUT",
+                "PATCH",
+                "DELETE"
+              ]
+            }
+          }
+        ],
+        "collection": [
+          {
+            "href": "https://cms.govenics.com/wp-json/wp/v2/tags"
+          }
+        ],
+        "about": [
+          {
+            "href": "https://cms.govenics.com/wp-json/wp/v2/taxonomies/post_tag"
+          }
+        ],
+        "wp:post_type": [
+          {
+            "href": "https://cms.govenics.com/wp-json/wp/v2/posts?tags=30"
+          }
+        ],
+        "curies": [
+          {
+            "name": "wp",
+            "href": "https://api.w.org/{rel}",
+            "templated": true
+          }
+        ]
+      }
+    }
+  ],
+  "pages": [
+    {
+      "id": 2,
+      "date": "2026-11-06T06:59:53",
+      "modified": "2026-11-06T06:59:53",
+      "slug": "sample-page",
+      "status": "publish",
+      "link": "https://cms.govenics.com/sample-page/",
+      "title": {
+        "rendered": "Sample Page"
+      },
+      "parent": 0,
+      "meta": {
+        "footnotes": ""
+      }
+    }
+  ],
+  "posts": [
+    {
+      "id": 11,
+      "date": "2026-11-06T08:21:31",
+      "modified": "2026-11-06T08:21:31",
+      "slug": "sebi-brsr-core-mandate-esg-value-chain-due-diligence-disclosures",
+      "status": "publish",
+      "link": "https://cms.govenics.com/2026/11/06/sebi-brsr-core-mandate-esg-value-chain-due-diligence-disclosures/",
+      "title": {
+        "rendered": "SEBI BRSR Core Mandate: ESG Value Chain Due Diligence &#038; Disclosures"
+      },
+      "meta": {
+        "footnotes": ""
+      },
+      "categories": [
+        8
+      ],
+      "tags": [
+        32,
+        23
+      ]
+    },
+    {
+      "id": 10,
+      "date": "2026-11-06T08:21:31",
+      "modified": "2026-11-06T08:21:31",
+      "slug": "factories-act-1948-osha-compliance-blueprint-for-industrial-facilities",
+      "status": "publish",
+      "link": "https://cms.govenics.com/2026/11/06/factories-act-1948-osha-compliance-blueprint-for-industrial-facilities/",
+      "title": {
+        "rendered": "Factories Act 1948 &#038; OSHA Compliance Blueprint for Industrial Facilities"
+      },
+      "meta": {
+        "footnotes": ""
+      },
+      "categories": [
+        7
+      ],
+      "tags": [
+        29,
+        13
+      ]
+    },
+    {
+      "id": 9,
+      "date": "2026-11-06T08:21:30",
+      "modified": "2026-11-06T08:21:30",
+      "slug": "digital-personal-data-protection-act-2023-enterprise-data-fiduciary-checklist",
+      "status": "publish",
+      "link": "https://cms.govenics.com/2026/11/06/digital-personal-data-protection-act-2023-enterprise-data-fiduciary-checklist/",
+      "title": {
+        "rendered": "Digital Personal Data Protection Act 2023: Enterprise Data Fiduciary Checklist"
+      },
+      "meta": {
+        "footnotes": ""
+      },
+      "categories": [
+        9
+      ],
+      "tags": [
+        24,
+        34
+      ]
+    },
+    {
+      "id": 8,
+      "date": "2026-11-06T08:21:30",
+      "modified": "2026-11-06T08:21:30",
+      "slug": "code-on-social-security-2020-statutory-enterprise-implementation-handbook",
+      "status": "publish",
+      "link": "https://cms.govenics.com/2026/11/06/code-on-social-security-2020-statutory-enterprise-implementation-handbook/",
+      "title": {
+        "rendered": "Code on Social Security 2020: Statutory Enterprise Implementation Handbook"
+      },
+      "meta": {
+        "footnotes": ""
+      },
+      "categories": [
+        2
+      ],
+      "tags": [
+        14,
+        25
+      ]
+    },
+    {
+      "id": 1,
+      "date": "2026-11-06T06:59:53",
+      "modified": "2026-11-06T06:59:53",
+      "slug": "hello-world",
+      "status": "publish",
+      "link": "https://cms.govenics.com/2026/11/06/hello-world/",
+      "title": {
+        "rendered": "Hello world!"
+      },
+      "meta": {
+        "footnotes": ""
+      },
+      "categories": [
+        1
+      ],
+      "tags": []
+    }
+  ],
+  "media_count": 0
+}

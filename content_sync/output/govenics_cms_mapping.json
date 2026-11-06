@@ -1,0 +1,392 @@
+{
+  "source_site": "https://govnics-murex.vercel.app",
+  "destination_cms": "https://cms.govenics.com",
+  "pages_mapped": {
+    "f3fd9bc099f3": {
+      "source_id": "f3fd9bc099f3",
+      "slug": "home",
+      "path": "",
+      "title": "GOVENICS | Enterprise Governance, Risk & Compliance Consulting",
+      "wp_id": 9999,
+      "parent_wp_id": 0,
+      "action": "dry_run_create",
+      "content_hash": "e3b0c44298fc1c14"
+    },
+    "63d19d102994": {
+      "source_id": "63d19d102994",
+      "slug": "about",
+      "path": "/about",
+      "title": "GOVENICS | Enterprise Governance, Risk & Compliance Consulting",
+      "wp_id": 9999,
+      "parent_wp_id": 0,
+      "action": "dry_run_create",
+      "content_hash": "e3b0c44298fc1c14"
+    },
+    "4792c21cf6b5": {
+      "source_id": "4792c21cf6b5",
+      "slug": "contact",
+      "path": "/contact",
+      "title": "GOVENICS | Enterprise Governance, Risk & Compliance Consulting",
+      "wp_id": 9999,
+      "parent_wp_id": 0,
+      "action": "dry_run_create",
+      "content_hash": "e3b0c44298fc1c14"
+    },
+    "b3051e4d1e8b": {
+      "source_id": "b3051e4d1e8b",
+      "slug": "services",
+      "path": "/services",
+      "title": "GOVENICS | Enterprise Governance, Risk & Compliance Consulting",
+      "wp_id": 9999,
+      "parent_wp_id": 0,
+      "action": "dry_run_create",
+      "content_hash": "e3b0c44298fc1c14"
+    },
+    "4a76fb04488a": {
+      "source_id": "4a76fb04488a",
+      "slug": "industries",
+      "path": "/industries",
+      "title": "GOVENICS | Enterprise Governance, Risk & Compliance Consulting",
+      "wp_id": 9999,
+      "parent_wp_id": 0,
+      "action": "dry_run_create",
+      "content_hash": "e3b0c44298fc1c14"
+    },
+    "1a6a0d24d951": {
+      "source_id": "1a6a0d24d951",
+      "slug": "blog",
+      "path": "/blog",
+      "title": "GOVENICS | Enterprise Governance, Risk & Compliance Consulting",
+      "wp_id": 9999,
+      "parent_wp_id": 0,
+      "action": "dry_run_create",
+      "content_hash": "e3b0c44298fc1c14"
+    },
+    "297ca07f76d8": {
+      "source_id": "297ca07f76d8",
+      "slug": "resources",
+      "path": "/resources",
+      "title": "GOVENICS | Enterprise Governance, Risk & Compliance Consulting",
+      "wp_id": 9999,
+      "parent_wp_id": 0,
+      "action": "dry_run_create",
+      "content_hash": "e3b0c44298fc1c14"
+    },
+    "9e10b4325891": {
+      "source_id": "9e10b4325891",
+      "slug": "privacy-policy",
+      "path": "/privacy-policy",
+      "title": "GOVENICS | Enterprise Governance, Risk & Compliance Consulting",
+      "wp_id": 9999,
+      "parent_wp_id": 0,
+      "action": "dry_run_create",
+      "content_hash": "e3b0c44298fc1c14"
+    },
+    "5cbc6b641def": {
+      "source_id": "5cbc6b641def",
+      "slug": "terms",
+      "path": "/terms",
+      "title": "GOVENICS | Enterprise Governance, Risk & Compliance Consulting",
+      "wp_id": 9999,
+      "parent_wp_id": 0,
+      "action": "dry_run_create",
+      "content_hash": "e3b0c44298fc1c14"
+    },
+    "8bfd66b22f96": {
+      "source_id": "8bfd66b22f96",
+      "slug": "sgrc-e-library",
+      "path": "/sgrc/e-library",
+      "title": "GOVENICS | Enterprise Governance, Risk & Compliance Consulting",
+      "wp_id": 9999,
+      "parent_wp_id": 0,
+      "action": "dry_run_create",
+      "content_hash": "e3b0c44298fc1c14"
+    },
+    "9d4843cbbcdf": {
+      "source_id": "9d4843cbbcdf",
+      "slug": "sgrc-resources",
+      "path": "/sgrc/resources",
+      "title": "GOVENICS | Enterprise Governance, Risk & Compliance Consulting",
+      "wp_id": 9999,
+      "parent_wp_id": 0,
+      "action": "dry_run_create",
+      "content_hash": "e3b0c44298fc1c14"
+    },
+    "07e7464ba7db": {
+      "source_id": "07e7464ba7db",
+      "slug": "offerings-regulatory-compliance",
+      "path": "/offerings/regulatory-compliance",
+      "title": "GOVENICS | Enterprise Governance, Risk & Compliance Consulting",
+      "wp_id": 9999,
+      "parent_wp_id": 0,
+      "action": "dry_run_create",
+      "content_hash": "e3b0c44298fc1c14"
+    },
+    "a825be208518": {
+      "source_id": "a825be208518",
+      "slug": "offerings-labour-employment",
+      "path": "/offerings/labour-employment",
+      "title": "GOVENICS | Enterprise Governance, Risk & Compliance Consulting",
+      "wp_id": 9999,
+      "parent_wp_id": 0,
+      "action": "dry_run_create",
+      "content_hash": "e3b0c44298fc1c14"
+    },
+    "c24338d553e8": {
+      "source_id": "c24338d553e8",
+      "slug": "offerings-environmental-ehs",
+      "path": "/offerings/environmental-ehs",
+      "title": "GOVENICS | Enterprise Governance, Risk & Compliance Consulting",
+      "wp_id": 9999,
+      "parent_wp_id": 0,
+      "action": "dry_run_create",
+      "content_hash": "e3b0c44298fc1c14"
+    },
+    "4503180b4516": {
+      "source_id": "4503180b4516",
+      "slug": "offerings-licensing-permits",
+      "path": "/offerings/licensing-permits",
+      "title": "GOVENICS | Enterprise Governance, Risk & Compliance Consulting",
+      "wp_id": 9999,
+      "parent_wp_id": 0,
+      "action": "dry_run_create",
+      "content_hash": "e3b0c44298fc1c14"
+    },
+    "0952a7603033": {
+      "source_id": "0952a7603033",
+      "slug": "offerings-taxation-trade",
+      "path": "/offerings/taxation-trade",
+      "title": "GOVENICS | Enterprise Governance, Risk & Compliance Consulting",
+      "wp_id": 9999,
+      "parent_wp_id": 0,
+      "action": "dry_run_create",
+      "content_hash": "e3b0c44298fc1c14"
+    },
+    "74690891cd32": {
+      "source_id": "74690891cd32",
+      "slug": "offerings-export-trade-services",
+      "path": "/offerings/export-trade-services",
+      "title": "GOVENICS | Enterprise Governance, Risk & Compliance Consulting",
+      "wp_id": 9999,
+      "parent_wp_id": 0,
+      "action": "dry_run_create",
+      "content_hash": "e3b0c44298fc1c14"
+    },
+    "ff1f5517d766": {
+      "source_id": "ff1f5517d766",
+      "slug": "offerings-supply-chain-compliance",
+      "path": "/offerings/supply-chain-compliance",
+      "title": "GOVENICS | Enterprise Governance, Risk & Compliance Consulting",
+      "wp_id": 9999,
+      "parent_wp_id": 0,
+      "action": "dry_run_create",
+      "content_hash": "e3b0c44298fc1c14"
+    },
+    "bfde48eb281a": {
+      "source_id": "bfde48eb281a",
+      "slug": "offerings-escrow-services",
+      "path": "/offerings/escrow-services",
+      "title": "GOVENICS | Enterprise Governance, Risk & Compliance Consulting",
+      "wp_id": 9999,
+      "parent_wp_id": 0,
+      "action": "dry_run_create",
+      "content_hash": "e3b0c44298fc1c14"
+    },
+    "ea05ee0258b3": {
+      "source_id": "ea05ee0258b3",
+      "slug": "offerings-enterprise-governance",
+      "path": "/offerings/enterprise-governance",
+      "title": "GOVENICS | Enterprise Governance, Risk & Compliance Consulting",
+      "wp_id": 9999,
+      "parent_wp_id": 0,
+      "action": "dry_run_create",
+      "content_hash": "e3b0c44298fc1c14"
+    },
+    "c45f4f66bfa1": {
+      "source_id": "c45f4f66bfa1",
+      "slug": "offerings-risk-management",
+      "path": "/offerings/risk-management",
+      "title": "GOVENICS | Enterprise Governance, Risk & Compliance Consulting",
+      "wp_id": 9999,
+      "parent_wp_id": 0,
+      "action": "dry_run_create",
+      "content_hash": "e3b0c44298fc1c14"
+    },
+    "65a45f7c6ac4": {
+      "source_id": "65a45f7c6ac4",
+      "slug": "offerings-esg-sustainability",
+      "path": "/offerings/esg-sustainability",
+      "title": "GOVENICS | Enterprise Governance, Risk & Compliance Consulting",
+      "wp_id": 9999,
+      "parent_wp_id": 0,
+      "action": "dry_run_create",
+      "content_hash": "e3b0c44298fc1c14"
+    },
+    "04b32e48fb90": {
+      "source_id": "04b32e48fb90",
+      "slug": "offerings-cybersecurity-privacy",
+      "path": "/offerings/cybersecurity-privacy",
+      "title": "GOVENICS | Enterprise Governance, Risk & Compliance Consulting",
+      "wp_id": 9999,
+      "parent_wp_id": 0,
+      "action": "dry_run_create",
+      "content_hash": "e3b0c44298fc1c14"
+    },
+    "9a104de16472": {
+      "source_id": "9a104de16472",
+      "slug": "industries-manufacturing",
+      "path": "/industries/manufacturing",
+      "title": "GOVENICS | Enterprise Governance, Risk & Compliance Consulting",
+      "wp_id": 9999,
+      "parent_wp_id": 9999,
+      "action": "dry_run_create",
+      "content_hash": "e3b0c44298fc1c14"
+    },
+    "3c56be22a8ef": {
+      "source_id": "3c56be22a8ef",
+      "slug": "industries-automotive",
+      "path": "/industries/automotive",
+      "title": "GOVENICS | Enterprise Governance, Risk & Compliance Consulting",
+      "wp_id": 9999,
+      "parent_wp_id": 9999,
+      "action": "dry_run_create",
+      "content_hash": "e3b0c44298fc1c14"
+    },
+    "e7c5d04fd544": {
+      "source_id": "e7c5d04fd544",
+      "slug": "industries-pharmaceuticals",
+      "path": "/industries/pharmaceuticals",
+      "title": "GOVENICS | Enterprise Governance, Risk & Compliance Consulting",
+      "wp_id": 9999,
+      "parent_wp_id": 9999,
+      "action": "dry_run_create",
+      "content_hash": "e3b0c44298fc1c14"
+    },
+    "1666b995143f": {
+      "source_id": "1666b995143f",
+      "slug": "industries-electronics",
+      "path": "/industries/electronics",
+      "title": "GOVENICS | Enterprise Governance, Risk & Compliance Consulting",
+      "wp_id": 9999,
+      "parent_wp_id": 9999,
+      "action": "dry_run_create",
+      "content_hash": "e3b0c44298fc1c14"
+    },
+    "12b7d211f231": {
+      "source_id": "12b7d211f231",
+      "slug": "industries-chemicals",
+      "path": "/industries/chemicals",
+      "title": "GOVENICS | Enterprise Governance, Risk & Compliance Consulting",
+      "wp_id": 9999,
+      "parent_wp_id": 9999,
+      "action": "dry_run_create",
+      "content_hash": "e3b0c44298fc1c14"
+    },
+    "fa087c89230d": {
+      "source_id": "fa087c89230d",
+      "slug": "industries-textiles",
+      "path": "/industries/textiles",
+      "title": "GOVENICS | Enterprise Governance, Risk & Compliance Consulting",
+      "wp_id": 9999,
+      "parent_wp_id": 9999,
+      "action": "dry_run_create",
+      "content_hash": "e3b0c44298fc1c14"
+    },
+    "dbaf620b19ab": {
+      "source_id": "dbaf620b19ab",
+      "slug": "industries-food-processing",
+      "path": "/industries/food-processing",
+      "title": "GOVENICS | Enterprise Governance, Risk & Compliance Consulting",
+      "wp_id": 9999,
+      "parent_wp_id": 9999,
+      "action": "dry_run_create",
+      "content_hash": "e3b0c44298fc1c14"
+    },
+    "001e887abcee": {
+      "source_id": "001e887abcee",
+      "slug": "industries-bfsi-fintech",
+      "path": "/industries/bfsi-fintech",
+      "title": "GOVENICS | Enterprise Governance, Risk & Compliance Consulting",
+      "wp_id": 9999,
+      "parent_wp_id": 9999,
+      "action": "dry_run_create",
+      "content_hash": "e3b0c44298fc1c14"
+    },
+    "ff0af9e9000f": {
+      "source_id": "ff0af9e9000f",
+      "slug": "industries-healthcare",
+      "path": "/industries/healthcare",
+      "title": "GOVENICS | Enterprise Governance, Risk & Compliance Consulting",
+      "wp_id": 9999,
+      "parent_wp_id": 9999,
+      "action": "dry_run_create",
+      "content_hash": "e3b0c44298fc1c14"
+    },
+    "6279d2ce0b29": {
+      "source_id": "6279d2ce0b29",
+      "slug": "industries-it-technology",
+      "path": "/industries/it-technology",
+      "title": "GOVENICS | Enterprise Governance, Risk & Compliance Consulting",
+      "wp_id": 9999,
+      "parent_wp_id": 9999,
+      "action": "dry_run_create",
+      "content_hash": "e3b0c44298fc1c14"
+    },
+    "68a840663012": {
+      "source_id": "68a840663012",
+      "slug": "industries-logistics",
+      "path": "/industries/logistics",
+      "title": "GOVENICS | Enterprise Governance, Risk & Compliance Consulting",
+      "wp_id": 9999,
+      "parent_wp_id": 9999,
+      "action": "dry_run_create",
+      "content_hash": "e3b0c44298fc1c14"
+    },
+    "337bfc2d2779": {
+      "source_id": "337bfc2d2779",
+      "slug": "industries-infrastructure",
+      "path": "/industries/infrastructure",
+      "title": "GOVENICS | Enterprise Governance, Risk & Compliance Consulting",
+      "wp_id": 9999,
+      "parent_wp_id": 9999,
+      "action": "dry_run_create",
+      "content_hash": "e3b0c44298fc1c14"
+    },
+    "79515465379c": {
+      "source_id": "79515465379c",
+      "slug": "industries-energy-utilities",
+      "path": "/industries/energy-utilities",
+      "title": "GOVENICS | Enterprise Governance, Risk & Compliance Consulting",
+      "wp_id": 9999,
+      "parent_wp_id": 9999,
+      "action": "dry_run_create",
+      "content_hash": "e3b0c44298fc1c14"
+    },
+    "d52b516b3351": {
+      "source_id": "d52b516b3351",
+      "slug": "industries-retail",
+      "path": "/industries/retail",
+      "title": "GOVENICS | Enterprise Governance, Risk & Compliance Consulting",
+      "wp_id": 9999,
+      "parent_wp_id": 9999,
+      "action": "dry_run_create",
+      "content_hash": "e3b0c44298fc1c14"
+    },
+    "91ffe4ae406b": {
+      "source_id": "91ffe4ae406b",
+      "slug": "industries-agriculture",
+      "path": "/industries/agriculture",
+      "title": "GOVENICS | Enterprise Governance, Risk & Compliance Consulting",
+      "wp_id": 9999,
+      "parent_wp_id": 9999,
+      "action": "dry_run_create",
+      "content_hash": "e3b0c44298fc1c14"
+    }
+  },
+  "summary": {
+    "created": 38,
+    "updated": 0,
+    "unchanged": 0,
+    "total": 38
+  }
+}

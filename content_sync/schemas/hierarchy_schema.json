@@ -1,0 +1,47 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "GOVENICS Digital Presence Hierarchy",
+  "description": "Schema for the extracted GOVENICS website content hierarchy",
+  "type": "object",
+  "required": ["source", "extraction_timestamp", "total_pages", "flat_pages"],
+  "properties": {
+    "source": { "type": "string", "format": "uri" },
+    "extraction_timestamp": { "type": "string", "pattern": "^\\d{4}-\\d{2}-\\d{2}T" },
+    "total_pages": { "type": "integer", "minimum": 1 },
+    "hierarchy": { "type": "array" },
+    "flat_pages": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["source_id", "url", "slug", "title", "page_type", "content_hash", "crawled_at"],
+        "properties": {
+          "source_id":          { "type": "string", "minLength": 8 },
+          "url":                { "type": "string", "format": "uri" },
+          "canonical_url":      { "type": "string" },
+          "slug":               { "type": "string" },
+          "path":               { "type": "string" },
+          "title":              { "type": "string" },
+          "og_title":           { "type": "string" },
+          "meta_description":   { "type": "string" },
+          "og_description":     { "type": "string" },
+          "meta_keywords":      { "type": "string" },
+          "featured_image":     { "type": "string" },
+          "hero_image":         { "type": "string" },
+          "page_type":          { "type": "string", "enum": ["homepage","offering","industry","blog","about","contact","resource","sgrc","page"] },
+          "headings":           { "type": "array" },
+          "sections":           { "type": "array" },
+          "parsed_sections":    { "type": "array" },
+          "images":             { "type": "array" },
+          "internal_links":     { "type": "array", "items": { "type": "string" } },
+          "content_hash":       { "type": "string", "minLength": 8 },
+          "http_status":        { "type": "integer" },
+          "crawled_at":         { "type": "string" },
+          "depth":              { "type": "integer", "minimum": 0 },
+          "parent_path":        { "type": ["string", "null"] },
+          "children":           { "type": "array" }
+        }
+      }
+    }
+  }
+}
+

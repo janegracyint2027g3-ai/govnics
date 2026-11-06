@@ -1,0 +1,50 @@
+name: GOVENICS Digital Presence CMS Sync
+on:
+  schedule:
+    # Run daily at 02:00 UTC
+    - cron: '0 2 * * *'
+  workflow_dispatch:
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install Dependencies
+        run: |
+          cd content_sync
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+          playwright install chromium
+
+      - name: Run Pytest Test Suite
+        run: |
+          cd content_sync
+          python -m pytest tests/ -v
+
+      - name: Run CMS Synchronization
+        env:
+          WORDPRESS_API_URL: ${{ secrets.WORDPRESS_API_URL }}
+          WORDPRESS_USERNAME: ${{ secrets.WORDPRESS_USERNAME }}
+          WORDPRESS_APP_PASSWORD: ${{ secrets.WORDPRESS_APP_PASSWORD }}
+        run: |
+          cd content_sync
+          python content_synchronizer.py --execute
+
+      - name: Upload Sync Artifacts
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: cms-sync-reports
+          path: |
+            content_sync/output/sync_report.md
+            content_sync/output/sync_report.json
+            content_sync/output/govenics_cms_mapping.json
+
