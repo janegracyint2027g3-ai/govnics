@@ -68,6 +68,7 @@ import complianceSearch from './_handlers/compliance/search.js';
 import riskRegister from './_handlers/risk/register.js';
 import reportsGenerate from './_handlers/reports/generate.js';
 import organizationsWorkspaces from './_handlers/organizations/workspaces.js';
+import appTokens from './_handlers/tokens/index.js';
 
 const exactRoutes = {
   '/api/auth/login': authLogin,
@@ -145,6 +146,15 @@ const exactRoutes = {
   '/api/compliance/knowledge-graph': complianceKnowledgeGraph,
   '/api/compliance/search': complianceSearch,
 
+  '/api/tokens': appTokens,
+  '/api/tokens/list': appTokens,
+  '/api/tokens/generate': appTokens,
+  '/api/tokens/revoke': appTokens,
+  '/api/tokens/rotate': appTokens,
+  '/api/tokens/verify': appTokens,
+  '/api/tokens/sync-sheet': appTokens,
+  '/api/tokens/stats': appTokens,
+
   '/api/risk/register': riskRegister,
   '/api/reports/generate': reportsGenerate,
   '/api/organizations/workspaces': organizationsWorkspaces
@@ -201,6 +211,8 @@ export default async function handler(req, res) {
         selectedHandler = securityValidate;
       } else if (pathname.startsWith('/api/library/')) {
         selectedHandler = libraryResources;
+      } else if (pathname.startsWith('/api/tokens')) {
+        selectedHandler = appTokens;
       }
     }
 

@@ -167,6 +167,12 @@ var TAB_CONFIGS = {
   "User_Logins": [
     "Timestamp", "Email", "Auth Provider", "Login Status", "IP Location", "IP Address", "User Agent"
   ],
+  "App_Tokens": [
+    "Token ID", "Application Name", "Client / Owner", "Environment",
+    "Scopes", "Created At", "Expires At", "Duration (Days)",
+    "Days Remaining", "Expiry Status", "Last Used", "Masked Key",
+    "Revoked At", "Revoked Reason", "IP / Host", "Sync Timestamp"
+  ],
   "Estimator_Calculations": [
     "Timestamp", "Company Size", "Frameworks Selected", "Cloud Scope", "Employee Count",
     "Estimated Cost (INR)", "Readiness Score (%)", "User Email", "Phone", "IP Location"
@@ -314,6 +320,13 @@ var SHEET_NAME_ALIASES = {
   "user_logins": "User_Logins",
   "userlogins": "User_Logins",
 
+  // ── App Token Management ──
+  "app_tokens": "App_Tokens",
+  "apptokens": "App_Tokens",
+  "tokens": "App_Tokens",
+  "token_management": "App_Tokens",
+  "api_tokens": "App_Tokens",
+
   // ── Campaigns ──
   "google_ad_leads": "Google_Ad_Leads",
   "googleadleads": "Google_Ad_Leads",
@@ -432,6 +445,7 @@ function doPost(e) {
       canonicalName === "Chatbot_Leads" ||
       canonicalName === "Registered_Users" ||
       canonicalName === "User_Logins" ||
+      canonicalName === "App_Tokens" ||
       canonicalName === "Estimator_Calculations" ||
       canonicalName === "Exit_Intent_Feedback" ||
       canonicalName === "Partner_Applications"
@@ -503,6 +517,37 @@ function doPost(e) {
       if (!fields["LinkedIn Form / Campaign ID"] && (fields.linkedin_form || fields.utm_term || fields.utmTerm)) {
         fields["LinkedIn Form / Campaign ID"] = fields.linkedin_form || fields.utm_term || fields.utmTerm;
       }
+    }
+
+    // App Token Management Upsert Logic
+    if (canonicalName === "App_Tokens") {
+      var tokenId = fields["Token ID"] || fields.tokenId || "";
+      var rowData = syncHeadersAndBuildRow(sheet, fields, TAB_CONFIGS[canonicalName]);
+      var isUpdated = false;
+      var lastRow = sheet.getLastRow();
+
+      if (lastRow > 1 && tokenId) {
+        var tokenCol = sheet.getRange(2, 1, lastRow - 1, 1).getValues();
+        for (var i = 0; i < tokenCol.length; i++) {
+          if (tokenCol[i][0] === tokenId) {
+            sheet.getRange(i + 2, 1, 1, rowData.length).setValues([rowData]);
+            isUpdated = true;
+            break;
+          }
+        }
+      }
+
+      if (!isUpdated) {
+        sheet.appendRow(rowData);
+      }
+
+      return ContentService.createTextOutput(JSON.stringify({
+        success: true,
+        sheet: "App_Tokens",
+        action: isUpdated ? "updated" : "appended",
+        tokenId: tokenId,
+        timestamp: new Date().toISOString()
+      })).setMimeType(ContentService.MimeType.JSON);
     }
 
     // Append row with automatic column and header synchronization
