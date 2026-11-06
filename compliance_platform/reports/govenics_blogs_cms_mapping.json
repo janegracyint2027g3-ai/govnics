@@ -1,0 +1,1340 @@
+{
+  "generated_at": "2026-11-06T11:56:00.195516+00:00",
+  "source_repo": "https://github.com/janegracyint2027g3-ai/Govenics_Blogs",
+  "stats": {
+    "total_items": 91,
+    "ebooks_published": 13,
+    "articles_published": 78,
+    "created": 91,
+    "updated": 0,
+    "errors": 0
+  },
+  "items": [
+    {
+      "type": "ebook",
+      "document_id": "eb-regulatory-compliance",
+      "title": "[E-BOOK] Enterprise Regulatory Compliance Blueprint",
+      "slug": "ebook-regulatory-compliance-blueprint",
+      "wp_id": 263,
+      "action": "created",
+      "pdf_url": "https://cms.govenics.com/wp-content/uploads/2026/11/regulatory-compliance-blueprint.pdf",
+      "category": "E-books",
+      "offering": "Regulatory Compliance Advisory",
+      "industry": "Multi-Sector Enterprise"
+    },
+    {
+      "type": "ebook",
+      "document_id": "eb-enterprise-governance",
+      "title": "[E-BOOK] The CFO's Guide to Corporate Governance & Multi-Entity Risk",
+      "slug": "ebook-cfo-guide-enterprise-governance",
+      "wp_id": 265,
+      "action": "created",
+      "pdf_url": "https://cms.govenics.com/wp-content/uploads/2026/11/cfo-guide-enterprise-governance.pdf",
+      "category": "E-books",
+      "offering": "Enterprise Corporate Governance (CFO Suite)",
+      "industry": "Holding Companies & Conglomerates"
+    },
+    {
+      "type": "ebook",
+      "document_id": "eb-cybersecurity-data",
+      "title": "[E-BOOK] Enterprise Data Privacy & Cyber Resilience Handbook",
+      "slug": "ebook-enterprise-data-privacy-cyber-resilience",
+      "wp_id": 267,
+      "action": "created",
+      "pdf_url": "https://cms.govenics.com/wp-content/uploads/2026/11/enterprise-data-privacy-cyber-resilience.pdf",
+      "category": "E-books",
+      "offering": "Cybersecurity & Data Protection (CISO Suite)",
+      "industry": "Technology, BFSI & Consumer Enterprise"
+    },
+    {
+      "type": "ebook",
+      "document_id": "eb-labour-employment",
+      "title": "[E-BOOK] Strategic Labour Law & Workforce Governance Guide",
+      "slug": "ebook-strategic-labour-law-workforce-governance",
+      "wp_id": 269,
+      "action": "created",
+      "pdf_url": "https://cms.govenics.com/wp-content/uploads/2026/11/strategic-labour-law-workforce-governance.pdf",
+      "category": "E-books",
+      "offering": "Labour & Employment Law Compliance",
+      "industry": "Manufacturing, Logistics & Services"
+    },
+    {
+      "type": "ebook",
+      "document_id": "eb-esg-sustainability",
+      "title": "[E-BOOK] The Enterprise ESG & BRSR Governance Playbook",
+      "slug": "ebook-enterprise-esg-brsr-governance-playbook",
+      "wp_id": 271,
+      "action": "created",
+      "pdf_url": "https://cms.govenics.com/wp-content/uploads/2026/11/enterprise-esg-brsr-governance-playbook.pdf",
+      "category": "E-books",
+      "offering": "ESG & Sustainability Advisory",
+      "industry": "Listed Corporations & Export Manufacturers"
+    },
+    {
+      "type": "ebook",
+      "document_id": "eb-taxation-trade",
+      "title": "[E-BOOK] Enterprise Tax Risk Management & Cross-Border Trade",
+      "slug": "ebook-enterprise-tax-statutory-trade-advisory",
+      "wp_id": 273,
+      "action": "created",
+      "pdf_url": "https://cms.govenics.com/wp-content/uploads/2026/11/enterprise-tax-statutory-trade-advisory.pdf",
+      "category": "E-books",
+      "offering": "Taxation & Trade Advisory",
+      "industry": "Global Conglomerates, Importers & Exporters"
+    },
+    {
+      "type": "ebook",
+      "document_id": "eb-environmental-ehs",
+      "title": "[E-BOOK] Industrial EHS & Environmental Regulatory Defensibility",
+      "slug": "ebook-industrial-ehs-regulatory-compliance-guide",
+      "wp_id": 275,
+      "action": "created",
+      "pdf_url": "https://cms.govenics.com/wp-content/uploads/2026/11/industrial-ehs-regulatory-compliance-guide.pdf",
+      "category": "E-books",
+      "offering": "Environmental & EHS Advisory",
+      "industry": "Chemicals, Heavy Engineering, Pharmaceuticals & Mining"
+    },
+    {
+      "type": "ebook",
+      "document_id": "eb-supply-chain",
+      "title": "[E-BOOK] Supply Chain & Third-Party Vendor Risk Governance",
+      "slug": "ebook-enterprise-supply-chain-vendor-governance",
+      "wp_id": 277,
+      "action": "created",
+      "pdf_url": "https://cms.govenics.com/wp-content/uploads/2026/11/enterprise-supply-chain-vendor-governance.pdf",
+      "category": "E-books",
+      "offering": "Supply Chain & Vendor Governance",
+      "industry": "Automotive, FMCG, Retail & Life Sciences"
+    },
+    {
+      "type": "ebook",
+      "document_id": "eb-export-trade",
+      "title": "[E-BOOK] Global Trade, Export Controls & Sanctions Compliance",
+      "slug": "ebook-global-trade-export-controls-sanctions",
+      "wp_id": 279,
+      "action": "created",
+      "pdf_url": "https://cms.govenics.com/wp-content/uploads/2026/11/global-trade-export-controls-sanctions.pdf",
+      "category": "E-books",
+      "offering": "Export & Global Trade Advisory",
+      "industry": "Aerospace, Defense, High-Tech & Specialty Chemicals"
+    },
+    {
+      "type": "ebook",
+      "document_id": "eb-licensing-permits",
+      "title": "[E-BOOK] Enterprise Licensing & Statutory Permits Management",
+      "slug": "ebook-enterprise-licensing-statutory-permits-guide",
+      "wp_id": 281,
+      "action": "created",
+      "pdf_url": "https://cms.govenics.com/wp-content/uploads/2026/11/enterprise-licensing-statutory-permits-guide.pdf",
+      "category": "E-books",
+      "offering": "Licensing & Permits Management",
+      "industry": "Retail, Hospitality, Warehousing & Industrial Sites"
+    },
+    {
+      "type": "ebook",
+      "document_id": "eb-escrow-services",
+      "title": "[E-BOOK] Commercial Escrow & M&A Governance Playbook",
+      "slug": "ebook-commercial-escrow-m-and-a-statutory-governance",
+      "wp_id": 283,
+      "action": "created",
+      "pdf_url": "https://cms.govenics.com/wp-content/uploads/2026/11/commercial-escrow-m-and-a-statutory-governance.pdf",
+      "category": "E-books",
+      "offering": "Commercial Escrow Services",
+      "industry": "Private Equity, M&A, Real Estate & Corporate Restructuring"
+    },
+    {
+      "type": "ebook",
+      "document_id": "eb-risk-management",
+      "title": "[E-BOOK] Enterprise Risk Management & Board Oversight Handbook",
+      "slug": "ebook-enterprise-risk-management-cro-handbook",
+      "wp_id": 285,
+      "action": "created",
+      "pdf_url": "https://cms.govenics.com/wp-content/uploads/2026/11/enterprise-risk-management-cro-handbook.pdf",
+      "category": "E-books",
+      "offering": "Enterprise Risk Management (CRO Suite)",
+      "industry": "Cross-Industry Large Enterprise & Conglomerates"
+    },
+    {
+      "type": "ebook",
+      "document_id": "eb-staffing-managed",
+      "title": "[E-BOOK] Managed Compliance & Outsourced GRC Operations",
+      "slug": "ebook-managed-compliance-outsourced-grc-operations",
+      "wp_id": 287,
+      "action": "created",
+      "pdf_url": "https://cms.govenics.com/wp-content/uploads/2026/11/managed-compliance-outsourced-grc-operations.pdf",
+      "category": "E-books",
+      "offering": "Staffing & Managed Compliance",
+      "industry": "Enterprises Undergoing Rapid Expansion & Reorganization"
+    },
+    {
+      "type": "article",
+      "document_id": "GOV-BLOG-1001",
+      "title": "[ARTICLE] Why Enterprise Regulatory Compliance Fails: Operational Breakdowns, Hidden Penalties & Board Exposure",
+      "slug": "article-regulatory-compliance-challenges-risks",
+      "wp_id": 288,
+      "action": "created",
+      "categories": [
+        "Articles & Blogs",
+        "Blogs"
+      ],
+      "offering": "Regulatory Compliance Advisory",
+      "industry": "Manufacturing",
+      "author": "GOVENICS Enterprise Advisory Team"
+    },
+    {
+      "type": "article",
+      "document_id": "GOV-BLOG-1002",
+      "title": "[ARTICLE] The Executive Blueprint for Regulatory Compliance: Controls, Architecture & Institutional Rollout",
+      "slug": "article-regulatory-compliance-implementation-guide",
+      "wp_id": 289,
+      "action": "created",
+      "categories": [
+        "Articles & Blogs",
+        "Blogs"
+      ],
+      "offering": "Regulatory Compliance Advisory",
+      "industry": "Manufacturing",
+      "author": "GOVENICS Enterprise Advisory Team"
+    },
+    {
+      "type": "article",
+      "document_id": "GOV-BLOG-1003",
+      "title": "[ARTICLE] 2025–2026 Regulatory Compendium for Regulatory Compliance: Legal Amendments, Audits & Readiness",
+      "slug": "article-regulatory-compliance-regulatory-updates",
+      "wp_id": 290,
+      "action": "created",
+      "categories": [
+        "Articles & Blogs",
+        "Blogs"
+      ],
+      "offering": "Regulatory Compliance Advisory",
+      "industry": "Manufacturing",
+      "author": "GOVENICS Enterprise Advisory Team"
+    },
+    {
+      "type": "article",
+      "document_id": "GOV-BLOG-1004",
+      "title": "[ARTICLE] Boardroom Defensibility in Regulatory Compliance: Personal KMP Accountability & Capital Protection",
+      "slug": "article-regulatory-compliance-executive-insights",
+      "wp_id": 291,
+      "action": "created",
+      "categories": [
+        "Articles & Blogs",
+        "Blogs"
+      ],
+      "offering": "Regulatory Compliance Advisory",
+      "industry": "Manufacturing",
+      "author": "GOVENICS Enterprise Advisory Team"
+    },
+    {
+      "type": "article",
+      "document_id": "GOV-BLOG-1005",
+      "title": "[ARTICLE] When Inspection Strikes: An Illustrative Case Scenario in Enterprise Regulatory Compliance Remediation",
+      "slug": "article-regulatory-compliance-case-scenarios",
+      "wp_id": 292,
+      "action": "created",
+      "categories": [
+        "Articles & Blogs",
+        "Blogs"
+      ],
+      "offering": "Regulatory Compliance Advisory",
+      "industry": "Manufacturing",
+      "author": "GOVENICS Enterprise Advisory Team"
+    },
+    {
+      "type": "article",
+      "document_id": "GOV-BLOG-1006",
+      "title": "[ARTICLE] The 15-Point Enterprise Diagnostic & Audit Readiness Checklist for Regulatory Compliance",
+      "slug": "article-regulatory-compliance-checklist-assessment",
+      "wp_id": 293,
+      "action": "created",
+      "categories": [
+        "Articles & Blogs",
+        "Blogs"
+      ],
+      "offering": "Regulatory Compliance Advisory",
+      "industry": "Manufacturing",
+      "author": "GOVENICS Enterprise Advisory Team"
+    },
+    {
+      "type": "article",
+      "document_id": "GOV-BLOG-1007",
+      "title": "[ARTICLE] Why Enterprise Corporate Governance Fails: Operational Breakdowns, Hidden Penalties & Board Exposure",
+      "slug": "article-enterprise-governance-challenges-risks",
+      "wp_id": 294,
+      "action": "created",
+      "categories": [
+        "Articles & Blogs",
+        "Blogs"
+      ],
+      "offering": "Enterprise Corporate Governance (CFO Suite)",
+      "industry": "Holding Conglomerates",
+      "author": "GOVENICS Enterprise Advisory Team"
+    },
+    {
+      "type": "article",
+      "document_id": "GOV-BLOG-1008",
+      "title": "[ARTICLE] The Executive Blueprint for Corporate Governance: Controls, Architecture & Institutional Rollout",
+      "slug": "article-enterprise-governance-implementation-guide",
+      "wp_id": 295,
+      "action": "created",
+      "categories": [
+        "Articles & Blogs",
+        "Blogs"
+      ],
+      "offering": "Enterprise Corporate Governance (CFO Suite)",
+      "industry": "Holding Conglomerates",
+      "author": "GOVENICS Enterprise Advisory Team"
+    },
+    {
+      "type": "article",
+      "document_id": "GOV-BLOG-1009",
+      "title": "[ARTICLE] 2025–2026 Regulatory Compendium for Corporate Governance: Legal Amendments, Audits & Readiness",
+      "slug": "article-enterprise-governance-regulatory-updates",
+      "wp_id": 296,
+      "action": "created",
+      "categories": [
+        "Articles & Blogs",
+        "Blogs"
+      ],
+      "offering": "Enterprise Corporate Governance (CFO Suite)",
+      "industry": "Holding Conglomerates",
+      "author": "GOVENICS Enterprise Advisory Team"
+    },
+    {
+      "type": "article",
+      "document_id": "GOV-BLOG-1010",
+      "title": "[ARTICLE] Boardroom Defensibility in Corporate Governance: Personal KMP Accountability & Capital Protection",
+      "slug": "article-enterprise-governance-executive-insights",
+      "wp_id": 297,
+      "action": "created",
+      "categories": [
+        "Articles & Blogs",
+        "Blogs"
+      ],
+      "offering": "Enterprise Corporate Governance (CFO Suite)",
+      "industry": "Holding Conglomerates",
+      "author": "GOVENICS Enterprise Advisory Team"
+    },
+    {
+      "type": "article",
+      "document_id": "GOV-BLOG-1011",
+      "title": "[ARTICLE] When Inspection Strikes: An Illustrative Case Scenario in Enterprise Corporate Governance Remediation",
+      "slug": "article-enterprise-governance-case-scenarios",
+      "wp_id": 298,
+      "action": "created",
+      "categories": [
+        "Articles & Blogs",
+        "Blogs"
+      ],
+      "offering": "Enterprise Corporate Governance (CFO Suite)",
+      "industry": "Holding Conglomerates",
+      "author": "GOVENICS Enterprise Advisory Team"
+    },
+    {
+      "type": "article",
+      "document_id": "GOV-BLOG-1012",
+      "title": "[ARTICLE] The 15-Point Enterprise Diagnostic & Audit Readiness Checklist for Corporate Governance",
+      "slug": "article-enterprise-governance-checklist-assessment",
+      "wp_id": 299,
+      "action": "created",
+      "categories": [
+        "Articles & Blogs",
+        "Blogs"
+      ],
+      "offering": "Enterprise Corporate Governance (CFO Suite)",
+      "industry": "Holding Conglomerates",
+      "author": "GOVENICS Enterprise Advisory Team"
+    },
+    {
+      "type": "article",
+      "document_id": "GOV-BLOG-1013",
+      "title": "[ARTICLE] Why Enterprise Cybersecurity & Data Privacy Fails: Operational Breakdowns, Hidden Penalties & Board Exposure",
+      "slug": "article-cybersecurity-data-challenges-risks",
+      "wp_id": 300,
+      "action": "created",
+      "categories": [
+        "Articles & Blogs",
+        "Blogs"
+      ],
+      "offering": "Cybersecurity & Data Protection (CISO Suite)",
+      "industry": "IT & SaaS",
+      "author": "GOVENICS Enterprise Advisory Team"
+    },
+    {
+      "type": "article",
+      "document_id": "GOV-BLOG-1014",
+      "title": "[ARTICLE] The Executive Blueprint for Cybersecurity & Data Privacy: Controls, Architecture & Institutional Rollout",
+      "slug": "article-cybersecurity-data-implementation-guide",
+      "wp_id": 301,
+      "action": "created",
+      "categories": [
+        "Articles & Blogs",
+        "Blogs"
+      ],
+      "offering": "Cybersecurity & Data Protection (CISO Suite)",
+      "industry": "IT & SaaS",
+      "author": "GOVENICS Enterprise Advisory Team"
+    },
+    {
+      "type": "article",
+      "document_id": "GOV-BLOG-1015",
+      "title": "[ARTICLE] 2025–2026 Regulatory Compendium for Cybersecurity & Data Privacy: Legal Amendments, Audits & Readiness",
+      "slug": "article-cybersecurity-data-regulatory-updates",
+      "wp_id": 302,
+      "action": "created",
+      "categories": [
+        "Articles & Blogs",
+        "Blogs"
+      ],
+      "offering": "Cybersecurity & Data Protection (CISO Suite)",
+      "industry": "IT & SaaS",
+      "author": "GOVENICS Enterprise Advisory Team"
+    },
+    {
+      "type": "article",
+      "document_id": "GOV-BLOG-1016",
+      "title": "[ARTICLE] Boardroom Defensibility in Cybersecurity & Data Privacy: Personal KMP Accountability & Capital Protection",
+      "slug": "article-cybersecurity-data-executive-insights",
+      "wp_id": 303,
+      "action": "created",
+      "categories": [
+        "Articles & Blogs",
+        "Blogs"
+      ],
+      "offering": "Cybersecurity & Data Protection (CISO Suite)",
+      "industry": "IT & SaaS",
+      "author": "GOVENICS Enterprise Advisory Team"
+    },
+    {
+      "type": "article",
+      "document_id": "GOV-BLOG-1017",
+      "title": "[ARTICLE] When Inspection Strikes: An Illustrative Case Scenario in Enterprise Cybersecurity & Data Privacy Remediation",
+      "slug": "article-cybersecurity-data-case-scenarios",
+      "wp_id": 304,
+      "action": "created",
+      "categories": [
+        "Articles & Blogs",
+        "Blogs"
+      ],
+      "offering": "Cybersecurity & Data Protection (CISO Suite)",
+      "industry": "IT & SaaS",
+      "author": "GOVENICS Enterprise Advisory Team"
+    },
+    {
+      "type": "article",
+      "document_id": "GOV-BLOG-1018",
+      "title": "[ARTICLE] The 15-Point Enterprise Diagnostic & Audit Readiness Checklist for Cybersecurity & Data Privacy",
+      "slug": "article-cybersecurity-data-checklist-assessment",
+      "wp_id": 305,
+      "action": "created",
+      "categories": [
+        "Articles & Blogs",
+        "Blogs"
+      ],
+      "offering": "Cybersecurity & Data Protection (CISO Suite)",
+      "industry": "IT & SaaS",
+      "author": "GOVENICS Enterprise Advisory Team"
+    },
+    {
+      "type": "article",
+      "document_id": "GOV-BLOG-1019",
+      "title": "[ARTICLE] Why Enterprise Labour & Employment Fails: Operational Breakdowns, Hidden Penalties & Board Exposure",
+      "slug": "article-labour-employment-challenges-risks",
+      "wp_id": 306,
+      "action": "created",
+      "categories": [
+        "Articles & Blogs",
+        "Blogs"
+      ],
+      "offering": "Labour & Employment Law Compliance",
+      "industry": "Automotive",
+      "author": "GOVENICS Enterprise Advisory Team"
+    },
+    {
+      "type": "article",
+      "document_id": "GOV-BLOG-1020",
+      "title": "[ARTICLE] The Executive Blueprint for Labour & Employment: Controls, Architecture & Institutional Rollout",
+      "slug": "article-labour-employment-implementation-guide",
+      "wp_id": 307,
+      "action": "created",
+      "categories": [
+        "Articles & Blogs",
+        "Blogs"
+      ],
+      "offering": "Labour & Employment Law Compliance",
+      "industry": "Automotive",
+      "author": "GOVENICS Enterprise Advisory Team"
+    },
+    {
+      "type": "article",
+      "document_id": "GOV-BLOG-1021",
+      "title": "[ARTICLE] 2025–2026 Regulatory Compendium for Labour & Employment: Legal Amendments, Audits & Readiness",
+      "slug": "article-labour-employment-regulatory-updates",
+      "wp_id": 308,
+      "action": "created",
+      "categories": [
+        "Articles & Blogs",
+        "Blogs"
+      ],
+      "offering": "Labour & Employment Law Compliance",
+      "industry": "Automotive",
+      "author": "GOVENICS Enterprise Advisory Team"
+    },
+    {
+      "type": "article",
+      "document_id": "GOV-BLOG-1022",
+      "title": "[ARTICLE] Boardroom Defensibility in Labour & Employment: Personal KMP Accountability & Capital Protection",
+      "slug": "article-labour-employment-executive-insights",
+      "wp_id": 309,
+      "action": "created",
+      "categories": [
+        "Articles & Blogs",
+        "Blogs"
+      ],
+      "offering": "Labour & Employment Law Compliance",
+      "industry": "Automotive",
+      "author": "GOVENICS Enterprise Advisory Team"
+    },
+    {
+      "type": "article",
+      "document_id": "GOV-BLOG-1023",
+      "title": "[ARTICLE] When Inspection Strikes: An Illustrative Case Scenario in Enterprise Labour & Employment Remediation",
+      "slug": "article-labour-employment-case-scenarios",
+      "wp_id": 310,
+      "action": "created",
+      "categories": [
+        "Articles & Blogs",
+        "Blogs"
+      ],
+      "offering": "Labour & Employment Law Compliance",
+      "industry": "Automotive",
+      "author": "GOVENICS Enterprise Advisory Team"
+    },
+    {
+      "type": "article",
+      "document_id": "GOV-BLOG-1024",
+      "title": "[ARTICLE] The 15-Point Enterprise Diagnostic & Audit Readiness Checklist for Labour & Employment",
+      "slug": "article-labour-employment-checklist-assessment",
+      "wp_id": 311,
+      "action": "created",
+      "categories": [
+        "Articles & Blogs",
+        "Blogs"
+      ],
+      "offering": "Labour & Employment Law Compliance",
+      "industry": "Automotive",
+      "author": "GOVENICS Enterprise Advisory Team"
+    },
+    {
+      "type": "article",
+      "document_id": "GOV-BLOG-1025",
+      "title": "[ARTICLE] Why Enterprise ESG & Sustainability Fails: Operational Breakdowns, Hidden Penalties & Board Exposure",
+      "slug": "article-esg-sustainability-challenges-risks",
+      "wp_id": 312,
+      "action": "created",
+      "categories": [
+        "Articles & Blogs",
+        "Blogs"
+      ],
+      "offering": "ESG & Sustainability Advisory",
+      "industry": "Metals & Engineering",
+      "author": "GOVENICS Enterprise Advisory Team"
+    },
+    {
+      "type": "article",
+      "document_id": "GOV-BLOG-1026",
+      "title": "[ARTICLE] The Executive Blueprint for ESG & Sustainability: Controls, Architecture & Institutional Rollout",
+      "slug": "article-esg-sustainability-implementation-guide",
+      "wp_id": 313,
+      "action": "created",
+      "categories": [
+        "Articles & Blogs",
+        "Blogs"
+      ],
+      "offering": "ESG & Sustainability Advisory",
+      "industry": "Metals & Engineering",
+      "author": "GOVENICS Enterprise Advisory Team"
+    },
+    {
+      "type": "article",
+      "document_id": "GOV-BLOG-1027",
+      "title": "[ARTICLE] 2025–2026 Regulatory Compendium for ESG & Sustainability: Legal Amendments, Audits & Readiness",
+      "slug": "article-esg-sustainability-regulatory-updates",
+      "wp_id": 314,
+      "action": "created",
+      "categories": [
+        "Articles & Blogs",
+        "Blogs"
+      ],
+      "offering": "ESG & Sustainability Advisory",
+      "industry": "Metals & Engineering",
+      "author": "GOVENICS Enterprise Advisory Team"
+    },
+    {
+      "type": "article",
+      "document_id": "GOV-BLOG-1028",
+      "title": "[ARTICLE] Boardroom Defensibility in ESG & Sustainability: Personal KMP Accountability & Capital Protection",
+      "slug": "article-esg-sustainability-executive-insights",
+      "wp_id": 315,
+      "action": "created",
+      "categories": [
+        "Articles & Blogs",
+        "Blogs"
+      ],
+      "offering": "ESG & Sustainability Advisory",
+      "industry": "Metals & Engineering",
+      "author": "GOVENICS Enterprise Advisory Team"
+    },
+    {
+      "type": "article",
+      "document_id": "GOV-BLOG-1029",
+      "title": "[ARTICLE] When Inspection Strikes: An Illustrative Case Scenario in Enterprise ESG & Sustainability Remediation",
+      "slug": "article-esg-sustainability-case-scenarios",
+      "wp_id": 316,
+      "action": "created",
+      "categories": [
+        "Articles & Blogs",
+        "Blogs"
+      ],
+      "offering": "ESG & Sustainability Advisory",
+      "industry": "Metals & Engineering",
+      "author": "GOVENICS Enterprise Advisory Team"
+    },
+    {
+      "type": "article",
+      "document_id": "GOV-BLOG-1030",
+      "title": "[ARTICLE] The 15-Point Enterprise Diagnostic & Audit Readiness Checklist for ESG & Sustainability",
+      "slug": "article-esg-sustainability-checklist-assessment",
+      "wp_id": 317,
+      "action": "created",
+      "categories": [
+        "Articles & Blogs",
+        "Blogs"
+      ],
+      "offering": "ESG & Sustainability Advisory",
+      "industry": "Metals & Engineering",
+      "author": "GOVENICS Enterprise Advisory Team"
+    },
+    {
+      "type": "article",
+      "document_id": "GOV-BLOG-1031",
+      "title": "[ARTICLE] Why Enterprise Taxation & Trade Fails: Operational Breakdowns, Hidden Penalties & Board Exposure",
+      "slug": "article-taxation-trade-challenges-risks",
+      "wp_id": 318,
+      "action": "created",
+      "categories": [
+        "Articles & Blogs",
+        "Blogs"
+      ],
+      "offering": "Taxation & Trade Advisory",
+      "industry": "Electronics & Semiconductors",
+      "author": "GOVENICS Enterprise Advisory Team"
+    },
+    {
+      "type": "article",
+      "document_id": "GOV-BLOG-1032",
+      "title": "[ARTICLE] The Executive Blueprint for Taxation & Trade: Controls, Architecture & Institutional Rollout",
+      "slug": "article-taxation-trade-implementation-guide",
+      "wp_id": 319,
+      "action": "created",
+      "categories": [
+        "Articles & Blogs",
+        "Blogs"
+      ],
+      "offering": "Taxation & Trade Advisory",
+      "industry": "Electronics & Semiconductors",
+      "author": "GOVENICS Enterprise Advisory Team"
+    },
+    {
+      "type": "article",
+      "document_id": "GOV-BLOG-1033",
+      "title": "[ARTICLE] 2025–2026 Regulatory Compendium for Taxation & Trade: Legal Amendments, Audits & Readiness",
+      "slug": "article-taxation-trade-regulatory-updates",
+      "wp_id": 320,
+      "action": "created",
+      "categories": [
+        "Articles & Blogs",
+        "Blogs"
+      ],
+      "offering": "Taxation & Trade Advisory",
+      "industry": "Electronics & Semiconductors",
+      "author": "GOVENICS Enterprise Advisory Team"
+    },
+    {
+      "type": "article",
+      "document_id": "GOV-BLOG-1034",
+      "title": "[ARTICLE] Boardroom Defensibility in Taxation & Trade: Personal KMP Accountability & Capital Protection",
+      "slug": "article-taxation-trade-executive-insights",
+      "wp_id": 321,
+      "action": "created",
+      "categories": [
+        "Articles & Blogs",
+        "Blogs"
+      ],
+      "offering": "Taxation & Trade Advisory",
+      "industry": "Electronics & Semiconductors",
+      "author": "GOVENICS Enterprise Advisory Team"
+    },
+    {
+      "type": "article",
+      "document_id": "GOV-BLOG-1035",
+      "title": "[ARTICLE] When Inspection Strikes: An Illustrative Case Scenario in Enterprise Taxation & Trade Remediation",
+      "slug": "article-taxation-trade-case-scenarios",
+      "wp_id": 322,
+      "action": "created",
+      "categories": [
+        "Articles & Blogs",
+        "Blogs"
+      ],
+      "offering": "Taxation & Trade Advisory",
+      "industry": "Electronics & Semiconductors",
+      "author": "GOVENICS Enterprise Advisory Team"
+    },
+    {
+      "type": "article",
+      "document_id": "GOV-BLOG-1036",
+      "title": "[ARTICLE] The 15-Point Enterprise Diagnostic & Audit Readiness Checklist for Taxation & Trade",
+      "slug": "article-taxation-trade-checklist-assessment",
+      "wp_id": 323,
+      "action": "created",
+      "categories": [
+        "Articles & Blogs",
+        "Blogs"
+      ],
+      "offering": "Taxation & Trade Advisory",
+      "industry": "Electronics & Semiconductors",
+      "author": "GOVENICS Enterprise Advisory Team"
+    },
+    {
+      "type": "article",
+      "document_id": "GOV-BLOG-1037",
+      "title": "[ARTICLE] Why Enterprise Environmental & EHS Fails: Operational Breakdowns, Hidden Penalties & Board Exposure",
+      "slug": "article-environmental-ehs-challenges-risks",
+      "wp_id": 324,
+      "action": "created",
+      "categories": [
+        "Articles & Blogs",
+        "Blogs"
+      ],
+      "offering": "Environmental & EHS Advisory",
+      "industry": "Chemicals & Petrochemicals",
+      "author": "GOVENICS Enterprise Advisory Team"
+    },
+    {
+      "type": "article",
+      "document_id": "GOV-BLOG-1038",
+      "title": "[ARTICLE] The Executive Blueprint for Environmental & EHS: Controls, Architecture & Institutional Rollout",
+      "slug": "article-environmental-ehs-implementation-guide",
+      "wp_id": 325,
+      "action": "created",
+      "categories": [
+        "Articles & Blogs",
+        "Blogs"
+      ],
+      "offering": "Environmental & EHS Advisory",
+      "industry": "Chemicals & Petrochemicals",
+      "author": "GOVENICS Enterprise Advisory Team"
+    },
+    {
+      "type": "article",
+      "document_id": "GOV-BLOG-1039",
+      "title": "[ARTICLE] 2025–2026 Regulatory Compendium for Environmental & EHS: Legal Amendments, Audits & Readiness",
+      "slug": "article-environmental-ehs-regulatory-updates",
+      "wp_id": 326,
+      "action": "created",
+      "categories": [
+        "Articles & Blogs",
+        "Blogs"
+      ],
+      "offering": "Environmental & EHS Advisory",
+      "industry": "Chemicals & Petrochemicals",
+      "author": "GOVENICS Enterprise Advisory Team"
+    },
+    {
+      "type": "article",
+      "document_id": "GOV-BLOG-1040",
+      "title": "[ARTICLE] Boardroom Defensibility in Environmental & EHS: Personal KMP Accountability & Capital Protection",
+      "slug": "article-environmental-ehs-executive-insights",
+      "wp_id": 327,
+      "action": "created",
+      "categories": [
+        "Articles & Blogs",
+        "Blogs"
+      ],
+      "offering": "Environmental & EHS Advisory",
+      "industry": "Chemicals & Petrochemicals",
+      "author": "GOVENICS Enterprise Advisory Team"
+    },
+    {
+      "type": "article",
+      "document_id": "GOV-BLOG-1041",
+      "title": "[ARTICLE] When Inspection Strikes: An Illustrative Case Scenario in Enterprise Environmental & EHS Remediation",
+      "slug": "article-environmental-ehs-case-scenarios",
+      "wp_id": 328,
+      "action": "created",
+      "categories": [
+        "Articles & Blogs",
+        "Blogs"
+      ],
+      "offering": "Environmental & EHS Advisory",
+      "industry": "Chemicals & Petrochemicals",
+      "author": "GOVENICS Enterprise Advisory Team"
+    },
+    {
+      "type": "article",
+      "document_id": "GOV-BLOG-1042",
+      "title": "[ARTICLE] The 15-Point Enterprise Diagnostic & Audit Readiness Checklist for Environmental & EHS",
+      "slug": "article-environmental-ehs-checklist-assessment",
+      "wp_id": 329,
+      "action": "created",
+      "categories": [
+        "Articles & Blogs",
+        "Blogs"
+      ],
+      "offering": "Environmental & EHS Advisory",
+      "industry": "Chemicals & Petrochemicals",
+      "author": "GOVENICS Enterprise Advisory Team"
+    },
+    {
+      "type": "article",
+      "document_id": "GOV-BLOG-1043",
+      "title": "[ARTICLE] Why Enterprise Supply Chain Governance Fails: Operational Breakdowns, Hidden Penalties & Board Exposure",
+      "slug": "article-supply-chain-challenges-risks",
+      "wp_id": 330,
+      "action": "created",
+      "categories": [
+        "Articles & Blogs",
+        "Blogs"
+      ],
+      "offering": "Supply Chain & Vendor Governance",
+      "industry": "Automotive & Auto Components",
+      "author": "GOVENICS Enterprise Advisory Team"
+    },
+    {
+      "type": "article",
+      "document_id": "GOV-BLOG-1044",
+      "title": "[ARTICLE] The Executive Blueprint for Supply Chain Governance: Controls, Architecture & Institutional Rollout",
+      "slug": "article-supply-chain-implementation-guide",
+      "wp_id": 331,
+      "action": "created",
+      "categories": [
+        "Articles & Blogs",
+        "Blogs"
+      ],
+      "offering": "Supply Chain & Vendor Governance",
+      "industry": "Automotive & Auto Components",
+      "author": "GOVENICS Enterprise Advisory Team"
+    },
+    {
+      "type": "article",
+      "document_id": "GOV-BLOG-1045",
+      "title": "[ARTICLE] 2025–2026 Regulatory Compendium for Supply Chain Governance: Legal Amendments, Audits & Readiness",
+      "slug": "article-supply-chain-regulatory-updates",
+      "wp_id": 332,
+      "action": "created",
+      "categories": [
+        "Articles & Blogs",
+        "Blogs"
+      ],
+      "offering": "Supply Chain & Vendor Governance",
+      "industry": "Automotive & Auto Components",
+      "author": "GOVENICS Enterprise Advisory Team"
+    },
+    {
+      "type": "article",
+      "document_id": "GOV-BLOG-1046",
+      "title": "[ARTICLE] Boardroom Defensibility in Supply Chain Governance: Personal KMP Accountability & Capital Protection",
+      "slug": "article-supply-chain-executive-insights",
+      "wp_id": 333,
+      "action": "created",
+      "categories": [
+        "Articles & Blogs",
+        "Blogs"
+      ],
+      "offering": "Supply Chain & Vendor Governance",
+      "industry": "Automotive & Auto Components",
+      "author": "GOVENICS Enterprise Advisory Team"
+    },
+    {
+      "type": "article",
+      "document_id": "GOV-BLOG-1047",
+      "title": "[ARTICLE] When Inspection Strikes: An Illustrative Case Scenario in Enterprise Supply Chain Governance Remediation",
+      "slug": "article-supply-chain-case-scenarios",
+      "wp_id": 334,
+      "action": "created",
+      "categories": [
+        "Articles & Blogs",
+        "Blogs"
+      ],
+      "offering": "Supply Chain & Vendor Governance",
+      "industry": "Automotive & Auto Components",
+      "author": "GOVENICS Enterprise Advisory Team"
+    },
+    {
+      "type": "article",
+      "document_id": "GOV-BLOG-1048",
+      "title": "[ARTICLE] The 15-Point Enterprise Diagnostic & Audit Readiness Checklist for Supply Chain Governance",
+      "slug": "article-supply-chain-checklist-assessment",
+      "wp_id": 335,
+      "action": "created",
+      "categories": [
+        "Articles & Blogs",
+        "Blogs"
+      ],
+      "offering": "Supply Chain & Vendor Governance",
+      "industry": "Automotive & Auto Components",
+      "author": "GOVENICS Enterprise Advisory Team"
+    },
+    {
+      "type": "article",
+      "document_id": "GOV-BLOG-1049",
+      "title": "[ARTICLE] Why Enterprise Export & Trade Advisory Fails: Operational Breakdowns, Hidden Penalties & Board Exposure",
+      "slug": "article-export-trade-challenges-risks",
+      "wp_id": 336,
+      "action": "created",
+      "categories": [
+        "Articles & Blogs",
+        "Blogs"
+      ],
+      "offering": "Export & Global Trade Advisory",
+      "industry": "Textiles & Apparel",
+      "author": "GOVENICS Enterprise Advisory Team"
+    },
+    {
+      "type": "article",
+      "document_id": "GOV-BLOG-1050",
+      "title": "[ARTICLE] The Executive Blueprint for Export & Trade Advisory: Controls, Architecture & Institutional Rollout",
+      "slug": "article-export-trade-implementation-guide",
+      "wp_id": 337,
+      "action": "created",
+      "categories": [
+        "Articles & Blogs",
+        "Blogs"
+      ],
+      "offering": "Export & Global Trade Advisory",
+      "industry": "Textiles & Apparel",
+      "author": "GOVENICS Enterprise Advisory Team"
+    },
+    {
+      "type": "article",
+      "document_id": "GOV-BLOG-1051",
+      "title": "[ARTICLE] 2025–2026 Regulatory Compendium for Export & Trade Advisory: Legal Amendments, Audits & Readiness",
+      "slug": "article-export-trade-regulatory-updates",
+      "wp_id": 338,
+      "action": "created",
+      "categories": [
+        "Articles & Blogs",
+        "Blogs"
+      ],
+      "offering": "Export & Global Trade Advisory",
+      "industry": "Textiles & Apparel",
+      "author": "GOVENICS Enterprise Advisory Team"
+    },
+    {
+      "type": "article",
+      "document_id": "GOV-BLOG-1052",
+      "title": "[ARTICLE] Boardroom Defensibility in Export & Trade Advisory: Personal KMP Accountability & Capital Protection",
+      "slug": "article-export-trade-executive-insights",
+      "wp_id": 339,
+      "action": "created",
+      "categories": [
+        "Articles & Blogs",
+        "Blogs"
+      ],
+      "offering": "Export & Global Trade Advisory",
+      "industry": "Textiles & Apparel",
+      "author": "GOVENICS Enterprise Advisory Team"
+    },
+    {
+      "type": "article",
+      "document_id": "GOV-BLOG-1053",
+      "title": "[ARTICLE] When Inspection Strikes: An Illustrative Case Scenario in Enterprise Export & Trade Advisory Remediation",
+      "slug": "article-export-trade-case-scenarios",
+      "wp_id": 340,
+      "action": "created",
+      "categories": [
+        "Articles & Blogs",
+        "Blogs"
+      ],
+      "offering": "Export & Global Trade Advisory",
+      "industry": "Textiles & Apparel",
+      "author": "GOVENICS Enterprise Advisory Team"
+    },
+    {
+      "type": "article",
+      "document_id": "GOV-BLOG-1054",
+      "title": "[ARTICLE] The 15-Point Enterprise Diagnostic & Audit Readiness Checklist for Export & Trade Advisory",
+      "slug": "article-export-trade-checklist-assessment",
+      "wp_id": 341,
+      "action": "created",
+      "categories": [
+        "Articles & Blogs",
+        "Blogs"
+      ],
+      "offering": "Export & Global Trade Advisory",
+      "industry": "Textiles & Apparel",
+      "author": "GOVENICS Enterprise Advisory Team"
+    },
+    {
+      "type": "article",
+      "document_id": "GOV-BLOG-1055",
+      "title": "[ARTICLE] Why Enterprise Licensing & Permits Fails: Operational Breakdowns, Hidden Penalties & Board Exposure",
+      "slug": "article-licensing-permits-challenges-risks",
+      "wp_id": 342,
+      "action": "created",
+      "categories": [
+        "Articles & Blogs",
+        "Blogs"
+      ],
+      "offering": "Licensing & Permits Management",
+      "industry": "Food Processing",
+      "author": "GOVENICS Enterprise Advisory Team"
+    },
+    {
+      "type": "article",
+      "document_id": "GOV-BLOG-1056",
+      "title": "[ARTICLE] The Executive Blueprint for Licensing & Permits: Controls, Architecture & Institutional Rollout",
+      "slug": "article-licensing-permits-implementation-guide",
+      "wp_id": 343,
+      "action": "created",
+      "categories": [
+        "Articles & Blogs",
+        "Blogs"
+      ],
+      "offering": "Licensing & Permits Management",
+      "industry": "Food Processing",
+      "author": "GOVENICS Enterprise Advisory Team"
+    },
+    {
+      "type": "article",
+      "document_id": "GOV-BLOG-1057",
+      "title": "[ARTICLE] 2025–2026 Regulatory Compendium for Licensing & Permits: Legal Amendments, Audits & Readiness",
+      "slug": "article-licensing-permits-regulatory-updates",
+      "wp_id": 344,
+      "action": "created",
+      "categories": [
+        "Articles & Blogs",
+        "Blogs"
+      ],
+      "offering": "Licensing & Permits Management",
+      "industry": "Food Processing",
+      "author": "GOVENICS Enterprise Advisory Team"
+    },
+    {
+      "type": "article",
+      "document_id": "GOV-BLOG-1058",
+      "title": "[ARTICLE] Boardroom Defensibility in Licensing & Permits: Personal KMP Accountability & Capital Protection",
+      "slug": "article-licensing-permits-executive-insights",
+      "wp_id": 345,
+      "action": "created",
+      "categories": [
+        "Articles & Blogs",
+        "Blogs"
+      ],
+      "offering": "Licensing & Permits Management",
+      "industry": "Food Processing",
+      "author": "GOVENICS Enterprise Advisory Team"
+    },
+    {
+      "type": "article",
+      "document_id": "GOV-BLOG-1059",
+      "title": "[ARTICLE] When Inspection Strikes: An Illustrative Case Scenario in Enterprise Licensing & Permits Remediation",
+      "slug": "article-licensing-permits-case-scenarios",
+      "wp_id": 346,
+      "action": "created",
+      "categories": [
+        "Articles & Blogs",
+        "Blogs"
+      ],
+      "offering": "Licensing & Permits Management",
+      "industry": "Food Processing",
+      "author": "GOVENICS Enterprise Advisory Team"
+    },
+    {
+      "type": "article",
+      "document_id": "GOV-BLOG-1060",
+      "title": "[ARTICLE] The 15-Point Enterprise Diagnostic & Audit Readiness Checklist for Licensing & Permits",
+      "slug": "article-licensing-permits-checklist-assessment",
+      "wp_id": 347,
+      "action": "created",
+      "categories": [
+        "Articles & Blogs",
+        "Blogs"
+      ],
+      "offering": "Licensing & Permits Management",
+      "industry": "Food Processing",
+      "author": "GOVENICS Enterprise Advisory Team"
+    },
+    {
+      "type": "article",
+      "document_id": "GOV-BLOG-1061",
+      "title": "[ARTICLE] Why Enterprise Commercial Escrow Fails: Operational Breakdowns, Hidden Penalties & Board Exposure",
+      "slug": "article-escrow-services-challenges-risks",
+      "wp_id": 348,
+      "action": "created",
+      "categories": [
+        "Articles & Blogs",
+        "Blogs"
+      ],
+      "offering": "Commercial Escrow Services",
+      "industry": "Real Estate & Infrastructure",
+      "author": "GOVENICS Enterprise Advisory Team"
+    },
+    {
+      "type": "article",
+      "document_id": "GOV-BLOG-1062",
+      "title": "[ARTICLE] The Executive Blueprint for Commercial Escrow: Controls, Architecture & Institutional Rollout",
+      "slug": "article-escrow-services-implementation-guide",
+      "wp_id": 349,
+      "action": "created",
+      "categories": [
+        "Articles & Blogs",
+        "Blogs"
+      ],
+      "offering": "Commercial Escrow Services",
+      "industry": "Real Estate & Infrastructure",
+      "author": "GOVENICS Enterprise Advisory Team"
+    },
+    {
+      "type": "article",
+      "document_id": "GOV-BLOG-1063",
+      "title": "[ARTICLE] 2025–2026 Regulatory Compendium for Commercial Escrow: Legal Amendments, Audits & Readiness",
+      "slug": "article-escrow-services-regulatory-updates",
+      "wp_id": 350,
+      "action": "created",
+      "categories": [
+        "Articles & Blogs",
+        "Blogs"
+      ],
+      "offering": "Commercial Escrow Services",
+      "industry": "Real Estate & Infrastructure",
+      "author": "GOVENICS Enterprise Advisory Team"
+    },
+    {
+      "type": "article",
+      "document_id": "GOV-BLOG-1064",
+      "title": "[ARTICLE] Boardroom Defensibility in Commercial Escrow: Personal KMP Accountability & Capital Protection",
+      "slug": "article-escrow-services-executive-insights",
+      "wp_id": 351,
+      "action": "created",
+      "categories": [
+        "Articles & Blogs",
+        "Blogs"
+      ],
+      "offering": "Commercial Escrow Services",
+      "industry": "Real Estate & Infrastructure",
+      "author": "GOVENICS Enterprise Advisory Team"
+    },
+    {
+      "type": "article",
+      "document_id": "GOV-BLOG-1065",
+      "title": "[ARTICLE] When Inspection Strikes: An Illustrative Case Scenario in Enterprise Commercial Escrow Remediation",
+      "slug": "article-escrow-services-case-scenarios",
+      "wp_id": 352,
+      "action": "created",
+      "categories": [
+        "Articles & Blogs",
+        "Blogs"
+      ],
+      "offering": "Commercial Escrow Services",
+      "industry": "Real Estate & Infrastructure",
+      "author": "GOVENICS Enterprise Advisory Team"
+    },
+    {
+      "type": "article",
+      "document_id": "GOV-BLOG-1066",
+      "title": "[ARTICLE] The 15-Point Enterprise Diagnostic & Audit Readiness Checklist for Commercial Escrow",
+      "slug": "article-escrow-services-checklist-assessment",
+      "wp_id": 353,
+      "action": "created",
+      "categories": [
+        "Articles & Blogs",
+        "Blogs"
+      ],
+      "offering": "Commercial Escrow Services",
+      "industry": "Real Estate & Infrastructure",
+      "author": "GOVENICS Enterprise Advisory Team"
+    },
+    {
+      "type": "article",
+      "document_id": "GOV-BLOG-1067",
+      "title": "[ARTICLE] Why Enterprise Enterprise Risk Management Fails: Operational Breakdowns, Hidden Penalties & Board Exposure",
+      "slug": "article-risk-management-challenges-risks",
+      "wp_id": 354,
+      "action": "created",
+      "categories": [
+        "Articles & Blogs",
+        "Blogs"
+      ],
+      "offering": "Enterprise Risk Management (CRO Suite)",
+      "industry": "BFSI & Banking",
+      "author": "GOVENICS Enterprise Advisory Team"
+    },
+    {
+      "type": "article",
+      "document_id": "GOV-BLOG-1068",
+      "title": "[ARTICLE] The Executive Blueprint for Enterprise Risk Management: Controls, Architecture & Institutional Rollout",
+      "slug": "article-risk-management-implementation-guide",
+      "wp_id": 355,
+      "action": "created",
+      "categories": [
+        "Articles & Blogs",
+        "Blogs"
+      ],
+      "offering": "Enterprise Risk Management (CRO Suite)",
+      "industry": "BFSI & Banking",
+      "author": "GOVENICS Enterprise Advisory Team"
+    },
+    {
+      "type": "article",
+      "document_id": "GOV-BLOG-1069",
+      "title": "[ARTICLE] 2025–2026 Regulatory Compendium for Enterprise Risk Management: Legal Amendments, Audits & Readiness",
+      "slug": "article-risk-management-regulatory-updates",
+      "wp_id": 356,
+      "action": "created",
+      "categories": [
+        "Articles & Blogs",
+        "Blogs"
+      ],
+      "offering": "Enterprise Risk Management (CRO Suite)",
+      "industry": "BFSI & Banking",
+      "author": "GOVENICS Enterprise Advisory Team"
+    },
+    {
+      "type": "article",
+      "document_id": "GOV-BLOG-1070",
+      "title": "[ARTICLE] Boardroom Defensibility in Enterprise Risk Management: Personal KMP Accountability & Capital Protection",
+      "slug": "article-risk-management-executive-insights",
+      "wp_id": 357,
+      "action": "created",
+      "categories": [
+        "Articles & Blogs",
+        "Blogs"
+      ],
+      "offering": "Enterprise Risk Management (CRO Suite)",
+      "industry": "BFSI & Banking",
+      "author": "GOVENICS Enterprise Advisory Team"
+    },
+    {
+      "type": "article",
+      "document_id": "GOV-BLOG-1071",
+      "title": "[ARTICLE] When Inspection Strikes: An Illustrative Case Scenario in Enterprise Enterprise Risk Management Remediation",
+      "slug": "article-risk-management-case-scenarios",
+      "wp_id": 358,
+      "action": "created",
+      "categories": [
+        "Articles & Blogs",
+        "Blogs"
+      ],
+      "offering": "Enterprise Risk Management (CRO Suite)",
+      "industry": "BFSI & Banking",
+      "author": "GOVENICS Enterprise Advisory Team"
+    },
+    {
+      "type": "article",
+      "document_id": "GOV-BLOG-1072",
+      "title": "[ARTICLE] The 15-Point Enterprise Diagnostic & Audit Readiness Checklist for Enterprise Risk Management",
+      "slug": "article-risk-management-checklist-assessment",
+      "wp_id": 359,
+      "action": "created",
+      "categories": [
+        "Articles & Blogs",
+        "Blogs"
+      ],
+      "offering": "Enterprise Risk Management (CRO Suite)",
+      "industry": "BFSI & Banking",
+      "author": "GOVENICS Enterprise Advisory Team"
+    },
+    {
+      "type": "article",
+      "document_id": "GOV-BLOG-1073",
+      "title": "[ARTICLE] Why Enterprise Staffing & Managed Services Fails: Operational Breakdowns, Hidden Penalties & Board Exposure",
+      "slug": "article-staffing-managed-challenges-risks",
+      "wp_id": 360,
+      "action": "created",
+      "categories": [
+        "Articles & Blogs",
+        "Blogs"
+      ],
+      "offering": "Staffing & Managed Compliance",
+      "industry": "Manufacturing & Logistics",
+      "author": "GOVENICS Enterprise Advisory Team"
+    },
+    {
+      "type": "article",
+      "document_id": "GOV-BLOG-1074",
+      "title": "[ARTICLE] The Executive Blueprint for Staffing & Managed Services: Controls, Architecture & Institutional Rollout",
+      "slug": "article-staffing-managed-implementation-guide",
+      "wp_id": 361,
+      "action": "created",
+      "categories": [
+        "Articles & Blogs",
+        "Blogs"
+      ],
+      "offering": "Staffing & Managed Compliance",
+      "industry": "Manufacturing & Logistics",
+      "author": "GOVENICS Enterprise Advisory Team"
+    },
+    {
+      "type": "article",
+      "document_id": "GOV-BLOG-1075",
+      "title": "[ARTICLE] 2025–2026 Regulatory Compendium for Staffing & Managed Services: Legal Amendments, Audits & Readiness",
+      "slug": "article-staffing-managed-regulatory-updates",
+      "wp_id": 362,
+      "action": "created",
+      "categories": [
+        "Articles & Blogs",
+        "Blogs"
+      ],
+      "offering": "Staffing & Managed Compliance",
+      "industry": "Manufacturing & Logistics",
+      "author": "GOVENICS Enterprise Advisory Team"
+    },
+    {
+      "type": "article",
+      "document_id": "GOV-BLOG-1076",
+      "title": "[ARTICLE] Boardroom Defensibility in Staffing & Managed Services: Personal KMP Accountability & Capital Protection",
+      "slug": "article-staffing-managed-executive-insights",
+      "wp_id": 363,
+      "action": "created",
+      "categories": [
+        "Articles & Blogs",
+        "Blogs"
+      ],
+      "offering": "Staffing & Managed Compliance",
+      "industry": "Manufacturing & Logistics",
+      "author": "GOVENICS Enterprise Advisory Team"
+    },
+    {
+      "type": "article",
+      "document_id": "GOV-BLOG-1077",
+      "title": "[ARTICLE] When Inspection Strikes: An Illustrative Case Scenario in Enterprise Staffing & Managed Services Remediation",
+      "slug": "article-staffing-managed-case-scenarios",
+      "wp_id": 364,
+      "action": "created",
+      "categories": [
+        "Articles & Blogs",
+        "Blogs"
+      ],
+      "offering": "Staffing & Managed Compliance",
+      "industry": "Manufacturing & Logistics",
+      "author": "GOVENICS Enterprise Advisory Team"
+    },
+    {
+      "type": "article",
+      "document_id": "GOV-BLOG-1078",
+      "title": "[ARTICLE] The 15-Point Enterprise Diagnostic & Audit Readiness Checklist for Staffing & Managed Services",
+      "slug": "article-staffing-managed-checklist-assessment",
+      "wp_id": 365,
+      "action": "created",
+      "categories": [
+        "Articles & Blogs",
+        "Blogs"
+      ],
+      "offering": "Staffing & Managed Compliance",
+      "industry": "Manufacturing & Logistics",
+      "author": "GOVENICS Enterprise Advisory Team"
+    }
+  ]
+}

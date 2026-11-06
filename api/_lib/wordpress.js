@@ -225,8 +225,14 @@ export async function fetchWpLibraryResources(options = {}) {
   let categoryId = null;
   if (categorySlug && categorySlug !== "all") {
     const cats = await getWpCategories();
-    const foundCat = cats.find(c => c.slug === categorySlug.toLowerCase() || c.name.toLowerCase() === categorySlug.toLowerCase());
-    if (foundCat) categoryId = foundCat.id;
+    const cleanCat = categorySlug.toLowerCase();
+    if (cleanCat === "blogs" || cleanCat === "articles-blogs") {
+      const blogCats = cats.filter(c => c.slug === "blogs" || c.slug === "articles-blogs");
+      if (blogCats.length > 0) categoryId = blogCats.map(c => c.id).join(",");
+    } else {
+      const foundCat = cats.find(c => c.slug === cleanCat || c.name.toLowerCase() === cleanCat);
+      if (foundCat) categoryId = foundCat.id;
+    }
   }
 
   // Resolve Tag IDs for offering or industry
