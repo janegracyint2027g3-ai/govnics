@@ -60,6 +60,7 @@ import securityGovernance from './_handlers/security/governance.js';
 import securityMonitoring from './_handlers/security/monitoring.js';
 import securityRecovery from './_handlers/security/recovery.js';
 import securityValidate from './_handlers/security/validate.js';
+import libraryResources from './_handlers/library/resources.js';
 
 import riskRegister from './_handlers/risk/register.js';
 import reportsGenerate from './_handlers/reports/generate.js';
@@ -126,6 +127,18 @@ const exactRoutes = {
   '/api/security/recovery': securityRecovery,
   '/api/security/validate': securityValidate,
 
+  '/api/library/ebooks': libraryResources,
+  '/api/library/blogs': libraryResources,
+  '/api/library/acts': libraryResources,
+  '/api/library/regulations': libraryResources,
+  '/api/library/guides': libraryResources,
+  '/api/library/industry-reports': libraryResources,
+  '/api/library/checklists': libraryResources,
+  '/api/library/templates': libraryResources,
+  '/api/library/search': libraryResources,
+  '/api/library/resource': libraryResources,
+  '/api/library/categories': libraryResources,
+
   '/api/risk/register': riskRegister,
   '/api/reports/generate': reportsGenerate,
   '/api/organizations/workspaces': organizationsWorkspaces
@@ -180,6 +193,8 @@ export default async function handler(req, res) {
         selectedHandler = portalsConsultant;
       } else if (pathname.startsWith('/api/security/validate')) {
         selectedHandler = securityValidate;
+      } else if (pathname.startsWith('/api/library/')) {
+        selectedHandler = libraryResources;
       }
     }
 

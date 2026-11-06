@@ -16,6 +16,7 @@ import { RegulatoryCoverageDashboard } from "@/components/admin/RegulatoryCovera
 import { ExecutiveGrcDashboard } from "@/components/admin/ExecutiveGrcDashboard";
 import { LegalReviewConsole } from "@/components/admin/LegalReviewConsole";
 import { ExtractionJobCenter } from "@/components/admin/ExtractionJobCenter";
+import { CmsLibraryExplorer } from "@/components/library/CmsLibraryExplorer";
 
 
 // Helpers for Advanced Search Filtering
@@ -311,6 +312,7 @@ export default function SgrceLibraryPage() {
             { id: "professional-tax", label: "Professional Tax", icon: Percent }
           ],
           resources: [
+            { id: "cms-elibrary", label: "WordPress CMS E-Library", icon: BookOpen },
             { id: "legal-review", label: "Legal Review Console", icon: ShieldCheck },
             { id: "extraction-jobs", label: "Agent Extraction Control", icon: Bot },
             { id: "regulatory-coverage", label: "Phase 5 Regulatory Matrix", icon: ShieldCheck },
@@ -334,6 +336,7 @@ export default function SgrceLibraryPage() {
             { id: "ehs-standards", label: "EHS Standards & ISO", icon: Award }
           ],
           resources: [
+            { id: "cms-elibrary", label: "WordPress CMS E-Library", icon: BookOpen },
             { id: "legal-review", label: "Legal Review Console", icon: ShieldCheck },
             { id: "extraction-jobs", label: "Agent Extraction Control", icon: Bot },
             { id: "regulatory-coverage", label: "Phase 5 Regulatory Matrix", icon: ShieldCheck },
@@ -354,6 +357,7 @@ export default function SgrceLibraryPage() {
             { id: "gazette", label: "Gazette Notifications", icon: FileText }
           ],
           resources: [
+            { id: "cms-elibrary", label: "WordPress CMS E-Library", icon: BookOpen },
             { id: "legal-review", label: "Legal Review Console", icon: ShieldCheck },
             { id: "extraction-jobs", label: "Agent Extraction Control", icon: Bot },
             { id: "regulatory-coverage", label: "Phase 5 Regulatory Matrix", icon: ShieldCheck },
@@ -928,6 +932,11 @@ export default function SgrceLibraryPage() {
 
   // Render e-Library Content Card based on activeTab
   const renderLibraryContent = () => {
+    // WordPress CMS Dynamic E-Library Explorer
+    if (activeTab === "cms-elibrary") {
+      return <CmsLibraryExplorer />;
+    }
+
     // Phase F: Human Legal Review Console with 10 Queues
     if (activeTab === "legal-review") {
       return <LegalReviewConsole />;
