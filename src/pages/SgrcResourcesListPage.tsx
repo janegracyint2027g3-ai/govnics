@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 import { Layout } from "@/components/layout/Layout";
 import { ArrowRight, ShieldCheck } from "lucide-react";
 import { CmsLibraryExplorer } from "@/components/library/CmsLibraryExplorer";
-import { ComplianceKnowledgeGraph } from "@/components/knowledge/ComplianceKnowledgeGraph";
 
 export default function SgrcResourcesListPage() {
   useEffect(() => {
@@ -41,11 +40,6 @@ export default function SgrcResourcesListPage() {
         {/* Dynamic WordPress CMS Explorer */}
         <section className="container mx-auto px-6 max-w-6xl mb-16">
           <CmsLibraryExplorer />
-        </section>
-
-        {/* Interactive Compliance Knowledge Graph */}
-        <section className="container mx-auto px-6 max-w-6xl mb-16">
-          <ComplianceKnowledgeGraph />
         </section>
 
         {/* CTA to e-Library */}

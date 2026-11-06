@@ -17,8 +17,6 @@ import { ExecutiveGrcDashboard } from "@/components/admin/ExecutiveGrcDashboard"
 import { LegalReviewConsole } from "@/components/admin/LegalReviewConsole";
 import { ExtractionJobCenter } from "@/components/admin/ExtractionJobCenter";
 import { CmsLibraryExplorer } from "@/components/library/CmsLibraryExplorer";
-import { ComplianceKnowledgeGraph } from "@/components/knowledge/ComplianceKnowledgeGraph";
-import { Network } from "lucide-react";
 
 
 // Helpers for Advanced Search Filtering
@@ -315,7 +313,6 @@ export default function SgrceLibraryPage() {
           ],
           resources: [
             { id: "cms-elibrary", label: "WordPress CMS E-Library", icon: BookOpen },
-            { id: "compliance-kg", label: "Compliance Knowledge Graph", icon: Network },
             { id: "legal-review", label: "Legal Review Console", icon: ShieldCheck },
             { id: "extraction-jobs", label: "Agent Extraction Control", icon: Bot },
             { id: "regulatory-coverage", label: "Phase 5 Regulatory Matrix", icon: ShieldCheck },
@@ -340,7 +337,6 @@ export default function SgrceLibraryPage() {
           ],
           resources: [
             { id: "cms-elibrary", label: "WordPress CMS E-Library", icon: BookOpen },
-            { id: "compliance-kg", label: "Compliance Knowledge Graph", icon: Network },
             { id: "legal-review", label: "Legal Review Console", icon: ShieldCheck },
             { id: "extraction-jobs", label: "Agent Extraction Control", icon: Bot },
             { id: "regulatory-coverage", label: "Phase 5 Regulatory Matrix", icon: ShieldCheck },
@@ -362,7 +358,6 @@ export default function SgrceLibraryPage() {
           ],
           resources: [
             { id: "cms-elibrary", label: "WordPress CMS E-Library", icon: BookOpen },
-            { id: "compliance-kg", label: "Compliance Knowledge Graph", icon: Network },
             { id: "legal-review", label: "Legal Review Console", icon: ShieldCheck },
             { id: "extraction-jobs", label: "Agent Extraction Control", icon: Bot },
             { id: "regulatory-coverage", label: "Phase 5 Regulatory Matrix", icon: ShieldCheck },
@@ -939,17 +934,7 @@ export default function SgrceLibraryPage() {
   const renderLibraryContent = () => {
     // WordPress CMS Dynamic E-Library Explorer
     if (activeTab === "cms-elibrary") {
-      return (
-        <div className="space-y-12">
-          <CmsLibraryExplorer />
-          <ComplianceKnowledgeGraph />
-        </div>
-      );
-    }
-
-    // Interactive Compliance Knowledge Graph direct tab
-    if (activeTab === "compliance-kg") {
-      return <ComplianceKnowledgeGraph />;
+      return <CmsLibraryExplorer />;
     }
 
     // Phase F: Human Legal Review Console with 10 Queues
