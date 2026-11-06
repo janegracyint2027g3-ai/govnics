@@ -1,0 +1,18 @@
+{
+  "total_nodes": 34,
+  "total_edges": 39,
+  "unique_node_ids": 34,
+  "duplicate_node_ids": [],
+  "broken_edges": [],
+  "relationship_types": [
+    "ALIGNED_WITH_OFFERING",
+    "CONTAINS_SECTION",
+    "ENACTS_AND_ENFORCES",
+    "IMPOSES_OBLIGATION",
+    "MANDATED_FOR_INDUSTRY",
+    "MONITORED_BY_OFFERING"
+  ],
+  "duplicate_edges": [],
+  "disconnected_nodes": [],
+  "is_valid": true
+}
