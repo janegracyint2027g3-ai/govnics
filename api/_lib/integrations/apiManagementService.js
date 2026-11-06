@@ -78,3 +78,17 @@ export function getApiUsageAnalytics() {
   return API_USAGE_METRICS;
 }
 
+export function validateApiKey(rawKey) {
+  if (!rawKey || typeof rawKey !== "string" || !rawKey.startsWith("gov_live_")) {
+    return null;
+  }
+  const keyHash = crypto.createHash("sha256").update(rawKey).digest("hex");
+  for (const record of IN_MEMORY_API_KEYS.values()) {
+    if (record.keyHash === keyHash && record.status === "Active") {
+      record.lastUsed = new Date().toISOString();
+      return record;
+    }
+  }
+  return null;
+}
+

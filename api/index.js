@@ -59,6 +59,7 @@ import securityEvents from './_handlers/security/events.js';
 import securityGovernance from './_handlers/security/governance.js';
 import securityMonitoring from './_handlers/security/monitoring.js';
 import securityRecovery from './_handlers/security/recovery.js';
+import securityValidate from './_handlers/security/validate.js';
 
 import riskRegister from './_handlers/risk/register.js';
 import reportsGenerate from './_handlers/reports/generate.js';
@@ -123,6 +124,7 @@ const exactRoutes = {
   '/api/security/governance': securityGovernance,
   '/api/security/monitoring': securityMonitoring,
   '/api/security/recovery': securityRecovery,
+  '/api/security/validate': securityValidate,
 
   '/api/risk/register': riskRegister,
   '/api/reports/generate': reportsGenerate,
@@ -131,6 +133,12 @@ const exactRoutes = {
 
 export default async function handler(req, res) {
   try {
+    // Enterprise Security Controller Gateway Headers
+    res.setHeader('X-Content-Type-Options', 'nosniff');
+    res.setHeader('X-Frame-Options', 'DENY');
+    res.setHeader('X-XSS-Protection', '1; mode=block');
+    res.setHeader('X-Govenics-Security-Controller', 'v9.4-active');
+
     const rawUrl = req.url || '/';
     const parsed = new URL(rawUrl, `https://${req.headers?.host || 'localhost'}`);
     const pathname = parsed.pathname.replace(/\/$/, '') || '/';
@@ -170,6 +178,8 @@ export default async function handler(req, res) {
         selectedHandler = portalsCustomer;
       } else if (pathname.startsWith('/api/portals/consultant')) {
         selectedHandler = portalsConsultant;
+      } else if (pathname.startsWith('/api/security/validate')) {
+        selectedHandler = securityValidate;
       }
     }
 

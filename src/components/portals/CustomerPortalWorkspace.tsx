@@ -15,12 +15,14 @@ import {
   Users,
   Search,
   Download,
-  PlusCircle
+  PlusCircle,
+  ShieldAlert
 } from "lucide-react";
+import { SecurityControllerConsole } from "@/components/security/SecurityControllerConsole";
 
 export const CustomerPortalWorkspace: React.FC = () => {
   const [activeTab, setActiveTab] = useState<
-    "overview" | "register" | "calendar" | "audits" | "capa" | "evidence" | "integrations" | "billing" | "team"
+    "overview" | "register" | "calendar" | "audits" | "capa" | "evidence" | "integrations" | "billing" | "team" | "security"
   >("overview");
 
   const [registerFilter, setRegisterFilter] = useState("All");
@@ -204,7 +206,8 @@ export const CustomerPortalWorkspace: React.FC = () => {
           { id: "evidence", label: "Evidence Vault", icon: Upload },
           { id: "integrations", label: "Integrations & APIs", icon: Link2 },
           { id: "billing", label: "Subscription & Billing", icon: CreditCard },
-          { id: "team", label: "Team & RBAC", icon: Users }
+          { id: "team", label: "Team & RBAC", icon: Users },
+          { id: "security", label: "Security Controller", icon: ShieldAlert }
         ].map(tab => {
           const Icon = tab.icon;
           return (
@@ -543,6 +546,11 @@ export const CustomerPortalWorkspace: React.FC = () => {
               </table>
             </div>
           </div>
+        )}
+
+        {/* TAB 10: SECURITY CONTROLLER */}
+        {activeTab === "security" && (
+          <SecurityControllerConsole />
         )}
       </div>
 
