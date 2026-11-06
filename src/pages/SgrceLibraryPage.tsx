@@ -7,7 +7,7 @@ import {
   Percent, Coins, Clock, Globe, ShieldAlert, Award, FileCheck, 
   Calculator, UserCheck, Play, Scale, Leaf, Building, CalendarCheck, Copy, Check, Search,
   Database, PlusCircle, Trash2, History, ChevronLeft, ChevronRight, ShieldCheck,
-  BarChart3, Sparkles, Bot, KeyRound
+  BarChart3, Sparkles, Bot
 } from "lucide-react";
 import { useKrmDocuments } from "@/hooks/useKrmDocuments";
 import { Phase2Dashboard } from "@/components/admin/Phase2Dashboard";
@@ -17,7 +17,6 @@ import { ExecutiveGrcDashboard } from "@/components/admin/ExecutiveGrcDashboard"
 import { LegalReviewConsole } from "@/components/admin/LegalReviewConsole";
 import { ExtractionJobCenter } from "@/components/admin/ExtractionJobCenter";
 import { CmsLibraryExplorer } from "@/components/library/CmsLibraryExplorer";
-import { AppTokenManagement } from "@/components/security/AppTokenManagement";
 
 
 // Helpers for Advanced Search Filtering
@@ -314,7 +313,6 @@ export default function SgrceLibraryPage() {
           ],
           resources: [
             { id: "cms-elibrary", label: "WordPress CMS E-Library", icon: BookOpen },
-            { id: "token-management", label: "App Token Management", icon: KeyRound },
             { id: "legal-review", label: "Legal Review Console", icon: ShieldCheck },
             { id: "extraction-jobs", label: "Agent Extraction Control", icon: Bot },
             { id: "regulatory-coverage", label: "Phase 5 Regulatory Matrix", icon: ShieldCheck },
@@ -339,7 +337,6 @@ export default function SgrceLibraryPage() {
           ],
           resources: [
             { id: "cms-elibrary", label: "WordPress CMS E-Library", icon: BookOpen },
-            { id: "token-management", label: "App Token Management", icon: KeyRound },
             { id: "legal-review", label: "Legal Review Console", icon: ShieldCheck },
             { id: "extraction-jobs", label: "Agent Extraction Control", icon: Bot },
             { id: "regulatory-coverage", label: "Phase 5 Regulatory Matrix", icon: ShieldCheck },
@@ -361,7 +358,6 @@ export default function SgrceLibraryPage() {
           ],
           resources: [
             { id: "cms-elibrary", label: "WordPress CMS E-Library", icon: BookOpen },
-            { id: "token-management", label: "App Token Management", icon: KeyRound },
             { id: "legal-review", label: "Legal Review Console", icon: ShieldCheck },
             { id: "extraction-jobs", label: "Agent Extraction Control", icon: Bot },
             { id: "regulatory-coverage", label: "Phase 5 Regulatory Matrix", icon: ShieldCheck },
@@ -939,11 +935,6 @@ export default function SgrceLibraryPage() {
     // WordPress CMS Dynamic E-Library Explorer
     if (activeTab === "cms-elibrary") {
       return <CmsLibraryExplorer />;
-    }
-
-    // Enterprise Application Token Management & Token Expiry Engine (with Google Sheets Sync)
-    if (activeTab === "token-management") {
-      return <AppTokenManagement />;
     }
 
     // Phase F: Human Legal Review Console with 10 Queues
