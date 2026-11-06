@@ -88,8 +88,8 @@ export const ComplianceKnowledgeGraph: React.FC = () => {
   const [selectedEdge, setSelectedEdge] = useState<KGEdge | null>(null);
 
   // Canvas Viewport transform
-  const [zoom, setZoom] = useState<number>(1);
-  const [pan, setPan] = useState<{ x: number; y: number }>({ x: 0, y: 0 });
+  const [zoom, setZoom] = useState<number>(0.85);
+  const [pan, setPan] = useState<{ x: number; y: number }>({ x: 20, y: 10 });
   const [isPanning, setIsPanning] = useState<boolean>(false);
   const [startPan, setStartPan] = useState<{ x: number; y: number }>({ x: 0, y: 0 });
 
@@ -110,22 +110,67 @@ export const ComplianceKnowledgeGraph: React.FC = () => {
         }
         const json = await res.json();
         if (isMounted) {
-          // Initialize pseudo-layout coordinates if not present
+          // Initialize clustered force-directed layout coordinates
+          // Cluster around 4 primary Acts: Factories, EPA, DPDP, MCA CSR
+          const actClusters: Record<string, { x: number; y: number }> = {
+            "ACT_ACT-IND-LABOUR-1948": { x: 420, y: 340 },
+            "ACT_ACT-IND-ENV-1986": { x: 780, y: 340 },
+            "ACT_ACT-IND-DPDP-2023": { x: 420, y: 720 },
+            "ACT_REG-IND-MCA-CSR-2021": { x: 780, y: 720 },
+          };
+
           const nodesWithPos = (json.nodes || []).map((node: KGNode, index: number) => {
-            const angle = (index / (json.nodes.length || 1)) * 2 * Math.PI;
-            // Distribute radius based on node type
-            let radius = 260;
-            if (node.type === 'Regulatory_Act') radius = 160;
-            else if (node.type === 'Section_Provision') radius = 280;
-            else if (node.type === 'Compliance_Obligation') radius = 380;
-            else if (node.type === 'Government_Authority') radius = 100;
-            else if (node.type === 'Govenics_Offering') radius = 240;
-            else if (node.type === 'Applicable_Industry') radius = 340;
+            // Position based on entity role and relationships
+            let posX = 600;
+            let posY = 500;
+
+            if (node.id in actClusters) {
+              posX = actClusters[node.id].x;
+              posY = actClusters[node.id].y;
+            } else if (node.type === 'Government_Authority') {
+              // Placed along top/corners
+              if (node.id.includes('labour')) { posX = 200; posY = 240; }
+              else if (node.id.includes('cpcb') || node.id.includes('environment')) { posX = 980; posY = 240; }
+              else if (node.id.includes('meity')) { posX = 200; posY = 820; }
+              else { posX = 980; posY = 820; }
+            } else if (node.type === 'Govenics_Offering') {
+              if (node.id.includes('labour')) { posX = 420; posY = 150; }
+              else if (node.id.includes('ehs') || node.id.includes('environmental')) { posX = 780; posY = 150; }
+              else if (node.id.includes('privacy') || node.id.includes('cyber')) { posX = 420; posY = 920; }
+              else { posX = 780; posY = 920; }
+            } else if (node.type === 'Applicable_Industry') {
+              if (node.id.includes('manufacturing')) { posX = 600; posY = 240; }
+              else if (node.id.includes('chemicals')) { posX = 940; posY = 460; }
+              else if (node.id.includes('technology') || node.id.includes('it')) { posX = 260; posY = 600; }
+              else { posX = 600; posY = 820; }
+            } else if (node.type === 'Section_Provision') {
+              // Orbit around their specific parent Act
+              const parentActKey = node.id.includes('LABOUR') ? 'ACT_ACT-IND-LABOUR-1948'
+                : node.id.includes('ENV') ? 'ACT_ACT-IND-ENV-1986'
+                : node.id.includes('DPDP') ? 'ACT_ACT-IND-DPDP-2023'
+                : 'ACT_REG-IND-MCA-CSR-2021';
+              const center = actClusters[parentActKey] || { x: 600, y: 500 };
+              const secIdx = index % 3;
+              const angle = (secIdx * (Math.PI / 1.5)) - (Math.PI / 3);
+              posX = center.x + 130 * Math.cos(angle);
+              posY = center.y + 130 * Math.sin(angle);
+            } else if (node.type === 'Compliance_Obligation') {
+              // Radiate outwards from sections
+              const parentActKey = node.id.includes('LABOUR') ? 'ACT_ACT-IND-LABOUR-1948'
+                : node.id.includes('ENV') ? 'ACT_ACT-IND-ENV-1986'
+                : node.id.includes('DPDP') ? 'ACT_ACT-IND-DPDP-2023'
+                : 'ACT_REG-IND-MCA-CSR-2021';
+              const center = actClusters[parentActKey] || { x: 600, y: 500 };
+              const obIdx = index % 3;
+              const angle = (obIdx * (Math.PI / 1.5)) - (Math.PI / 3);
+              posX = center.x + 225 * Math.cos(angle);
+              posY = center.y + 225 * Math.sin(angle);
+            }
 
             return {
               ...node,
-              x: 500 + radius * Math.cos(angle) + (Math.random() * 40 - 20),
-              y: 400 + radius * Math.sin(angle) + (Math.random() * 40 - 20),
+              x: posX,
+              y: posY,
             };
           });
 
@@ -211,8 +256,8 @@ export const ComplianceKnowledgeGraph: React.FC = () => {
   };
 
   const handleReset = () => {
-    setZoom(1);
-    setPan({ x: 0, y: 0 });
+    setZoom(0.85);
+    setPan({ x: 20, y: 10 });
     setSelectedNode(null);
     setSelectedEdge(null);
     setSearchQuery('');
@@ -369,7 +414,7 @@ export const ComplianceKnowledgeGraph: React.FC = () => {
       </div>
 
       {/* Main Graph Visualization Stage + Sidebar Inspector */}
-      <div className="relative flex-1 min-h-[580px] flex overflow-hidden">
+      <div className="relative flex-1 min-h-[680px] flex overflow-hidden">
         
         {/* SVG Interactive Canvas */}
         <div 
@@ -378,7 +423,7 @@ export const ComplianceKnowledgeGraph: React.FC = () => {
           onMouseMove={handleMouseMove}
           onMouseUp={handleMouseUp}
           className="flex-1 cursor-grab active:cursor-grabbing bg-slate-900 select-none relative overflow-hidden"
-          style={{ height: '580px' }}
+          style={{ height: '680px' }}
         >
           {/* Subtle grid pattern */}
           <div 
@@ -393,7 +438,7 @@ export const ComplianceKnowledgeGraph: React.FC = () => {
             width="100%" 
             height="100%" 
             className="overflow-visible"
-            viewBox="0 0 1000 700"
+            viewBox="0 0 1200 1000"
           >
             <g transform={`translate(${pan.x}, ${pan.y}) scale(${zoom})`}>
               
@@ -454,9 +499,10 @@ export const ComplianceKnowledgeGraph: React.FC = () => {
                     activeEdges.some(e => (e.source === selectedNode.id && e.target === node.id) || (e.target === selectedNode.id && e.source === node.id))
                   );
 
-                  let radius = 22;
-                  if (node.type === 'Regulatory_Act') radius = 28;
-                  if (node.type === 'Government_Authority') radius = 26;
+                  let radius = 32;
+                  if (node.type === 'Regulatory_Act') radius = 42;
+                  if (node.type === 'Government_Authority') radius = 38;
+                  if (node.type === 'Govenics_Offering') radius = 36;
 
                   return (
                     <g
@@ -493,26 +539,31 @@ export const ComplianceKnowledgeGraph: React.FC = () => {
 
                       {/* Node Icon Label */}
                       <text
-                        y={4}
+                        y={5}
                         textAnchor="middle"
                         fill={cfg.text}
-                        fontSize={radius > 24 ? "12" : "10"}
-                        fontWeight="bold"
-                        className="pointer-events-none font-mono"
+                        fontSize={radius > 35 ? "14" : "12"}
+                        fontWeight="900"
+                        className="pointer-events-none font-sans"
                       >
-                        {node.type.substring(0, 3).toUpperCase()}
+                        {node.type === 'Regulatory_Act' ? 'ACT' 
+                          : node.type === 'Section_Provision' ? 'SEC'
+                          : node.type === 'Compliance_Obligation' ? 'RULE'
+                          : node.type === 'Government_Authority' ? 'GOV'
+                          : node.type === 'Govenics_Offering' ? 'SOL'
+                          : 'IND'}
                       </text>
 
                       {/* Node Text Label Underneath */}
                       <text
-                        y={radius + 14}
+                        y={radius + 18}
                         textAnchor="middle"
-                        fill={isSelected ? '#ffffff' : '#cbd5e1'}
-                        fontSize="10"
-                        fontWeight={isSelected ? "bold" : "500"}
-                        className="pointer-events-none drop-shadow-sm select-none"
+                        fill={isSelected ? '#60a5fa' : '#f8fafc'}
+                        fontSize="12"
+                        fontWeight="bold"
+                        className="pointer-events-none drop-shadow-[0_2px_4px_rgba(0,0,0,0.9)] select-none"
                       >
-                        {node.label.length > 25 ? `${node.label.slice(0, 23)}...` : node.label}
+                        {node.label.length > 28 ? `${node.label.slice(0, 26)}...` : node.label}
                       </text>
                     </g>
                   );

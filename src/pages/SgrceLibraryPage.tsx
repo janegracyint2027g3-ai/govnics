@@ -1870,11 +1870,11 @@ export default function SgrceLibraryPage() {
 
   return (
     <Layout>
-      <div className="bg-white min-h-screen text-slate-700 pt-28 pb-20 select-none font-sans">
-        <div className="container mx-auto px-6 max-w-7xl">
+      <div className="bg-white min-h-screen text-slate-700 pt-20 md:pt-24 pb-16 select-none font-sans">
+        <div className="container mx-auto px-4 md:px-6 max-w-7xl">
           {/* E-Library Statutory Compliance Highlights Slider */}
           <div 
-            className="w-full mb-8 relative border border-slate-200/85 rounded-3xl overflow-hidden shadow-md bg-gradient-to-br from-slate-900 to-slate-950 text-white min-h-[180px] sm:min-h-[160px] md:min-h-[140px] flex items-center"
+            className="w-full mb-5 relative border border-slate-200/85 rounded-3xl overflow-hidden shadow-md bg-gradient-to-br from-slate-900 to-slate-950 text-white min-h-[140px] md:min-h-[120px] flex items-center"
             onMouseEnter={() => setIsHovered(true)}
             onMouseLeave={() => setIsHovered(false)}
           >
@@ -1954,10 +1954,10 @@ export default function SgrceLibraryPage() {
             </div>
           </div>
 
-          <div className="flex flex-col lg:flex-row gap-8 items-start">
+          <div className="flex flex-col lg:flex-row gap-5 items-start">
             
-            {/* Left Sidebar Menu (1/3 width) - Replicating Image 3 Two-Column Layout */}
-            <aside className="w-full lg:w-1/3 flex border border-slate-200 rounded-3xl overflow-hidden shadow-sm bg-white self-stretch lg:self-auto min-h-[500px]">
+            {/* Left Sidebar Menu (w-full lg:w-72 xl:w-80) - Compact tight gap */}
+            <aside className="w-full lg:w-72 xl:w-80 shrink-0 flex border border-slate-200 rounded-3xl overflow-hidden shadow-sm bg-white self-stretch lg:self-auto min-h-[500px]">
               {/* Column 1: Domains Vertical Strip */}
               <div className="w-16 md:w-20 bg-slate-100/50 border-r border-slate-200 py-6 flex flex-col items-center gap-6 shrink-0">
                 <span className="text-[9px] font-black uppercase tracking-wider text-slate-400 font-heading transform -rotate-0">
@@ -2050,8 +2050,8 @@ export default function SgrceLibraryPage() {
               </div>
             </aside>
 
-            {/* Right Main Content Panel (2/3 width) */}
-            <main className="w-full lg:w-2/3 bg-white border border-slate-200/80 rounded-3xl p-6 md:p-8 min-h-[70vh] shadow-sm">
+            {/* Right Main Content Panel (Flexible full remaining width) */}
+            <main className="flex-1 w-full bg-white border border-slate-200/80 rounded-3xl p-5 md:p-7 min-h-[70vh] shadow-sm overflow-hidden">
               {renderLibraryContent()}
             </main>
 
