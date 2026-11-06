@@ -66,3 +66,4 @@ GOVENICS_INDUSTRIES = [
     "Retail & Consumer Goods",
     "Agriculture"
 ]
+

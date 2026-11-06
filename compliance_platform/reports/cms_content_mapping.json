@@ -39,7 +39,57 @@
       "offering": "Enterprise Governance",
       "industry": "BFSI & Fintech",
       "source_url": "https://www.mca.gov.in/content/mca/global/en/acts-rules.html"
+    },
+    {
+      "document_id": "REG-SEBI-LODR-BRSR-2023",
+      "title": "SEBI Business Responsibility and Sustainability Reporting (BRSR Core) Framework",
+      "wp_id": 121,
+      "action": "updated",
+      "success": true,
+      "offering": "ESG & Sustainability",
+      "industry": "BFSI & Fintech",
+      "source_url": "https://www.sebi.gov.in/legal/circulars/jul-2023/brsr-core-framework"
+    },
+    {
+      "document_id": "DIR-RBI-CYBER-2023",
+      "title": "RBI Master Direction on Information Technology Governance, Risk, Controls and Assurance Practices",
+      "wp_id": 126,
+      "action": "created",
+      "success": true,
+      "offering": "Cybersecurity & Privacy",
+      "industry": "IT & Technology",
+      "source_url": "https://www.rbi.org.in/Scripts/BS_ViewMasterDirections.aspx"
+    },
+    {
+      "document_id": "REG-FSSAI-LIC-2022",
+      "title": "Food Safety and Standards (Licensing and Registration of Food Businesses) Amendment Regulations",
+      "wp_id": 122,
+      "action": "updated",
+      "success": true,
+      "offering": "Licensing & Permits",
+      "industry": "Food Processing",
+      "source_url": "https://www.fssai.gov.in/cms/food-safety-and-standards-act-2006.php"
+    },
+    {
+      "document_id": "ACT-MH-SHOPS-2017",
+      "title": "Maharashtra Shops and Establishments (Regulation of Employment and Conditions of Service) Act",
+      "wp_id": 123,
+      "action": "updated",
+      "success": true,
+      "offering": "Labour & Employment",
+      "industry": "Manufacturing & Industrial",
+      "source_url": "https://mahakamgar.maharashtra.gov.in/acts-rules"
+    },
+    {
+      "document_id": "NOTIF-DGFT-FTP-2023",
+      "title": "Foreign Trade Policy (FTP 2023) Export Authorization & SCOMET Compliance Guidelines",
+      "wp_id": 124,
+      "action": "updated",
+      "success": true,
+      "offering": "Export & Trade Services",
+      "industry": "Logistics & Supply Chain",
+      "source_url": "https://www.dgft.gov.in/CP/?opt=regulatory-updates"
     }
   ],
-  "total": 4
+  "total": 9
 }

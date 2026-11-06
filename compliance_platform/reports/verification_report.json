@@ -6,7 +6,7 @@
       "domain_verified": true,
       "legal_citation_valid": true,
       "verification_status": "VERIFIED_OFFICIAL",
-      "verified_at": "2026-11-06T09:58:26.802595+00:00"
+      "verified_at": "2026-11-06T11:02:42.387985+00:00"
     },
     {
       "document_id": "ACT-IND-ENV-1986",
@@ -14,7 +14,7 @@
       "domain_verified": true,
       "legal_citation_valid": true,
       "verification_status": "VERIFIED_OFFICIAL",
-      "verified_at": "2026-11-06T09:58:26.802595+00:00"
+      "verified_at": "2026-11-06T11:02:42.387985+00:00"
     },
     {
       "document_id": "ACT-IND-DPDP-2023",
@@ -22,7 +22,7 @@
       "domain_verified": true,
       "legal_citation_valid": true,
       "verification_status": "VERIFIED_OFFICIAL",
-      "verified_at": "2026-11-06T09:58:26.802595+00:00"
+      "verified_at": "2026-11-06T11:02:42.387985+00:00"
     },
     {
       "document_id": "REG-IND-MCA-CSR-2021",
@@ -30,8 +30,48 @@
       "domain_verified": true,
       "legal_citation_valid": true,
       "verification_status": "VERIFIED_OFFICIAL",
-      "verified_at": "2026-11-06T09:58:26.802595+00:00"
+      "verified_at": "2026-11-06T11:02:42.387985+00:00"
+    },
+    {
+      "document_id": "REG-SEBI-LODR-BRSR-2023",
+      "source_url": "https://www.sebi.gov.in/legal/circulars/jul-2023/brsr-core-framework",
+      "domain_verified": true,
+      "legal_citation_valid": true,
+      "verification_status": "VERIFIED_OFFICIAL",
+      "verified_at": "2026-11-06T11:02:42.387985+00:00"
+    },
+    {
+      "document_id": "DIR-RBI-CYBER-2023",
+      "source_url": "https://www.rbi.org.in/Scripts/BS_ViewMasterDirections.aspx",
+      "domain_verified": true,
+      "legal_citation_valid": true,
+      "verification_status": "VERIFIED_OFFICIAL",
+      "verified_at": "2026-11-06T11:02:42.387985+00:00"
+    },
+    {
+      "document_id": "REG-FSSAI-LIC-2022",
+      "source_url": "https://www.fssai.gov.in/cms/food-safety-and-standards-act-2006.php",
+      "domain_verified": true,
+      "legal_citation_valid": true,
+      "verification_status": "VERIFIED_OFFICIAL",
+      "verified_at": "2026-11-06T11:02:42.387985+00:00"
+    },
+    {
+      "document_id": "ACT-MH-SHOPS-2017",
+      "source_url": "https://mahakamgar.maharashtra.gov.in/acts-rules",
+      "domain_verified": true,
+      "legal_citation_valid": true,
+      "verification_status": "VERIFIED_OFFICIAL",
+      "verified_at": "2026-11-06T11:02:42.387985+00:00"
+    },
+    {
+      "document_id": "NOTIF-DGFT-FTP-2023",
+      "source_url": "https://www.dgft.gov.in/CP/?opt=regulatory-updates",
+      "domain_verified": true,
+      "legal_citation_valid": true,
+      "verification_status": "VERIFIED_OFFICIAL",
+      "verified_at": "2026-11-06T11:02:42.387985+00:00"
     }
   ],
-  "total": 4
+  "total": 9
 }

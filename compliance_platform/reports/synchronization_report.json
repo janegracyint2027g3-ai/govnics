@@ -1,11 +1,11 @@
 {
-  "timestamp": "2026-11-06T09:58:30.701731+00:00",
-  "duration_seconds": 5.23,
+  "timestamp": "2026-11-06T11:02:51.675801+00:00",
+  "duration_seconds": 11.05,
   "pipeline_status": "SUCCESS",
-  "sources_discovered": 5,
-  "documents_extracted": 4,
-  "cms_records_published": 4,
-  "knowledge_graph_nodes": 34,
-  "knowledge_graph_edges": 39,
+  "sources_discovered": 9,
+  "documents_extracted": 9,
+  "cms_records_published": 9,
+  "knowledge_graph_nodes": 69,
+  "knowledge_graph_edges": 84,
   "search_index_size": 4
 }

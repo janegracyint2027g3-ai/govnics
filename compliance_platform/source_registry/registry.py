@@ -63,8 +63,57 @@ APPROVED_SOURCES: List[Dict[str, Any]] = [
         "industries": ["Logistics & Supply Chain", "Automotive & Auto Components", "Textiles"],
         "status": "active",
         "update_frequency": "weekly"
+    },
+    {
+        "source_id": "SRC-SEBI-006",
+        "name": "Securities and Exchange Board of India (SEBI)",
+        "jurisdiction": "Central",
+        "category": "Enterprise Governance",
+        "portal_url": "https://www.sebi.gov.in",
+        "acts_endpoint": "https://www.sebi.gov.in/legal/regulations.html",
+        "offerings": ["Enterprise Governance", "ESG & Sustainability"],
+        "industries": ["BFSI & Fintech", "IT & Technology", "Manufacturing & Industrial"],
+        "status": "active",
+        "update_frequency": "daily"
+    },
+    {
+        "source_id": "SRC-RBI-007",
+        "name": "Reserve Bank of India (RBI)",
+        "jurisdiction": "Central",
+        "category": "Risk Management",
+        "portal_url": "https://www.rbi.org.in",
+        "acts_endpoint": "https://www.rbi.org.in/Scripts/BS_ViewMasterDirections.aspx",
+        "offerings": ["Risk Management", "Cybersecurity & Privacy"],
+        "industries": ["BFSI & Fintech", "IT & Technology"],
+        "status": "active",
+        "update_frequency": "daily"
+    },
+    {
+        "source_id": "SRC-FSSAI-008",
+        "name": "Food Safety and Standards Authority of India (FSSAI)",
+        "jurisdiction": "Central",
+        "category": "Licensing & Permits",
+        "portal_url": "https://www.fssai.gov.in",
+        "acts_endpoint": "https://www.fssai.gov.in/cms/food-safety-and-standards-act-2006.php",
+        "offerings": ["Licensing & Permits", "Supply Chain Compliance"],
+        "industries": ["Food Processing", "Agriculture", "Retail & Consumer Goods"],
+        "status": "active",
+        "update_frequency": "weekly"
+    },
+    {
+        "source_id": "SRC-MH-LABOUR-009",
+        "name": "Maharashtra Labour Department (State)",
+        "jurisdiction": "State - Maharashtra",
+        "category": "Labour & Employment",
+        "portal_url": "https://mahakamgar.maharashtra.gov.in",
+        "acts_endpoint": "https://mahakamgar.maharashtra.gov.in/acts-rules",
+        "offerings": ["Labour & Employment", "Regulatory Compliance"],
+        "industries": ["Manufacturing & Industrial", "IT & Technology", "Retail & Consumer Goods"],
+        "status": "active",
+        "update_frequency": "weekly"
     }
 ]
 
 def get_active_sources() -> List[Dict[str, Any]]:
     return [s for s in APPROVED_SOURCES if s["status"] == "active"]
+

@@ -1,8 +1,8 @@
 {
   "version": "2.0.0",
-  "generated_at": "2026-11-06T09:58:30.699263+00:00",
-  "nodes_count": 34,
-  "edges_count": 39,
+  "generated_at": "2026-11-06T11:02:51.672541+00:00",
+  "nodes_count": 69,
+  "edges_count": 84,
   "nodes": [
     {
       "id": "ACT_ACT-IND-LABOUR-1948",
@@ -227,6 +227,241 @@
       "label": "Annual board report on CSR activities with detailed Annexure disclosures",
       "type": "Compliance_Obligation",
       "properties": {}
+    },
+    {
+      "id": "ACT_REG-SEBI-LODR-BRSR-2023",
+      "label": "SEBI Business Responsibility and Sustainability Reporting (BRSR Core) Framework",
+      "type": "Regulatory_Act",
+      "properties": {
+        "year": "2023",
+        "level": "Central"
+      }
+    },
+    {
+      "id": "AUTH_securities_and_exchange_board_of_india_(sebi)",
+      "label": "Securities and Exchange Board of India (SEBI)",
+      "type": "Government_Authority",
+      "properties": {
+        "jurisdiction": "India"
+      }
+    },
+    {
+      "id": "OFFERING_esg_and_sustainability",
+      "label": "ESG & Sustainability",
+      "type": "Govenics_Offering",
+      "properties": {}
+    },
+    {
+      "id": "SEC_REG-SEBI-LODR-BRSR-2023_Regulation_34(2)(f)",
+      "label": "Regulation 34(2)(f): Annual Report BRSR Disclosures",
+      "type": "Section_Provision",
+      "properties": {}
+    },
+    {
+      "id": "OB_REG-SEBI-LODR-BRSR-2023_Regulation_34(2)(f)",
+      "label": "Top 1000 listed companies must file annual BRSR report alongside financial results",
+      "type": "Compliance_Obligation",
+      "properties": {}
+    },
+    {
+      "id": "SEC_REG-SEBI-LODR-BRSR-2023_Circular_Clause_3",
+      "label": "Circular Clause 3: Value Chain Due Diligence",
+      "type": "Section_Provision",
+      "properties": {}
+    },
+    {
+      "id": "OB_REG-SEBI-LODR-BRSR-2023_Circular_Clause_3",
+      "label": "Disclose Scope 3 emissions and supplier ESG compliance assessments",
+      "type": "Compliance_Obligation",
+      "properties": {}
+    },
+    {
+      "id": "ACT_DIR-RBI-CYBER-2023",
+      "label": "RBI Master Direction on Information Technology Governance, Risk, Controls and Assurance Practices",
+      "type": "Regulatory_Act",
+      "properties": {
+        "year": "2023",
+        "level": "Central"
+      }
+    },
+    {
+      "id": "AUTH_reserve_bank_of_india_(rbi)",
+      "label": "Reserve Bank of India (RBI)",
+      "type": "Government_Authority",
+      "properties": {
+        "jurisdiction": "India"
+      }
+    },
+    {
+      "id": "SEC_DIR-RBI-CYBER-2023_Chapter_III",
+      "label": "Chapter III: IT Risk & Cyber Security Management",
+      "type": "Section_Provision",
+      "properties": {}
+    },
+    {
+      "id": "OB_DIR-RBI-CYBER-2023_Chapter_III",
+      "label": "Establish dedicated IT Strategy Committee of the Board and conduct annual cyber audits",
+      "type": "Compliance_Obligation",
+      "properties": {}
+    },
+    {
+      "id": "SEC_DIR-RBI-CYBER-2023_Chapter_V",
+      "label": "Chapter V: Third-Party Vendor Risk",
+      "type": "Section_Provision",
+      "properties": {}
+    },
+    {
+      "id": "OB_DIR-RBI-CYBER-2023_Chapter_V",
+      "label": "Implement continuous security monitoring for outsourced technology service providers",
+      "type": "Compliance_Obligation",
+      "properties": {}
+    },
+    {
+      "id": "ACT_REG-FSSAI-LIC-2022",
+      "label": "Food Safety and Standards (Licensing and Registration of Food Businesses) Amendment Regulations",
+      "type": "Regulatory_Act",
+      "properties": {
+        "year": "2022",
+        "level": "Central"
+      }
+    },
+    {
+      "id": "AUTH_food_safety_and_standards_authority_of_india_(fssai)",
+      "label": "Food Safety and Standards Authority of India (FSSAI)",
+      "type": "Government_Authority",
+      "properties": {
+        "jurisdiction": "India"
+      }
+    },
+    {
+      "id": "OFFERING_licensing_and_permits",
+      "label": "Licensing & Permits",
+      "type": "Govenics_Offering",
+      "properties": {}
+    },
+    {
+      "id": "IND_food_processing",
+      "label": "Food Processing",
+      "type": "Applicable_Industry",
+      "properties": {}
+    },
+    {
+      "id": "SEC_REG-FSSAI-LIC-2022_Regulation_2.1",
+      "label": "Regulation 2.1: Licensing Thresholds",
+      "type": "Section_Provision",
+      "properties": {}
+    },
+    {
+      "id": "OB_REG-FSSAI-LIC-2022_Regulation_2.1",
+      "label": "FBOs with turnover above \u20b912 Lakhs must secure mandatory state or central FSSAI license",
+      "type": "Compliance_Obligation",
+      "properties": {}
+    },
+    {
+      "id": "SEC_REG-FSSAI-LIC-2022_Regulation_2.2",
+      "label": "Regulation 2.2: Food Recall & Traceability",
+      "type": "Section_Provision",
+      "properties": {}
+    },
+    {
+      "id": "OB_REG-FSSAI-LIC-2022_Regulation_2.2",
+      "label": "Maintain verifiable forward and backward ingredient tracking registers",
+      "type": "Compliance_Obligation",
+      "properties": {}
+    },
+    {
+      "id": "ACT_ACT-MH-SHOPS-2017",
+      "label": "Maharashtra Shops and Establishments (Regulation of Employment and Conditions of Service) Act",
+      "type": "Regulatory_Act",
+      "properties": {
+        "year": "2017",
+        "level": "State"
+      }
+    },
+    {
+      "id": "AUTH_government_of_maharashtra_(labour_department)",
+      "label": "Government of Maharashtra (Labour Department)",
+      "type": "Government_Authority",
+      "properties": {
+        "jurisdiction": "Maharashtra"
+      }
+    },
+    {
+      "id": "SEC_ACT-MH-SHOPS-2017_Section_6",
+      "label": "Section 6: Intimation of commencement of business",
+      "type": "Section_Provision",
+      "properties": {}
+    },
+    {
+      "id": "OB_ACT-MH-SHOPS-2017_Section_6",
+      "label": "Submit online Form F intimation within 60 days of business launch",
+      "type": "Compliance_Obligation",
+      "properties": {}
+    },
+    {
+      "id": "SEC_ACT-MH-SHOPS-2017_Section_13",
+      "label": "Section 13: Working hours and overtime",
+      "type": "Section_Provision",
+      "properties": {}
+    },
+    {
+      "id": "OB_ACT-MH-SHOPS-2017_Section_13",
+      "label": "Maximum 9 hours/day, 48 hours/week with statutory overtime compensation at double rate",
+      "type": "Compliance_Obligation",
+      "properties": {}
+    },
+    {
+      "id": "ACT_NOTIF-DGFT-FTP-2023",
+      "label": "Foreign Trade Policy (FTP 2023) Export Authorization & SCOMET Compliance Guidelines",
+      "type": "Regulatory_Act",
+      "properties": {
+        "year": "2023",
+        "level": "Central"
+      }
+    },
+    {
+      "id": "AUTH_directorate_general_of_foreign_trade_(dgft)",
+      "label": "Directorate General of Foreign Trade (DGFT)",
+      "type": "Government_Authority",
+      "properties": {
+        "jurisdiction": "India"
+      }
+    },
+    {
+      "id": "OFFERING_export_and_trade_services",
+      "label": "Export & Trade Services",
+      "type": "Govenics_Offering",
+      "properties": {}
+    },
+    {
+      "id": "IND_logistics_and_supply_chain",
+      "label": "Logistics & Supply Chain",
+      "type": "Applicable_Industry",
+      "properties": {}
+    },
+    {
+      "id": "SEC_NOTIF-DGFT-FTP-2023_Paragraph_10.05",
+      "label": "Paragraph 10.05: SCOMET Authorization Protocol",
+      "type": "Section_Provision",
+      "properties": {}
+    },
+    {
+      "id": "OB_NOTIF-DGFT-FTP-2023_Paragraph_10.05",
+      "label": "Mandatory licensing and end-user certificate filing for dual-use tech export shipments",
+      "type": "Compliance_Obligation",
+      "properties": {}
+    },
+    {
+      "id": "SEC_NOTIF-DGFT-FTP-2023_Paragraph_10.06",
+      "label": "Paragraph 10.06: Internal Compliance Programme (ICP)",
+      "type": "Section_Provision",
+      "properties": {}
+    },
+    {
+      "id": "OB_NOTIF-DGFT-FTP-2023_Paragraph_10.06",
+      "label": "Establish internal audit and compliance teams to monitor export control adherence",
+      "type": "Compliance_Obligation",
+      "properties": {}
     }
   ],
   "edges": [
@@ -423,6 +658,231 @@
     {
       "source": "OB_REG-IND-MCA-CSR-2021_Rule_8",
       "target": "OFFERING_enterprise_governance",
+      "relation": "MONITORED_BY_OFFERING"
+    },
+    {
+      "source": "AUTH_securities_and_exchange_board_of_india_(sebi)",
+      "target": "ACT_REG-SEBI-LODR-BRSR-2023",
+      "relation": "ENACTS_AND_ENFORCES"
+    },
+    {
+      "source": "ACT_REG-SEBI-LODR-BRSR-2023",
+      "target": "OFFERING_esg_and_sustainability",
+      "relation": "ALIGNED_WITH_OFFERING"
+    },
+    {
+      "source": "ACT_REG-SEBI-LODR-BRSR-2023",
+      "target": "IND_bfsi_and_fintech",
+      "relation": "MANDATED_FOR_INDUSTRY"
+    },
+    {
+      "source": "ACT_REG-SEBI-LODR-BRSR-2023",
+      "target": "SEC_REG-SEBI-LODR-BRSR-2023_Regulation_34(2)(f)",
+      "relation": "CONTAINS_SECTION"
+    },
+    {
+      "source": "SEC_REG-SEBI-LODR-BRSR-2023_Regulation_34(2)(f)",
+      "target": "OB_REG-SEBI-LODR-BRSR-2023_Regulation_34(2)(f)",
+      "relation": "IMPOSES_OBLIGATION"
+    },
+    {
+      "source": "OB_REG-SEBI-LODR-BRSR-2023_Regulation_34(2)(f)",
+      "target": "OFFERING_esg_and_sustainability",
+      "relation": "MONITORED_BY_OFFERING"
+    },
+    {
+      "source": "ACT_REG-SEBI-LODR-BRSR-2023",
+      "target": "SEC_REG-SEBI-LODR-BRSR-2023_Circular_Clause_3",
+      "relation": "CONTAINS_SECTION"
+    },
+    {
+      "source": "SEC_REG-SEBI-LODR-BRSR-2023_Circular_Clause_3",
+      "target": "OB_REG-SEBI-LODR-BRSR-2023_Circular_Clause_3",
+      "relation": "IMPOSES_OBLIGATION"
+    },
+    {
+      "source": "OB_REG-SEBI-LODR-BRSR-2023_Circular_Clause_3",
+      "target": "OFFERING_esg_and_sustainability",
+      "relation": "MONITORED_BY_OFFERING"
+    },
+    {
+      "source": "AUTH_reserve_bank_of_india_(rbi)",
+      "target": "ACT_DIR-RBI-CYBER-2023",
+      "relation": "ENACTS_AND_ENFORCES"
+    },
+    {
+      "source": "ACT_DIR-RBI-CYBER-2023",
+      "target": "OFFERING_cybersecurity_and_privacy",
+      "relation": "ALIGNED_WITH_OFFERING"
+    },
+    {
+      "source": "ACT_DIR-RBI-CYBER-2023",
+      "target": "IND_it_and_technology",
+      "relation": "MANDATED_FOR_INDUSTRY"
+    },
+    {
+      "source": "ACT_DIR-RBI-CYBER-2023",
+      "target": "SEC_DIR-RBI-CYBER-2023_Chapter_III",
+      "relation": "CONTAINS_SECTION"
+    },
+    {
+      "source": "SEC_DIR-RBI-CYBER-2023_Chapter_III",
+      "target": "OB_DIR-RBI-CYBER-2023_Chapter_III",
+      "relation": "IMPOSES_OBLIGATION"
+    },
+    {
+      "source": "OB_DIR-RBI-CYBER-2023_Chapter_III",
+      "target": "OFFERING_cybersecurity_and_privacy",
+      "relation": "MONITORED_BY_OFFERING"
+    },
+    {
+      "source": "ACT_DIR-RBI-CYBER-2023",
+      "target": "SEC_DIR-RBI-CYBER-2023_Chapter_V",
+      "relation": "CONTAINS_SECTION"
+    },
+    {
+      "source": "SEC_DIR-RBI-CYBER-2023_Chapter_V",
+      "target": "OB_DIR-RBI-CYBER-2023_Chapter_V",
+      "relation": "IMPOSES_OBLIGATION"
+    },
+    {
+      "source": "OB_DIR-RBI-CYBER-2023_Chapter_V",
+      "target": "OFFERING_cybersecurity_and_privacy",
+      "relation": "MONITORED_BY_OFFERING"
+    },
+    {
+      "source": "AUTH_food_safety_and_standards_authority_of_india_(fssai)",
+      "target": "ACT_REG-FSSAI-LIC-2022",
+      "relation": "ENACTS_AND_ENFORCES"
+    },
+    {
+      "source": "ACT_REG-FSSAI-LIC-2022",
+      "target": "OFFERING_licensing_and_permits",
+      "relation": "ALIGNED_WITH_OFFERING"
+    },
+    {
+      "source": "ACT_REG-FSSAI-LIC-2022",
+      "target": "IND_food_processing",
+      "relation": "MANDATED_FOR_INDUSTRY"
+    },
+    {
+      "source": "ACT_REG-FSSAI-LIC-2022",
+      "target": "SEC_REG-FSSAI-LIC-2022_Regulation_2.1",
+      "relation": "CONTAINS_SECTION"
+    },
+    {
+      "source": "SEC_REG-FSSAI-LIC-2022_Regulation_2.1",
+      "target": "OB_REG-FSSAI-LIC-2022_Regulation_2.1",
+      "relation": "IMPOSES_OBLIGATION"
+    },
+    {
+      "source": "OB_REG-FSSAI-LIC-2022_Regulation_2.1",
+      "target": "OFFERING_licensing_and_permits",
+      "relation": "MONITORED_BY_OFFERING"
+    },
+    {
+      "source": "ACT_REG-FSSAI-LIC-2022",
+      "target": "SEC_REG-FSSAI-LIC-2022_Regulation_2.2",
+      "relation": "CONTAINS_SECTION"
+    },
+    {
+      "source": "SEC_REG-FSSAI-LIC-2022_Regulation_2.2",
+      "target": "OB_REG-FSSAI-LIC-2022_Regulation_2.2",
+      "relation": "IMPOSES_OBLIGATION"
+    },
+    {
+      "source": "OB_REG-FSSAI-LIC-2022_Regulation_2.2",
+      "target": "OFFERING_licensing_and_permits",
+      "relation": "MONITORED_BY_OFFERING"
+    },
+    {
+      "source": "AUTH_government_of_maharashtra_(labour_department)",
+      "target": "ACT_ACT-MH-SHOPS-2017",
+      "relation": "ENACTS_AND_ENFORCES"
+    },
+    {
+      "source": "ACT_ACT-MH-SHOPS-2017",
+      "target": "OFFERING_labour_and_employment",
+      "relation": "ALIGNED_WITH_OFFERING"
+    },
+    {
+      "source": "ACT_ACT-MH-SHOPS-2017",
+      "target": "IND_manufacturing_and_industrial",
+      "relation": "MANDATED_FOR_INDUSTRY"
+    },
+    {
+      "source": "ACT_ACT-MH-SHOPS-2017",
+      "target": "SEC_ACT-MH-SHOPS-2017_Section_6",
+      "relation": "CONTAINS_SECTION"
+    },
+    {
+      "source": "SEC_ACT-MH-SHOPS-2017_Section_6",
+      "target": "OB_ACT-MH-SHOPS-2017_Section_6",
+      "relation": "IMPOSES_OBLIGATION"
+    },
+    {
+      "source": "OB_ACT-MH-SHOPS-2017_Section_6",
+      "target": "OFFERING_labour_and_employment",
+      "relation": "MONITORED_BY_OFFERING"
+    },
+    {
+      "source": "ACT_ACT-MH-SHOPS-2017",
+      "target": "SEC_ACT-MH-SHOPS-2017_Section_13",
+      "relation": "CONTAINS_SECTION"
+    },
+    {
+      "source": "SEC_ACT-MH-SHOPS-2017_Section_13",
+      "target": "OB_ACT-MH-SHOPS-2017_Section_13",
+      "relation": "IMPOSES_OBLIGATION"
+    },
+    {
+      "source": "OB_ACT-MH-SHOPS-2017_Section_13",
+      "target": "OFFERING_labour_and_employment",
+      "relation": "MONITORED_BY_OFFERING"
+    },
+    {
+      "source": "AUTH_directorate_general_of_foreign_trade_(dgft)",
+      "target": "ACT_NOTIF-DGFT-FTP-2023",
+      "relation": "ENACTS_AND_ENFORCES"
+    },
+    {
+      "source": "ACT_NOTIF-DGFT-FTP-2023",
+      "target": "OFFERING_export_and_trade_services",
+      "relation": "ALIGNED_WITH_OFFERING"
+    },
+    {
+      "source": "ACT_NOTIF-DGFT-FTP-2023",
+      "target": "IND_logistics_and_supply_chain",
+      "relation": "MANDATED_FOR_INDUSTRY"
+    },
+    {
+      "source": "ACT_NOTIF-DGFT-FTP-2023",
+      "target": "SEC_NOTIF-DGFT-FTP-2023_Paragraph_10.05",
+      "relation": "CONTAINS_SECTION"
+    },
+    {
+      "source": "SEC_NOTIF-DGFT-FTP-2023_Paragraph_10.05",
+      "target": "OB_NOTIF-DGFT-FTP-2023_Paragraph_10.05",
+      "relation": "IMPOSES_OBLIGATION"
+    },
+    {
+      "source": "OB_NOTIF-DGFT-FTP-2023_Paragraph_10.05",
+      "target": "OFFERING_export_and_trade_services",
+      "relation": "MONITORED_BY_OFFERING"
+    },
+    {
+      "source": "ACT_NOTIF-DGFT-FTP-2023",
+      "target": "SEC_NOTIF-DGFT-FTP-2023_Paragraph_10.06",
+      "relation": "CONTAINS_SECTION"
+    },
+    {
+      "source": "SEC_NOTIF-DGFT-FTP-2023_Paragraph_10.06",
+      "target": "OB_NOTIF-DGFT-FTP-2023_Paragraph_10.06",
+      "relation": "IMPOSES_OBLIGATION"
+    },
+    {
+      "source": "OB_NOTIF-DGFT-FTP-2023_Paragraph_10.06",
+      "target": "OFFERING_export_and_trade_services",
       "relation": "MONITORED_BY_OFFERING"
     }
   ]

@@ -124,6 +124,96 @@ class CompliancePipelineOrchestrator:
                     {"section": "Rule 4", "title": "CSR Implementation", "obligation": "Mandatory Form CSR-1 registration with MCA for implementing agencies"},
                     {"section": "Rule 8", "title": "CSR Reporting", "obligation": "Annual board report on CSR activities with detailed Annexure disclosures"}
                 ]
+            },
+            {
+                "document_id": "REG-SEBI-LODR-BRSR-2023",
+                "title": "SEBI Business Responsibility and Sustainability Reporting (BRSR Core) Framework",
+                "document_type": "Regulations",
+                "category_slug": "regulations",
+                "issuing_authority": "Securities and Exchange Board of India (SEBI)",
+                "government_level": "Central",
+                "jurisdiction": "India",
+                "source_url": "https://www.sebi.gov.in/legal/circulars/jul-2023/brsr-core-framework",
+                "publication_date": "2023-07-12",
+                "effective_date": "2023-10-01",
+                "extracted_text": "Framework mandating ESG disclosures and reasonable assurance for the top 1000 listed entities by market capitalization. Enforces KPI metrics across GHG emissions, water consumption, circular economy, employee gender diversity, and supply chain ESG due diligence.",
+                "extracted_summary": "SEBI's statutory ESG disclosure regulation introducing the BRSR Core metrics and mandatory third-party reasonable assurance for listed corporations.",
+                "key_sections": [
+                    {"section": "Regulation 34(2)(f)", "title": "Annual Report BRSR Disclosures", "obligation": "Top 1000 listed companies must file annual BRSR report alongside financial results"},
+                    {"section": "Circular Clause 3", "title": "Value Chain Due Diligence", "obligation": "Disclose Scope 3 emissions and supplier ESG compliance assessments"}
+                ]
+            },
+            {
+                "document_id": "DIR-RBI-CYBER-2023",
+                "title": "RBI Master Direction on Information Technology Governance, Risk, Controls and Assurance Practices",
+                "document_type": "Guidelines",
+                "category_slug": "guides",
+                "issuing_authority": "Reserve Bank of India (RBI)",
+                "government_level": "Central",
+                "jurisdiction": "India",
+                "source_url": "https://www.rbi.org.in/Scripts/BS_ViewMasterDirections.aspx",
+                "publication_date": "2023-11-07",
+                "effective_date": "2024-04-01",
+                "extracted_text": "Regulatory directions for regulated entities regarding IT governance structure, cybersecurity risk management, digital payment security, vendor third-party risk assessment, operational resilience, and mandatory 6-hour cyber incident notification.",
+                "extracted_summary": "Mandatory RBI framework establishing enterprise IT architecture governance, board oversight, continuous VAPT audits, and business continuity protocols for financial institutions.",
+                "key_sections": [
+                    {"section": "Chapter III", "title": "IT Risk & Cyber Security Management", "obligation": "Establish dedicated IT Strategy Committee of the Board and conduct annual cyber audits"},
+                    {"section": "Chapter V", "title": "Third-Party Vendor Risk", "obligation": "Implement continuous security monitoring for outsourced technology service providers"}
+                ]
+            },
+            {
+                "document_id": "REG-FSSAI-LIC-2022",
+                "title": "Food Safety and Standards (Licensing and Registration of Food Businesses) Amendment Regulations",
+                "document_type": "Regulations",
+                "category_slug": "regulations",
+                "issuing_authority": "Food Safety and Standards Authority of India (FSSAI)",
+                "government_level": "Central",
+                "jurisdiction": "India",
+                "source_url": "https://www.fssai.gov.in/cms/food-safety-and-standards-act-2006.php",
+                "publication_date": "2022-06-20",
+                "effective_date": "2022-10-01",
+                "extracted_text": "Comprehensive guidelines governing mandatory food business operator (FBO) registration, state and central licensing criteria, hygiene audit ratings, traceability compliance, and food laboratory test certifications.",
+                "extracted_summary": "Statutory food licensing regulations specifying threshold requirements, sanitary operating protocols, annual return submittals, and FoSCoS portal compliance procedures.",
+                "key_sections": [
+                    {"section": "Regulation 2.1", "title": "Licensing Thresholds", "obligation": "FBOs with turnover above ₹12 Lakhs must secure mandatory state or central FSSAI license"},
+                    {"section": "Regulation 2.2", "title": "Food Recall & Traceability", "obligation": "Maintain verifiable forward and backward ingredient tracking registers"}
+                ]
+            },
+            {
+                "document_id": "ACT-MH-SHOPS-2017",
+                "title": "Maharashtra Shops and Establishments (Regulation of Employment and Conditions of Service) Act",
+                "document_type": "Acts",
+                "category_slug": "acts",
+                "issuing_authority": "Government of Maharashtra (Labour Department)",
+                "government_level": "State",
+                "jurisdiction": "Maharashtra",
+                "source_url": "https://mahakamgar.maharashtra.gov.in/acts-rules",
+                "publication_date": "2017-09-07",
+                "effective_date": "2017-12-19",
+                "extracted_text": "An Act to regulate the conditions of work and employment in shops, commercial establishments, IT/ITeS parks, and residential hotels in Maharashtra. Covers working hours, spread-over, mandatory overtime wages at double rates, and women shift safety.",
+                "extracted_summary": "State legislation replacing the Bombay Shops Act, introducing Aadhaar-linked online intimation for units under 10 workers and 24/7 operating exemptions with transport safeguards.",
+                "key_sections": [
+                    {"section": "Section 6", "title": "Intimation of commencement of business", "obligation": "Submit online Form F intimation within 60 days of business launch"},
+                    {"section": "Section 13", "title": "Working hours and overtime", "obligation": "Maximum 9 hours/day, 48 hours/week with statutory overtime compensation at double rate"}
+                ]
+            },
+            {
+                "document_id": "NOTIF-DGFT-FTP-2023",
+                "title": "Foreign Trade Policy (FTP 2023) Export Authorization & SCOMET Compliance Guidelines",
+                "document_type": "Guidelines",
+                "category_slug": "guides",
+                "issuing_authority": "Directorate General of Foreign Trade (DGFT)",
+                "government_level": "Central",
+                "jurisdiction": "India",
+                "source_url": "https://www.dgft.gov.in/CP/?opt=regulatory-updates",
+                "publication_date": "2023-03-31",
+                "effective_date": "2023-04-01",
+                "extracted_text": "Strategic guidelines under FTP 2023 regulating SCOMET (Special Chemicals, Organisms, Materials, Equipment and Technologies) dual-use export authorizations, internal compliance programmes (ICP), and paperless customs clearance.",
+                "extracted_summary": "Official DGFT trade regulatory circular introducing electronic authorization procedures, advance export licenses, and end-user verification protocols for exporters.",
+                "key_sections": [
+                    {"section": "Paragraph 10.05", "title": "SCOMET Authorization Protocol", "obligation": "Mandatory licensing and end-user certificate filing for dual-use tech export shipments"},
+                    {"section": "Paragraph 10.06", "title": "Internal Compliance Programme (ICP)", "obligation": "Establish internal audit and compliance teams to monitor export control adherence"}
+                ]
             }
         ]
 
@@ -138,15 +228,24 @@ class CompliancePipelineOrchestrator:
         classified = []
         for doc in docs:
             # Map Offering & Industry
-            if "Labour" in doc["title"] or "Factories" in doc["title"]:
+            if "Labour" in doc["title"] or "Factories" in doc["title"] or "Shops" in doc["title"]:
                 doc["offering"] = "Labour & Employment"
                 doc["industry"] = "Manufacturing & Industrial"
             elif "Environment" in doc["title"]:
                 doc["offering"] = "Environmental & EHS"
                 doc["industry"] = "Chemicals & Petrochemicals"
-            elif "Personal Data" in doc["title"] or "DPDP" in doc["title"]:
+            elif "Personal Data" in doc["title"] or "DPDP" in doc["title"] or "Information Technology" in doc["title"]:
                 doc["offering"] = "Cybersecurity & Privacy"
                 doc["industry"] = "IT & Technology"
+            elif "BRSR" in doc["title"] or "Sustainability" in doc["title"]:
+                doc["offering"] = "ESG & Sustainability"
+                doc["industry"] = "BFSI & Fintech"
+            elif "Food Safety" in doc["title"] or "FSSAI" in doc["title"]:
+                doc["offering"] = "Licensing & Permits"
+                doc["industry"] = "Food Processing"
+            elif "Foreign Trade" in doc["title"] or "FTP" in doc["title"] or "SCOMET" in doc["title"]:
+                doc["offering"] = "Export & Trade Services"
+                doc["industry"] = "Logistics & Supply Chain"
             elif "Corporate Social Responsibility" in doc["title"] or "Companies" in doc["title"]:
                 doc["offering"] = "Enterprise Governance"
                 doc["industry"] = "BFSI & Fintech"
@@ -163,8 +262,8 @@ class CompliancePipelineOrchestrator:
         log.info("[%s] Verifying official source URLs and legal references...", AgentType.SOURCE_VERIFICATION.value)
         results = []
         for doc in docs:
-            # Vetted official domains
-            is_valid_gov = any(domain in doc["source_url"] for domain in [".gov.in", ".nic.in", "cpcb.nic.in"])
+            # Vetted official regulatory and statutory authority domains
+            is_valid_gov = any(domain in doc["source_url"] for domain in [".gov.in", ".nic.in", "cpcb.nic.in", "rbi.org.in", "sebi.gov.in"])
             res = {
                 "document_id": doc["document_id"],
                 "source_url": doc["source_url"],
@@ -376,3 +475,4 @@ class CompliancePipelineOrchestrator:
 
         log.info("PIPELINE COMPLETED SUCCESSFULLY IN %ss", duration)
         return sync_report
+
