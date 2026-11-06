@@ -87,9 +87,9 @@ export const ComplianceKnowledgeGraph: React.FC = () => {
   const [selectedNode, setSelectedNode] = useState<KGNode | null>(null);
   const [selectedEdge, setSelectedEdge] = useState<KGEdge | null>(null);
 
-  // Canvas Viewport transform
-  const [zoom, setZoom] = useState<number>(0.85);
-  const [pan, setPan] = useState<{ x: number; y: number }>({ x: 20, y: 10 });
+  // Canvas Viewport transform (default 1.0 fit for 920x680 viewbox)
+  const [zoom, setZoom] = useState<number>(1.0);
+  const [pan, setPan] = useState<{ x: number; y: number }>({ x: 0, y: 0 });
   const [isPanning, setIsPanning] = useState<boolean>(false);
   const [startPan, setStartPan] = useState<{ x: number; y: number }>({ x: 0, y: 0 });
 
@@ -110,61 +110,57 @@ export const ComplianceKnowledgeGraph: React.FC = () => {
         }
         const json = await res.json();
         if (isMounted) {
-          // Initialize clustered force-directed layout coordinates
-          // Cluster around 4 primary Acts: Factories, EPA, DPDP, MCA CSR
+          // Centered compact coordinate space (within 900x650 viewport)
+          // 4 Main Acts centrally anchored
           const actClusters: Record<string, { x: number; y: number }> = {
-            "ACT_ACT-IND-LABOUR-1948": { x: 420, y: 340 },
-            "ACT_ACT-IND-ENV-1986": { x: 780, y: 340 },
-            "ACT_ACT-IND-DPDP-2023": { x: 420, y: 720 },
-            "ACT_REG-IND-MCA-CSR-2021": { x: 780, y: 720 },
+            "ACT_ACT-IND-LABOUR-1948": { x: 300, y: 220 },
+            "ACT_ACT-IND-ENV-1986": { x: 620, y: 220 },
+            "ACT_ACT-IND-DPDP-2023": { x: 300, y: 460 },
+            "ACT_REG-IND-MCA-CSR-2021": { x: 620, y: 460 },
           };
 
           const nodesWithPos = (json.nodes || []).map((node: KGNode, index: number) => {
-            // Position based on entity role and relationships
-            let posX = 600;
-            let posY = 500;
+            let posX = 460;
+            let posY = 340;
 
             if (node.id in actClusters) {
               posX = actClusters[node.id].x;
               posY = actClusters[node.id].y;
             } else if (node.type === 'Government_Authority') {
-              // Placed along top/corners
-              if (node.id.includes('labour')) { posX = 200; posY = 240; }
-              else if (node.id.includes('cpcb') || node.id.includes('environment')) { posX = 980; posY = 240; }
-              else if (node.id.includes('meity')) { posX = 200; posY = 820; }
-              else { posX = 980; posY = 820; }
+              if (node.id.includes('labour')) { posX = 120; posY = 150; }
+              else if (node.id.includes('cpcb') || node.id.includes('environment')) { posX = 800; posY = 150; }
+              else if (node.id.includes('meity')) { posX = 120; posY = 530; }
+              else { posX = 800; posY = 530; }
             } else if (node.type === 'Govenics_Offering') {
-              if (node.id.includes('labour')) { posX = 420; posY = 150; }
-              else if (node.id.includes('ehs') || node.id.includes('environmental')) { posX = 780; posY = 150; }
-              else if (node.id.includes('privacy') || node.id.includes('cyber')) { posX = 420; posY = 920; }
-              else { posX = 780; posY = 920; }
+              if (node.id.includes('labour')) { posX = 300; posY = 80; }
+              else if (node.id.includes('ehs') || node.id.includes('environmental')) { posX = 620; posY = 80; }
+              else if (node.id.includes('privacy') || node.id.includes('cyber')) { posX = 300; posY = 600; }
+              else { posX = 620; posY = 600; }
             } else if (node.type === 'Applicable_Industry') {
-              if (node.id.includes('manufacturing')) { posX = 600; posY = 240; }
-              else if (node.id.includes('chemicals')) { posX = 940; posY = 460; }
-              else if (node.id.includes('technology') || node.id.includes('it')) { posX = 260; posY = 600; }
-              else { posX = 600; posY = 820; }
+              if (node.id.includes('manufacturing')) { posX = 460; posY = 160; }
+              else if (node.id.includes('chemicals')) { posX = 780; posY = 340; }
+              else if (node.id.includes('technology') || node.id.includes('it')) { posX = 140; posY = 340; }
+              else { posX = 460; posY = 520; }
             } else if (node.type === 'Section_Provision') {
-              // Orbit around their specific parent Act
               const parentActKey = node.id.includes('LABOUR') ? 'ACT_ACT-IND-LABOUR-1948'
                 : node.id.includes('ENV') ? 'ACT_ACT-IND-ENV-1986'
                 : node.id.includes('DPDP') ? 'ACT_ACT-IND-DPDP-2023'
                 : 'ACT_REG-IND-MCA-CSR-2021';
-              const center = actClusters[parentActKey] || { x: 600, y: 500 };
+              const center = actClusters[parentActKey] || { x: 460, y: 340 };
               const secIdx = index % 3;
               const angle = (secIdx * (Math.PI / 1.5)) - (Math.PI / 3);
-              posX = center.x + 130 * Math.cos(angle);
-              posY = center.y + 130 * Math.sin(angle);
+              posX = center.x + 95 * Math.cos(angle);
+              posY = center.y + 95 * Math.sin(angle);
             } else if (node.type === 'Compliance_Obligation') {
-              // Radiate outwards from sections
               const parentActKey = node.id.includes('LABOUR') ? 'ACT_ACT-IND-LABOUR-1948'
                 : node.id.includes('ENV') ? 'ACT_ACT-IND-ENV-1986'
                 : node.id.includes('DPDP') ? 'ACT_ACT-IND-DPDP-2023'
                 : 'ACT_REG-IND-MCA-CSR-2021';
-              const center = actClusters[parentActKey] || { x: 600, y: 500 };
+              const center = actClusters[parentActKey] || { x: 460, y: 340 };
               const obIdx = index % 3;
               const angle = (obIdx * (Math.PI / 1.5)) - (Math.PI / 3);
-              posX = center.x + 225 * Math.cos(angle);
-              posY = center.y + 225 * Math.sin(angle);
+              posX = center.x + 165 * Math.cos(angle);
+              posY = center.y + 165 * Math.sin(angle);
             }
 
             return {
@@ -256,8 +252,8 @@ export const ComplianceKnowledgeGraph: React.FC = () => {
   };
 
   const handleReset = () => {
-    setZoom(0.85);
-    setPan({ x: 20, y: 10 });
+    setZoom(1.0);
+    setPan({ x: 0, y: 0 });
     setSelectedNode(null);
     setSelectedEdge(null);
     setSearchQuery('');
@@ -438,7 +434,7 @@ export const ComplianceKnowledgeGraph: React.FC = () => {
             width="100%" 
             height="100%" 
             className="overflow-visible"
-            viewBox="0 0 1200 1000"
+            viewBox="0 0 920 680"
           >
             <g transform={`translate(${pan.x}, ${pan.y}) scale(${zoom})`}>
               

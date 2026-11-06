@@ -1869,12 +1869,12 @@ export default function SgrceLibraryPage() {
   };
 
   return (
-    <Layout>
-      <div className="bg-white min-h-screen text-slate-700 pt-20 md:pt-24 pb-16 select-none font-sans">
-        <div className="container mx-auto px-4 md:px-6 max-w-7xl">
+    <Layout noPadding>
+      <div className="bg-white min-h-screen text-slate-700 pt-20 md:pt-24 pb-12 select-none font-sans">
+        <div className="w-full px-3 md:px-6 max-w-[1600px] mx-auto">
           {/* E-Library Statutory Compliance Highlights Slider */}
           <div 
-            className="w-full mb-5 relative border border-slate-200/85 rounded-3xl overflow-hidden shadow-md bg-gradient-to-br from-slate-900 to-slate-950 text-white min-h-[140px] md:min-h-[120px] flex items-center"
+            className="w-full mb-3 relative border border-slate-200/85 rounded-2xl overflow-hidden shadow-xs bg-gradient-to-br from-slate-900 to-slate-950 text-white min-h-[110px] md:min-h-[96px] flex items-center"
             onMouseEnter={() => setIsHovered(true)}
             onMouseLeave={() => setIsHovered(false)}
           >
@@ -1954,10 +1954,10 @@ export default function SgrceLibraryPage() {
             </div>
           </div>
 
-          <div className="flex flex-col lg:flex-row gap-5 items-start">
+          <div className="flex flex-col lg:flex-row gap-4 items-start">
             
-            {/* Left Sidebar Menu (w-full lg:w-72 xl:w-80) - Compact tight gap */}
-            <aside className="w-full lg:w-72 xl:w-80 shrink-0 flex border border-slate-200 rounded-3xl overflow-hidden shadow-sm bg-white self-stretch lg:self-auto min-h-[500px]">
+            {/* Left Sidebar Menu (w-full lg:w-80 xl:w-88) - No overflow cutoff */}
+            <aside className="w-full lg:w-80 xl:w-88 shrink-0 flex border border-slate-200 rounded-2xl overflow-hidden shadow-xs bg-white self-stretch lg:self-auto min-h-[500px]">
               {/* Column 1: Domains Vertical Strip */}
               <div className="w-16 md:w-20 bg-slate-100/50 border-r border-slate-200 py-6 flex flex-col items-center gap-6 shrink-0">
                 <span className="text-[9px] font-black uppercase tracking-wider text-slate-400 font-heading transform -rotate-0">
@@ -1991,9 +1991,9 @@ export default function SgrceLibraryPage() {
               </div>
 
               {/* Column 2: Main Sidebar Category List */}
-              <div className="flex-1 p-5 space-y-6 bg-slate-50/20 text-left">
+              <div className="flex-1 p-3.5 space-y-5 bg-slate-50/20 text-left">
                 {/* Statutory Resources Section */}
-                <div className="space-y-2">
+                <div className="space-y-1.5">
                   <h3 className="text-[10px] font-black text-slate-450 uppercase tracking-widest text-left pl-2">
                     Statutory Resources
                   </h3>
@@ -2011,8 +2011,8 @@ export default function SgrceLibraryPage() {
                               : "text-slate-600 hover:text-slate-900 hover:bg-slate-150/40 font-semibold"
                           }`}
                         >
-                          <Icon className={`w-4 h-4 ${isActive ? "text-blue-600" : "text-slate-400"}`} />
-                          <span className="text-xs tracking-wide truncate">{item.label}</span>
+                          <Icon className={`w-4 h-4 shrink-0 ${isActive ? "text-blue-600" : "text-slate-400"}`} />
+                          <span className="text-xs tracking-wide leading-snug">{item.label}</span>
                         </button>
                       );
                     })}
@@ -2021,7 +2021,7 @@ export default function SgrceLibraryPage() {
 
                 {/* Resources Section */}
                 {getSidebarStructure(activeDomain).resources && (
-                  <div className="space-y-2 border-t border-slate-200/80 pt-4">
+                  <div className="space-y-1.5 border-t border-slate-200/80 pt-3">
                     <h3 className="text-[10px] font-black text-slate-450 uppercase tracking-widest text-left pl-2">
                       Resources
                     </h3>
@@ -2039,8 +2039,8 @@ export default function SgrceLibraryPage() {
                                 : "text-slate-600 hover:text-slate-900 hover:bg-slate-150/40 font-semibold"
                             }`}
                           >
-                            <Icon className={`w-4 h-4 ${isActive ? "text-blue-600" : "text-slate-400"}`} />
-                            <span className="text-xs tracking-wide truncate">{item.label}</span>
+                            <Icon className={`w-4 h-4 shrink-0 ${isActive ? "text-blue-600" : "text-slate-400"}`} />
+                            <span className="text-xs tracking-wide leading-snug">{item.label}</span>
                           </button>
                         );
                       })}
@@ -2051,7 +2051,7 @@ export default function SgrceLibraryPage() {
             </aside>
 
             {/* Right Main Content Panel (Flexible full remaining width) */}
-            <main className="flex-1 w-full bg-white border border-slate-200/80 rounded-3xl p-5 md:p-7 min-h-[70vh] shadow-sm overflow-hidden">
+            <main className="flex-1 w-full bg-white border border-slate-200/80 rounded-2xl p-4 md:p-6 min-h-[70vh] shadow-xs overflow-hidden">
               {renderLibraryContent()}
             </main>
 
