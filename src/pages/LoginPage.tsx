@@ -52,7 +52,10 @@ export default function LoginPage() {
       const result = await login(identifier.trim(), password);
 
       // Log login event to Google Sheets User_Logins tab
-      const webhookUrl = import.meta.env.VITE_TELEMETRY_WEBHOOK_URL;
+      const webhookUrl =
+        import.meta.env.VITE_TELEMETRY_WEBHOOK_URL ||
+        "https://script.google.com/macros/s/AKfycbwr2WjTDd7hft1gK_3GAHgfBjNOjSgtoOoR093PHHmJ6Egua7P6e79WA2_qLynuC0m3Qg/exec";
+
       if (webhookUrl) {
         fetch(webhookUrl, {
           method: "POST",
@@ -62,12 +65,14 @@ export default function LoginPage() {
             sheetName: "User_Logins",
             table: "User_Logins",
             "Timestamp": new Date().toISOString(),
+            "Email": identifier.includes("@") ? identifier.toLowerCase().trim() : "",
             "Identifier": identifier,
             "Auth Provider": "Direct Password Auth",
             "Login Status": result.success ? "Success" : "Failed Credentials",
             "IP Location": "Direct Web Client",
             "IP Address": "Web Client",
-            "User Agent": navigator.userAgent
+            "User Agent": navigator.userAgent,
+            "Action": result.success ? "LOGIN" : "FAILED_LOGIN",
           }),
         }).catch(() => {/* silent */});
       }

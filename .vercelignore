@@ -1,0 +1,29 @@
+# ── Dependencies (re-installed on Vercel build servers) ──────────────────────
+node_modules
+
+# ── Large Archives & Dumps ───────────────────────────────────────────────────
+*.tar.gz
+*.tar
+*.zip
+*.rar
+*.7z
+
+# ── GOVENICS CMS (Strapi) — deployed separately, NOT part of Vercel frontend ─
+govnics-cms
+
+# ── Build artifacts already committed or re-generated ────────────────────────
+dist
+
+# ── Dev / local files ────────────────────────────────────────────────────────
+.env
+.env.local
+*.log
+
+# ── Large media / archive folders not needed in production ───────────────────
+LinkedIn_Post
+_phase2_backup_20261103_143034
+
+# ── Test & docs (optional) ───────────────────────────────────────────────────
+test
+docs
+Email_Templates

@@ -5,10 +5,11 @@ import { Layout } from "@/components/layout/Layout";
 import { 
   ShieldCheck, Building, CheckCircle2,
   ArrowRight, Sparkles, ExternalLink, RefreshCw, Edit3,
-  Layers, FileText, CheckSquare, BarChart3, ShieldAlert, Briefcase
+  Layers, FileText, CheckSquare, BarChart3, ShieldAlert, Briefcase, KeyRound
 } from "lucide-react";
 import { CustomerPortalWorkspace } from "@/components/portals/CustomerPortalWorkspace";
 import { ConsultantPortalWorkspace } from "@/components/portals/ConsultantPortalWorkspace";
+import { SessionManagementPanel } from "@/components/auth/SessionManagementPanel";
 
 interface ChecklistSummary {
   totalItems: number;
@@ -30,7 +31,7 @@ export default function DashboardPage() {
   const [hasChecklist, setHasChecklist] = useState<boolean>(false);
   const [isLoadingChecklist, setIsLoadingChecklist] = useState<boolean>(true);
   const [isGenerating, setIsGenerating] = useState<boolean>(false);
-  const [activeTab, setActiveTab] = useState<"overview" | "workspace" | "consultant" | "company" | "obligations">("workspace");
+  const [activeTab, setActiveTab] = useState<"overview" | "workspace" | "consultant" | "company" | "obligations" | "sessions">("workspace");
 
   // Company Edit Modal State
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
@@ -357,6 +358,17 @@ export default function DashboardPage() {
               <Layers className="w-4 h-4" />
               <span>Regulatory Jurisdictions</span>
             </button>
+            <button
+              onClick={() => setActiveTab("sessions")}
+              className={`pb-3 px-4 text-xs font-bold border-b-2 transition-all flex items-center gap-2 whitespace-nowrap ${
+                activeTab === "sessions"
+                  ? "border-blue-600 text-blue-600"
+                  : "border-transparent text-slate-500 hover:text-slate-800"
+              }`}
+            >
+              <KeyRound className="w-4 h-4" />
+              <span>Login Sessions</span>
+            </button>
           </div>
 
           {/* ─── TAB CONTENT ─── */}
@@ -620,6 +632,13 @@ export default function DashboardPage() {
                   </div>
                 ))}
               </div>
+            </div>
+          )}
+
+          {/* 4. Login Sessions Tab */}
+          {activeTab === "sessions" && (
+            <div className="space-y-6">
+              <SessionManagementPanel />
             </div>
           )}
 

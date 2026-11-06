@@ -6,6 +6,7 @@ import authRegister from './_handlers/auth/register.js';
 import authMe from './_handlers/auth/me.js';
 import authLogout from './_handlers/auth/logout.js';
 import authCheckAvailability from './_handlers/auth/check-availability.js';
+import authSessions from './_handlers/auth/sessions.js';
 import companyProfile from './_handlers/company/profile.js';
 
 import complianceChecklist from './_handlers/compliance/checklist.js';
@@ -69,6 +70,7 @@ const exactRoutes = {
   '/api/auth/me': authMe,
   '/api/auth/logout': authLogout,
   '/api/auth/check-availability': authCheckAvailability,
+  '/api/auth/sessions': authSessions,
   '/api/company/profile': companyProfile,
 
   '/api/compliance/checklist': complianceChecklist,

@@ -1,61 +1,157 @@
-// api/lib/redis.js
+// api/_lib/redis.js
 // Upstash Redis client - server-side only, never imported on frontend
+// In LOCAL DEV (no Upstash credentials): falls back to an in-memory store so
+// registration/login work without an external service.
+// In PRODUCTION (Vercel): set UPSTASH_REDIS_REST_URL + UPSTASH_REDIS_REST_TOKEN
+// in the Vercel project environment variables dashboard.
 
-import { Redis } from "@upstash/redis";
 import fs from "fs";
 import path from "path";
 
-// Auto-load .env.local or .env if environment variables are not yet present on process.env
+// ─── Auto-load .env / .env.local ─────────────────────────────────────────────
 function ensureEnvLoaded() {
-  if (process.env.UPSTASH_REDIS_REST_URL && process.env.UPSTASH_REDIS_REST_TOKEN) {
-    return;
-  }
-  const filesToTry = [".env.local", ".env"];
-  for (const filename of filesToTry) {
+  if (process.env.UPSTASH_REDIS_REST_URL && process.env.UPSTASH_REDIS_REST_TOKEN) return;
+  for (const filename of [".env.local", ".env"]) {
     try {
       const fullPath = path.resolve(process.cwd(), filename);
-      if (fs.existsSync(fullPath)) {
-        const content = fs.readFileSync(fullPath, "utf-8");
-        for (const line of content.split(/\r?\n/)) {
-          const trimmed = line.trim();
-          if (!trimmed || trimmed.startsWith("#")) continue;
-          const match = trimmed.match(/^([\w.-]+)\s*=\s*(.*)$/);
-          if (match) {
-            const key = match[1];
-            let val = match[2].trim();
-            if ((val.startsWith('"') && val.endsWith('"')) || (val.startsWith("'") && val.endsWith("'"))) {
-              val = val.slice(1, -1);
-            }
-            if (!process.env[key]) {
-              process.env[key] = val;
-            }
+      if (!fs.existsSync(fullPath)) continue;
+      const content = fs.readFileSync(fullPath, "utf-8");
+      for (const line of content.split(/\r?\n/)) {
+        const trimmed = line.trim();
+        if (!trimmed || trimmed.startsWith("#")) continue;
+        const match = trimmed.match(/^([\w.-]+)\s*=\s*(.*)$/);
+        if (!match) continue;
+        const key = match[1];
+        let val = match[2].trim();
+        if ((val.startsWith('"') && val.endsWith('"')) || (val.startsWith("'") && val.endsWith("'"))) {
+          val = val.slice(1, -1);
+        }
+        if (!process.env[key]) process.env[key] = val;
+      }
+    } catch { /* best-effort */ }
+  }
+}
+ensureEnvLoaded();
+
+// ─── In-Memory Fallback Store (local dev only) ────────────────────────────────
+// Mimics the Upstash REST API surface used by the GOVENICS handlers.
+// Data is NOT persisted across server restarts — only for development.
+const _store = new Map();
+const _sets = new Map();
+const _lists = new Map();
+
+class InMemoryRedis {
+  async get(key) {
+    const entry = _store.get(key);
+    if (!entry) return null;
+    if (entry.expiresAt && Date.now() > entry.expiresAt) { _store.delete(key); return null; }
+    return entry.value;
+  }
+  async set(key, value, opts) {
+    const expiresAt = opts?.ex ? Date.now() + opts.ex * 1000 : null;
+    _store.set(key, { value, expiresAt });
+    return "OK";
+  }
+  async del(key) { _store.delete(key); return 1; }
+  async exists(key) { return _store.has(key) ? 1 : 0; }
+  async sadd(key, ...members) {
+    if (!_sets.has(key)) _sets.set(key, new Set());
+    for (const m of members) _sets.get(key).add(m);
+    return members.length;
+  }
+  async sismember(key, member) {
+    return (_sets.has(key) && _sets.get(key).has(member)) ? 1 : 0;
+  }
+  async smembers(key) { return _sets.has(key) ? [..._sets.get(key)] : []; }
+  async lpush(key, ...values) {
+    if (!_lists.has(key)) _lists.set(key, []);
+    _lists.get(key).unshift(...[...values].reverse());
+    return _lists.get(key).length;
+  }
+  async lrange(key, start, stop) {
+    const list = _lists.get(key) || [];
+    const end = stop === -1 ? list.length : stop + 1;
+    return list.slice(start, end);
+  }
+  async incr(key) {
+    const cur = parseInt((await this.get(key)) || "0", 10);
+    const next = cur + 1;
+    await this.set(key, String(next));
+    return next;
+  }
+  async setex(key, seconds, value) {
+    const expiresAt = Date.now() + seconds * 1000;
+    _store.set(key, { value, expiresAt });
+    return "OK";
+  }
+  async expire(key, seconds) {
+    const entry = _store.get(key);
+    if (entry) entry.expiresAt = Date.now() + seconds * 1000;
+    return 1;
+  }
+  async ltrim(key, start, stop) {
+    const list = _lists.get(key);
+    if (!list) return "OK";
+    const trimmed = stop === -1 ? list.slice(start) : list.slice(start, stop + 1);
+    _lists.set(key, trimmed);
+    return "OK";
+  }
+  async srem(key, ...members) {
+    if (!_sets.has(key)) return 0;
+    let removed = 0;
+    for (const m of members) {
+      if (_sets.get(key).delete(m)) removed++;
+    }
+    return removed;
+  }
+  pipeline() {
+    const self = this;
+    const ops = [];
+    const p = {
+      set: (...a) => { ops.push(["set", a]); return p; },
+      setex: (...a) => { ops.push(["setex", a]); return p; },
+      get: (...a) => { ops.push(["get", a]); return p; },
+      del: (...a) => { ops.push(["del", a]); return p; },
+      sadd: (...a) => { ops.push(["sadd", a]); return p; },
+      srem: (...a) => { ops.push(["srem", a]); return p; },
+      lpush: (...a) => { ops.push(["lpush", a]); return p; },
+      ltrim: (...a) => { ops.push(["ltrim", a]); return p; },
+      expire: (...a) => { ops.push(["expire", a]); return p; },
+      exec: async () => {
+        const results = [];
+        for (const [method, args] of ops) {
+          if (typeof self[method] === "function") {
+            results.push(await self[method](...args));
           }
         }
+        return results;
       }
-    } catch {
-      // Best-effort loader for local environments
-    }
+    };
+    return p;
   }
 }
 
-ensureEnvLoaded();
+// ─── Choose Upstash or In-Memory ─────────────────────────────────────────────
+const rawUrl = (process.env.UPSTASH_REDIS_REST_URL || "").replace(/^["']|["']$/g, "").trim();
+const rawToken = (process.env.UPSTASH_REDIS_REST_TOKEN || "").replace(/^["']|["']$/g, "").trim();
 
-const rawUrl = process.env.UPSTASH_REDIS_REST_URL || "";
-const rawToken = process.env.UPSTASH_REDIS_REST_TOKEN || "";
-const cleanUrl = rawUrl.replace(/^["']|["']$/g, "").trim();
-const cleanToken = rawToken.replace(/^["']|["']$/g, "").trim();
-
-if (!cleanUrl || !cleanToken) {
-  throw new Error(
-    "Missing Upstash Redis environment variables. " +
-    "Please set UPSTASH_REDIS_REST_URL and UPSTASH_REDIS_REST_TOKEN in your .env.local (local) or Vercel dashboard (production)."
+let _redis;
+if (rawUrl && rawToken) {
+  // Production / Vercel: use real Upstash Redis
+  const { Redis } = await import("@upstash/redis");
+  _redis = new Redis({ url: rawUrl, token: rawToken });
+  console.log("[redis] ✅ Connected to Upstash Redis");
+} else {
+  // Local dev fallback: in-memory store (restarts clear all data)
+  _redis = new InMemoryRedis();
+  console.warn(
+    "[redis] ⚠️  No Upstash credentials found — using in-memory store (local dev only). " +
+    "Data will NOT persist across server restarts. " +
+    "Set UPSTASH_REDIS_REST_URL and UPSTASH_REDIS_REST_TOKEN in .env for persistence."
   );
 }
 
-export const redis = new Redis({
-  url: cleanUrl,
-  token: cleanToken,
-});
+export const redis = _redis;
 
 // ─── Redis Key Namespace Helpers ─────────────────────────────────────────────
 export const KEYS = {
@@ -69,6 +165,7 @@ export const KEYS = {
   userCompany: (userId) => `govenics:user-company:${userId}`,
   checklist: (companyId) => `govenics:checklist:${companyId}`,
   session: (sessionId) => `govenics:session:${sessionId}`,
+  userSessions: (userId) => `govenics:user-sessions:${userId}`,
   registration: (userId) => `govenics:registration:${userId}`,
   auditLog: (userId) => `govenics:audit:${userId}`,
 

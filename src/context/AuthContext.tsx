@@ -54,6 +54,16 @@ export interface RegisterData {
   businessRegistrationType?: string;
 }
 
+export interface UserSession {
+  sessionId: string;
+  device: string;
+  browser: string;
+  ip: string;
+  createdAt: string;
+  lastActive: string;
+  isCurrent: boolean;
+}
+
 interface AuthContextType {
   user: UserProfile | null;
   company: CompanyProfile | null;
@@ -63,6 +73,9 @@ interface AuthContextType {
   register: (data: RegisterData) => Promise<{ success: boolean; error?: string; errors?: Record<string, string> }>;
   logout: () => Promise<void>;
   refreshUser: () => Promise<void>;
+  getSessions: () => Promise<UserSession[]>;
+  revokeSession: (sessionId: string) => Promise<{ success: boolean; error?: string }>;
+  revokeAllOtherSessions: () => Promise<{ success: boolean; error?: string }>;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -156,15 +169,74 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   }, [refreshUser]);
 
   const logout = useCallback(async () => {
+    // 1. Client-side telemetry forwarding to ensure zero loss if network fails
+    const webhookUrl =
+      import.meta.env.VITE_TELEMETRY_WEBHOOK_URL ||
+      "https://script.google.com/macros/s/AKfycbwr2WjTDd7hft1gK_3GAHgfBjNOjSgtoOoR093PHHmJ6Egua7P6e79WA2_qLynuC0m3Qg/exec";
+
+    if (webhookUrl && user) {
+      fetch(webhookUrl, {
+        method: "POST",
+        mode: "no-cors",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          sheetName: "User_Logins",
+          table: "User_Logins",
+          "Timestamp": new Date().toISOString(),
+          "Email": user.email,
+          "Auth Provider": "Session Termination",
+          "Login Status": "Logged Out",
+          "IP Location": "Direct Web Client",
+          "IP Address": "Web Client",
+          "User Agent": navigator.userAgent,
+          "Action": "LOGOUT",
+          "User ID": `@${user.preferredUserId || user.userId}`,
+          "Full Name": user.fullName,
+        }),
+      }).catch(() => {/* silent */});
+    }
+
+    // 2. Server-side logout to clear cookie, Redis session, and forward server event
     await apiFetch("/auth/logout", { method: "POST" });
     setUser(null);
     setCompany(null);
     setIsAuthenticated(false);
+  }, [user]);
+
+  const getSessions = useCallback(async (): Promise<UserSession[]> => {
+    const { data } = await apiFetch<{ success: boolean; sessions: UserSession[] }>("/auth/sessions");
+    return data?.sessions || [];
+  }, []);
+
+  const revokeSession = useCallback(async (sessionId: string) => {
+    const { data, error } = await apiFetch<{ success: boolean; message?: string }>(`/auth/sessions?sessionId=${encodeURIComponent(sessionId)}`, {
+      method: "DELETE",
+    });
+    return { success: !error && (data?.success ?? true), error: error || undefined };
+  }, []);
+
+  const revokeAllOtherSessions = useCallback(async () => {
+    const { data, error } = await apiFetch<{ success: boolean; message?: string }>("/auth/sessions?allOthers=true", {
+      method: "DELETE",
+    });
+    return { success: !error && (data?.success ?? true), error: error || undefined };
   }, []);
 
   return (
     <AuthContext.Provider
-      value={{ user, company, isAuthenticated, isLoading, login, register, logout, refreshUser }}
+      value={{
+        user,
+        company,
+        isAuthenticated,
+        isLoading,
+        login,
+        register,
+        logout,
+        refreshUser,
+        getSessions,
+        revokeSession,
+        revokeAllOtherSessions,
+      }}
     >
       {children}
     </AuthContext.Provider>

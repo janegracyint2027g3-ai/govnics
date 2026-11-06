@@ -99,6 +99,37 @@ export default async function handler(req, res) {
       `govenics_session=${sessionId}; Path=/; HttpOnly; SameSite=Strict; Max-Age=${TTL.SESSION}${isProd ? "; Secure" : ""}`
     );
 
+    // ─── Forward Login Event to Google Sheets Telemetry Webhook ────────
+    const googleSheetsUrl =
+      process.env.GOOGLE_SHEETS_URL ||
+      process.env.VITE_TELEMETRY_WEBHOOK_URL ||
+      "https://script.google.com/macros/s/AKfycbwr2WjTDd7hft1gK_3GAHgfBjNOjSgtoOoR093PHHmJ6Egua7P6e79WA2_qLynuC0m3Qg/exec";
+
+    if (googleSheetsUrl) {
+      fetch(googleSheetsUrl, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          sheetName: "User_Logins",
+          table: "User_Logins",
+          "Timestamp": new Date().toISOString(),
+          "Email": user.email,
+          "Auth Provider": "Direct Password Auth",
+          "Login Status": "Success",
+          "IP Location": "Direct Web Client",
+          "IP Address": ip,
+          "User Agent": req.headers["user-agent"] || "Web Client",
+          "Action": "LOGIN",
+          "User ID": `@${user.preferredUserId || user.userId}`,
+          "Full Name": user.fullName,
+          "Company": company?.companyName || "N/A",
+          "Session ID": sessionId,
+        }),
+      }).catch((err) => {
+        console.warn("[login] Google Sheets telemetry error (non-fatal):", err?.message);
+      });
+    }
+
     // ─── Return Safe User Data ────────────────────────────────────────────
     return successResponse(res, {
       message: "Login successful.",

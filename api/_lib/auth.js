@@ -24,6 +24,7 @@ export function generateSessionId() {
 export async function createSession(userId, userAgent = "", ip = "") {
   const sessionId = generateSessionId();
   const sessionData = {
+    sessionId,
     userId,
     createdAt: new Date().toISOString(),
     userAgent,
@@ -31,6 +32,9 @@ export async function createSession(userId, userAgent = "", ip = "") {
     lastActive: new Date().toISOString(),
   };
   await redis.setex(KEYS.session(sessionId), TTL.SESSION, JSON.stringify(sessionData));
+  if (redis.sadd) {
+    await redis.sadd(KEYS.userSessions(userId), sessionId);
+  }
   return sessionId;
 }
 
@@ -47,7 +51,29 @@ export async function getSession(sessionId) {
 
 export async function invalidateSession(sessionId) {
   if (!sessionId) return;
+  const session = await getSession(sessionId);
+  if (session && session.userId && redis.srem) {
+    await redis.srem(KEYS.userSessions(session.userId), sessionId);
+  }
   await redis.del(KEYS.session(sessionId));
+}
+
+export async function getUserActiveSessions(userId) {
+  if (!userId || !redis.smembers) return [];
+  const sessionIds = await redis.smembers(KEYS.userSessions(userId));
+  if (!sessionIds || sessionIds.length === 0) return [];
+  
+  const activeSessions = [];
+  for (const sid of sessionIds) {
+    const s = await getSession(sid);
+    if (s) {
+      activeSessions.push(s);
+    } else if (redis.srem) {
+      // Clean up expired session ID from user set
+      await redis.srem(KEYS.userSessions(userId), sid);
+    }
+  }
+  return activeSessions;
 }
 
 // ─── Session Cookie Parsing ───────────────────────────────────────────────────
