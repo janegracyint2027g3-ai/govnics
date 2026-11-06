@@ -1,0 +1,429 @@
+{
+  "version": "2.0.0",
+  "generated_at": "2026-11-06T09:58:30.699263+00:00",
+  "nodes_count": 34,
+  "edges_count": 39,
+  "nodes": [
+    {
+      "id": "ACT_ACT-IND-LABOUR-1948",
+      "label": "The Factories Act, 1948",
+      "type": "Regulatory_Act",
+      "properties": {
+        "year": "1948",
+        "level": "Central"
+      }
+    },
+    {
+      "id": "AUTH_ministry_of_labour_and_employment",
+      "label": "Ministry of Labour & Employment",
+      "type": "Government_Authority",
+      "properties": {
+        "jurisdiction": "India"
+      }
+    },
+    {
+      "id": "OFFERING_labour_and_employment",
+      "label": "Labour & Employment",
+      "type": "Govenics_Offering",
+      "properties": {}
+    },
+    {
+      "id": "IND_manufacturing_and_industrial",
+      "label": "Manufacturing & Industrial",
+      "type": "Applicable_Industry",
+      "properties": {}
+    },
+    {
+      "id": "SEC_ACT-IND-LABOUR-1948_Section_7A",
+      "label": "Section 7A: General duties of the occupier",
+      "type": "Section_Provision",
+      "properties": {}
+    },
+    {
+      "id": "OB_ACT-IND-LABOUR-1948_Section_7A",
+      "label": "Ensure health, safety, and welfare of all workers in factory",
+      "type": "Compliance_Obligation",
+      "properties": {}
+    },
+    {
+      "id": "SEC_ACT-IND-LABOUR-1948_Section_11",
+      "label": "Section 11: Cleanliness",
+      "type": "Section_Provision",
+      "properties": {}
+    },
+    {
+      "id": "OB_ACT-IND-LABOUR-1948_Section_11",
+      "label": "Maintain cleanliness and disposal of industrial wastes",
+      "type": "Compliance_Obligation",
+      "properties": {}
+    },
+    {
+      "id": "SEC_ACT-IND-LABOUR-1948_Section_21",
+      "label": "Section 21: Fencing of machinery",
+      "type": "Section_Provision",
+      "properties": {}
+    },
+    {
+      "id": "OB_ACT-IND-LABOUR-1948_Section_21",
+      "label": "Secure fencing of dangerous transmission machinery",
+      "type": "Compliance_Obligation",
+      "properties": {}
+    },
+    {
+      "id": "ACT_ACT-IND-ENV-1986",
+      "label": "The Environment (Protection) Act, 1986",
+      "type": "Regulatory_Act",
+      "properties": {
+        "year": "1986",
+        "level": "Central"
+      }
+    },
+    {
+      "id": "AUTH_ministry_of_environment,_forest_and_climate_change_(cpcb)",
+      "label": "Ministry of Environment, Forest and Climate Change (CPCB)",
+      "type": "Government_Authority",
+      "properties": {
+        "jurisdiction": "India"
+      }
+    },
+    {
+      "id": "OFFERING_environmental_and_ehs",
+      "label": "Environmental & EHS",
+      "type": "Govenics_Offering",
+      "properties": {}
+    },
+    {
+      "id": "IND_chemicals_and_petrochemicals",
+      "label": "Chemicals & Petrochemicals",
+      "type": "Applicable_Industry",
+      "properties": {}
+    },
+    {
+      "id": "SEC_ACT-IND-ENV-1986_Section_7",
+      "label": "Section 7: Persons carrying on industry not to allow emission in excess of standards",
+      "type": "Section_Provision",
+      "properties": {}
+    },
+    {
+      "id": "OB_ACT-IND-ENV-1986_Section_7",
+      "label": "Discharge emissions strictly within CPCB permissible limits",
+      "type": "Compliance_Obligation",
+      "properties": {}
+    },
+    {
+      "id": "SEC_ACT-IND-ENV-1986_Section_9",
+      "label": "Section 9: Furnishing of information to authorities",
+      "type": "Section_Provision",
+      "properties": {}
+    },
+    {
+      "id": "OB_ACT-IND-ENV-1986_Section_9",
+      "label": "Immediate notification in event of environmental accidents",
+      "type": "Compliance_Obligation",
+      "properties": {}
+    },
+    {
+      "id": "ACT_ACT-IND-DPDP-2023",
+      "label": "Digital Personal Data Protection Act, 2023 (DPDP)",
+      "type": "Regulatory_Act",
+      "properties": {
+        "year": "2023",
+        "level": "Central"
+      }
+    },
+    {
+      "id": "AUTH_ministry_of_electronics_and_information_technology_(meity)",
+      "label": "Ministry of Electronics and Information Technology (MeitY)",
+      "type": "Government_Authority",
+      "properties": {
+        "jurisdiction": "India"
+      }
+    },
+    {
+      "id": "OFFERING_cybersecurity_and_privacy",
+      "label": "Cybersecurity & Privacy",
+      "type": "Govenics_Offering",
+      "properties": {}
+    },
+    {
+      "id": "IND_it_and_technology",
+      "label": "IT & Technology",
+      "type": "Applicable_Industry",
+      "properties": {}
+    },
+    {
+      "id": "SEC_ACT-IND-DPDP-2023_Section_6",
+      "label": "Section 6: Consent and Notice Requirements",
+      "type": "Section_Provision",
+      "properties": {}
+    },
+    {
+      "id": "OB_ACT-IND-DPDP-2023_Section_6",
+      "label": "Obtain unambiguous, freely given, specific consent with clear purpose notice",
+      "type": "Compliance_Obligation",
+      "properties": {}
+    },
+    {
+      "id": "SEC_ACT-IND-DPDP-2023_Section_8",
+      "label": "Section 8: General obligations of Data Fiduciary",
+      "type": "Section_Provision",
+      "properties": {}
+    },
+    {
+      "id": "OB_ACT-IND-DPDP-2023_Section_8",
+      "label": "Implement reasonable security safeguards to prevent personal data breach",
+      "type": "Compliance_Obligation",
+      "properties": {}
+    },
+    {
+      "id": "ACT_REG-IND-MCA-CSR-2021",
+      "label": "Companies (Corporate Social Responsibility Policy) Amendment Rules, 2021",
+      "type": "Regulatory_Act",
+      "properties": {
+        "year": "2021",
+        "level": "Central"
+      }
+    },
+    {
+      "id": "AUTH_ministry_of_corporate_affairs_(mca)",
+      "label": "Ministry of Corporate Affairs (MCA)",
+      "type": "Government_Authority",
+      "properties": {
+        "jurisdiction": "India"
+      }
+    },
+    {
+      "id": "OFFERING_enterprise_governance",
+      "label": "Enterprise Governance",
+      "type": "Govenics_Offering",
+      "properties": {}
+    },
+    {
+      "id": "IND_bfsi_and_fintech",
+      "label": "BFSI & Fintech",
+      "type": "Applicable_Industry",
+      "properties": {}
+    },
+    {
+      "id": "SEC_REG-IND-MCA-CSR-2021_Rule_4",
+      "label": "Rule 4: CSR Implementation",
+      "type": "Section_Provision",
+      "properties": {}
+    },
+    {
+      "id": "OB_REG-IND-MCA-CSR-2021_Rule_4",
+      "label": "Mandatory Form CSR-1 registration with MCA for implementing agencies",
+      "type": "Compliance_Obligation",
+      "properties": {}
+    },
+    {
+      "id": "SEC_REG-IND-MCA-CSR-2021_Rule_8",
+      "label": "Rule 8: CSR Reporting",
+      "type": "Section_Provision",
+      "properties": {}
+    },
+    {
+      "id": "OB_REG-IND-MCA-CSR-2021_Rule_8",
+      "label": "Annual board report on CSR activities with detailed Annexure disclosures",
+      "type": "Compliance_Obligation",
+      "properties": {}
+    }
+  ],
+  "edges": [
+    {
+      "source": "AUTH_ministry_of_labour_and_employment",
+      "target": "ACT_ACT-IND-LABOUR-1948",
+      "relation": "ENACTS_AND_ENFORCES"
+    },
+    {
+      "source": "ACT_ACT-IND-LABOUR-1948",
+      "target": "OFFERING_labour_and_employment",
+      "relation": "ALIGNED_WITH_OFFERING"
+    },
+    {
+      "source": "ACT_ACT-IND-LABOUR-1948",
+      "target": "IND_manufacturing_and_industrial",
+      "relation": "MANDATED_FOR_INDUSTRY"
+    },
+    {
+      "source": "ACT_ACT-IND-LABOUR-1948",
+      "target": "SEC_ACT-IND-LABOUR-1948_Section_7A",
+      "relation": "CONTAINS_SECTION"
+    },
+    {
+      "source": "SEC_ACT-IND-LABOUR-1948_Section_7A",
+      "target": "OB_ACT-IND-LABOUR-1948_Section_7A",
+      "relation": "IMPOSES_OBLIGATION"
+    },
+    {
+      "source": "OB_ACT-IND-LABOUR-1948_Section_7A",
+      "target": "OFFERING_labour_and_employment",
+      "relation": "MONITORED_BY_OFFERING"
+    },
+    {
+      "source": "ACT_ACT-IND-LABOUR-1948",
+      "target": "SEC_ACT-IND-LABOUR-1948_Section_11",
+      "relation": "CONTAINS_SECTION"
+    },
+    {
+      "source": "SEC_ACT-IND-LABOUR-1948_Section_11",
+      "target": "OB_ACT-IND-LABOUR-1948_Section_11",
+      "relation": "IMPOSES_OBLIGATION"
+    },
+    {
+      "source": "OB_ACT-IND-LABOUR-1948_Section_11",
+      "target": "OFFERING_labour_and_employment",
+      "relation": "MONITORED_BY_OFFERING"
+    },
+    {
+      "source": "ACT_ACT-IND-LABOUR-1948",
+      "target": "SEC_ACT-IND-LABOUR-1948_Section_21",
+      "relation": "CONTAINS_SECTION"
+    },
+    {
+      "source": "SEC_ACT-IND-LABOUR-1948_Section_21",
+      "target": "OB_ACT-IND-LABOUR-1948_Section_21",
+      "relation": "IMPOSES_OBLIGATION"
+    },
+    {
+      "source": "OB_ACT-IND-LABOUR-1948_Section_21",
+      "target": "OFFERING_labour_and_employment",
+      "relation": "MONITORED_BY_OFFERING"
+    },
+    {
+      "source": "AUTH_ministry_of_environment,_forest_and_climate_change_(cpcb)",
+      "target": "ACT_ACT-IND-ENV-1986",
+      "relation": "ENACTS_AND_ENFORCES"
+    },
+    {
+      "source": "ACT_ACT-IND-ENV-1986",
+      "target": "OFFERING_environmental_and_ehs",
+      "relation": "ALIGNED_WITH_OFFERING"
+    },
+    {
+      "source": "ACT_ACT-IND-ENV-1986",
+      "target": "IND_chemicals_and_petrochemicals",
+      "relation": "MANDATED_FOR_INDUSTRY"
+    },
+    {
+      "source": "ACT_ACT-IND-ENV-1986",
+      "target": "SEC_ACT-IND-ENV-1986_Section_7",
+      "relation": "CONTAINS_SECTION"
+    },
+    {
+      "source": "SEC_ACT-IND-ENV-1986_Section_7",
+      "target": "OB_ACT-IND-ENV-1986_Section_7",
+      "relation": "IMPOSES_OBLIGATION"
+    },
+    {
+      "source": "OB_ACT-IND-ENV-1986_Section_7",
+      "target": "OFFERING_environmental_and_ehs",
+      "relation": "MONITORED_BY_OFFERING"
+    },
+    {
+      "source": "ACT_ACT-IND-ENV-1986",
+      "target": "SEC_ACT-IND-ENV-1986_Section_9",
+      "relation": "CONTAINS_SECTION"
+    },
+    {
+      "source": "SEC_ACT-IND-ENV-1986_Section_9",
+      "target": "OB_ACT-IND-ENV-1986_Section_9",
+      "relation": "IMPOSES_OBLIGATION"
+    },
+    {
+      "source": "OB_ACT-IND-ENV-1986_Section_9",
+      "target": "OFFERING_environmental_and_ehs",
+      "relation": "MONITORED_BY_OFFERING"
+    },
+    {
+      "source": "AUTH_ministry_of_electronics_and_information_technology_(meity)",
+      "target": "ACT_ACT-IND-DPDP-2023",
+      "relation": "ENACTS_AND_ENFORCES"
+    },
+    {
+      "source": "ACT_ACT-IND-DPDP-2023",
+      "target": "OFFERING_cybersecurity_and_privacy",
+      "relation": "ALIGNED_WITH_OFFERING"
+    },
+    {
+      "source": "ACT_ACT-IND-DPDP-2023",
+      "target": "IND_it_and_technology",
+      "relation": "MANDATED_FOR_INDUSTRY"
+    },
+    {
+      "source": "ACT_ACT-IND-DPDP-2023",
+      "target": "SEC_ACT-IND-DPDP-2023_Section_6",
+      "relation": "CONTAINS_SECTION"
+    },
+    {
+      "source": "SEC_ACT-IND-DPDP-2023_Section_6",
+      "target": "OB_ACT-IND-DPDP-2023_Section_6",
+      "relation": "IMPOSES_OBLIGATION"
+    },
+    {
+      "source": "OB_ACT-IND-DPDP-2023_Section_6",
+      "target": "OFFERING_cybersecurity_and_privacy",
+      "relation": "MONITORED_BY_OFFERING"
+    },
+    {
+      "source": "ACT_ACT-IND-DPDP-2023",
+      "target": "SEC_ACT-IND-DPDP-2023_Section_8",
+      "relation": "CONTAINS_SECTION"
+    },
+    {
+      "source": "SEC_ACT-IND-DPDP-2023_Section_8",
+      "target": "OB_ACT-IND-DPDP-2023_Section_8",
+      "relation": "IMPOSES_OBLIGATION"
+    },
+    {
+      "source": "OB_ACT-IND-DPDP-2023_Section_8",
+      "target": "OFFERING_cybersecurity_and_privacy",
+      "relation": "MONITORED_BY_OFFERING"
+    },
+    {
+      "source": "AUTH_ministry_of_corporate_affairs_(mca)",
+      "target": "ACT_REG-IND-MCA-CSR-2021",
+      "relation": "ENACTS_AND_ENFORCES"
+    },
+    {
+      "source": "ACT_REG-IND-MCA-CSR-2021",
+      "target": "OFFERING_enterprise_governance",
+      "relation": "ALIGNED_WITH_OFFERING"
+    },
+    {
+      "source": "ACT_REG-IND-MCA-CSR-2021",
+      "target": "IND_bfsi_and_fintech",
+      "relation": "MANDATED_FOR_INDUSTRY"
+    },
+    {
+      "source": "ACT_REG-IND-MCA-CSR-2021",
+      "target": "SEC_REG-IND-MCA-CSR-2021_Rule_4",
+      "relation": "CONTAINS_SECTION"
+    },
+    {
+      "source": "SEC_REG-IND-MCA-CSR-2021_Rule_4",
+      "target": "OB_REG-IND-MCA-CSR-2021_Rule_4",
+      "relation": "IMPOSES_OBLIGATION"
+    },
+    {
+      "source": "OB_REG-IND-MCA-CSR-2021_Rule_4",
+      "target": "OFFERING_enterprise_governance",
+      "relation": "MONITORED_BY_OFFERING"
+    },
+    {
+      "source": "ACT_REG-IND-MCA-CSR-2021",
+      "target": "SEC_REG-IND-MCA-CSR-2021_Rule_8",
+      "relation": "CONTAINS_SECTION"
+    },
+    {
+      "source": "SEC_REG-IND-MCA-CSR-2021_Rule_8",
+      "target": "OB_REG-IND-MCA-CSR-2021_Rule_8",
+      "relation": "IMPOSES_OBLIGATION"
+    },
+    {
+      "source": "OB_REG-IND-MCA-CSR-2021_Rule_8",
+      "target": "OFFERING_enterprise_governance",
+      "relation": "MONITORED_BY_OFFERING"
+    }
+  ]
+}

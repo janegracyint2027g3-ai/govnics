@@ -1,0 +1,50 @@
+{
+  "workflow_name": "GOVENICS Regulatory Knowledge Ingestion & Graph Map",
+  "stages": [
+    {
+      "stage": 1,
+      "agent": "Source Discovery Agent",
+      "output": "source_registry.json"
+    },
+    {
+      "stage": 2,
+      "agent": "Document Extraction Agent",
+      "output": "extracted_compliance_content.json"
+    },
+    {
+      "stage": 3,
+      "agent": "Metadata Classification Agent",
+      "output": "12 Offerings & 15 Industries tagged"
+    },
+    {
+      "stage": 4,
+      "agent": "Source Verification Agent",
+      "output": "verification_report.json"
+    },
+    {
+      "stage": 5,
+      "agent": "Duplicate Detection Agent",
+      "output": "deduped records with SHA-256 hashes"
+    },
+    {
+      "stage": 6,
+      "agent": "CMS Publishing Agent",
+      "output": "cms_content_mapping.json"
+    },
+    {
+      "stage": 7,
+      "agent": "Knowledge Graph Builder",
+      "output": "knowledge_graph.json"
+    },
+    {
+      "stage": 8,
+      "agent": "Enterprise Search Indexer",
+      "output": "search_index_report.json"
+    },
+    {
+      "stage": 9,
+      "agent": "Monitoring and Synchronization Agent",
+      "output": "synchronization_report.json"
+    }
+  ]
+}

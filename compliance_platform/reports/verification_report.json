@@ -1,0 +1,37 @@
+{
+  "verifications": [
+    {
+      "document_id": "ACT-IND-LABOUR-1948",
+      "source_url": "https://labour.gov.in/acts/factories-act-1948",
+      "domain_verified": true,
+      "legal_citation_valid": true,
+      "verification_status": "VERIFIED_OFFICIAL",
+      "verified_at": "2026-11-06T09:58:26.802595+00:00"
+    },
+    {
+      "document_id": "ACT-IND-ENV-1986",
+      "source_url": "https://cpcb.nic.in/rules-regulations/",
+      "domain_verified": true,
+      "legal_citation_valid": true,
+      "verification_status": "VERIFIED_OFFICIAL",
+      "verified_at": "2026-11-06T09:58:26.802595+00:00"
+    },
+    {
+      "document_id": "ACT-IND-DPDP-2023",
+      "source_url": "https://www.meity.gov.in/cyber-security-and-data-protection",
+      "domain_verified": true,
+      "legal_citation_valid": true,
+      "verification_status": "VERIFIED_OFFICIAL",
+      "verified_at": "2026-11-06T09:58:26.802595+00:00"
+    },
+    {
+      "document_id": "REG-IND-MCA-CSR-2021",
+      "source_url": "https://www.mca.gov.in/content/mca/global/en/acts-rules.html",
+      "domain_verified": true,
+      "legal_citation_valid": true,
+      "verification_status": "VERIFIED_OFFICIAL",
+      "verified_at": "2026-11-06T09:58:26.802595+00:00"
+    }
+  ],
+  "total": 4
+}

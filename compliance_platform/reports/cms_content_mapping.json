@@ -1,0 +1,45 @@
+{
+  "mappings": [
+    {
+      "document_id": "ACT-IND-LABOUR-1948",
+      "title": "The Factories Act, 1948",
+      "wp_id": 113,
+      "action": "updated",
+      "success": true,
+      "offering": "Labour & Employment",
+      "industry": "Manufacturing & Industrial",
+      "source_url": "https://labour.gov.in/acts/factories-act-1948"
+    },
+    {
+      "document_id": "ACT-IND-ENV-1986",
+      "title": "The Environment (Protection) Act, 1986",
+      "wp_id": 114,
+      "action": "updated",
+      "success": true,
+      "offering": "Environmental & EHS",
+      "industry": "Chemicals & Petrochemicals",
+      "source_url": "https://cpcb.nic.in/rules-regulations/"
+    },
+    {
+      "document_id": "ACT-IND-DPDP-2023",
+      "title": "Digital Personal Data Protection Act, 2023 (DPDP)",
+      "wp_id": 115,
+      "action": "updated",
+      "success": true,
+      "offering": "Cybersecurity & Privacy",
+      "industry": "IT & Technology",
+      "source_url": "https://www.meity.gov.in/cyber-security-and-data-protection"
+    },
+    {
+      "document_id": "REG-IND-MCA-CSR-2021",
+      "title": "Companies (Corporate Social Responsibility Policy) Amendment Rules, 2021",
+      "wp_id": 116,
+      "action": "updated",
+      "success": true,
+      "offering": "Enterprise Governance",
+      "industry": "BFSI & Fintech",
+      "source_url": "https://www.mca.gov.in/content/mca/global/en/acts-rules.html"
+    }
+  ],
+  "total": 4
+}

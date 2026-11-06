@@ -1,0 +1,70 @@
+"""
+Approved regulatory sources registry for Central and State government portals.
+"""
+from typing import List, Dict, Any
+
+APPROVED_SOURCES: List[Dict[str, Any]] = [
+    {
+        "source_id": "SRC-MOL-001",
+        "name": "Ministry of Labour & Employment (MoLE)",
+        "jurisdiction": "Central",
+        "category": "Labour & Employment",
+        "portal_url": "https://labour.gov.in",
+        "acts_endpoint": "https://labour.gov.in/acts",
+        "offerings": ["Labour & Employment", "Regulatory Compliance"],
+        "industries": ["Manufacturing & Industrial", "IT & Technology", "BFSI & Fintech", "Healthcare"],
+        "status": "active",
+        "update_frequency": "daily"
+    },
+    {
+        "source_id": "SRC-CPCB-002",
+        "name": "Central Pollution Control Board (CPCB)",
+        "jurisdiction": "Central",
+        "category": "Environmental & EHS",
+        "portal_url": "https://cpcb.nic.in",
+        "acts_endpoint": "https://cpcb.nic.in/rules-regulations/",
+        "offerings": ["Environmental & EHS", "ESG & Sustainability"],
+        "industries": ["Chemicals & Petrochemicals", "Manufacturing & Industrial", "Pharmaceuticals & Medical Devices"],
+        "status": "active",
+        "update_frequency": "daily"
+    },
+    {
+        "source_id": "SRC-MCA-003",
+        "name": "Ministry of Corporate Affairs (MCA)",
+        "jurisdiction": "Central",
+        "category": "Enterprise Governance",
+        "portal_url": "https://www.mca.gov.in",
+        "acts_endpoint": "https://www.mca.gov.in/content/mca/global/en/acts-rules.html",
+        "offerings": ["Enterprise Governance", "Risk Management"],
+        "industries": ["BFSI & Fintech", "IT & Technology", "Retail & Consumer Goods"],
+        "status": "active",
+        "update_frequency": "daily"
+    },
+    {
+        "source_id": "SRC-MEITY-004",
+        "name": "Ministry of Electronics and Information Technology (MeitY / DPDP)",
+        "jurisdiction": "Central",
+        "category": "Cybersecurity & Privacy",
+        "portal_url": "https://www.meity.gov.in",
+        "acts_endpoint": "https://www.meity.gov.in/cyber-security-and-data-protection",
+        "offerings": ["Cybersecurity & Privacy", "Enterprise Governance"],
+        "industries": ["IT & Technology", "BFSI & Fintech", "Healthcare"],
+        "status": "active",
+        "update_frequency": "weekly"
+    },
+    {
+        "source_id": "SRC-DGFT-005",
+        "name": "Directorate General of Foreign Trade (DGFT)",
+        "jurisdiction": "Central",
+        "category": "Taxation & Trade",
+        "portal_url": "https://www.dgft.gov.in",
+        "acts_endpoint": "https://www.dgft.gov.in/CP/?opt=regulatory-updates",
+        "offerings": ["Taxation & Trade", "Export & Trade Services", "Supply Chain Compliance"],
+        "industries": ["Logistics & Supply Chain", "Automotive & Auto Components", "Textiles"],
+        "status": "active",
+        "update_frequency": "weekly"
+    }
+]
+
+def get_active_sources() -> List[Dict[str, Any]]:
+    return [s for s in APPROVED_SOURCES if s["status"] == "active"]

@@ -62,6 +62,8 @@ import securityRecovery from './_handlers/security/recovery.js';
 import securityValidate from './_handlers/security/validate.js';
 import libraryResources from './_handlers/library/resources.js';
 import cmsSyncStatus from './_handlers/cms-sync/status.js';
+import complianceKnowledgeGraph from './_handlers/compliance/knowledge-graph.js';
+import complianceSearch from './_handlers/compliance/search.js';
 
 import riskRegister from './_handlers/risk/register.js';
 import reportsGenerate from './_handlers/reports/generate.js';
@@ -140,6 +142,8 @@ const exactRoutes = {
   '/api/library/resource': libraryResources,
   '/api/library/categories': libraryResources,
   '/api/cms-sync/status': cmsSyncStatus,
+  '/api/compliance/knowledge-graph': complianceKnowledgeGraph,
+  '/api/compliance/search': complianceSearch,
 
   '/api/risk/register': riskRegister,
   '/api/reports/generate': reportsGenerate,

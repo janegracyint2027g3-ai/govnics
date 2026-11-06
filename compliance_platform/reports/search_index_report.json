@@ -1,0 +1,123 @@
+{
+  "indexed_count": 4,
+  "timestamp": "2026-11-06T09:58:30.701118+00:00",
+  "supported_filters": [
+    "jurisdiction",
+    "government_level",
+    "document_type",
+    "offering",
+    "industry",
+    "issuing_authority"
+  ],
+  "entries": [
+    {
+      "document_id": "ACT-IND-LABOUR-1948",
+      "title": "The Factories Act, 1948",
+      "document_type": "Acts",
+      "issuing_authority": "Ministry of Labour & Employment",
+      "jurisdiction": "India",
+      "government_level": "Central",
+      "offering": "Labour & Employment",
+      "industry": "Manufacturing & Industrial",
+      "publication_date": "1948-09-23",
+      "effective_date": "1949-04-01",
+      "source_url": "https://labour.gov.in/acts/factories-act-1948",
+      "searchable_text": "the factories act, 1948 ministry of labour & employment labour & employment manufacturing & industrial an act to consolidate and amend the law regulating labour in factories. contains provisions regarding health, safety, welfare, working hours of adults, employment of young persons, and annual leave with wages in manufacturing facilities. general duties of the occupier ensure health, safety, and welfare of all workers in factory cleanliness maintain cleanliness and disposal of industrial wastes fencing of machinery secure fencing of dangerous transmission machinery",
+      "sections": [
+        {
+          "section": "Section 7A",
+          "title": "General duties of the occupier",
+          "obligation": "Ensure health, safety, and welfare of all workers in factory"
+        },
+        {
+          "section": "Section 11",
+          "title": "Cleanliness",
+          "obligation": "Maintain cleanliness and disposal of industrial wastes"
+        },
+        {
+          "section": "Section 21",
+          "title": "Fencing of machinery",
+          "obligation": "Secure fencing of dangerous transmission machinery"
+        }
+      ]
+    },
+    {
+      "document_id": "ACT-IND-ENV-1986",
+      "title": "The Environment (Protection) Act, 1986",
+      "document_type": "Acts",
+      "issuing_authority": "Ministry of Environment, Forest and Climate Change (CPCB)",
+      "jurisdiction": "India",
+      "government_level": "Central",
+      "offering": "Environmental & EHS",
+      "industry": "Chemicals & Petrochemicals",
+      "publication_date": "1986-05-23",
+      "effective_date": "1986-11-19",
+      "source_url": "https://cpcb.nic.in/rules-regulations/",
+      "searchable_text": "the environment (protection) act, 1986 ministry of environment, forest and climate change (cpcb) environmental & ehs chemicals & petrochemicals an act to provide for the protection and improvement of environment and for matters connected therewith. formulates environmental quality standards, emission thresholds, hazardous substance handling restrictions, and environmental clearance mandates. persons carrying on industry not to allow emission in excess of standards discharge emissions strictly within cpcb permissible limits furnishing of information to authorities immediate notification in event of environmental accidents",
+      "sections": [
+        {
+          "section": "Section 7",
+          "title": "Persons carrying on industry not to allow emission in excess of standards",
+          "obligation": "Discharge emissions strictly within CPCB permissible limits"
+        },
+        {
+          "section": "Section 9",
+          "title": "Furnishing of information to authorities",
+          "obligation": "Immediate notification in event of environmental accidents"
+        }
+      ]
+    },
+    {
+      "document_id": "ACT-IND-DPDP-2023",
+      "title": "Digital Personal Data Protection Act, 2023 (DPDP)",
+      "document_type": "Acts",
+      "issuing_authority": "Ministry of Electronics and Information Technology (MeitY)",
+      "jurisdiction": "India",
+      "government_level": "Central",
+      "offering": "Cybersecurity & Privacy",
+      "industry": "IT & Technology",
+      "publication_date": "2023-08-11",
+      "effective_date": "2023-08-11",
+      "source_url": "https://www.meity.gov.in/cyber-security-and-data-protection",
+      "searchable_text": "digital personal data protection act, 2023 (dpdp) ministry of electronics and information technology (meity) cybersecurity & privacy it & technology an act to provide for the processing of digital personal data in a manner that recognises both the right of individuals to protect their personal data and the need to process such personal data for lawful purposes. consent and notice requirements obtain unambiguous, freely given, specific consent with clear purpose notice general obligations of data fiduciary implement reasonable security safeguards to prevent personal data breach",
+      "sections": [
+        {
+          "section": "Section 6",
+          "title": "Consent and Notice Requirements",
+          "obligation": "Obtain unambiguous, freely given, specific consent with clear purpose notice"
+        },
+        {
+          "section": "Section 8",
+          "title": "General obligations of Data Fiduciary",
+          "obligation": "Implement reasonable security safeguards to prevent personal data breach"
+        }
+      ]
+    },
+    {
+      "document_id": "REG-IND-MCA-CSR-2021",
+      "title": "Companies (Corporate Social Responsibility Policy) Amendment Rules, 2021",
+      "document_type": "Rules",
+      "issuing_authority": "Ministry of Corporate Affairs (MCA)",
+      "jurisdiction": "India",
+      "government_level": "Central",
+      "offering": "Enterprise Governance",
+      "industry": "BFSI & Fintech",
+      "publication_date": "2021-01-22",
+      "effective_date": "2021-01-22",
+      "source_url": "https://www.mca.gov.in/content/mca/global/en/acts-rules.html",
+      "searchable_text": "companies (corporate social responsibility policy) amendment rules, 2021 ministry of corporate affairs (mca) enterprise governance bfsi & fintech rules governing csr expenditure, impact assessment requirements for projects over 1 crore, registration of implementing agencies (form csr-1), and unspent csr account treatment. csr implementation mandatory form csr-1 registration with mca for implementing agencies csr reporting annual board report on csr activities with detailed annexure disclosures",
+      "sections": [
+        {
+          "section": "Rule 4",
+          "title": "CSR Implementation",
+          "obligation": "Mandatory Form CSR-1 registration with MCA for implementing agencies"
+        },
+        {
+          "section": "Rule 8",
+          "title": "CSR Reporting",
+          "obligation": "Annual board report on CSR activities with detailed Annexure disclosures"
+        }
+      ]
+    }
+  ]
+}

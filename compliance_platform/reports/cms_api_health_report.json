@@ -1,0 +1,37 @@
+{
+  "api_reachable": true,
+  "authenticated": true,
+  "user": {
+    "id": 2,
+    "name": "Jane Grace",
+    "slug": "gracejane"
+  },
+  "namespaces": [
+    "oembed/1.0",
+    "wp/v2",
+    "wp-site-health/v1",
+    "wp-block-editor/v1",
+    "wp-abilities/v1"
+  ],
+  "endpoints": {
+    "post_types": [
+      "post",
+      "page",
+      "attachment",
+      "nav_menu_item",
+      "wp_block",
+      "wp_template",
+      "wp_template_part",
+      "wp_global_styles",
+      "wp_navigation",
+      "wp_font_family",
+      "wp_font_face"
+    ],
+    "taxonomies": [
+      "category",
+      "post_tag",
+      "nav_menu",
+      "wp_pattern_category"
+    ]
+  }
+}
