@@ -84,28 +84,37 @@ export default async function handler(req, res) {
       }
     }
 
-    // ─── Create Session & JWT Token (30-Minute Expiry) ───────────────────
+    // ─── Generate JWT Token (30-Minute Expiry) ───────────────────────────
+    const expiresAt = new Date(Date.now() + JWT_EXPIRY_SECONDS * 1000).toISOString();
+    const token = signJwt(
+      {
+        sub: user.userId,
+        userId: user.userId,
+        preferredUserId: user.preferredUserId || user.userId,
+        email: user.email,
+        fullName: user.fullName,
+        companyId: user.companyId || null,
+        companyName: company?.companyName || "",
+        industrySector: company?.industrySector || "",
+        accountStatus: user.accountStatus,
+      },
+      { expiresIn: JWT_EXPIRY_SECONDS }
+    );
+
+    // ─── Create Session & Persist in Redis + Google Sheets ────────────────
     const sessionId = await createSession(
       userId,
       req.headers["user-agent"] || "",
-      ip
+      ip,
+      {
+        token,
+        email: user.email,
+        fullName: user.fullName,
+        preferredUserId: user.preferredUserId || user.userId,
+        companyName: company?.companyName || "",
+        authProvider: "Direct Password Auth (JWT 30m)",
+      }
     );
-
-    const jwtPayload = {
-      sub: user.userId,
-      userId: user.userId,
-      preferredUserId: user.preferredUserId || user.userId,
-      email: user.email,
-      fullName: user.fullName,
-      companyId: user.companyId || null,
-      companyName: company?.companyName || "",
-      industrySector: company?.industrySector || "",
-      accountStatus: user.accountStatus,
-      sessionId,
-    };
-
-    const token = signJwt(jwtPayload, { expiresIn: JWT_EXPIRY_SECONDS });
-    const expiresAt = new Date(Date.now() + JWT_EXPIRY_SECONDS * 1000).toISOString();
 
     // ─── Audit Log ────────────────────────────────────────────────────────
     await auditLog(userId, "LOGIN_SUCCESS", {

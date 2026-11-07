@@ -166,6 +166,8 @@ export const KEYS = {
   checklist: (companyId) => `govenics:checklist:${companyId}`,
   session: (sessionId) => `govenics:session:${sessionId}`,
   userSessions: (userId) => `govenics:user-sessions:${userId}`,
+  activeSessions: () => `govenics:sessions:active`,
+  userJwtToken: (userId) => `govenics:jwt:${userId}`,
   registration: (userId) => `govenics:registration:${userId}`,
   auditLog: (userId) => `govenics:audit:${userId}`,
 

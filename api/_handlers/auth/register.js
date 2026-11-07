@@ -214,28 +214,37 @@ export default async function handler(req, res) {
 
     await pipeline.exec();
 
-    // ─── Create Session & JWT Token (30-Minute Expiry) ───────────────────
+    // ─── Generate JWT Token (30-Minute Expiry) ───────────────────────────
+    const expiresAt = new Date(Date.now() + JWT_EXPIRY_SECONDS * 1000).toISOString();
+    const token = signJwt(
+      {
+        sub: internalUserId,
+        userId: internalUserId,
+        preferredUserId: normalizedUserId,
+        email: normalizedEmail,
+        fullName: userRecord.fullName,
+        companyId,
+        companyName: companyRecord.companyName,
+        industrySector,
+        accountStatus: "active",
+      },
+      { expiresIn: JWT_EXPIRY_SECONDS }
+    );
+
+    // ─── Create Session & Persist in Redis + Google Sheets ────────────────
     const sessionId = await createSession(
       internalUserId,
       req.headers["user-agent"] || "",
-      ip
+      ip,
+      {
+        token,
+        email: normalizedEmail,
+        fullName: userRecord.fullName,
+        preferredUserId: normalizedUserId,
+        companyName: companyRecord.companyName,
+        authProvider: "User Registration (JWT 30m)",
+      }
     );
-
-    const jwtPayload = {
-      sub: internalUserId,
-      userId: internalUserId,
-      preferredUserId: normalizedUserId,
-      email: normalizedEmail,
-      fullName: userRecord.fullName,
-      companyId,
-      companyName: companyRecord.companyName,
-      industrySector,
-      accountStatus: "active",
-      sessionId,
-    };
-
-    const token = signJwt(jwtPayload, { expiresIn: JWT_EXPIRY_SECONDS });
-    const expiresAt = new Date(Date.now() + JWT_EXPIRY_SECONDS * 1000).toISOString();
 
     // ─── Audit Log ────────────────────────────────────────────────────────
     await auditLog(internalUserId, "REGISTRATION", {

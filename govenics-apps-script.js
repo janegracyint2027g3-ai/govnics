@@ -167,6 +167,12 @@ var TAB_CONFIGS = {
   "User_Logins": [
     "Timestamp", "Email", "Auth Provider", "Login Status", "IP Location", "IP Address", "User Agent"
   ],
+  "User_Sessions": [
+    "Session ID", "User ID", "Email", "Full Name", "Company",
+    "Auth Provider", "Token Type", "Masked Token", "Created At",
+    "Expires At", "Status", "IP Address", "User Agent",
+    "Last Active", "Revoked At", "Revoked Reason", "Sync Timestamp"
+  ],
   "App_Tokens": [
     "Token ID", "Application Name", "Client / Owner", "Environment",
     "Scopes", "Created At", "Expires At", "Duration (Days)",
@@ -320,6 +326,12 @@ var SHEET_NAME_ALIASES = {
   "user_logins": "User_Logins",
   "userlogins": "User_Logins",
 
+  // ── User Session & Token Management ──
+  "user_sessions": "User_Sessions",
+  "usersessions": "User_Sessions",
+  "sessions": "User_Sessions",
+  "session_management": "User_Sessions",
+
   // ── App Token Management ──
   "app_tokens": "App_Tokens",
   "apptokens": "App_Tokens",
@@ -445,6 +457,7 @@ function doPost(e) {
       canonicalName === "Chatbot_Leads" ||
       canonicalName === "Registered_Users" ||
       canonicalName === "User_Logins" ||
+      canonicalName === "User_Sessions" ||
       canonicalName === "App_Tokens" ||
       canonicalName === "Estimator_Calculations" ||
       canonicalName === "Exit_Intent_Feedback" ||
@@ -546,6 +559,37 @@ function doPost(e) {
         sheet: "App_Tokens",
         action: isUpdated ? "updated" : "appended",
         tokenId: tokenId,
+        timestamp: new Date().toISOString()
+      })).setMimeType(ContentService.MimeType.JSON);
+    }
+
+    // User Session & JWT Management Upsert Logic
+    if (canonicalName === "User_Sessions") {
+      var sessId = fields["Session ID"] || fields.sessionId || "";
+      var rowData = syncHeadersAndBuildRow(sheet, fields, TAB_CONFIGS[canonicalName]);
+      var isUpdated = false;
+      var lastRow = sheet.getLastRow();
+
+      if (lastRow > 1 && sessId) {
+        var sessCol = sheet.getRange(2, 1, lastRow - 1, 1).getValues();
+        for (var i = 0; i < sessCol.length; i++) {
+          if (sessCol[i][0] === sessId) {
+            sheet.getRange(i + 2, 1, 1, rowData.length).setValues([rowData]);
+            isUpdated = true;
+            break;
+          }
+        }
+      }
+
+      if (!isUpdated) {
+        sheet.appendRow(rowData);
+      }
+
+      return ContentService.createTextOutput(JSON.stringify({
+        success: true,
+        sheet: "User_Sessions",
+        action: isUpdated ? "updated" : "appended",
+        sessionId: sessId,
         timestamp: new Date().toISOString()
       })).setMimeType(ContentService.MimeType.JSON);
     }

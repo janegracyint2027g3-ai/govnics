@@ -25,25 +25,105 @@ export async function verifyPassword(plaintext, hash) {
   return bcrypt.compare(plaintext, hash);
 }
 
+// ─── Google Sheets Webhook Synchronizer for Session & Token Management ───────
+export async function syncSessionToGoogleSheet(sessionData) {
+  const googleSheetsUrl =
+    process.env.GOOGLE_SHEETS_URL ||
+    process.env.VITE_TELEMETRY_WEBHOOK_URL ||
+    "https://script.google.com/macros/s/AKfycbwr2WjTDd7hft1gK_3GAHgfBjNOjSgtoOoR093PHHmJ6Egua7P6e79WA2_qLynuC0m3Qg/exec";
+
+  if (!googleSheetsUrl || !sessionData) return { success: false, error: "No URL or sessionData" };
+
+  const payload = {
+    sheetName: "User_Sessions",
+    table: "User_Sessions",
+    "Session ID": sessionData.sessionId,
+    "User ID": `@${sessionData.preferredUserId || sessionData.userId}`,
+    "Email": sessionData.email || "",
+    "Full Name": sessionData.fullName || "",
+    "Company": sessionData.companyName || "",
+    "Auth Provider": sessionData.authProvider || "Direct Password Auth (JWT 30m)",
+    "Token Type": sessionData.tokenType || "Bearer JWT",
+    "Masked Token": sessionData.maskedToken || "N/A",
+    "Created At": sessionData.createdAt || new Date().toISOString(),
+    "Expires At": sessionData.expiresAt || "",
+    "Status": sessionData.status || "Active",
+    "IP Address": sessionData.ip || "Direct Web Client",
+    "User Agent": sessionData.userAgent || "Web Client",
+    "Last Active": sessionData.lastActive || sessionData.createdAt,
+    "Revoked At": sessionData.revokedAt || "",
+    "Revoked Reason": sessionData.revokedReason || "",
+    "Sync Timestamp": new Date().toISOString(),
+  };
+
+  try {
+    const res = await fetch(googleSheetsUrl, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload),
+    });
+    if (!res.ok) {
+      throw new Error(`Google Apps Script HTTP ${res.status}`);
+    }
+    const data = await res.json().catch(() => ({}));
+    return { success: true, data };
+  } catch (err) {
+    console.warn(`[auth] Google Sheets User_Sessions sync warning for ${sessionData.sessionId}:`, err.message);
+    return { success: false, error: err.message };
+  }
+}
+
 // ─── Session Utilities ────────────────────────────────────────────────────────
 export function generateSessionId() {
   return uuidv4();
 }
 
-export async function createSession(userId, userAgent = "", ip = "") {
+export async function createSession(userId, userAgent = "", ip = "", metadata = {}) {
   const sessionId = generateSessionId();
+  const now = new Date().toISOString();
+  const expiresAt = new Date(Date.now() + (TTL.SESSION || 1800) * 1000).toISOString();
+  const rawToken = metadata.token || "";
+  const maskedToken = rawToken
+    ? `${rawToken.slice(0, 16)}...${rawToken.slice(-10)}`
+    : "N/A";
+
   const sessionData = {
     sessionId,
     userId,
-    createdAt: new Date().toISOString(),
+    preferredUserId: metadata.preferredUserId || userId,
+    email: metadata.email || "",
+    fullName: metadata.fullName || "",
+    companyName: metadata.companyName || "",
+    createdAt: now,
+    expiresAt,
     userAgent,
     ip,
-    lastActive: new Date().toISOString(),
+    lastActive: now,
+    status: "Active",
+    authProvider: metadata.authProvider || "Direct Password Auth (JWT 30m)",
+    tokenType: "Bearer JWT",
+    maskedToken,
   };
-  await redis.setex(KEYS.session(sessionId), TTL.SESSION, JSON.stringify(sessionData));
-  if (redis.sadd) {
-    await redis.sadd(KEYS.userSessions(userId), sessionId);
+
+  // 1. Persist session and token references in Redis
+  try {
+    await redis.setex(KEYS.session(sessionId), TTL.SESSION, JSON.stringify(sessionData));
+    if (redis.sadd) {
+      await redis.sadd(KEYS.userSessions(userId), sessionId);
+      await redis.sadd(KEYS.activeSessions(), sessionId);
+    }
+    if (rawToken && redis.setex) {
+      await redis.setex(KEYS.userJwtToken(userId), TTL.SESSION, rawToken);
+    }
+  } catch (err) {
+    console.warn("[auth] Redis session persistence error:", err.message);
   }
+
+  // 2. Synchronize to Google Sheets tab "User_Sessions"
+  syncSessionToGoogleSheet(sessionData).catch((err) => {
+    console.warn("[auth] Google Sheets User_Sessions sync error (non-fatal):", err.message);
+  });
+
   return sessionId;
 }
 
@@ -58,13 +138,37 @@ export async function getSession(sessionId) {
   }
 }
 
-export async function invalidateSession(sessionId) {
+export async function invalidateSession(sessionId, reason = "User Logout") {
   if (!sessionId) return;
   const session = await getSession(sessionId);
-  if (session && session.userId && redis.srem) {
-    await redis.srem(KEYS.userSessions(session.userId), sessionId);
+  const now = new Date().toISOString();
+
+  // 1. Remove from Redis active sessions
+  try {
+    if (session && session.userId && redis.srem) {
+      await redis.srem(KEYS.userSessions(session.userId), sessionId);
+      await redis.srem(KEYS.activeSessions(), sessionId);
+      if (redis.del) {
+        await redis.del(KEYS.userJwtToken(session.userId));
+      }
+    }
+    await redis.del(KEYS.session(sessionId));
+  } catch (err) {
+    console.warn("[auth] Redis invalidate session error:", err.message);
   }
-  await redis.del(KEYS.session(sessionId));
+
+  // 2. Synchronize revocation update to Google Sheet "User_Sessions" tab
+  if (session) {
+    const revokedSession = {
+      ...session,
+      status: "Revoked",
+      revokedAt: now,
+      revokedReason: reason,
+    };
+    syncSessionToGoogleSheet(revokedSession).catch((err) => {
+      console.warn("[auth] Google Sheets session revocation sync error (non-fatal):", err.message);
+    });
+  }
 }
 
 export async function getUserActiveSessions(userId) {
