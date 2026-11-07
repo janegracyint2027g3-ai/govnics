@@ -70,6 +70,7 @@ import reportsGenerate from './_handlers/reports/generate.js';
 import organizationsWorkspaces from './_handlers/organizations/workspaces.js';
 import appTokens from './_handlers/tokens/index.js';
 import knowledgeGraphApi from './_handlers/knowledge-graph/index.js';
+import agentsApi from './_handlers/agents/index.js';
 
 const exactRoutes = {
   '/api/auth/login': authLogin,
@@ -162,6 +163,12 @@ const exactRoutes = {
   '/api/knowledge-graph/export': knowledgeGraphApi,
   '/api/knowledge-graph/reload': knowledgeGraphApi,
 
+  '/api/agents': agentsApi,
+  '/api/agents/status': agentsApi,
+  '/api/agents/extract': agentsApi,
+  '/api/agents/nurture': agentsApi,
+  '/api/agents/pipeline': agentsApi,
+
   '/api/risk/register': riskRegister,
   '/api/reports/generate': reportsGenerate,
   '/api/organizations/workspaces': organizationsWorkspaces
@@ -222,6 +229,8 @@ export default async function handler(req, res) {
         selectedHandler = appTokens;
       } else if (pathname.startsWith('/api/knowledge-graph')) {
         selectedHandler = knowledgeGraphApi;
+      } else if (pathname.startsWith('/api/agents')) {
+        selectedHandler = agentsApi;
       }
     }
 
