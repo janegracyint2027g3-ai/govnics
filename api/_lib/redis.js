@@ -239,6 +239,7 @@ export const KEYS = {
 
 // ─── TTLs (in seconds) ───────────────────────────────────────────────────────
 export const TTL = {
-  SESSION: 60 * 60 * 24 * 7,       // 7 days
+  SESSION: 30 * 60,                // 30 minutes (1800s enterprise session timeout)
+  JWT: 30 * 60,                    // 30 minutes JWT lifespan
   VERIFY_TOKEN: 60 * 60 * 24,      // 24 hours
 };

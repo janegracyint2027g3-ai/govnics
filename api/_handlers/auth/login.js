@@ -8,6 +8,8 @@ import {
   validateEmail,
   checkRateLimit,
   auditLog,
+  signJwt,
+  JWT_EXPIRY_SECONDS,
 } from "../../_lib/auth.js";
 import { setCorsHeaders, handleOptions, errorResponse, successResponse } from "../../_lib/cors.js";
 
@@ -82,22 +84,44 @@ export default async function handler(req, res) {
       }
     }
 
-    // ─── Create Session ───────────────────────────────────────────────────
+    // ─── Create Session & JWT Token (30-Minute Expiry) ───────────────────
     const sessionId = await createSession(
       userId,
       req.headers["user-agent"] || "",
       ip
     );
 
-    // ─── Audit Log ────────────────────────────────────────────────────────
-    await auditLog(userId, "LOGIN_SUCCESS", { ip });
+    const jwtPayload = {
+      sub: user.userId,
+      userId: user.userId,
+      preferredUserId: user.preferredUserId || user.userId,
+      email: user.email,
+      fullName: user.fullName,
+      companyId: user.companyId || null,
+      companyName: company?.companyName || "",
+      industrySector: company?.industrySector || "",
+      accountStatus: user.accountStatus,
+      sessionId,
+    };
 
-    // ─── Set Cookie ───────────────────────────────────────────────────────
+    const token = signJwt(jwtPayload, { expiresIn: JWT_EXPIRY_SECONDS });
+    const expiresAt = new Date(Date.now() + JWT_EXPIRY_SECONDS * 1000).toISOString();
+
+    // ─── Audit Log ────────────────────────────────────────────────────────
+    await auditLog(userId, "LOGIN_SUCCESS", {
+      ip,
+      sessionId,
+      tokenExpirySeconds: JWT_EXPIRY_SECONDS,
+      expiresAt,
+    });
+
+    // ─── Set HTTP-Only Cookies (30-Min Strict Expiry) ──────────────────────
     const isProd = process.env.NODE_ENV === "production";
-    res.setHeader(
-      "Set-Cookie",
-      `govenics_session=${sessionId}; Path=/; HttpOnly; SameSite=Strict; Max-Age=${TTL.SESSION}${isProd ? "; Secure" : ""}`
-    );
+    const secureFlag = isProd ? "; Secure" : "";
+    res.setHeader("Set-Cookie", [
+      `govenics_jwt=${token}; Path=/; HttpOnly; SameSite=Strict; Max-Age=${JWT_EXPIRY_SECONDS}${secureFlag}`,
+      `govenics_session=${sessionId}; Path=/; HttpOnly; SameSite=Strict; Max-Age=${JWT_EXPIRY_SECONDS}${secureFlag}`,
+    ]);
 
     // ─── Forward Login Event to Google Sheets Telemetry Webhook ────────
     const googleSheetsUrl =
@@ -114,8 +138,11 @@ export default async function handler(req, res) {
           table: "User_Logins",
           "Timestamp": new Date().toISOString(),
           "Email": user.email,
-          "Auth Provider": "Direct Password Auth",
+          "Auth Provider": "Direct Password Auth (JWT 30m)",
           "Login Status": "Success",
+          "Token Type": "Bearer JWT",
+          "Token Expiry": "30 Minutes (1800s)",
+          "Expires At": expiresAt,
           "IP Location": "Direct Web Client",
           "IP Address": ip,
           "User Agent": req.headers["user-agent"] || "Web Client",
@@ -130,9 +157,13 @@ export default async function handler(req, res) {
       });
     }
 
-    // ─── Return Safe User Data ────────────────────────────────────────────
+    // ─── Return Safe User Data & Bearer JWT Token ──────────────────────────
     return successResponse(res, {
       message: "Login successful.",
+      token,
+      tokenType: "Bearer",
+      expiresIn: JWT_EXPIRY_SECONDS, // 1800 seconds (30 minutes)
+      expiresAt,
       user: {
         userId: user.userId,
         preferredUserId: user.preferredUserId,

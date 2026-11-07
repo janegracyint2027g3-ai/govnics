@@ -11,6 +11,8 @@ import {
   validateUserId,
   checkRateLimit,
   auditLog,
+  signJwt,
+  JWT_EXPIRY_SECONDS,
 } from "../../_lib/auth.js";
 import { setCorsHeaders, handleOptions, errorResponse, successResponse } from "../../_lib/cors.js";
 
@@ -212,26 +214,46 @@ export default async function handler(req, res) {
 
     await pipeline.exec();
 
-    // ─── Create Session ───────────────────────────────────────────────────
+    // ─── Create Session & JWT Token (30-Minute Expiry) ───────────────────
     const sessionId = await createSession(
       internalUserId,
       req.headers["user-agent"] || "",
       ip
     );
 
+    const jwtPayload = {
+      sub: internalUserId,
+      userId: internalUserId,
+      preferredUserId: normalizedUserId,
+      email: normalizedEmail,
+      fullName: userRecord.fullName,
+      companyId,
+      companyName: companyRecord.companyName,
+      industrySector,
+      accountStatus: "active",
+      sessionId,
+    };
+
+    const token = signJwt(jwtPayload, { expiresIn: JWT_EXPIRY_SECONDS });
+    const expiresAt = new Date(Date.now() + JWT_EXPIRY_SECONDS * 1000).toISOString();
+
     // ─── Audit Log ────────────────────────────────────────────────────────
     await auditLog(internalUserId, "REGISTRATION", {
       email: normalizedEmail,
       companyId,
       ip,
+      sessionId,
+      tokenExpirySeconds: JWT_EXPIRY_SECONDS,
+      expiresAt,
     });
 
-    // ─── Set HTTP-Only Session Cookie ─────────────────────────────────────
+    // ─── Set HTTP-Only Cookies (30-Min Strict Expiry) ──────────────────────
     const isProd = process.env.NODE_ENV === "production";
-    res.setHeader(
-      "Set-Cookie",
-      `govenics_session=${sessionId}; Path=/; HttpOnly; SameSite=Strict; Max-Age=${TTL.SESSION}${isProd ? "; Secure" : ""}`
-    );
+    const secureFlag = isProd ? "; Secure" : "";
+    res.setHeader("Set-Cookie", [
+      `govenics_jwt=${token}; Path=/; HttpOnly; SameSite=Strict; Max-Age=${JWT_EXPIRY_SECONDS}${secureFlag}`,
+      `govenics_session=${sessionId}; Path=/; HttpOnly; SameSite=Strict; Max-Age=${JWT_EXPIRY_SECONDS}${secureFlag}`,
+    ]);
 
     // ─── Forward to Google Sheets Webhook (Background Async) ─────────────
     const googleSheetsUrl =
@@ -262,6 +284,8 @@ export default async function handler(req, res) {
           "Registration Type": companyRecord.businessRegistrationType || "—",
           "Business Operations": (companyRecord.businessOperations || []).join(", "),
           "Registration Status": "Success",
+          "Token Expiry": "30 Minutes (1800s)",
+          "Expires At": expiresAt,
           "IP Address": ip,
           "User Agent": req.headers["user-agent"] || "Web Client",
         }),
@@ -273,6 +297,10 @@ export default async function handler(req, res) {
     // ─── Return Safe Response ─────────────────────────────────────────────
     return successResponse(res, {
       message: "Account created successfully.",
+      token,
+      tokenType: "Bearer",
+      expiresIn: JWT_EXPIRY_SECONDS, // 1800 seconds (30 minutes)
+      expiresAt,
       user: {
         userId: internalUserId,
         preferredUserId: normalizedUserId,

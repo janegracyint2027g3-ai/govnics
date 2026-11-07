@@ -88,12 +88,12 @@ export default async function handler(req, res) {
       await invalidateSession(targetSessionId);
       await auditLog(user.userId, "REVOKE_SESSION", { targetSessionId });
 
-      // If user revoked current session, clear cookie
+      // If user revoked current session, clear cookies
       if (targetSessionId === currentSessionId) {
-        res.setHeader(
-          "Set-Cookie",
-          "govenics_session=; Path=/; HttpOnly; SameSite=Strict; Max-Age=0; Expires=Thu, 01 Jan 1970 00:00:00 GMT"
-        );
+        res.setHeader("Set-Cookie", [
+          "govenics_jwt=; Path=/; HttpOnly; SameSite=Strict; Max-Age=0; Expires=Thu, 01 Jan 1970 00:00:00 GMT",
+          "govenics_session=; Path=/; HttpOnly; SameSite=Strict; Max-Age=0; Expires=Thu, 01 Jan 1970 00:00:00 GMT",
+        ]);
       }
 
       return successResponse(res, { message: "Session revoked successfully." });

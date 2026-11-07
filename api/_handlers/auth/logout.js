@@ -30,11 +30,11 @@ export default async function handler(req, res) {
       await invalidateSession(sessionId);
     }
 
-    // Clear the session cookie
-    res.setHeader(
-      "Set-Cookie",
-      "govenics_session=; Path=/; HttpOnly; SameSite=Strict; Max-Age=0; Expires=Thu, 01 Jan 1970 00:00:00 GMT"
-    );
+    // Clear both JWT and session cookies
+    res.setHeader("Set-Cookie", [
+      "govenics_jwt=; Path=/; HttpOnly; SameSite=Strict; Max-Age=0; Expires=Thu, 01 Jan 1970 00:00:00 GMT",
+      "govenics_session=; Path=/; HttpOnly; SameSite=Strict; Max-Age=0; Expires=Thu, 01 Jan 1970 00:00:00 GMT",
+    ]);
 
     // ─── Forward Logout Event to Google Sheets Telemetry Webhook ────────
     const googleSheetsUrl =

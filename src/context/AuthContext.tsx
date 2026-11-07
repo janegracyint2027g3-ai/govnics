@@ -69,6 +69,9 @@ interface AuthContextType {
   company: CompanyProfile | null;
   isAuthenticated: boolean;
   isLoading: boolean;
+  token: string | null;
+  tokenExpiresAt: string | null;
+  remainingMinutes: number | null;
   login: (identifier: string, password: string) => Promise<{ success: boolean; error?: string }>;
   register: (data: RegisterData) => Promise<{ success: boolean; error?: string; errors?: Record<string, string> }>;
   logout: () => Promise<void>;
@@ -80,6 +83,42 @@ interface AuthContextType {
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
+// ─── Token & Storage Helpers ──────────────────────────────────────────────────
+const JWT_STORAGE_KEY = "govenics_jwt_token";
+const JWT_EXPIRY_KEY = "govenics_jwt_expires_at";
+
+export function getStoredToken(): string | null {
+  try {
+    const expiresAt = localStorage.getItem(JWT_EXPIRY_KEY);
+    if (expiresAt && new Date(expiresAt).getTime() <= Date.now()) {
+      localStorage.removeItem(JWT_STORAGE_KEY);
+      localStorage.removeItem(JWT_EXPIRY_KEY);
+      return null;
+    }
+    return localStorage.getItem(JWT_STORAGE_KEY);
+  } catch {
+    return null;
+  }
+}
+
+export function setStoredToken(token: string, expiresAt: string): void {
+  try {
+    localStorage.setItem(JWT_STORAGE_KEY, token);
+    localStorage.setItem(JWT_EXPIRY_KEY, expiresAt);
+  } catch {
+    /* local storage disabled */
+  }
+}
+
+export function clearStoredToken(): void {
+  try {
+    localStorage.removeItem(JWT_STORAGE_KEY);
+    localStorage.removeItem(JWT_EXPIRY_KEY);
+  } catch {
+    /* local storage disabled */
+  }
+}
+
 // ─── API Base URL ─────────────────────────────────────────────────────────────
 const API_BASE = "/api";
 
@@ -88,9 +127,19 @@ async function apiFetch<T = any>(
   options: RequestInit = {}
 ): Promise<{ data: T | null; error: string | null; status: number }> {
   try {
+    const token = getStoredToken();
+    const authHeaders: Record<string, string> = {};
+    if (token) {
+      authHeaders["Authorization"] = `Bearer ${token}`;
+    }
+
     const res = await fetch(`${API_BASE}${path}`, {
       credentials: "include",
-      headers: { "Content-Type": "application/json", ...(options.headers || {}) },
+      headers: {
+        "Content-Type": "application/json",
+        ...authHeaders,
+        ...(options.headers || {}),
+      },
       ...options,
     });
     const data = await res.json().catch(() => null);
@@ -106,6 +155,15 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const [company, setCompany] = useState<CompanyProfile | null>(null);
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [token, setToken] = useState<string | null>(() => getStoredToken());
+  const [tokenExpiresAt, setTokenExpiresAt] = useState<string | null>(() => {
+    try {
+      return localStorage.getItem(JWT_EXPIRY_KEY);
+    } catch {
+      return null;
+    }
+  });
+  const [remainingMinutes, setRemainingMinutes] = useState<number | null>(null);
 
   const enrich = (u: UserProfile, c?: CompanyProfile | null): UserProfile => ({
     ...u,
@@ -125,6 +183,9 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       setUser(null);
       setCompany(null);
       setIsAuthenticated(false);
+      clearStoredToken();
+      setToken(null);
+      setTokenExpiresAt(null);
     }
   }, []);
 
@@ -133,8 +194,46 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     refreshUser().finally(() => setIsLoading(false));
   }, [refreshUser]);
 
+  // Track 30-minute JWT session expiration and countdown
+  useEffect(() => {
+    if (!tokenExpiresAt || !isAuthenticated) {
+      setRemainingMinutes(null);
+      return;
+    }
+
+    const checkExpiration = () => {
+      const expTime = new Date(tokenExpiresAt).getTime();
+      const now = Date.now();
+      const diffMs = expTime - now;
+
+      if (diffMs <= 0) {
+        console.warn("[AuthContext] 30-Minute JWT Session Expired. Logging out.");
+        clearStoredToken();
+        setToken(null);
+        setTokenExpiresAt(null);
+        setUser(null);
+        setCompany(null);
+        setIsAuthenticated(false);
+        setRemainingMinutes(0);
+      } else {
+        setRemainingMinutes(Math.max(1, Math.ceil(diffMs / 60000)));
+      }
+    };
+
+    checkExpiration();
+    const interval = setInterval(checkExpiration, 15000); // Check every 15s
+    return () => clearInterval(interval);
+  }, [tokenExpiresAt, isAuthenticated]);
+
   const login = useCallback(async (identifier: string, password: string) => {
-    const { data, error } = await apiFetch<{ success: boolean; user: UserProfile; company: CompanyProfile }>("/auth/login", {
+    const { data, error } = await apiFetch<{
+      success: boolean;
+      user: UserProfile;
+      company: CompanyProfile;
+      token?: string;
+      expiresAt?: string;
+      expiresIn?: number;
+    }>("/auth/login", {
       method: "POST",
       body: JSON.stringify({ identifier, password }),
     });
@@ -143,6 +242,14 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       setUser(enrich(data.user, data.company));
       setCompany(data.company || null);
       setIsAuthenticated(true);
+
+      if (data.token) {
+        const expiresAt = data.expiresAt || new Date(Date.now() + (data.expiresIn || 1800) * 1000).toISOString();
+        setStoredToken(data.token, expiresAt);
+        setToken(data.token);
+        setTokenExpiresAt(expiresAt);
+      }
+
       return { success: true };
     }
 
@@ -150,12 +257,24 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   }, []);
 
   const register = useCallback(async (formData: RegisterData) => {
-    const { data, error } = await apiFetch<{ success: boolean; user: UserProfile }>("/auth/register", {
+    const { data, error } = await apiFetch<{
+      success: boolean;
+      user: UserProfile;
+      token?: string;
+      expiresAt?: string;
+      expiresIn?: number;
+    }>("/auth/register", {
       method: "POST",
       body: JSON.stringify(formData),
     });
 
     if (data?.success && data.user) {
+      if (data.token) {
+        const expiresAt = data.expiresAt || new Date(Date.now() + (data.expiresIn || 1800) * 1000).toISOString();
+        setStoredToken(data.token, expiresAt);
+        setToken(data.token);
+        setTokenExpiresAt(expiresAt);
+      }
       // Fetch full profile after registration
       await refreshUser();
       return { success: true };
@@ -196,7 +315,13 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       }).catch(() => {/* silent */});
     }
 
-    // 2. Server-side logout to clear cookie, Redis session, and forward server event
+    // 2. Clear local storage tokens
+    clearStoredToken();
+    setToken(null);
+    setTokenExpiresAt(null);
+    setRemainingMinutes(null);
+
+    // 3. Server-side logout to clear cookie, Redis session, and forward server event
     await apiFetch("/auth/logout", { method: "POST" });
     setUser(null);
     setCompany(null);
@@ -229,6 +354,9 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         company,
         isAuthenticated,
         isLoading,
+        token,
+        tokenExpiresAt,
+        remainingMinutes,
         login,
         register,
         logout,

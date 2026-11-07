@@ -4,6 +4,15 @@
 import bcrypt from "bcryptjs";
 import { v4 as uuidv4 } from "uuid";
 import { redis, KEYS, TTL } from "./redis.js";
+import {
+  signJwt,
+  verifyJwt,
+  decodeJwt,
+  extractTokenFromRequest,
+  JWT_EXPIRY_SECONDS,
+} from "./jwt.js";
+
+export { signJwt, verifyJwt, decodeJwt, extractTokenFromRequest, JWT_EXPIRY_SECONDS };
 
 const BCRYPT_ROUNDS = 12;
 
@@ -83,8 +92,52 @@ export function parseSessionCookie(cookieHeader) {
   return match ? match[1] : null;
 }
 
-// ─── Authenticated User from Request ─────────────────────────────────────────
+// ─── Authenticated User from Request (JWT Token or Session Cookie) ───────────
 export async function getAuthenticatedUser(req) {
+  // 1. Check for JWT Bearer token or JWT cookie
+  const token = extractTokenFromRequest(req);
+  if (token) {
+    const verification = verifyJwt(token);
+    if (verification.valid && verification.payload) {
+      const payload = verification.payload;
+      const userId = payload.sub || payload.userId;
+
+      if (userId) {
+        const userRaw = await redis.get(KEYS.user(userId));
+        if (userRaw) {
+          const user = typeof userRaw === "string" ? JSON.parse(userRaw) : userRaw;
+          if (user.accountStatus !== "active") return null;
+          const { passwordHash: _, ...safeUser } = user;
+          return {
+            ...safeUser,
+            token,
+            tokenPayload: payload,
+            sessionId: payload.sessionId || null,
+          };
+        }
+
+        // Fallback: stateless user profile from trusted JWT claims
+        return {
+          userId,
+          preferredUserId: payload.preferredUserId || userId,
+          email: payload.email || "",
+          fullName: payload.fullName || "",
+          companyId: payload.companyId || null,
+          companyName: payload.companyName || "",
+          accountStatus: payload.accountStatus || "active",
+          role: payload.role || "Enterprise Lead",
+          token,
+          tokenPayload: payload,
+        };
+      }
+    } else if (verification.expired) {
+      // Token is explicitly expired (30-min window reached)
+      console.warn("[auth] JWT expired:", verification.error);
+      return null;
+    }
+  }
+
+  // 2. Fallback to Legacy Session Cookie
   const sessionId = parseSessionCookie(req.headers.cookie || "");
   if (!sessionId) return null;
 
@@ -95,7 +148,8 @@ export async function getAuthenticatedUser(req) {
   if (!userRaw) return null;
 
   const user = typeof userRaw === "string" ? JSON.parse(userRaw) : userRaw;
-  // Never return passwordHash to caller
+  if (user.accountStatus !== "active") return null;
+
   const { passwordHash: _, ...safeUser } = user;
   return { ...safeUser, sessionId };
 }

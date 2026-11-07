@@ -53,7 +53,7 @@ export const Header = () => {
   const [activeOfferTab, setActiveOfferTab] = useState<string>("regulatory-compliance");
   const [activeServiceTab, setActiveServiceTab] = useState<string>("statutory-tracking");
   const { pathname } = useLocation();
-  const { user, isAuthenticated, logout } = useAuth();
+  const { user, isAuthenticated, logout, remainingMinutes } = useAuth();
 
 
   useEffect(() => {
@@ -540,8 +540,13 @@ export const Header = () => {
             {profileDropdownOpen && (
               <div className="absolute top-full right-0 w-64 bg-white border border-slate-200 shadow-2xl rounded-2xl p-4 animate-slide-up-dropdown mt-1.5 text-left z-50">
                 <div className="pb-3 border-b border-slate-100 mb-2">
-                  <div className="text-[9px] font-bold text-blue-600 uppercase tracking-widest">
-                    Active GRC Session
+                  <div className="flex items-center justify-between text-[9px] font-bold text-blue-600 uppercase tracking-widest">
+                    <span>Active GRC Session</span>
+                    {remainingMinutes !== null && (
+                      <span className="text-[8px] font-mono px-1.5 py-0.5 rounded bg-blue-50 text-blue-700 border border-blue-200">
+                        JWT: {remainingMinutes}m
+                      </span>
+                    )}
                   </div>
                   <div className="text-xs font-black text-slate-800 mt-1 truncate">
                     {user?.fullName}
